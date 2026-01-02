@@ -1,0 +1,16 @@
+# Render Blueprint Configuration
+# Deploy both frontend and backend as a single web service
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: english-learning-tool
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false  # Manual entry required in Render dashboard
