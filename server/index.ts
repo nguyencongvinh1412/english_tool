@@ -69,7 +69,8 @@ if (IS_PRODUCTION) {
   app.use(express.static(distPath));
 
   // Handle SPA routing - serve index.html for all non-API routes
-  app.get('*', (_req: Request, res: Response) => {
+  // Express 5 requires named wildcard parameter
+  app.get('/{*path}', (_req: Request, res: Response) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
