@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { BrowserWarning } from '@/components/BrowserWarning';
 import { Layout } from '@/components/Layout';
+import { AuthGate } from '@/components/AuthGate';
 import {
   HomePage,
   ConversationPage,
@@ -27,17 +28,19 @@ export default function App(): React.JSX.Element {
   return (
     <ErrorBoundary>
       <BrowserWarning />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path={ROUTES.HOME} element={<HomePage />} />
-            <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
-            <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
-            <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
-            <Route path={ROUTES.DICTATION} element={<DictationPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <AuthGate>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path={ROUTES.HOME} element={<HomePage />} />
+              <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
+              <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
+              <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
+              <Route path={ROUTES.DICTATION} element={<DictationPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthGate>
     </ErrorBoundary>
   );
 }

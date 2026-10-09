@@ -2,6 +2,7 @@ import type React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { ModelSelector } from './ModelSelector';
+import { useAuth } from './AuthGate';
 
 /** Navigation item configuration */
 interface NavItem {
@@ -23,6 +24,8 @@ const NAV_ITEMS: NavItem[] = [
  * Provides consistent layout structure across all pages
  */
 export const Layout: React.FC = () => {
+  const { user, signOut } = useAuth();
+
   return (
     <div className="app-layout">
       <aside className="sidebar">
@@ -46,6 +49,15 @@ export const Layout: React.FC = () => {
           </ul>
         </nav>
         <ModelSelector />
+        <div className="sidebar-user">
+          <span className="sidebar-user__name" title={user.email}>
+            {user.displayName}
+            {user.role === 'admin' && <span className="sidebar-user__role"> · admin</span>}
+          </span>
+          <button type="button" className="sidebar-user__logout" onClick={signOut}>
+            Sign out
+          </button>
+        </div>
       </aside>
       <main className="main-content">
         <Outlet />

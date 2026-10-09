@@ -12,12 +12,16 @@ import {
 import {
   sendChatMessage as sendCliProxyMessage,
   isCliProxyConfigured,
-  isModelAllowed,
-  getDefaultModel,
   listAllowedModels,
+  getDefaultModel,
   CliProxyApiError,
   type ChatRequest,
 } from '../services/cliproxy.js';
+import { currentUser, requireAuth } from '../auth/middleware.js';
+import { assertQuota, getAllowedModels, recordUsage, resolveModel } from '../services/aiAccess.js';
+
+/** Usage feature key for free-form chat requests */
+const CHAT_FEATURE = 'chat';
 
 /**
  * Sends a chat message via CLIProxyAPI, falling back to Groq if the proxy is unavailable
@@ -155,23 +159,31 @@ function validateMessages(
  */
 export function createChatRouter(): Router {
   const router = Router();
+  router.use(requireAuth);
 
   /**
-   * GET /models - List models the client may choose from
+   * GET /models - List models the signed-in user may choose from
    *
    * @route GET /api/chat/models
    * @returns {Object} { models: string[], defaultModel: string | null }
+   *   Only models the user is assigned AND the proxy currently offers.
    *   Empty list when CLIProxyAPI is not configured or unreachable (Groq is used)
    */
-  router.get('/models', async (_req: Request, res: Response): Promise<void> => {
+  router.get('/models', async (req: Request, res: Response): Promise<void> => {
     if (!isCliProxyConfigured()) {
       res.json({ models: [], defaultModel: null });
       return;
     }
 
+    const user = currentUser(req);
+
     try {
-      const models = await listAllowedModels();
-      res.json({ models, defaultModel: getDefaultModel() });
+      const proxyModels = await listAllowedModels();
+      const assigned = getAllowedModels(user);
+      const models = assigned === null ? proxyModels : assigned.filter((m) => proxyModels.includes(m));
+      const preferred = assigned === null ? getDefaultModel() : models[0];
+
+      res.json({ models, defaultModel: models.includes(preferred) ? preferred : (models[0] ?? null) });
     } catch (error) {
       console.error('Failed to list models:', error);
       res.json({ models: [], defaultModel: null });
@@ -219,19 +231,15 @@ export function createChatRouter(): Router {
       systemPrompt = body.systemPrompt;
     }
 
-    // Validate optional model if provided (opus/fable and non-chat models are blocked)
-    let model: string | undefined;
-
-    if (body.model !== undefined) {
-      if (typeof body.model !== 'string' || !isModelAllowed(body.model)) {
-        res.status(400).json({
-          error: 'This model is not allowed',
-          statusCode: 400,
-        });
-        return;
-      }
-      model = body.model;
+    if (body.model !== undefined && typeof body.model !== 'string') {
+      res.status(400).json({ error: 'Model must be a string', statusCode: 400 });
+      return;
     }
+
+    // Enforce the user's model allowlist (opus/fable are always blocked) and daily quota
+    const user = currentUser(req);
+    const model = resolveModel(user, body.model);
+    await assertQuota(user);
 
     try {
       const response = await sendChatMessage({
@@ -240,6 +248,7 @@ export function createChatRouter(): Router {
         model,
       });
 
+      await recordUsage(user, CHAT_FEATURE);
       res.json({ message: response });
     } catch (error) {
       // Handle known AI provider errors
