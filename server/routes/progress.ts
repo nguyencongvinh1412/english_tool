@@ -8,10 +8,13 @@ import { and, desc, eq, lt, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { attempts } from '../db/schema.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
-import { quotaDay } from '../services/aiAccess.js';
-import { ACTIVITY_SKILLS, computeXp, getProgressSummary, toPublicAttempt, type Activity } from '../services/progress.js';
+import { ACTIVITY_SKILLS, getProgressSummary, recordAttempt, toPublicAttempt, type Activity } from '../services/progress.js';
 
 const ACTIVITIES = Object.keys(ACTIVITY_SKILLS) as [Activity, ...Activity[]];
+
+/** Activities scored by the server's AI endpoints; clients cannot record these themselves */
+const SERVER_SCORED: Activity[] = ['writing-task', 'speaking-ielts'];
+const CLIENT_ACTIVITIES = ACTIVITIES.filter((a) => !SERVER_SCORED.includes(a)) as [Activity, ...Activity[]];
 
 /** Longest session we accept as a real duration (3 hours) */
 const MAX_DURATION_SEC = 3 * 60 * 60;
@@ -23,7 +26,7 @@ const MAX_HISTORY_LIMIT = 100;
 
 const createAttemptSchema = z
   .object({
-    activity: z.enum(ACTIVITIES),
+    activity: z.enum(CLIENT_ACTIVITIES),
     contentRef: z.string().trim().max(120).nullish(),
     title: z.string().trim().max(200).nullish(),
     score: z.number().min(0).max(10_000).nullish(),
@@ -64,27 +67,7 @@ export function createProgressRouter(): Router {
    */
   router.post('/attempts', requireAuth, async (req, res) => {
     const body = createAttemptSchema.parse(req.body);
-    const user = currentUser(req);
-    const xp = body.imported ? 0 : computeXp(body.score, body.maxScore);
-
-    const [attempt] = await db
-      .insert(attempts)
-      .values({
-        userId: user.id,
-        activity: body.activity,
-        skill: ACTIVITY_SKILLS[body.activity],
-        contentRef: body.contentRef ?? null,
-        title: body.title ?? null,
-        score: body.score ?? null,
-        maxScore: body.maxScore ?? null,
-        durationSec: body.durationSec ?? null,
-        details: body.imported ? { ...(body.details ?? {}), imported: true } : (body.details ?? null),
-        xp,
-        day: quotaDay(),
-      })
-      .returning();
-
-    res.status(201).json({ attempt: toPublicAttempt(attempt), xpEarned: xp });
+    res.status(201).json(await recordAttempt(currentUser(req).id, body));
   });
 
   /**

@@ -1,0 +1,229 @@
+.w-layout {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 1100px) {
+  .w-layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .w-prompt {
+    position: sticky;
+    top: calc(var(--topbar-height) + 1rem);
+  }
+}
+
+.w-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.w-prompt__meta {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.w-prompt__question {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.w-prompt__instructions {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+.w-email {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border-left: 4px solid var(--writing);
+  border-radius: var(--radius-sm);
+}
+
+.w-email__body {
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+}
+
+.w-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.w-editor__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-weight: 800;
+}
+
+.w-count {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.w-count--ok {
+  color: var(--success);
+}
+
+.w-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.w-clock--over {
+  color: var(--danger);
+}
+
+.w-editor__text {
+  min-height: 340px;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.w-section-title {
+  margin-bottom: 0.875rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.w-section-title--sm {
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.0625rem;
+}
+
+.annotated,
+.improved {
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.annot {
+  padding: 0 2px;
+  color: inherit;
+  background: var(--danger-soft);
+  border-bottom: 2px solid var(--danger);
+  border-radius: 3px;
+  cursor: help;
+}
+
+.annot sup {
+  margin-left: 2px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--danger);
+}
+
+.corrections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.corrections li > svg {
+  display: inline;
+  margin: 0 0.25rem;
+  vertical-align: -3px;
+  color: var(--text-muted);
+}
+
+.corrections__from {
+  color: var(--danger);
+  text-decoration: line-through;
+}
+
+.corrections__to {
+  font-weight: 800;
+  color: var(--success);
+}
+
+.corrections__why {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Chart ---------- */
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+}
+
+.chart__title {
+  font-weight: 800;
+}
+
+.chart__unit {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.chart__scroll {
+  overflow-x: auto;
+}
+
+.chart__svg {
+  width: 100%;
+  min-width: 360px;
+  height: auto;
+}
+
+.chart__grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.chart__axis {
+  stroke: var(--border-strong);
+  stroke-width: 2;
+}
+
+.chart__tick {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--text-muted);
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1rem;
+  list-style: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.chart__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.chart__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}

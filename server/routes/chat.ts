@@ -4,52 +4,17 @@
  * Uses CLIProxyAPI when configured, falling back to Groq when the proxy is unavailable
  */
 import { Router, Request, Response } from 'express';
-import {
-  sendChatMessage as sendGroqMessage,
-  GroqApiError,
-  type ChatMessage,
-} from '../services/groq.js';
-import {
-  sendChatMessage as sendCliProxyMessage,
-  isCliProxyConfigured,
-  listAllowedModels,
-  getDefaultModel,
-  CliProxyApiError,
-  type ChatRequest,
-} from '../services/cliproxy.js';
+import { GroqApiError, type ChatMessage } from '../services/groq.js';
+import { isCliProxyConfigured, listAllowedModels, getDefaultModel, CliProxyApiError } from '../services/cliproxy.js';
+import { sendWithFallback } from '../services/ai.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
 import { assertQuota, getAllowedModels, recordUsage, resolveModel } from '../services/aiAccess.js';
 
 /** Usage feature key for free-form chat requests */
 const CHAT_FEATURE = 'chat';
 
-/**
- * Sends a chat message via CLIProxyAPI, falling back to Groq if the proxy is unavailable
- *
- * @param request - Chat request containing messages and optional system prompt
- * @returns Promise resolving to the assistant's response content
- */
-async function sendChatMessage(request: ChatRequest): Promise<string> {
-  if (!isCliProxyConfigured()) {
-    return sendGroqMessage(request);
-  }
-
-  try {
-    return await sendCliProxyMessage(request);
-  } catch (error) {
-    // Only fall back when the proxy itself is down (tunnel offline, machine asleep, upstream 5xx)
-    if (
-      !(error instanceof CliProxyApiError) ||
-      !error.isUnavailable ||
-      !process.env.GROQ_API_KEY
-    ) {
-      throw error;
-    }
-
-    console.warn(`CLIProxyAPI unavailable (${error.message}), falling back to Groq`);
-    return sendGroqMessage(request);
-  }
-}
+/** Sends via CLIProxyAPI with Groq fallback (shared with server-side AI features) */
+const sendChatMessage = sendWithFallback;
 
 /** Minimum messages required in request */
 const MIN_MESSAGES_REQUIRED = 1;

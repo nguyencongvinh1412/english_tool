@@ -22,6 +22,10 @@ import { DictationPage } from '@/features/listening/DictationPage';
 import { PronunciationPage } from '@/features/speaking/PronunciationPage';
 import { ConversationPage } from '@/features/speaking/ConversationPage';
 import { ScenariosPage } from '@/features/speaking/ScenariosPage';
+import { IeltsSpeakingPage } from '@/features/speaking/IeltsSpeakingPage';
+import { ListeningQuizPage } from '@/features/listening/ListeningQuizPage';
+import { GapfillPage, ReadingPassagePage } from '@/features/reading/ReadingPages';
+import { WritingPage } from '@/features/writing/WritingPage';
 import { ProgressProvider } from '@/shared/progress';
 import { ExamsPage } from '@/features/exams/ExamsPage';
 import { ProfilePage } from '@/features/profile/ProfilePage';
@@ -61,6 +65,13 @@ export default function App(): React.JSX.Element {
                       <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
                       <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
                       <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
+                      <Route path={ROUTES.SPEAKING_IELTS} element={<IeltsSpeakingPage />} />
+                      <Route path={ROUTES.LISTENING_QUIZ} element={<ListeningQuizPage />} />
+                      <Route path={ROUTES.READING_PASSAGE} element={<ReadingPassagePage />} />
+                      <Route path={ROUTES.READING_GAPFILL} element={<GapfillPage />} />
+                      <Route path={ROUTES.WRITING_EMAIL} element={<WritingPage task="email" />} />
+                      <Route path={ROUTES.WRITING_TASK1} element={<WritingPage task="ielts-task1" />} />
+                      <Route path={ROUTES.WRITING_TASK2} element={<WritingPage task="ielts-task2" />} />
 
                       <Route element={<RequireAdmin />}>
                         <Route path={ROUTES.ADMIN} element={<AdminPage />} />

@@ -66,6 +66,8 @@ export interface ChatRequest {
   systemPrompt?: string;
   /** Model ID override; falls back to CLIPROXY_MODEL or DEFAULT_MODEL */
   model?: string;
+  /** Overrides the default request timeout, for long outputs like essay scoring */
+  timeoutMs?: number;
 }
 
 /**
@@ -214,7 +216,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
           ...request.messages,
         ],
       }),
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(request.timeoutMs ?? REQUEST_TIMEOUT_MS),
     });
   } catch (error) {
     // Timeout from AbortSignal.timeout

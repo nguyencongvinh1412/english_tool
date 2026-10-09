@@ -15,6 +15,8 @@ interface ProgressContextValue {
   refresh: () => Promise<void>;
   /** Saves an attempt, refreshes the summary and returns the XP earned */
   record: (input: AttemptInput) => Promise<number>;
+  /** For attempts the server recorded itself (AI scoring): refresh and show the XP burst */
+  celebrate: (xpEarned: number) => void;
   /** Most recent XP gain, for the celebration burst; cleared after it plays */
   lastGain: { xp: number; id: number } | null;
 }
@@ -50,21 +52,28 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       .catch(() => {});
   }, [userId]);
 
-  const record = useCallback(
-    async (input: AttemptInput) => {
-      const { xpEarned } = await progressApi.record(input);
+  const celebrate = useCallback(
+    (xpEarned: number) => {
       void refresh();
       if (xpEarned > 0) {
         const id = Date.now();
         setLastGain({ xp: xpEarned, id });
         setTimeout(() => setLastGain((current) => (current?.id === id ? null : current)), GAIN_DURATION_MS);
       }
-      return xpEarned;
     },
     [refresh]
   );
 
-  const value = useMemo(() => ({ summary, refresh, record, lastGain }), [summary, refresh, record, lastGain]);
+  const record = useCallback(
+    async (input: AttemptInput) => {
+      const { xpEarned } = await progressApi.record(input);
+      celebrate(xpEarned);
+      return xpEarned;
+    },
+    [celebrate]
+  );
+
+  const value = useMemo(() => ({ summary, refresh, record, celebrate, lastGain }), [summary, refresh, record, celebrate, lastGain]);
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
 };

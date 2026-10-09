@@ -126,6 +126,38 @@ export const attempts = pgTable(
   ]
 );
 
+export const contentSource = pgEnum('content_source', ['builtin', 'ai', 'imported']);
+export const contentStatus = pgEnum('content_status', ['draft', 'published', 'archived']);
+
+/**
+ * Shared bank of practice content: reading passages, listening scripts, speaking sets,
+ * writing prompts. AI-generated items are kept so every learner can reuse them.
+ */
+export const contentItems = pgTable(
+  'content_items',
+  {
+    /** Text id so built-in items keep stable ids like "builtin-reading-coffee" */
+    id: text('id').primaryKey().default(sql`gen_random_uuid()::text`),
+    /** e.g. reading-passage, listening-quiz (validated in the API, text so new kinds need no migration) */
+    kind: text('kind').notNull(),
+    skill: skill('skill').notNull(),
+    exam: examType('exam').notNull().default('none'),
+    /** Exam part, e.g. toeic-5 or ielts-w2; null for general practice */
+    part: text('part'),
+    /** CEFR level, e.g. B1 */
+    level: text('level'),
+    title: text('title').notNull(),
+    topic: text('topic'),
+    payload: jsonb('payload').notNull(),
+    source: contentSource('source').notNull(),
+    status: contentStatus('status').notNull().default('published'),
+    createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('content_items_kind_level_idx').on(table.kind, table.status, table.level)]
+);
+
 export type User = typeof users.$inferSelect;
 export type Attempt = typeof attempts.$inferSelect;
+export type ContentItem = typeof contentItems.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;

@@ -5,6 +5,7 @@
 import { config, IS_PRODUCTION } from './config.js';
 import { closeDb, runMigrations } from './db/client.js';
 import { ensureBootstrapAdmin } from './services/users.js';
+import { ensureBuiltinContent } from './content/seeds.js';
 import { createApp } from './app.js';
 
 /**
@@ -13,6 +14,7 @@ import { createApp } from './app.js';
 async function main(): Promise<void> {
   await runMigrations();
   await ensureBootstrapAdmin();
+  await ensureBuiltinContent();
 
   const app = createApp({ logRequests: true });
 

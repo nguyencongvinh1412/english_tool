@@ -3,7 +3,15 @@
  */
 import { apiFetch } from './http';
 
-export type Activity = 'dictation' | 'pronunciation' | 'conversation' | 'scenario';
+export type Activity =
+  | 'dictation'
+  | 'listening-quiz'
+  | 'reading-quiz'
+  | 'pronunciation'
+  | 'conversation'
+  | 'scenario'
+  | 'speaking-ielts'
+  | 'writing-task';
 export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 
 export interface AttemptInput {

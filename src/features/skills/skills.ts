@@ -20,13 +20,19 @@ export const SKILLS: SkillDefinition[] = [
     id: 'listening',
     icon: 'headphones',
     route: ROUTES.LISTENING,
-    activities: [{ id: 'dictation', icon: 'type', route: ROUTES.DICTATION }],
+    activities: [
+      { id: 'dictation', icon: 'type', route: ROUTES.DICTATION },
+      { id: 'listeningQuiz', icon: 'headphones', route: ROUTES.LISTENING_QUIZ },
+    ],
   },
   {
     id: 'reading',
     icon: 'book',
     route: ROUTES.READING,
-    activities: [],
+    activities: [
+      { id: 'readingPassage', icon: 'book', route: ROUTES.READING_PASSAGE },
+      { id: 'gapfill', icon: 'type', route: ROUTES.READING_GAPFILL },
+    ],
   },
   {
     id: 'speaking',
@@ -36,13 +42,18 @@ export const SKILLS: SkillDefinition[] = [
       { id: 'pronunciation', icon: 'mic', route: ROUTES.PRONUNCIATION },
       { id: 'conversation', icon: 'chat', route: ROUTES.CONVERSATION },
       { id: 'scenarios', icon: 'sparkles', route: ROUTES.SCENARIOS },
+      { id: 'ieltsSpeaking', icon: 'exam', route: ROUTES.SPEAKING_IELTS },
     ],
   },
   {
     id: 'writing',
     icon: 'pen',
     route: ROUTES.WRITING,
-    activities: [],
+    activities: [
+      { id: 'writingEmail', icon: 'chat', route: ROUTES.WRITING_EMAIL },
+      { id: 'writingTask1', icon: 'chart', route: ROUTES.WRITING_TASK1 },
+      { id: 'writingTask2', icon: 'pen', route: ROUTES.WRITING_TASK2 },
+    ],
   },
 ];
 

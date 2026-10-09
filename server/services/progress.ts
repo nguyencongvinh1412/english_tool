@@ -10,9 +10,13 @@ import { quotaDay } from './aiAccess.js';
 /** Which skill each activity trains; the server decides, not the client */
 export const ACTIVITY_SKILLS = {
   dictation: 'listening',
+  'listening-quiz': 'listening',
+  'reading-quiz': 'reading',
   pronunciation: 'speaking',
   conversation: 'speaking',
   scenario: 'speaking',
+  'speaking-ielts': 'speaking',
+  'writing-task': 'writing',
 } as const;
 
 export type Activity = keyof typeof ACTIVITY_SKILLS;
@@ -159,6 +163,44 @@ export async function getProgressSummary(userId: string) {
     ),
     recent: recent.map(toPublicAttempt),
   };
+}
+
+export interface AttemptInput {
+  activity: Activity;
+  contentRef?: string | null;
+  title?: string | null;
+  score?: number | null;
+  maxScore?: number | null;
+  durationSec?: number | null;
+  details?: Record<string, unknown> | null;
+  /** Carried-over legacy scores earn no XP */
+  imported?: boolean;
+}
+
+/**
+ * Stores a finished activity with server-derived skill, XP and day
+ */
+export async function recordAttempt(userId: string, input: AttemptInput) {
+  const xp = input.imported ? 0 : computeXp(input.score, input.maxScore);
+
+  const [attempt] = await db
+    .insert(attempts)
+    .values({
+      userId,
+      activity: input.activity,
+      skill: ACTIVITY_SKILLS[input.activity],
+      contentRef: input.contentRef ?? null,
+      title: input.title ?? null,
+      score: input.score ?? null,
+      maxScore: input.maxScore ?? null,
+      durationSec: input.durationSec ?? null,
+      details: input.imported ? { ...(input.details ?? {}), imported: true } : (input.details ?? null),
+      xp,
+      day: quotaDay(),
+    })
+    .returning();
+
+  return { attempt: toPublicAttempt(attempt), xpEarned: xp };
 }
 
 /**
