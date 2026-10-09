@@ -14,6 +14,7 @@ import {
   primaryKey,
   index,
   uniqueIndex,
+  jsonb,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -92,5 +93,39 @@ export const aiUsage = pgTable(
   (table) => [primaryKey({ columns: [table.userId, table.day, table.feature] })]
 );
 
+export const skill = pgEnum('skill', ['listening', 'reading', 'speaking', 'writing']);
+
+/**
+ * One finished practice activity; drives XP, streaks, history and per-skill stats
+ */
+export const attempts = pgTable(
+  'attempts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** e.g. dictation, pronunciation, conversation, scenario (validated in the API, text so new activities need no migration) */
+    activity: text('activity').notNull(),
+    skill: skill('skill').notNull(),
+    /** Stable id of what was practiced, e.g. a lesson or scenario id */
+    contentRef: text('content_ref'),
+    title: text('title'),
+    score: real('score'),
+    maxScore: real('max_score'),
+    durationSec: integer('duration_sec'),
+    xp: integer('xp').notNull().default(0),
+    /** Calendar day in Asia/Ho_Chi_Minh, for streaks and daily charts */
+    day: date('day').notNull(),
+    details: jsonb('details'),
+    completedAt: timestamp('completed_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('attempts_user_completed_idx').on(table.userId, table.completedAt),
+    index('attempts_user_day_idx').on(table.userId, table.day),
+  ]
+);
+
 export type User = typeof users.$inferSelect;
+export type Attempt = typeof attempts.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;

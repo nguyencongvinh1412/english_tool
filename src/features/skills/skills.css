@@ -52,18 +52,3 @@
 .activity-card__cta {
   margin-top: 0.75rem;
 }
-
-/* Back link shown above pre-v2 activity pages */
-.activity-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  margin-bottom: 1rem;
-  font-weight: 800;
-  color: var(--text-muted);
-}
-
-.activity-back:hover {
-  color: var(--text);
-  text-decoration: none;
-}

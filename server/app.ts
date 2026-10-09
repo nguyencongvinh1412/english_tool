@@ -12,6 +12,7 @@ import { createAuthRouter } from './routes/auth.js';
 import { createMeRouter } from './routes/me.js';
 import { createAdminRouter } from './routes/admin.js';
 import { createChatRouter } from './routes/chat.js';
+import { createProgressRouter } from './routes/progress.js';
 
 /** Get directory name for ES modules */
 const __filename = fileURLToPath(import.meta.url);
@@ -54,6 +55,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api/me', createMeRouter());
   app.use('/api/admin', createAdminRouter());
   app.use('/api/chat', createChatRouter());
+  app.use('/api', createProgressRouter());
 
   // Unknown API routes return JSON 404 instead of the SPA
   app.use('/api', () => {

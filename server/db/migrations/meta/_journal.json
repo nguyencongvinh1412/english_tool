@@ -15,6 +15,13 @@
       "when": 1791537619697,
       "tag": "0001_profile_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791543567735,
+      "tag": "0002_attempts",
+      "breakpoints": true
     }
   ]
 }

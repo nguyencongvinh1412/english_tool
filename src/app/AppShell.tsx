@@ -10,6 +10,7 @@ import { useAuth, useCurrentUser } from './AuthProvider';
 import { LocaleToggle } from './LocaleToggle';
 import { ModelPicker } from './ModelPicker';
 import { ROUTES } from './routes';
+import { useProgress } from '@/shared/progress';
 import './AppShell.css';
 
 interface NavItem {
@@ -84,6 +85,8 @@ export const AppShell: React.FC = () => {
     </NavLink>
   );
 
+  const { summary, lastGain } = useProgress();
+  const streak = summary?.streak;
   const quota = user.aiQuota;
   const quotaRatio = quota.limit ? quota.used / quota.limit : 0;
 
@@ -121,6 +124,16 @@ export const AppShell: React.FC = () => {
             <Logo compact />
           </div>
           <div className="topbar__spacer" />
+          {streak && (
+            <span
+              className={`streak-pill ${streak.activeToday ? 'streak-pill--lit' : ''}`}
+              title={streak.activeToday ? t.progress.keepStreak : streak.current > 0 ? t.progress.saveStreak : t.progress.startStreak}
+            >
+              <Icon name="flame" size={18} />
+              <span className="streak-pill__value">{streak.current}</span>
+              <span className="visually-hidden">{t.progress.streak(streak.current)}</span>
+            </span>
+          )}
           <span
             className={`quota-pill ${quotaRatio >= 0.9 ? 'quota-pill--low' : ''}`}
             title={t.shell.aiQuota(quota.used, quota.limit)}
@@ -140,6 +153,13 @@ export const AppShell: React.FC = () => {
         <main className="content" id="main">
           <Outlet />
         </main>
+
+        {lastGain && (
+          <div key={lastGain.id} className="xp-burst" role="status">
+            <Icon name="bolt" size={26} />
+            {t.progress.xpGain(lastGain.xp)}
+          </div>
+        )}
       </div>
 
       <nav className="tabbar" aria-label={t.nav.mainNav}>

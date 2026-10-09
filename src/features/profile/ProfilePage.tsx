@@ -11,6 +11,7 @@ import { useAuth, useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
 import { apiFetch, errorMessage, fieldError } from '@/shared/http';
 import { CEFR_LEVELS, type CefrLevel, type ExamGoal } from '@/shared/types';
+import { ProfileProgress } from '@/features/progress/ProfileProgress';
 import './profile.css';
 
 const PASSWORD_MIN_LENGTH = 8;
@@ -87,6 +88,8 @@ export const ProfilePage: React.FC = () => {
           {t.profile.role[user.role]}
         </Badge>
       </Card>
+
+      <ProfileProgress />
 
       <div className="profile__grid">
         <Card padding="lg" className="reveal" style={{ ['--i' as string]: 2 }}>
