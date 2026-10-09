@@ -1,0 +1,350 @@
+.shell {
+  display: flex;
+  min-height: 100%;
+}
+
+/* ---------- Logo ---------- */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo__mark {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.logo:hover .logo__mark {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.logo__text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  white-space: nowrap;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--brand-strong);
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo__text {
+    color: var(--brand);
+  }
+}
+
+/* ---------- Sidebar (desktop) ---------- */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: none;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+  height: 100dvh;
+  padding: 1.25rem 0.875rem;
+  background: var(--surface);
+  border-right: 2px solid var(--border);
+}
+
+.sidebar__brand {
+  padding: 0 0.625rem 1.25rem;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar__divider {
+  margin: 0.625rem 0.5rem;
+  border: none;
+  border-top: 2px solid var(--border);
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 50px;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.side-link:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  text-decoration: none;
+}
+
+.side-link svg {
+  color: var(--nav-tone);
+  transition: transform 0.2s var(--ease-bounce);
+}
+
+.side-link:hover svg {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+.side-link--active {
+  color: var(--text);
+  background: color-mix(in srgb, var(--nav-tone) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--nav-tone) 55%, transparent);
+}
+
+.sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--border);
+}
+
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.sidebar__user-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.sidebar__user-name {
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar__user-email {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--brand-ink);
+  background: var(--brand);
+  border-bottom: 3px solid var(--brand-edge);
+  border-radius: 50%;
+}
+
+.model-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.model-picker__label {
+  padding-left: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.model-picker__select {
+  min-height: 40px;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Main + top bar ---------- */
+
+.shell__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: calc(var(--topbar-height) + env(safe-area-inset-top, 0px));
+  padding: env(safe-area-inset-top, 0px) 1rem 0;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--border);
+}
+
+.topbar__spacer {
+  flex: 1;
+}
+
+.topbar__avatar {
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.topbar__avatar:hover {
+  text-decoration: none;
+}
+
+.quota-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 36px;
+  padding: 0 0.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--warning);
+  background: var(--warning-soft);
+  border-radius: 999px;
+}
+
+.quota-pill svg {
+  color: var(--xp);
+  fill: var(--xp);
+}
+
+.quota-pill--low {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 1.5rem 1rem calc(var(--tabbar-height) + 2rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- Bottom tab bar (mobile) ---------- */
+
+.tabbar {
+  position: fixed;
+  z-index: 30;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: space-around;
+  min-height: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
+  padding: 0.375rem 0.25rem env(safe-area-inset-bottom, 0px);
+  background: var(--surface);
+  border-top: 2px solid var(--border);
+}
+
+.tab-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  flex: 1;
+  max-width: 96px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.tab-link:hover {
+  text-decoration: none;
+}
+
+.tab-link svg {
+  color: var(--nav-tone);
+  opacity: 0.75;
+}
+
+.tab-link--active {
+  color: var(--text);
+  background: color-mix(in srgb, var(--nav-tone) 14%, transparent);
+}
+
+.tab-link--active svg {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* ---------- Desktop ---------- */
+
+@media (min-width: 900px) {
+  .sidebar {
+    display: flex;
+  }
+
+  .topbar__brand,
+  .topbar__avatar,
+  .tabbar {
+    display: none;
+  }
+
+  .topbar {
+    padding-inline: 2rem;
+    border-bottom-color: transparent;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .content {
+    padding: 0.5rem 2rem 3rem;
+  }
+}

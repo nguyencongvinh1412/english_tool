@@ -21,8 +21,10 @@ const updateProfileSchema = z
     displayName: z.string().trim().min(1).max(50),
     uiLocale: z.enum(['en', 'vi']),
     targetExam: z.enum(['none', 'toeic', 'ielts']),
-    targetScore: z.number().int().min(0).max(990).nullable(),
+    targetScore: z.number().min(0).max(990).nullable(),
     cefrLevel: z.enum(CEFR_LEVELS).nullable(),
+    /** true marks onboarding as finished */
+    onboarded: z.literal(true),
   })
   .partial()
   .strict();
@@ -47,12 +49,16 @@ export function createMeRouter(): Router {
    * PATCH / - Update own profile fields
    */
   router.patch('/', async (req, res) => {
-    const changes = updateProfileSchema.parse(req.body);
+    const { onboarded, ...changes } = updateProfileSchema.parse(req.body);
     const user = currentUser(req);
 
     const [updated] = await db
       .update(users)
-      .set({ ...changes, updatedAt: new Date() })
+      .set({
+        ...changes,
+        ...(onboarded && !user.onboardedAt && { onboardedAt: new Date() }),
+        updatedAt: new Date(),
+      })
       .where(eq(users.id, user.id))
       .returning();
 

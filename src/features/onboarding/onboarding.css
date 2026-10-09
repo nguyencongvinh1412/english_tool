@@ -1,0 +1,56 @@
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) 1rem 2rem;
+}
+
+.onboarding__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.onboarding__card {
+  width: 100%;
+  max-width: 760px;
+  margin: 1.5rem auto 0;
+  padding: 1.75rem 1.25rem;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-bottom-width: calc(2px + var(--edge));
+  border-radius: var(--radius-lg);
+}
+
+@media (min-width: 640px) {
+  .onboarding__card {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+.onboarding__title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 800;
+}
+
+.onboarding__subtitle {
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+}
+
+.onboarding__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin: 2rem 0;
+}
+
+.onboarding__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}

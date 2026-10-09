@@ -1,0 +1,105 @@
+.profile-id {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.profile-id__avatar {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--brand-ink);
+  background: var(--brand);
+  border-bottom: 6px solid var(--brand-edge);
+  border-radius: 50%;
+}
+
+.profile-id__text {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.profile-id__name {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.profile-id__meta {
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.profile__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .profile__grid {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+  }
+}
+
+.profile__side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.profile-form__title {
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
+.profile-form .btn {
+  align-self: flex-start;
+}
+
+.profile__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.5rem 1rem;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+}
+
+.profile-link:hover {
+  background: var(--surface-2);
+  text-decoration: none;
+}
+
+.profile-link > svg:last-child:not(:first-child) {
+  margin-left: auto;
+  color: var(--text-muted);
+}
+
+.profile-link--danger {
+  color: var(--danger);
+}

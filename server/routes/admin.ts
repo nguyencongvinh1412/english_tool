@@ -11,6 +11,7 @@ import { aiUsage, inviteCodes, users } from '../db/schema.js';
 import { currentUser, requireAuth, requireRole } from '../auth/middleware.js';
 import { revokeUserSessions } from '../auth/sessions.js';
 import { HttpError } from '../http/errors.js';
+import { config } from '../config.js';
 import { toPublicUser } from '../services/users.js';
 import { getAllowedModels, getDailyLimit, quotaDay } from '../services/aiAccess.js';
 import { isModelAllowed, listAllowedModels } from '../services/cliproxy.js';
@@ -88,6 +89,10 @@ export function createAdminRouter(): Router {
       .orderBy(desc(users.createdAt));
 
     res.json({
+      defaults: {
+        learnerDailyAiLimit: config.LEARNER_DAILY_AI_LIMIT,
+        learnerModels: config.LEARNER_MODELS,
+      },
       users: rows.map(({ user, usedToday }) => ({
         ...toPublicUser(user),
         status: user.status,

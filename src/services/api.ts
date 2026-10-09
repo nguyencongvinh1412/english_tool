@@ -8,6 +8,9 @@ import type { ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/t
 /** Base URL for API endpoints */
 const API_BASE = '/api';
 
+/** Window event fired after each successful AI request */
+export const AI_USED_EVENT = 'english-tool:ai-used';
+
 /** localStorage key for the user's selected AI model */
 const SELECTED_MODEL_STORAGE_KEY = 'english-tool:selected-model';
 
@@ -165,6 +168,8 @@ export async function sendMessage(
     }
 
     const data: ChatResponse = await response.json();
+    // Lets the app shell refresh the remaining AI quota
+    window.dispatchEvent(new Event(AI_USED_EVENT));
     return data.message;
   } catch (error) {
     // Re-throw ApiError as-is

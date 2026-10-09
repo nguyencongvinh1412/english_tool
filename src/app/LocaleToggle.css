@@ -1,0 +1,33 @@
+.locale-toggle {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--surface-3);
+  border-radius: 999px;
+}
+
+.locale-toggle__option {
+  min-width: 40px;
+  min-height: 32px;
+  padding: 0 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.locale-toggle__option:hover {
+  color: var(--text);
+}
+
+.locale-toggle__option--active {
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 2px 0 var(--border-strong);
+}

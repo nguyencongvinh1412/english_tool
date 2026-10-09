@@ -175,6 +175,15 @@ describe('/api/me', () => {
     expect(escalation.status).toBe(400);
   });
 
+  it('marks onboarding as finished', async () => {
+    const agent = await signIn(app, await createUser());
+    expect((await agent.get('/api/auth/me')).body.user.onboarded).toBe(false);
+
+    const response = await agent.patch('/api/me').send({ onboarded: true, cefrLevel: 'B1', targetExam: 'toeic', targetScore: 750 });
+
+    expect(response.body.user).toMatchObject({ onboarded: true, cefrLevel: 'B1', targetScore: 750 });
+  });
+
   it('changing the password signs out other devices but keeps this one', async () => {
     const user = await createUser();
     const laptop = await signIn(app, user);

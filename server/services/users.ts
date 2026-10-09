@@ -29,6 +29,7 @@ export function toPublicUser(user: User) {
     targetExam: user.targetExam,
     targetScore: user.targetScore,
     cefrLevel: user.cefrLevel,
+    onboarded: user.onboardedAt !== null,
     createdAt: user.createdAt,
   };
 }

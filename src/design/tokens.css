@@ -1,0 +1,151 @@
+/**
+ * Design tokens: "tactile sticker" theme
+ * Light palette on :root, dark palette via prefers-color-scheme.
+ * Components only use these variables, never raw colors.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --brand: #58cc02;
+  --brand-strong: #46a302;
+  --brand-edge: #3f8f02;
+  --brand-ink: #133300;
+  --brand-soft: #e8f8d8;
+
+  /* Exam mode (calm blue) */
+  --exam: #1cb0f6;
+  --exam-strong: #1899d6;
+  --exam-edge: #127fb3;
+  --exam-ink: #002b40;
+  --exam-soft: #ddf4ff;
+
+  /* Skills */
+  --listening: #a560e8;
+  --listening-edge: #8545c4;
+  --listening-soft: #f3e8ff;
+  --reading: #1cb0f6;
+  --reading-edge: #1588c0;
+  --reading-soft: #ddf4ff;
+  --speaking: #ff9600;
+  --speaking-edge: #d17a00;
+  --speaking-soft: #fff1dc;
+  --writing: #ff4b8c;
+  --writing-edge: #c02a63;
+  --writing-soft: #ffe4ee;
+
+  /* Feedback (text-safe on white: >= 4.5:1) */
+  --success: #3a7f00;
+  --success-soft: #e8f8d8;
+  --danger: #d92d2d;
+  --danger-edge: #a81f1f;
+  --danger-soft: #ffe5e5;
+  --warning: #8a5a00;
+  --warning-soft: #fff4d1;
+  --streak: #ff9600;
+  --xp: #ffc800;
+
+  /* Surfaces & text */
+  --bg: #fbfaf5;
+  --bg-dots: #ece9dc;
+  --surface: #ffffff;
+  --surface-2: #f7f7f2;
+  --surface-3: #efeee6;
+  --border: #e5e5dc;
+  --border-strong: #d4d3c8;
+  --text: #2f3437;
+  --text-muted: #6b7175;
+  --text-faint: #8f9599;
+  --focus: #1cb0f6;
+  --link: #0b6fa4;
+  --overlay: rgb(20 25 28 / 55%);
+
+  /* Typography */
+  --font-display: 'Baloo 2', 'Nunito', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font-body: 'Nunito', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Shape */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --edge: 4px;
+  --shadow-pop: 0 10px 30px rgb(30 40 20 / 10%);
+
+  /* Layout */
+  --sidebar-width: 248px;
+  --topbar-height: 64px;
+  --tabbar-height: 68px;
+  --content-max: 1040px;
+
+  /* Motion */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --brand-soft: #1f3a12;
+    --exam-soft: #0f3347;
+    --listening-soft: #33204a;
+    --reading-soft: #0f3347;
+    --speaking-soft: #3d2a0d;
+    --writing-soft: #43182a;
+
+    --success: #79d634;
+    --success-soft: #1f3a12;
+    --danger: #ff6b6b;
+    --danger-edge: #c94848;
+    --danger-soft: #431d1d;
+    --warning: #ffc94d;
+    --warning-soft: #3d300d;
+    --link: #5cc8ff;
+
+    --bg: #131f24;
+    --bg-dots: #1c2b31;
+    --surface: #1a282e;
+    --surface-2: #202f36;
+    --surface-3: #2a3c44;
+    --border: #2e4048;
+    --border-strong: #3d525b;
+    --text: #eef4f6;
+    --text-muted: #a3b3ba;
+    --text-faint: #7e9098;
+    --overlay: rgb(0 0 0 / 65%);
+    --shadow-pop: 0 10px 30px rgb(0 0 0 / 40%);
+  }
+}
+
+/*
+ * Legacy aliases: pre-v2 pages still use these names until they are
+ * rebuilt in phase 3, so they pick up the new palette automatically.
+ */
+:root {
+  --color-bg-primary: var(--surface);
+  --color-bg-secondary: var(--surface-2);
+  --color-bg-content: var(--surface-2);
+  --color-text-primary: var(--text);
+  --color-text-secondary: var(--text-muted);
+  --color-text-muted: var(--text-faint);
+  --color-accent: var(--brand-strong);
+  --color-accent-hover: var(--brand);
+  --color-border: var(--border);
+  --color-card-bg: var(--surface);
+  --color-card-hover: var(--surface-2);
+  --color-record: var(--danger);
+  --color-record-hover: var(--danger-edge);
+  --color-record-glow: var(--danger-soft);
+  --color-error: var(--danger);
+  --color-error-bg: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-soft);
+  --color-info: var(--exam-strong);
+  --color-info-bg: var(--exam-soft);
+  --color-user-message-bg: var(--brand-soft);
+  --color-assistant-message-bg: var(--surface);
+  --color-primary: var(--focus);
+}

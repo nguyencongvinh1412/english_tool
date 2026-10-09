@@ -95,7 +95,7 @@ export function createAuthRouter(): Router {
 
       const [created] = await tx
         .insert(users)
-        .values({ email, passwordHash, displayName: body.displayName, role: invite.role })
+        .values({ email, passwordHash, displayName: body.displayName, role: invite.role, lastLoginAt: new Date() })
         .returning();
 
       return created;

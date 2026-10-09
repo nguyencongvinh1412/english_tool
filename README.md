@@ -23,7 +23,7 @@ On first start the server applies migrations and creates the admin from `ADMIN_E
 
 | Mode | Command | URL |
 |---|---|---|
-| Full stack in Docker | `npm run docker:up` | http://localhost:3002 |
+| Full stack in Docker | `npm run docker:up` | http://localhost:3003 |
 | Development (hot reload) | `npm run db:up` then `npm run dev` | http://localhost:5173 |
 | Local production build | `npm run db:up` then `npm run local` | http://localhost:3002 |
 
@@ -34,8 +34,8 @@ Docker Desktop groups the `english-tool-app` and `english-tool-db` containers un
 Sign-up requires an invite code. As admin:
 
 ```bash
-# Create an invite (or use the admin UI once available)
-curl -b cookies.txt -X POST http://localhost:3002/api/admin/invites \
+# Create an invite (or use Admin → Invite codes in the UI)
+curl -b cookies.txt -X POST http://localhost:3003/api/admin/invites \
   -H 'Content-Type: application/json' -d '{"maxUses": 1, "expiresInDays": 7}'
 ```
 

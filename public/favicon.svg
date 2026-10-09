@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M10 8h44a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8H30l-12 10v-10h-8a8 8 0 0 1-8-8V16a8 8 0 0 1 8-8z" fill="#3f8f02"/>
+  <path d="M10 4h44a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8H30l-12 10V46h-8a8 8 0 0 1-8-8V12a8 8 0 0 1 8-8z" fill="#58cc02"/>
+  <text x="32" y="35" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="24" font-weight="800" fill="#ffffff">Aa</text>
+</svg>
