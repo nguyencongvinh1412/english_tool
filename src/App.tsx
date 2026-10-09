@@ -28,6 +28,8 @@ import { GapfillPage, ReadingPassagePage } from '@/features/reading/ReadingPages
 import { WritingPage } from '@/features/writing/WritingPage';
 import { ProgressProvider } from '@/shared/progress';
 import { ExamsPage } from '@/features/exams/ExamsPage';
+import { ExamSessionPage } from '@/features/exams/ExamSessionPage';
+import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
 import { ProfilePage } from '@/features/profile/ProfilePage';
 import { AdminPage } from '@/features/admin/AdminPage';
 
@@ -51,6 +53,8 @@ export default function App(): React.JSX.Element {
 
                   <Route element={<RequireAuth />}>
                     <Route path={ROUTES.ONBOARDING} element={<OnboardingPage />} />
+                  {/* Focus mode: the test runs outside the app shell */}
+                  <Route path={EXAM_SESSION_ROUTE} element={<ExamSessionPage />} />
 
                     <Route element={<AppShell />}>
                       <Route path={ROUTES.HOME} element={<DashboardPage />} />

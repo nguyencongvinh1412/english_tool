@@ -48,6 +48,9 @@ export interface RunAIOptions {
   timeoutMs?: number;
 }
 
+/** Message CLIProxyAPI errors carry when the model returned no text */
+const EMPTY_REPLY_MESSAGE = 'No text content in AI response';
+
 /** Timeouts for long AI outputs */
 export const GENERATE_TIMEOUT_MS = 75_000;
 export const SCORING_TIMEOUT_MS = 120_000;
@@ -70,6 +73,11 @@ export async function runAI(user: User, options: RunAIOptions): Promise<string> 
     await recordUsage(user, options.feature);
     return reply;
   } catch (error) {
+    // An empty reply is a bad answer, not an outage: let JSON callers ask again
+    if (error instanceof CliProxyApiError && error.message === EMPTY_REPLY_MESSAGE) {
+      await recordUsage(user, options.feature);
+      return '';
+    }
     if (error instanceof CliProxyApiError || error instanceof GroqApiError) {
       throw new HttpError(error.statusCode, error.message, 'ai_unavailable');
     }

@@ -98,6 +98,97 @@ JSON shape:
 
     case 'writing-prompt':
       return writingPrompt(system, topicLine, writingTask ?? 'ielts-task2');
+
+    default:
+      return toeicPrompt(kind, level, topicLine);
+  }
+}
+
+/** Shared rule for every TOEIC group */
+const TOEIC_STYLE = `Write in the style of the TOEIC Listening & Reading test: workplace, business, travel and everyday
+professional contexts; international names; plausible distractors; exactly one correct answer per question.
+For every question, write the explanation first, then set answerIndex to the option the explanation proves.
+The correct option must be fully consistent with the question: a "Yes"/"No" reply must agree with the rest of that reply,
+and no distractor may also be acceptable.`;
+
+/**
+ * Prompts for one TOEIC exam group (parts 2-7)
+ */
+function toeicPrompt(
+  kind: ContentKind,
+  level: CefrLevel,
+  topicLine: string
+): { system: string; user: string; target: GenerationTarget } {
+  const system = `You create original TOEIC practice test material. ${LEVEL_GUIDE[level]}
+${TOEIC_STYLE}
+${JSON_RULES}`;
+  const part = kind.replace('toeic-p', '');
+  const target: GenerationTarget = { exam: 'toeic', part: `toeic-${part}` };
+  const mcq = '{"type": "mcq", "prompt": "...", "options": ["...","...","...","..."], "explanation": "...", "answerIndex": 1}';
+
+  switch (kind) {
+    case 'toeic-p2':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write 5 TOEIC Part 2 (question-response) items. Each has a short spoken question or statement and three spoken responses;
+only one is a natural reply. Use typical distractors: repeated words, similar sounds, wrong question word.
+Mix wh-questions, yes/no, choice questions, requests and statements.
+JSON: {"items": [{"question": "When is the budget meeting?", "options": ["In conference room B.", "Tomorrow at ten.", "Yes, I met him."], "explanation": "...", "answerIndex": 1}]}`,
+      };
+    case 'toeic-p3':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write one TOEIC Part 3 conversation between two (sometimes three) speakers, 6-10 turns, spoken style, numbers as words.
+Then 3 printed questions in order: one about the main topic or purpose, one detail, one about what happens next or an implied meaning.
+JSON: {"speakers": {"A": {"name": "...", "gender": "female"}, "B": {"name": "...", "gender": "male"}},
+"script": [{"speaker": "A", "text": "..."}], "questions": [${mcq}, ...]}`,
+      };
+    case 'toeic-p4':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write one TOEIC Part 4 short talk by a single speaker (announcement, voicemail, advertisement, tour guide, radio broadcast,
+or meeting excerpt), 4-8 sentences split into script lines, numbers as words. Then 3 printed questions about purpose,
+details and what listeners should do.
+JSON: {"talkType": "voicemail", "speakers": {"A": {"name": "...", "gender": "male"}},
+"script": [{"speaker": "A", "text": "..."}], "questions": [${mcq}, ...]}`,
+      };
+    case 'toeic-p5':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write 10 TOEIC Part 5 incomplete sentences, each with exactly one blank written as "____". Mix grammar (tense, word form,
+prepositions, conjunctions, pronouns, comparatives) and vocabulary.
+JSON: {"questions": [{"type": "mcq", "prompt": "The shipment will arrive ____ Thursday.", "options": ["on","in","at","by"], "answerIndex": 0, "explanation": "..."}]}`,
+      };
+    case 'toeic-p6':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write one TOEIC Part 6 text (email, memo, notice or article) of 110-160 words with four numbered blanks written exactly as
+[1], [2], [3] and [4] in order. Blanks [1]-[3] test grammar or vocabulary; one blank tests choosing the best sentence to insert.
+Each question's prompt is "Blank [n]". The options for the sentence blank are full sentences.
+JSON: {"title": "...", "passage": "... [1] ... [2] ... [3] ... [4] ...", "questions": [{"type": "mcq", "prompt": "Blank [1]", "options": ["...","...","...","..."], "answerIndex": 2, "explanation": "..."}, ...]}`,
+      };
+    case 'toeic-p7':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write one TOEIC Part 7 reading set. Choose ONE format: a single text (email, advertisement, article, notice, text-message chain,
+or form) with 2-4 questions; OR a double/triple passage (2-3 related texts) with 5 questions that require connecting information.
+Questions cover purpose, details, inference, vocabulary in context ("The word X in paragraph 1 is closest in meaning to").
+JSON: {"passages": [{"kind": "email", "title": "...", "text": "..."}], "questions": [${mcq}, ...]}`,
+      };
+    default:
+      throw new Error(`No generator for ${kind}`);
   }
 }
 

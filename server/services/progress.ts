@@ -17,6 +17,8 @@ export const ACTIVITY_SKILLS = {
   scenario: 'speaking',
   'speaking-ielts': 'speaking',
   'writing-task': 'writing',
+  'toeic-listening': 'listening',
+  'toeic-reading': 'reading',
 } as const;
 
 export type Activity = keyof typeof ACTIVITY_SKILLS;

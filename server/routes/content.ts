@@ -17,6 +17,8 @@ import {
   CONTENT_KINDS,
   CONTENT_KIND_IDS,
   WRITING_TASKS,
+  contentTitle,
+  isExamOnlyKind,
   speakingFeedback,
   speakingIelts,
   wordDefinition,
@@ -31,14 +33,17 @@ const LIST_LIMIT = 60;
 const MAX_RESPONSE_CHARS = 6000;
 const MAX_TRANSCRIPT_CHARS = 2000;
 
+/** Kinds the practice library serves; TOEIC exam groups are only reachable through exam sessions */
+const LIBRARY_KINDS = CONTENT_KIND_IDS.filter((kind) => !isExamOnlyKind(kind)) as [ContentKind, ...ContentKind[]];
+
 const listQuerySchema = z.object({
-  kind: z.enum(CONTENT_KIND_IDS),
+  kind: z.enum(LIBRARY_KINDS),
   level: z.enum(CEFR_LEVELS).optional(),
   writingTask: z.enum(WRITING_TASKS).optional(),
 });
 
 const generateSchema = z.object({
-  kind: z.enum(CONTENT_KIND_IDS),
+  kind: z.enum(LIBRARY_KINDS),
   level: z.enum(CEFR_LEVELS),
   topic: z.string().trim().max(100).optional(),
   writingTask: z.enum(WRITING_TASKS).optional(),
@@ -97,7 +102,7 @@ async function loadItem(id: string, kind?: ContentKind): Promise<ContentItem> {
     .where(and(eq(contentItems.id, id), eq(contentItems.status, 'published')))
     .limit(1);
 
-  if (!item || (kind && item.kind !== kind)) {
+  if (!item || (kind && item.kind !== kind) || (!kind && isExamOnlyKind(item.kind))) {
     throw new HttpError(404, 'This exercise was not found.', 'not_found');
   }
   return item;
@@ -193,7 +198,7 @@ export function createContentRouter(): Router {
       throw new HttpError(502, 'The AI returned a different task type. Please try again.', 'ai_invalid_output');
     }
 
-    const title = 'title' in payload ? payload.title : payload.topic;
+    const title = contentTitle(body.kind, payload);
     const [item] = await db
       .insert(contentItems)
       .values({

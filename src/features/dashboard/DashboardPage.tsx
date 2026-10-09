@@ -151,8 +151,8 @@ export const DashboardPage: React.FC = () => {
             <h3 className="dash-skill__title">{t.dashboard.examsTitle}</h3>
             <p className="dash-skill__description">{t.dashboard.examsBody}</p>
           </div>
-          <Badge tone="exam" icon="lock">
-            {t.common.comingSoon}
+          <Badge tone="exam" icon="chevronRight">
+            TOEIC
           </Badge>
         </Card>
       </Link>

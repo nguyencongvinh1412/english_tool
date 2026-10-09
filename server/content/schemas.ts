@@ -109,6 +109,66 @@ export const writingPrompt = z.object({
   email: z.object({ from: text(80), subject: text(120), body: text(1500) }).optional(),
 });
 
+/* ---------- TOEIC exam groups (one content item = one group of questions) ---------- */
+
+/** Part 2: spoken question, three spoken responses */
+export const toeicP2 = z.object({
+  items: z
+    .array(
+      z.object({
+        question: text(200),
+        options: z.array(text(200)).length(3),
+        answerIndex: z.number().int().min(0).max(2),
+        explanation: text(400),
+      })
+    )
+    .length(5),
+});
+
+const toeicSpeakers = z.object({ A: speaker, B: speaker.optional(), C: speaker.optional() });
+const toeicScriptLine = z.object({ speaker: z.enum(['A', 'B', 'C']), text: text(400) });
+
+/** Part 3: conversation with three printed questions */
+export const toeicP3 = z.object({
+  speakers: toeicSpeakers,
+  script: z.array(toeicScriptLine).min(5).max(14),
+  questions: z.array(mcqQuestion).length(3),
+});
+
+/** Part 4: short talk by one speaker with three printed questions */
+export const toeicP4 = z.object({
+  talkType: text(40),
+  speakers: z.object({ A: speaker }),
+  script: z
+    .array(z.object({ speaker: z.literal('A'), text: text(400) }))
+    .min(3)
+    .max(10),
+  questions: z.array(mcqQuestion).length(3),
+});
+
+/** Part 5: ten incomplete sentences */
+export const toeicP5 = z.object({
+  questions: z.array(mcqQuestion.refine((q) => q.prompt.includes('____'), 'prompt must contain ____')).length(10),
+});
+
+/** Part 6: one text with four numbered blanks */
+export const toeicP6 = z
+  .object({
+    title: text(120),
+    passage: text(2500),
+    questions: z.array(mcqQuestion).length(4),
+  })
+  .refine((p) => [1, 2, 3, 4].every((n) => p.passage.includes(`[${n}]`)), { message: 'passage must contain blanks [1] to [4]' });
+
+/** Part 7: one to three texts with two to five questions */
+export const toeicP7 = z.object({
+  passages: z
+    .array(z.object({ kind: text(40), title: text(120), text: text(2500) }))
+    .min(1)
+    .max(3),
+  questions: z.array(mcqQuestion).min(2).max(5),
+});
+
 /** Content kinds, their skill and payload schema */
 export const CONTENT_KINDS = {
   'reading-passage': { skill: 'reading', schema: readingPassage },
@@ -116,6 +176,12 @@ export const CONTENT_KINDS = {
   'listening-quiz': { skill: 'listening', schema: listeningQuiz },
   'speaking-ielts': { skill: 'speaking', schema: speakingIelts },
   'writing-prompt': { skill: 'writing', schema: writingPrompt },
+  'toeic-p2': { skill: 'listening', schema: toeicP2 },
+  'toeic-p3': { skill: 'listening', schema: toeicP3 },
+  'toeic-p4': { skill: 'listening', schema: toeicP4 },
+  'toeic-p5': { skill: 'reading', schema: toeicP5 },
+  'toeic-p6': { skill: 'reading', schema: toeicP6 },
+  'toeic-p7': { skill: 'reading', schema: toeicP7 },
 } as const;
 
 export type ContentKind = keyof typeof CONTENT_KINDS;
@@ -149,3 +215,17 @@ export const wordDefinition = z.object({
   example: text(300),
   translation: z.string().trim().max(200),
 });
+
+/** Exam-only kinds: never listed or served by the practice library (answers would leak) */
+export const isExamOnlyKind = (kind: string): boolean => kind.startsWith('toeic-p');
+
+/**
+ * Display title for any payload: its own title or topic, else a part label
+ */
+export function contentTitle(kind: ContentKind, payload: object): string {
+  if ('title' in payload && typeof payload.title === 'string') return payload.title;
+  if ('topic' in payload && typeof payload.topic === 'string') return payload.topic;
+  const part = kind.replace('toeic-p', '');
+  if ('talkType' in payload && typeof payload.talkType === 'string') return `TOEIC Part ${part} · ${payload.talkType}`;
+  return `TOEIC Part ${part}`;
+}

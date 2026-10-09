@@ -11,7 +11,9 @@ export type Activity =
   | 'conversation'
   | 'scenario'
   | 'speaking-ielts'
-  | 'writing-task';
+  | 'writing-task'
+  | 'toeic-listening'
+  | 'toeic-reading';
 export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 
 export interface AttemptInput {

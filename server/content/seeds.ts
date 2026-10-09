@@ -6,7 +6,7 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems } from '../db/schema.js';
-import { CONTENT_KINDS, type CefrLevel, type ContentKind } from './schemas.js';
+import { CONTENT_KINDS, contentTitle, type CefrLevel, type ContentKind } from './schemas.js';
 
 interface SeedItem {
   id: string;
@@ -311,7 +311,7 @@ export async function ensureBuiltinContent(): Promise<void> {
   for (const seed of SEED_ITEMS) {
     const definition = CONTENT_KINDS[seed.kind];
     const payload = definition.schema.parse(seed.payload);
-    const title = 'title' in payload ? payload.title : payload.topic;
+    const title = contentTitle(seed.kind, payload);
 
     await db
       .insert(contentItems)

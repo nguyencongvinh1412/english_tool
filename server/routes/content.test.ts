@@ -157,3 +157,16 @@ describe('AI scoring', () => {
     expect(aiReply).not.toHaveBeenCalled();
   });
 });
+
+describe('empty AI replies', () => {
+  it('treats an empty reply as invalid output and asks again', async () => {
+    const { CliProxyApiError } = await import('../services/cliproxy.js');
+    aiReply.mockRejectedValueOnce(new CliProxyApiError('No text content in AI response', 500)).mockResolvedValueOnce(JSON.stringify(GAPFILL));
+    const agent = await signIn(app, await createUser());
+
+    const response = await agent.post('/api/content/generate').send({ kind: 'reading-gapfill', level: 'B1' });
+
+    expect(response.status).toBe(201);
+    expect(aiReply).toHaveBeenCalledTimes(2);
+  });
+});

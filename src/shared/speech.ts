@@ -5,7 +5,7 @@
  */
 
 export interface ScriptLine {
-  speaker: 'A' | 'B';
+  speaker: 'A' | 'B' | 'C';
   text: string;
 }
 
@@ -69,7 +69,7 @@ function voicesReady(): Promise<void> {
  */
 export function speakScript(
   lines: ScriptLine[],
-  genders: { A: Gender; B?: Gender },
+  genders: { A: Gender; B?: Gender; C?: Gender },
   rate: number,
   onLine: (index: number) => void
 ): () => void {
@@ -80,6 +80,7 @@ export function speakScript(
     await voicesReady();
     const voiceA = pickVoice(genders.A);
     const voiceB = genders.B ? pickVoice(genders.B, voiceA) : undefined;
+    const voiceC = genders.C ? pickVoice(genders.C, genders.C === genders.A ? voiceA : voiceB) : undefined;
     // Same voice for both speakers: separate them by pitch instead
     const sameVoice = !voiceB || voiceB === voiceA;
 
@@ -89,8 +90,11 @@ export function speakScript(
       const utterance = new SpeechSynthesisUtterance(line.text);
       utterance.lang = 'en-US';
       utterance.rate = rate;
-      utterance.voice = (line.speaker === 'B' ? voiceB : voiceA) ?? null;
-      utterance.pitch = sameVoice && line.speaker === 'B' ? (genders.B === 'male' ? 0.75 : 1.25) : 1;
+      const voice = line.speaker === 'C' ? (voiceC ?? voiceB) : line.speaker === 'B' ? voiceB : voiceA;
+      utterance.voice = voice ?? null;
+      // Distinguish speakers by pitch when the device has too few voices
+      utterance.pitch =
+        line.speaker === 'C' ? 1.15 : sameVoice && line.speaker === 'B' ? (genders.B === 'male' ? 0.75 : 1.25) : 1;
 
       await new Promise<void>((resolve) => {
         utterance.onend = () => resolve();

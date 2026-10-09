@@ -157,7 +157,41 @@ export const contentItems = pgTable(
   (table) => [index('content_items_kind_level_idx').on(table.kind, table.status, table.level)]
 );
 
+export const examStatus = pgEnum('exam_status', ['in_progress', 'submitted']);
+
+/**
+ * One mock-test sitting: which content groups it uses, the learner's answers
+ * (autosaved), the time limit and, once submitted, the scored result
+ */
+export const examSessions = pgTable(
+  'exam_sessions',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    exam: examType('exam').notNull(),
+    /** mini | part | full (validated in the API) */
+    mode: text('mode').notNull(),
+    /** Ordered sections: [{ part, groupIds }] */
+    blueprint: jsonb('blueprint').notNull(),
+    /** Question id -> chosen option index */
+    answers: jsonb('answers').notNull().default({}),
+    /** Question ids the learner flagged for review */
+    flags: jsonb('flags').notNull().default([]),
+    status: examStatus('status').notNull().default('in_progress'),
+    timeLimitSec: integer('time_limit_sec').notNull(),
+    startedAt: timestamp('started_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    submittedAt: timestamp('submitted_at', { withTimezone: true }),
+    /** Scores per part and section, set on submit */
+    result: jsonb('result'),
+  },
+  (table) => [index('exam_sessions_user_started_idx').on(table.userId, table.startedAt)]
+);
+
 export type User = typeof users.$inferSelect;
 export type Attempt = typeof attempts.$inferSelect;
 export type ContentItem = typeof contentItems.$inferSelect;
+export type ExamSession = typeof examSessions.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;
