@@ -38,6 +38,11 @@ const envSchema = z.object({
   LEARNER_DAILY_AI_LIMIT: z.coerce.number().int().nonnegative().default(DEFAULT_LEARNER_DAILY_AI_LIMIT),
   LEARNER_MODELS: z.string().default(DEFAULT_LEARNER_MODELS).transform(parseList),
 
+  /** Kokoro text-to-speech server; empty disables server voices (browser speech is used) */
+  TTS_BASE_URL: z.string().default('http://localhost:8880').transform((url) => url.replace(/\/+$/, '')),
+  /** Where generated audio clips are cached */
+  TTS_CACHE_DIR: z.string().default('.cache/tts'),
+
   /** Extra allowed origins for state-changing requests, comma-separated */
   APP_ORIGIN: z.string().default('').transform(parseList),
 });

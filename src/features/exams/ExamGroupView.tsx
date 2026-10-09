@@ -6,7 +6,7 @@ import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { speakScript, type ScriptLine } from '@/shared/speech';
+import { prefetchScript, speakScript, type ScriptLine } from '@/shared/speech';
 import type { ExamGroup, ToeicPart } from '@/shared/examApi';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
@@ -98,6 +98,13 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
   const { t } = useI18n();
   const payload = group.payload;
   const isListening = part <= 4;
+
+  // Generate the group's audio in the background while the learner reads the questions
+  useEffect(() => {
+    if (!isListening || review) return;
+    const speakers = group.payload.speakers;
+    prefetchScript(audioLines(part, group), { A: speakers?.A.gender ?? 'female', B: speakers?.B?.gender ?? 'male', C: speakers?.C?.gender });
+  }, [group, part, isListening, review]);
   const instructions = { 2: t.exams.p2Instructions, 3: t.exams.p3Instructions, 4: t.exams.p4Instructions, 5: t.exams.p5Instructions, 6: t.exams.p6Instructions, 7: t.exams.p7Instructions }[part];
 
   // Part 2 options are spoken, so they are hidden while taking the test

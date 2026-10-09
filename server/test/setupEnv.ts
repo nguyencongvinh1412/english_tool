@@ -22,4 +22,6 @@ process.env.LEARNER_DAILY_AI_LIMIT = '3';
 process.env.LEARNER_MODELS = 'claude-haiku-5-5,gemini-3-flash';
 process.env.CLIPROXY_BASE_URL = 'http://cliproxy.test';
 process.env.CLIPROXY_API_KEY = 'test-key';
+process.env.TTS_BASE_URL = 'http://tts.test';
+process.env.TTS_CACHE_DIR = '.cache/tts-test';
 delete process.env.GROQ_API_KEY;

@@ -19,6 +19,9 @@ COPY --from=build /app/dist-server ./dist-server
 # Migrations are applied on startup from server/db/migrations
 COPY --from=build /app/server/db/migrations ./server/db/migrations
 
+# Audio cache volume must be writable by the unprivileged user
+RUN mkdir -p /data/tts-cache && chown node:node /data/tts-cache
+
 USER node
 EXPOSE 3002
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \

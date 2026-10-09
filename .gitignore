@@ -34,3 +34,6 @@ dist-ssr
 
 # TypeScript cache
 *.tsbuildinfo
+
+# Generated audio and other local caches
+.cache

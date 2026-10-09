@@ -9,6 +9,7 @@ import { Badge, Banner, Button, Card, Icon, ProgressBar } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useTextToSpeech } from '@/hooks';
 import { useProgress } from '@/shared/progress';
+import { prefetchScript } from '@/shared/speech';
 import type { DictationLesson } from '@/constants/dictations';
 import { checkDictation, maskWord, revealNextWord, type DictationCheckResult } from '@/utils/dictation';
 
@@ -89,6 +90,14 @@ export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, is
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, [playSentence, isFinished]);
+
+  // Generate every sentence's audio up front so each plays without delay
+  useEffect(() => {
+    prefetchScript(
+      lesson.sentences.map((text) => ({ speaker: 'A' as const, text })),
+      { A: 'female' }
+    );
+  }, [lesson]);
 
   // Stop speech when leaving
   useEffect(() => stop, [stop]);

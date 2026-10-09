@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Banner, Button, Card, Icon, Segmented } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useProgress } from '@/shared/progress';
-import { isSpeechSupported, speakScript } from '@/shared/speech';
+import { isSpeechSupported, prefetchScript, speakScript } from '@/shared/speech';
 import type { ContentItem, ListeningQuiz } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
@@ -35,8 +35,9 @@ const ListeningSession: React.FC<{ item: ContentItem<ListeningQuiz>; onBack: () 
 
   useEffect(() => {
     startedAt.current = Date.now();
+    prefetchScript(quiz.script, { A: quiz.speakers.A.gender, B: quiz.speakers.B?.gender });
     return () => stopRef.current?.();
-  }, []);
+  }, [quiz]);
 
   const play = useCallback(() => {
     stopRef.current?.();

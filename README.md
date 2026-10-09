@@ -27,7 +27,14 @@ On first start the server applies migrations and creates the admin from `ADMIN_E
 | Development (hot reload) | `npm run db:up` then `npm run dev` | http://localhost:5173 |
 | Local production build | `npm run db:up` then `npm run local` | http://localhost:3002 |
 
-Docker Desktop groups the `english-tool-app` and `english-tool-db` containers under the **english-tool** project, on the `english-tool-net` network. Data lives in the `english-tool-pgdata` volume.
+Docker Desktop groups the `english-tool-app`, `english-tool-db` and `english-tool-tts` containers under the **english-tool** project, on the `english-tool-net` network. Data lives in the `english-tool-pgdata` volume and generated audio in `english-tool-tts-cache`.
+
+## Voices
+
+Listening content is read by [Kokoro](https://github.com/remsky/Kokoro-FastAPI) (Apache 2.0), a neural text-to-speech model running on CPU in the `tts` container. Each sentence is generated once and cached; conversations use a different voice per speaker. If the service is down the app falls back to the browser's built-in voices.
+
+- `npm run dev` uses `TTS_BASE_URL=http://localhost:8880` (start it with `docker compose up -d tts`)
+- Leave `TTS_BASE_URL` empty to use browser voices only
 
 ## Accounts
 

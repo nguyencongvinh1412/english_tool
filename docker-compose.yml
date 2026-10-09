@@ -30,6 +30,23 @@ services:
     networks:
       - english-tool-net
 
+  tts:
+    # Kokoro text-to-speech (Apache 2.0), OpenAI-compatible /v1/audio/speech, runs on CPU
+    image: ghcr.io/remsky/kokoro-fastapi-cpu:v0.2.4
+    container_name: english-tool-tts
+    ports:
+      # Exposed on localhost only, for `npm run dev`
+      - "127.0.0.1:8880:8880"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8880/v1/audio/voices', timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - english-tool-net
+
   app:
     build: .
     image: english-tool-app
@@ -40,6 +57,10 @@ services:
       PORT: 3002
       DATABASE_URL: postgres://english:${DB_PASSWORD}@db:5432/english_tool
       CLIPROXY_BASE_URL: http://host.docker.internal:8317
+      TTS_BASE_URL: http://tts:8880
+      TTS_CACHE_DIR: /data/tts-cache
+    volumes:
+      - english-tool-tts-cache:/data/tts-cache
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
@@ -54,6 +75,8 @@ services:
 volumes:
   english-tool-pgdata:
     name: english-tool-pgdata
+  english-tool-tts-cache:
+    name: english-tool-tts-cache
 
 networks:
   english-tool-net:
