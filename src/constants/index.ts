@@ -9,6 +9,7 @@ export const ROUTES = {
   CONVERSATION: '/conversation',
   PRONUNCIATION: '/pronunciation',
   SCENARIOS: '/scenarios',
+  DICTATION: '/dictation',
 } as const;
 
 /** API endpoints */

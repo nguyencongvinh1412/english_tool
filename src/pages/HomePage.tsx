@@ -26,6 +26,11 @@ const QUICK_LINKS: QuickLinkCard[] = [
     title: 'Real-Life Scenarios',
     description: 'Practice English in simulated real-world situations',
   },
+  {
+    path: ROUTES.DICTATION,
+    title: 'Dictation Practice',
+    description: 'Train your listening and typing by writing down what you hear',
+  },
 ];
 
 /**

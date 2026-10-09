@@ -1,6 +1,7 @@
 import type React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { ROUTES } from '@/constants';
+import { ModelSelector } from './ModelSelector';
 
 /** Navigation item configuration */
 interface NavItem {
@@ -14,6 +15,7 @@ const NAV_ITEMS: NavItem[] = [
   { path: ROUTES.CONVERSATION, label: 'Conversation' },
   { path: ROUTES.PRONUNCIATION, label: 'Pronunciation' },
   { path: ROUTES.SCENARIOS, label: 'Scenarios' },
+  { path: ROUTES.DICTATION, label: 'Dictation' },
 ];
 
 /**
@@ -43,6 +45,7 @@ export const Layout: React.FC = () => {
             ))}
           </ul>
         </nav>
+        <ModelSelector />
       </aside>
       <main className="main-content">
         <Outlet />

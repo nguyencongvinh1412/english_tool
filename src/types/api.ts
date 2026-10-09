@@ -28,6 +28,18 @@ export interface ChatRequest {
   messages: ChatMessage[];
   /** Optional custom system prompt to override default */
   systemPrompt?: string;
+  /** Optional AI model ID (from GET /api/chat/models) */
+  model?: string;
+}
+
+/**
+ * Response from models endpoint
+ */
+export interface ModelsResponse {
+  /** Allowed model IDs; empty when the AI proxy is unavailable */
+  models: string[];
+  /** Server default model, or null when the AI proxy is unavailable */
+  defaultModel: string | null;
 }
 
 /**

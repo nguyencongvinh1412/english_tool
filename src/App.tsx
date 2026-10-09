@@ -13,6 +13,7 @@ import {
   ConversationPage,
   PronunciationPage,
   ScenariosPage,
+  DictationPage,
 } from '@/pages';
 import { ROUTES } from '@/constants';
 import './App.css';
@@ -33,6 +34,7 @@ export default function App(): React.JSX.Element {
             <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
             <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
             <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
+            <Route path={ROUTES.DICTATION} element={<DictationPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

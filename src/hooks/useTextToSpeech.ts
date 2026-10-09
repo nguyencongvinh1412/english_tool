@@ -14,8 +14,8 @@ interface UseTextToSpeechReturn {
   isSupported: boolean;
   /** Current voice name */
   currentVoice: string | null;
-  /** Speak the given text */
-  speak: (text: string) => void;
+  /** Speak the given text, optionally at a custom rate (0.1 - 10) */
+  speak: (text: string, rate?: number) => void;
   /** Stop speaking */
   stop: () => void;
 }
@@ -167,6 +167,7 @@ export function useTextToSpeech(): UseTextToSpeechReturn {
   const sentenceQueueRef = useRef<string[]>([]);
   const isProcessingRef = useRef(false);
   const shouldStopRef = useRef(false);
+  const rateRef = useRef(SPEECH_RATE);
 
   const isSupported =
     typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -218,7 +219,7 @@ export function useTextToSpeech(): UseTextToSpeechReturn {
 
         const utterance = new SpeechSynthesisUtterance(sentence);
         utterance.lang = 'en-US';
-        utterance.rate = SPEECH_RATE;
+        utterance.rate = rateRef.current;
         utterance.pitch = SPEECH_PITCH;
         utterance.volume = SPEECH_VOLUME;
 
@@ -275,8 +276,10 @@ export function useTextToSpeech(): UseTextToSpeechReturn {
    * Speak the given text with natural sentence pacing
    */
   const speak = useCallback(
-    (text: string) => {
+    (text: string, rate?: number) => {
       if (!isSupported || !text.trim()) return;
+
+      rateRef.current = rate ?? SPEECH_RATE;
 
       // Stop any ongoing speech
       shouldStopRef.current = true;

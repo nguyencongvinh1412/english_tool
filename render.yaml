@@ -13,4 +13,10 @@ services:
       - key: NODE_ENV
         value: production
       - key: GROQ_API_KEY
-        sync: false  # Manual entry required in Render dashboard
+        sync: false  # Manual entry required in Render dashboard (fallback provider)
+      - key: CLIPROXY_BASE_URL
+        sync: false  # Public tunnel URL of local CLIProxyAPI, e.g. https://cliproxy.example.com
+      - key: CLIPROXY_API_KEY
+        sync: false  # One of access.api-keys in CLIProxyAPI config.yaml
+      - key: CLIPROXY_MODEL
+        value: claude-haiku-5-5

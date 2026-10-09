@@ -12,6 +12,7 @@
     "build:client": "tsc -b && vite build",
     "build:server": "tsc -p tsconfig.server.json",
     "start": "node dist-server/index.js",
+    "local": "npm run build && NODE_ENV=production node dist-server/index.js",
     "preview": "vite preview",
     "lint": "eslint ."
   },

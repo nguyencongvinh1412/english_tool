@@ -1,13 +1,51 @@
 /**
  * Chat Routes
- * Handles chat message endpoints for Groq AI communication
+ * Handles chat message endpoints for AI communication
+ * Uses CLIProxyAPI when configured, falling back to Groq when the proxy is unavailable
  */
 import { Router, Request, Response } from 'express';
 import {
-  sendChatMessage,
+  sendChatMessage as sendGroqMessage,
   GroqApiError,
   type ChatMessage,
 } from '../services/groq.js';
+import {
+  sendChatMessage as sendCliProxyMessage,
+  isCliProxyConfigured,
+  isModelAllowed,
+  getDefaultModel,
+  listAllowedModels,
+  CliProxyApiError,
+  type ChatRequest,
+} from '../services/cliproxy.js';
+
+/**
+ * Sends a chat message via CLIProxyAPI, falling back to Groq if the proxy is unavailable
+ *
+ * @param request - Chat request containing messages and optional system prompt
+ * @returns Promise resolving to the assistant's response content
+ */
+async function sendChatMessage(request: ChatRequest): Promise<string> {
+  if (!isCliProxyConfigured()) {
+    return sendGroqMessage(request);
+  }
+
+  try {
+    return await sendCliProxyMessage(request);
+  } catch (error) {
+    // Only fall back when the proxy itself is down (tunnel offline, machine asleep, upstream 5xx)
+    if (
+      !(error instanceof CliProxyApiError) ||
+      !error.isUnavailable ||
+      !process.env.GROQ_API_KEY
+    ) {
+      throw error;
+    }
+
+    console.warn(`CLIProxyAPI unavailable (${error.message}), falling back to Groq`);
+    return sendGroqMessage(request);
+  }
+}
 
 /** Minimum messages required in request */
 const MIN_MESSAGES_REQUIRED = 1;
@@ -24,6 +62,7 @@ const MAX_CONTENT_LENGTH = 10000;
 interface ChatRequestBody {
   messages?: unknown;
   systemPrompt?: unknown;
+  model?: unknown;
 }
 
 /**
@@ -118,12 +157,35 @@ export function createChatRouter(): Router {
   const router = Router();
 
   /**
+   * GET /models - List models the client may choose from
+   *
+   * @route GET /api/chat/models
+   * @returns {Object} { models: string[], defaultModel: string | null }
+   *   Empty list when CLIProxyAPI is not configured or unreachable (Groq is used)
+   */
+  router.get('/models', async (_req: Request, res: Response): Promise<void> => {
+    if (!isCliProxyConfigured()) {
+      res.json({ models: [], defaultModel: null });
+      return;
+    }
+
+    try {
+      const models = await listAllowedModels();
+      res.json({ models, defaultModel: getDefaultModel() });
+    } catch (error) {
+      console.error('Failed to list models:', error);
+      res.json({ models: [], defaultModel: null });
+    }
+  });
+
+  /**
    * POST / - Send chat message to Claude
    *
    * @route POST /api/chat
    * @body {Object} request - Chat request
    * @body {Array} request.messages - Array of chat messages
    * @body {string} [request.systemPrompt] - Optional system prompt override
+   * @body {string} [request.model] - Optional CLIProxyAPI model ID
    * @returns {Object} { message: string } - Claude's response
    * @throws {400} If request validation fails
    * @throws {408} If request times out
@@ -157,18 +219,33 @@ export function createChatRouter(): Router {
       systemPrompt = body.systemPrompt;
     }
 
+    // Validate optional model if provided (opus/fable and non-chat models are blocked)
+    let model: string | undefined;
+
+    if (body.model !== undefined) {
+      if (typeof body.model !== 'string' || !isModelAllowed(body.model)) {
+        res.status(400).json({
+          error: 'This model is not allowed',
+          statusCode: 400,
+        });
+        return;
+      }
+      model = body.model;
+    }
+
     try {
       const response = await sendChatMessage({
         messages: validation.validatedMessages,
         systemPrompt,
+        model,
       });
 
       res.json({ message: response });
     } catch (error) {
-      // Handle known Groq API errors
-      if (error instanceof GroqApiError) {
+      // Handle known AI provider errors
+      if (error instanceof GroqApiError || error instanceof CliProxyApiError) {
         // Log the error for debugging but send sanitized message to client
-        console.error(`Groq API Error: ${error.message}`, {
+        console.error(`${error.name}: ${error.message}`, {
           statusCode: error.statusCode,
           isTimeout: error.isTimeout,
         });

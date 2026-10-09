@@ -3,13 +3,61 @@
  * All API calls go through /api (backend proxy) - no API keys in frontend
  */
 
-import type { ChatMessage, ChatRequest, ChatResponse } from '@/types/api';
+import type { ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/types/api';
 
 /** Base URL for API endpoints */
 const API_BASE = '/api';
 
-/** Default timeout for API requests (5 seconds per NFR-003) */
-const REQUEST_TIMEOUT_MS = 5000;
+/** localStorage key for the user's selected AI model */
+const SELECTED_MODEL_STORAGE_KEY = 'english-tool:selected-model';
+
+/**
+ * Gets the user's selected AI model
+ * @returns Model ID, or null to use the server default
+ */
+export function getSelectedModel(): string | null {
+  try {
+    return localStorage.getItem(SELECTED_MODEL_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Saves the user's selected AI model
+ * @param model - Model ID to use for subsequent chat requests
+ */
+export function setSelectedModel(model: string): void {
+  try {
+    localStorage.setItem(SELECTED_MODEL_STORAGE_KEY, model);
+  } catch {
+    // Storage unavailable - selection only lasts for this request
+  }
+}
+
+/**
+ * Fetches the AI models the user may choose from
+ * @returns Allowed models and the server default; empty list on failure
+ */
+export async function fetchModels(): Promise<ModelsResponse> {
+  try {
+    const response = await fetch(`${API_BASE}/chat/models`);
+
+    if (!response.ok) {
+      return { models: [], defaultModel: null };
+    }
+
+    return (await response.json()) as ModelsResponse;
+  } catch {
+    return { models: [], defaultModel: null };
+  }
+}
+
+/**
+ * Default timeout for API requests
+ * Must exceed the server's CLIProxyAPI timeout (30s) plus Groq fallback time
+ */
+const REQUEST_TIMEOUT_MS = 45000;
 
 /** HTTP status codes for error handling */
 const HTTP_STATUS = {
@@ -93,9 +141,11 @@ export async function sendMessage(
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
+    const model = getSelectedModel();
     const requestBody: ChatRequest = {
       messages,
       ...(systemPrompt && { systemPrompt }),
+      ...(model && { model }),
     };
 
     const response = await fetch(`${API_BASE}/chat`, {
