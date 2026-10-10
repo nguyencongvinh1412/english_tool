@@ -1,0 +1,97 @@
+.spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  border: 3px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: spinner-turn 0.7s linear infinite;
+}
+
+@keyframes spinner-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progress {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  background-color: var(--surface-3);
+  border-radius: 999px;
+}
+
+.progress--sm {
+  height: 10px;
+}
+
+.progress__fill {
+  position: relative;
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  transition: width 0.6s var(--ease-out);
+}
+
+/* Glossy highlight strip, as on a candy-style bar */
+.progress__fill::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: rgb(255 255 255 / 35%);
+  border-radius: 999px;
+}
+
+.progress--sm .progress__fill::after {
+  display: none;
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: 2px solid;
+  border-radius: var(--radius-sm);
+}
+
+.banner > svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.banner__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.banner--info {
+  color: var(--link);
+  background: var(--exam-soft);
+  border-color: color-mix(in srgb, var(--exam) 45%, transparent);
+}
+
+.banner--success {
+  color: var(--success);
+  background: var(--success-soft);
+  border-color: color-mix(in srgb, var(--success) 40%, transparent);
+}
+
+.banner--warning {
+  color: var(--warning);
+  background: var(--warning-soft);
+  border-color: color-mix(in srgb, var(--warning) 40%, transparent);
+}
+
+.banner--danger {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 40%, transparent);
+}

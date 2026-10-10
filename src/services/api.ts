@@ -3,10 +3,13 @@
  * All API calls go through /api (backend proxy) - no API keys in frontend
  */
 
-import type { ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/types/api';
+import type { ChatContext, ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/types/api';
 
 /** Base URL for API endpoints */
 const API_BASE = '/api';
+
+/** Window event fired after each successful AI request */
+export const AI_USED_EVENT = 'english-tool:ai-used';
 
 /** localStorage key for the user's selected AI model */
 const SELECTED_MODEL_STORAGE_KEY = 'english-tool:selected-model';
@@ -58,6 +61,9 @@ export async function fetchModels(): Promise<ModelsResponse> {
  * Must exceed the server's CLIProxyAPI timeout (30s) plus Groq fallback time
  */
 const REQUEST_TIMEOUT_MS = 45000;
+
+/** Messages sent per chat request (the server's limit) */
+const MAX_CHAT_MESSAGES = 30;
 
 /** HTTP status codes for error handling */
 const HTTP_STATUS = {
@@ -111,7 +117,7 @@ function getStatusErrorMessage(statusCode: number): string {
  * Sends a message to the Claude AI and receives a response
  *
  * @param messages - Array of conversation messages
- * @param systemPrompt - Optional custom system prompt to override default
+ * @param context - Activity the chat belongs to; the server picks the system prompt
  * @returns Promise resolving to the assistant's response message
  * @throws ApiError if the request fails or times out
  *
@@ -133,18 +139,16 @@ function getStatusErrorMessage(statusCode: number): string {
  * }
  * ```
  */
-export async function sendMessage(
-  messages: ChatMessage[],
-  systemPrompt?: string
-): Promise<string> {
+export async function sendMessage(messages: ChatMessage[], context: ChatContext): Promise<string> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
     const model = getSelectedModel();
     const requestBody: ChatRequest = {
-      messages,
-      ...(systemPrompt && { systemPrompt }),
+      // The server accepts the most recent turns only
+      messages: messages.slice(-MAX_CHAT_MESSAGES),
+      context,
       ...(model && { model }),
     };
 
@@ -165,6 +169,8 @@ export async function sendMessage(
     }
 
     const data: ChatResponse = await response.json();
+    // Lets the app shell refresh the remaining AI quota
+    window.dispatchEvent(new Event(AI_USED_EVENT));
     return data.message;
   } catch (error) {
     // Re-throw ApiError as-is

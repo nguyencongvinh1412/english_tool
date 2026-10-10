@@ -1,0 +1,121 @@
+.btn {
+  --btn-face: var(--surface);
+  --btn-edge: var(--border-strong);
+  --btn-ink: var(--text);
+  --btn-border: var(--border-strong);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--btn-ink);
+  background-color: var(--btn-face);
+  border: 2px solid var(--btn-border);
+  border-bottom-width: calc(2px + var(--edge));
+  border-bottom-color: var(--btn-edge);
+  border-radius: var(--radius);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 0.08s ease,
+    border-bottom-width 0.08s ease,
+    filter 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+  text-decoration: none;
+}
+
+a.btn {
+  text-decoration: none;
+}
+
+/* Press down: the edge disappears and the face moves into its place */
+.btn:active:not(:disabled) {
+  transform: translateY(var(--edge));
+  border-bottom-width: 2px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  --btn-face: var(--surface-3);
+  --btn-edge: var(--border-strong);
+  --btn-border: var(--border-strong);
+  --btn-ink: var(--text-faint);
+}
+
+.btn--primary {
+  --btn-face: var(--brand);
+  --btn-edge: var(--brand-edge);
+  --btn-border: var(--brand);
+  --btn-ink: var(--brand-ink);
+}
+
+.btn--exam {
+  --btn-face: var(--exam);
+  --btn-edge: var(--exam-edge);
+  --btn-border: var(--exam);
+  --btn-ink: var(--exam-ink);
+}
+
+/* Fixed red in both themes so white text keeps >= 4.5:1 contrast */
+.btn--danger {
+  --btn-face: #d92d2d;
+  --btn-edge: #a81f1f;
+  --btn-border: #d92d2d;
+  --btn-ink: #ffffff;
+}
+
+.btn--secondary {
+  --btn-ink: var(--link);
+}
+
+.btn--ghost {
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border-color: transparent;
+  border-bottom-width: 2px;
+  background-color: transparent;
+  --btn-ink: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+
+.btn--ghost:active:not(:disabled) {
+  transform: none;
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+  --edge: 3px;
+}
+
+.btn--lg {
+  min-height: 56px;
+  padding: 0.75rem 1.75rem;
+  font-size: 1.0625rem;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}

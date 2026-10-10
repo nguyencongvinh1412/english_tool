@@ -3,15 +3,6 @@
  * Centralized configuration values to avoid magic strings/numbers
  */
 
-/** Route paths for navigation */
-export const ROUTES = {
-  HOME: '/',
-  CONVERSATION: '/conversation',
-  PRONUNCIATION: '/pronunciation',
-  SCENARIOS: '/scenarios',
-  DICTATION: '/dictation',
-} as const;
-
 /** API endpoints */
 export const API_ENDPOINTS = {
   HEALTH: '/api/health',

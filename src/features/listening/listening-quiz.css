@@ -1,0 +1,130 @@
+.lq-player {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  max-width: 820px;
+}
+
+.lq-play {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  color: #ffffff;
+  background: var(--listening-edge);
+  border: none;
+  border-bottom: 6px solid color-mix(in srgb, var(--listening-edge) 70%, #000);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+.lq-play:active {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+}
+
+.lq-play--on {
+  background: #d92d2d;
+  border-bottom-color: #a81f1f;
+}
+
+.lq-player__meta {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.lq-player__title {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.lq-player__sub {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.lq-wave {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  margin-top: 0.375rem;
+}
+
+.lq-wave span {
+  width: 5px;
+  height: 100%;
+  background: var(--listening);
+  border-radius: 999px;
+  animation: lq-wave 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes lq-wave {
+  from {
+    transform: scaleY(0.25);
+  }
+}
+
+.lq-transcript__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.lq-transcript__title {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.lq-transcript__locked {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.lq-lines {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lq-line {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.75rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--radius-sm);
+}
+
+.lq-line__speaker {
+  font-weight: 800;
+  color: var(--listening-edge);
+}
+
+.lq-line--B .lq-line__speaker {
+  color: var(--speaking-edge);
+}
+
+@media (prefers-color-scheme: dark) {
+  .lq-line__speaker {
+    color: #d7b4ff;
+  }
+
+  .lq-line--B .lq-line__speaker {
+    color: var(--speaking);
+  }
+}
+
+.lq-line--active {
+  background: var(--listening-soft);
+}

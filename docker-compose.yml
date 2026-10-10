@@ -1,0 +1,106 @@
+# English Tool - local stack
+# Full stack:     docker compose up -d --build   -> http://localhost:3003
+# DB only (dev):  docker compose up -d db && npm run dev
+#
+# The app reaches the separately-run CLIProxyAPI container through the host:
+# CLIPROXY_BASE_URL=http://host.docker.internal:8317
+name: english-tool
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: english-tool-db
+    environment:
+      POSTGRES_DB: english_tool
+      POSTGRES_USER: english
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - english-tool-pgdata:/var/lib/postgresql/data
+      # Creates english_tool_test for the test suite on first start
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      # Exposed on localhost only, for `npm run dev` and DB tools
+      - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U english -d english_tool"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - english-tool-net
+
+  tts:
+    # Kokoro text-to-speech (Apache 2.0), OpenAI-compatible /v1/audio/speech, runs on CPU
+    image: ghcr.io/remsky/kokoro-fastapi-cpu:v0.2.4
+    container_name: english-tool-tts
+    ports:
+      # Exposed on localhost only, for `npm run dev`
+      - "127.0.0.1:8880:8880"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8880/v1/audio/voices', timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - english-tool-net
+
+  app:
+    build: .
+    image: english-tool-app
+    container_name: english-tool-app
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      DATABASE_URL: postgres://english:${DB_PASSWORD}@db:5432/english_tool
+      CLIPROXY_BASE_URL: http://host.docker.internal:8317
+      TTS_BASE_URL: http://tts:8880
+      TTS_CACHE_DIR: /data/tts-cache
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - english-tool-tts-cache:/data/tts-cache
+      - english-tool-uploads:/data/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:3003:3002"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - english-tool-net
+
+  # Cloudflare Tunnel: exposes the AI proxy and Kokoro to the deployed app (Render) only.
+  # Start with: docker compose --profile tunnel up -d tunnel  (needs TUNNEL_TOKEN in .env)
+  # Public hostnames are configured in the Cloudflare dashboard and protected by Cloudflare Access.
+  tunnel:
+    image: cloudflare/cloudflared:2024.12.2
+    container_name: english-tool-tunnel
+    profiles: ["tunnel"]
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      tts:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - english-tool-net
+
+volumes:
+  english-tool-pgdata:
+    name: english-tool-pgdata
+  english-tool-tts-cache:
+    name: english-tool-tts-cache
+  english-tool-uploads:
+    name: english-tool-uploads
+
+networks:
+  english-tool-net:
+    name: english-tool-net

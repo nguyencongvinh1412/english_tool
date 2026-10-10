@@ -20,15 +20,6 @@ const LEVEL_GUIDANCE: Record<Difficulty, string> = {
   hard: 'CEFR C1. 5-7 sentences, 14-22 words each, natural academic or professional vocabulary.',
 };
 
-/** System prompt forcing a strict JSON response */
-const GENERATOR_PROMPT = `You write short English listening passages for dictation practice for Vietnamese learners.
-Rules:
-- The passage must be coherent, natural, and factually reasonable.
-- Write every number as words (e.g. "twenty", not "20").
-- Do not use abbreviations, symbols, emojis, or quotation marks inside sentences.
-- Respond with ONLY a JSON object, no markdown, no explanation:
-{"title": "<short title>", "sentences": ["<sentence 1>", "<sentence 2>", ...]}`;
-
 /** Shape of the AI's JSON response */
 interface GeneratedLesson {
   title?: unknown;
@@ -87,7 +78,7 @@ export async function generateDictationLesson(
   const request = `Topic: ${topic}
 Level: ${LEVEL_GUIDANCE[difficulty]}`;
 
-  const response = await sendMessage([{ role: 'user', content: request }], GENERATOR_PROMPT);
+  const response = await sendMessage([{ role: 'user', content: request }], { mode: 'dictation' });
 
   let lesson: { title: string; sentences: string[] };
   try {

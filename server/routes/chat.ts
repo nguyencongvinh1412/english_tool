@@ -4,150 +4,37 @@
  * Uses CLIProxyAPI when configured, falling back to Groq when the proxy is unavailable
  */
 import { Router, Request, Response } from 'express';
-import {
-  sendChatMessage as sendGroqMessage,
-  GroqApiError,
-  type ChatMessage,
-} from '../services/groq.js';
-import {
-  sendChatMessage as sendCliProxyMessage,
-  isCliProxyConfigured,
-  isModelAllowed,
-  getDefaultModel,
-  listAllowedModels,
-  CliProxyApiError,
-  type ChatRequest,
-} from '../services/cliproxy.js';
+import { z } from 'zod';
+import { GroqApiError, type ChatMessage } from '../services/groq.js';
+import { isCliProxyConfigured, listAllowedModels, getDefaultModel, CliProxyApiError } from '../services/cliproxy.js';
+import { sendWithFallback } from '../services/ai.js';
+import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
+import { assertQuota, getAllowedModels, recordUsage, resolveModel } from '../services/aiAccess.js';
+import { chatContextSchema, chatSystemPrompt } from '../content/chatPrompts.js';
 
-/**
- * Sends a chat message via CLIProxyAPI, falling back to Groq if the proxy is unavailable
- *
- * @param request - Chat request containing messages and optional system prompt
- * @returns Promise resolving to the assistant's response content
- */
-async function sendChatMessage(request: ChatRequest): Promise<string> {
-  if (!isCliProxyConfigured()) {
-    return sendGroqMessage(request);
-  }
+/** Usage feature key for free-form chat requests */
+const CHAT_FEATURE = 'chat';
 
-  try {
-    return await sendCliProxyMessage(request);
-  } catch (error) {
-    // Only fall back when the proxy itself is down (tunnel offline, machine asleep, upstream 5xx)
-    if (
-      !(error instanceof CliProxyApiError) ||
-      !error.isUnavailable ||
-      !process.env.GROQ_API_KEY
-    ) {
-      throw error;
-    }
+/** Sends via CLIProxyAPI with Groq fallback (shared with server-side AI features) */
+const sendChatMessage = sendWithFallback;
 
-    console.warn(`CLIProxyAPI unavailable (${error.message}), falling back to Groq`);
-    return sendGroqMessage(request);
-  }
-}
+/** Messages kept from a conversation; the client sends only the most recent ones */
+const MAX_MESSAGES = 30;
+/** Characters per message and per request, so one request cannot carry a huge document */
+const MAX_MESSAGE_CHARS = 2000;
+const MAX_TOTAL_CHARS = 20000;
 
-/** Minimum messages required in request */
-const MIN_MESSAGES_REQUIRED = 1;
-
-/** Maximum messages allowed in single request */
-const MAX_MESSAGES_ALLOWED = 100;
-
-/** Maximum content length per message (characters) */
-const MAX_CONTENT_LENGTH = 10000;
-
-/**
- * Request body type for chat endpoint
- */
-interface ChatRequestBody {
-  messages?: unknown;
-  systemPrompt?: unknown;
-  model?: unknown;
-}
-
-/**
- * Validates that messages array is properly formatted
- *
- * @param messages - Messages to validate
- * @returns Object with isValid flag and optional error message
- */
-function validateMessages(
-  messages: unknown
-): { isValid: boolean; error?: string; validatedMessages?: ChatMessage[] } {
-  // Check if messages exists and is an array
-  if (!messages) {
-    return { isValid: false, error: 'Messages array is required' };
-  }
-
-  if (!Array.isArray(messages)) {
-    return { isValid: false, error: 'Messages must be an array' };
-  }
-
-  // Check minimum length
-  if (messages.length < MIN_MESSAGES_REQUIRED) {
-    return { isValid: false, error: 'At least one message is required' };
-  }
-
-  // Check maximum length
-  if (messages.length > MAX_MESSAGES_ALLOWED) {
-    return {
-      isValid: false,
-      error: `Maximum ${MAX_MESSAGES_ALLOWED} messages allowed`,
-    };
-  }
-
-  // Validate each message structure
-  const validatedMessages: ChatMessage[] = [];
-
-  for (let i = 0; i < messages.length; i++) {
-    const msg = messages[i];
-
-    // Check message is an object
-    if (typeof msg !== 'object' || msg === null) {
-      return { isValid: false, error: `Message at index ${i} is invalid` };
-    }
-
-    const messageObj = msg as Record<string, unknown>;
-
-    // Validate role
-    if (messageObj.role !== 'user' && messageObj.role !== 'assistant') {
-      return {
-        isValid: false,
-        error: `Message at index ${i} has invalid role. Must be 'user' or 'assistant'`,
-      };
-    }
-
-    // Validate content
-    if (typeof messageObj.content !== 'string') {
-      return {
-        isValid: false,
-        error: `Message at index ${i} must have string content`,
-      };
-    }
-
-    // Validate content length
-    if (messageObj.content.length === 0) {
-      return {
-        isValid: false,
-        error: `Message at index ${i} cannot have empty content`,
-      };
-    }
-
-    if (messageObj.content.length > MAX_CONTENT_LENGTH) {
-      return {
-        isValid: false,
-        error: `Message at index ${i} exceeds maximum length of ${MAX_CONTENT_LENGTH} characters`,
-      };
-    }
-
-    validatedMessages.push({
-      role: messageObj.role,
-      content: messageObj.content,
-    });
-  }
-
-  return { isValid: true, validatedMessages };
-}
+const chatBodySchema = z.object({
+  messages: z
+    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }))
+    .min(1)
+    .max(MAX_MESSAGES)
+    .refine((messages) => messages.reduce((sum, m) => sum + m.content.length, 0) <= MAX_TOTAL_CHARS, 'The conversation is too long')
+    .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
+  /** Which activity the chat belongs to; the server builds the system prompt from it */
+  context: chatContextSchema,
+  model: z.string().max(100).optional(),
+});
 
 /**
  * Creates the chat router with POST endpoint
@@ -155,23 +42,31 @@ function validateMessages(
  */
 export function createChatRouter(): Router {
   const router = Router();
+  router.use(requireAuth);
 
   /**
-   * GET /models - List models the client may choose from
+   * GET /models - List models the signed-in user may choose from
    *
    * @route GET /api/chat/models
    * @returns {Object} { models: string[], defaultModel: string | null }
+   *   Only models the user is assigned AND the proxy currently offers.
    *   Empty list when CLIProxyAPI is not configured or unreachable (Groq is used)
    */
-  router.get('/models', async (_req: Request, res: Response): Promise<void> => {
+  router.get('/models', async (req: Request, res: Response): Promise<void> => {
     if (!isCliProxyConfigured()) {
       res.json({ models: [], defaultModel: null });
       return;
     }
 
+    const user = currentUser(req);
+
     try {
-      const models = await listAllowedModels();
-      res.json({ models, defaultModel: getDefaultModel() });
+      const proxyModels = await listAllowedModels();
+      const assigned = getAllowedModels(user);
+      const models = assigned === null ? proxyModels : assigned.filter((m) => proxyModels.includes(m));
+      const preferred = assigned === null ? getDefaultModel() : models[0];
+
+      res.json({ models, defaultModel: models.includes(preferred) ? preferred : (models[0] ?? null) });
     } catch (error) {
       console.error('Failed to list models:', error);
       res.json({ models: [], defaultModel: null });
@@ -183,63 +78,32 @@ export function createChatRouter(): Router {
    *
    * @route POST /api/chat
    * @body {Object} request - Chat request
-   * @body {Array} request.messages - Array of chat messages
-   * @body {string} [request.systemPrompt] - Optional system prompt override
+   * @body {Array} request.messages - Recent chat messages (the last one from the user)
+   * @body {Object} request.context - Activity: conversation (topic), scenario (roles), pronunciation or dictation
    * @body {string} [request.model] - Optional CLIProxyAPI model ID
    * @returns {Object} { message: string } - Claude's response
    * @throws {400} If request validation fails
    * @throws {408} If request times out
    * @throws {500} If internal error occurs
    */
-  router.post('/', async (req: Request, res: Response): Promise<void> => {
-    const body = req.body as ChatRequestBody;
+  router.post('/', limitAiRequests, async (req: Request, res: Response): Promise<void> => {
+    const body = chatBodySchema.parse(req.body);
 
-    // Validate messages
-    const validation = validateMessages(body.messages);
-
-    if (!validation.isValid || !validation.validatedMessages) {
-      res.status(400).json({
-        error: validation.error,
-        statusCode: 400,
-      });
-      return;
-    }
-
-    // Validate optional systemPrompt if provided
-    let systemPrompt: string | undefined;
-
-    if (body.systemPrompt !== undefined) {
-      if (typeof body.systemPrompt !== 'string') {
-        res.status(400).json({
-          error: 'System prompt must be a string',
-          statusCode: 400,
-        });
-        return;
-      }
-      systemPrompt = body.systemPrompt;
-    }
-
-    // Validate optional model if provided (opus/fable and non-chat models are blocked)
-    let model: string | undefined;
-
-    if (body.model !== undefined) {
-      if (typeof body.model !== 'string' || !isModelAllowed(body.model)) {
-        res.status(400).json({
-          error: 'This model is not allowed',
-          statusCode: 400,
-        });
-        return;
-      }
-      model = body.model;
-    }
+    // Enforce the user's model allowlist (opus/fable are always blocked) and daily quota
+    const user = currentUser(req);
+    const model = resolveModel(user, body.model);
+    await assertQuota(user);
+    const messages: ChatMessage[] = body.messages;
+    const systemPrompt = chatSystemPrompt(body.context, user.uiLocale);
 
     try {
       const response = await sendChatMessage({
-        messages: validation.validatedMessages,
+        messages,
         systemPrompt,
         model,
       });
 
+      await recordUsage(user, CHAT_FEATURE);
       res.json({ message: response });
     } catch (error) {
       // Handle known AI provider errors

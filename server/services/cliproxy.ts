@@ -3,6 +3,7 @@
  * Handles communication with a self-hosted CLIProxyAPI instance
  * via its OpenAI-compatible /v1/chat/completions endpoint
  */
+import { upstreamAccessHeaders } from '../config.js';
 
 /** Default model - fast enough for conversational practice */
 const DEFAULT_MODEL = 'claude-haiku-5-5';
@@ -53,9 +54,13 @@ export type MessageRole = 'user' | 'assistant';
 /**
  * Single message in a chat conversation
  */
+/** Text or image part of a multimodal message (OpenAI format) */
+export type ContentPart = { type: 'text'; text: string } | { type: 'image_url'; image_url: { url: string } };
+
 export interface ChatMessage {
   role: MessageRole;
-  content: string;
+  /** Plain text, or text and image parts for vision-capable models */
+  content: string | ContentPart[];
 }
 
 /**
@@ -66,6 +71,8 @@ export interface ChatRequest {
   systemPrompt?: string;
   /** Model ID override; falls back to CLIPROXY_MODEL or DEFAULT_MODEL */
   model?: string;
+  /** Overrides the default request timeout, for long outputs like essay scoring */
+  timeoutMs?: number;
 }
 
 /**
@@ -152,7 +159,7 @@ export async function listAllowedModels(): Promise<string[]> {
 
   try {
     const response = await fetch(buildEndpointUrl('/v1/models'), {
-      headers: { Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}` },
+      headers: { Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}`, ...upstreamAccessHeaders() },
       signal: AbortSignal.timeout(MODELS_TIMEOUT_MS),
     });
 
@@ -204,6 +211,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}`,
+        ...upstreamAccessHeaders(),
       },
       body: JSON.stringify({
         model,
@@ -214,7 +222,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
           ...request.messages,
         ],
       }),
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(request.timeoutMs ?? REQUEST_TIMEOUT_MS),
     });
   } catch (error) {
     // Timeout from AbortSignal.timeout

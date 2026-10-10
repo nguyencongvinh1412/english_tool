@@ -1,22 +1,63 @@
-# Render Blueprint Configuration
-# Deploy both frontend and backend as a single web service
-# https://render.com/docs/blueprint-spec
-
+# Render Blueprint: the web app as a Docker service.
+# Database and files live on Supabase; AI and voices are reached through a Cloudflare Tunnel to the
+# Mac running CLIProxyAPI and Kokoro. Secrets are entered in the Render dashboard (sync: false).
 services:
   - type: web
+    # Same name as the earlier blueprint, so an existing service is updated instead of duplicated
     name: english-learning-tool
-    runtime: node
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    # Singapore is the closest region to Vietnam. "free" sleeps after 15 idle minutes (first visit then
+    # takes ~1 minute); switch to "starter" (paid) to keep it awake.
+    region: singapore
     plan: free
-    buildCommand: npm install --include=dev && npm run build
-    startCommand: npm start
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: GROQ_API_KEY
-        sync: false  # Manual entry required in Render dashboard (fallback provider)
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+      # Supabase Postgres: transaction pooler for the app, direct/session URL for migrations
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_MIGRATION_URL
+        sync: false
+      # Supabase Storage through its S3 API
+      - key: STORAGE_DRIVER
+        value: s3
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_REGION
+        sync: false
+      - key: S3_BUCKET
+        value: media
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      # AI proxy and Kokoro on the Mac, behind Cloudflare Access
       - key: CLIPROXY_BASE_URL
-        sync: false  # Public tunnel URL of local CLIProxyAPI, e.g. https://cliproxy.example.com
+        sync: false
       - key: CLIPROXY_API_KEY
-        sync: false  # One of access.api-keys in CLIProxyAPI config.yaml
+        sync: false
       - key: CLIPROXY_MODEL
-        value: claude-haiku-5-5
+        sync: false
+      - key: TTS_BASE_URL
+        sync: false
+      - key: UPSTREAM_ACCESS_CLIENT_ID
+        sync: false
+      - key: UPSTREAM_ACCESS_CLIENT_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      # First admin account (created once when no admin exists)
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: LEARNER_DAILY_AI_LIMIT
+        value: "100"
+      - key: LEARNER_MODELS
+        sync: false

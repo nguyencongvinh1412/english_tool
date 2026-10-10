@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791517930496,
+      "tag": "0000_init_auth",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791537619697,
+      "tag": "0001_profile_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791543567735,
+      "tag": "0002_attempts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791561833122,
+      "tag": "0003_content_items",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791564774624,
+      "tag": "0004_exam_sessions",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791567974357,
+      "tag": "0005_imports_media",
+      "breakpoints": true
+    }
+  ]
+}
