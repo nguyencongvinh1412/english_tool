@@ -13,7 +13,11 @@ export type Activity =
   | 'speaking-ielts'
   | 'writing-task'
   | 'toeic-listening'
-  | 'toeic-reading';
+  | 'toeic-reading'
+  | 'ielts-listening'
+  | 'ielts-reading'
+  | 'ielts-writing'
+  | 'ielts-speaking';
 export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 
 export interface AttemptInput {

@@ -3,23 +3,19 @@
  * Focused, full-screen test runner (timer, autosave, navigator, submit) and the result review
  */
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Banner, Button, Card, Icon, Modal, ProgressBar, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { errorMessage } from '@/shared/http';
-import { useProgress } from '@/shared/progress';
-import { examApi, groupQuestionIds, type ExamSession, type ToeicPart } from '@/shared/examApi';
+import { apiFetch, errorMessage } from '@/shared/http';
+import { groupQuestionIds, type ExamSession, type ToeicPart } from '@/shared/examApi';
 import { ROUTES } from '@/app/routes';
 import { LocaleToggle } from '@/app/LocaleToggle';
 import { ExamGroupView } from './ExamGroupView';
+import { IeltsSessionScreen } from './IeltsSession';
+import type { IeltsSession } from '@/shared/ieltsApi';
+import { formatClock, useExamRunner } from './useExamRunner';
 import './exams.css';
-
-/** Wait after the last change before autosaving (ms) */
-const SAVE_DEBOUNCE_MS = 800;
-const SAVE_RETRY_MS = 4000;
-
-type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
 interface FlatGroup {
   part: ToeicPart;
@@ -44,23 +40,17 @@ function flatten(session: ExamSession): FlatGroup[] {
   );
 }
 
-const formatClock = (sec: number) => {
-  const h = Math.floor(sec / 3600);
-  const m = Math.floor((sec % 3600) / 60);
-  const s = sec % 60;
-  return `${h > 0 ? `${h}:` : ''}${String(m).padStart(h > 0 ? 2 : 1, '0')}:${String(s).padStart(2, '0')}`;
-};
-
 /**
  * Test runner for an in-progress session
  */
 const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSession) => void }> = ({ session, onSubmitted }) => {
   const { t } = useI18n();
-  const { celebrate } = useProgress();
   const groups = useMemo(() => flatten(session), [session]);
   const allIds = useMemo(() => groups.flatMap((g) => g.questionIds), [groups]);
-  const [answers, setAnswers] = useState<Record<string, number>>(session.answers);
-  const [flags, setFlags] = useState<string[]>(session.flags);
+  const { answers, flags, answer, toggleFlag, saveState, secondsLeft, submit: submitNow, isSubmitting, error } = useExamRunner<number, ExamSession>(
+    session,
+    onSubmitted
+  );
   // Remember the current group across reloads of this tab
   const positionKey = `english-tool:exam-position:${session.id}`;
   const [index, setIndex] = useState(() => {
@@ -80,106 +70,14 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
     }
   }, [positionKey, index]);
   const [played, setPlayed] = useState<Set<string>>(new Set());
-  const [saveState, setSaveState] = useState<SaveState>('idle');
-  const [now, setNow] = useState(() => Date.now());
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<unknown>(null);
-  const pending = useRef<{ answers: Record<string, number | null>; flags?: string[] }>({ answers: {} });
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const deadline = Date.parse(session.deadline);
-  const secondsLeft = Math.max(0, Math.round((deadline - now) / 1000));
   const current = groups[index];
   const unanswered = allIds.filter((id) => answers[id] === undefined).length;
 
-  const flush = useCallback(async () => {
-    const batch = pending.current;
-    if (Object.keys(batch.answers).length === 0 && !batch.flags) return;
-    pending.current = { answers: {} };
-    setSaveState('saving');
-    try {
-      await examApi.save(session.id, batch.answers, batch.flags);
-      setSaveState('saved');
-    } catch {
-      // Put the batch back (newer edits win); the retry effect below tries again
-      pending.current = { answers: { ...batch.answers, ...pending.current.answers }, flags: pending.current.flags ?? batch.flags };
-      setSaveState('error');
-    }
-  }, [session.id]);
-
-  // Retry a failed save after a pause
-  useEffect(() => {
-    if (saveState !== 'error') return;
-    const id = setTimeout(() => void flush(), SAVE_RETRY_MS);
-    return () => clearTimeout(id);
-  }, [saveState, flush]);
-
-  const scheduleSave = useCallback(() => {
-    if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => void flush(), SAVE_DEBOUNCE_MS);
-  }, [flush]);
-
-  const submit = useCallback(async () => {
-    setIsSubmitting(true);
+  const submit = () => {
     setConfirmOpen(false);
-    setError(null);
-    try {
-      if (saveTimer.current) clearTimeout(saveTimer.current);
-      await flush();
-      const result = await examApi.submit(session.id);
-      celebrate(result.xpEarned);
-      onSubmitted(result.session);
-    } catch (err) {
-      setError(err);
-      setIsSubmitting(false);
-    }
-  }, [flush, session.id, celebrate, onSubmitted]);
-
-  // Latest submit for the clock callback
-  const submitRef = useRef(submit);
-  useEffect(() => {
-    submitRef.current = submit;
-  });
-
-  // Clock, and auto-submit once at the deadline
-  const autoSubmitted = useRef(false);
-  useEffect(() => {
-    const id = setInterval(() => {
-      const tick = Date.now();
-      setNow(tick);
-      if (tick >= deadline && !autoSubmitted.current) {
-        autoSubmitted.current = true;
-        void submitRef.current();
-      }
-    }, 1000);
-    return () => clearInterval(id);
-  }, [deadline]);
-
-  // Save before the tab closes
-  useEffect(() => {
-    const onHide = () => void flush();
-    window.addEventListener('pagehide', onHide);
-    return () => {
-      window.removeEventListener('pagehide', onHide);
-      if (saveTimer.current) clearTimeout(saveTimer.current);
-      void flush();
-    };
-  }, [flush]);
-
-  const answer = (questionId: string, choice: number) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: choice }));
-    pending.current.answers[questionId] = choice;
-    scheduleSave();
-  };
-
-  const toggleFlag = (questionId: string) => {
-    setFlags((prev) => {
-      const next = prev.includes(questionId) ? prev.filter((id) => id !== questionId) : [...prev, questionId];
-      pending.current.flags = next;
-      return next;
-    });
-    scheduleSave();
+    void submitNow();
   };
 
   const goTo = (groupIndex: number, questionId?: string) => {
@@ -399,12 +297,11 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
 export const ExamSessionPage: React.FC = () => {
   const { t } = useI18n();
   const { sessionId = '' } = useParams();
-  const [session, setSession] = useState<ExamSession | null>(null);
+  const [session, setSession] = useState<ExamSession | IeltsSession | null>(null);
   const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
-    examApi
-      .get(sessionId)
+    apiFetch<{ session: ExamSession | IeltsSession }>(`/api/exams/sessions/${sessionId}`)
       .then(({ session: loaded }) => setSession(loaded))
       .catch(setError);
   }, [sessionId]);
@@ -425,6 +322,8 @@ export const ExamSessionPage: React.FC = () => {
       </div>
     );
   }
+
+  if (session.exam === 'ielts') return <IeltsSessionScreen session={session} onChange={setSession} />;
 
   return session.status === 'submitted' ? (
     <ExamResultView session={session} />

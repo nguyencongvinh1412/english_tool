@@ -1,6 +1,6 @@
 /**
  * Exam Routes
- * TOEIC mock tests: catalog, start a session, autosave answers, submit and review.
+ * TOEIC and IELTS mock tests: catalog, start a session, autosave answers, submit and review.
  * Answers stay on the server until the session is submitted.
  */
 import { Router } from 'express';
@@ -32,28 +32,68 @@ import {
   type ToeicPart,
 } from '../exams/toeic.js';
 import { generateGroups } from '../exams/bank.js';
+import {
+  FULL_TEST_GROUPS,
+  IELTS_PARTS,
+  IELTS_SLOTS,
+  assembleIelts,
+  gradeIeltsSession,
+  ieltsBankCounts,
+  ieltsSessionView,
+  ieltsTimeLimit,
+  loadIeltsGroups,
+  scoreIeltsObjective,
+  type IeltsBlueprint,
+  type IeltsMode,
+  type IeltsPart,
+  type IeltsResult,
+  type IeltsSlot,
+} from '../exams/ielts.js';
+import { generateIeltsGroups } from '../exams/ieltsBank.js';
 
 /** Missing groups a learner may generate on the spot when starting a test */
 const ON_DEMAND_GROUP_LIMIT = 6;
 const MAX_FILL_PER_REQUEST = 10;
 const HISTORY_LIMIT = 30;
 
+/** Model the learner picked in the sidebar, for generation and grading */
+const modelSchema = z.string().max(100).optional();
+
 const partSchema = z.coerce.number().pipe(z.union(TOEIC_PARTS.map((p) => z.literal(p)) as [z.ZodLiteral<2>, ...z.ZodLiteral<ToeicPart>[]]));
 
 const startSchema = z
-  .object({ mode: z.enum(['mini', 'part', 'full', 'official']), part: partSchema.optional(), importId: z.uuid().optional() })
+  .object({ mode: z.enum(['mini', 'part', 'full', 'official']), part: partSchema.optional(), importId: z.uuid().optional(), model: modelSchema })
   .refine((body) => body.mode !== 'part' || body.part !== undefined, { message: 'part is required', path: ['part'] })
   .refine((body) => body.mode !== 'official' || body.importId !== undefined, { message: 'importId is required', path: ['importId'] });
 
+/** IELTS gap answers, essays and speaking transcripts are text */
+const MAX_TEXT_ANSWER = 8000;
+/** IELTS groups are long to generate, so only a couple are made on the spot */
+const IELTS_ON_DEMAND_LIMIT = 2;
+
 const saveSchema = z.object({
-  answers: z.record(z.string().max(120), z.number().int().min(0).max(3).nullable()).optional(),
+  answers: z.record(z.string().max(120), z.union([z.number().int().min(0).max(3), z.string().max(MAX_TEXT_ANSWER)]).nullable()).optional(),
   flags: z.array(z.string().max(120)).max(250).optional(),
 });
+
+const ieltsStartSchema = z
+  .object({ mode: z.enum(['mini', 'part', 'full']), part: z.enum(IELTS_PARTS).optional(), model: modelSchema })
+  .refine((body) => body.mode !== 'part' || body.part !== undefined, { message: 'part is required', path: ['part'] });
+
+const ieltsFillSchema = z.object({
+  slot: z.enum(IELTS_SLOTS),
+  count: z.number().int().min(1).max(5),
+  level: z.enum(CEFR_LEVELS).default('B2'),
+  model: modelSchema,
+});
+
+const gradeSchema = z.object({ model: modelSchema }).default({});
 
 const fillSchema = z.object({
   part: partSchema,
   count: z.number().int().min(1).max(MAX_FILL_PER_REQUEST),
   level: z.enum(CEFR_LEVELS).default('B1'),
+  model: modelSchema,
 });
 
 /**
@@ -93,11 +133,68 @@ async function loadSession(id: string, userId: string): Promise<ExamSession> {
   return session;
 }
 
+/**
+ * Scores and closes a session of either exam
+ */
+function submitSession(session: ExamSession, model?: string): Promise<{ session: ExamSession; xpEarned: number }> {
+  return session.exam === 'ielts' ? submitIelts(session, model) : submitToeic(session);
+}
 
 /**
- * Scores and closes a session, recording one attempt per tested section
+ * Closes an IELTS session: listening and reading are scored now, writing and speaking are graded in the background
  */
-async function submitSession(session: ExamSession): Promise<{ session: ExamSession; xpEarned: number }> {
+async function submitIelts(session: ExamSession, model?: string): Promise<{ session: ExamSession; xpEarned: number }> {
+  const blueprint = session.blueprint as IeltsBlueprint;
+  const result = scoreIeltsObjective(blueprint, await loadIeltsGroups(blueprint), session.answers as Record<string, number | string>);
+
+  const [closed] = await db
+    .update(examSessions)
+    .set({ status: 'submitted', submittedAt: new Date(), updatedAt: new Date(), result })
+    .where(and(eq(examSessions.id, session.id), eq(examSessions.status, 'in_progress')))
+    .returning();
+
+  if (!closed) {
+    const [current] = await db.select().from(examSessions).where(eq(examSessions.id, session.id));
+    return { session: current, xpEarned: 0 };
+  }
+
+  const durationSec = Math.round((Date.now() - session.startedAt.getTime()) / 1000);
+  const label = session.mode === 'part' ? 'IELTS practice' : `IELTS ${session.mode} test`;
+  let xpEarned = 0;
+  for (const name of ['listening', 'reading'] as const) {
+    const section = result[name];
+    if (!section) continue;
+    const recorded = await recordAttempt(session.userId, {
+      activity: name === 'listening' ? 'ielts-listening' : 'ielts-reading',
+      contentRef: session.id,
+      title: `${label} · ${name === 'listening' ? 'Listening' : 'Reading'}`,
+      score: section.correct,
+      maxScore: section.total,
+      durationSec,
+      details: { mode: session.mode, band: section.band },
+    });
+    xpEarned += recorded.xpEarned;
+  }
+
+  if (result.writing || result.speaking) void gradeIeltsSession(session.id, model);
+  return { session: closed, xpEarned };
+}
+
+/**
+ * Session as the client sees it, for either exam
+ */
+async function viewOf(session: ExamSession) {
+  if (session.exam === 'ielts') {
+    return ieltsSessionView(session, await loadIeltsGroups(session.blueprint as IeltsBlueprint));
+  }
+  const blueprint = session.blueprint as Blueprint;
+  return { ...sessionView(session, await loadGroups(blueprint)), title: await titleOf(blueprint) };
+}
+
+/**
+ * Scores and closes a TOEIC session, recording one attempt per tested section
+ */
+async function submitToeic(session: ExamSession): Promise<{ session: ExamSession; xpEarned: number }> {
   const blueprint = session.blueprint as Blueprint;
   const groups = await loadGroups(blueprint);
   const result = scoreSession(blueprint, groups, session.answers as Record<string, number>);
@@ -253,7 +350,7 @@ export function createExamRouter(): Router {
       }
 
       const requests = Object.entries(assembled.missing).map(([p, count]) => ({ part: Number(p) as ToeicPart, count: count ?? 0 }));
-      const { failed } = await generateGroups(user, requests, 'B1', 'exam-generate');
+      const { failed } = await generateGroups(user, requests, 'B1', 'exam-generate', body.model);
       if (failed > 0) {
         throw new HttpError(502, 'Could not prepare all questions. Please try again.', 'ai_invalid_output');
       }
@@ -268,7 +365,7 @@ export function createExamRouter(): Router {
       .values({ userId: user.id, exam: 'toeic', mode, blueprint: assembled.blueprint, timeLimitSec: timeLimitFor(mode, part) })
       .returning();
 
-    res.status(201).json({ session: sessionView(session, await loadGroups(assembled.blueprint)) });
+    res.status(201).json({ session: await viewOf(session) });
   });
 
   /**
@@ -289,9 +386,10 @@ export function createExamRouter(): Router {
         id: s.id,
         exam: s.exam,
         mode: s.mode,
-        parts: (s.blueprint as Blueprint).sections.map((sec) => sec.part),
-        importId: (s.blueprint as Blueprint).importId ?? null,
-        title: await titleOf(s.blueprint as Blueprint),
+        parts: s.exam === 'toeic' ? (s.blueprint as Blueprint).sections.map((sec) => sec.part) : [],
+        components: s.exam === 'ielts' ? (s.blueprint as IeltsBlueprint).sections.map((sec) => sec.component) : [],
+        importId: s.exam === 'toeic' ? ((s.blueprint as Blueprint).importId ?? null) : null,
+        title: s.exam === 'toeic' ? await titleOf(s.blueprint as Blueprint) : null,
         status: s.status,
         startedAt: s.startedAt,
         submittedAt: s.submittedAt,
@@ -306,7 +404,7 @@ export function createExamRouter(): Router {
    */
   router.get('/exams/sessions/:id', requireAuth, async (req, res) => {
     const session = await expireIfOverdue(await loadSession(String(req.params.id), currentUser(req).id));
-    res.json({ session: { ...sessionView(session, await loadGroups(session.blueprint as Blueprint)), title: await titleOf(session.blueprint as Blueprint) } });
+    res.json({ session: await viewOf(session) });
   });
 
   /**
@@ -320,7 +418,7 @@ export function createExamRouter(): Router {
     if (session.status !== 'in_progress') throw new HttpError(409, 'This test has already been submitted.', 'already_submitted');
     if (Date.now() > deadlineMs(session)) throw new HttpError(409, 'Time is up for this test.', 'time_up');
 
-    const answers = { ...(session.answers as Record<string, number>) };
+    const answers = { ...(session.answers as Record<string, number | string>) };
     for (const [questionId, choice] of Object.entries(body.answers ?? {})) {
       if (choice === null) delete answers[questionId];
       else answers[questionId] = choice;
@@ -338,9 +436,91 @@ export function createExamRouter(): Router {
    * POST /exams/sessions/:id/submit - Score the test and reveal the review
    */
   router.post('/exams/sessions/:id/submit', requireAuth, async (req, res) => {
+    const { model } = gradeSchema.parse(req.body ?? {});
     const session = await loadSession(String(req.params.id), currentUser(req).id);
-    const { session: closed, xpEarned } = await submitSession(session);
-    res.json({ session: { ...sessionView(closed, await loadGroups(closed.blueprint as Blueprint)), title: await titleOf(closed.blueprint as Blueprint) }, xpEarned });
+    const { session: closed, xpEarned } = await submitSession(session, model);
+    res.json({ session: await viewOf(closed), xpEarned });
+  });
+
+  /**
+   * POST /exams/sessions/:id/grade - Retry AI grading of IELTS writing and speaking after a failure
+   */
+  router.post('/exams/sessions/:id/grade', requireAuth, async (req, res) => {
+    const { model } = gradeSchema.parse(req.body ?? {});
+    const session = await loadSession(String(req.params.id), currentUser(req).id);
+    const result = session.result as IeltsResult | null;
+    if (session.exam !== 'ielts' || session.status !== 'submitted' || !result) throw new HttpError(409, 'Nothing to grade.', 'nothing_to_grade');
+
+    const retry = <T extends { status: string; error?: string }>(part: T | null): T | null =>
+      part && part.status === 'failed' ? { ...part, status: 'pending', error: undefined } : part;
+    const next = { ...result, writing: retry(result.writing), speaking: retry(result.speaking) };
+    const [updated] = await db.update(examSessions).set({ result: next, updatedAt: new Date() }).where(eq(examSessions.id, session.id)).returning();
+    void gradeIeltsSession(session.id, model);
+    res.json({ session: await viewOf(updated) });
+  });
+
+  /**
+   * GET /exams/ielts/catalog - Modes, parts and bank sizes
+   */
+  router.get('/exams/ielts/catalog', requireAuth, async (_req, res) => {
+    const bank = await ieltsBankCounts();
+    res.json({
+      modes: { mini: { minutes: ieltsTimeLimit('mini') / 60 }, full: { minutes: ieltsTimeLimit('full') / 60 } },
+      parts: IELTS_PARTS.map((part) => ({ part, minutes: ieltsTimeLimit('part', part) / 60 })),
+      bank,
+    });
+  });
+
+  /**
+   * POST /exams/ielts/sessions - Start a mini, part or full IELTS test
+   * @throws {409} bank_insufficient when more groups are missing than can be generated on the spot
+   */
+  router.post('/exams/ielts/sessions', requireAuth, async (req, res) => {
+    const body = ieltsStartSchema.parse(req.body);
+    const user = currentUser(req);
+    const mode = body.mode as IeltsMode;
+    const part = body.part as IeltsPart | undefined;
+
+    let assembled = await assembleIelts(user.id, mode, part);
+    if ('missing' in assembled) {
+      const requests = Object.entries(assembled.missing).map(([slot, count]) => ({ slot: slot as IeltsSlot, count: count ?? 0 }));
+      if (requests.reduce((sum, r) => sum + r.count, 0) > IELTS_ON_DEMAND_LIMIT) {
+        res.status(409).json({
+          error: 'There are not enough questions in the test bank yet. Ask the admin to add more.',
+          statusCode: 409,
+          code: 'bank_insufficient',
+          missing: assembled.missing,
+        });
+        return;
+      }
+      const { failed } = await generateIeltsGroups(user, requests, 'B2', 'exam-generate', body.model);
+      if (failed > 0) throw new HttpError(502, 'Could not prepare all questions. Please try again.', 'ai_invalid_output');
+      assembled = await assembleIelts(user.id, mode, part);
+      if ('missing' in assembled) throw new HttpError(502, 'Could not prepare all questions. Please try again.', 'ai_invalid_output');
+    }
+
+    const [session] = await db
+      .insert(examSessions)
+      .values({ userId: user.id, exam: 'ielts', mode, blueprint: assembled.blueprint, timeLimitSec: ieltsTimeLimit(mode, part) })
+      .returning();
+    res.status(201).json({ session: await viewOf(session) });
+  });
+
+  /**
+   * GET /admin/ielts-bank - Groups per IELTS slot and what a full test needs
+   */
+  router.get('/admin/ielts-bank', requireAuth, requireRole('admin'), async (_req, res) => {
+    const bank = await ieltsBankCounts();
+    res.json({ slots: IELTS_SLOTS.map((slot) => ({ slot, groups: bank[slot], fullTestGroups: FULL_TEST_GROUPS[slot] })) });
+  });
+
+  /**
+   * POST /admin/ielts-bank/fill - Generate more groups for one slot
+   */
+  router.post('/admin/ielts-bank/fill', requireAuth, requireRole('admin'), async (req, res) => {
+    const body = ieltsFillSchema.parse(req.body);
+    const { created, failed } = await generateIeltsGroups(currentUser(req), [{ slot: body.slot, count: body.count }], body.level, 'exam-bank', body.model);
+    res.status(created.length > 0 ? 201 : 502).json({ created: created.length, failed });
   });
 
   /**
@@ -363,7 +543,7 @@ export function createExamRouter(): Router {
   router.post('/admin/exam-bank/fill', requireAuth, requireRole('admin'), async (req, res) => {
     const body = fillSchema.parse(req.body);
     const user = currentUser(req);
-    const { created, failed } = await generateGroups(user, [{ part: body.part as ToeicPart, count: body.count }], body.level, 'exam-bank');
+    const { created, failed } = await generateGroups(user, [{ part: body.part as ToeicPart, count: body.count }], body.level, 'exam-bank', body.model);
     res.status(created.length > 0 ? 201 : 502).json({ created: created.length, failed });
   });
 

@@ -55,7 +55,7 @@ function answerKey(part: ToeicPart, group: GroupLike): number[] {
  * Solves the group independently and compares with the key
  * @returns Question numbers (1-based) where the solver disagreed; empty when the key is confirmed
  */
-export async function verifyAnswerKey(user: User, part: ToeicPart, group: GroupLike, feature: string): Promise<number[]> {
+export async function verifyAnswerKey(user: User, part: ToeicPart, group: GroupLike, feature: string, model?: string): Promise<number[]> {
   const { context, questions } = describeForSolver(part, group);
   const key = answerKey(part, group);
 
@@ -63,6 +63,7 @@ export async function verifyAnswerKey(user: User, part: ToeicPart, group: GroupL
     user,
     {
       feature,
+      model,
       timeoutMs: GENERATE_TIMEOUT_MS,
       system: `You are an expert TOEIC test-taker. Answer each question with the single best option.
 If two options are equally acceptable or none is correct, answer -1 for that question.

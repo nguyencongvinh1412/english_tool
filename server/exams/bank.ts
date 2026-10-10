@@ -45,7 +45,7 @@ const MAX_GENERATION_ROUNDS = 2;
  * Generates and stores one group for a part; the answer key must survive an independent solve
  * @throws HttpError 502 if no generated group passes verification
  */
-export async function generateGroup(user: User, part: ToeicPart, level: CefrLevel, feature: string): Promise<ContentItem> {
+export async function generateGroup(user: User, part: ToeicPart, level: CefrLevel, feature: string, model?: string): Promise<ContentItem> {
   const kind = PART_CONFIG[part].kind;
   const topic = TOEIC_TOPICS[Math.floor(Math.random() * TOEIC_TOPICS.length)];
   const prompt = buildGenerationPrompt(kind, level, topic, undefined);
@@ -59,11 +59,12 @@ export async function generateGroup(user: User, part: ToeicPart, level: CefrLeve
         system: prompt.system,
         messages: [{ role: 'user', content: prompt.user }],
         timeoutMs: GENERATE_TIMEOUT_MS,
+        model,
       },
       partSchema(part)
     );
 
-    const disagreements = await verifyAnswerKey(user, part, candidate as object, feature);
+    const disagreements = await verifyAnswerKey(user, part, candidate as object, feature, model);
     if (disagreements.length === 0) {
       payload = candidate;
     } else {
@@ -102,7 +103,8 @@ export async function generateGroups(
   user: User,
   requests: { part: ToeicPart; count: number }[],
   level: CefrLevel,
-  feature: string
+  feature: string,
+  model?: string
 ): Promise<{ created: ContentItem[]; failed: number }> {
   const queue = requests.flatMap((r) => Array<ToeicPart>(r.count).fill(r.part));
   const created: ContentItem[] = [];
@@ -111,7 +113,7 @@ export async function generateGroups(
   const worker = async () => {
     for (let part = queue.shift(); part !== undefined; part = queue.shift()) {
       try {
-        created.push(await generateGroup(user, part, level, feature));
+        created.push(await generateGroup(user, part, level, feature, model));
       } catch (error) {
         failed++;
         console.error(`Failed to generate TOEIC part ${part} group:`, error instanceof Error ? error.message : error);

@@ -19,6 +19,10 @@ export const ACTIVITY_SKILLS = {
   'writing-task': 'writing',
   'toeic-listening': 'listening',
   'toeic-reading': 'reading',
+  'ielts-listening': 'listening',
+  'ielts-reading': 'reading',
+  'ielts-writing': 'writing',
+  'ielts-speaking': 'speaking',
 } as const;
 
 export type Activity = keyof typeof ACTIVITY_SKILLS;

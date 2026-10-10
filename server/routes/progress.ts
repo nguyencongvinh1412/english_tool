@@ -13,7 +13,7 @@ import { ACTIVITY_SKILLS, getProgressSummary, recordAttempt, toPublicAttempt, ty
 const ACTIVITIES = Object.keys(ACTIVITY_SKILLS) as [Activity, ...Activity[]];
 
 /** Activities scored by the server's AI endpoints; clients cannot record these themselves */
-const SERVER_SCORED: Activity[] = ['writing-task', 'speaking-ielts', 'toeic-listening', 'toeic-reading'];
+const SERVER_SCORED: Activity[] = ['writing-task', 'speaking-ielts', 'toeic-listening', 'toeic-reading', 'ielts-listening', 'ielts-reading', 'ielts-writing', 'ielts-speaking'];
 const CLIENT_ACTIVITIES = ACTIVITIES.filter((a) => !SERVER_SCORED.includes(a)) as [Activity, ...Activity[]];
 
 /** Longest session we accept as a real duration (3 hours) */

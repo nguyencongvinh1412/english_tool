@@ -215,6 +215,119 @@ export const toeicP7 = z.object({
   questions: z.array(mcqQuestion).min(2).max(5),
 });
 
+/* ---------- IELTS Academic exam groups ---------- */
+
+/** Gap fill (note/form/sentence completion): the prompt has one "____"; any listed answer is accepted */
+export const gapQuestion = z.object({
+  type: z.literal('gap'),
+  prompt: text(400).refine((p) => p.includes('____'), 'prompt must contain ____'),
+  answers: z.array(text(60)).min(1).max(4),
+  /** Maximum words in the answer ("NO MORE THAN TWO WORDS") */
+  wordLimit: z.number().int().min(1).max(3),
+  explanation: text(600),
+});
+
+export const ieltsQuestion = z.discriminatedUnion('type', [mcqQuestion, tfngQuestion, gapQuestion]);
+export type IeltsQuestion = z.infer<typeof ieltsQuestion>;
+
+/**
+ * Normalises a typed or expected answer: case, punctuation and extra spaces do not matter
+ */
+export function normalizeAnswer(answer: string): string {
+  return answer
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const wordCount = (value: string) => value.trim().split(/\s+/).filter(Boolean).length;
+
+/**
+ * Gap answers must respect the word limit and appear in the source text, so they are checkable
+ */
+function gapsMatchSource(questions: IeltsQuestion[], source: string): string | null {
+  const haystack = ` ${normalizeAnswer(source)} `;
+  // Spelled-out names ("S-M-I-T-H") only match once spaces are ignored
+  const compact = haystack.replace(/\s+/g, '');
+  const appears = (answer: string) => haystack.includes(` ${normalizeAnswer(answer)} `) || compact.includes(normalizeAnswer(answer).replace(/\s+/g, ''));
+  for (const [index, q] of questions.entries()) {
+    if (q.type !== 'gap') continue;
+    if (q.answers.some((a) => wordCount(a) > q.wordLimit)) return `question ${index + 1}: an answer is longer than wordLimit`;
+    if (!q.answers.some(appears)) return `question ${index + 1}: the answer "${q.answers[0]}" must appear word for word in the source text`;
+  }
+  return null;
+}
+
+const ieltsSpeakers = z.object({ A: speaker, B: speaker.optional(), C: speaker.optional() });
+
+/**
+ * Raises a gap's word limit to fit its answers (up to three words), a common slip in generated questions
+ */
+function fitWordLimits(questions: unknown): unknown {
+  if (!Array.isArray(questions)) return questions;
+  return questions.map((q) => {
+    if (!q || typeof q !== 'object' || q.type !== 'gap' || !Array.isArray(q.answers) || typeof q.wordLimit !== 'number') return q;
+    const longest = Math.max(...q.answers.map((a: unknown) => (typeof a === 'string' ? wordCount(a) : 0)));
+    return longest > q.wordLimit && longest <= 3 ? { ...q, wordLimit: longest } : q;
+  });
+}
+
+/** Characters per script line; longer monologue paragraphs are split at sentence ends */
+const SCRIPT_LINE_CHARS = 400;
+
+/**
+ * Splits long script lines into sentence groups so monologues read naturally line by line
+ */
+function splitLongLines(script: unknown): unknown {
+  if (!Array.isArray(script)) return script;
+  return script.flatMap((line) => {
+    if (!line || typeof line !== 'object' || typeof line.text !== 'string' || line.text.length <= SCRIPT_LINE_CHARS) return [line];
+    const sentences = line.text.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) ?? [line.text];
+    const chunks: string[] = [];
+    for (const sentence of sentences) {
+      const last = chunks.at(-1);
+      if (last !== undefined && last.length + sentence.length <= SCRIPT_LINE_CHARS) chunks[chunks.length - 1] = last + sentence;
+      else chunks.push(sentence);
+    }
+    return chunks.map((text) => ({ ...line, text: text.trim() }));
+  });
+}
+
+/** One listening section (10 questions); the script is read by the voice service */
+export const ieltsListening = z
+  .object({
+    section: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+    title: text(120),
+    /** What the learner is told before listening, e.g. "You will hear a student talking to a librarian." */
+    context: text(300),
+    speakers: ieltsSpeakers,
+    script: z.preprocess(
+      splitLongLines,
+      z
+        .array(z.object({ speaker: z.enum(['A', 'B', 'C']), text: text(700) }))
+        .min(6)
+        .max(60)
+    ),
+    questions: z.preprocess(fitWordLimits, z.array(z.discriminatedUnion('type', [mcqQuestion, gapQuestion])).length(10)),
+  })
+  .superRefine((group, ctx) => {
+    const problem = gapsMatchSource(group.questions, group.script.map((l) => l.text).join(' '));
+    if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
+  });
+
+/** One academic reading passage with 12-14 questions */
+export const ieltsReading = z
+  .object({
+    title: text(120),
+    paragraphs: z.array(text(1800)).min(4).max(9),
+    questions: z.preprocess(fitWordLimits, z.array(ieltsQuestion).min(12).max(14)),
+  })
+  .superRefine((group, ctx) => {
+    const problem = gapsMatchSource(group.questions, group.paragraphs.join(' '));
+    if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
+  });
+
 /** Content kinds, their skill and payload schema */
 export const CONTENT_KINDS = {
   'reading-passage': { skill: 'reading', schema: readingPassage },
@@ -229,6 +342,8 @@ export const CONTENT_KINDS = {
   'toeic-p5': { skill: 'reading', schema: toeicP5 },
   'toeic-p6': { skill: 'reading', schema: toeicP6 },
   'toeic-p7': { skill: 'reading', schema: toeicP7 },
+  'ielts-listening': { skill: 'listening', schema: ieltsListening },
+  'ielts-reading': { skill: 'reading', schema: ieltsReading },
 } as const;
 
 export type ContentKind = keyof typeof CONTENT_KINDS;
@@ -264,7 +379,7 @@ export const wordDefinition = z.object({
 });
 
 /** Exam-only kinds: never listed or served by the practice library (answers would leak) */
-export const isExamOnlyKind = (kind: string): boolean => kind.startsWith('toeic-p');
+export const isExamOnlyKind = (kind: string): boolean => kind.startsWith('toeic-p') || kind === 'ielts-listening' || kind === 'ielts-reading';
 
 /**
  * Display title for any payload: its own title or topic, else a part label
