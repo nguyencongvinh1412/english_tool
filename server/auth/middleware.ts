@@ -142,3 +142,20 @@ export function createRateLimiter(maxAttempts: number, windowMs: number) {
     },
   };
 }
+
+/** AI-backed requests a learner may start per minute (chat turns, generation, scoring) */
+const AI_REQUESTS_PER_MINUTE = 15;
+const aiBurstLimiter = createRateLimiter(AI_REQUESTS_PER_MINUTE, 60_000);
+
+/**
+ * Throttles routes that call the AI so a script cannot burn the daily quota (and the
+ * proxy's capacity) in seconds. Admins are exempt. Must run after requireAuth.
+ */
+export const limitAiRequests: RequestHandler = (req, _res, next) => {
+  const user = currentUser(req);
+  if (user.role !== 'admin') {
+    aiBurstLimiter.check(user.id);
+    aiBurstLimiter.hit(user.id);
+  }
+  next();
+};

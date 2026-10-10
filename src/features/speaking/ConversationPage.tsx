@@ -3,27 +3,20 @@
  * Free-form chat with an AI tutor on a chosen topic
  */
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Button, PageHeader, Select } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude } from '@/hooks';
-import { CONVERSATION_SYSTEM_PROMPT, DEFAULT_TOPIC, TOPICS, type ConversationTopic } from '@/constants/prompts';
+import { DEFAULT_TOPIC, TOPICS, type ConversationTopic } from '@/constants/prompts';
 import { ChatPanel } from './ChatPanel';
 import { useSessionRecorder } from './useSessionRecorder';
-
-/**
- * System prompt with the topic woven in
- */
-function promptFor(topic: ConversationTopic): string {
-  if (topic === 'Free Conversation') return CONVERSATION_SYSTEM_PROMPT;
-  return `${CONVERSATION_SYSTEM_PROMPT}\n\nThe current conversation topic is: ${topic}. Guide the conversation naturally around this topic while remaining flexible to the student's interests.`;
-}
 
 export const ConversationPage: React.FC = () => {
   const { t } = useI18n();
   const [topic, setTopic] = useState<ConversationTopic>(DEFAULT_TOPIC);
   const [sessionId, setSessionId] = useState(0);
-  const { messages, isLoading, error, sendUserMessage, clearMessages } = useClaude({ initialSystemPrompt: promptFor(topic) });
+  const context = useMemo(() => ({ mode: 'conversation' as const, topic }), [topic]);
+  const { messages, isLoading, error, sendUserMessage, clearMessages } = useClaude({ context });
 
   useSessionRecorder(messages, {
     key: `${topic}:${sessionId}`,

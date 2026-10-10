@@ -13,7 +13,7 @@ import { db } from '../db/client.js';
 import { mediaAssets, type MediaAsset } from '../db/schema.js';
 import { currentUser, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
-import { adoptFile, storagePath, uploadTempDir } from '../services/storage.js';
+import { adoptFile, sendObject, uploadTempDir } from '../services/storage.js';
 
 type Kind = MediaAsset['kind'];
 
@@ -92,7 +92,7 @@ export async function storeUploads(files: Express.Multer.File[], userId: string)
   try {
     for (const file of files) {
       const { type, extension } = await inspect(file);
-      const key = await adoptFile(file.path, extension);
+      const key = await adoptFile(file.path, extension, type.mime);
       const [asset] = await db
         .insert(mediaAssets)
         .values({ kind: type.kind, storageKey: key, mime: type.mime, sizeBytes: file.size, originalName: file.originalname.slice(0, 200), uploadedBy: userId })
@@ -135,7 +135,7 @@ export function createMediaRouter(): Router {
   /**
    * GET /media/:id - Stream an asset (Range supported); source documents are admin-only
    */
-  router.get('/media/:id', requireAuth, async (req, res, next) => {
+  router.get('/media/:id', requireAuth, async (req, res) => {
     const id = z.uuid().safeParse(req.params.id);
     if (!id.success) throw new HttpError(404, 'File not found.', 'not_found');
 
@@ -143,13 +143,7 @@ export function createMediaRouter(): Router {
     if (!asset) throw new HttpError(404, 'File not found.', 'not_found');
     if (asset.kind === 'document' && currentUser(req).role !== 'admin') throw new HttpError(404, 'File not found.', 'not_found');
 
-    res.sendFile(
-      storagePath(asset.storageKey),
-      { dotfiles: 'allow', headers: { 'Content-Type': asset.mime, 'Cache-Control': `private, max-age=${CACHE_SEC}` } },
-      (error) => {
-        if (error && !res.headersSent) next(new HttpError(404, 'File not found.', 'not_found'));
-      }
-    );
+    await sendObject(asset.storageKey, asset.mime, CACHE_SEC, req, res);
   });
 
   return router;

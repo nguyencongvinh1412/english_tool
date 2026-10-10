@@ -31,7 +31,16 @@ export type Database = typeof db;
  * Safe to run on every startup; already-applied migrations are skipped
  */
 export async function runMigrations(): Promise<void> {
-  await migrate(db, { migrationsFolder: MIGRATIONS_DIR });
+  if (!config.DATABASE_MIGRATION_URL) {
+    await migrate(db, { migrationsFolder: MIGRATIONS_DIR });
+    return;
+  }
+  const migrationClient = postgres(config.DATABASE_MIGRATION_URL, { max: 1, onnotice: () => {} });
+  try {
+    await migrate(drizzle(migrationClient), { migrationsFolder: MIGRATIONS_DIR });
+  } finally {
+    await migrationClient.end({ timeout: 5 });
+  }
 }
 
 /**

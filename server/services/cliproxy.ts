@@ -3,6 +3,7 @@
  * Handles communication with a self-hosted CLIProxyAPI instance
  * via its OpenAI-compatible /v1/chat/completions endpoint
  */
+import { upstreamAccessHeaders } from '../config.js';
 
 /** Default model - fast enough for conversational practice */
 const DEFAULT_MODEL = 'claude-haiku-5-5';
@@ -158,7 +159,7 @@ export async function listAllowedModels(): Promise<string[]> {
 
   try {
     const response = await fetch(buildEndpointUrl('/v1/models'), {
-      headers: { Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}` },
+      headers: { Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}`, ...upstreamAccessHeaders() },
       signal: AbortSignal.timeout(MODELS_TIMEOUT_MS),
     });
 
@@ -210,6 +211,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}`,
+        ...upstreamAccessHeaders(),
       },
       body: JSON.stringify({
         model,

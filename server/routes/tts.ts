@@ -11,7 +11,7 @@ import { CLIP_FILE_PATTERN, TTS_VOICES, clipPath, ensureClip, ttsAvailable } fro
 const MAX_LINES = 60;
 const MAX_LINE_CHARS = 600;
 /** Batch requests per user per minute; cached clips make repeats cheap, this only stops abuse */
-const BATCH_PER_MINUTE = 120;
+const BATCH_PER_MINUTE = 40;
 const CLIP_MAX_AGE_SEC = 365 * 24 * 60 * 60;
 
 const batchSchema = z.object({

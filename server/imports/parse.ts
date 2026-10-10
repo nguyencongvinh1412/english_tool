@@ -3,13 +3,12 @@
  * 1. OCR pages without a text layer, 2. extract question groups chunk by chunk,
  * 3. read the answer key, 4. read listening transcripts. Merging happens in draft.ts.
  */
-import { readFile } from 'node:fs/promises';
 import { z } from 'zod';
 import { inArray } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { mediaAssets, type User } from '../db/schema.js';
 import { GENERATE_TIMEOUT_MS, runAI, runAIJson } from '../services/ai.js';
-import { storagePath } from '../services/storage.js';
+import { readObject } from '../services/storage.js';
 import type { ExtractedPage } from './extract.js';
 
 /** Inclusive page range */
@@ -122,7 +121,7 @@ export async function ocrPages(user: User, pages: ExtractedPage[], onProgress: P
     await onProgress('ocr', done, targets.length);
     const asset = byId.get(page.imageAssetId!);
     if (asset) {
-      const image = await readFile(storagePath(asset.storageKey));
+      const image = await readObject(asset.storageKey);
       const text = await runAI(user, {
         feature: 'import-ocr',
         timeoutMs: GENERATE_TIMEOUT_MS,

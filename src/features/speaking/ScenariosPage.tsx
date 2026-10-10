@@ -3,7 +3,7 @@
  * Pick a real-life situation, then role-play it with the AI
  */
 import type React from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Badge, Button, Card, Icon, PageHeader } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude } from '@/hooks';
@@ -18,30 +18,18 @@ const DIFFICULTY_TONES: Record<ScenarioDifficulty, 'success' | 'warning' | 'dang
 };
 
 /**
- * System prompt that keeps the AI in character
- */
-function promptFor(scenario: Scenario): string {
-  return `You are playing the role of a ${scenario.aiRole} in a dialogue practice scenario.
-
-Context: ${scenario.context}
-The user is playing the role of: ${scenario.userRole}
-
-Guidelines:
-1. Stay in character as the ${scenario.aiRole}
-2. Keep responses natural and conversational
-3. After 2-3 exchanges, provide brief feedback on the user's English
-4. Be encouraging and helpful
-5. Use vocabulary appropriate for ${scenario.difficulty} level learners
-6. If the user makes grammar or vocabulary mistakes, gently correct them in context
-7. Respond naturally to the conversation while helping the user practice`;
-}
-
-/**
  * Role-play view for one scenario (remounted per scenario so chat state resets)
  */
 const ScenarioSession: React.FC<{ scenario: Scenario; onBack: () => void }> = ({ scenario, onBack }) => {
   const { t } = useI18n();
-  const { messages, isLoading, error, sendUserMessage } = useClaude({ initialSystemPrompt: promptFor(scenario) });
+  const context = useMemo(
+    () => ({
+      mode: 'scenario' as const,
+      scenario: { aiRole: scenario.aiRole, userRole: scenario.userRole, context: scenario.context, difficulty: scenario.difficulty },
+    }),
+    [scenario]
+  );
+  const { messages, isLoading, error, sendUserMessage } = useClaude({ context });
 
   useSessionRecorder(messages, { key: scenario.id, activity: 'scenario', contentRef: scenario.id, title: scenario.title });
 

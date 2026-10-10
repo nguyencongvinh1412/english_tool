@@ -12,6 +12,8 @@ RUN npm run build
 FROM node:24-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
+# Writable locations for the unprivileged user (compose mounts volumes here)
+ENV UPLOAD_DIR=/data/uploads TTS_CACHE_DIR=/data/tts-cache
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist

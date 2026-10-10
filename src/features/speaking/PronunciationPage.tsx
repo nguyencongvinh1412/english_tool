@@ -25,20 +25,11 @@ const FAIR = 50;
 /** Slower TTS for model pronunciation */
 const MODEL_SPEECH_RATE = 0.75;
 
-/**
- * Coaching prompt; feedback language follows the UI language, examples stay in English
- */
-function coachPrompt(locale: 'en' | 'vi'): string {
-  return `You are a friendly English pronunciation coach for Vietnamese learners.
-The user practiced speaking an English phrase. Based on the target phrase and the speech-recognition transcript:
-1. Acknowledge what they said well
-2. For missed or misheard words, explain how to pronounce them (stress, sounds Vietnamese speakers often find hard)
-3. Keep it to 2-4 short sentences and be encouraging
-${locale === 'vi' ? 'Write your feedback in Vietnamese, but keep English words and example phrases in English.' : 'Write your feedback in simple English.'}`;
-}
+/** Feedback language follows the learner's profile on the server */
+const COACH_CONTEXT = { mode: 'pronunciation' } as const;
 
 export const PronunciationPage: React.FC = () => {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const { record } = useProgress();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [phrase, setPhrase] = useState<Phrase | null>(null);
@@ -48,9 +39,7 @@ export const PronunciationPage: React.FC = () => {
 
   const { isListening, transcript, interimTranscript, error: speechError, isSupported, startListening, stopListening, resetTranscript } =
     useSpeechRecognition();
-  const { messages, isLoading: isAiLoading, error: aiError, sendUserMessage, clearMessages } = useClaude({
-    initialSystemPrompt: coachPrompt(locale),
-  });
+  const { messages, isLoading: isAiLoading, error: aiError, sendUserMessage, clearMessages } = useClaude({ context: COACH_CONTEXT });
   const { speak, isSpeaking } = useTextToSpeech();
 
   const aiFeedback = useMemo(() => [...messages].reverse().find((m) => m.role === 'assistant')?.content ?? null, [messages]);

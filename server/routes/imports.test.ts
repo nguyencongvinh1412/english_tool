@@ -131,6 +131,15 @@ describe('media', () => {
     expect((await admin.get(doc.url)).headers['content-type']).toBe('application/pdf');
   });
 
+  it('serves byte ranges so recordings can seek', async () => {
+    const admin = await signIn(app, await createUser({ role: 'admin' }));
+    const [audio] = (await upload(admin, [{ name: 'part1.mp3', data: MP3 }])).body.assets;
+    const res = await admin.get(audio.url).set('Range', 'bytes=0-2');
+    expect(res.status).toBe(206);
+    expect(res.headers['content-range']).toBe(`bytes 0-2/${MP3.length}`);
+    expect(Buffer.from(res.body).toString('latin1')).toBe('ID3');
+  });
+
   it('only lets admins upload', async () => {
     const learner = await signIn(app, await createUser());
     expect((await upload(learner, [{ name: 'photo.png', data: PNG }])).status).toBe(403);

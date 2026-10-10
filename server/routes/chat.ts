@@ -4,11 +4,13 @@
  * Uses CLIProxyAPI when configured, falling back to Groq when the proxy is unavailable
  */
 import { Router, Request, Response } from 'express';
+import { z } from 'zod';
 import { GroqApiError, type ChatMessage } from '../services/groq.js';
 import { isCliProxyConfigured, listAllowedModels, getDefaultModel, CliProxyApiError } from '../services/cliproxy.js';
 import { sendWithFallback } from '../services/ai.js';
-import { currentUser, requireAuth } from '../auth/middleware.js';
+import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { assertQuota, getAllowedModels, recordUsage, resolveModel } from '../services/aiAccess.js';
+import { chatContextSchema, chatSystemPrompt } from '../content/chatPrompts.js';
 
 /** Usage feature key for free-form chat requests */
 const CHAT_FEATURE = 'chat';
@@ -16,107 +18,23 @@ const CHAT_FEATURE = 'chat';
 /** Sends via CLIProxyAPI with Groq fallback (shared with server-side AI features) */
 const sendChatMessage = sendWithFallback;
 
-/** Minimum messages required in request */
-const MIN_MESSAGES_REQUIRED = 1;
+/** Messages kept from a conversation; the client sends only the most recent ones */
+const MAX_MESSAGES = 30;
+/** Characters per message and per request, so one request cannot carry a huge document */
+const MAX_MESSAGE_CHARS = 2000;
+const MAX_TOTAL_CHARS = 20000;
 
-/** Maximum messages allowed in single request */
-const MAX_MESSAGES_ALLOWED = 100;
-
-/** Maximum content length per message (characters) */
-const MAX_CONTENT_LENGTH = 10000;
-
-/**
- * Request body type for chat endpoint
- */
-interface ChatRequestBody {
-  messages?: unknown;
-  systemPrompt?: unknown;
-  model?: unknown;
-}
-
-/**
- * Validates that messages array is properly formatted
- *
- * @param messages - Messages to validate
- * @returns Object with isValid flag and optional error message
- */
-function validateMessages(
-  messages: unknown
-): { isValid: boolean; error?: string; validatedMessages?: ChatMessage[] } {
-  // Check if messages exists and is an array
-  if (!messages) {
-    return { isValid: false, error: 'Messages array is required' };
-  }
-
-  if (!Array.isArray(messages)) {
-    return { isValid: false, error: 'Messages must be an array' };
-  }
-
-  // Check minimum length
-  if (messages.length < MIN_MESSAGES_REQUIRED) {
-    return { isValid: false, error: 'At least one message is required' };
-  }
-
-  // Check maximum length
-  if (messages.length > MAX_MESSAGES_ALLOWED) {
-    return {
-      isValid: false,
-      error: `Maximum ${MAX_MESSAGES_ALLOWED} messages allowed`,
-    };
-  }
-
-  // Validate each message structure
-  const validatedMessages: ChatMessage[] = [];
-
-  for (let i = 0; i < messages.length; i++) {
-    const msg = messages[i];
-
-    // Check message is an object
-    if (typeof msg !== 'object' || msg === null) {
-      return { isValid: false, error: `Message at index ${i} is invalid` };
-    }
-
-    const messageObj = msg as Record<string, unknown>;
-
-    // Validate role
-    if (messageObj.role !== 'user' && messageObj.role !== 'assistant') {
-      return {
-        isValid: false,
-        error: `Message at index ${i} has invalid role. Must be 'user' or 'assistant'`,
-      };
-    }
-
-    // Validate content
-    if (typeof messageObj.content !== 'string') {
-      return {
-        isValid: false,
-        error: `Message at index ${i} must have string content`,
-      };
-    }
-
-    // Validate content length
-    if (messageObj.content.length === 0) {
-      return {
-        isValid: false,
-        error: `Message at index ${i} cannot have empty content`,
-      };
-    }
-
-    if (messageObj.content.length > MAX_CONTENT_LENGTH) {
-      return {
-        isValid: false,
-        error: `Message at index ${i} exceeds maximum length of ${MAX_CONTENT_LENGTH} characters`,
-      };
-    }
-
-    validatedMessages.push({
-      role: messageObj.role,
-      content: messageObj.content,
-    });
-  }
-
-  return { isValid: true, validatedMessages };
-}
+const chatBodySchema = z.object({
+  messages: z
+    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }))
+    .min(1)
+    .max(MAX_MESSAGES)
+    .refine((messages) => messages.reduce((sum, m) => sum + m.content.length, 0) <= MAX_TOTAL_CHARS, 'The conversation is too long')
+    .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
+  /** Which activity the chat belongs to; the server builds the system prompt from it */
+  context: chatContextSchema,
+  model: z.string().max(100).optional(),
+});
 
 /**
  * Creates the chat router with POST endpoint
@@ -160,55 +78,27 @@ export function createChatRouter(): Router {
    *
    * @route POST /api/chat
    * @body {Object} request - Chat request
-   * @body {Array} request.messages - Array of chat messages
-   * @body {string} [request.systemPrompt] - Optional system prompt override
+   * @body {Array} request.messages - Recent chat messages (the last one from the user)
+   * @body {Object} request.context - Activity: conversation (topic), scenario (roles), pronunciation or dictation
    * @body {string} [request.model] - Optional CLIProxyAPI model ID
    * @returns {Object} { message: string } - Claude's response
    * @throws {400} If request validation fails
    * @throws {408} If request times out
    * @throws {500} If internal error occurs
    */
-  router.post('/', async (req: Request, res: Response): Promise<void> => {
-    const body = req.body as ChatRequestBody;
-
-    // Validate messages
-    const validation = validateMessages(body.messages);
-
-    if (!validation.isValid || !validation.validatedMessages) {
-      res.status(400).json({
-        error: validation.error,
-        statusCode: 400,
-      });
-      return;
-    }
-
-    // Validate optional systemPrompt if provided
-    let systemPrompt: string | undefined;
-
-    if (body.systemPrompt !== undefined) {
-      if (typeof body.systemPrompt !== 'string') {
-        res.status(400).json({
-          error: 'System prompt must be a string',
-          statusCode: 400,
-        });
-        return;
-      }
-      systemPrompt = body.systemPrompt;
-    }
-
-    if (body.model !== undefined && typeof body.model !== 'string') {
-      res.status(400).json({ error: 'Model must be a string', statusCode: 400 });
-      return;
-    }
+  router.post('/', limitAiRequests, async (req: Request, res: Response): Promise<void> => {
+    const body = chatBodySchema.parse(req.body);
 
     // Enforce the user's model allowlist (opus/fable are always blocked) and daily quota
     const user = currentUser(req);
     const model = resolveModel(user, body.model);
     await assertQuota(user);
+    const messages: ChatMessage[] = body.messages;
+    const systemPrompt = chatSystemPrompt(body.context, user.uiLocale);
 
     try {
       const response = await sendChatMessage({
-        messages: validation.validatedMessages,
+        messages,
         systemPrompt,
         model,
       });

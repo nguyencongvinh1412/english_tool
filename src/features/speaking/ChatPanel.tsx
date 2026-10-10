@@ -175,6 +175,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
             placeholder={t.chat.typePlaceholder}
             aria-label={t.chat.typePlaceholder}
             disabled={isLoading}
+            maxLength={2000}
             lang="en"
           />
           <Button type="submit" icon="chevronRight" disabled={isLoading || !draft.trim()}>

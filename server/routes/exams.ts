@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { examSessions, importJobs, type ExamSession } from '../db/schema.js';
-import { currentUser, requireAuth, requireRole } from '../auth/middleware.js';
+import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { recordAttempt } from '../services/progress.js';
 import { CEFR_LEVELS } from '../content/schemas.js';
@@ -311,7 +311,7 @@ export function createExamRouter(): Router {
    * Generates a few missing groups on the spot; larger gaps need the admin to fill the bank
    * @throws {409} bank_insufficient with the missing group counts
    */
-  router.post('/exams/toeic/sessions', requireAuth, async (req, res) => {
+  router.post('/exams/toeic/sessions', requireAuth, limitAiRequests, async (req, res) => {
     const body = startSchema.parse(req.body);
     const user = currentUser(req);
     const mode = body.mode as ExamMode;
@@ -445,7 +445,7 @@ export function createExamRouter(): Router {
   /**
    * POST /exams/sessions/:id/grade - Retry AI grading of IELTS writing and speaking after a failure
    */
-  router.post('/exams/sessions/:id/grade', requireAuth, async (req, res) => {
+  router.post('/exams/sessions/:id/grade', requireAuth, limitAiRequests, async (req, res) => {
     const { model } = gradeSchema.parse(req.body ?? {});
     const session = await loadSession(String(req.params.id), currentUser(req).id);
     const result = session.result as IeltsResult | null;
@@ -475,7 +475,7 @@ export function createExamRouter(): Router {
    * POST /exams/ielts/sessions - Start a mini, part or full IELTS test
    * @throws {409} bank_insufficient when more groups are missing than can be generated on the spot
    */
-  router.post('/exams/ielts/sessions', requireAuth, async (req, res) => {
+  router.post('/exams/ielts/sessions', requireAuth, limitAiRequests, async (req, res) => {
     const body = ieltsStartSchema.parse(req.body);
     const user = currentUser(req);
     const mode = body.mode as IeltsMode;

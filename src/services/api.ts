@@ -3,7 +3,7 @@
  * All API calls go through /api (backend proxy) - no API keys in frontend
  */
 
-import type { ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/types/api';
+import type { ChatContext, ChatMessage, ChatRequest, ChatResponse, ModelsResponse } from '@/types/api';
 
 /** Base URL for API endpoints */
 const API_BASE = '/api';
@@ -62,6 +62,9 @@ export async function fetchModels(): Promise<ModelsResponse> {
  */
 const REQUEST_TIMEOUT_MS = 45000;
 
+/** Messages sent per chat request (the server's limit) */
+const MAX_CHAT_MESSAGES = 30;
+
 /** HTTP status codes for error handling */
 const HTTP_STATUS = {
   TOO_MANY_REQUESTS: 429,
@@ -114,7 +117,7 @@ function getStatusErrorMessage(statusCode: number): string {
  * Sends a message to the Claude AI and receives a response
  *
  * @param messages - Array of conversation messages
- * @param systemPrompt - Optional custom system prompt to override default
+ * @param context - Activity the chat belongs to; the server picks the system prompt
  * @returns Promise resolving to the assistant's response message
  * @throws ApiError if the request fails or times out
  *
@@ -136,18 +139,16 @@ function getStatusErrorMessage(statusCode: number): string {
  * }
  * ```
  */
-export async function sendMessage(
-  messages: ChatMessage[],
-  systemPrompt?: string
-): Promise<string> {
+export async function sendMessage(messages: ChatMessage[], context: ChatContext): Promise<string> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
     const model = getSelectedModel();
     const requestBody: ChatRequest = {
-      messages,
-      ...(systemPrompt && { systemPrompt }),
+      // The server accepts the most recent turns only
+      messages: messages.slice(-MAX_CHAT_MESSAGES),
+      context,
       ...(model && { model }),
     };
 

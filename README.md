@@ -44,6 +44,10 @@ Listening groups can use an uploaded recording with optional start/end times. Wi
 
 Uploaded source books, page renders, photos and recordings are stored on local disk under `UPLOAD_DIR` (default `.cache/uploads`). Keep that directory persistent in deployments; Docker Compose mounts it as `english-tool-uploads`.
 
+## Deploy
+
+See [DEPLOY.md](DEPLOY.md): Supabase (database and storage), Render (web app) and a Cloudflare Tunnel to the Mac that runs the AI proxy and Kokoro, plus the security checklist.
+
 ## Accounts
 
 Sign-up requires an invite code. As admin:

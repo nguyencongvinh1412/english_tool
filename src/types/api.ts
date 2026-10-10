@@ -21,13 +21,22 @@ export interface ChatMessage {
 }
 
 /**
+ * Activity a chat request belongs to (mirrors server/content/chatPrompts.ts)
+ */
+export type ChatContext =
+  | { mode: 'conversation'; topic?: string }
+  | { mode: 'scenario'; scenario: { aiRole: string; userRole: string; context: string; difficulty: 'beginner' | 'intermediate' | 'advanced' } }
+  | { mode: 'pronunciation' }
+  | { mode: 'dictation' };
+
+/**
  * Request payload for chat endpoint
  */
 export interface ChatRequest {
   /** Array of messages in the conversation */
   messages: ChatMessage[];
-  /** Optional custom system prompt to override default */
-  systemPrompt?: string;
+  /** Activity the chat belongs to; the server builds the system prompt from it */
+  context: ChatContext;
   /** Optional AI model ID (from GET /api/chat/models) */
   model?: string;
 }

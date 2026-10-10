@@ -4,7 +4,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { ChatMessage } from '@/types/api';
+import type { ChatContext, ChatMessage } from '@/types/api';
 import { sendMessage } from '@/services/api';
 
 /** State returned by useClaude hook */
@@ -27,8 +27,8 @@ interface UseClaudeActions {
 
 /** Options for useClaude hook */
 interface UseClaudeOptions {
-  /** Optional initial system prompt for the conversation */
-  initialSystemPrompt?: string;
+  /** Activity the conversation belongs to; the server builds the system prompt from it */
+  context: ChatContext;
 }
 
 /**
@@ -40,7 +40,7 @@ interface UseClaudeOptions {
  * @example
  * ```tsx
  * const { messages, isLoading, error, sendUserMessage, clearMessages } = useClaude({
- *   initialSystemPrompt: 'You are a helpful English tutor.'
+ *   context: { mode: 'conversation', topic: 'Travel' },
  * });
  *
  * const handleSend = async (text: string) => {
@@ -48,8 +48,8 @@ interface UseClaudeOptions {
  * };
  * ```
  */
-export function useClaude(options: UseClaudeOptions = {}): UseClaudeState & UseClaudeActions {
-  const { initialSystemPrompt } = options;
+export function useClaude(options: UseClaudeOptions): UseClaudeState & UseClaudeActions {
+  const { context } = options;
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +76,7 @@ export function useClaude(options: UseClaudeOptions = {}): UseClaudeState & UseC
       try {
         // Send all messages including the new one
         const allMessages = [...messages, userMessage];
-        const response = await sendMessage(allMessages, initialSystemPrompt);
+        const response = await sendMessage(allMessages, context);
 
         // Add assistant response to state
         const assistantMessage: ChatMessage = {
@@ -91,7 +91,7 @@ export function useClaude(options: UseClaudeOptions = {}): UseClaudeState & UseC
         setIsLoading(false);
       }
     },
-    [messages, initialSystemPrompt]
+    [messages, context]
   );
 
   /**

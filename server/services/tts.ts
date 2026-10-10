@@ -6,7 +6,7 @@
 import { createHash } from 'node:crypto';
 import { mkdir, rename, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { config } from '../config.js';
+import { config, upstreamAccessHeaders } from '../config.js';
 import { HttpError } from '../http/errors.js';
 
 /** Kokoro voices offered to the app: American and British, female and male */
@@ -85,7 +85,7 @@ async function synthesize(text: string, voice: TtsVoice, speed: number, file: st
   try {
     response = await fetch(`${config.TTS_BASE_URL}/v1/audio/speech`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...upstreamAccessHeaders() },
       body: JSON.stringify({ model: 'kokoro', input: text, voice, speed, response_format: 'mp3' }),
       signal: AbortSignal.timeout(SYNTH_TIMEOUT_MS),
     });
@@ -133,7 +133,7 @@ export async function ttsAvailable(): Promise<boolean> {
 
   let available = false;
   try {
-    const response = await fetch(`${config.TTS_BASE_URL}/v1/audio/voices`, { signal: AbortSignal.timeout(3000) });
+    const response = await fetch(`${config.TTS_BASE_URL}/v1/audio/voices`, { headers: upstreamAccessHeaders(), signal: AbortSignal.timeout(3000) });
     available = response.ok;
   } catch {
     available = false;

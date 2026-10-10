@@ -2,12 +2,11 @@
  * Text extraction from uploaded test documents
  * PDF: one entry per page (unpdf). DOCX: raw text split into page-sized chunks (mammoth).
  */
-import { readFile } from 'node:fs/promises';
 import { extractText, getDocumentProxy } from 'unpdf';
 import mammoth from 'mammoth';
 import type { MediaAsset } from '../db/schema.js';
 import { HttpError } from '../http/errors.js';
-import { storagePath } from '../services/storage.js';
+import { readObject } from '../services/storage.js';
 
 export interface ExtractedPage {
   /** 1-based page number */
@@ -44,7 +43,7 @@ function splitIntoPages(text: string): string[] {
  * @throws HttpError 400 for unreadable or oversized documents
  */
 export async function extractPages(asset: MediaAsset): Promise<ExtractedPage[]> {
-  const data = await readFile(storagePath(asset.storageKey));
+  const data = await readObject(asset.storageKey);
 
   let texts: string[];
   try {

@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { attempts, contentItems, type ContentItem, type User } from '../db/schema.js';
-import { currentUser, requireAuth } from '../auth/middleware.js';
+import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { GENERATE_TIMEOUT_MS, runAIJson, SCORING_TIMEOUT_MS } from '../services/ai.js';
 import { recordAttempt } from '../services/progress.js';
@@ -175,7 +175,7 @@ export function createContentRouter(): Router {
   /**
    * POST /content/generate - Ask the AI for a new item and add it to the shared bank
    */
-  router.post('/content/generate', requireAuth, async (req, res) => {
+  router.post('/content/generate', requireAuth, limitAiRequests, async (req, res) => {
     const body = generateSchema.parse(req.body);
     const user = currentUser(req);
     const definition = CONTENT_KINDS[body.kind];
@@ -221,7 +221,7 @@ export function createContentRouter(): Router {
   /**
    * POST /ai/define - Learner-friendly definition of a word in context
    */
-  router.post('/ai/define', requireAuth, async (req, res) => {
+  router.post('/ai/define', requireAuth, limitAiRequests, async (req, res) => {
     const body = defineSchema.parse(req.body);
     const user = currentUser(req);
     const vietnamese = localeOf(user) === 'vi';
@@ -250,7 +250,7 @@ Respond with ONLY one JSON object.`,
   /**
    * POST /ai/score-writing - Band-score a writing response and record the attempt
    */
-  router.post('/ai/score-writing', requireAuth, async (req, res) => {
+  router.post('/ai/score-writing', requireAuth, limitAiRequests, async (req, res) => {
     const body = scoreWritingSchema.parse(req.body);
     const user = currentUser(req);
     const item = await loadItem(body.contentId, 'writing-prompt');
@@ -286,7 +286,7 @@ Respond with ONLY one JSON object.`,
   /**
    * POST /ai/score-speaking - Band-score IELTS speaking transcripts and record the attempt
    */
-  router.post('/ai/score-speaking', requireAuth, async (req, res) => {
+  router.post('/ai/score-speaking', requireAuth, limitAiRequests, async (req, res) => {
     const body = scoreSpeakingSchema.parse(req.body);
     const user = currentUser(req);
     const item = await loadItem(body.contentId, 'speaking-ielts');

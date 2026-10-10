@@ -3,9 +3,10 @@
  * Builds the app without listening, so tests can drive it with supertest
  */
 import express, { Request, Response, NextFunction } from 'express';
+import helmet from 'helmet';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { IS_PRODUCTION } from './config.js';
+import { config, IS_PRODUCTION } from './config.js';
 import { checkOrigin } from './auth/middleware.js';
 import { errorHandler, HttpError } from './http/errors.js';
 import { createAuthRouter } from './routes/auth.js';
@@ -35,8 +36,33 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   const app = express();
 
   // Behind Docker / a tunnel, trust the first proxy for req.ip and req.protocol
-  app.set('trust proxy', 1);
+  app.set('trust proxy', config.TRUST_PROXY_HOPS);
   app.disable('x-powered-by');
+
+  // Security headers; the CSP allows only our own scripts plus Google Fonts
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          // pdf.js decodes some scanned images with WebAssembly
+          scriptSrc: ["'self'", "'wasm-unsafe-eval'"],
+          styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+          fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+          imgSrc: ["'self'", 'data:', 'blob:'],
+          mediaSrc: ["'self'", 'blob:'],
+          workerSrc: ["'self'", 'blob:'],
+          connectSrc: ["'self'"],
+          objectSrc: ["'none'"],
+          frameAncestors: ["'none'"],
+          baseUri: ["'self'"],
+          formAction: ["'self'"],
+        },
+      },
+      // Media and fonts are same-origin; COEP would block Google Fonts
+      crossOriginEmbedderPolicy: false,
+    })
+  );
 
   app.use(express.json({ limit: JSON_BODY_LIMIT }));
 

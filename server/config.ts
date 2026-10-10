@@ -30,6 +30,11 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(3001),
 
   DATABASE_URL: z.url({ message: 'DATABASE_URL must be a postgres:// URL' }),
+  /**
+   * Optional direct (or session-pooler) URL for migrations. Supabase's transaction pooler,
+   * used for DATABASE_URL, does not keep the session state migrations rely on.
+   */
+  DATABASE_MIGRATION_URL: z.url().optional(),
 
   /** Bootstrap admin, created on startup when no admin exists yet */
   ADMIN_EMAIL: z.email().optional(),
@@ -43,12 +48,33 @@ const envSchema = z.object({
   /** Where generated audio clips are cached */
   TTS_CACHE_DIR: z.string().default('.cache/tts'),
 
-  /** Where uploaded documents, images and audio are stored */
+  /** Where uploaded documents, images and audio are stored: local disk or an S3-compatible bucket */
+  STORAGE_DRIVER: z.enum(['local', 's3']).default('local'),
+  /** Local storage folder, also used for temporary upload files with the s3 driver */
   UPLOAD_DIR: z.string().default('.cache/uploads'),
+  /** S3 driver, e.g. Supabase Storage: https://<project>.supabase.co/storage/v1/s3 */
+  S3_ENDPOINT: z.url().optional(),
+  S3_REGION: z.string().default('us-east-1'),
+  S3_BUCKET: z.string().optional(),
+  S3_ACCESS_KEY_ID: z.string().optional(),
+  S3_SECRET_ACCESS_KEY: z.string().optional(),
 
   /** Extra allowed origins for state-changing requests, comma-separated */
   APP_ORIGIN: z.string().default('').transform(parseList),
-});
+
+  /** Reverse proxies in front of the app (Render: 1), so req.ip is the client's address */
+  TRUST_PROXY_HOPS: z.coerce.number().int().min(0).max(5).default(1),
+
+  /**
+   * Cloudflare Access service token for upstreams reached through a tunnel (AI proxy, Kokoro).
+   * Sent as CF-Access-Client-Id / CF-Access-Client-Secret so only this server can use them.
+   */
+  UPSTREAM_ACCESS_CLIENT_ID: z.string().optional(),
+  UPSTREAM_ACCESS_CLIENT_SECRET: z.string().optional(),
+}).refine(
+  (env) => env.STORAGE_DRIVER !== 's3' || (env.S3_ENDPOINT && env.S3_BUCKET && env.S3_ACCESS_KEY_ID && env.S3_SECRET_ACCESS_KEY),
+  { message: 'STORAGE_DRIVER=s3 needs S3_ENDPOINT, S3_BUCKET, S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY', path: ['STORAGE_DRIVER'] }
+);
 
 /** Validated server configuration */
 export type Config = z.infer<typeof envSchema>;
@@ -75,3 +101,11 @@ function loadConfig(): Config {
 export const config = loadConfig();
 
 export const IS_PRODUCTION = config.NODE_ENV === 'production';
+
+/**
+ * Headers that authenticate this server to tunnelled upstreams (empty when not configured)
+ */
+export function upstreamAccessHeaders(): Record<string, string> {
+  if (!config.UPSTREAM_ACCESS_CLIENT_ID || !config.UPSTREAM_ACCESS_CLIENT_SECRET) return {};
+  return { 'CF-Access-Client-Id': config.UPSTREAM_ACCESS_CLIENT_ID, 'CF-Access-Client-Secret': config.UPSTREAM_ACCESS_CLIENT_SECRET };
+}
