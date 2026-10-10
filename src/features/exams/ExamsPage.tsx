@@ -69,9 +69,8 @@ export const ExamsPage: React.FC = () => {
           label={t.ielts.examSwitch}
           value={exam}
           onChange={(value) =>
-            setParams(value === 'toeic' ? {} : { exam: value }, {
-              replace: true,
-            })
+            // Always explicit: without the param the page falls back to the profile's target exam
+            setParams({ exam: value }, { replace: true })
           }
           options={[
             { value: 'toeic', label: 'TOEIC', tone: 'exam' },
