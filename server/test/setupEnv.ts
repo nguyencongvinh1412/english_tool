@@ -24,4 +24,5 @@ process.env.CLIPROXY_BASE_URL = 'http://cliproxy.test';
 process.env.CLIPROXY_API_KEY = 'test-key';
 process.env.TTS_BASE_URL = 'http://tts.test';
 process.env.TTS_CACHE_DIR = '.cache/tts-test';
+process.env.UPLOAD_DIR = '.cache/uploads-test';
 delete process.env.GROQ_API_KEY;

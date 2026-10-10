@@ -53,9 +53,13 @@ export type MessageRole = 'user' | 'assistant';
 /**
  * Single message in a chat conversation
  */
+/** Text or image part of a multimodal message (OpenAI format) */
+export type ContentPart = { type: 'text'; text: string } | { type: 'image_url'; image_url: { url: string } };
+
 export interface ChatMessage {
   role: MessageRole;
-  content: string;
+  /** Plain text, or text and image parts for vision-capable models */
+  content: string | ContentPart[];
 }
 
 /**

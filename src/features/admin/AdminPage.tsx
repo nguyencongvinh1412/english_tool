@@ -10,9 +10,10 @@ import { UsersTab } from './UsersTab';
 import { InvitesTab } from './InvitesTab';
 import { UsageTab } from './UsageTab';
 import { ExamBankTab } from './ExamBankTab';
+import { ImportsTab } from './ImportsTab';
 import './admin.css';
 
-type AdminTab = 'users' | 'invites' | 'usage' | 'bank';
+type AdminTab = 'users' | 'invites' | 'usage' | 'bank' | 'imports';
 
 export const AdminPage: React.FC = () => {
   const { t } = useI18n();
@@ -32,6 +33,7 @@ export const AdminPage: React.FC = () => {
             { id: 'invites', label: t.admin.tabs.invites },
             { id: 'usage', label: t.admin.tabs.usage },
             { id: 'bank', label: t.examBank.tab },
+            { id: 'imports', label: t.imports.tab },
           ]}
         />
       </div>
@@ -41,6 +43,7 @@ export const AdminPage: React.FC = () => {
         {tab === 'invites' && <InvitesTab />}
         {tab === 'usage' && <UsageTab />}
         {tab === 'bank' && <ExamBankTab />}
+        {tab === 'imports' && <ImportsTab />}
       </div>
     </div>
   );

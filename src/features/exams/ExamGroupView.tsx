@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { prefetchScript, speakScript, type ScriptLine } from '@/shared/speech';
-import type { ExamGroup, ToeicPart } from '@/shared/examApi';
+import { playSegment } from '@/shared/audioSegment';
+import { mediaUrl, type ExamGroup, type P1Item, type P2Item, type ToeicPart } from '@/shared/examApi';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 
@@ -29,12 +30,19 @@ interface ExamGroupViewProps {
 }
 
 /**
- * Lines spoken for a group: Part 2 reads the question then "A, B, C" responses
+ * Lines spoken for a group without a recording: Part 1 reads the statements,
+ * Part 2 the question then "A, B, C" responses
  */
-function audioLines(part: ToeicPart, group: ExamGroup): ScriptLine[] {
+function audioLines(part: ToeicPart, group: ExamGroup, firstNumber: number): ScriptLine[] {
+  if (part === 1) {
+    return (group.payload.items as P1Item[] | undefined ?? []).flatMap((item, index) => [
+      { speaker: 'A' as const, text: `Number ${firstNumber + index}. Look at the picture marked number ${firstNumber + index} in your test book.` },
+      ...item.statements.map((statement, i) => ({ speaker: 'B' as const, text: `${LETTERS[i]}. ${statement}` })),
+    ]);
+  }
   if (part === 2) {
-    return (group.payload.items ?? []).flatMap((item, index) => [
-      { speaker: 'A' as const, text: `Number ${index + 1}. ${item.question}` },
+    return (group.payload.items as P2Item[] | undefined ?? []).flatMap((item, index) => [
+      { speaker: 'A' as const, text: `Number ${firstNumber + index}. ${item.question}` },
       ...item.options.map((option, i) => ({ speaker: 'B' as const, text: `${LETTERS[i]}. ${option}` })),
     ]);
   }
@@ -60,6 +68,11 @@ const GroupAudio: React.FC<{ lines: ScriptLine[]; group: ExamGroup; playOnce: bo
   const play = () => {
     stopRef.current?.();
     setIsPlaying(true);
+    const recording = group.payload.audio;
+    if (recording) {
+      stopRef.current = playSegment(recording, () => setIsPlaying(false), onPlayed);
+      return;
+    }
     onPlayed();
     const speakers = group.payload.speakers;
     stopRef.current = speakScript(
@@ -70,6 +83,12 @@ const GroupAudio: React.FC<{ lines: ScriptLine[]; group: ExamGroup; playOnce: bo
     );
   };
 
+  const stop = () => {
+    stopRef.current?.();
+    stopRef.current = null;
+    setIsPlaying(false);
+  };
+
   const locked = playOnce && played && !isPlaying;
 
   return (
@@ -77,6 +96,11 @@ const GroupAudio: React.FC<{ lines: ScriptLine[]; group: ExamGroup; playOnce: bo
       <Button variant="exam" icon="headphones" onClick={play} disabled={isPlaying || locked}>
         {isPlaying ? t.exams.playing : locked ? t.exams.played : t.exams.playAudio}
       </Button>
+      {isPlaying && !playOnce && (
+        <Button variant="ghost" size="sm" onClick={stop}>
+          {t.exams.stopAudio}
+        </Button>
+      )}
       {playOnce && <span className="exam-audio__note">{t.exams.playOnce}</span>}
     </div>
   );
@@ -101,22 +125,30 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
 
   // Generate the group's audio in the background while the learner reads the questions
   useEffect(() => {
-    if (!isListening || review) return;
+    if (!isListening || group.payload.audio) return;
     const speakers = group.payload.speakers;
-    prefetchScript(audioLines(part, group), { A: speakers?.A.gender ?? 'female', B: speakers?.B?.gender ?? 'male', C: speakers?.C?.gender });
-  }, [group, part, isListening, review]);
-  const instructions = { 2: t.exams.p2Instructions, 3: t.exams.p3Instructions, 4: t.exams.p4Instructions, 5: t.exams.p5Instructions, 6: t.exams.p6Instructions, 7: t.exams.p7Instructions }[part];
+    prefetchScript(audioLines(part, group, firstNumber), { A: speakers?.A.gender ?? 'female', B: speakers?.B?.gender ?? 'male', C: speakers?.C?.gender });
+  }, [group, part, firstNumber, isListening]);
+  const instructions = { 1: t.exams.p1Instructions, 2: t.exams.p2Instructions, 3: t.exams.p3Instructions, 4: t.exams.p4Instructions, 5: t.exams.p5Instructions, 6: t.exams.p6Instructions, 7: t.exams.p7Instructions }[part];
 
-  // Part 2 options are spoken, so they are hidden while taking the test
-  const questions =
-    part === 2
-      ? (payload.items ?? []).map((item) => ({
-          prompt: review ? item.question : '',
-          options: review ? item.options : ['', '', ''],
+  // Parts 1-2 options are spoken, so they are hidden while taking the test
+  const questions: { prompt: string; options: string[]; answerIndex?: number; explanation?: string; imageAssetId?: string }[] =
+    part === 1
+      ? ((payload.items ?? []) as P1Item[]).map((item) => ({
+          prompt: '',
+          options: review ? item.statements : ['', '', '', ''],
           answerIndex: item.answerIndex,
           explanation: item.explanation,
+          imageAssetId: item.imageAssetId,
         }))
-      : (payload.questions ?? []);
+      : part === 2
+        ? ((payload.items ?? []) as P2Item[]).map((item) => ({
+            prompt: review ? item.question : '',
+            options: review ? item.options : ['', '', ''],
+            answerIndex: item.answerIndex,
+            explanation: item.explanation,
+          }))
+        : (payload.questions ?? []);
 
   return (
     <div className="exam-group">
@@ -124,7 +156,7 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
 
       {isListening && !review && (
         <GroupAudio
-          lines={audioLines(part, group)}
+          lines={audioLines(part, group, firstNumber)}
           group={group}
           playOnce={playOnce}
           played={played}
@@ -132,7 +164,11 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
         />
       )}
 
-      {review && isListening && part !== 2 && payload.script && (
+      {review && isListening && (payload.audio || audioLines(part, group, firstNumber).length > 0) && (
+        <GroupAudio lines={audioLines(part, group, firstNumber)} group={group} playOnce={false} played={false} onPlayed={() => undefined} />
+      )}
+
+      {review && isListening && part > 2 && payload.script && payload.script.length > 0 && (
         <details className="exam-transcript" open>
           <summary>{t.exams.transcript}</summary>
           {payload.script.map((line, i) => (
@@ -141,6 +177,12 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
             </p>
           ))}
         </details>
+      )}
+
+      {payload.graphic && (
+        <div className="exam-text exam-text--graphic" lang="en">
+          <p>{payload.graphic}</p>
+        </div>
       )}
 
       {part === 6 && payload.passage && (
@@ -198,6 +240,9 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
                   </button>
                 )}
               </div>
+              {question.imageAssetId && (
+                <img className="exam-q__photo" src={mediaUrl(question.imageAssetId)} alt={t.exams.photoAlt(firstNumber + index)} loading="lazy" />
+              )}
               <div className="exam-q__options" role="radiogroup" aria-label={t.exams.question(firstNumber + index)}>
                 {question.options.map((option, optionIndex) => {
                   const isChosen = chosen === optionIndex;

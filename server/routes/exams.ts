@@ -7,7 +7,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { examSessions, type ExamSession } from '../db/schema.js';
+import { examSessions, importJobs, type ExamSession } from '../db/schema.js';
 import { currentUser, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { recordAttempt } from '../services/progress.js';
@@ -20,6 +20,9 @@ import {
   QUESTIONS_PER_GROUP,
   assembleBlueprint,
   bankCounts,
+  groupQuestions,
+  officialBlueprint,
+  officialTimeLimit,
   loadGroups,
   scoreSession,
   sessionView,
@@ -38,8 +41,9 @@ const HISTORY_LIMIT = 30;
 const partSchema = z.coerce.number().pipe(z.union(TOEIC_PARTS.map((p) => z.literal(p)) as [z.ZodLiteral<2>, ...z.ZodLiteral<ToeicPart>[]]));
 
 const startSchema = z
-  .object({ mode: z.enum(['mini', 'part', 'full']), part: partSchema.optional() })
-  .refine((body) => body.mode !== 'part' || body.part !== undefined, { message: 'part is required', path: ['part'] });
+  .object({ mode: z.enum(['mini', 'part', 'full', 'official']), part: partSchema.optional(), importId: z.uuid().optional() })
+  .refine((body) => body.mode !== 'part' || body.part !== undefined, { message: 'part is required', path: ['part'] })
+  .refine((body) => body.mode !== 'official' || body.importId !== undefined, { message: 'importId is required', path: ['importId'] });
 
 const saveSchema = z.object({
   answers: z.record(z.string().max(120), z.number().int().min(0).max(3).nullable()).optional(),
@@ -51,6 +55,22 @@ const fillSchema = z.object({
   count: z.number().int().min(1).max(MAX_FILL_PER_REQUEST),
   level: z.enum(CEFR_LEVELS).default('B1'),
 });
+
+/**
+ * Title of an imported test, for attempt labels
+ */
+async function importTitle(importId: string | undefined): Promise<string> {
+  if (!importId) return 'official test';
+  const [row] = await db.select({ title: importJobs.title }).from(importJobs).where(eq(importJobs.id, importId)).limit(1);
+  return row?.title ?? 'official test';
+}
+
+/**
+ * Display title of a session: the imported test's title, or null for bank tests
+ */
+async function titleOf(blueprint: Blueprint): Promise<string | null> {
+  return blueprint.importId ? importTitle(blueprint.importId) : null;
+}
 
 /** Deadline including grace, in milliseconds */
 const deadlineMs = (session: ExamSession) => session.startedAt.getTime() + (session.timeLimitSec + DEADLINE_GRACE_SEC) * 1000;
@@ -73,6 +93,7 @@ async function loadSession(id: string, userId: string): Promise<ExamSession> {
   return session;
 }
 
+
 /**
  * Scores and closes a session, recording one attempt per tested section
  */
@@ -94,7 +115,12 @@ async function submitSession(session: ExamSession): Promise<{ session: ExamSessi
   }
 
   const durationSec = Math.round((Date.now() - session.startedAt.getTime()) / 1000);
-  const label = session.mode === 'part' ? `TOEIC Part ${blueprint.sections[0]?.part}` : `TOEIC ${session.mode} test`;
+  const label =
+    session.mode === 'part'
+      ? `TOEIC Part ${blueprint.sections[0]?.part}`
+      : session.mode === 'official'
+        ? `TOEIC ${await importTitle(blueprint.importId)}`
+        : `TOEIC ${session.mode} test`;
   let xpEarned = 0;
 
   for (const name of ['listening', 'reading'] as const) {
@@ -126,6 +152,36 @@ async function expireIfOverdue(session: ExamSession): Promise<ExamSession> {
 }
 
 /**
+ * Published imported tests with their question counts
+ */
+async function officialTests() {
+  const imports = await db
+    .select({ id: importJobs.id, title: importJobs.title, publishedAt: importJobs.publishedAt })
+    .from(importJobs)
+    .where(and(eq(importJobs.status, 'published'), eq(importJobs.exam, 'toeic')))
+    .orderBy(desc(importJobs.publishedAt));
+
+  return Promise.all(
+    imports.map(async (imp) => {
+      const blueprint = await officialBlueprint(imp.id);
+      const groups = blueprint ? await loadGroups(blueprint) : new Map();
+      const questions =
+        blueprint?.sections.reduce(
+          (sum, section) => sum + section.groupIds.reduce((n, id) => n + (groups.has(id) ? groupQuestions(section.part, groups.get(id)).length : 0), 0),
+          0
+        ) ?? 0;
+      return {
+        id: imp.id,
+        title: imp.title,
+        parts: blueprint?.sections.map((s) => s.part) ?? [],
+        questions,
+        minutes: blueprint ? officialTimeLimit(blueprint, groups) / 60 : 0,
+      };
+    })
+  );
+}
+
+/**
  * Creates the exam router
  * @returns Router mounted at /api
  */
@@ -149,6 +205,7 @@ export function createExamRouter(): Router {
         minutes: PART_CONFIG[part].partMinutes,
         bankGroups: bank[part],
       })),
+      officialTests: await officialTests(),
     });
   });
 
@@ -162,6 +219,24 @@ export function createExamRouter(): Router {
     const user = currentUser(req);
     const mode = body.mode as ExamMode;
     const part = body.part as ToeicPart | undefined;
+
+    if (mode === 'official') {
+      const [imp] = await db
+        .select({ status: importJobs.status })
+        .from(importJobs)
+        .where(eq(importJobs.id, body.importId!))
+        .limit(1);
+      const blueprint = imp?.status === 'published' ? await officialBlueprint(body.importId!) : null;
+      if (!blueprint) throw new HttpError(404, 'Test not found.', 'not_found');
+
+      const groups = await loadGroups(blueprint);
+      const [session] = await db
+        .insert(examSessions)
+        .values({ userId: user.id, exam: 'toeic', mode, blueprint, timeLimitSec: officialTimeLimit(blueprint, groups) })
+        .returning();
+      res.status(201).json({ session: { ...sessionView(session, groups), title: await titleOf(blueprint) } });
+      return;
+    }
 
     let assembled = await assembleBlueprint(user.id, mode, part);
 
@@ -210,17 +285,19 @@ export function createExamRouter(): Router {
 
     const sessions = await Promise.all(rows.map(expireIfOverdue));
     res.json({
-      sessions: sessions.map((s) => ({
+      sessions: await Promise.all(sessions.map(async (s) => ({
         id: s.id,
         exam: s.exam,
         mode: s.mode,
         parts: (s.blueprint as Blueprint).sections.map((sec) => sec.part),
+        importId: (s.blueprint as Blueprint).importId ?? null,
+        title: await titleOf(s.blueprint as Blueprint),
         status: s.status,
         startedAt: s.startedAt,
         submittedAt: s.submittedAt,
         deadline: new Date(s.startedAt.getTime() + s.timeLimitSec * 1000),
         result: s.result,
-      })),
+      }))),
     });
   });
 
@@ -229,7 +306,7 @@ export function createExamRouter(): Router {
    */
   router.get('/exams/sessions/:id', requireAuth, async (req, res) => {
     const session = await expireIfOverdue(await loadSession(String(req.params.id), currentUser(req).id));
-    res.json({ session: sessionView(session, await loadGroups(session.blueprint as Blueprint)) });
+    res.json({ session: { ...sessionView(session, await loadGroups(session.blueprint as Blueprint)), title: await titleOf(session.blueprint as Blueprint) } });
   });
 
   /**
@@ -263,7 +340,7 @@ export function createExamRouter(): Router {
   router.post('/exams/sessions/:id/submit', requireAuth, async (req, res) => {
     const session = await loadSession(String(req.params.id), currentUser(req).id);
     const { session: closed, xpEarned } = await submitSession(session);
-    res.json({ session: sessionView(closed, await loadGroups(closed.blueprint as Blueprint)), xpEarned });
+    res.json({ session: { ...sessionView(closed, await loadGroups(closed.blueprint as Blueprint)), title: await titleOf(closed.blueprint as Blueprint) }, xpEarned });
   });
 
   /**

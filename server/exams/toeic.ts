@@ -3,15 +3,19 @@
  * Test structure, blueprint assembly from the content bank, answer hiding,
  * and scoring with an estimated 5-495 scale per section
  */
-import { and, eq, inArray, sql } from 'drizzle-orm';
+import { and, asc, eq, inArray, ne, sql } from 'drizzle-orm';
 import type { z } from 'zod';
 import { db } from '../db/client.js';
 import { contentItems, examSessions, type ContentItem } from '../db/schema.js';
-import { toeicP2, toeicP3, toeicP4, toeicP5, toeicP6, toeicP7, type ContentKind } from '../content/schemas.js';
+import { toeicP1, toeicP2, toeicP3Import, toeicP4Import, toeicP5Import, toeicP3, toeicP4, toeicP5, toeicP6, toeicP7, type ContentKind } from '../content/schemas.js';
 
+/** Parts in an official (imported) test */
+export const ALL_PARTS = [1, 2, 3, 4, 5, 6, 7] as const;
+/** Parts the AI bank can supply (Part 1 needs real photos) */
 export const TOEIC_PARTS = [2, 3, 4, 5, 6, 7] as const;
-export type ToeicPart = (typeof TOEIC_PARTS)[number];
-export type ExamMode = 'mini' | 'part' | 'full';
+export type ToeicPart = (typeof ALL_PARTS)[number];
+export type BankPart = (typeof TOEIC_PARTS)[number];
+export type ExamMode = 'mini' | 'part' | 'full' | 'official';
 export type Section = 'listening' | 'reading';
 
 interface PartConfig {
@@ -26,6 +30,7 @@ interface PartConfig {
 }
 
 export const PART_CONFIG: Record<ToeicPart, PartConfig> = {
+  1: { kind: 'toeic-p1', section: 'listening', officialQuestions: 6, partMinutes: 5, miniGroups: 0 },
   2: { kind: 'toeic-p2', section: 'listening', officialQuestions: 25, partMinutes: 9, miniGroups: 1 },
   3: { kind: 'toeic-p3', section: 'listening', officialQuestions: 39, partMinutes: 20, miniGroups: 1 },
   4: { kind: 'toeic-p4', section: 'listening', officialQuestions: 30, partMinutes: 15, miniGroups: 1 },
@@ -39,11 +44,19 @@ export const MODE_MINUTES = { mini: 25, full: 120 } as const;
 /** Seconds after the deadline during which answers are still accepted (network delays, auto-submit) */
 export const DEADLINE_GRACE_SEC = 120;
 
-const SCHEMAS: Record<ToeicPart, z.ZodType> = { 2: toeicP2, 3: toeicP3, 4: toeicP4, 5: toeicP5, 6: toeicP6, 7: toeicP7 };
+/** AI-generated Part 2 groups must have exactly five items */
+const toeicP2Generated = toeicP2.refine((group) => group.items.length === 5, { message: 'items must contain exactly 5 entries', path: ['items'] });
+
+const SCHEMAS: Record<ToeicPart, z.ZodType> = { 1: toeicP1, 2: toeicP2Generated, 3: toeicP3, 4: toeicP4, 5: toeicP5, 6: toeicP6, 7: toeicP7 };
+
+/** Schemas for imported groups (any Part 2 length) */
+const IMPORT_SCHEMAS: Record<ToeicPart, z.ZodType> = { ...SCHEMAS, 2: toeicP2, 3: toeicP3Import, 4: toeicP4Import, 5: toeicP5Import };
 
 /** Blueprint stored on the session */
 export interface Blueprint {
   sections: { part: ToeicPart; groupIds: string[] }[];
+  /** Set for official tests built from one import */
+  importId?: string;
 }
 
 /** Question in a group, with the stable id used for answers */
@@ -57,7 +70,7 @@ interface ScoredQuestion {
  */
 export function groupQuestions(part: ToeicPart, item: ContentItem): ScoredQuestion[] {
   const payload = item.payload as { items?: { answerIndex: number }[]; questions?: { answerIndex: number }[] };
-  const list = part === 2 ? (payload.items ?? []) : (payload.questions ?? []);
+  const list = part <= 2 ? (payload.items ?? []) : (payload.questions ?? []);
   return list.map((q, index) => ({ id: `${item.id}:${index}`, answerIndex: q.answerIndex }));
 }
 
@@ -70,13 +83,43 @@ function groupsNeeded(part: ToeicPart, mode: ExamMode, questionsPerGroup: number
 }
 
 /** Typical questions per group (Part 7 varies from 2 to 5) */
-export const QUESTIONS_PER_GROUP: Record<ToeicPart, number> = { 2: 5, 3: 3, 4: 3, 5: 10, 6: 4, 7: 4 };
+export const QUESTIONS_PER_GROUP: Record<ToeicPart, number> = { 1: 6, 2: 5, 3: 3, 4: 3, 5: 10, 6: 4, 7: 4 };
 
 /**
  * Parts included in a mode
  */
 export function partsFor(mode: ExamMode, part?: ToeicPart): ToeicPart[] {
   return mode === 'part' && part ? [part] : [...TOEIC_PARTS];
+}
+
+/**
+ * Time limit for an official test: each part's official time scaled by how many of its
+ * questions the import has (a complete test gets the full 120 minutes)
+ */
+export function officialTimeLimit(blueprint: Blueprint, groups: Map<string, ContentItem>): number {
+  const minutes = blueprint.sections.reduce((sum, section) => {
+    const questions = section.groupIds.reduce((n, id) => n + (groups.has(id) ? groupQuestions(section.part, groups.get(id)!).length : 0), 0);
+    return sum + (PART_CONFIG[section.part].partMinutes * Math.min(questions, PART_CONFIG[section.part].officialQuestions)) / PART_CONFIG[section.part].officialQuestions;
+  }, 0);
+  return Math.min(MODE_MINUTES.full, Math.max(5, Math.ceil(minutes))) * 60;
+}
+
+/**
+ * Blueprint of an imported test, in part and import order
+ */
+export async function officialBlueprint(importId: string): Promise<Blueprint | null> {
+  const items = await db
+    .select({ id: contentItems.id, kind: contentItems.kind })
+    .from(contentItems)
+    .where(and(eq(contentItems.importId, importId), eq(contentItems.status, 'published')))
+    .orderBy(asc(contentItems.importOrder));
+
+  if (items.length === 0) return null;
+  const sections = ALL_PARTS.map((part) => ({
+    part,
+    groupIds: items.filter((item) => item.kind === PART_CONFIG[part].kind).map((item) => item.id),
+  })).filter((section) => section.groupIds.length > 0);
+  return { sections, importId };
 }
 
 /**
@@ -94,10 +137,10 @@ export async function bankCounts(): Promise<Record<ToeicPart, number>> {
   const rows = await db
     .select({ kind: contentItems.kind, count: sql<number>`count(*)::int` })
     .from(contentItems)
-    .where(and(eq(contentItems.status, 'published'), sql`${contentItems.kind} like 'toeic-p%'`))
+    .where(and(eq(contentItems.status, 'published'), ne(contentItems.source, 'imported'), sql`${contentItems.kind} like 'toeic-p%'`))
     .groupBy(contentItems.kind);
 
-  const counts = Object.fromEntries(TOEIC_PARTS.map((p) => [p, 0])) as Record<ToeicPart, number>;
+  const counts = Object.fromEntries(ALL_PARTS.map((p) => [p, 0])) as Record<ToeicPart, number>;
   for (const row of rows) counts[Number(row.kind.replace('toeic-p', '')) as ToeicPart] = row.count;
   return counts;
 }
@@ -127,7 +170,7 @@ export async function assembleBlueprint(
     const items = await db
       .select()
       .from(contentItems)
-      .where(and(eq(contentItems.kind, PART_CONFIG[p].kind), eq(contentItems.status, 'published')));
+      .where(and(eq(contentItems.kind, PART_CONFIG[p].kind), eq(contentItems.status, 'published'), ne(contentItems.source, 'imported')));
 
     // Unseen first, then random within each bucket
     const shuffled = items
@@ -177,8 +220,24 @@ type Payload = Record<string, unknown>;
 function hideAnswers(part: ToeicPart, payload: Payload): Payload {
   const strip = (q: Payload) =>
     Object.fromEntries(Object.entries(q).filter(([key]) => key !== 'answerIndex' && key !== 'explanation'));
-  if (part === 2) return { items: (payload.items as Payload[]).map(strip) };
-  return { ...payload, questions: (payload.questions as Payload[]).map(strip) };
+  // With a real recording the spoken text is not needed and would reveal the answers
+  const hasAudio = Boolean(payload.audio);
+
+  if (part === 1) {
+    return {
+      ...payload,
+      items: (payload.items as Payload[]).map((item) => ({ ...strip(item), statements: hasAudio ? ['', '', '', ''] : item.statements })),
+    };
+  }
+  if (part === 2) {
+    return {
+      ...payload,
+      items: (payload.items as Payload[]).map((item) => (hasAudio ? { ...strip(item), question: '', options: ['', '', ''] } : strip(item))),
+    };
+  }
+  const visible: Payload = { ...payload, questions: (payload.questions as Payload[]).map(strip) };
+  if (hasAudio && (part === 3 || part === 4)) delete visible.script;
+  return visible;
 }
 
 /**
@@ -271,4 +330,11 @@ export function scoreSession(blueprint: Blueprint, groups: Map<string, ContentIt
  */
 export function partSchema(part: ToeicPart): z.ZodType {
   return SCHEMAS[part];
+}
+
+/**
+ * Validates an imported group (Part 2 may hold any number of items)
+ */
+export function importPartSchema(part: ToeicPart): z.ZodType {
+  return IMPORT_SCHEMAS[part];
 }

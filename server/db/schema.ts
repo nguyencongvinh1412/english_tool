@@ -126,6 +126,55 @@ export const attempts = pgTable(
   ]
 );
 
+export const mediaKind = pgEnum('media_kind', ['image', 'audio', 'document']);
+
+/**
+ * Uploaded files (PDF/DOCX sources, page renders, cropped photos, audio tracks)
+ */
+export const mediaAssets = pgTable('media_assets', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  kind: mediaKind('kind').notNull(),
+  /** Path inside the storage driver, e.g. "ab/abcd...ef.mp3" */
+  storageKey: text('storage_key').notNull(),
+  mime: text('mime').notNull(),
+  sizeBytes: integer('size_bytes').notNull(),
+  originalName: text('original_name'),
+  uploadedBy: uuid('uploaded_by').references(() => users.id, { onDelete: 'set null' }),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const importStatus = pgEnum('import_status', ['uploaded', 'parsing', 'review', 'published', 'failed']);
+
+/**
+ * One imported test: source document, extracted pages, the parsed draft the admin
+ * reviews, and progress of the AI parsing
+ */
+export const importJobs = pgTable(
+  'import_jobs',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    uploadedBy: uuid('uploaded_by').references(() => users.id, { onDelete: 'set null' }),
+    exam: examType('exam').notNull(),
+    /** Test label shown to learners, e.g. "ETS 2024 Test 3" */
+    title: text('title').notNull(),
+    status: importStatus('status').notNull().default('uploaded'),
+    documentAssetId: uuid('document_asset_id').references(() => mediaAssets.id, { onDelete: 'set null' }),
+    /** Page ranges the admin marked: { questions: [from, to], answers?: [...], transcripts?: [...] } */
+    ranges: jsonb('ranges').notNull().default({}),
+    /** Extracted pages: [{ n, text, imageAssetId? }] */
+    pages: jsonb('pages').notNull().default([]),
+    /** Parsed test the admin edits before publishing */
+    draft: jsonb('draft'),
+    /** Parsing progress: { step, done, total } */
+    progress: jsonb('progress'),
+    error: text('error'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    publishedAt: timestamp('published_at', { withTimezone: true }),
+  },
+  (table) => [index('import_jobs_created_idx').on(table.createdAt)]
+);
+
 export const contentSource = pgEnum('content_source', ['builtin', 'ai', 'imported']);
 export const contentStatus = pgEnum('content_status', ['draft', 'published', 'archived']);
 
@@ -152,9 +201,16 @@ export const contentItems = pgTable(
     source: contentSource('source').notNull(),
     status: contentStatus('status').notNull().default('published'),
     createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),
+    /** Imported test this group came from; groups of one import form an official-style test */
+    importId: uuid('import_id').references(() => importJobs.id, { onDelete: 'set null' }),
+    /** Position of the group inside its imported test */
+    importOrder: integer('import_order'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (table) => [index('content_items_kind_level_idx').on(table.kind, table.status, table.level)]
+  (table) => [
+    index('content_items_kind_level_idx').on(table.kind, table.status, table.level),
+    index('content_items_import_idx').on(table.importId),
+  ]
 );
 
 export const examStatus = pgEnum('exam_status', ['in_progress', 'submitted']);
@@ -194,4 +250,6 @@ export type User = typeof users.$inferSelect;
 export type Attempt = typeof attempts.$inferSelect;
 export type ContentItem = typeof contentItems.$inferSelect;
 export type ExamSession = typeof examSessions.$inferSelect;
+export type MediaAsset = typeof mediaAssets.$inferSelect;
+export type ImportJob = typeof importJobs.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;

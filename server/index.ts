@@ -7,6 +7,7 @@ import { closeDb, runMigrations } from './db/client.js';
 import { ensureBootstrapAdmin } from './services/users.js';
 import { ensureBuiltinContent } from './content/seeds.js';
 import { createApp } from './app.js';
+import { recoverInterruptedImports } from './imports/jobs.js';
 
 /**
  * Boots the server
@@ -15,6 +16,7 @@ async function main(): Promise<void> {
   await runMigrations();
   await ensureBootstrapAdmin();
   await ensureBuiltinContent();
+  await recoverInterruptedImports();
 
   const app = createApp({ logRequests: true });
 

@@ -14,12 +14,14 @@ interface ModalProps {
   footer?: React.ReactNode;
   /** Label for the close button (translated by the caller) */
   closeLabel: string;
+  /** lg for wide content such as page images */
+  size?: 'md' | 'lg';
 }
 
 /**
  * Modal dialog: native <dialog> gives focus trapping, Esc to close and inert background
  */
-export const Modal: React.FC<ModalProps> = ({ open, title, onClose, children, footer, closeLabel }) => {
+export const Modal: React.FC<ModalProps> = ({ open, title, onClose, children, footer, closeLabel, size = 'md' }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const Modal: React.FC<ModalProps> = ({ open, title, onClose, children, fo
   return (
     <dialog
       ref={dialogRef}
-      className="modal"
+      className={`modal modal--${size}`}
       aria-labelledby="modal-title"
       onClose={onClose}
       onClick={(event) => {

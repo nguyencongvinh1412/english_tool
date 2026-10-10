@@ -27,7 +27,7 @@ On first start the server applies migrations and creates the admin from `ADMIN_E
 | Development (hot reload) | `npm run db:up` then `npm run dev` | http://localhost:5173 |
 | Local production build | `npm run db:up` then `npm run local` | http://localhost:3002 |
 
-Docker Desktop groups the `english-tool-app`, `english-tool-db` and `english-tool-tts` containers under the **english-tool** project, on the `english-tool-net` network. Data lives in the `english-tool-pgdata` volume and generated audio in `english-tool-tts-cache`.
+Docker Desktop groups the `english-tool-app`, `english-tool-db` and `english-tool-tts` containers under the **english-tool** project, on the `english-tool-net` network. Data lives in the `english-tool-pgdata` volume, generated speech in `english-tool-tts-cache`, and uploaded test books and media in `english-tool-uploads`.
 
 ## Voices
 
@@ -35,6 +35,14 @@ Listening content is read by [Kokoro](https://github.com/remsky/Kokoro-FastAPI) 
 
 - `npm run dev` uses `TTS_BASE_URL=http://localhost:8880` (start it with `docker compose up -d tts`)
 - Leave `TTS_BASE_URL` empty to use browser voices only
+
+## Import TOEIC Tests
+
+Admins can import practice books from **Admin → Imports**. Upload a PDF or DOCX, mark the question pages and optional answer-key/transcript pages, then review the extracted groups before publishing. Scanned PDFs can be rendered in the browser for OCR and Part 1 photo crops.
+
+Listening groups can use an uploaded recording with optional start/end times. Without a recording, the app reads the imported transcript with Kokoro and falls back to browser voices when Kokoro is unavailable. Published imports appear as official tests in the TOEIC exam catalog.
+
+Uploaded source books, page renders, photos and recordings are stored on local disk under `UPLOAD_DIR` (default `.cache/uploads`). Keep that directory persistent in deployments; Docker Compose mounts it as `english-tool-uploads`.
 
 ## Accounts
 

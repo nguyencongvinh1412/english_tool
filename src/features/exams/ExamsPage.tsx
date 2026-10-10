@@ -28,11 +28,11 @@ export const ExamsPage: React.FC = () => {
       .catch(setError);
   }, []);
 
-  const start = async (mode: ExamMode, part?: ToeicPart): Promise<void> => {
-    setStarting(part ? `part-${part}` : mode);
+  const start = async (mode: ExamMode, options: { part?: ToeicPart; importId?: string } = {}): Promise<void> => {
+    setStarting(options.importId ?? (options.part ? `part-${options.part}` : mode));
     setError(null);
     try {
-      const { session } = await examApi.start(mode, part);
+      const { session } = await examApi.start(mode, options);
       navigate(examPath(session.id));
     } catch (err) {
       setError(err);
@@ -53,7 +53,8 @@ export const ExamsPage: React.FC = () => {
     );
   }
 
-  const partLabel = (parts: ToeicPart[]) => (parts.length === 1 ? t.exams.partName(parts[0]) : '');
+  const sessionLabel = (s: SessionSummary) =>
+    s.title ?? `${t.exams.modeLabel[s.mode]} ${s.mode === 'part' && s.parts.length === 1 ? t.exams.partName(s.parts[0]) : ''}`;
 
   return (
     <div className="exams">
@@ -68,7 +69,7 @@ export const ExamsPage: React.FC = () => {
             </Button>
           }
         >
-          {t.exams.resume}: {t.exams.modeLabel[inProgress.mode]} {partLabel(inProgress.parts)}
+          {t.exams.resume}: {sessionLabel(inProgress)}
         </Banner>
       )}
 
@@ -97,6 +98,35 @@ export const ExamsPage: React.FC = () => {
         </Card>
       </div>
 
+      {catalog.officialTests.length > 0 && (
+        <section>
+          <h2 className="exams__section-title">{t.exams.officialTitle}</h2>
+          <p className="exams__section-intro">{t.exams.officialIntro}</p>
+          <div className="exam-parts">
+            {catalog.officialTests.map((test) => (
+              <Card key={test.id} padding="md" className="exam-part exam-part--official">
+                <div className="exam-part__head">
+                  <Badge tone="exam">{t.exams.modeLabel.official}</Badge>
+                </div>
+                <p className="exam-part__title">{test.title}</p>
+                <p className="exam-part__meta">
+                  {t.exams.officialMeta(test.questions, test.minutes)} · {test.parts.map((p) => `P${p}`).join(' ')}
+                </p>
+                <Button
+                  size="sm"
+                  variant="exam"
+                  onClick={() => start('official', { importId: test.id })}
+                  loading={starting === test.id}
+                  disabled={starting !== null}
+                >
+                  {t.exams.start}
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section>
         <h2 className="exams__section-title">{t.exams.byPart}</h2>
         <div className="exam-parts">
@@ -113,7 +143,7 @@ export const ExamsPage: React.FC = () => {
               <Button
                 size="sm"
                 variant="secondary"
-                onClick={() => start('part', part.part)}
+                onClick={() => start('part', { part: part.part })}
                 loading={starting === `part-${part.part}`}
                 disabled={starting !== null}
               >
@@ -136,9 +166,7 @@ export const ExamsPage: React.FC = () => {
               <li key={s.id}>
                 <button type="button" className="exam-history__row" onClick={() => navigate(examPath(s.id))}>
                   <span className="exam-history__what">
-                    <strong>
-                      {t.exams.modeLabel[s.mode]} {partLabel(s.parts)}
-                    </strong>
+                    <strong>{sessionLabel(s)}</strong>
                     <span>{formatDate(s.submittedAt ?? s.startedAt)}</span>
                   </span>
                   {s.result?.sections.listening && (

@@ -20,20 +20,24 @@ import { sendChatMessage as sendGroqMessage, GroqApiError } from './groq.js';
  * Sends a chat request via CLIProxyAPI, falling back to Groq if the proxy is unavailable
  */
 export async function sendWithFallback(request: ChatRequest): Promise<string> {
+  const isMultimodal = request.messages.some((m) => typeof m.content !== 'string');
+  const textOnly = () => sendGroqMessage(request as Parameters<typeof sendGroqMessage>[0]);
+
   if (!isCliProxyConfigured()) {
-    return sendGroqMessage(request);
+    if (isMultimodal) throw new HttpError(503, 'Image reading needs the AI proxy.', 'ai_unavailable');
+    return textOnly();
   }
 
   try {
     return await sendCliProxyMessage(request);
   } catch (error) {
     // Only fall back when the proxy itself is down (tunnel offline, machine asleep, upstream 5xx)
-    if (!(error instanceof CliProxyApiError) || !error.isUnavailable || !process.env.GROQ_API_KEY) {
+    if (!(error instanceof CliProxyApiError) || !error.isUnavailable || !process.env.GROQ_API_KEY || isMultimodal) {
       throw error;
     }
 
     console.warn(`CLIProxyAPI unavailable (${error.message}), falling back to Groq`);
-    return sendGroqMessage(request);
+    return textOnly();
   }
 }
 
@@ -112,7 +116,7 @@ export async function runAIJson<S extends z.ZodType>(user: User, options: RunAIO
     ...options,
     messages: [
       ...options.messages,
-      { role: 'assistant', content: firstReply.slice(0, 6000) },
+      { role: 'assistant' as const, content: firstReply.slice(0, 6000) },
       {
         role: 'user',
         content: `Your reply was not valid: ${first.problem}. Reply again with ONLY the corrected JSON object, no markdown.`,

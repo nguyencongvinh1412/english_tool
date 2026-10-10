@@ -43,6 +43,9 @@ const envSchema = z.object({
   /** Where generated audio clips are cached */
   TTS_CACHE_DIR: z.string().default('.cache/tts'),
 
+  /** Where uploaded documents, images and audio are stored */
+  UPLOAD_DIR: z.string().default('.cache/uploads'),
+
   /** Extra allowed origins for state-changing requests, comma-separated */
   APP_ORIGIN: z.string().default('').transform(parseList),
 });

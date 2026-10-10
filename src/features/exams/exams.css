@@ -695,3 +695,29 @@
 .exam-result__back {
   align-self: flex-start;
 }
+
+/* ---------- Tests from books ---------- */
+.exams__section-intro {
+  margin: -0.5rem 0 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Part 1 photos ---------- */
+.exam-q__photo {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  max-height: 360px;
+  object-fit: contain;
+  margin: 0 0 0.75rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--surface);
+}
+
+.exam-text--graphic {
+  margin-bottom: 1rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.9375rem;
+  border-left-color: var(--listening);
+}

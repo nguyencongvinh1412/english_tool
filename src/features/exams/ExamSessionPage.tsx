@@ -37,7 +37,7 @@ function flatten(session: ExamSession): FlatGroup[] {
   return session.sections.flatMap((section) =>
     section.groups.map((group) => {
       const questionIds = groupQuestionIds(section.part, group);
-      const flat = { part: section.part, section: section.section, group, firstNumber: number, questionIds };
+      const flat = { part: section.part, section: section.section, group, firstNumber: group.payload.startNumber ?? number, questionIds };
       number += questionIds.length;
       return flat;
     })
@@ -200,7 +200,7 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
           <Icon name="arrowLeft" size={20} />
         </Link>
         <div className="exam-bar__title">
-          <strong>TOEIC · {t.exams.modeLabel[session.mode]}</strong>
+          <strong>TOEIC · {session.title ?? t.exams.modeLabel[session.mode]}</strong>
           <span>
             {t.exams.partName(current.part)} · {t.exams.partTitles[current.part]}
           </span>
@@ -329,7 +329,7 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
           <Icon name="arrowLeft" size={20} />
         </Link>
         <div className="exam-bar__title">
-          <strong>TOEIC · {t.exams.modeLabel[session.mode]}</strong>
+          <strong>TOEIC · {session.title ?? t.exams.modeLabel[session.mode]}</strong>
           <span>{t.exams.resultTitle}</span>
         </div>
         <LocaleToggle />

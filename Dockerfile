@@ -20,7 +20,7 @@ COPY --from=build /app/dist-server ./dist-server
 COPY --from=build /app/server/db/migrations ./server/db/migrations
 
 # Audio cache volume must be writable by the unprivileged user
-RUN mkdir -p /data/tts-cache && chown node:node /data/tts-cache
+RUN mkdir -p /data/tts-cache /data/uploads && chown node:node /data/tts-cache /data/uploads
 
 USER node
 EXPOSE 3002

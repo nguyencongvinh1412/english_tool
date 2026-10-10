@@ -132,7 +132,7 @@ ${JSON_RULES}`;
         system,
         target,
         user: `${topicLine}
-Write 5 TOEIC Part 2 (question-response) items. Each has a short spoken question or statement and three spoken responses;
+Write exactly 5 TOEIC Part 2 (question-response) items. Each has a short spoken question or statement and three spoken responses;
 only one is a natural reply. Use typical distractors: repeated words, similar sounds, wrong question word.
 Mix wh-questions, yes/no, choice questions, requests and statements.
 JSON: {"items": [{"question": "When is the budget meeting?", "options": ["In conference room B.", "Tomorrow at ten.", "Yes, I met him."], "explanation": "...", "answerIndex": 1}]}`,

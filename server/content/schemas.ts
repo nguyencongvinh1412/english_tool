@@ -111,7 +111,32 @@ export const writingPrompt = z.object({
 
 /* ---------- TOEIC exam groups (one content item = one group of questions) ---------- */
 
-/** Part 2: spoken question, three spoken responses */
+/** Real recording for an imported listening group: a file and an optional time window */
+export const audioSegment = z
+  .object({
+    assetId: z.uuid(),
+    start: z.number().min(0).optional(),
+    end: z.number().min(0).optional(),
+  })
+  .refine((a) => a.start === undefined || a.end === undefined || a.end > a.start, { message: 'end must be after start' });
+
+/** Part 1 (imported tests only): a photo and four spoken statements */
+export const toeicP1 = z.object({
+  items: z
+    .array(
+      z.object({
+        imageAssetId: z.uuid(),
+        statements: z.array(text(200)).length(4),
+        answerIndex: z.number().int().min(0).max(3),
+        explanation: text(400),
+      })
+    )
+    .min(1)
+    .max(6),
+  audio: audioSegment.optional(),
+});
+
+/** Part 2: spoken question, three spoken responses (AI groups have 5 items; imported tests may hold all 25) */
 export const toeicP2 = z.object({
   items: z
     .array(
@@ -122,7 +147,9 @@ export const toeicP2 = z.object({
         explanation: text(400),
       })
     )
-    .length(5),
+    .min(1)
+    .max(25),
+  audio: audioSegment.optional(),
 });
 
 const toeicSpeakers = z.object({ A: speaker, B: speaker.optional(), C: speaker.optional() });
@@ -133,6 +160,9 @@ export const toeicP3 = z.object({
   speakers: toeicSpeakers,
   script: z.array(toeicScriptLine).min(5).max(14),
   questions: z.array(mcqQuestion).length(3),
+  /** Chart, schedule or map printed with the questions, as text */
+  graphic: text(1500).optional(),
+  audio: audioSegment.optional(),
 });
 
 /** Part 4: short talk by one speaker with three printed questions */
@@ -144,11 +174,27 @@ export const toeicP4 = z.object({
     .min(3)
     .max(10),
   questions: z.array(mcqQuestion).length(3),
+  graphic: text(1500).optional(),
+  audio: audioSegment.optional(),
 });
+
+/** Imported Parts 3-4 may omit the transcript when the book's recording is attached */
+export const toeicP3Import = toeicP3
+  .extend({ script: z.array(toeicScriptLine).max(14) })
+  .refine((p) => p.audio || p.script.length >= 5, { message: 'add the transcript or attach the recording', path: ['script'] });
+
+export const toeicP4Import = toeicP4
+  .extend({ script: z.array(z.object({ speaker: z.literal('A'), text: text(400) })).max(10) })
+  .refine((p) => p.audio || p.script.length >= 3, { message: 'add the transcript or attach the recording', path: ['script'] });
 
 /** Part 5: ten incomplete sentences */
 export const toeicP5 = z.object({
   questions: z.array(mcqQuestion.refine((q) => q.prompt.includes('____'), 'prompt must contain ____')).length(10),
+});
+
+/** Part 5 groups from imported tests may hold any number of sentences up to 30 */
+export const toeicP5Import = z.object({
+  questions: z.array(mcqQuestion.refine((q) => q.prompt.includes('____'), 'prompt must contain ____')).min(1).max(30),
 });
 
 /** Part 6: one text with four numbered blanks */
@@ -176,6 +222,7 @@ export const CONTENT_KINDS = {
   'listening-quiz': { skill: 'listening', schema: listeningQuiz },
   'speaking-ielts': { skill: 'speaking', schema: speakingIelts },
   'writing-prompt': { skill: 'writing', schema: writingPrompt },
+  'toeic-p1': { skill: 'listening', schema: toeicP1 },
   'toeic-p2': { skill: 'listening', schema: toeicP2 },
   'toeic-p3': { skill: 'listening', schema: toeicP3 },
   'toeic-p4': { skill: 'listening', schema: toeicP4 },

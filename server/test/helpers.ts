@@ -18,7 +18,7 @@ let passwordHashPromise: Promise<string> | null = null;
  * Removes all rows from every table between tests
  */
 export async function resetDb(): Promise<void> {
-  await db.execute(sql`TRUNCATE users, sessions, invite_codes, ai_usage, attempts, content_items, exam_sessions RESTART IDENTITY CASCADE`);
+  await db.execute(sql`TRUNCATE users, sessions, invite_codes, ai_usage, attempts, content_items, exam_sessions, import_jobs, media_assets RESTART IDENTITY CASCADE`);
 }
 
 /**

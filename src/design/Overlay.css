@@ -13,6 +13,10 @@
   backdrop-filter: blur(2px);
 }
 
+.modal--lg {
+  width: min(960px, calc(100vw - 2rem));
+}
+
 .modal[open] .modal__panel {
   animation: modal-pop 0.25s var(--ease-bounce);
 }

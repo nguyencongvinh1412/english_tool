@@ -19,6 +19,8 @@ const LINE_PAUSE_MS = 450;
 const STATUS_RETRY_MS = 60_000;
 /** Longest text the server accepts per clip; longer text is split into sentences */
 const MAX_CLIP_CHARS = 600;
+/** The TTS batch endpoint accepts at most 60 lines per request */
+const MAX_BATCH_LINES = 60;
 
 /** Server voices per gender, in the order speakers receive them */
 const SERVER_VOICES: Record<Gender, string[]> = {
@@ -74,10 +76,14 @@ export function splitSentences(text: string): string[] {
  */
 async function fetchClips(lines: ScriptLine[], genders: Genders): Promise<string[]> {
   const voices = voicesFor(genders);
-  const { clips } = await apiFetch<{ clips: string[] }>('/api/tts/batch', {
-    method: 'POST',
-    json: { lines: lines.map((line) => ({ text: line.text, voice: voices[line.speaker] })) },
-  });
+  const clips: string[] = [];
+  for (let start = 0; start < lines.length; start += MAX_BATCH_LINES) {
+    const { clips: batch } = await apiFetch<{ clips: string[] }>('/api/tts/batch', {
+      method: 'POST',
+      json: { lines: lines.slice(start, start + MAX_BATCH_LINES).map((line) => ({ text: line.text, voice: voices[line.speaker] })) },
+    });
+    clips.push(...batch);
+  }
   return clips;
 }
 

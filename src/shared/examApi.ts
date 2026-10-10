@@ -5,8 +5,8 @@ import { apiFetch } from './http';
 import { AI_USED_EVENT } from '@/services/api';
 import type { McqQuestion, Speaker } from './contentApi';
 
-export type ExamMode = 'mini' | 'part' | 'full';
-export type ToeicPart = 2 | 3 | 4 | 5 | 6 | 7;
+export type ExamMode = 'mini' | 'part' | 'full' | 'official';
+export type ToeicPart = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type ExamSection = 'listening' | 'reading';
 
 /** Printed question; answers and explanations only exist after submit */
@@ -19,20 +19,41 @@ export interface P2Item {
   explanation?: string;
 }
 
+/** Part 1 (imported tests): photo plus four spoken statements */
+export interface P1Item {
+  imageAssetId: string;
+  statements: string[];
+  answerIndex?: number;
+  explanation?: string;
+}
+
+/** Slice of an uploaded recording, in seconds */
+export interface AudioSegment {
+  assetId: string;
+  start?: number;
+  end?: number;
+}
+
 export interface ScriptLine {
   speaker: 'A' | 'B' | 'C';
   text: string;
 }
 
 export interface GroupPayload {
-  /** Part 2 */
-  items?: P2Item[];
+  /** Imported tests: the book's number for the first question */
+  startNumber?: number;
+  /** Parts 1-2 */
+  items?: (P1Item | P2Item)[];
+  /** Real recording from an imported test (otherwise the script is read by the voice service) */
+  audio?: AudioSegment;
   /** Parts 3-7 */
   questions?: ExamQuestion[];
   /** Parts 3-4 */
   speakers?: { A: Speaker; B?: Speaker; C?: Speaker };
   script?: ScriptLine[];
   talkType?: string;
+  /** Parts 3-4: printed chart or schedule, as text */
+  graphic?: string;
   /** Part 6 */
   title?: string;
   passage?: string;
@@ -53,6 +74,8 @@ export interface ExamResult {
 
 export interface ExamSession {
   id: string;
+  /** Imported test title (official mode) */
+  title: string | null;
   exam: 'toeic';
   mode: ExamMode;
   status: 'in_progress' | 'submitted';
@@ -68,6 +91,7 @@ export interface ExamSession {
 
 export interface SessionSummary {
   id: string;
+  title: string | null;
   mode: ExamMode;
   parts: ToeicPart[];
   status: 'in_progress' | 'submitted';
@@ -80,12 +104,21 @@ export interface SessionSummary {
 export interface Catalog {
   modes: { mini: { minutes: number; parts: number }; full: { minutes: number; questions: number } };
   parts: { part: ToeicPart; section: ExamSection; questions: number; minutes: number; bankGroups: number }[];
+  officialTests: OfficialTest[];
+}
+
+export interface OfficialTest {
+  id: string;
+  title: string;
+  parts: ToeicPart[];
+  questions: number;
+  minutes: number;
 }
 
 export const examApi = {
   catalog: () => apiFetch<Catalog>('/api/exams/toeic/catalog'),
-  start: (mode: ExamMode, part?: ToeicPart) =>
-    apiFetch<{ session: ExamSession }>('/api/exams/toeic/sessions', { method: 'POST', json: { mode, part } }).then((r) => {
+  start: (mode: ExamMode, options: { part?: ToeicPart; importId?: string } = {}) =>
+    apiFetch<{ session: ExamSession }>('/api/exams/toeic/sessions', { method: 'POST', json: { mode, ...options } }).then((r) => {
       // Starting may generate missing groups with AI
       window.dispatchEvent(new Event(AI_USED_EVENT));
       return r;
@@ -100,8 +133,11 @@ export const examApi = {
     apiFetch<{ created: number; failed: number }>('/api/admin/exam-bank/fill', { method: 'POST', json: { part, count, level } }),
 };
 
+/** Streaming URL of an uploaded file */
+export const mediaUrl = (assetId: string) => `/api/media/${assetId}`;
+
 /** Questions of a group with their answer ids, in display order */
 export function groupQuestionIds(part: ToeicPart, group: ExamGroup): string[] {
-  const count = part === 2 ? (group.payload.items?.length ?? 0) : (group.payload.questions?.length ?? 0);
+  const count = part <= 2 ? (group.payload.items?.length ?? 0) : (group.payload.questions?.length ?? 0);
   return Array.from({ length: count }, (_, i) => `${group.id}:${i}`);
 }

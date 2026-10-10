@@ -59,8 +59,10 @@ services:
       CLIPROXY_BASE_URL: http://host.docker.internal:8317
       TTS_BASE_URL: http://tts:8880
       TTS_CACHE_DIR: /data/tts-cache
+      UPLOAD_DIR: /data/uploads
     volumes:
       - english-tool-tts-cache:/data/tts-cache
+      - english-tool-uploads:/data/uploads
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
@@ -77,6 +79,8 @@ volumes:
     name: english-tool-pgdata
   english-tool-tts-cache:
     name: english-tool-tts-cache
+  english-tool-uploads:
+    name: english-tool-uploads
 
 networks:
   english-tool-net:
