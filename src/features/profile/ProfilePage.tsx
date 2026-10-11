@@ -5,7 +5,7 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Banner, Button, Card, Field, Icon, PageHeader, Select, TextInput, useToast } from '@/design';
+import { Badge, Banner, Button, Card, Field, Icon, Modal, PageHeader, Select, TextInput, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
@@ -18,7 +18,7 @@ const PASSWORD_MIN_LENGTH = 8;
 
 export const ProfilePage: React.FC = () => {
   const { t, formatDate } = useI18n();
-  const { updateProfile, changeLocale, logout } = useAuth();
+  const { updateProfile, changeLocale, logout, deleteAccount } = useAuth();
   const user = useCurrentUser();
   const toast = useToast();
 
@@ -34,6 +34,22 @@ export const ProfilePage: React.FC = () => {
   const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '' });
   const [passwordError, setPasswordError] = useState<unknown>(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [deleteError, setDeleteError] = useState<unknown>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const confirmDelete = async (): Promise<void> => {
+    setIsDeleting(true);
+    setDeleteError(null);
+    try {
+      // Signs out; the route guard then sends the browser to the sign-in page
+      await deleteAccount(deletePassword);
+    } catch (err) {
+      setDeleteError(err);
+      setIsDeleting(false);
+    }
+  };
 
   const saveDetails = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
@@ -229,11 +245,59 @@ export const ProfilePage: React.FC = () => {
                 <Icon name="chevronRight" size={18} />
               </Link>
             )}
+            <Link to={ROUTES.PRIVACY} className="profile-link">
+              <Icon name="lock" size={20} />
+              {t.profile.privacyLink}
+              <Icon name="chevronRight" size={18} />
+            </Link>
             <button type="button" className="profile-link profile-link--danger" onClick={logout}>
               <Icon name="logout" size={20} />
               {t.nav.signOut}
             </button>
           </div>
+
+          <Card padding="lg" className="profile-danger reveal" style={{ ['--i' as string]: 5 }}>
+            <h2 className="profile-form__title">{t.profile.deleteTitle}</h2>
+            <p className="profile-danger__body">{t.profile.deleteBody}</p>
+            <Button variant="danger" icon="trash" onClick={() => setDeleting(true)}>
+              {t.profile.deleteButton}
+            </Button>
+          </Card>
+
+          <Modal
+            open={deleting}
+            title={t.profile.deleteConfirmTitle}
+            onClose={() => {
+              setDeleting(false);
+              setDeletePassword('');
+              setDeleteError(null);
+            }}
+            closeLabel={t.common.close}
+            footer={
+              <>
+                <Button variant="ghost" onClick={() => setDeleting(false)}>
+                  {t.common.cancel}
+                </Button>
+                <Button variant="danger" icon="trash" onClick={confirmDelete} loading={isDeleting} disabled={!deletePassword}>
+                  {t.profile.deleteConfirm}
+                </Button>
+              </>
+            }
+          >
+            <p>{t.profile.deleteConfirmBody}</p>
+            <Field label={t.profile.deletePassword}>
+              {(id) => (
+                <TextInput
+                  id={id}
+                  type="password"
+                  autoComplete="current-password"
+                  value={deletePassword}
+                  onChange={(event) => setDeletePassword(event.target.value)}
+                />
+              )}
+            </Field>
+            {deleteError !== null && <Banner tone="danger">{errorMessage(deleteError, t)}</Banner>}
+          </Modal>
         </div>
       </div>
     </div>

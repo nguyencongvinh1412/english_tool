@@ -94,7 +94,11 @@ Delete `english_tool.sql` and `uploads-export` afterwards; they contain user dat
 What the app already does:
 
 - **Accounts:** invite-only sign-up, scrypt password hashes, HttpOnly + Secure + SameSite session cookies,
-  Origin check on every state-changing request, rate limits on login and sign-up.
+  Origin check on every state-changing request, rate limits on login, sign-up and password reset.
+  Forgotten passwords: an admin creates a one-time reset link (24 hours) from Admin → Users; the user picks
+  the new password and every device is signed out.
+- **Privacy:** a privacy notice at `/privacy` (linked from sign-up, sign-in and Profile) explains what is stored
+  and which AI providers process it; users can delete their account and data from Profile.
 - **AI cost and abuse:** system prompts are built on the server from fixed templates with guardrails (the client
   can only pick an activity and send short role-play details); chat requests are capped at 30 messages and
   20,000 characters; every learner has a daily AI quota and a model allowlist (Opus and Fable are always

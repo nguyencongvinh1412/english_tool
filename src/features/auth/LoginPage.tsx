@@ -71,10 +71,14 @@ export const LoginPage: React.FC = () => {
         <Button type="submit" size="lg" block loading={isSubmitting} disabled={!email || !password}>
           {t.auth.signIn}
         </Button>
+        <p className="auth__note">{t.auth.forgotPassword}</p>
       </form>
 
       <p className="auth__switch">
         {t.auth.noAccount} <Link to={ROUTES.REGISTER}>{t.auth.createAccount}</Link>
+      </p>
+      <p className="auth__legal">
+        <Link to={ROUTES.PRIVACY}>{t.profile.privacyLink}</Link>
       </p>
     </AuthLayout>
   );

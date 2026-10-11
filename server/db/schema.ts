@@ -66,6 +66,25 @@ export const sessions = pgTable(
   (table) => [index('sessions_user_id_idx').on(table.userId)]
 );
 
+/**
+ * One-time password reset links an admin creates for a user who forgot their password.
+ * Only the SHA-256 of the token is stored; the raw token lives in the link.
+ */
+export const passwordResets = pgTable(
+  'password_resets',
+  {
+    id: text('id').primaryKey(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    usedAt: timestamp('used_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('password_resets_user_id_idx').on(table.userId)]
+);
+
 export const inviteCodes = pgTable('invite_codes', {
   code: text('code').primaryKey(),
   createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),

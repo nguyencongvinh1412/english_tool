@@ -23,6 +23,8 @@ interface AuthContextValue {
   login: (email: string, password: string) => Promise<void>;
   register: (input: RegisterInput) => Promise<void>;
   logout: () => Promise<void>;
+  /** Deletes the account and its data after re-checking the password, then signs out */
+  deleteAccount: (password: string) => Promise<void>;
   updateProfile: (changes: ProfileUpdate) => Promise<CurrentUser>;
   /** Re-fetches the user, e.g. to refresh the AI quota */
   refresh: () => Promise<void>;
@@ -89,6 +91,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       },
       logout: async () => {
         await apiFetch('/api/auth/logout', { method: 'POST' });
+        setUser(null);
+      },
+      deleteAccount: async (password) => {
+        await apiFetch('/api/me', { method: 'DELETE', json: { password } });
         setUser(null);
       },
       updateProfile: async (changes) => {

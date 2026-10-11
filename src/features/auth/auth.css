@@ -161,3 +161,16 @@
     padding: 1.5rem 3rem;
   }
 }
+
+.auth__note {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.auth__legal {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  text-align: center;
+}

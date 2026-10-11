@@ -61,6 +61,8 @@ export const adminApi = {
   listUsers: () => apiFetch<{ users: AdminUser[]; defaults: AdminDefaults }>('/api/admin/users'),
   updateUser: (id: string, changes: UserUpdate) =>
     apiFetch<{ user: AdminUser }>(`/api/admin/users/${id}`, { method: 'PATCH', json: changes }),
+  createPasswordReset: (id: string) =>
+    apiFetch<{ token: string; expiresAt: string }>(`/api/admin/users/${id}/password-reset`, { method: 'POST' }),
   listModels: () => apiFetch<{ models: string[] }>('/api/admin/models'),
   listInvites: () => apiFetch<{ invites: Invite[] }>('/api/admin/invites'),
   createInvite: (input: InviteInput) => apiFetch<{ invite: Invite }>('/api/admin/invites', { method: 'POST', json: input }),

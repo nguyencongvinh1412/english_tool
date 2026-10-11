@@ -15,6 +15,8 @@ import { PublicOnly, RequireAdmin, RequireAuth } from '@/app/RouteGuards';
 import { ROUTES } from '@/app/routes';
 import { LoginPage } from '@/features/auth/LoginPage';
 import { RegisterPage } from '@/features/auth/RegisterPage';
+import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage';
+import { PrivacyPage } from '@/features/privacy/PrivacyPage';
 import { OnboardingPage } from '@/features/onboarding/OnboardingPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { SkillHubPage } from '@/features/skills/SkillHubPage';
@@ -46,6 +48,10 @@ export default function App(): React.JSX.Element {
               <ProgressProvider>
                 <BrowserWarning />
                 <Routes>
+                  {/* Open to everyone: reset links may be opened while another account is signed in */}
+                  <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />} />
+                  <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+
                   <Route element={<PublicOnly />}>
                     <Route path={ROUTES.LOGIN} element={<LoginPage />} />
                     <Route path={ROUTES.REGISTER} element={<RegisterPage />} />

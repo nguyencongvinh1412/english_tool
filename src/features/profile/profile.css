@@ -103,3 +103,15 @@
 .profile-link--danger {
   color: var(--danger);
 }
+
+.profile-danger {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--border));
+}
+
+.profile-danger__body {
+  margin: 0;
+  color: var(--text-muted);
+}

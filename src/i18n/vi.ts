@@ -61,6 +61,18 @@ export const vi: Messages = {
     passwordHint: 'Ít nhất 8 ký tự',
     register: 'Tạo tài khoản',
     haveAccount: 'Đã có tài khoản?',
+    forgotPassword: 'Quên mật khẩu? Hãy xin quản trị viên link đặt lại.',
+    consent: 'Khi tạo tài khoản, bạn đồng ý với cách chúng tôi xử lý dữ liệu, được mô tả trong',
+    privacyLink: 'thông báo quyền riêng tư',
+    resetTitle: 'Đặt mật khẩu mới',
+    resetSubtitle: 'Link này từ quản trị viên chỉ dùng được một lần.',
+    newPassword: 'Mật khẩu mới',
+    confirmPassword: 'Nhập lại mật khẩu mới',
+    passwordsDiffer: 'Hai mật khẩu không khớp.',
+    resetSubmit: 'Lưu mật khẩu mới',
+    resetDone: 'Đã đổi mật khẩu. Bạn đã được đăng xuất khỏi mọi thiết bị.',
+    resetMissingToken: 'Trang này cần link đặt lại từ quản trị viên.',
+    backToSignIn: 'Đến trang đăng nhập',
     features: ['Luyện nghe chép chính tả mỗi ngày', 'Trò chuyện với bạn học AI', 'Thi thử TOEIC & IELTS'],
   },
   onboarding: {
@@ -139,6 +151,14 @@ export const vi: Messages = {
     details: 'Thông tin',
     goals: 'Mục tiêu học',
     security: 'Mật khẩu',
+    privacyLink: 'Thông báo quyền riêng tư',
+    deleteTitle: 'Xoá tài khoản',
+    deleteBody: 'Xoá vĩnh viễn tài khoản, tiến trình học, câu trả lời và kết quả thi. Không thể hoàn tác.',
+    deleteButton: 'Xoá tài khoản của tôi',
+    deleteConfirmTitle: 'Xoá tài khoản của bạn?',
+    deleteConfirmBody: 'Mọi dữ liệu gắn với tài khoản sẽ bị xoá vĩnh viễn. Bài tập bạn đã tạo vẫn nằm trong thư viện chung nhưng không kèm tên bạn.',
+    deletePassword: 'Nhập mật khẩu để xác nhận',
+    deleteConfirm: 'Xoá vĩnh viễn',
     currentPassword: 'Mật khẩu hiện tại',
     newPassword: 'Mật khẩu mới',
     changePassword: 'Đổi mật khẩu',
@@ -152,6 +172,10 @@ export const vi: Messages = {
     subtitle: 'Quản lý học viên, mã mời và lượt dùng AI.',
     tabs: { users: 'Người dùng', invites: 'Mã mời', usage: 'Lượt dùng AI' },
     users: {
+      resetLink: 'Đặt lại mật khẩu',
+      resetTitle: 'Link đặt lại mật khẩu',
+      resetBody: (name) => `Gửi link này cho ${name}. Link chỉ dùng được một lần và hết hạn sau 24 giờ; tạo link mới sẽ huỷ link cũ.`,
+      resetCopied: 'Đã sao chép link',
       name: 'Tên',
       role: 'Vai trò',
       status: 'Trạng thái',
@@ -585,6 +609,63 @@ export const vi: Messages = {
       speaking: 'Bộ đề nói',
     },
   },
+  privacy: {
+    title: 'Thông báo quyền riêng tư',
+    updated: 'Cập nhật lần cuối: tháng 10/2026',
+    intro:
+      'English Practice là ứng dụng học tập riêng tư, chỉ dùng được khi có mã mời, do quản trị viên đã mời bạn vận hành. Trang này giải thích ứng dụng lưu gì, ai xử lý dữ liệu và cách xoá dữ liệu.',
+    sections: [
+      {
+        title: 'Chúng tôi lưu gì',
+        items: [
+          'Tài khoản: tên, email, ngôn ngữ, mục tiêu học và mật khẩu đã được băm một chiều (không ai đọc được mật khẩu của bạn).',
+          'Dữ liệu học tập: kết quả luyện tập và thi thử, câu trả lời, bài viết, transcript bài nói và nhận xét bạn nhận được.',
+          'Mức sử dụng: số lượt dùng AI mỗi ngày, để áp dụng giới hạn hằng ngày.',
+          'Phiên đăng nhập: bản ghi phiên kèm tên trình duyệt, để bạn giữ đăng nhập tối đa 30 ngày.',
+          'Tin nhắn trò chuyện với gia sư AI không được lưu thành lịch sử; chỉ số lượt yêu cầu được đếm.',
+        ],
+      },
+      {
+        title: 'Xử lý bằng AI',
+        items: [
+          'Khi bạn dùng tính năng AI (trò chuyện với gia sư, tạo bài tập, chấm bài viết và bài nói), nội dung bạn gửi — tin nhắn, bài viết, transcript bài nói — được gửi tới các mô hình AI bên thứ ba như Anthropic Claude, Google Gemini, OpenAI GPT hoặc Groq, thông qua cổng AI của quản trị viên. Việc xử lý đó tuân theo điều khoản quyền riêng tư của các bên này.',
+          'Vui lòng không đưa thông tin cá nhân nhạy cảm (số giấy tờ, sức khoẻ, tài chính hay thông tin liên hệ của người khác) vào câu trả lời hoặc tin nhắn.',
+        ],
+      },
+      {
+        title: 'Giọng nói',
+        items: [
+          'Phần luyện nói dùng chức năng nhận dạng giọng nói của trình duyệt. Trên Chrome, âm thanh của bạn được gửi tới Google để chuyển thành chữ. Ứng dụng không bao giờ lưu âm thanh, chỉ lưu văn bản.',
+          'Giọng đọc trong bài nghe được tạo bởi máy chủ giọng nói riêng của quản trị viên từ nội dung bài học.',
+        ],
+      },
+      {
+        title: 'Cookie và lưu trữ trên trình duyệt',
+        items: [
+          'Một cookie thiết yếu giúp bạn giữ đăng nhập. Không có cookie quảng cáo hay theo dõi phân tích.',
+          'Trình duyệt lưu một vài tuỳ chọn nhỏ như mô hình AI bạn chọn và vị trí đang làm trong bài thi.',
+          'Phông chữ được tải từ Google Fonts, nên trình duyệt sẽ kết nối tới Google khi mở ứng dụng.',
+        ],
+      },
+      {
+        title: 'Ai có thể xem dữ liệu của bạn',
+        items: [
+          'Quản trị viên xem được tài khoản, mức dùng AI mỗi ngày và kết quả học của bạn để quản lý quyền truy cập và hạn mức.',
+          'Bài tập bạn tạo bằng AI được thêm vào thư viện luyện tập chung, không kèm tên bạn.',
+          'Khi ứng dụng chạy trực tuyến, cơ sở dữ liệu và tệp tải lên được lưu trên Supabase, còn ứng dụng chạy trên Render.',
+        ],
+      },
+      {
+        title: 'Lưu giữ và xoá dữ liệu',
+        items: [
+          'Dữ liệu được giữ trong thời gian tài khoản của bạn còn tồn tại.',
+          'Bạn có thể xoá tài khoản bất cứ lúc nào trong trang Hồ sơ. Thao tác này xoá vĩnh viễn tài khoản, tiến trình học, câu trả lời, bài thi và các phiên đăng nhập. Bài tập bạn đã tạo vẫn nằm trong thư viện chung nhưng không kèm tên bạn. Bản sao lưu có thể giữ một bản trong thời gian giới hạn.',
+          'Nếu có câu hỏi hoặc yêu cầu, hãy liên hệ quản trị viên đã mời bạn.',
+        ],
+      },
+    ],
+    back: 'Quay lại',
+  },
   imports: {
     tab: 'Đề nhập từ sách',
     intro: 'Tải lên sách luyện TOEIC (PDF hoặc DOCX). AI đọc câu hỏi, đáp án và transcript; bạn kiểm tra rồi xuất bản thành đề thi thử.',
@@ -665,6 +746,8 @@ export const vi: Messages = {
     issues: 'Vấn đề',
   },
   errors: {
+    invalid_reset_token: 'Link đặt lại mật khẩu không hợp lệ, đã dùng hoặc đã hết hạn. Hãy xin quản trị viên link mới.',
+    last_admin: 'Hãy cấp quyền admin cho người khác trước khi xoá tài khoản admin cuối cùng.',
     generic: 'Đã có lỗi xảy ra. Vui lòng thử lại.',
     network: 'Không kết nối được máy chủ. Kiểm tra kết nối mạng.',
     invalid_credentials: 'Email hoặc mật khẩu không đúng.',

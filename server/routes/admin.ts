@@ -10,6 +10,7 @@ import { db } from '../db/client.js';
 import { aiUsage, inviteCodes, users } from '../db/schema.js';
 import { currentUser, requireAuth, requireRole } from '../auth/middleware.js';
 import { revokeUserSessions } from '../auth/sessions.js';
+import { createPasswordReset } from '../auth/passwordReset.js';
 import { HttpError } from '../http/errors.js';
 import { config } from '../config.js';
 import { toPublicUser } from '../services/users.js';
@@ -136,6 +137,19 @@ export function createAdminRouter(): Router {
     }
 
     res.json({ user: { ...toPublicUser(updated), status: updated.status } });
+  });
+
+  /**
+   * POST /users/:id/password-reset - One-time link (token) for a user who forgot their password
+   * @throws {404} User not found
+   */
+  router.post('/users/:id/password-reset', async (req, res) => {
+    const targetId = z.uuid().parse(req.params.id);
+    const [target] = await db.select({ id: users.id }).from(users).where(eq(users.id, targetId)).limit(1);
+    if (!target) throw new HttpError(404, 'User not found.', 'not_found');
+
+    const { token, expiresAt } = await createPasswordReset(target.id, currentUser(req).id);
+    res.status(201).json({ token, expiresAt });
   });
 
   /**

@@ -112,6 +112,10 @@ export const RegisterPage: React.FC = () => {
           )}
         </Field>
 
+        <p className="auth__note">
+          {t.auth.consent} <Link to={ROUTES.PRIVACY}>{t.auth.privacyLink}</Link>.
+        </p>
+
         <Button type="submit" size="lg" block loading={isSubmitting} disabled={!canSubmit}>
           {t.auth.register}
         </Button>

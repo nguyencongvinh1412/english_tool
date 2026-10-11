@@ -4,9 +4,10 @@
  */
 import type React from 'react';
 import { useState } from 'react';
-import { Badge, Banner, Button, Spinner } from '@/design';
+import { Badge, Banner, Button, Modal, Spinner, TextInput, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useCurrentUser } from '@/app/AuthProvider';
+import { ROUTES } from '@/app/routes';
 import { errorMessage } from '@/shared/http';
 import { adminApi, type AdminUser } from './adminApi';
 import { EditUserModal } from './EditUserModal';
@@ -17,6 +18,30 @@ export const UsersTab: React.FC = () => {
   const me = useCurrentUser();
   const { data, error, isLoading, reload } = useAsync(() => adminApi.listUsers());
   const [editing, setEditing] = useState<AdminUser | null>(null);
+  const toast = useToast();
+  const [resetFor, setResetFor] = useState<{ user: AdminUser; link: string } | null>(null);
+  const [resetting, setResetting] = useState<string | null>(null);
+
+  const createResetLink = async (user: AdminUser): Promise<void> => {
+    setResetting(user.id);
+    try {
+      const { token } = await adminApi.createPasswordReset(user.id);
+      setResetFor({ user, link: `${window.location.origin}${ROUTES.RESET_PASSWORD}?token=${encodeURIComponent(token)}` });
+    } catch (err) {
+      toast(errorMessage(err, t), 'danger');
+    } finally {
+      setResetting(null);
+    }
+  };
+
+  const copyResetLink = async (link: string): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(link);
+      toast(t.admin.users.resetCopied, 'info');
+    } catch {
+      // Clipboard blocked: the link stays selectable in the field
+    }
+  };
 
   if (isLoading && !data) return <div className="admin__loading"><Spinner size={32} label={t.common.loading} /></div>;
   if (error) return <Banner tone="danger" action={<Button size="sm" variant="secondary" onClick={reload}>{t.common.retry}</Button>}>{errorMessage(error, t)}</Banner>;
@@ -79,9 +104,14 @@ export const UsersTab: React.FC = () => {
                     {user.lastLoginAt ? formatDate(user.lastLoginAt) : t.common.never}
                   </td>
                   <td className="admin-table__actions">
-                    <Button size="sm" variant="secondary" icon="pen" onClick={() => setEditing(user)}>
-                      {t.common.edit}
-                    </Button>
+                    <span className="admin-table__buttons">
+                      <Button size="sm" variant="ghost" icon="lock" onClick={() => createResetLink(user)} loading={resetting === user.id}>
+                        {t.admin.users.resetLink}
+                      </Button>
+                      <Button size="sm" variant="secondary" icon="pen" onClick={() => setEditing(user)}>
+                        {t.common.edit}
+                      </Button>
+                    </span>
                   </td>
                 </tr>
               );
@@ -89,6 +119,27 @@ export const UsersTab: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+      <Modal
+        open={resetFor !== null}
+        title={t.admin.users.resetTitle}
+        onClose={() => setResetFor(null)}
+        closeLabel={t.common.close}
+        footer={
+          resetFor && (
+            <Button icon="copy" onClick={() => copyResetLink(resetFor.link)}>
+              {t.common.copy}
+            </Button>
+          )
+        }
+      >
+        {resetFor && (
+          <>
+            <p>{t.admin.users.resetBody(resetFor.user.displayName)}</p>
+            <TextInput readOnly value={resetFor.link} aria-label={t.admin.users.resetTitle} onFocus={(event) => event.target.select()} />
+          </>
+        )}
+      </Modal>
 
       {editing && (
         <EditUserModal

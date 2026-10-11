@@ -9,6 +9,7 @@ import { db } from '../db/client.js';
 import { inviteCodes, users } from '../db/schema.js';
 import { hashPassword, verifyPassword, verifyDummyPassword } from '../auth/password.js';
 import { createSession, destroySession } from '../auth/sessions.js';
+import { resetPassword } from '../auth/passwordReset.js';
 import { createRateLimiter, currentUser, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { findUserByEmail, normalizeEmail, toCurrentUser } from '../services/users.js';
@@ -36,6 +37,15 @@ const registerSchema = z.object({
   inviteCode: z.string().trim().min(1, 'An invite code is required').max(64),
 });
 
+/** Reset attempts per IP per 15 minutes (tokens are long, this only slows scripted guessing) */
+const RESET_MAX_ATTEMPTS = 10;
+const RESET_WINDOW_MS = 15 * 60 * 1000;
+
+const resetSchema = z.object({
+  token: z.string().min(20).max(100),
+  password: passwordSchema,
+});
+
 const loginSchema = z.object({
   email: z.string().trim().max(254),
   password: z.string().max(PASSWORD_MAX_LENGTH),
@@ -49,6 +59,7 @@ export function createAuthRouter(): Router {
   const router = Router();
   const loginLimiter = createRateLimiter(LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW_MS);
   const registerLimiter = createRateLimiter(REGISTER_MAX_ATTEMPTS, REGISTER_WINDOW_MS);
+  const resetLimiter = createRateLimiter(RESET_MAX_ATTEMPTS, RESET_WINDOW_MS);
 
   /**
    * POST /register - Create an account with an invite code and sign in
@@ -137,6 +148,20 @@ export function createAuthRouter(): Router {
     await db.update(users).set({ lastLoginAt: new Date() }).where(eq(users.id, user.id));
     await createSession(req, res, user.id);
     res.json({ user: await toCurrentUser(user) });
+  });
+
+  /**
+   * POST /password-reset - Set a new password with a one-time link from an admin
+   * @throws {400} invalid_reset_token when the link is unknown, used or expired
+   */
+  router.post('/password-reset', async (req, res) => {
+    const limiterKey = req.ip ?? 'unknown';
+    resetLimiter.check(limiterKey);
+    resetLimiter.hit(limiterKey);
+
+    const body = resetSchema.parse(req.body);
+    await resetPassword(body.token, body.password);
+    res.status(204).end();
   });
 
   /**

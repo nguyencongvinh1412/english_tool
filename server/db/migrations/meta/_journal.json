@@ -43,6 +43,13 @@
       "when": 1791567974357,
       "tag": "0005_imports_media",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791686402743,
+      "tag": "0006_password_resets",
+      "breakpoints": true
     }
   ]
 }
