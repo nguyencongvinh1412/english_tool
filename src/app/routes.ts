@@ -20,6 +20,7 @@ export const ROUTES = {
   LISTENING_QUIZ: '/listening/comprehension',
   READING_PASSAGE: '/reading/passages',
   READING_GAPFILL: '/reading/sentence-completion',
+  VOCABULARY: '/vocabulary',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
   WRITING_TASK1: '/writing/ielts-task1',

@@ -287,7 +287,7 @@ export const vocabItems = pgTable(
     id: text('id').primaryKey(),
     /** kanji | word */
     kind: text('kind').notNull(),
-    /** N5 to N1 */
+    /** N5 to N1; CEFR level for English (empty when unknown) */
     level: text('level').notNull(),
     /** Learning order within the level (kanji by frequency) */
     position: integer('position').notNull(),
@@ -306,9 +306,20 @@ export const vocabItems = pgTable(
     /** Example sentence with furigana markup, and its Vietnamese translation */
     example: text('example'),
     exampleVi: text('example_vi'),
+    /** ja (kanji and words above) or en */
+    language: studyLanguage('language').notNull().default('ja'),
+    /** English decks: en-core-A1, en-toeic-1, en-ielts-1... (Japanese decks use kind + level) */
+    deck: text('deck'),
+    /** English: part of speech and IPA; collocations are added by the AI */
+    pos: text('pos'),
+    ipa: text('ipa'),
+    collocations: text('collocations').array(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (table) => [index('vocab_items_deck_idx').on(table.kind, table.level, table.position)]
+  (table) => [
+    index('vocab_items_deck_idx').on(table.kind, table.level, table.position),
+    index('vocab_items_en_deck_idx').on(table.deck, table.position),
+  ]
 );
 
 /**

@@ -11,6 +11,7 @@
 import { gunzipSync } from 'node:zlib';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { download, parseCsv } from './sourceData.js';
 
 const KANJIDIC_URL = 'http://www.edrdg.org/kanjidic/kanjidic2.xml.gz';
 const KANJI_LEVELS_URL = 'https://raw.githubusercontent.com/davidluzgouveia/kanji-data/master/kanji.json';
@@ -39,12 +40,6 @@ export interface WordEntry {
   level: (typeof LEVELS)[number];
 }
 
-async function download(url: string): Promise<Buffer> {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return Buffer.from(await response.arrayBuffer());
-}
-
 const decode = (text: string) =>
   text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
@@ -57,36 +52,6 @@ function tags(xml: string, tag: string, filter?: (attributes: string) => boolean
     if (!filter || filter(match[1])) values.push(decode(match[2]));
   }
   return values;
-}
-
-/**
- * Minimal CSV parser for the vocabulary decks (quoted fields may contain commas)
- */
-function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  for (const line of text.split(/\r?\n/)) {
-    if (!line.trim()) continue;
-    const cells: string[] = [];
-    let cell = '';
-    let quoted = false;
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (quoted) {
-        if (char === '"' && line[i + 1] === '"') {
-          cell += '"';
-          i++;
-        } else if (char === '"') quoted = false;
-        else cell += char;
-      } else if (char === '"') quoted = true;
-      else if (char === ',') {
-        cells.push(cell);
-        cell = '';
-      } else cell += char;
-    }
-    cells.push(cell);
-    rows.push(cells);
-  }
-  return rows;
 }
 
 async function main(): Promise<void> {

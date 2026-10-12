@@ -22,6 +22,7 @@ COPY --from=build /app/dist-server ./dist-server
 COPY --from=build /app/server/db/migrations ./server/db/migrations
 # Japanese kanji and vocabulary loaded into the database on startup
 COPY --from=build /app/server/content/ja ./server/content/ja
+COPY --from=build /app/server/content/en ./server/content/en
 
 # Audio cache volume must be writable by the unprivileged user
 RUN mkdir -p /data/tts-cache /data/uploads && chown node:node /data/tts-cache /data/uploads

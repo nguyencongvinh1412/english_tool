@@ -61,7 +61,12 @@ export const vocabApi = {
       `/api/vocab/items?kind=${kind}&level=${level}&offset=${offset}`
     ),
   adminStatus: () =>
-    apiFetch<{ decks: { kind: VocabKind; level: JlptLevel; total: number; translated: number }[]; source: DataSource | null }>('/api/admin/vocab'),
+    apiFetch<{
+      decks: { kind: VocabKind; level: JlptLevel; total: number; translated: number }[];
+      /** English decks */
+      enDecks: { deck: string; group: 'core' | 'toeic' | 'ielts'; label: string; total: number; translated: number }[];
+      source: DataSource | null;
+    }>('/api/admin/vocab'),
   enrich: (kind: VocabKind, level: JlptLevel, count: number) =>
     apiFetch<{ updated: number; requested: number }>('/api/admin/vocab/enrich', {
       method: 'POST',

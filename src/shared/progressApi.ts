@@ -20,6 +20,7 @@ export type Activity =
   | 'ielts-speaking'
   | 'kana'
   | 'vocab'
+  | 'en-vocab'
   | 'jlpt-language'
   | 'jlpt-reading'
   | 'jlpt-listening';

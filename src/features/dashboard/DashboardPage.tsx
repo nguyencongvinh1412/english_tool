@@ -15,6 +15,7 @@ import { availableActivities, skillsFor, type SkillDefinition } from '@/features
 import { RecentList, WeekChart } from '@/features/progress/ProgressWidgets';
 import { useProgress, type ProgressSummary } from '@/shared/progress';
 import { vocabApi } from '@/shared/vocabApi';
+import { enVocabApi } from '@/shared/enVocabApi';
 import './dashboard.css';
 
 /**
@@ -34,30 +35,33 @@ function suggestSkill(skills: SkillDefinition[], summary: ProgressSummary | null
 }
 
 /**
- * Flashcards waiting for review (Japanese only)
+ * Flashcards waiting for review in the language being learned
  */
-const VocabDueCard: React.FC = () => {
+const VocabDueCard: React.FC<{ japanese: boolean }> = ({ japanese }) => {
   const { t } = useI18n();
   const [due, setDue] = useState<number | null>(null);
 
   useEffect(() => {
-    vocabApi
-      .decks()
+    (japanese ? vocabApi.decks() : enVocabApi.decks())
       .then((data) => setDue(data.dueTotal))
       .catch(() => setDue(null));
-  }, []);
+  }, [japanese]);
 
   return (
-    <Link to={ROUTES.JA_VOCAB} className="dash-skill-link reveal" style={{ ['--i' as string]: 7 }}>
-      <Card interactive tone="writing" className="dash-exams" padding="lg">
-        <span className="dash-skill__icon dash-vocab__glyph" style={{ background: 'var(--writing-edge)' }} lang="ja">
-          字
+    <Link to={japanese ? ROUTES.JA_VOCAB : ROUTES.VOCABULARY} className="dash-skill-link reveal" style={{ ['--i' as string]: 7 }}>
+      <Card interactive tone={japanese ? 'writing' : 'reading'} className="dash-exams" padding="lg">
+        <span
+          className="dash-skill__icon dash-vocab__glyph"
+          style={{ background: japanese ? 'var(--writing-edge)' : 'var(--reading-edge)' }}
+          lang={japanese ? 'ja' : 'en'}
+        >
+          {japanese ? '字' : 'Aa'}
         </span>
         <div className="dash-skill__text">
-          <h3 className="dash-skill__title">{t.vocab.dashboardTitle}</h3>
+          <h3 className="dash-skill__title">{japanese ? t.vocab.dashboardTitle : t.enVocab.dashboardTitle}</h3>
           <p className="dash-skill__description">{t.vocab.dashboardDue(due ?? 0)}</p>
         </div>
-        <Badge tone={due ? 'warning' : 'writing'} icon="chevronRight">
+        <Badge tone={due ? 'warning' : japanese ? 'writing' : 'reading'} icon="chevronRight">
           {due ? t.vocab.due(due) : t.vocab.learn}
         </Badge>
       </Card>
@@ -157,7 +161,7 @@ export const DashboardPage: React.FC = () => {
         </Card>
       </section>
 
-      {isJapanese && <VocabDueCard />}
+      <VocabDueCard japanese={isJapanese} />
 
       <h2 className="dash-section-title reveal" style={{ ['--i' as string]: 7 }}>
         {t.dashboard.skillsTitle}

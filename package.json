@@ -24,7 +24,8 @@
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
     "storage:copy-to-s3": "tsx server/scripts/copyUploadsToS3.ts",
-    "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts"
+    "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts",
+    "en:vocab-data": "tsx server/scripts/buildEnVocab.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
@@ -66,7 +67,8 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.3",
+    "jszip": "^3.10.2"
   },
   "engines": {
     "node": ">=22.13"

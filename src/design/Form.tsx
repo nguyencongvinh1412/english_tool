@@ -42,7 +42,7 @@ export const Field: React.FC<FieldProps> = ({ label, hint, error, children }) =>
  * Text input styled as a soft sunken well.
  * Enter that confirms an IME candidate (e.g. picking a kanji) never submits the form.
  */
-export const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ className = '', onKeyDown, ...rest }) => (
+export const TextInput: React.FC<React.ComponentProps<'input'>> = ({ className = '', onKeyDown, ...rest }) => (
   <input
     className={`input ${className}`}
     onKeyDown={(event) => {

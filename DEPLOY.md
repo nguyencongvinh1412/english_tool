@@ -135,6 +135,9 @@ Known, accepted risk: `npm audit` reports a moderate issue in `sprintf-js` pulle
   file and redeploy; the server loads the cards on the first start after a change (a hash in `app_meta`
   skips it on ordinary restarts) and keeps the Vietnamese meanings. The
   attribution on the flashcard page is required by the licence (see `server/content/ja/DATA-LICENSE.md`).
+- **English vocabulary data:** `server/content/en/vocab-data.json` (NGSL/TSL/NAWL, CEFR-J, CMUdict, Tatoeba;
+  see `server/content/en/DATA-LICENSE.md`). Rebuild with `npm run en:vocab-data` (needs `bunzip2`) when the
+  lists or Tatoeba are updated; Vietnamese meanings and collocations stay in the database.
 - **Vietnamese meanings:** the dictionary ships with English only. Admin → Exam bank → "AI translate 40"
   fills Vietnamese meanings deck by deck (uses the shared AI quota of the admin).
 - **JLPT test bank:** before inviting Japanese learners, fill the bank per level in Admin → Exam bank →

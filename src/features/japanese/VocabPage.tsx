@@ -14,7 +14,7 @@ import { ensureJapaneseFont } from '@/shared/ja/furigana';
 import { JLPT_CONTENT_LEVELS, type JlptLevel } from '@/shared/contentApi';
 import { formatKun, GRADES, spokenReading, vocabApi, type Deck, type DataSource, type Grade, type SessionCard, type VocabItem, type VocabKind } from '@/shared/vocabApi';
 import { useJaLevel } from './useJaPractice';
-import './vocab.css';
+import '@/features/vocab/vocab.css';
 
 /** A learning card due within this many minutes comes back in the same session */
 const REQUEUE_MINUTES = 20;

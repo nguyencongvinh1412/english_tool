@@ -31,6 +31,7 @@ export const SKILLS: SkillDefinition[] = [
     icon: 'book',
     route: ROUTES.READING,
     activities: [
+      { id: 'enVocab', icon: 'layers', route: ROUTES.VOCABULARY },
       { id: 'readingPassage', icon: 'book', route: ROUTES.READING_PASSAGE },
       { id: 'gapfill', icon: 'type', route: ROUTES.READING_GAPFILL },
     ],

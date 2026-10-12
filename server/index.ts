@@ -9,7 +9,7 @@ import { ensureBuiltinContent } from './content/seeds.js';
 import { createApp } from './app.js';
 import { recoverInterruptedImports } from './imports/jobs.js';
 import { recoverInterruptedGrading } from './exams/ielts.js';
-import { ensureJaVocab } from './vocab/data.js';
+import { ensureEnVocab, ensureJaVocab } from './vocab/data.js';
 
 /**
  * Boots the server
@@ -21,6 +21,7 @@ async function main(): Promise<void> {
   await recoverInterruptedImports();
   await recoverInterruptedGrading();
   await ensureJaVocab();
+  await ensureEnVocab();
 
   const app = createApp({ logRequests: true });
 
