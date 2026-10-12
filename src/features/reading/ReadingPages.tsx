@@ -4,15 +4,16 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Banner, Card, Icon, Spinner } from '@/design';
+import { Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
 import { contentApi, type ContentItem, type ReadingGapfill, type ReadingPassage, type WordDefinition } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { QuizRunner } from '@/features/practice/QuizRunner';
 import './reading.css';
+import { DefinitionSheet } from '@/features/vocab/DefinitionSheet';
+import { sentenceWith } from '@/shared/enVocabApi';
 
 /** Strips punctuation around a tapped token, keeping inner apostrophes and hyphens */
 function cleanWord(token: string): string {
@@ -48,72 +49,32 @@ function useQuizRecorder(item: ContentItem<unknown>) {
 }
 
 /**
- * Word definition sheet shown after tapping a word
- */
-const DefinitionSheet: React.FC<{
-  word: string;
-  state: WordDefinition | 'loading' | { error: unknown };
-  onClose: () => void;
-}> = ({ word, state, onClose }) => {
-  const { t, locale } = useI18n();
-
-  return (
-    <div className="define" role="dialog" aria-label={word}>
-      <button type="button" className="define__close" onClick={onClose} aria-label={t.common.close}>
-        <Icon name="x" size={18} />
-      </button>
-      {state === 'loading' ? (
-        <p className="define__loading">
-          <Spinner size={18} /> {t.reading.defining}
-        </p>
-      ) : 'error' in state ? (
-        <Banner tone="danger">{errorMessage(state.error, t)}</Banner>
-      ) : (
-        <>
-          <p className="define__word" lang="en">
-            {state.word} <span className="define__pos">{state.partOfSpeech}</span> <span className="define__ipa">{state.ipa}</span>
-          </p>
-          <p lang="en">{state.meaning}</p>
-          {locale === 'vi' && state.translation && (
-            <p className="define__translation">
-              <strong>{t.reading.translation}:</strong> {state.translation}
-            </p>
-          )}
-          <p className="define__example" lang="en">
-            <strong>{t.reading.example}:</strong> {state.example}
-          </p>
-        </>
-      )}
-    </div>
-  );
-};
-
-/**
  * Passage + questions, with tap-to-define
  */
 const PassageSession: React.FC<{ item: ContentItem<ReadingPassage>; onBack: () => void }> = ({ item, onBack }) => {
   const { t } = useI18n();
   const onChecked = useQuizRecorder(item);
   const [attempt, setAttempt] = useState(0);
-  const [lookup, setLookup] = useState<{ word: string; state: WordDefinition | 'loading' | { error: unknown } } | null>(null);
+  const [lookup, setLookup] = useState<{ word: string; context: string; state: WordDefinition | 'loading' | { error: unknown } } | null>(null);
   const cache = useRef(new Map<string, WordDefinition>());
 
   const define = async (token: string, sentence: string): Promise<void> => {
     const word = cleanWord(token);
     if (!word) return;
     const key = word.toLowerCase();
+    const context = sentenceWith(sentence, token);
     const cached = cache.current.get(key);
     if (cached) {
-      setLookup({ word, state: cached });
+      setLookup({ word, context, state: cached });
       return;
     }
-    setLookup({ word, state: 'loading' });
+    setLookup({ word, context, state: 'loading' });
     try {
       const { definition } = await contentApi.define(word, sentence);
       cache.current.set(key, definition);
-      setLookup((current) => (current?.word === word ? { word, state: definition } : current));
+      setLookup((current) => (current?.word === word ? { word, context, state: definition } : current));
     } catch (error) {
-      setLookup((current) => (current?.word === word ? { word, state: { error } } : current));
+      setLookup((current) => (current?.word === word ? { word, context, state: { error } } : current));
     }
   };
 
@@ -148,7 +109,9 @@ const PassageSession: React.FC<{ item: ContentItem<ReadingPassage>; onBack: () =
         </div>
       </div>
 
-      {lookup && <DefinitionSheet word={lookup.word} state={lookup.state} onClose={() => setLookup(null)} />}
+      {lookup && (
+        <DefinitionSheet key={lookup.word} word={lookup.word} state={lookup.state} context={lookup.context} source="reading" onClose={() => setLookup(null)} />
+      )}
     </div>
   );
 };

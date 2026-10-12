@@ -5,7 +5,7 @@ import path from 'node:path';
 import { eq } from 'drizzle-orm';
 import { createApp } from '../app.js';
 import { closeDb, db, runMigrations } from '../db/client.js';
-import { vocabItems } from '../db/schema.js';
+import { srsCards, vocabItems } from '../db/schema.js';
 import { sendChatMessage } from '../services/cliproxy.js';
 import { ensureEnVocab, ensureJaVocab } from '../vocab/data.js';
 import { createUser, resetDb, signIn } from '../test/helpers.js';
@@ -113,5 +113,52 @@ describe('English vocabulary', () => {
 
     const status = (await admin.get('/api/admin/vocab')).body;
     expect(status.enDecks[0]).toMatchObject({ deck: 'en-core-A2', total: 12, translated: 2 });
+  });
+
+  it('saves looked-up words to the word bank and reviews them as their own deck', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    // A word outside the lists gets its own entry from the lookup
+    const saved = await agent
+      .post('/api/vocab/en/bank')
+      .send({ word: 'Serendipity', partOfSpeech: 'noun', ipa: '/ˌsɛrənˈdɪpəti/', meaning: 'a lucky chance', translation: 'sự tình cờ may mắn', context: 'It was pure serendipity.', source: 'reading' });
+    expect(saved.status).toBe(201);
+    expect(saved.body.word).toMatchObject({ term: 'serendipity', ipa: 'ˌsɛrənˈdɪpəti', meaningVi: 'sự tình cờ may mắn' });
+    // A list word keeps its data but gains the missing Vietnamese meaning
+    await agent.post('/api/vocab/en/bank').send({ word: 'invoice', meaning: 'bill', translation: 'hoá đơn' });
+
+    const bank = (await agent.get('/api/vocab/en/bank')).body;
+    expect(bank.words.map((w: { term: string }) => w.term)).toEqual(['invoice', 'serendipity']);
+    expect(bank.words[0]).toMatchObject({ meaningsEn: ['a request for payment'], meaningVi: 'hoá đơn', status: 'new' });
+    expect(bank.due).toBe(2);
+
+    const session = (await agent.get('/api/vocab/en/session?deck=en-bank')).body.cards;
+    expect(session.map((c: { item: { term: string } }) => c.item.term).sort()).toEqual(['invoice', 'serendipity']);
+
+    // Today's review mixes due cards from every deck, without new ones
+    await agent.post('/api/vocab/review').send({ itemId: 'en:invoice', grade: 'again' });
+    expect((await agent.get('/api/vocab/en/session?deck=en-daily')).body.cards).toHaveLength(0);
+    await db.update(srsCards).set({ dueAt: new Date(Date.now() - 1000), lapses: 3 });
+    const daily = (await agent.get('/api/vocab/en/session?deck=en-daily')).body.cards;
+    expect(daily.map((c: { item: { term: string } }) => c.item.term)).toEqual(['invoice']);
+
+    const stats = (await agent.get('/api/vocab/en/stats')).body;
+    expect(stats.totals).toMatchObject({ seen: 1, saved: 2 });
+    expect(stats.forecast[0]).toBe(1);
+    expect(stats.hard.map((w: { term: string }) => w.term)).toEqual(['invoice']);
+
+    expect((await agent.delete('/api/vocab/en/bank/en:serendipity')).status).toBe(204);
+    expect((await agent.get('/api/vocab/en/bank')).body.words).toHaveLength(1);
+  });
+
+  it('builds match pairs and gives feedback on a sentence with a word', async () => {
+    const agent = await signIn(app, await createUser());
+    await agent.post('/api/vocab/review').send({ itemId: 'en:decision', grade: 'good' });
+    const pairs = (await agent.get('/api/vocab/en/match')).body.pairs;
+    expect(pairs[0]).toEqual({ id: 'en:decision', term: 'decision', meaning: 'a choice you make' });
+
+    aiReply.mockResolvedValue(JSON.stringify({ correct: true, feedback: 'Dùng đúng.', improved: 'We made a decision.' }));
+    const res = await agent.post('/api/vocab/en/sentence').send({ itemId: 'en:decision', sentence: 'We made a decision.' });
+    expect(res.body.feedback).toEqual({ correct: true, feedback: 'Dùng đúng.', improved: 'We made a decision.' });
   });
 });

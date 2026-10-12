@@ -348,6 +348,27 @@ export const srsCards = pgTable(
   (table) => [primaryKey({ columns: [table.userId, table.itemId] }), index('srs_cards_user_due_idx').on(table.userId, table.dueAt)]
 );
 
+/**
+ * Words a learner saved while reading, listening or by hand; reviewed as their own deck
+ */
+export const wordBank = pgTable(
+  'word_bank',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    /** reading | listening | manual */
+    source: text('source').notNull(),
+    /** The sentence the word was met in */
+    context: text('context'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.itemId] }), index('word_bank_user_created_idx').on(table.userId, table.createdAt)]
+);
+
 export type User = typeof users.$inferSelect;
 export type VocabItem = typeof vocabItems.$inferSelect;
 export type SrsCard = typeof srsCards.$inferSelect;

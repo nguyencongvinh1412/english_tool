@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { and, asc, eq, gte, isNull, lte, ne, sql, type SQL } from 'drizzle-orm';
 import type { AnyPgColumn } from 'drizzle-orm/pg-core';
 import { db } from '../db/client.js';
-import { srsCards, vocabItems, type SrsCard, type VocabItem } from '../db/schema.js';
+import { srsCards, vocabItems, wordBank, type SrsCard, type VocabItem } from '../db/schema.js';
 import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { runAIJson } from '../services/ai.js';
@@ -28,7 +28,8 @@ const BROWSE_LIMIT = 60;
 const ENRICH_CHUNK = 20;
 
 const deckSchema = z.object({ kind: z.enum(KINDS), level: z.enum(LEVELS) });
-const enDeckSchema = z.object({ deck: z.string().regex(/^en-[a-z]+-[A-Za-z0-9]+$/) });
+/** Word-list decks, plus the learner's word bank and today's mixed review */
+const enDeckSchema = z.object({ deck: z.string().regex(/^en-(bank|daily|[a-z]+-[A-Za-z0-9]+)$/) });
 const enBrowseSchema = enDeckSchema.extend({ offset: z.coerce.number().int().min(0).default(0) });
 const reviewSchema = z.object({ itemId: z.string().min(3).max(200), grade: z.enum(GRADES) });
 const browseSchema = deckSchema.extend({ offset: z.coerce.number().int().min(0).default(0) });
@@ -36,6 +37,9 @@ const enrichOptions = { count: z.number().int().min(1).max(60).default(40), mode
 const enrichSchema = z.union([deckSchema.extend(enrichOptions), enDeckSchema.extend(enrichOptions)]);
 /** Wrong choices offered with each English card */
 const DISTRACTORS = 3;
+/** Saved words a learner meets per day, and the size of the daily mixed review */
+const NEW_BANK_PER_DAY = 20;
+const DAILY_REVIEW_LIMIT = 30;
 
 /**
  * Start of the learner's day (Vietnam time), for the daily new-card limit
@@ -64,7 +68,7 @@ async function toSessionCards(items: VocabItem[], cards: Map<string, SrsCard>) {
 /**
  * Due cards first, then today's new cards, for the deck matched by `inDeck`
  */
-async function loadSession(userId: string, inDeck: SQL) {
+async function loadSession(userId: string, inDeck: SQL, limits: { due: number; newPerDay: number } = { due: SESSION_DUE_LIMIT, newPerDay: NEW_PER_DECK_PER_DAY }) {
   const now = new Date();
   const due = await db
     .select({ item: vocabItems, card: srsCards })
@@ -72,7 +76,8 @@ async function loadSession(userId: string, inDeck: SQL) {
     .innerJoin(vocabItems, eq(vocabItems.id, srsCards.itemId))
     .where(and(eq(srsCards.userId, userId), inDeck, lte(srsCards.dueAt, now)))
     .orderBy(asc(srsCards.dueAt))
-    .limit(SESSION_DUE_LIMIT);
+    .limit(limits.due);
+  if (limits.newPerDay === 0) return { items: due.map((row) => row.item), cards: new Map(due.map((row) => [row.item.id, row.card])) };
 
   const [{ newToday }] = await db
     .select({ newToday: sql<number>`count(*)::int` })
@@ -85,7 +90,7 @@ async function loadSession(userId: string, inDeck: SQL) {
     .from(vocabItems)
     .where(and(inDeck, sql`not exists (select 1 from ${srsCards} where ${srsCards.userId} = ${userId} and ${srsCards.itemId} = ${vocabItems.id})`))
     .orderBy(asc(vocabItems.position))
-    .limit(Math.max(0, NEW_PER_DECK_PER_DAY - newToday));
+    .limit(Math.max(0, limits.newPerDay - newToday));
 
   return { items: [...due.map((row) => row.item), ...fresh], cards: new Map(due.map((row) => [row.item.id, row.card])) };
 }
@@ -105,7 +110,10 @@ async function browseDeck(userId: string, inDeck: SQL, offset: number) {
   return { rows: rows.slice(0, BROWSE_LIMIT), nextOffset: rows.length > BROWSE_LIMIT ? offset + BROWSE_LIMIT : null };
 }
 
-const statusOf = (card: SrsCard | null) => (!card ? 'new' : card.state === 'review' && card.intervalDays >= MASTERED_DAYS ? 'mastered' : 'learning');
+/** Words in the learner's word bank */
+export const inWordBank = (userId: string) => sql`exists (select 1 from ${wordBank} where ${wordBank.userId} = ${userId} and ${wordBank.itemId} = ${vocabItems.id})`;
+
+export const statusOf = (card: SrsCard | null) => (!card ? 'new' : card.state === 'review' && card.intervalDays >= MASTERED_DAYS ? 'mastered' : 'learning');
 
 /** What a learner sees as the meaning of an English card */
 const enMeaning = (item: VocabItem) => item.meaningVi ?? item.meaningsEn[0] ?? '';
@@ -373,7 +381,13 @@ export function createVocabRouter(): Router {
       const newAvailable = Math.min(Math.max(0, NEW_PER_DECK_PER_DAY - (p?.newToday ?? 0)), total - (p?.seen ?? 0));
       return { ...deck, total, seen: p?.seen ?? 0, due: p?.due ?? 0, mastered: p?.mastered ?? 0, newAvailable };
     });
-    res.json({ decks, dueTotal: decks.reduce((sum, d) => sum + d.due, 0), source: enDataVersion });
+    // Every due English card, including saved words outside the decks (what today's review shows)
+    const [{ dueTotal }] = await db
+      .select({ dueTotal: sql<number>`count(*)::int` })
+      .from(srsCards)
+      .innerJoin(vocabItems, eq(vocabItems.id, srsCards.itemId))
+      .where(and(eq(srsCards.userId, user.id), isEn, lte(srsCards.dueAt, new Date())));
+    res.json({ decks, dueTotal: Math.min(dueTotal, DAILY_REVIEW_LIMIT), source: enDataVersion });
   });
 
   /**
@@ -382,12 +396,18 @@ export function createVocabRouter(): Router {
   router.get('/vocab/en/session', requireAuth, async (req, res) => {
     const { deck } = enDeckSchema.parse(req.query);
     const user = currentUser(req);
-    const { items, cards } = await loadSession(user.id, eq(vocabItems.deck, deck));
-    // Wrong choices: other words of the deck with a different meaning
+    const isEn = eq(vocabItems.language, 'en');
+    const { items, cards } =
+      deck === 'en-daily'
+        ? await loadSession(user.id, isEn, { due: DAILY_REVIEW_LIMIT, newPerDay: 0 })
+        : deck === 'en-bank'
+          ? await loadSession(user.id, inWordBank(user.id), { due: SESSION_DUE_LIMIT, newPerDay: NEW_BANK_PER_DAY })
+          : await loadSession(user.id, eq(vocabItems.deck, deck));
+    // Wrong choices: other words of the deck (any English word for the mixed decks) with a different meaning
     const pool = await db
       .select()
       .from(vocabItems)
-      .where(and(eq(vocabItems.deck, deck), ne(vocabItems.meaningsEn, sql`'{}'`)))
+      .where(and(deck === 'en-daily' || deck === 'en-bank' ? isEn : eq(vocabItems.deck, deck), ne(vocabItems.meaningsEn, sql`'{}'`)))
       .orderBy(sql`random()`)
       .limit(60);
     const now = new Date();

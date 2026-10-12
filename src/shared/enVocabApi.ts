@@ -4,6 +4,7 @@
 import { apiFetch } from './http';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
 import type { Grade } from './vocabApi';
+import type { WordDefinition } from './contentApi';
 
 export type EnDeckGroup = 'core' | 'toeic' | 'ielts';
 
@@ -43,6 +44,32 @@ export interface EnCard {
   distractors: { term: string; meaningVi: string | null; meaningEn: string }[];
 }
 
+export interface SavedWord extends EnWord {
+  status: 'new' | 'learning' | 'mastered';
+  source: 'reading' | 'listening' | 'manual';
+  context: string | null;
+  savedAt: string;
+}
+
+export interface VocabStats {
+  totals: { seen: number; mastered: number; saved: number };
+  byLevel: { level: string; total: number; seen: number; mastered: number }[];
+  /** Reviews due today, tomorrow… (7 days) */
+  forecast: number[];
+  hard: (EnWord & { lapses: number })[];
+}
+
+export interface SentenceFeedback {
+  correct: boolean;
+  feedback: string;
+  improved: string;
+}
+
+const aiUsed = <T,>(r: T) => {
+  window.dispatchEvent(new Event(AI_USED_EVENT));
+  return r;
+};
+
 export const enVocabApi = {
   decks: () => apiFetch<{ decks: EnDeck[]; dueTotal: number; source: { built: string } | null }>('/api/vocab/en/decks'),
   session: (deck: string) => apiFetch<{ cards: EnCard[] }>(`/api/vocab/en/session?deck=${encodeURIComponent(deck)}`),
@@ -50,6 +77,29 @@ export const enVocabApi = {
     apiFetch<{ items: (EnWord & { status: 'new' | 'learning' | 'mastered' })[]; nextOffset: number | null }>(
       `/api/vocab/en/items?deck=${encodeURIComponent(deck)}&offset=${offset}`
     ),
+  bank: () => apiFetch<{ words: SavedWord[]; due: number }>('/api/vocab/en/bank'),
+  save: (definition: WordDefinition, context: string | undefined, source: SavedWord['source']) =>
+    apiFetch<{ word: EnWord }>('/api/vocab/en/bank', {
+      method: 'POST',
+      json: {
+        word: definition.word,
+        partOfSpeech: definition.partOfSpeech,
+        ipa: definition.ipa,
+        meaning: definition.meaning,
+        translation: definition.translation || undefined,
+        example: definition.example,
+        context,
+        source,
+      },
+    }),
+  remove: (itemId: string) => apiFetch<void>(`/api/vocab/en/bank/${encodeURIComponent(itemId)}`, { method: 'DELETE' }),
+  match: () => apiFetch<{ pairs: { id: string; term: string; meaning: string }[] }>('/api/vocab/en/match'),
+  sentence: (itemId: string, sentence: string) =>
+    apiFetch<{ feedback: SentenceFeedback }>('/api/vocab/en/sentence', {
+      method: 'POST',
+      json: { itemId, sentence, model: getSelectedModel() ?? undefined },
+    }).then(aiUsed),
+  stats: () => apiFetch<VocabStats>('/api/vocab/en/stats'),
   enrich: (deck: string, count: number) =>
     apiFetch<{ updated: number; requested: number }>('/api/admin/vocab/enrich', {
       method: 'POST',
@@ -101,3 +151,11 @@ export function formInExample(example: string, term: string): string | null {
  * Typed answer check: case, spaces and a trailing full stop do not matter
  */
 export const sameWord = (a: string, b: string) => a.trim().replace(/[.!?]$/, '').toLowerCase() === b.trim().toLowerCase();
+
+/**
+ * The sentence of a paragraph that contains a word, kept as the saved word's context
+ */
+export function sentenceWith(paragraph: string, token: string): string {
+  const sentences = paragraph.match(/[^.!?]+[.!?]*/g) ?? [paragraph];
+  return (sentences.find((s) => s.includes(token)) ?? paragraph).trim().slice(0, 500);
+}

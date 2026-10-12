@@ -85,6 +85,13 @@
       "when": 1791821786505,
       "tag": "0011_en_vocab",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791822751049,
+      "tag": "0012_word_bank",
+      "breakpoints": true
     }
   ]
 }

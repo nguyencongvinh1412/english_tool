@@ -20,6 +20,7 @@ import { createTtsRouter } from './routes/tts.js';
 import { createMediaRouter } from './routes/media.js';
 import { createImportRouter } from './routes/imports.js';
 import { createVocabRouter } from './routes/vocab.js';
+import { createWordBankRouter } from './routes/wordBank.js';
 
 /** Get directory name for ES modules */
 const __filename = fileURLToPath(import.meta.url);
@@ -94,6 +95,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api/tts', createTtsRouter());
   app.use('/api', createMediaRouter());
   app.use('/api', createVocabRouter());
+  app.use('/api', createWordBankRouter());
 
   // Unknown API routes return JSON 404 instead of the SPA
   app.use('/api', () => {

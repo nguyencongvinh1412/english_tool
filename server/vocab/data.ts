@@ -12,7 +12,8 @@ import { appMeta, vocabItems, type VocabItem } from '../db/schema.js';
 
 const DATA_FILE = path.resolve(process.cwd(), 'server/content/ja/vocab-data.json');
 const EN_DATA_FILE = path.resolve(process.cwd(), 'server/content/en/vocab-data.json');
-const EN_META_KEY = 'en-vocab-data';
+/** Bump the suffix when the loader maps data differently, so the next start reloads it */
+const EN_META_KEY = 'en-vocab-data:2';
 const UPSERT_BATCH = 500;
 /** app_meta key holding the hash of the loaded data file */
 const META_KEY = 'ja-vocab-data';
@@ -168,7 +169,8 @@ export async function ensureEnVocab(file = EN_DATA_FILE): Promise<number> {
         deck: w.deck,
         level: w.cefr ?? '',
         position: (position[w.deck] = (position[w.deck] ?? 0) + 1),
-        term: w.w,
+        // The word lists are lower case; the pronoun is not
+        term: w.w === 'i' ? 'I' : w.w,
         pos: w.pos,
         ipa: w.ipa,
         meaningsEn: w.def ? [w.def] : [],
@@ -177,6 +179,7 @@ export async function ensureEnVocab(file = EN_DATA_FILE): Promise<number> {
       })),
     {
       deck: sql`excluded.deck`,
+      term: sql`excluded.term`,
       level: sql`excluded.level`,
       position: sql`excluded.position`,
       pos: sql`excluded.pos`,
