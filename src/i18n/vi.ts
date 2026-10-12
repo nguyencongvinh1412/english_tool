@@ -633,7 +633,7 @@ export const vi: Messages = {
         title: 'Chúng tôi lưu gì',
         items: [
           'Tài khoản: tên, email, ngôn ngữ, mục tiêu học và mật khẩu đã được băm một chiều (không ai đọc được mật khẩu của bạn).',
-          'Dữ liệu học tập: kết quả luyện tập và thi thử, câu trả lời, bài viết, transcript bài nói và nhận xét bạn nhận được.',
+          'Dữ liệu học tập: kết quả luyện tập và thi thử, câu trả lời, bài viết, transcript bài nói, nhận xét bạn nhận được và lịch ôn kanji, từ vựng.',
           'Mức sử dụng: số lượt dùng AI mỗi ngày, để áp dụng giới hạn hằng ngày.',
           'Phiên đăng nhập: bản ghi phiên kèm tên trình duyệt, để bạn giữ đăng nhập tối đa 30 ngày.',
           'Tin nhắn trò chuyện với gia sư AI không được lưu thành lịch sử; chỉ số lượt yêu cầu được đếm.',
@@ -657,8 +657,15 @@ export const vi: Messages = {
         title: 'Cookie và lưu trữ trên trình duyệt',
         items: [
           'Một cookie thiết yếu giúp bạn giữ đăng nhập. Không có cookie quảng cáo hay theo dõi phân tích.',
-          'Trình duyệt lưu một vài tuỳ chọn nhỏ như mô hình AI bạn chọn và vị trí đang làm trong bài thi.',
+          'Trình duyệt lưu một vài tuỳ chọn nhỏ như mô hình AI bạn chọn, cách hiện furigana và vị trí đang làm trong bài thi.',
           'Phông chữ được tải từ Google Fonts, nên trình duyệt sẽ kết nối tới Google khi mở ứng dụng.',
+        ],
+      },
+      {
+        title: 'Dữ liệu từ điển',
+        items: [
+          'Cách đọc và nghĩa kanji lấy từ KANJIDIC2 của Electronic Dictionary Research and Development Group (CC BY-SA 4.0); cấp JLPT theo danh sách của J. Waller qua kanji-data (MIT); từ vựng từ open-anki-jlpt-decks (MIT). Nghĩa tiếng Việt do AI hỗ trợ dịch.',
+          'Đây là dữ liệu tham khảo công khai, không chứa thông tin gì về bạn.',
         ],
       },
       {

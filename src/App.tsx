@@ -4,6 +4,7 @@
  */
 
 import type React from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { BrowserWarning } from '@/components/BrowserWarning';
@@ -15,30 +16,39 @@ import { PublicOnly, RequireAdmin, RequireAuth } from '@/app/RouteGuards';
 import { ROUTES } from '@/app/routes';
 import { LoginPage } from '@/features/auth/LoginPage';
 import { RegisterPage } from '@/features/auth/RegisterPage';
-import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage';
-import { PrivacyPage } from '@/features/privacy/PrivacyPage';
 import { OnboardingPage } from '@/features/onboarding/OnboardingPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { SkillHubPage } from '@/features/skills/SkillHubPage';
-import { DictationPage } from '@/features/listening/DictationPage';
-import { PronunciationPage } from '@/features/speaking/PronunciationPage';
-import { ConversationPage } from '@/features/speaking/ConversationPage';
-import { ScenariosPage } from '@/features/speaking/ScenariosPage';
-import { IeltsSpeakingPage } from '@/features/speaking/IeltsSpeakingPage';
-import { ListeningQuizPage } from '@/features/listening/ListeningQuizPage';
-import { GapfillPage, ReadingPassagePage } from '@/features/reading/ReadingPages';
-import { WritingPage } from '@/features/writing/WritingPage';
 import { ProgressProvider } from '@/shared/progress';
-import { ExamsPage } from '@/features/exams/ExamsPage';
-import { ExamSessionPage } from '@/features/exams/ExamSessionPage';
 import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
-import { ProfilePage } from '@/features/profile/ProfilePage';
-import { AdminPage } from '@/features/admin/AdminPage';
-import { KanaPage } from '@/features/japanese/KanaPage';
-import { VocabPage } from '@/features/japanese/VocabPage';
-import { JaDictationPage, JaListeningPage } from '@/features/japanese/JaListeningPages';
-import { JaReadingPage, JaWritingPage } from '@/features/japanese/JaReadingWritingPages';
-import { JaConversationPage, JaPronunciationPage, JaScenariosPage } from '@/features/japanese/JaSpeakingPages';
+import { lazyPage } from '@/app/lazyPage';
+import { PageFallback } from '@/app/PageFallback';
+
+/* Pages load on first visit; the dashboard and sign-in stay in the main bundle */
+const PrivacyPage = lazyPage(() => import('@/features/privacy/PrivacyPage'), 'PrivacyPage');
+const ResetPasswordPage = lazyPage(() => import('@/features/auth/ResetPasswordPage'), 'ResetPasswordPage');
+const DictationPage = lazyPage(() => import('@/features/listening/DictationPage'), 'DictationPage');
+const PronunciationPage = lazyPage(() => import('@/features/speaking/PronunciationPage'), 'PronunciationPage');
+const ConversationPage = lazyPage(() => import('@/features/speaking/ConversationPage'), 'ConversationPage');
+const ScenariosPage = lazyPage(() => import('@/features/speaking/ScenariosPage'), 'ScenariosPage');
+const IeltsSpeakingPage = lazyPage(() => import('@/features/speaking/IeltsSpeakingPage'), 'IeltsSpeakingPage');
+const ListeningQuizPage = lazyPage(() => import('@/features/listening/ListeningQuizPage'), 'ListeningQuizPage');
+const GapfillPage = lazyPage(() => import('@/features/reading/ReadingPages'), 'GapfillPage');
+const ReadingPassagePage = lazyPage(() => import('@/features/reading/ReadingPages'), 'ReadingPassagePage');
+const WritingPage = lazyPage(() => import('@/features/writing/WritingPage'), 'WritingPage');
+const ExamsPage = lazyPage(() => import('@/features/exams/ExamsPage'), 'ExamsPage');
+const ExamSessionPage = lazyPage(() => import('@/features/exams/ExamSessionPage'), 'ExamSessionPage');
+const ProfilePage = lazyPage(() => import('@/features/profile/ProfilePage'), 'ProfilePage');
+const AdminPage = lazyPage(() => import('@/features/admin/AdminPage'), 'AdminPage');
+const KanaPage = lazyPage(() => import('@/features/japanese/KanaPage'), 'KanaPage');
+const VocabPage = lazyPage(() => import('@/features/japanese/VocabPage'), 'VocabPage');
+const JaDictationPage = lazyPage(() => import('@/features/japanese/JaListeningPages'), 'JaDictationPage');
+const JaListeningPage = lazyPage(() => import('@/features/japanese/JaListeningPages'), 'JaListeningPage');
+const JaReadingPage = lazyPage(() => import('@/features/japanese/JaReadingWritingPages'), 'JaReadingPage');
+const JaWritingPage = lazyPage(() => import('@/features/japanese/JaReadingWritingPages'), 'JaWritingPage');
+const JaConversationPage = lazyPage(() => import('@/features/japanese/JaSpeakingPages'), 'JaConversationPage');
+const JaPronunciationPage = lazyPage(() => import('@/features/japanese/JaSpeakingPages'), 'JaPronunciationPage');
+const JaScenariosPage = lazyPage(() => import('@/features/japanese/JaSpeakingPages'), 'JaScenariosPage');
 
 /**
  * Root application component with routing and error handling
@@ -52,64 +62,66 @@ export default function App(): React.JSX.Element {
             <AuthProvider>
               <ProgressProvider>
                 <BrowserWarning />
-                <Routes>
-                  {/* Open to everyone: reset links may be opened while another account is signed in */}
-                  <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />} />
-                  <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+                <Suspense fallback={<PageFallback />}>
+                  <Routes>
+                    {/* Open to everyone: reset links may be opened while another account is signed in */}
+                    <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />} />
+                    <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
 
-                  <Route element={<PublicOnly />}>
-                    <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-                    <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-                  </Route>
+                    <Route element={<PublicOnly />}>
+                      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+                      <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+                    </Route>
 
-                  <Route element={<RequireAuth />}>
-                    <Route path={ROUTES.ONBOARDING} element={<OnboardingPage />} />
-                  {/* Focus mode: the test runs outside the app shell */}
-                  <Route path={EXAM_SESSION_ROUTE} element={<ExamSessionPage />} />
+                    <Route element={<RequireAuth />}>
+                      <Route path={ROUTES.ONBOARDING} element={<OnboardingPage />} />
+                    {/* Focus mode: the test runs outside the app shell */}
+                    <Route path={EXAM_SESSION_ROUTE} element={<ExamSessionPage />} />
 
-                    <Route element={<AppShell />}>
-                      <Route path={ROUTES.HOME} element={<DashboardPage />} />
-                      <Route path={ROUTES.LISTENING} element={<SkillHubPage skill="listening" />} />
-                      <Route path={ROUTES.READING} element={<SkillHubPage skill="reading" />} />
-                      <Route path={ROUTES.SPEAKING} element={<SkillHubPage skill="speaking" />} />
-                      <Route path={ROUTES.WRITING} element={<SkillHubPage skill="writing" />} />
-                      <Route path={ROUTES.EXAMS} element={<ExamsPage />} />
-                      <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+                      <Route element={<AppShell />}>
+                        <Route path={ROUTES.HOME} element={<DashboardPage />} />
+                        <Route path={ROUTES.LISTENING} element={<SkillHubPage skill="listening" />} />
+                        <Route path={ROUTES.READING} element={<SkillHubPage skill="reading" />} />
+                        <Route path={ROUTES.SPEAKING} element={<SkillHubPage skill="speaking" />} />
+                        <Route path={ROUTES.WRITING} element={<SkillHubPage skill="writing" />} />
+                        <Route path={ROUTES.EXAMS} element={<ExamsPage />} />
+                        <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
 
-                      <Route path={ROUTES.DICTATION} element={<DictationPage />} />
-                      <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
-                      <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
-                      <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
-                      <Route path={ROUTES.KANA} element={<KanaPage />} />
-                      <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
-                      <Route path={ROUTES.JA_DICTATION} element={<JaDictationPage />} />
-                      <Route path={ROUTES.JA_LISTENING} element={<JaListeningPage />} />
-                      <Route path={ROUTES.JA_READING} element={<JaReadingPage />} />
-                      <Route path={ROUTES.JA_WRITING} element={<JaWritingPage />} />
-                      <Route path={ROUTES.JA_PRONUNCIATION} element={<JaPronunciationPage />} />
-                      <Route path={ROUTES.JA_CONVERSATION} element={<JaConversationPage />} />
-                      <Route path={ROUTES.JA_SCENARIOS} element={<JaScenariosPage />} />
-                      <Route path={ROUTES.SPEAKING_IELTS} element={<IeltsSpeakingPage />} />
-                      <Route path={ROUTES.LISTENING_QUIZ} element={<ListeningQuizPage />} />
-                      <Route path={ROUTES.READING_PASSAGE} element={<ReadingPassagePage />} />
-                      <Route path={ROUTES.READING_GAPFILL} element={<GapfillPage />} />
-                      <Route path={ROUTES.WRITING_EMAIL} element={<WritingPage task="email" />} />
-                      <Route path={ROUTES.WRITING_TASK1} element={<WritingPage task="ielts-task1" />} />
-                      <Route path={ROUTES.WRITING_TASK2} element={<WritingPage task="ielts-task2" />} />
+                        <Route path={ROUTES.DICTATION} element={<DictationPage />} />
+                        <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
+                        <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
+                        <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
+                        <Route path={ROUTES.KANA} element={<KanaPage />} />
+                        <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
+                        <Route path={ROUTES.JA_DICTATION} element={<JaDictationPage />} />
+                        <Route path={ROUTES.JA_LISTENING} element={<JaListeningPage />} />
+                        <Route path={ROUTES.JA_READING} element={<JaReadingPage />} />
+                        <Route path={ROUTES.JA_WRITING} element={<JaWritingPage />} />
+                        <Route path={ROUTES.JA_PRONUNCIATION} element={<JaPronunciationPage />} />
+                        <Route path={ROUTES.JA_CONVERSATION} element={<JaConversationPage />} />
+                        <Route path={ROUTES.JA_SCENARIOS} element={<JaScenariosPage />} />
+                        <Route path={ROUTES.SPEAKING_IELTS} element={<IeltsSpeakingPage />} />
+                        <Route path={ROUTES.LISTENING_QUIZ} element={<ListeningQuizPage />} />
+                        <Route path={ROUTES.READING_PASSAGE} element={<ReadingPassagePage />} />
+                        <Route path={ROUTES.READING_GAPFILL} element={<GapfillPage />} />
+                        <Route path={ROUTES.WRITING_EMAIL} element={<WritingPage task="email" />} />
+                        <Route path={ROUTES.WRITING_TASK1} element={<WritingPage task="ielts-task1" />} />
+                        <Route path={ROUTES.WRITING_TASK2} element={<WritingPage task="ielts-task2" />} />
 
-                      <Route element={<RequireAdmin />}>
-                        <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+                        <Route element={<RequireAdmin />}>
+                          <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+                        </Route>
                       </Route>
                     </Route>
-                  </Route>
 
-                  {/* Pre-v2 URLs */}
-                  <Route path="/dictation" element={<Navigate to={ROUTES.DICTATION} replace />} />
-                  <Route path="/pronunciation" element={<Navigate to={ROUTES.PRONUNCIATION} replace />} />
-                  <Route path="/conversation" element={<Navigate to={ROUTES.CONVERSATION} replace />} />
-                  <Route path="/scenarios" element={<Navigate to={ROUTES.SCENARIOS} replace />} />
-                  <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
-                </Routes>
+                    {/* Pre-v2 URLs */}
+                    <Route path="/dictation" element={<Navigate to={ROUTES.DICTATION} replace />} />
+                    <Route path="/pronunciation" element={<Navigate to={ROUTES.PRONUNCIATION} replace />} />
+                    <Route path="/conversation" element={<Navigate to={ROUTES.CONVERSATION} replace />} />
+                    <Route path="/scenarios" element={<Navigate to={ROUTES.SCENARIOS} replace />} />
+                    <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
+                  </Routes>
+                </Suspense>
               </ProgressProvider>
             </AuthProvider>
           </BrowserRouter>

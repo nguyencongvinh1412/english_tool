@@ -346,3 +346,12 @@ export type ExamSession = typeof examSessions.$inferSelect;
 export type MediaAsset = typeof mediaAssets.$inferSelect;
 export type ImportJob = typeof importJobs.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;
+
+/**
+ * Small key-value settings kept by the server, e.g. which dictionary data version is loaded
+ */
+export const appMeta = pgTable('app_meta', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});

@@ -454,3 +454,10 @@
     transform: translate(-50%, -30px) scale(0.95);
   }
 }
+
+/* Shown while a page's code loads */
+.page-fallback {
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+}

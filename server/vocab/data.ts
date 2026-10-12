@@ -3,14 +3,17 @@
  * Loads server/content/ja/vocab-data.json into vocab_items on startup (source fields only, so the
  * AI-added Vietnamese meanings survive dictionary refreshes) and serves cards to the API.
  */
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { inArray, sql } from 'drizzle-orm';
+import { eq, inArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { vocabItems, type VocabItem } from '../db/schema.js';
+import { appMeta, vocabItems, type VocabItem } from '../db/schema.js';
 
 const DATA_FILE = path.resolve(process.cwd(), 'server/content/ja/vocab-data.json');
 const UPSERT_BATCH = 500;
+/** app_meta key holding the hash of the loaded data file */
+const META_KEY = 'ja-vocab-data';
 
 interface VocabData {
   version: { kanjidic: string; built: string };
@@ -25,17 +28,24 @@ export const wordId = (word: string, reading: string) => `w:${word}|${reading}`;
 export let vocabDataVersion: VocabData['version'] | null = null;
 
 /**
- * Upserts the bundled data; Vietnamese fields are never overwritten
+ * Upserts the bundled data; Vietnamese fields are never overwritten.
+ * Skipped when the same file was already loaded, so restarts stay fast.
+ * @returns Rows written (0 when nothing changed)
  */
 export async function ensureJaVocab(file = DATA_FILE): Promise<number> {
-  let data: VocabData;
+  let raw: string;
   try {
-    data = JSON.parse(await readFile(file, 'utf8')) as VocabData;
+    raw = await readFile(file, 'utf8');
   } catch {
     console.warn('Japanese vocabulary data not found; run npm run ja:vocab-data');
     return 0;
   }
+  const data = JSON.parse(raw) as VocabData;
   vocabDataVersion = data.version;
+
+  const hash = createHash('sha256').update(raw).digest('hex');
+  const [loaded] = await db.select({ value: appMeta.value }).from(appMeta).where(eq(appMeta.key, META_KEY));
+  if (loaded?.value === hash) return 0;
 
   const position: Record<string, number> = {};
   const next = (key: string) => (position[key] = (position[key] ?? 0) + 1);
@@ -86,6 +96,10 @@ export async function ensureJaVocab(file = DATA_FILE): Promise<number> {
         },
       });
   }
+  await db
+    .insert(appMeta)
+    .values({ key: META_KEY, value: hash })
+    .onConflictDoUpdate({ target: appMeta.key, set: { value: hash, updatedAt: sql`now()` } });
   return rows.length;
 }
 

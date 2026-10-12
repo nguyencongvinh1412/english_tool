@@ -633,7 +633,7 @@ export const en = {
         title: 'What we store',
         items: [
           'Account: your name, email, language, learning goal and a one-way hash of your password (nobody can read your password).',
-          'Learning data: your practice and test results, test answers, essays, speaking transcripts and the feedback you received.',
+          'Learning data: your practice and test results, test answers, essays, speaking transcripts, the feedback you received, and your kanji and vocabulary review schedule.',
           'Usage: how many AI requests you make each day, to apply your daily limit.',
           'Sign-in sessions: a session record with your browser name, so you can stay signed in for up to 30 days.',
           'Chat messages with the AI tutor are not saved as history; only the number of requests is counted.',
@@ -657,8 +657,15 @@ export const en = {
         title: 'Cookies and browser storage',
         items: [
           'One essential cookie keeps you signed in. There are no advertising or analytics trackers.',
-          'Your browser stores small preferences such as the AI model you picked and your place in a test.',
+          'Your browser stores small preferences such as the AI model you picked, your furigana setting and your place in a test.',
           'Fonts are loaded from Google Fonts, so your browser contacts Google when the app opens.',
+        ],
+      },
+      {
+        title: 'Dictionary data',
+        items: [
+          'Kanji readings and meanings come from KANJIDIC2 by the Electronic Dictionary Research and Development Group (CC BY-SA 4.0); JLPT levels from J. Waller\'s lists via kanji-data (MIT); vocabulary from open-anki-jlpt-decks (MIT). Vietnamese meanings are added with AI.',
+          'These are public reference data and contain nothing about you.',
         ],
       },
       {

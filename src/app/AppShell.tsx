@@ -4,6 +4,8 @@
  */
 import type React from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
+import { Suspense } from 'react';
+import { PageFallback } from './PageFallback';
 import { Icon, type IconName } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from './AuthProvider';
@@ -158,7 +160,9 @@ export const AppShell: React.FC = () => {
         </header>
 
         <main className="content" id="main">
-          <Outlet />
+          <Suspense fallback={<PageFallback />}>
+            <Outlet />
+          </Suspense>
         </main>
 
         {lastGain && (

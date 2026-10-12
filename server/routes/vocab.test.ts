@@ -97,7 +97,10 @@ describe('vocabulary flashcards', () => {
     expect(strong).toMatchObject({ meaningVi: 'mạnh', hanViet: 'Càng', example: null });
 
     await db.update(vocabItems).set({ hanViet: 'Cường' }).where(eq(vocabItems.id, 'k:強'));
-    await ensureJaVocab(dataFile);
+    // The same file is not loaded twice; a changed file is
+    expect(await ensureJaVocab(dataFile)).toBe(0);
+    await writeFile(dataFile, JSON.stringify({ ...DATA, version: { ...DATA.version, built: '2026-11-12' } }));
+    expect(await ensureJaVocab(dataFile)).toBe(14);
     const [kept] = await db.select().from(vocabItems).where(eq(vocabItems.id, 'k:強'));
     expect(kept).toMatchObject({ meaningVi: 'mạnh', hanViet: 'Cường' });
 

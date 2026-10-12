@@ -132,7 +132,13 @@ Known, accepted risk: `npm audit` reports a moderate issue in `sprintf-js` pulle
 - **Mac offline:** expect `ai_unavailable` errors for AI features; nothing else is affected.
 - **Japanese dictionary data:** `server/content/ja/vocab-data.json` is built from KANJIDIC2 (CC BY-SA 4.0)
   and MIT-licensed JLPT lists. Refresh it about once a month with `npm run ja:vocab-data`, commit the
-  file and redeploy; the server updates the cards on startup and keeps the Vietnamese meanings. The
+  file and redeploy; the server loads the cards on the first start after a change (a hash in `app_meta`
+  skips it on ordinary restarts) and keeps the Vietnamese meanings. The
   attribution on the flashcard page is required by the licence (see `server/content/ja/DATA-LICENSE.md`).
 - **Vietnamese meanings:** the dictionary ships with English only. Admin → Exam bank → "AI translate 40"
   fills Vietnamese meanings deck by deck (uses the shared AI quota of the admin).
+- **JLPT test bank:** before inviting Japanese learners, fill the bank per level in Admin → Exam bank →
+  JLPT ("Fill missing" adds 6 checked groups per click; a full N3 test needs about 30). Mini tests generate
+  up to 4 missing groups on the spot, but a full test needs the bank.
+- **Imported books (TOEIC and JLPT):** published tests are for the learners you invited. Do not import
+  books you are not allowed to use, and never share the app publicly with imported tests in it.
