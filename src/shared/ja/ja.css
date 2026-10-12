@@ -1,0 +1,42 @@
+.ja-text {
+  font-family: var(--font-ja);
+  line-height: 2;
+}
+
+.ja-text ruby {
+  ruby-position: over;
+}
+
+.ja-text rt {
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.ja-text--off rt,
+.ja-text--off rp {
+  display: none;
+}
+
+.ja-text--tap ruby {
+  border-radius: 4px;
+  cursor: help;
+  text-decoration: underline dotted var(--border-strong);
+  text-underline-offset: 0.25em;
+}
+
+.ja-text--tap rt {
+  visibility: hidden;
+}
+
+.ja-text--tap ruby:hover rt,
+.ja-text--tap ruby:focus rt,
+.ja-text--tap ruby:focus-visible rt {
+  visibility: visible;
+}
+
+.ja-text--tap ruby:focus {
+  outline: none;
+  background: var(--brand-soft);
+}
+

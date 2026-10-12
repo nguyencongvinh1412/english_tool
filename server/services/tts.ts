@@ -9,7 +9,7 @@ import path from 'node:path';
 import { config, upstreamAccessHeaders } from '../config.js';
 import { HttpError } from '../http/errors.js';
 
-/** Kokoro voices offered to the app: American and British, female and male */
+/** Kokoro voices offered to the app: American and British English, and Japanese; female and male */
 export const TTS_VOICES = [
   'af_heart',
   'af_bella',
@@ -21,6 +21,11 @@ export const TTS_VOICES = [
   'am_puck',
   'bm_george',
   'bm_lewis',
+  'jf_alpha',
+  'jf_gongitsune',
+  'jf_nezumi',
+  'jf_tebukuro',
+  'jm_kumo',
 ] as const;
 export type TtsVoice = (typeof TTS_VOICES)[number];
 

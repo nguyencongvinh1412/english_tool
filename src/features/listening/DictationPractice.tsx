@@ -12,6 +12,7 @@ import { useProgress } from '@/shared/progress';
 import { prefetchScript } from '@/shared/speech';
 import type { DictationLesson } from '@/constants/dictations';
 import { checkDictation, maskWord, revealNextWord, type DictationCheckResult } from '@/utils/dictation';
+import { isImeComposing } from '@/shared/ime';
 
 /** Playback speed options */
 const SPEEDS = [
@@ -166,7 +167,8 @@ export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, is
   }, []);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>): void => {
-    if (event.key !== 'Enter' || event.shiftKey) return;
+    // Enter that confirms an IME candidate (kanji) must not check the sentence
+    if (event.key !== 'Enter' || event.shiftKey || isImeComposing(event)) return;
     event.preventDefault();
     if (isSentenceDone) handleNext();
     else handleCheck();

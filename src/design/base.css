@@ -109,3 +109,11 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Japanese text anywhere uses Japanese fonts (kanji are missing from Nunito) */
+:lang(ja) {
+  font-family: var(--font-ja);
+  /* Break lines between phrases, not inside words (Chrome); strict rules keep small kana and 。 off line starts */
+  word-break: auto-phrase;
+  line-break: strict;
+}

@@ -9,6 +9,10 @@ export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export const CEFR_LEVELS: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 /** Signed-in user, from GET /api/auth/me */
+export type StudyLanguage = 'en' | 'ja';
+export const JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
+export type JlptLevel = (typeof JLPT_LEVELS)[number];
+
 export interface CurrentUser {
   id: string;
   email: string;
@@ -18,6 +22,10 @@ export interface CurrentUser {
   targetExam: ExamGoal;
   targetScore: number | null;
   cefrLevel: CefrLevel | null;
+  /** Language the lessons are shown in (switched in the sidebar) */
+  studyLanguage: StudyLanguage;
+  /** Japanese goal, N5 (beginner) to N1 */
+  jaTargetLevel: JlptLevel | null;
   onboarded: boolean;
   createdAt: string;
   aiQuota: { used: number; limit: number | null };
@@ -32,5 +40,7 @@ export interface ProfileUpdate {
   targetExam?: ExamGoal;
   targetScore?: number | null;
   cefrLevel?: CefrLevel | null;
+  studyLanguage?: StudyLanguage;
+  jaTargetLevel?: JlptLevel | null;
   onboarded?: true;
 }

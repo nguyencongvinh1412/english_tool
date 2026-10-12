@@ -9,6 +9,7 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from './AuthProvider';
 import { LocaleToggle } from './LocaleToggle';
 import { ModelPicker } from './ModelPicker';
+import { StudyLanguageSwitch } from './StudyLanguageSwitch';
 import { ROUTES } from './routes';
 import { useProgress } from '@/shared/progress';
 import './AppShell.css';
@@ -96,6 +97,9 @@ export const AppShell: React.FC = () => {
         <div className="sidebar__brand">
           <Logo />
         </div>
+        <div className="sidebar__study">
+          <StudyLanguageSwitch />
+        </div>
 
         <nav className="sidebar__nav" aria-label={t.nav.mainNav}>
           {items.map((item) => renderLink(item, 'side'))}
@@ -122,6 +126,9 @@ export const AppShell: React.FC = () => {
         <header className="topbar">
           <div className="topbar__brand">
             <Logo compact />
+          </div>
+          <div className="topbar__study">
+            <StudyLanguageSwitch compact />
           </div>
           <div className="topbar__spacer" />
           {streak && (

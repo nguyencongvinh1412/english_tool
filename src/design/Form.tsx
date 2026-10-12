@@ -4,6 +4,7 @@
 import type React from 'react';
 import { useId } from 'react';
 import { Icon, type IconName } from './Icon';
+import { isImeComposing } from '@/shared/ime';
 import './Form.css';
 
 interface FieldProps {
@@ -38,10 +39,18 @@ export const Field: React.FC<FieldProps> = ({ label, hint, error, children }) =>
 };
 
 /**
- * Text input styled as a soft sunken well
+ * Text input styled as a soft sunken well.
+ * Enter that confirms an IME candidate (e.g. picking a kanji) never submits the form.
  */
-export const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ className = '', ...rest }) => (
-  <input className={`input ${className}`} {...rest} />
+export const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ className = '', onKeyDown, ...rest }) => (
+  <input
+    className={`input ${className}`}
+    onKeyDown={(event) => {
+      if (event.key === 'Enter' && isImeComposing(event)) event.preventDefault();
+      onKeyDown?.(event);
+    }}
+    {...rest}
+  />
 );
 
 /**

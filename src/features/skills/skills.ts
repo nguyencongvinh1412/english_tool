@@ -4,6 +4,7 @@
 import type { IconName } from '@/design';
 import type { Messages } from '@/i18n/en';
 import { ROUTES } from '@/app/routes';
+import type { StudyLanguage } from '@/shared/types';
 
 export type SkillId = 'listening' | 'reading' | 'speaking' | 'writing';
 export type ActivityId = keyof Messages['skills']['activities'];
@@ -12,7 +13,7 @@ export interface SkillDefinition {
   id: SkillId;
   icon: IconName;
   route: string;
-  activities: { id: ActivityId; icon: IconName; route: string }[];
+  activities: { id: ActivityId; icon: IconName; route: string; /** Planned but not built yet */ soon?: boolean }[];
 }
 
 export const SKILLS: SkillDefinition[] = [
@@ -57,11 +58,61 @@ export const SKILLS: SkillDefinition[] = [
   },
 ];
 
+/** Japanese activities; the ones marked soon arrive in the next phases (J2) */
+export const JA_SKILLS: SkillDefinition[] = [
+  {
+    id: 'listening',
+    icon: 'headphones',
+    route: ROUTES.LISTENING,
+    activities: [
+      { id: 'jaDictation', icon: 'type', route: ROUTES.LISTENING, soon: true },
+      { id: 'jaListening', icon: 'headphones', route: ROUTES.LISTENING, soon: true },
+    ],
+  },
+  {
+    id: 'reading',
+    icon: 'book',
+    route: ROUTES.READING,
+    activities: [
+      { id: 'kana', icon: 'type', route: ROUTES.KANA },
+      { id: 'jaReading', icon: 'book', route: ROUTES.READING, soon: true },
+    ],
+  },
+  {
+    id: 'speaking',
+    icon: 'mic',
+    route: ROUTES.SPEAKING,
+    activities: [
+      { id: 'jaPronunciation', icon: 'mic', route: ROUTES.SPEAKING, soon: true },
+      { id: 'jaConversation', icon: 'chat', route: ROUTES.SPEAKING, soon: true },
+      { id: 'jaScenarios', icon: 'sparkles', route: ROUTES.SPEAKING, soon: true },
+    ],
+  },
+  {
+    id: 'writing',
+    icon: 'pen',
+    route: ROUTES.WRITING,
+    activities: [{ id: 'jaWriting', icon: 'pen', route: ROUTES.WRITING, soon: true }],
+  },
+];
+
+/**
+ * Skills of a study language
+ */
+export function skillsFor(language: StudyLanguage): SkillDefinition[] {
+  return language === 'ja' ? JA_SKILLS : SKILLS;
+}
+
+/**
+ * Activities that can be used now
+ */
+export const availableActivities = (skill: SkillDefinition) => skill.activities.filter((activity) => !activity.soon);
+
 /**
  * Looks up a skill by id
  */
-export function getSkill(id: SkillId): SkillDefinition {
-  const skill = SKILLS.find((s) => s.id === id);
+export function getSkill(id: SkillId, language: StudyLanguage = 'en'): SkillDefinition {
+  const skill = skillsFor(language).find((s) => s.id === id);
   if (!skill) throw new Error(`Unknown skill ${id}`);
   return skill;
 }

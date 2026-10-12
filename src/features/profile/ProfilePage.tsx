@@ -10,7 +10,8 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
 import { apiFetch, errorMessage, fieldError } from '@/shared/http';
-import { CEFR_LEVELS, type CefrLevel, type ExamGoal } from '@/shared/types';
+import { CEFR_LEVELS, JLPT_LEVELS, type CefrLevel, type ExamGoal, type JlptLevel } from '@/shared/types';
+import { useFuriganaPreference, type FuriganaMode } from '@/shared/ja/furigana';
 import { ProfileProgress } from '@/features/progress/ProfileProgress';
 import './profile.css';
 
@@ -27,7 +28,9 @@ export const ProfilePage: React.FC = () => {
     targetExam: user.targetExam,
     cefrLevel: user.cefrLevel ?? '',
     targetScore: user.targetScore?.toString() ?? '',
+    jaTargetLevel: user.jaTargetLevel ?? '',
   });
+  const [furigana, setFurigana] = useFuriganaPreference();
   const [detailsError, setDetailsError] = useState<unknown>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -62,6 +65,7 @@ export const ProfilePage: React.FC = () => {
         targetExam: details.targetExam,
         cefrLevel: (details.cefrLevel || null) as CefrLevel | null,
         targetScore: details.targetExam !== 'none' && details.targetScore ? Number(details.targetScore) : null,
+        jaTargetLevel: (details.jaTargetLevel || null) as JlptLevel | null,
       });
       toast(t.profile.saved);
     } catch (err) {
@@ -171,6 +175,31 @@ export const ProfilePage: React.FC = () => {
                   {CEFR_LEVELS.map((cefr) => (
                     <option key={cefr} value={cefr}>
                       {cefr} · {t.onboarding.levels[cefr]}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+
+            <Field label={t.japanese.levelLegend}>
+              {(id) => (
+                <Select id={id} value={details.jaTargetLevel} onChange={(event) => setDetails({ ...details, jaTargetLevel: event.target.value })}>
+                  <option value="">—</option>
+                  {JLPT_LEVELS.map((jlpt) => (
+                    <option key={jlpt} value={jlpt}>
+                      {jlpt} · {t.japanese.levels[jlpt]}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+
+            <Field label={t.japanese.furigana.label}>
+              {(id) => (
+                <Select id={id} value={furigana ?? 'always'} onChange={(event) => setFurigana(event.target.value as FuriganaMode)}>
+                  {(['always', 'tap', 'off'] as const).map((mode) => (
+                    <option key={mode} value={mode}>
+                      {t.japanese.furigana[mode]}
                     </option>
                   ))}
                 </Select>

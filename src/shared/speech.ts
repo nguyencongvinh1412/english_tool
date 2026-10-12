@@ -4,6 +4,7 @@
  * browser's Web Speech API when the voice service is unavailable.
  */
 import { apiFetch } from './http';
+import { isJapanese, readingText } from './ja/text';
 
 export interface ScriptLine {
   speaker: 'A' | 'B' | 'C';
@@ -22,18 +23,31 @@ const MAX_CLIP_CHARS = 600;
 /** The TTS batch endpoint accepts at most 60 lines per request */
 const MAX_BATCH_LINES = 60;
 
-/** Server voices per gender, in the order speakers receive them */
-const SERVER_VOICES: Record<Gender, string[]> = {
-  female: ['af_heart', 'bf_emma', 'af_bella', 'bf_alice', 'af_nicole'],
-  male: ['am_michael', 'bm_george', 'am_adam', 'bm_lewis', 'am_puck'],
+type SpeechLanguage = 'en' | 'ja';
+
+/** Server voices per language and gender, in the order speakers receive them */
+const SERVER_VOICES: Record<SpeechLanguage, Record<Gender, string[]>> = {
+  en: {
+    female: ['af_heart', 'bf_emma', 'af_bella', 'bf_alice', 'af_nicole'],
+    male: ['am_michael', 'bm_george', 'am_adam', 'bm_lewis', 'am_puck'],
+  },
+  // Kokoro has one Japanese male voice, so male speakers share it
+  ja: {
+    female: ['jf_alpha', 'jf_tebukuro', 'jf_nezumi', 'jf_gongitsune'],
+    male: ['jm_kumo'],
+  },
 };
+
+/** A script is read in Japanese when any line contains Japanese text */
+const languageOf = (lines: ScriptLine[]): SpeechLanguage => (lines.some((line) => isJapanese(line.text)) ? 'ja' : 'en');
 
 /**
  * Distinct server voices for each speaker
  */
-export function voicesFor(genders: Genders): Record<'A' | 'B' | 'C', string> {
+export function voicesFor(genders: Genders, language: SpeechLanguage = 'en'): Record<'A' | 'B' | 'C', string> {
   const used: Record<Gender, number> = { female: 0, male: 0 };
-  const take = (gender: Gender) => SERVER_VOICES[gender][used[gender]++ % SERVER_VOICES[gender].length];
+  const pool = SERVER_VOICES[language];
+  const take = (gender: Gender) => pool[gender][used[gender]++ % pool[gender].length];
   const a = take(genders.A);
   const b = take(genders.B ?? (genders.A === 'female' ? 'male' : 'female'));
   const c = take(genders.C ?? genders.A);
@@ -65,7 +79,8 @@ async function serverVoicesAvailable(): Promise<boolean> {
  */
 export function splitSentences(text: string): string[] {
   const sentences = text
-    .split(/(?<=[.!?])\s+/)
+    // Japanese sentences end with 。！？ and have no space after them
+    .split(/(?<=[.!?])\s+|(?<=[。！？])/)
     .map((s) => s.trim())
     .filter(Boolean);
   return sentences.flatMap((s) => (s.length <= MAX_CLIP_CHARS ? [s] : (s.match(new RegExp(`.{1,${MAX_CLIP_CHARS}}(\\s|$)`, 'g')) ?? [s])));
@@ -75,12 +90,15 @@ export function splitSentences(text: string): string[] {
  * Clip URLs for lines (generated on the server if needed)
  */
 async function fetchClips(lines: ScriptLine[], genders: Genders): Promise<string[]> {
-  const voices = voicesFor(genders);
+  const voices = voicesFor(genders, languageOf(lines));
   const clips: string[] = [];
   for (let start = 0; start < lines.length; start += MAX_BATCH_LINES) {
     const { clips: batch } = await apiFetch<{ clips: string[] }>('/api/tts/batch', {
       method: 'POST',
-      json: { lines: lines.slice(start, start + MAX_BATCH_LINES).map((line) => ({ text: line.text, voice: voices[line.speaker] })) },
+      json: {
+        // Japanese is sent as its reading (furigana), so kanji are pronounced as the lesson intends
+        lines: lines.slice(start, start + MAX_BATCH_LINES).map((line) => ({ text: readingText(line.text), voice: voices[line.speaker] })),
+      },
     });
     clips.push(...batch);
   }
@@ -100,11 +118,11 @@ export function prefetchScript(lines: ScriptLine[], genders: Genders): void {
 /* ---------- Browser fallback ---------- */
 
 /** Word boundaries matter: "male" must not match "female" */
-const FEMALE_HINTS = /\b(female|samantha|karen|moira|tessa|fiona|victoria|zira|aria|jenny|susan|serena)\b|google us english/i;
-const MALE_HINTS = /\b(male|daniel|alex|fred|tom|oliver|david|mark|guy|george|arthur)\b/i;
+const FEMALE_HINTS = /\b(female|samantha|karen|moira|tessa|fiona|victoria|zira|aria|jenny|susan|serena|kyoko)\b|google us english|google 日本語/i;
+const MALE_HINTS = /\b(male|daniel|alex|fred|tom|oliver|david|mark|guy|george|arthur|otoya|hattori)\b/i;
 
-function pickBrowserVoice(gender: Gender, avoid?: SpeechSynthesisVoice): SpeechSynthesisVoice | undefined {
-  const voices = window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('en'));
+function pickBrowserVoice(gender: Gender, language: SpeechLanguage, avoid?: SpeechSynthesisVoice): SpeechSynthesisVoice | undefined {
+  const voices = window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith(language));
   const hints = gender === 'female' ? FEMALE_HINTS : MALE_HINTS;
   const opposite = gender === 'female' ? MALE_HINTS : FEMALE_HINTS;
   return voices.find((v) => v !== avoid && hints.test(v.name) && !opposite.test(v.name)) ?? voices.find((v) => v !== avoid) ?? voices[0];
@@ -127,13 +145,14 @@ async function playWithBrowser(
       setTimeout(resolve, 1500);
     });
   }
-  const voiceA = pickBrowserVoice(genders.A);
-  const voiceB = pickBrowserVoice(genders.B ?? 'male', voiceA);
+  const language = languageOf(lines);
+  const voiceA = pickBrowserVoice(genders.A, language);
+  const voiceB = pickBrowserVoice(genders.B ?? 'male', language, voiceA);
 
   for (let i = 0; i < lines.length && !isStopped(); i++) {
     onLine(i);
-    const utterance = new SpeechSynthesisUtterance(lines[i].text);
-    utterance.lang = 'en-US';
+    const utterance = new SpeechSynthesisUtterance(readingText(lines[i].text));
+    utterance.lang = language === 'ja' ? 'ja-JP' : 'en-US';
     utterance.rate = rate;
     utterance.voice = (lines[i].speaker === 'A' ? voiceA : voiceB) ?? null;
     if (lines[i].speaker === 'C') utterance.pitch = 1.15;

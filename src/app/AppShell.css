@@ -61,6 +61,10 @@
   padding: 0 0.625rem 1.25rem;
 }
 
+.sidebar__study {
+  padding: 0 0.25rem 1rem;
+}
+
 .sidebar__nav {
   display: flex;
   flex-direction: column;
@@ -324,6 +328,22 @@
   transform: translateY(-1px);
 }
 
+/* Narrow phones: the study-language toggle takes the logo's place (Home is in the tab bar) */
+.topbar__study {
+  flex-shrink: 0;
+}
+
+@media (max-width: 419px) {
+  .topbar__brand {
+    display: none;
+  }
+
+  .topbar {
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+}
+
 /* ---------- Desktop ---------- */
 
 @media (min-width: 900px) {
@@ -333,6 +353,7 @@
 
   .topbar__brand,
   .topbar__avatar,
+  .topbar__study,
   .tabbar {
     display: none;
   }

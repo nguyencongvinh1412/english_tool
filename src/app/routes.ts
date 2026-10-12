@@ -27,4 +27,6 @@ export const ROUTES = {
   PRONUNCIATION: '/speaking/pronunciation',
   CONVERSATION: '/speaking/conversation',
   SCENARIOS: '/speaking/scenarios',
+  // Japanese
+  KANA: '/japanese/kana',
 } as const;

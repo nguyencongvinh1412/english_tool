@@ -31,7 +31,8 @@ interface UseSpeechRecognitionReturn extends UseSpeechRecognitionState {
 }
 
 /** Recognition language */
-const RECOGNITION_LANG = 'en-US';
+/** Recognition language per study language */
+const RECOGNITION_LANGS = { en: 'en-US', ja: 'ja-JP' } as const;
 
 /**
  * Get SpeechRecognition constructor from window
@@ -78,7 +79,7 @@ function getSpeechRecognition(): SpeechRecognitionConstructor | null {
  * );
  * ```
  */
-export function useSpeechRecognition(): UseSpeechRecognitionReturn {
+export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 'en'): UseSpeechRecognitionReturn {
   const SpeechRecognitionClass = getSpeechRecognition();
   const isSupported = SpeechRecognitionClass !== null;
 
@@ -99,7 +100,7 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
     }
 
     const recognition = new SpeechRecognitionClass();
-    recognition.lang = RECOGNITION_LANG;
+    recognition.lang = RECOGNITION_LANGS[language];
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.maxAlternatives = 1;
@@ -167,7 +168,7 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
         recognitionRef.current = null;
       }
     };
-  }, [SpeechRecognitionClass]);
+  }, [SpeechRecognitionClass, language]);
 
   /**
    * Start listening for speech

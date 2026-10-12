@@ -52,3 +52,11 @@
 .activity-card__cta {
   margin-top: 0.75rem;
 }
+
+.activity-card--soon {
+  opacity: 0.72;
+}
+
+.activity-card--soon .activity-card__icon {
+  filter: grayscale(1);
+}

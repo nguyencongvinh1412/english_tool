@@ -64,6 +64,8 @@
   /* Typography */
   --font-display: 'Baloo 2', 'Nunito', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
   --font-body: 'Nunito', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Japanese: Noto Sans JP is loaded on demand; system Japanese fonts until then */
+  --font-ja: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
 
   /* Shape */
   --radius-sm: 10px;

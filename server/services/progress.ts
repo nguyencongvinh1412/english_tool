@@ -23,12 +23,27 @@ export const ACTIVITY_SKILLS = {
   'ielts-reading': 'reading',
   'ielts-writing': 'writing',
   'ielts-speaking': 'speaking',
+  kana: 'reading',
 } as const;
 
 export type Activity = keyof typeof ACTIVITY_SKILLS;
 export type Skill = (typeof ACTIVITY_SKILLS)[Activity];
 
 const ALL_SKILLS = ['listening', 'reading', 'speaking', 'writing'] as const;
+
+export type StudyLanguage = 'en' | 'ja';
+
+/** Activities that always belong to one language; others take the learner's current study language */
+const FIXED_LANGUAGE: Partial<Record<Activity, StudyLanguage>> = {
+  kana: 'ja',
+  'toeic-listening': 'en',
+  'toeic-reading': 'en',
+  'ielts-listening': 'en',
+  'ielts-reading': 'en',
+  'ielts-writing': 'en',
+  'ielts-speaking': 'en',
+  'speaking-ielts': 'en',
+};
 
 /** XP for finishing any activity */
 export const XP_COMPLETE = 10;
@@ -94,9 +109,10 @@ export function computeStreak(days: string[], today: string): { current: number;
 }
 
 /**
- * Everything the dashboard and profile need about a user's progress
+ * Everything the dashboard and profile need about a user's progress.
+ * XP, streak and the activity charts count every language; skills and recent activity are per language.
  */
-export async function getProgressSummary(userId: string) {
+export async function getProgressSummary(userId: string, language: StudyLanguage) {
   const today = quotaDay();
   const todayNum = dayNumber(today);
   const heatmapStart = dayString(todayNum - (HEATMAP_DAYS - 1));
@@ -134,13 +150,13 @@ export async function getProgressSummary(userId: string) {
       lastAt: sql<string | null>`max(${attempts.completedAt})`,
     })
     .from(attempts)
-    .where(eq(attempts.userId, userId))
+    .where(and(eq(attempts.userId, userId), eq(attempts.language, language)))
     .groupBy(attempts.skill);
 
   const recent = await db
     .select()
     .from(attempts)
-    .where(eq(attempts.userId, userId))
+    .where(and(eq(attempts.userId, userId), eq(attempts.language, language)))
     .orderBy(desc(attempts.completedAt))
     .limit(RECENT_LIMIT);
 
@@ -152,6 +168,7 @@ export async function getProgressSummary(userId: string) {
 
   return {
     today,
+    language,
     xpTotal: totals.xpTotal,
     xpToday: daily.get(today)?.xp ?? 0,
     attemptsTotal: totals.attemptsTotal,
@@ -181,6 +198,8 @@ export interface AttemptInput {
   details?: Record<string, unknown> | null;
   /** Carried-over legacy scores earn no XP */
   imported?: boolean;
+  /** Language practised; ignored for activities tied to one language */
+  language?: StudyLanguage;
 }
 
 /**
@@ -195,6 +214,7 @@ export async function recordAttempt(userId: string, input: AttemptInput) {
       userId,
       activity: input.activity,
       skill: ACTIVITY_SKILLS[input.activity],
+      language: FIXED_LANGUAGE[input.activity] ?? input.language ?? 'en',
       contentRef: input.contentRef ?? null,
       title: input.title ?? null,
       score: input.score ?? null,
@@ -217,6 +237,7 @@ export function toPublicAttempt(attempt: typeof attempts.$inferSelect) {
     id: attempt.id,
     activity: attempt.activity,
     skill: attempt.skill,
+    language: attempt.language,
     contentRef: attempt.contentRef,
     title: attempt.title,
     score: attempt.score,

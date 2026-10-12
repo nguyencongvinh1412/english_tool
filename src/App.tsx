@@ -34,6 +34,7 @@ import { ExamSessionPage } from '@/features/exams/ExamSessionPage';
 import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
 import { ProfilePage } from '@/features/profile/ProfilePage';
 import { AdminPage } from '@/features/admin/AdminPage';
+import { KanaPage } from '@/features/japanese/KanaPage';
 
 /**
  * Root application component with routing and error handling
@@ -75,6 +76,7 @@ export default function App(): React.JSX.Element {
                       <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
                       <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
                       <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
+                      <Route path={ROUTES.KANA} element={<KanaPage />} />
                       <Route path={ROUTES.SPEAKING_IELTS} element={<IeltsSpeakingPage />} />
                       <Route path={ROUTES.LISTENING_QUIZ} element={<ListeningQuizPage />} />
                       <Route path={ROUTES.READING_PASSAGE} element={<ReadingPassagePage />} />

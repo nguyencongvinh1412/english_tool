@@ -5,8 +5,9 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Badge, Banner, Button, Card, Icon, PageHeader, Segmented, Spinner } from '@/design';
-import { useAuth } from '@/app/AuthProvider';
+import { Badge, Banner, Button, Card, EmptyState, Icon, LinkButton, PageHeader, Segmented, Spinner } from '@/design';
+import { useAuth, useCurrentUser } from '@/app/AuthProvider';
+import { ROUTES } from '@/app/routes';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { examApi, type Catalog, type ExamMode, type IeltsSummaryResult, type SessionSummary, type ToeicPart } from '@/shared/examApi';
@@ -15,7 +16,7 @@ import { IeltsLibrary } from './IeltsLibrary';
 import './ielts.css';
 import './exams.css';
 
-export const ExamsPage: React.FC = () => {
+const EnglishExamsPage: React.FC = () => {
   const { t, formatDate } = useI18n();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -249,4 +250,35 @@ export const ExamsPage: React.FC = () => {
       </section>
     </div>
   );
+};
+
+/**
+ * Japanese: JLPT tests arrive in phase J4; point learners to the kana charts meanwhile
+ */
+const JlptExamsPage: React.FC = () => {
+  const { t } = useI18n();
+  return (
+    <div className="exams">
+      <PageHeader eyebrow="JLPT" title={t.japanese.examsTitle} description={t.japanese.examsSubtitle} />
+      <EmptyState
+        icon="exam"
+        title={t.common.comingSoon}
+        action={
+          <LinkButton to={ROUTES.KANA} icon="chevronRight">
+            {t.skills.activities.kana.title}
+          </LinkButton>
+        }
+      >
+        {t.japanese.examsSoon}
+      </EmptyState>
+    </div>
+  );
+};
+
+/**
+ * Mock tests for the language being learned
+ */
+export const ExamsPage: React.FC = () => {
+  const { studyLanguage } = useCurrentUser();
+  return studyLanguage === 'ja' ? <JlptExamsPage /> : <EnglishExamsPage />;
 };

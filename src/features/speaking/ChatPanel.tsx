@@ -5,7 +5,7 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Banner, Button, Icon } from '@/design';
+import { Banner, Button, Icon, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition, useTextToSpeech } from '@/hooks';
 import type { ChatMessage } from '@/types/api';
@@ -168,8 +168,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
         {isSupported && <div className="chat__divider">{t.chat.or}</div>}
 
         <form className="chat__form" onSubmit={submitDraft}>
-          <input
-            className="input"
+          <TextInput
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             placeholder={t.chat.typePlaceholder}

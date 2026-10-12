@@ -36,6 +36,8 @@ const createAttemptSchema = z
       .record(z.string(), z.unknown())
       .nullish()
       .refine((value) => !value || JSON.stringify(value).length <= MAX_DETAILS_BYTES, 'Details are too large'),
+    /** Language practised; defaults to the learner's current study language */
+    language: z.enum(['en', 'ja']).optional(),
     /** Scores carried over from the pre-account localStorage; recorded without XP */
     imported: z.boolean().optional(),
   })
@@ -50,7 +52,10 @@ const historyQuerySchema = z.object({
   /** ISO timestamp: return attempts completed before this (pagination cursor) */
   before: z.iso.datetime({ offset: true }).optional(),
   activity: z.enum(ACTIVITIES).optional(),
+  language: z.enum(['en', 'ja']).optional(),
 });
+
+const summaryQuerySchema = z.object({ language: z.enum(['en', 'ja']).optional() });
 
 const bestQuerySchema = z.object({ activity: z.enum(ACTIVITIES) });
 
@@ -67,7 +72,8 @@ export function createProgressRouter(): Router {
    */
   router.post('/attempts', requireAuth, async (req, res) => {
     const body = createAttemptSchema.parse(req.body);
-    res.status(201).json(await recordAttempt(currentUser(req).id, body));
+    const user = currentUser(req);
+    res.status(201).json(await recordAttempt(user.id, { ...body, language: body.language ?? user.studyLanguage }));
   });
 
   /**
@@ -85,6 +91,7 @@ export function createProgressRouter(): Router {
         and(
           eq(attempts.userId, user.id),
           query.activity ? eq(attempts.activity, query.activity) : undefined,
+          query.language ? eq(attempts.language, query.language) : undefined,
           query.before ? lt(attempts.completedAt, new Date(query.before)) : undefined
         )
       )
@@ -128,7 +135,9 @@ export function createProgressRouter(): Router {
    * GET /progress/summary - XP, streak, weekly chart, heatmap, per-skill stats, recent attempts
    */
   router.get('/progress/summary', requireAuth, async (req, res) => {
-    res.json(await getProgressSummary(currentUser(req).id));
+    const { language } = summaryQuerySchema.parse(req.query);
+    const user = currentUser(req);
+    res.json(await getProgressSummary(user.id, language ?? user.studyLanguage));
   });
 
   return router;

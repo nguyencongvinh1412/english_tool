@@ -23,6 +23,8 @@ const updateProfileSchema = z
     targetExam: z.enum(['none', 'toeic', 'ielts']),
     targetScore: z.number().min(0).max(990).nullable(),
     cefrLevel: z.enum(CEFR_LEVELS).nullable(),
+    studyLanguage: z.enum(['en', 'ja']),
+    jaTargetLevel: z.enum(['N5', 'N4', 'N3', 'N2', 'N1']).nullable(),
     /** true marks onboarding as finished */
     onboarded: z.literal(true),
   })

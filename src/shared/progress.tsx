@@ -28,29 +28,31 @@ const GAIN_DURATION_MS = 2200;
 
 export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
-  // Keyed by user so a previous account's summary is never shown after switching
-  const [state, setState] = useState<{ userId: string; data: ProgressSummary } | null>(null);
+  // Keyed by user and study language so another account's or language's summary is never shown
+  const [state, setState] = useState<{ key: string; data: ProgressSummary } | null>(null);
   const [lastGain, setLastGain] = useState<{ xp: number; id: number } | null>(null);
   const userId = user?.id;
-  const summary = state && state.userId === userId ? state.data : null;
+  const language = user?.studyLanguage ?? 'en';
+  const key = `${userId}:${language}`;
+  const summary = state && state.key === key ? state.data : null;
 
   const refresh = useCallback(async () => {
     if (!userId) return;
     try {
-      const data = await progressApi.summary();
-      setState({ userId, data });
+      const data = await progressApi.summary(language);
+      setState({ key, data });
     } catch {
       // Keep the last known summary; the shell simply shows no streak
     }
-  }, [userId]);
+  }, [userId, language, key]);
 
   useEffect(() => {
     if (!userId) return;
     progressApi
-      .summary()
-      .then((data) => setState({ userId, data }))
+      .summary(language)
+      .then((data) => setState({ key, data }))
       .catch(() => {});
-  }, [userId]);
+  }, [userId, language, key]);
 
   const celebrate = useCallback(
     (xpEarned: number) => {

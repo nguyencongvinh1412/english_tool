@@ -21,7 +21,9 @@ import { sql } from 'drizzle-orm';
 export const userRole = pgEnum('user_role', ['admin', 'learner']);
 export const userStatus = pgEnum('user_status', ['active', 'disabled']);
 export const uiLocale = pgEnum('ui_locale', ['en', 'vi']);
-export const examType = pgEnum('exam_type', ['none', 'toeic', 'ielts']);
+export const examType = pgEnum('exam_type', ['none', 'toeic', 'ielts', 'jlpt']);
+/** Language being learned (the UI language is separate: uiLocale) */
+export const studyLanguage = pgEnum('study_language', ['en', 'ja']);
 
 export const users = pgTable(
   'users',
@@ -41,6 +43,10 @@ export const users = pgTable(
     targetExam: examType('target_exam').notNull().default('none'),
     targetScore: real('target_score'),
     cefrLevel: text('cefr_level'),
+    /** Language the app shows lessons for; switched in the sidebar */
+    studyLanguage: studyLanguage('study_language').notNull().default('en'),
+    /** Japanese goal, N5 (beginner) to N1 */
+    jaTargetLevel: text('ja_target_level'),
     /** Set when the user finishes the onboarding step; null shows onboarding */
     onboardedAt: timestamp('onboarded_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -127,6 +133,8 @@ export const attempts = pgTable(
     /** e.g. dictation, pronunciation, conversation, scenario (validated in the API, text so new activities need no migration) */
     activity: text('activity').notNull(),
     skill: skill('skill').notNull(),
+    /** Language practised, so progress can be shown per language */
+    language: studyLanguage('language').notNull().default('en'),
     /** Stable id of what was practiced, e.g. a lesson or scenario id */
     contentRef: text('content_ref'),
     title: text('title'),
@@ -210,6 +218,7 @@ export const contentItems = pgTable(
     kind: text('kind').notNull(),
     skill: skill('skill').notNull(),
     exam: examType('exam').notNull().default('none'),
+    language: studyLanguage('language').notNull().default('en'),
     /** Exam part, e.g. toeic-5 or ielts-w2; null for general practice */
     part: text('part'),
     /** CEFR level, e.g. B1 */

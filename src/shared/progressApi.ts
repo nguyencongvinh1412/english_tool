@@ -17,7 +17,9 @@ export type Activity =
   | 'ielts-listening'
   | 'ielts-reading'
   | 'ielts-writing'
-  | 'ielts-speaking';
+  | 'ielts-speaking'
+  | 'kana';
+export type StudyLanguage = 'en' | 'ja';
 export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 
 export interface AttemptInput {
@@ -51,6 +53,8 @@ export interface DayStat {
 }
 
 export interface ProgressSummary {
+  /** Language the skills and recent activity are for; XP and streak cover every language */
+  language: StudyLanguage;
   today: string;
   xpTotal: number;
   xpToday: number;
@@ -63,7 +67,7 @@ export interface ProgressSummary {
 }
 
 export const progressApi = {
-  summary: () => apiFetch<ProgressSummary>('/api/progress/summary'),
+  summary: (language: StudyLanguage) => apiFetch<ProgressSummary>(`/api/progress/summary?language=${language}`),
   record: (input: AttemptInput) =>
     apiFetch<{ attempt: Attempt; xpEarned: number }>('/api/attempts', { method: 'POST', json: input }),
   best: (activity: Activity) => apiFetch<{ best: Record<string, number> }>(`/api/attempts/best?activity=${activity}`),

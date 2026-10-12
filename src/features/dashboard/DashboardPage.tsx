@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import { Badge, Card, Icon, LinkButton, StatTile } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useCurrentUser } from '@/app/AuthProvider';
+import { JaText } from '@/shared/ja/JaText';
 import { ROUTES } from '@/app/routes';
-import { SKILLS, type SkillDefinition } from '@/features/skills/skills';
+import { availableActivities, skillsFor, type SkillDefinition } from '@/features/skills/skills';
 import { RecentList, WeekChart } from '@/features/progress/ProgressWidgets';
 import { useProgress, type ProgressSummary } from '@/shared/progress';
 import './dashboard.css';
@@ -17,8 +18,8 @@ import './dashboard.css';
 /**
  * Suggests the playable skill practiced least recently (never-practiced first)
  */
-function suggestSkill(summary: ProgressSummary | null): SkillDefinition {
-  const playable = SKILLS.filter((skill) => skill.activities.length > 0);
+function suggestSkill(skills: SkillDefinition[], summary: ProgressSummary | null): SkillDefinition {
+  const playable = skills.filter((skill) => availableActivities(skill).length > 0);
   if (!summary) return playable[0];
 
   return [...playable].sort((a, b) => {
@@ -37,11 +38,16 @@ export const DashboardPage: React.FC = () => {
   const quota = user.aiQuota;
   const streak = summary?.streak;
 
-  const suggestion = suggestSkill(summary);
-  const suggestedActivity = suggestion.activities[0];
+  const isJapanese = user.studyLanguage === 'ja';
+  const skills = skillsFor(user.studyLanguage);
+  const suggestion = suggestSkill(skills, summary);
+  const suggestedActivity = availableActivities(suggestion)[0];
 
-  const goalLabel =
-    user.targetExam === 'none'
+  const goalLabel = isJapanese
+    ? user.jaTargetLevel
+      ? `JLPT ${user.jaTargetLevel}`
+      : t.japanese.noGoal
+    : user.targetExam === 'none'
       ? user.cefrLevel
         ? `${t.onboarding.goals.none.label} · ${user.cefrLevel}`
         : t.dashboard.noGoal
@@ -60,6 +66,7 @@ export const DashboardPage: React.FC = () => {
       <section className="dash-hero reveal" style={{ ['--i' as string]: 0 }}>
         <div className="dash-hero__text">
           <h1 className="dash-hero__title">{t.dashboard.greeting(user.displayName)}</h1>
+          {isJapanese && <JaText className="dash-hero__ja" text="今日{きょう}も一緒{いっしょ}に頑張{がんば}りましょう！" />}
           <p className="dash-hero__subtitle">{streakMessage}</p>
           <div className="dash-hero__continue">
             <LinkButton to={suggestedActivity.route} size="lg" icon={suggestedActivity.icon}>
@@ -69,9 +76,19 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
         <div className="dash-hero__art" aria-hidden="true">
-          <span className="dash-bubble dash-bubble--a">Hello!</span>
-          <span className="dash-bubble dash-bubble--b">Xin chào!</span>
-          <span className="dash-bubble dash-bubble--c">How are you?</span>
+          {isJapanese ? (
+            <>
+              <span className="dash-bubble dash-bubble--a" lang="ja">こんにちは!</span>
+              <span className="dash-bubble dash-bubble--b">Xin chào!</span>
+              <span className="dash-bubble dash-bubble--c" lang="ja">お元気ですか？</span>
+            </>
+          ) : (
+            <>
+              <span className="dash-bubble dash-bubble--a">Hello!</span>
+              <span className="dash-bubble dash-bubble--b">Xin chào!</span>
+              <span className="dash-bubble dash-bubble--c">How are you?</span>
+            </>
+          )}
         </div>
       </section>
 
@@ -110,7 +127,7 @@ export const DashboardPage: React.FC = () => {
         {t.dashboard.skillsTitle}
       </h2>
       <section className="dash-skills">
-        {SKILLS.map((skill, index) => {
+        {skills.map((skill, index) => {
           const stat = summary?.skills[skill.id];
           return (
             <Link key={skill.id} to={skill.route} className="dash-skill-link reveal" style={{ ['--i' as string]: 8 + index }}>
@@ -122,9 +139,9 @@ export const DashboardPage: React.FC = () => {
                   <h3 className="dash-skill__title">{t.skills[skill.id].title}</h3>
                   <p className="dash-skill__description">{t.skills[skill.id].description}</p>
                 </div>
-                {skill.activities.length > 0 ? (
+                {availableActivities(skill).length > 0 ? (
                   <div className="dash-skill__badges">
-                    <Badge tone={skill.id}>{t.dashboard.activities(skill.activities.length)}</Badge>
+                    <Badge tone={skill.id}>{t.dashboard.activities(availableActivities(skill).length)}</Badge>
                     {stat && stat.attempts > 0 && (
                       <Badge tone="neutral" icon="check">
                         {t.progress.exercises(stat.attempts)}
@@ -148,12 +165,18 @@ export const DashboardPage: React.FC = () => {
             <Icon name="exam" size={28} />
           </span>
           <div className="dash-skill__text">
-            <h3 className="dash-skill__title">{t.dashboard.examsTitle}</h3>
-            <p className="dash-skill__description">{t.dashboard.examsBody}</p>
+            <h3 className="dash-skill__title">{isJapanese ? t.japanese.examsTitle : t.dashboard.examsTitle}</h3>
+            <p className="dash-skill__description">{isJapanese ? t.japanese.examsSubtitle : t.dashboard.examsBody}</p>
           </div>
-          <Badge tone="exam" icon="chevronRight">
-            TOEIC
-          </Badge>
+          {isJapanese ? (
+            <Badge tone="neutral" icon="lock">
+              {t.common.comingSoon}
+            </Badge>
+          ) : (
+            <Badge tone="exam" icon="chevronRight">
+              TOEIC · IELTS
+            </Badge>
+          )}
         </Card>
       </Link>
     </div>
