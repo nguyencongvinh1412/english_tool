@@ -55,7 +55,7 @@ export const readingGapfill = z.object({
     .max(12),
 });
 
-const speaker = z.object({ name: text(30), gender: z.enum(['female', 'male']) });
+export const speaker = z.object({ name: text(30), gender: z.enum(['female', 'male']) });
 
 export const listeningQuiz = z.object({
   title: text(120),

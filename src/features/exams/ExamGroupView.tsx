@@ -6,9 +6,9 @@ import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { prefetchScript, speakScript, type ScriptLine } from '@/shared/speech';
+import { prefetchScript, speakScript, type Genders, type ScriptLine } from '@/shared/speech';
 import { playSegment } from '@/shared/audioSegment';
-import { mediaUrl, type ExamGroup, type P1Item, type P2Item, type ToeicPart } from '@/shared/examApi';
+import { mediaUrl, type AudioSegment, type ExamGroup, type P1Item, type P2Item, type ToeicPart } from '@/shared/examApi';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 
@@ -52,9 +52,18 @@ function audioLines(part: ToeicPart, group: ExamGroup, firstNumber: number): Scr
 /**
  * Play button with a once-only rule for test modes
  */
-const GroupAudio: React.FC<{ lines: ScriptLine[]; group: ExamGroup; playOnce: boolean; played: boolean; onPlayed: () => void }> = ({
+export const GroupAudio: React.FC<{
+  lines: ScriptLine[];
+  /** Real recording (imported tests); otherwise the lines are read by the voice service */
+  recording?: AudioSegment;
+  genders: Genders;
+  playOnce: boolean;
+  played: boolean;
+  onPlayed: () => void;
+}> = ({
   lines,
-  group,
+  recording,
+  genders,
   playOnce,
   played,
   onPlayed,
@@ -68,19 +77,12 @@ const GroupAudio: React.FC<{ lines: ScriptLine[]; group: ExamGroup; playOnce: bo
   const play = () => {
     stopRef.current?.();
     setIsPlaying(true);
-    const recording = group.payload.audio;
     if (recording) {
       stopRef.current = playSegment(recording, () => setIsPlaying(false), onPlayed);
       return;
     }
     onPlayed();
-    const speakers = group.payload.speakers;
-    stopRef.current = speakScript(
-      lines,
-      { A: speakers?.A.gender ?? 'female', B: speakers?.B?.gender ?? 'male', C: speakers?.C?.gender },
-      1,
-      (index) => index === -1 && setIsPlaying(false)
-    );
+    stopRef.current = speakScript(lines, genders, 1, (index) => index === -1 && setIsPlaying(false));
   };
 
   const stop = () => {
@@ -122,6 +124,7 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
   const { t } = useI18n();
   const payload = group.payload;
   const isListening = part <= 4;
+  const genders: Genders = { A: payload.speakers?.A.gender ?? 'female', B: payload.speakers?.B?.gender ?? 'male', C: payload.speakers?.C?.gender };
 
   // Generate the group's audio in the background while the learner reads the questions
   useEffect(() => {
@@ -157,7 +160,8 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
       {isListening && !review && (
         <GroupAudio
           lines={audioLines(part, group, firstNumber)}
-          group={group}
+          recording={payload.audio}
+          genders={genders}
           playOnce={playOnce}
           played={played}
           onPlayed={() => onPlayed?.()}
@@ -165,7 +169,7 @@ export const ExamGroupView: React.FC<ExamGroupViewProps> = ({
       )}
 
       {review && isListening && (payload.audio || audioLines(part, group, firstNumber).length > 0) && (
-        <GroupAudio lines={audioLines(part, group, firstNumber)} group={group} playOnce={false} played={false} onPlayed={() => undefined} />
+        <GroupAudio lines={audioLines(part, group, firstNumber)} recording={payload.audio} genders={genders} playOnce={false} played={false} onPlayed={() => undefined} />
       )}
 
       {review && isListening && part > 2 && payload.script && payload.script.length > 0 && (

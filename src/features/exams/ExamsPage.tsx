@@ -5,14 +5,14 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Badge, Banner, Button, Card, EmptyState, Icon, LinkButton, PageHeader, Segmented, Spinner } from '@/design';
+import { Badge, Banner, Button, Card, Icon, PageHeader, Segmented, Spinner } from '@/design';
 import { useAuth, useCurrentUser } from '@/app/AuthProvider';
-import { ROUTES } from '@/app/routes';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { examApi, type Catalog, type ExamMode, type IeltsSummaryResult, type SessionSummary, type ToeicPart } from '@/shared/examApi';
 import { examPath } from './examRoutes';
 import { IeltsLibrary } from './IeltsLibrary';
+import { JlptLibrary } from './JlptLibrary';
 import './ielts.css';
 import './exams.css';
 
@@ -52,6 +52,7 @@ const EnglishExamsPage: React.FC = () => {
   const finished = sessions?.filter((s) => s.status === 'submitted' && s.exam === exam) ?? [];
 
   const sessionLabel = (s: SessionSummary) => {
+    if (s.exam === 'jlpt') return `JLPT ${s.level ?? ''}`;
     if (s.exam === 'ielts') {
       const part = s.mode === 'part' && s.components[0] ? ` · ${t.ielts.components[s.components[0] as keyof typeof t.ielts.components]}` : '';
       return `IELTS ${t.ielts.modeLabel[s.mode]}${part}`;
@@ -212,7 +213,7 @@ const EnglishExamsPage: React.FC = () => {
                     <strong>{sessionLabel(s)}</strong>
                     <span>{formatDate(s.submittedAt ?? s.startedAt)}</span>
                   </span>
-                  {s.result && 'sections' in s.result ? (
+                  {s.result && 'totalScaled' in s.result ? (
                     <>
                       {s.result.sections.listening && (
                         <span className="exam-history__score">
@@ -237,7 +238,7 @@ const EnglishExamsPage: React.FC = () => {
                             </span>
                           ) : null;
                         })}
-                        {'overall' in s.result && s.result.overall !== null && <span className="exam-history__total">{s.result.overall.toFixed(1)}</span>}
+                        {'overall' in s.result && typeof s.result.overall === 'number' && <span className="exam-history__total">{s.result.overall.toFixed(1)}</span>}
                       </>
                     )
                   )}
@@ -253,32 +254,9 @@ const EnglishExamsPage: React.FC = () => {
 };
 
 /**
- * Japanese: JLPT tests arrive in phase J4; point learners to the kana charts meanwhile
- */
-const JlptExamsPage: React.FC = () => {
-  const { t } = useI18n();
-  return (
-    <div className="exams">
-      <PageHeader eyebrow="JLPT" title={t.japanese.examsTitle} description={t.japanese.examsSubtitle} />
-      <EmptyState
-        icon="exam"
-        title={t.common.comingSoon}
-        action={
-          <LinkButton to={ROUTES.KANA} icon="chevronRight">
-            {t.skills.activities.kana.title}
-          </LinkButton>
-        }
-      >
-        {t.japanese.examsSoon}
-      </EmptyState>
-    </div>
-  );
-};
-
-/**
  * Mock tests for the language being learned
  */
 export const ExamsPage: React.FC = () => {
   const { studyLanguage } = useCurrentUser();
-  return studyLanguage === 'ja' ? <JlptExamsPage /> : <EnglishExamsPage />;
+  return studyLanguage === 'ja' ? <JlptLibrary /> : <EnglishExamsPage />;
 };

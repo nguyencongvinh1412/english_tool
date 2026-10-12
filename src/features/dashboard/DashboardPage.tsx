@@ -204,15 +204,9 @@ export const DashboardPage: React.FC = () => {
             <h3 className="dash-skill__title">{isJapanese ? t.japanese.examsTitle : t.dashboard.examsTitle}</h3>
             <p className="dash-skill__description">{isJapanese ? t.japanese.examsSubtitle : t.dashboard.examsBody}</p>
           </div>
-          {isJapanese ? (
-            <Badge tone="neutral" icon="lock">
-              {t.common.comingSoon}
-            </Badge>
-          ) : (
-            <Badge tone="exam" icon="chevronRight">
-              TOEIC · IELTS
-            </Badge>
-          )}
+          <Badge tone="exam" icon="chevronRight">
+            {isJapanese ? 'JLPT N5–N1' : 'TOEIC · IELTS'}
+          </Badge>
         </Card>
       </Link>
     </div>

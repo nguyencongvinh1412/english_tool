@@ -19,7 +19,10 @@ export type Activity =
   | 'ielts-writing'
   | 'ielts-speaking'
   | 'kana'
-  | 'vocab';
+  | 'vocab'
+  | 'jlpt-language'
+  | 'jlpt-reading'
+  | 'jlpt-listening';
 export type StudyLanguage = 'en' | 'ja';
 export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 

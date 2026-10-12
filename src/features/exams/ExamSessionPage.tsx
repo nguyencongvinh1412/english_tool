@@ -14,6 +14,8 @@ import { LocaleToggle } from '@/app/LocaleToggle';
 import { ExamGroupView } from './ExamGroupView';
 import { IeltsSessionScreen } from './IeltsSession';
 import type { IeltsSession } from '@/shared/ieltsApi';
+import type { JlptSession } from '@/shared/jlptApi';
+import { JlptSessionScreen } from './JlptSession';
 import { formatClock, useExamRunner } from './useExamRunner';
 import './exams.css';
 
@@ -297,11 +299,11 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
 export const ExamSessionPage: React.FC = () => {
   const { t } = useI18n();
   const { sessionId = '' } = useParams();
-  const [session, setSession] = useState<ExamSession | IeltsSession | null>(null);
+  const [session, setSession] = useState<ExamSession | IeltsSession | JlptSession | null>(null);
   const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
-    apiFetch<{ session: ExamSession | IeltsSession }>(`/api/exams/sessions/${sessionId}`)
+    apiFetch<{ session: ExamSession | IeltsSession | JlptSession }>(`/api/exams/sessions/${sessionId}`)
       .then(({ session: loaded }) => setSession(loaded))
       .catch(setError);
   }, [sessionId]);
@@ -323,6 +325,7 @@ export const ExamSessionPage: React.FC = () => {
     );
   }
 
+  if (session.exam === 'jlpt') return <JlptSessionScreen session={session} onChange={setSession} />;
   if (session.exam === 'ielts') return <IeltsSessionScreen session={session} onChange={setSession} />;
 
   return session.status === 'submitted' ? (

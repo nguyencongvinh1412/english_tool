@@ -50,6 +50,29 @@ import {
   type IeltsSlot,
 } from '../exams/ielts.js';
 import { generateIeltsGroups } from '../exams/ieltsBank.js';
+import {
+  FULL_MINUTES,
+  JLPT_SECTIONS,
+  MINI_MINUTES,
+  MONDAI,
+  MONDAI_COUNTS,
+  MONDAI_SECTION,
+  SECTION_MINUTES,
+  assembleJlpt,
+  fullTestGroups,
+  jlptBankCounts,
+  jlptSessionView,
+  jlptTimeLimit,
+  loadJlptGroups,
+  mondaiFor,
+  scoreJlpt,
+  type JlptBlueprint,
+  type JlptMode,
+  type JlptSection,
+  type Mondai,
+} from '../exams/jlpt.js';
+import { generateJlptGroups } from '../exams/jlptBank.js';
+import { JLPT_LEVELS, type JlptLevel } from '../content/schemas.js';
 
 /** Missing groups a learner may generate on the spot when starting a test */
 const ON_DEMAND_GROUP_LIMIT = 6;
@@ -86,6 +109,21 @@ const ieltsFillSchema = z.object({
   level: z.enum(CEFR_LEVELS).default('B2'),
   model: modelSchema,
 });
+
+const jlptStartSchema = z
+  .object({ level: z.enum(JLPT_LEVELS), mode: z.enum(['mini', 'part', 'full']), section: z.enum(JLPT_SECTIONS).optional(), model: modelSchema })
+  .refine((body) => body.mode !== 'part' || body.section !== undefined, { message: 'section is required', path: ['section'] });
+
+const jlptFillSchema = z.union([
+  z.object({ level: z.enum(JLPT_LEVELS), mondai: z.enum(MONDAI), count: z.number().int().min(1).max(5), model: modelSchema }),
+  /** Fills what a full test still lacks, a batch at a time */
+  z.object({ level: z.enum(JLPT_LEVELS), missing: z.literal(true), model: modelSchema }),
+]);
+
+/** JLPT groups a learner may generate on the spot (a mini test needs four) */
+const JLPT_ON_DEMAND_LIMIT = 4;
+/** Groups per "fill missing" click; each takes a generation and a check */
+const JLPT_FILL_BATCH = 6;
 
 const gradeSchema = z.object({ model: modelSchema }).default({});
 
@@ -137,7 +175,51 @@ async function loadSession(id: string, userId: string): Promise<ExamSession> {
  * Scores and closes a session of either exam
  */
 function submitSession(session: ExamSession, model?: string): Promise<{ session: ExamSession; xpEarned: number }> {
+  if (session.exam === 'jlpt') return submitJlpt(session);
   return session.exam === 'ielts' ? submitIelts(session, model) : submitToeic(session);
+}
+
+/** Activity recorded for each JLPT scored section */
+const JLPT_ACTIVITY = {
+  language: 'jlpt-language',
+  'language-reading': 'jlpt-language',
+  reading: 'jlpt-reading',
+  listening: 'jlpt-listening',
+} as const;
+
+/**
+ * Scores and closes a JLPT session, recording one attempt per scored section
+ */
+async function submitJlpt(session: ExamSession): Promise<{ session: ExamSession; xpEarned: number }> {
+  const blueprint = session.blueprint as JlptBlueprint;
+  const result = scoreJlpt(blueprint, await loadJlptGroups(blueprint), session.answers as Record<string, number>, session.mode === 'full');
+
+  const [closed] = await db
+    .update(examSessions)
+    .set({ status: 'submitted', submittedAt: new Date(), updatedAt: new Date(), result })
+    .where(and(eq(examSessions.id, session.id), eq(examSessions.status, 'in_progress')))
+    .returning();
+
+  if (!closed) {
+    const [current] = await db.select().from(examSessions).where(eq(examSessions.id, session.id));
+    return { session: current, xpEarned: 0 };
+  }
+
+  const durationSec = Math.round((Date.now() - session.startedAt.getTime()) / 1000);
+  let xpEarned = 0;
+  for (const section of result.sections) {
+    const recorded = await recordAttempt(session.userId, {
+      activity: JLPT_ACTIVITY[section.id],
+      contentRef: session.id,
+      title: `JLPT ${blueprint.level} ${session.mode} · ${section.id}`,
+      score: section.correct,
+      maxScore: section.total,
+      durationSec,
+      details: { mode: session.mode, level: blueprint.level, scaled: section.scaled, max: section.max },
+    });
+    xpEarned += recorded.xpEarned;
+  }
+  return { session: closed, xpEarned };
 }
 
 /**
@@ -184,6 +266,7 @@ async function submitIelts(session: ExamSession, model?: string): Promise<{ sess
  * Session as the client sees it, for either exam
  */
 async function viewOf(session: ExamSession) {
+  if (session.exam === 'jlpt') return jlptSessionView(session, await loadJlptGroups(session.blueprint as JlptBlueprint));
   if (session.exam === 'ielts') {
     return ieltsSessionView(session, await loadIeltsGroups(session.blueprint as IeltsBlueprint));
   }
@@ -387,6 +470,8 @@ export function createExamRouter(): Router {
         exam: s.exam,
         mode: s.mode,
         parts: s.exam === 'toeic' ? (s.blueprint as Blueprint).sections.map((sec) => sec.part) : [],
+        level: s.exam === 'jlpt' ? (s.blueprint as JlptBlueprint).level : null,
+        jlptSections: s.exam === 'jlpt' ? [...new Set((s.blueprint as JlptBlueprint).sections.map((sec) => MONDAI_SECTION[sec.mondai]))] : [],
         components: s.exam === 'ielts' ? (s.blueprint as IeltsBlueprint).sections.map((sec) => sec.component) : [],
         importId: s.exam === 'toeic' ? ((s.blueprint as Blueprint).importId ?? null) : null,
         title: s.exam === 'toeic' ? await titleOf(s.blueprint as Blueprint) : null,
@@ -520,6 +605,100 @@ export function createExamRouter(): Router {
   router.post('/admin/ielts-bank/fill', requireAuth, requireRole('admin'), async (req, res) => {
     const body = ieltsFillSchema.parse(req.body);
     const { created, failed } = await generateIeltsGroups(currentUser(req), [{ slot: body.slot, count: body.count }], body.level, 'exam-bank', body.model);
+    res.status(created.length > 0 ? 201 : 502).json({ created: created.length, failed });
+  });
+
+  /**
+   * GET /exams/jlpt/catalog - Modes and sections per level, with question counts and times
+   */
+  router.get('/exams/jlpt/catalog', requireAuth, async (_req, res) => {
+    const questions = (level: JlptLevel, mode: JlptMode, section?: JlptSection) =>
+      mondaiFor(level, mode, section).reduce((sum, m) => sum + m.questions, 0);
+    res.json({
+      levels: JLPT_LEVELS.map((level) => ({
+        level,
+        mini: { minutes: MINI_MINUTES, questions: questions(level, 'mini') },
+        full: { minutes: FULL_MINUTES[level], questions: questions(level, 'full') },
+        sections: JLPT_SECTIONS.map((section) => ({ section, minutes: SECTION_MINUTES[level][section], questions: questions(level, 'part', section) })),
+      })),
+    });
+  });
+
+  /**
+   * POST /exams/jlpt/sessions - Start a mini, section or full JLPT test
+   * @throws {409} bank_insufficient when more groups are missing than can be generated on the spot
+   */
+  router.post('/exams/jlpt/sessions', requireAuth, limitAiRequests, async (req, res) => {
+    const body = jlptStartSchema.parse(req.body);
+    const user = currentUser(req);
+    const mode = body.mode as JlptMode;
+
+    let assembled = await assembleJlpt(user.id, body.level, mode, body.section);
+    if ('missing' in assembled) {
+      const requests = Object.entries(assembled.missing).map(([mondai, count]) => ({ mondai: mondai as Mondai, count: count ?? 0 }));
+      if (requests.reduce((sum, r) => sum + r.count, 0) > JLPT_ON_DEMAND_LIMIT) {
+        res.status(409).json({
+          error: 'There are not enough questions in the test bank yet. Ask the admin to add more.',
+          statusCode: 409,
+          code: 'bank_insufficient',
+          missing: assembled.missing,
+        });
+        return;
+      }
+      const { failed } = await generateJlptGroups(user, body.level, requests, 'exam-generate', body.model);
+      if (failed > 0) throw new HttpError(502, 'Could not prepare all questions. Please try again.', 'ai_invalid_output');
+      assembled = await assembleJlpt(user.id, body.level, mode, body.section);
+      if ('missing' in assembled) throw new HttpError(502, 'Could not prepare all questions. Please try again.', 'ai_invalid_output');
+    }
+
+    const [session] = await db
+      .insert(examSessions)
+      .values({ userId: user.id, exam: 'jlpt', mode, blueprint: assembled.blueprint, timeLimitSec: jlptTimeLimit(body.level, mode, body.section) })
+      .returning();
+    res.status(201).json({ session: await viewOf(session) });
+  });
+
+  /**
+   * GET /admin/jlpt-bank - Groups per level and 大問, and what a full test needs
+   */
+  router.get('/admin/jlpt-bank', requireAuth, requireRole('admin'), async (_req, res) => {
+    const bank = await jlptBankCounts();
+    res.json({
+      levels: JLPT_LEVELS.map((level) => ({
+        level,
+        mondai: MONDAI.filter((m) => MONDAI_COUNTS[level][m]).map((mondai) => ({
+          mondai,
+          section: MONDAI_SECTION[mondai],
+          groups: bank[level][mondai] ?? 0,
+          fullTestGroups: fullTestGroups(level, mondai),
+        })),
+      })),
+    });
+  });
+
+  /**
+   * POST /admin/jlpt-bank/fill - Generate groups for one 大問, or the next batch a full test lacks
+   */
+  router.post('/admin/jlpt-bank/fill', requireAuth, requireRole('admin'), async (req, res) => {
+    const body = jlptFillSchema.parse(req.body);
+    let requests: { mondai: Mondai; count: number }[];
+    if ('missing' in body) {
+      const bank = await jlptBankCounts();
+      let budget = JLPT_FILL_BATCH;
+      requests = [];
+      for (const mondai of MONDAI.filter((m) => MONDAI_COUNTS[body.level][m])) {
+        const count = Math.min(budget, Math.max(0, fullTestGroups(body.level, mondai) - (bank[body.level][mondai] ?? 0)));
+        if (count > 0) requests.push({ mondai, count });
+        budget -= count;
+      }
+      if (requests.length === 0) {
+        res.json({ created: 0, failed: 0 });
+        return;
+      }
+    } else {
+      requests = [{ mondai: body.mondai, count: body.count }];
+    }
+    const { created, failed } = await generateJlptGroups(currentUser(req), body.level, requests, 'exam-bank', body.model);
     res.status(created.length > 0 ? 201 : 502).json({ created: created.length, failed });
   });
 

@@ -11,6 +11,7 @@ import { examApi, type ToeicPart } from '@/shared/examApi';
 import { ieltsApi, type IeltsSlot } from '@/shared/ieltsApi';
 import { useAsync } from './useAsync';
 import { VocabBankSection } from './VocabBankSection';
+import { JlptBankSection } from './JlptBankSection';
 
 const FILL_SIZES = [3, 10];
 /** IELTS groups are long (a full passage or section), so they are added a few at a time */
@@ -165,6 +166,8 @@ export const ExamBankTab: React.FC = () => {
           </table>
         </div>
       )}
+
+      <JlptBankSection />
 
       <VocabBankSection />
     </>

@@ -257,7 +257,7 @@ JSON shape:
 /* ---------- Japanese ---------- */
 
 /** What learners at each JLPT level can handle */
-const JLPT_GUIDE: Record<JlptLevel, string> = {
+export const JLPT_GUIDE: Record<JlptLevel, string> = {
   N5: 'JLPT N5: kana plus about 100 basic kanji, です/ます style, basic particles, present/past, very short sentences (10-25 characters).',
   N4: 'JLPT N4: about 300 kanji, て-form, potential, simple conditionals and giving/receiving verbs, everyday topics.',
   N3: 'JLPT N3: about 650 kanji, everyday texts, passive and causative, connected sentences of normal length.',
@@ -265,7 +265,7 @@ const JLPT_GUIDE: Record<JlptLevel, string> = {
   N1: 'JLPT N1: about 2,000 kanji, abstract and editorial texts, advanced grammar and set phrases.',
 };
 
-const JA_RULES = `Japanese text rules (the app checks them):
+export const JA_RULES = `Japanese text rules (the app checks them):
 - After EVERY kanji run write its reading in hiragana in braces: 日本語{にほんご}, 食{た}べます, 今日{きょう}. Okurigana stays outside the braces.
   Never put braces after kana, never leave a kanji without a reading, readings are kana only.
 - Natural, correct Japanese at the stated level; use です/ます style unless told otherwise. Use only kanji normally written at this level; write the rest in kana.

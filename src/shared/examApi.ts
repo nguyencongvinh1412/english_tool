@@ -3,7 +3,8 @@
  */
 import { apiFetch } from './http';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
-import type { McqQuestion, Speaker } from './contentApi';
+import type { JlptLevel, McqQuestion, Speaker } from './contentApi';
+import type { JlptResult, JlptSection } from './jlptApi';
 
 export type ExamMode = 'mini' | 'part' | 'full' | 'official';
 export type ToeicPart = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -91,7 +92,10 @@ export interface ExamSession {
 
 export interface SessionSummary {
   id: string;
-  exam: 'toeic' | 'ielts';
+  exam: 'toeic' | 'ielts' | 'jlpt';
+  /** JLPT sessions: level and the sections tested */
+  level: JlptLevel | null;
+  jlptSections: JlptSection[];
   title: string | null;
   /** IELTS sessions: components tested */
   components: string[];
@@ -102,7 +106,7 @@ export interface SessionSummary {
   submittedAt: string | null;
   deadline: string;
   /** TOEIC result, or the IELTS result for IELTS sessions */
-  result: (ExamResult & { overall?: undefined }) | IeltsSummaryResult | null;
+  result: (ExamResult & { overall?: undefined }) | IeltsSummaryResult | JlptResult | null;
 }
 
 /** Fields of an IELTS result shown in the history */

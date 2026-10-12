@@ -25,6 +25,9 @@ export const ACTIVITY_SKILLS = {
   'ielts-speaking': 'speaking',
   kana: 'reading',
   vocab: 'reading',
+  'jlpt-language': 'reading',
+  'jlpt-reading': 'reading',
+  'jlpt-listening': 'listening',
 } as const;
 
 export type Activity = keyof typeof ACTIVITY_SKILLS;
@@ -38,6 +41,9 @@ export type StudyLanguage = 'en' | 'ja';
 const FIXED_LANGUAGE: Partial<Record<Activity, StudyLanguage>> = {
   kana: 'ja',
   vocab: 'ja',
+  'jlpt-language': 'ja',
+  'jlpt-reading': 'ja',
+  'jlpt-listening': 'ja',
   'toeic-listening': 'en',
   'toeic-reading': 'en',
   'ielts-listening': 'en',
