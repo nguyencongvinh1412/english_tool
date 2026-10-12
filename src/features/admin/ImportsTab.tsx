@@ -4,7 +4,8 @@
  */
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { Badge, Banner, Button, Card, EmptyState, Field, Icon, Modal, Spinner, TextInput, useToast } from '@/design';
+import { Badge, Banner, Button, Card, EmptyState, Field, Icon, Modal, Segmented, Spinner, TextInput, useToast } from '@/design';
+import { JLPT_CONTENT_LEVELS, type JlptLevel } from '@/shared/contentApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { importApi, STATUS_TONE, uploadMedia, type ImportSummary } from './importApi';
@@ -23,6 +24,8 @@ const NewImportForm: React.FC<{ onCreated: (id: string) => void }> = ({ onCreate
   const { t } = useI18n();
   const [title, setTitle] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const [exam, setExam] = useState<'toeic' | 'jlpt'>('toeic');
+  const [level, setLevel] = useState<JlptLevel>('N3');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
 
@@ -33,7 +36,7 @@ const NewImportForm: React.FC<{ onCreated: (id: string) => void }> = ({ onCreate
     setError(null);
     try {
       const [asset] = await uploadMedia([file]);
-      const { import: created } = await importApi.create(title.trim(), asset.id);
+      const { import: created } = await importApi.create(title.trim(), asset.id, exam, exam === 'jlpt' ? level : undefined);
       onCreated(created.id);
     } catch (err) {
       setError(err);
@@ -44,6 +47,26 @@ const NewImportForm: React.FC<{ onCreated: (id: string) => void }> = ({ onCreate
   return (
     <Card padding="lg" className="import-new">
       <form onSubmit={submit} className="import-new__form">
+        <div className="import-new__exam">
+          <Segmented
+            label={t.imports.examLabel}
+            value={exam}
+            onChange={setExam}
+            options={[
+              { value: 'toeic', label: 'TOEIC', tone: 'exam' },
+              { value: 'jlpt', label: 'JLPT', tone: 'writing' },
+            ]}
+          />
+          {exam === 'jlpt' && (
+            <Segmented<JlptLevel>
+              label={t.dashboard.level}
+              value={level}
+              onChange={setLevel}
+              options={JLPT_CONTENT_LEVELS.map((l) => ({ value: l, label: l, tone: 'writing' }))}
+            />
+          )}
+        </div>
+        {exam === 'jlpt' && <p className="import-new__hint">{t.imports.jlptIntro}</p>}
         <Field label={t.imports.titleLabel} hint={t.imports.titleHint}>
           {(id, describedBy) => (
             <TextInput id={id} aria-describedby={describedBy} value={title} maxLength={120} required onChange={(e) => setTitle(e.target.value)} />
@@ -159,7 +182,7 @@ export const ImportsTab: React.FC = () => {
               <button type="button" className="import-row__main" onClick={() => setOpenId(item.id)}>
                 <span className="import-row__title">{item.title}</span>
                 <span className="import-row__meta">
-                  {formatDate(item.createdAt)} · {t.imports.pages(item.pageCount)}
+                  {item.exam === 'jlpt' ? `JLPT ${item.level ?? ''}` : 'TOEIC'} · {formatDate(item.createdAt)} · {t.imports.pages(item.pageCount)}
                   {item.groupCount > 0 && ` · ${t.imports.groups(item.groupCount, item.errorCount)}`}
                 </span>
                 {item.status === 'failed' && item.error && <span className="import-row__error">{item.error}</span>}

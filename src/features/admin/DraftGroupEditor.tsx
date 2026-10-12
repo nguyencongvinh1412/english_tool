@@ -11,6 +11,9 @@ import { mediaUrl, type AudioSegment } from '@/shared/examApi';
 import { playSegment } from '@/shared/audioSegment';
 import { uploadMedia, type DraftGroup, type DraftRecording } from './importApi';
 import { PhotoCropModal } from './ImportPages';
+import { scriptToText, textToScript } from './draftScript';
+import { JlptDraftEditor } from './JlptDraftEditor';
+import type { Mondai } from '@/shared/jlptApi';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 const SPEAKER_KEYS = ['A', 'B', 'C'] as const;
@@ -44,9 +47,15 @@ function formatTime(seconds: number | undefined): string {
 /**
  * Answer chosen with letter buttons; keeps an auto explanation in sync
  */
-const AnswerPicker: React.FC<{ count: number; value: number; onChange: (index: number) => void; label: string }> = ({ count, value, onChange, label }) => (
+export const AnswerPicker: React.FC<{ count: number; value: number; onChange: (index: number) => void; label: string; labels?: string[] }> = ({
+  count,
+  value,
+  onChange,
+  label,
+  labels = LETTERS,
+}) => (
   <div className="answer-pick" role="radiogroup" aria-label={label}>
-    {LETTERS.slice(0, count).map((letter, index) => (
+    {labels.slice(0, count).map((letter, index) => (
       <button
         key={letter}
         type="button"
@@ -72,7 +81,7 @@ function withAnswer<T extends { answerIndex: number; explanation: string }>(item
 /**
  * Small labelled text input
  */
-const LabeledInput: React.FC<{ label: string; value: string; onChange: (value: string) => void; multiline?: boolean; rows?: number; hint?: string }> = ({
+export const LabeledInput: React.FC<{ label: string; value: string; onChange: (value: string) => void; multiline?: boolean; rows?: number; hint?: string }> = ({
   label,
   value,
   onChange,
@@ -139,7 +148,7 @@ const QuestionEditor: React.FC<{ number: number; question: Mcq; showPrompt: bool
 /**
  * Recording attached to a listening group, with start/end and a preview
  */
-const AudioPicker: React.FC<{
+export const AudioPicker: React.FC<{
   audio: AudioSegment | undefined;
   recordings: DraftRecording[];
   onChange: (audio: AudioSegment | undefined) => void;
@@ -211,25 +220,6 @@ const AudioPicker: React.FC<{
 };
 
 /**
- * Script lines as editable text: one "A: text" turn per line
- */
-function scriptToText(script: { speaker: string; text: string }[]): string {
-  return script.map((line) => `${line.speaker}: ${line.text}`).join('\n');
-}
-
-function textToScript(text: string, singleSpeaker: boolean): { speaker: string; text: string }[] {
-  return text
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      const match = /^([ABC])\s*:\s*(.*)$/.exec(line);
-      if (singleSpeaker) return { speaker: 'A', text: match ? match[2] : line };
-      return match ? { speaker: match[1], text: match[2] } : { speaker: 'A', text: line };
-    });
-}
-
-/**
  * Transcript and speakers of a Part 3/4 group
  */
 const ScriptEditor: React.FC<{ payload: Payload; single: boolean; onChange: (payload: Payload) => void }> = ({ payload, single, onChange }) => {
@@ -275,19 +265,25 @@ const ScriptEditor: React.FC<{ payload: Payload; single: boolean; onChange: (pay
   );
 };
 
-interface DraftGroupEditorProps {
+export interface DraftGroupEditorProps {
   group: DraftGroup;
   recordings: DraftRecording[];
   docUrl: string | null;
   isPdf: boolean;
   pageCount: number;
   onChange: (payload: Payload) => void;
+  /** JLPT: the AI may tag a 問題 with the wrong type */
+  onMondaiChange?: (mondai: Mondai) => void;
 }
 
-export const DraftGroupEditor: React.FC<DraftGroupEditorProps> = ({ group, recordings, docUrl, isPdf, pageCount, onChange }) => {
+export const DraftGroupEditor: React.FC<DraftGroupEditorProps> = (props) =>
+  props.group.mondai ? <JlptDraftEditor {...props} /> : <ToeicDraftEditor {...props} />;
+
+const ToeicDraftEditor: React.FC<DraftGroupEditorProps> = ({ group, recordings, docUrl, isPdf, pageCount, onChange }) => {
   const { t } = useI18n();
   const toast = useToast();
-  const { part, payload } = group;
+  const { payload } = group;
+  const part = group.part!;
   const first = group.numbers[0];
   const [cropFor, setCropFor] = useState<number | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);

@@ -101,7 +101,7 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
         </Link>
         <div className="exam-bar__title">
           <strong>
-            JLPT {session.level} · {t.jlpt.modeLabel[session.mode]}
+            JLPT {session.level} · {session.title ?? t.jlpt.modeLabel[session.mode]}
           </strong>
           <span>
             {t.jlpt.sections[current.section]} · <span lang="ja">{t.jlpt.mondai[current.mondai].title}</span>
@@ -237,7 +237,7 @@ const Result: React.FC<{ session: JlptSession }> = ({ session }) => {
         </Link>
         <div className="exam-bar__title">
           <strong>
-            JLPT {session.level} · {t.jlpt.modeLabel[session.mode]}
+            JLPT {session.level} · {session.title ?? t.jlpt.modeLabel[session.mode]}
           </strong>
           <span>{t.exams.resultTitle}</span>
         </div>

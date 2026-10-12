@@ -834,3 +834,30 @@
   margin-right: auto;
   font-weight: 800;
 }
+
+.import-new__exam {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.import-new__hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.draft-picture {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.draft-picture img {
+  max-width: min(100%, 320px);
+  max-height: 200px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}

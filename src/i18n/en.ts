@@ -791,7 +791,7 @@ export const en = {
     adminDone: (n: number) => `${n} cards translated.`,
   },
   jlpt: {
-    modeLabel: { mini: 'Mini test', part: 'Section', full: 'Full test' },
+    modeLabel: { mini: 'Mini test', part: 'Section', full: 'Full test', official: 'Book test' },
     sections: { vocab: 'Vocabulary', grammar: 'Grammar', reading: 'Reading', listening: 'Listening' },
     sectionsJa: { vocab: '文字・語彙', grammar: '文法', reading: '読解', listening: '聴解' },
     scoreSections: {
@@ -826,6 +826,7 @@ export const en = {
     miniBody: (questions: number, minutes: number) => `${questions} questions from every section in ${minutes} minutes. Questions are prepared on the spot if needed.`,
     fullTitle: (level: string) => `Full ${level} test`,
     fullBody: (questions: number, minutes: number) => `About ${questions} questions in ${minutes} minutes, like the real test, with pass/fail.`,
+    officialIntro: 'Tests imported from practice books, with their real recordings when attached.',
     bySection: 'Practise one section',
     structureNote:
       'Question types and times follow the official JLPT guide. Question counts per type are typical numbers, since the JLPT does not publish fixed counts. Readings (furigana) are hidden during the test and shown in the review.',
@@ -921,6 +922,13 @@ export const en = {
     addPassage: 'Add text',
     removePassage: 'Remove text',
     kind: 'Type',
+    examLabel: 'Exam',
+    jlptIntro: 'JLPT books: mark the question pages, the answer key (正答表) and the listening scripts (スクリプト). Furigana in the book is left out.',
+    situation: 'Situation (instead of the picture)',
+    jlptScriptHint: 'One line per turn: "A: …" for the woman, "B: …" for the man (names and voices above).',
+    jlptPromptHint: 'Underlined words go in [[ ]]; blanks are （　）; the asked blank in sentence ordering is ＿★＿.',
+    removePicture: 'Remove picture',
+    questionType: 'Question type',
     issues: 'Problems',
   },
   errors: {

@@ -21,10 +21,10 @@ export interface ImportRanges {
 }
 
 /** Pages with fewer characters than this are treated as scanned and OCR'd */
-const MIN_TEXT_CHARS = 40;
+export const MIN_TEXT_CHARS = 40;
 /** Pages per question-extraction call; consecutive chunks overlap by one page */
-const PAGES_PER_CHUNK = 4;
-const PARSE_TIMEOUT_MS = 120_000;
+export const PAGES_PER_CHUNK = 4;
+export const PARSE_TIMEOUT_MS = 120_000;
 
 /* ---------- Lenient shapes returned by the AI (tightened when merging) ---------- */
 
@@ -85,12 +85,12 @@ export interface ParsedTest {
   transcripts: RawTranscript[];
 }
 
-type Progress = (step: string, done: number, total: number) => Promise<void>;
+export type Progress = (step: string, done: number, total: number) => Promise<void>;
 
 /**
  * Pages in an inclusive range
  */
-function pagesIn(pages: ExtractedPage[], range: PageRange | undefined): ExtractedPage[] {
+export function pagesIn(pages: ExtractedPage[], range: PageRange | undefined): ExtractedPage[] {
   if (!range) return pages;
   return pages.filter((p) => p.n >= range[0] && p.n <= range[1]);
 }
@@ -98,14 +98,16 @@ function pagesIn(pages: ExtractedPage[], range: PageRange | undefined): Extracte
 /**
  * Text of pages with page markers, as the AI sees it
  */
-function joinPages(pages: ExtractedPage[]): string {
+export function joinPages(pages: ExtractedPage[]): string {
   return pages.map((p) => `=== PAGE ${p.n} ===\n${p.text}`).join('\n\n');
 }
 
 /**
  * Transcribes pages without a usable text layer from their rendered images
  */
-export async function ocrPages(user: User, pages: ExtractedPage[], onProgress: Progress): Promise<ExtractedPage[]> {
+const ENGLISH_OCR = 'You transcribe scanned English test pages. Output only the page text, keeping question numbers, options (A)-(D) and line breaks. Mark photos as [PHOTO].';
+
+export async function ocrPages(user: User, pages: ExtractedPage[], onProgress: Progress, system = ENGLISH_OCR): Promise<ExtractedPage[]> {
   const targets = pages.filter((p) => p.text.length < MIN_TEXT_CHARS && p.imageAssetId);
   if (targets.length === 0) return pages;
 
@@ -125,7 +127,7 @@ export async function ocrPages(user: User, pages: ExtractedPage[], onProgress: P
       const text = await runAI(user, {
         feature: 'import-ocr',
         timeoutMs: GENERATE_TIMEOUT_MS,
-        system: 'You transcribe scanned English test pages. Output only the page text, keeping question numbers, options (A)-(D) and line breaks. Mark photos as [PHOTO].',
+        system,
         messages: [
           {
             role: 'user',
@@ -161,12 +163,7 @@ Respond with ONLY: {"groups": [{"part": 5, "numbers": [101, 110], "questions": [
  * Extracts question groups from the question pages, chunk by chunk
  */
 async function extractGroups(user: User, pages: ExtractedPage[], onProgress: Progress): Promise<RawGroup[]> {
-  const chunks: ExtractedPage[][] = [];
-  for (let start = 0; start < pages.length; start += PAGES_PER_CHUNK - 1) {
-    chunks.push(pages.slice(start, start + PAGES_PER_CHUNK));
-    if (start + PAGES_PER_CHUNK >= pages.length) break;
-  }
-
+  const chunks = chunkPages(pages);
   const groups: RawGroup[] = [];
   for (let i = 0; i < chunks.length; i++) {
     await onProgress('questions', i, chunks.length);
@@ -184,6 +181,18 @@ async function extractGroups(user: User, pages: ExtractedPage[], onProgress: Pro
   }
   await onProgress('questions', chunks.length, chunks.length);
   return groups;
+}
+
+/**
+ * Splits pages into overlapping chunks (one shared page) so a group across a page break is seen whole
+ */
+export function chunkPages(pages: ExtractedPage[]): ExtractedPage[][] {
+  const chunks: ExtractedPage[][] = [];
+  for (let start = 0; start < pages.length; start += PAGES_PER_CHUNK - 1) {
+    chunks.push(pages.slice(start, start + PAGES_PER_CHUNK));
+    if (start + PAGES_PER_CHUNK >= pages.length) break;
+  }
+  return chunks;
 }
 
 /**

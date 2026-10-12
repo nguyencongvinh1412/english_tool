@@ -11,6 +11,7 @@ import { JaText } from '@/shared/ja/JaText';
 import { plainText } from '@/shared/ja/text';
 import { prefetchScript, type Genders, type ScriptLine } from '@/shared/speech';
 import { SPOKEN_OPTIONS, type JlptGroup, type Mondai } from '@/shared/jlptApi';
+import { mediaUrl } from '@/shared/examApi';
 import { GroupAudio } from './ExamGroupView';
 
 /** Instructions as printed in the test book (with readings) */
@@ -134,6 +135,7 @@ export const JlptGroupView: React.FC<JlptGroupViewProps> = ({
         options: item.options,
         answerIndex: item.answerIndex,
         explanation: item.explanation,
+        imageAssetId: item.imageAssetId,
       }))
     : (payload.questions ?? []);
 
@@ -158,14 +160,17 @@ export const JlptGroupView: React.FC<JlptGroupViewProps> = ({
       {payload.passages?.map((passage, i) => (
         <div key={i} className="exam-text jlpt-text" lang="ja">
           {passage.label && <p className="exam-text__kind">{passage.label}</p>}
+          {passage.imageAssetId && <img className="jlpt-picture" src={mediaUrl(passage.imageAssetId)} alt={passage.label ?? passage.title ?? ''} loading="lazy" />}
           {passage.title && (
             <h3>
               <RichText text={passage.title} readings={review} />
             </h3>
           )}
-          <p>
-            <RichText text={passage.text} readings={review} />
-          </p>
+          {passage.text && (
+            <p>
+              <RichText text={passage.text} readings={review} />
+            </p>
+          )}
         </div>
       ))}
 
@@ -218,6 +223,9 @@ export const JlptGroupView: React.FC<JlptGroupViewProps> = ({
                   </button>
                 )}
               </div>
+              {question.imageAssetId && (
+                <img className="exam-q__photo jlpt-picture" src={mediaUrl(question.imageAssetId)} alt={t.exams.question(firstNumber + index)} loading="lazy" />
+              )}
               <div className={`exam-q__options ${hideOptions ? 'jlpt-options--spoken' : ''}`} role="radiogroup" aria-label={t.exams.question(firstNumber + index)}>
                 {question.options.map((option, optionIndex) => {
                   const isChosen = chosen === optionIndex;
@@ -234,7 +242,8 @@ export const JlptGroupView: React.FC<JlptGroupViewProps> = ({
                         onChange={() => onAnswer?.(id, optionIndex)}
                       />
                       <span className="exam-opt__letter">{NUMBERS[optionIndex]}</span>
-                      {!hideOptions && (
+                      {/* Picture choices are printed as their numbers only */}
+                      {!hideOptions && option.trim() !== String(optionIndex + 1) && (
                         <span lang="ja">
                           <RichText text={option} readings={review} />
                         </span>

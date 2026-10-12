@@ -791,7 +791,7 @@ export const vi: Messages = {
     adminDone: (n: number) => `Đã dịch ${n} thẻ.`,
   },
   jlpt: {
-    modeLabel: { mini: 'Thi thử nhanh', part: 'Từng phần', full: 'Đề đầy đủ' },
+    modeLabel: { mini: 'Thi thử nhanh', part: 'Từng phần', full: 'Đề đầy đủ', official: 'Đề từ sách' },
     sections: { vocab: 'Từ vựng', grammar: 'Ngữ pháp', reading: 'Đọc hiểu', listening: 'Nghe hiểu' },
     sectionsJa: { vocab: '文字・語彙', grammar: '文法', reading: '読解', listening: '聴解' },
     scoreSections: {
@@ -826,6 +826,7 @@ export const vi: Messages = {
     miniBody: (questions: number, minutes: number) => `${questions} câu từ mọi phần trong ${minutes} phút. Nếu kho đề thiếu, câu hỏi sẽ được tạo ngay.`,
     fullTitle: (level: string) => `Đề ${level} đầy đủ`,
     fullBody: (questions: number, minutes: number) => `Khoảng ${questions} câu trong ${minutes} phút như đề thật, có kết quả đỗ/trượt.`,
+    officialIntro: 'Đề import từ sách luyện thi, dùng audio thật nếu đã gắn.',
     bySection: 'Luyện từng phần',
     structureNote:
       'Dạng câu và thời gian theo hướng dẫn chính thức của JLPT. Số câu mỗi dạng là con số thường gặp, vì JLPT không công bố số câu cố định. Furigana được ẩn khi làm bài và hiện lại khi xem đáp án.',
@@ -921,6 +922,13 @@ export const vi: Messages = {
     addPassage: 'Thêm đoạn văn',
     removePassage: 'Xoá đoạn văn',
     kind: 'Loại',
+    examLabel: 'Kỳ thi',
+    jlptIntro: 'Sách JLPT: đánh dấu trang đề, trang đáp án (正答表) và trang script nghe (スクリプト). Furigana trong sách sẽ được bỏ qua.',
+    situation: 'Tình huống (thay cho hình)',
+    jlptScriptHint: 'Mỗi lượt một dòng: "A: …" cho người nữ, "B: …" cho người nam (tên và giọng ở trên).',
+    jlptPromptHint: 'Từ gạch chân đặt trong [[ ]]; chỗ trống là （　）; ô được hỏi trong câu sắp xếp là ＿★＿.',
+    removePicture: 'Xoá hình',
+    questionType: 'Dạng câu',
     issues: 'Vấn đề',
   },
   errors: {

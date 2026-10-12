@@ -184,6 +184,8 @@ export const importJobs = pgTable(
     exam: examType('exam').notNull(),
     /** Test label shown to learners, e.g. "ETS 2024 Test 3" */
     title: text('title').notNull(),
+    /** JLPT imports: the test's level (N5-N1) */
+    level: text('level'),
     status: importStatus('status').notNull().default('uploaded'),
     documentAssetId: uuid('document_asset_id').references(() => mediaAssets.id, { onDelete: 'set null' }),
     /** Page ranges the admin marked: { questions: [from, to], answers?: [...], transcripts?: [...] } */

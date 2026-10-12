@@ -3,6 +3,8 @@
  */
 import { apiFetch } from '@/shared/http';
 import type { ToeicPart } from '@/shared/examApi';
+import type { JlptLevel } from '@/shared/contentApi';
+import type { Mondai } from '@/shared/jlptApi';
 
 export type ImportStatus = 'uploaded' | 'parsing' | 'review' | 'published' | 'failed';
 export type PageRange = [number, number];
@@ -21,7 +23,10 @@ export interface DraftIssue {
 
 export interface DraftGroup {
   key: string;
-  part: ToeicPart;
+  /** TOEIC groups */
+  part?: ToeicPart;
+  /** JLPT groups */
+  mondai?: Mondai;
   numbers: [number, number];
   /** Payload in exam shape; fields are edited in place by the review screen */
   payload: Record<string, unknown>;
@@ -42,7 +47,8 @@ export interface Draft {
 export interface ImportSummary {
   id: string;
   title: string;
-  exam: string;
+  exam: 'toeic' | 'jlpt';
+  level: JlptLevel | null;
   status: ImportStatus;
   progress: { step: string; done: number; total: number } | null;
   error: string | null;
@@ -103,8 +109,8 @@ export const STATUS_TONE: Record<ImportStatus, 'neutral' | 'warning' | 'success'
 export const importApi = {
   list: () => apiFetch<{ imports: ImportSummary[] }>('/api/admin/imports'),
   get: (id: string) => apiFetch<{ import: ImportDetail }>(`/api/admin/imports/${id}`),
-  create: (title: string, documentAssetId: string) =>
-    apiFetch<{ import: ImportDetail }>('/api/admin/imports', { method: 'POST', json: { title, documentAssetId } }),
+  create: (title: string, documentAssetId: string, exam: 'toeic' | 'jlpt' = 'toeic', level?: JlptLevel) =>
+    apiFetch<{ import: ImportDetail }>('/api/admin/imports', { method: 'POST', json: { title, documentAssetId, exam, level } }),
   setPageImages: (id: string, images: { n: number; assetId: string }[]) =>
     apiFetch<{ import: ImportDetail }>(`/api/admin/imports/${id}/page-images`, { method: 'PUT', json: { images } }),
   parse: (id: string, ranges: ImportRanges) =>
@@ -116,7 +122,7 @@ export const importApi = {
         title,
         draft: {
           recordings: draft.recordings,
-          groups: draft.groups.map((g) => ({ key: g.key, part: g.part, numbers: g.numbers, payload: g.payload, photoPages: g.photoPages })),
+          groups: draft.groups.map((g) => ({ key: g.key, part: g.part, mondai: g.mondai, numbers: g.numbers, payload: g.payload, photoPages: g.photoPages })),
         },
       },
     }),

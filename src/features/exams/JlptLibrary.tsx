@@ -41,11 +41,11 @@ export const JlptLibrary: React.FC = () => {
       .catch(setError);
   }, []);
 
-  const start = async (mode: JlptMode, section?: JlptSection) => {
-    setStarting(section ?? mode);
+  const start = async (mode: JlptMode, options: { section?: JlptSection; importId?: string } = {}) => {
+    setStarting(options.importId ?? options.section ?? mode);
     setError(null);
     try {
-      const { session } = await jlptApi.start(level, mode, section);
+      const { session } = await jlptApi.start(level, mode, options);
       navigate(examPath(session.id));
     } catch (err) {
       setError(err);
@@ -54,10 +54,11 @@ export const JlptLibrary: React.FC = () => {
   };
 
   const info = catalog?.levels.find((l) => l.level === level);
+  const officialTests = catalog?.officialTests.filter((test) => test.level === level) ?? [];
   const inProgress = sessions?.find((s) => s.status === 'in_progress' && s.exam === 'jlpt');
   const finished = sessions?.filter((s) => s.status === 'submitted' && s.exam === 'jlpt') ?? [];
   const label = (s: SessionSummary) =>
-    `JLPT ${s.level} · ${t.jlpt.modeLabel[s.mode as JlptMode]}${s.mode === 'part' && s.jlptSections[0] ? ` · ${t.jlpt.sections[s.jlptSections[0]]}` : ''}`;
+    s.title ? `JLPT ${s.level} · ${s.title}` : `JLPT ${s.level} · ${t.jlpt.modeLabel[s.mode as JlptMode]}${s.mode === 'part' && s.jlptSections[0] ? ` · ${t.jlpt.sections[s.jlptSections[0]]}` : ''}`;
 
   return (
     <div className="exams jlpt-library">
@@ -110,6 +111,29 @@ export const JlptLibrary: React.FC = () => {
             </Card>
           </div>
 
+          {officialTests.length > 0 && (
+            <section>
+              <h2 className="exams__section-title">{t.exams.officialTitle}</h2>
+              <p className="exams__section-intro">{t.jlpt.officialIntro}</p>
+              <div className="exam-parts">
+                {officialTests.map((test) => (
+                  <Card key={test.id} padding="md" className="exam-part exam-part--official">
+                    <div className="exam-part__head">
+                      <Badge tone="exam">{t.exams.modeLabel.official}</Badge>
+                    </div>
+                    <p className="exam-part__title">{test.title}</p>
+                    <p className="exam-part__meta">
+                      {t.exams.officialMeta(test.questions, test.minutes)} · {test.sections.map((s) => t.jlpt.sections[s]).join(', ')}
+                    </p>
+                    <Button size="sm" variant="exam" onClick={() => start('official', { importId: test.id })} loading={starting === test.id} disabled={starting !== null}>
+                      {t.exams.start}
+                    </Button>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section>
             <h2 className="exams__section-title">{t.jlpt.bySection}</h2>
             <div className="exam-parts">
@@ -123,7 +147,7 @@ export const JlptLibrary: React.FC = () => {
                   </div>
                   <p className="exam-part__title">{t.jlpt.sections[s.section]}</p>
                   <p className="exam-part__meta">{t.exams.partMeta(s.questions, s.minutes)}</p>
-                  <Button size="sm" variant="secondary" onClick={() => start('part', s.section)} loading={starting === s.section} disabled={starting !== null}>
+                  <Button size="sm" variant="secondary" onClick={() => start('part', { section: s.section })} loading={starting === s.section} disabled={starting !== null}>
                     {t.exams.start}
                   </Button>
                 </Card>

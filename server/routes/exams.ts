@@ -61,6 +61,8 @@ import {
   assembleJlpt,
   fullTestGroups,
   jlptBankCounts,
+  jlptOfficialBlueprint,
+  jlptOfficialTimeLimit,
   jlptSessionView,
   jlptTimeLimit,
   loadJlptGroups,
@@ -111,8 +113,15 @@ const ieltsFillSchema = z.object({
 });
 
 const jlptStartSchema = z
-  .object({ level: z.enum(JLPT_LEVELS), mode: z.enum(['mini', 'part', 'full']), section: z.enum(JLPT_SECTIONS).optional(), model: modelSchema })
-  .refine((body) => body.mode !== 'part' || body.section !== undefined, { message: 'section is required', path: ['section'] });
+  .object({
+    level: z.enum(JLPT_LEVELS),
+    mode: z.enum(['mini', 'part', 'full', 'official']),
+    section: z.enum(JLPT_SECTIONS).optional(),
+    importId: z.uuid().optional(),
+    model: modelSchema,
+  })
+  .refine((body) => body.mode !== 'part' || body.section !== undefined, { message: 'section is required', path: ['section'] })
+  .refine((body) => body.mode !== 'official' || body.importId !== undefined, { message: 'importId is required', path: ['importId'] });
 
 const jlptFillSchema = z.union([
   z.object({ level: z.enum(JLPT_LEVELS), mondai: z.enum(MONDAI), count: z.number().int().min(1).max(5), model: modelSchema }),
@@ -192,7 +201,7 @@ const JLPT_ACTIVITY = {
  */
 async function submitJlpt(session: ExamSession): Promise<{ session: ExamSession; xpEarned: number }> {
   const blueprint = session.blueprint as JlptBlueprint;
-  const result = scoreJlpt(blueprint, await loadJlptGroups(blueprint), session.answers as Record<string, number>, session.mode === 'full');
+  const result = scoreJlpt(blueprint, await loadJlptGroups(blueprint), session.answers as Record<string, number>, session.mode === 'full' || session.mode === 'official');
 
   const [closed] = await db
     .update(examSessions)
@@ -266,7 +275,10 @@ async function submitIelts(session: ExamSession, model?: string): Promise<{ sess
  * Session as the client sees it, for either exam
  */
 async function viewOf(session: ExamSession) {
-  if (session.exam === 'jlpt') return jlptSessionView(session, await loadJlptGroups(session.blueprint as JlptBlueprint));
+  if (session.exam === 'jlpt') {
+    const blueprint = session.blueprint as JlptBlueprint;
+    return { ...jlptSessionView(session, await loadJlptGroups(blueprint)), title: blueprint.importId ? await importTitle(blueprint.importId) : null };
+  }
   if (session.exam === 'ielts') {
     return ieltsSessionView(session, await loadIeltsGroups(session.blueprint as IeltsBlueprint));
   }
@@ -474,7 +486,12 @@ export function createExamRouter(): Router {
         jlptSections: s.exam === 'jlpt' ? [...new Set((s.blueprint as JlptBlueprint).sections.map((sec) => MONDAI_SECTION[sec.mondai]))] : [],
         components: s.exam === 'ielts' ? (s.blueprint as IeltsBlueprint).sections.map((sec) => sec.component) : [],
         importId: s.exam === 'toeic' ? ((s.blueprint as Blueprint).importId ?? null) : null,
-        title: s.exam === 'toeic' ? await titleOf(s.blueprint as Blueprint) : null,
+        title:
+          s.exam === 'toeic'
+            ? await titleOf(s.blueprint as Blueprint)
+            : s.exam === 'jlpt' && (s.blueprint as JlptBlueprint).importId
+              ? await importTitle((s.blueprint as JlptBlueprint).importId)
+              : null,
         status: s.status,
         startedAt: s.startedAt,
         submittedAt: s.submittedAt,
@@ -614,7 +631,29 @@ export function createExamRouter(): Router {
   router.get('/exams/jlpt/catalog', requireAuth, async (_req, res) => {
     const questions = (level: JlptLevel, mode: JlptMode, section?: JlptSection) =>
       mondaiFor(level, mode, section).reduce((sum, m) => sum + m.questions, 0);
+    const imports = await db
+      .select({ id: importJobs.id, title: importJobs.title })
+      .from(importJobs)
+      .where(and(eq(importJobs.status, 'published'), eq(importJobs.exam, 'jlpt')))
+      .orderBy(desc(importJobs.publishedAt));
+    const officialTests = (
+      await Promise.all(
+        imports.map(async (imp) => {
+          const blueprint = await jlptOfficialBlueprint(imp.id);
+          if (!blueprint) return null;
+          return {
+            id: imp.id,
+            title: imp.title,
+            level: blueprint.level,
+            sections: [...new Set(blueprint.sections.map((s) => MONDAI_SECTION[s.mondai]))],
+            questions: blueprint.sections.reduce((sum, s) => sum + s.takes.reduce((a, b) => a + b, 0), 0),
+            minutes: jlptOfficialTimeLimit(blueprint) / 60,
+          };
+        })
+      )
+    ).filter((test) => test !== null);
     res.json({
+      officialTests,
       levels: JLPT_LEVELS.map((level) => ({
         level,
         mini: { minutes: MINI_MINUTES, questions: questions(level, 'mini') },
@@ -632,6 +671,18 @@ export function createExamRouter(): Router {
     const body = jlptStartSchema.parse(req.body);
     const user = currentUser(req);
     const mode = body.mode as JlptMode;
+
+    if (mode === 'official') {
+      const [imp] = await db.select({ status: importJobs.status, exam: importJobs.exam }).from(importJobs).where(eq(importJobs.id, body.importId!)).limit(1);
+      const blueprint = imp?.status === 'published' && imp.exam === 'jlpt' ? await jlptOfficialBlueprint(body.importId!) : null;
+      if (!blueprint) throw new HttpError(404, 'Test not found.', 'not_found');
+      const [session] = await db
+        .insert(examSessions)
+        .values({ userId: user.id, exam: 'jlpt', mode, blueprint, timeLimitSec: jlptOfficialTimeLimit(blueprint) })
+        .returning();
+      res.status(201).json({ session: await viewOf(session) });
+      return;
+    }
 
     let assembled = await assembleJlpt(user.id, body.level, mode, body.section);
     if ('missing' in assembled) {

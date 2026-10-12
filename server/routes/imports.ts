@@ -14,6 +14,9 @@ import { removeFile } from '../services/storage.js';
 import { extractPages, type ExtractedPage } from '../imports/extract.js';
 import { coverage, withIssues, type Draft } from '../imports/draft.js';
 import { publishImport, runParse } from '../imports/jobs.js';
+import { withJlptIssues, type JlptDraft } from '../imports/jlptDraft.js';
+import { MONDAI } from '../exams/jlpt.js';
+import { JLPT_LEVELS } from '../content/schemas.js';
 
 /** Characters of each page's text sent to the review screen */
 const PAGE_PREVIEW_CHARS = 4000;
@@ -23,10 +26,14 @@ const pageRange = z
   .tuple([z.number().int().min(1), z.number().int().min(1)])
   .refine(([from, to]) => from <= to, 'The first page must not be after the last page');
 
-const createSchema = z.object({
-  title: z.string().trim().min(1).max(120),
-  documentAssetId: z.uuid(),
-});
+const createSchema = z
+  .object({
+    title: z.string().trim().min(1).max(120),
+    documentAssetId: z.uuid(),
+    exam: z.enum(['toeic', 'jlpt']).default('toeic'),
+    level: z.enum(JLPT_LEVELS).optional(),
+  })
+  .refine((body) => body.exam !== 'jlpt' || body.level, { message: 'level is required for JLPT', path: ['level'] });
 
 const pageImagesSchema = z.object({
   images: z.array(z.object({ n: z.number().int().min(1), assetId: z.uuid() })).min(1).max(400),
@@ -43,7 +50,9 @@ const draftSchema = z.object({
       .array(
         z.object({
           key: z.string().max(20),
-          part: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]),
+          /** TOEIC groups have a part, JLPT groups a question type */
+          part: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]).optional(),
+          mondai: z.enum(MONDAI).optional(),
           numbers: z.tuple([z.number().int(), z.number().int()]),
           payload: z.record(z.string(), z.unknown()),
           photoPages: z.record(z.string(), z.number().int()).optional(),
@@ -69,11 +78,12 @@ async function findJob(id: string): Promise<ImportJob> {
  * Summary row for the imports list
  */
 function toSummary(job: ImportJob) {
-  const draft = job.draft as Draft | null;
+  const draft = job.draft as Draft | JlptDraft | null;
   return {
     id: job.id,
     title: job.title,
     exam: job.exam,
+    level: job.level,
     status: job.status,
     progress: job.progress,
     error: job.error,
@@ -89,7 +99,7 @@ function toSummary(job: ImportJob) {
  * Full job for the review screen
  */
 async function toDetail(job: ImportJob) {
-  const draft = job.draft as Draft | null;
+  const draft = job.draft as Draft | JlptDraft | null;
   const [document] = job.documentAssetId
     ? await db.select({ mime: mediaAssets.mime }).from(mediaAssets).where(eq(mediaAssets.id, job.documentAssetId)).limit(1)
     : [];
@@ -105,7 +115,7 @@ async function toDetail(job: ImportJob) {
       imageUrl: p.imageAssetId ? `/api/media/${p.imageAssetId}` : null,
     })),
     draft,
-    coverage: draft ? coverage(draft) : [],
+    coverage: draft && job.exam === 'toeic' ? coverage(draft as Draft) : [],
   };
 }
 
@@ -143,7 +153,7 @@ export function createImportRouter(): Router {
     const pages = await extractPages(asset);
     const [job] = await db
       .insert(importJobs)
-      .values({ exam: 'toeic', title: body.title, documentAssetId: asset.id, pages, uploadedBy: currentUser(req).id })
+      .values({ exam: body.exam, level: body.exam === 'jlpt' ? body.level : null, title: body.title, documentAssetId: asset.id, pages, uploadedBy: currentUser(req).id })
       .returning();
     res.status(201).json({ import: await toDetail(job) });
   });
@@ -206,7 +216,12 @@ export function createImportRouter(): Router {
     if (job.status === 'parsing') throw new HttpError(409, 'Wait until parsing finishes.', 'busy');
     if (!job.draft) throw new HttpError(409, 'This import has not been parsed yet.', 'not_parsed');
 
-    const draft = withIssues({ ...body.draft, groups: body.draft.groups.map((g) => ({ ...g, issues: [] })) });
+    const groups = body.draft.groups.map((g) => ({ ...g, issues: [] }));
+    if (groups.some((g) => (job.exam === 'jlpt' ? !g.mondai : !g.part))) throw new HttpError(400, 'Every group needs its part or question type.', 'bad_draft');
+    const draft =
+      job.exam === 'jlpt'
+        ? withJlptIssues({ ...body.draft, groups: groups as JlptDraft['groups'] })
+        : withIssues({ ...body.draft, groups: groups as Draft['groups'] });
     const [updated] = await db
       .update(importJobs)
       .set({

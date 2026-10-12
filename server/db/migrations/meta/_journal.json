@@ -64,6 +64,13 @@
       "when": 1791801969506,
       "tag": "0008_vocab_srs",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791818369726,
+      "tag": "0009_jlpt_import_level",
+      "breakpoints": true
     }
   ]
 }

@@ -11,6 +11,7 @@ import { importApi, STATUS_TONE, uploadMedia, type Draft, type DraftGroup, type 
 import { canvasToJpeg, HIGH_RES_SCALE, openPdf, renderPage } from './pdfPages';
 import { PagePreview } from './ImportPages';
 import { DraftGroupEditor } from './DraftGroupEditor';
+import { MONDAI_SECTION, type Mondai } from '@/shared/jlptApi';
 
 /** Poll interval while the server parses */
 const PARSE_POLL_MS = 2500;
@@ -248,8 +249,9 @@ const GroupCard: React.FC<{
   job: ImportDetail;
   draft: Draft;
   onChange: (payload: Record<string, unknown>) => void;
+  onMondaiChange: (mondai: Mondai) => void;
   onShowPage: (n: number) => void;
-}> = ({ group, job, draft, onChange, onShowPage }) => {
+}> = ({ group, job, draft, onChange, onMondaiChange, onShowPage }) => {
   const { t } = useI18n();
   const errors = group.issues.filter((i) => i.level === 'error');
   const warnings = group.issues.filter((i) => i.level === 'warning');
@@ -258,7 +260,15 @@ const GroupCard: React.FC<{
   return (
     <details className={`draft-group ${errors.length ? 'draft-group--error' : ''}`} open={errors.length > 0}>
       <summary className="draft-group__summary">
-        <span className="draft-group__title">{t.imports.group(group.part, group.numbers[0], group.numbers[1])}</span>
+        <span className="draft-group__title">
+          {group.mondai ? (
+            <>
+              <span lang="ja">{t.jlpt.mondai[group.mondai].title}</span> · {t.jlpt.sections[MONDAI_SECTION[group.mondai]]} ({group.numbers[0]}–{group.numbers[1]})
+            </>
+          ) : (
+            t.imports.group(group.part!, group.numbers[0], group.numbers[1])
+          )}
+        </span>
         <span className="draft-group__badges">
           {errors.length > 0 ? <Badge tone="danger">{errors.length}</Badge> : <Badge tone="success" icon="check">OK</Badge>}
           {warnings.length > 0 && <Badge tone="warning">{warnings.length}</Badge>}
@@ -285,6 +295,7 @@ const GroupCard: React.FC<{
         isPdf={job.isPdf}
         pageCount={job.pageCount}
         onChange={onChange}
+        onMondaiChange={group.mondai ? onMondaiChange : undefined}
       />
     </details>
   );
@@ -340,7 +351,7 @@ const ReviewStep: React.FC<{ job: ImportDetail; onJob: (job: ImportDetail) => vo
   };
 
   const errorGroups = draft.groups.filter((g) => g.issues.some((i) => i.level === 'error')).length;
-  const hasListening = draft.groups.some((g) => g.part <= 4);
+  const hasListening = draft.groups.some((g) => (g.mondai ? MONDAI_SECTION[g.mondai] === 'listening' : g.part! <= 4));
 
   return (
     <div className="import-review">
@@ -374,12 +385,13 @@ const ReviewStep: React.FC<{ job: ImportDetail; onJob: (job: ImportDetail) => vo
           {hasListening && <RecordingsPanel draft={draft} onChange={change} />}
           {draft.groups.map((group, index) => (
             <GroupCard
-              key={`${group.part}-${group.key}`}
+              key={`${group.part ?? group.mondai}-${group.key}`}
               group={group}
               job={job}
               draft={draft}
               onShowPage={setPage}
               onChange={(payload) => change({ ...draft, groups: draft.groups.map((g, i) => (i === index ? { ...g, payload } : g)) })}
+              onMondaiChange={(mondai) => change({ ...draft, groups: draft.groups.map((g, i) => (i === index ? { ...g, mondai } : g)) })}
             />
           ))}
         </div>

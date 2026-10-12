@@ -6,11 +6,11 @@
  * The 大問 (question types) and times follow the official test guide (jlpt.jp, revised 2020).
  * The JLPT does not publish fixed question counts, so the counts below are typical numbers.
  */
-import { and, eq, inArray, ne, sql } from 'drizzle-orm';
+import { and, asc, eq, inArray, ne, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import { db } from '../db/client.js';
 import { contentItems, examSessions, type ContentItem, type ExamSession } from '../db/schema.js';
-import { bilingual, jaText, speaker, type JlptLevel } from '../content/schemas.js';
+import { audioSegment, bilingual, jaText, speaker, type JlptLevel } from '../content/schemas.js';
 
 export const MONDAI = [
   'kanji-reading',
@@ -39,7 +39,7 @@ export type Mondai = (typeof MONDAI)[number];
 
 export const JLPT_SECTIONS = ['vocab', 'grammar', 'reading', 'listening'] as const;
 export type JlptSection = (typeof JLPT_SECTIONS)[number];
-export type JlptMode = 'mini' | 'part' | 'full';
+export type JlptMode = 'mini' | 'part' | 'full' | 'official';
 
 export const MONDAI_SECTION: Record<Mondai, JlptSection> = {
   'kanji-reading': 'vocab',
@@ -64,6 +64,45 @@ export const MONDAI_SECTION: Record<Mondai, JlptSection> = {
   'listen-response': 'listening',
   'listen-integrated': 'listening',
 };
+
+/** Headings as printed in the test book */
+export const MONDAI_JA: Record<Mondai, string> = {
+  'kanji-reading': '漢字読み',
+  orthography: '表記',
+  'word-formation': '語形成',
+  context: '文脈規定',
+  paraphrase: '言い換え類義',
+  usage: '用法',
+  'grammar-form': '文の文法1（文法形式の判断）',
+  'sentence-order': '文の文法2（文の組み立て）',
+  'text-grammar': '文章の文法',
+  'reading-short': '内容理解（短文）',
+  'reading-mid': '内容理解（中文）',
+  'reading-long': '内容理解（長文）',
+  'reading-integrated': '統合理解',
+  'reading-thematic': '主張理解（長文）',
+  'info-search': '情報検索',
+  'listen-task': '課題理解',
+  'listen-point': 'ポイント理解',
+  'listen-summary': '概要理解',
+  'listen-expression': '発話表現',
+  'listen-response': '即時応答',
+  'listen-integrated': '統合理解（聴解）',
+};
+
+/**
+ * Test papers of a level with their 大問 in order, as numbered in the book (問題1, 問題2...)
+ */
+export function papersOf(level: JlptLevel): { paper: string; mondai: Mondai[] }[] {
+  const of = (sections: JlptSection[]) => MONDAI.filter((m) => MONDAI_COUNTS[level][m] && sections.includes(MONDAI_SECTION[m]));
+  const listening = { paper: '聴解', mondai: of(['listening']) };
+  if (level === 'N1' || level === 'N2') return [{ paper: '言語知識（文字・語彙・文法）・読解', mondai: of(['vocab', 'grammar', 'reading']) }, listening];
+  return [
+    { paper: '言語知識（文字・語彙）', mondai: of(['vocab']) },
+    { paper: '言語知識（文法）・読解', mondai: of(['grammar', 'reading']) },
+    listening,
+  ];
+}
 
 /** Typical questions per 大問 in one test, in test order */
 export const MONDAI_COUNTS: Record<JlptLevel, Partial<Record<Mondai, number>>> = {
@@ -281,6 +320,76 @@ export const jlptListeningGroup = z.object({
   items: z.array(listeningItem).min(1).max(8),
 });
 
+/* ---------- Imported groups ---------- */
+
+/** Book text: furigana optional (printed readings are dropped when extracting) */
+const plain = (max: number) => z.string().trim().min(1).max(max);
+const imageId = z.uuid().optional();
+
+const importQuestion = z.object({
+  prompt: z.string().trim().max(1200).default(''),
+  options: z.array(plain(400)).min(3).max(4),
+  answerIndex: z.number().int().min(0).max(3),
+  explanation: bilingual(500),
+  /** A printed picture or table for this question */
+  imageAssetId: imageId,
+});
+
+const importPassage = z
+  .object({
+    label: z.string().trim().max(20).optional(),
+    title: z.string().trim().max(200).optional(),
+    text: z.string().trim().max(8000).default(''),
+    /** Notices, tables and timetables are often kept as a picture */
+    imageAssetId: imageId,
+  })
+  .refine((p) => p.text || p.imageAssetId, { message: 'add the text or crop it as a picture', path: ['text'] });
+
+const importItem = z.object({
+  situation: plain(400).optional(),
+  script: z.array(z.object({ speaker: z.enum(['A', 'B']), text: plain(800) })).max(40).default([]),
+  question: plain(400).optional(),
+  /** With a picture the options may just be "1"-"4" */
+  options: z.array(plain(300)).min(3).max(4),
+  answerIndex: z.number().int().min(0).max(3),
+  explanation: bilingual(500),
+  imageAssetId: imageId,
+});
+
+/**
+ * Schema for a group imported from a book: any number of questions, pictures allowed,
+ * and a real recording in place of a transcript
+ */
+export function jlptImportSchema(mondai: Mondai): z.ZodType {
+  const options = optionCount(mondai);
+  if (isListening(mondai)) {
+    return z
+      .object({ speakers: z.object({ A: speaker, B: speaker.optional() }), audio: audioSegment.optional(), items: z.array(importItem).min(1).max(20) })
+      .superRefine((group, ctx) => {
+        group.items.forEach((item, i) => {
+          const at = (message: string) => ctx.addIssue({ code: 'custom', message, path: ['items', i] });
+          if (item.options.length !== options) at(`each item needs exactly ${options} options`);
+          if (item.answerIndex >= item.options.length) at('answerIndex is out of range');
+          if (!group.audio && item.script.length === 0 && !item.situation) at('add the transcript or attach the recording');
+        });
+      });
+  }
+  return z
+    .object({ passages: z.array(importPassage).max(3).optional(), questions: z.array(importQuestion).min(1).max(40) })
+    .superRefine((group, ctx) => {
+      if ((MONDAI_SECTION[mondai] === 'reading' || mondai === 'text-grammar') && !group.passages?.length) {
+        ctx.addIssue({ code: 'custom', message: 'the reading text is missing', path: ['passages'] });
+      }
+      group.questions.forEach((q, i) => {
+        const at = (message: string) => ctx.addIssue({ code: 'custom', message, path: ['questions', i] });
+        if (q.options.length !== options) at(`each question needs exactly ${options} options`);
+        if (q.answerIndex >= q.options.length) at('answerIndex is out of range');
+        if (!q.prompt && !q.imageAssetId && MONDAI_SECTION[mondai] !== 'reading' && mondai !== 'text-grammar') at('the question text is missing');
+        if (['kanji-reading', 'orthography', 'paraphrase'].includes(mondai) && !UNDERLINE.test(q.prompt)) at('mark the underlined word with [[ ]]');
+      });
+    });
+}
+
 export type JlptQuestionGroup = z.infer<typeof jlptQuestionGroup>;
 export type JlptListeningGroup = z.infer<typeof jlptListeningGroup>;
 
@@ -343,6 +452,8 @@ export interface JlptBlueprint {
   level: JlptLevel;
   /** groupIds keeps the shape other exams use; takes[i] is how many questions of group i are used */
   sections: { mondai: Mondai; groupIds: string[]; takes: number[] }[];
+  /** Set for tests imported from a book */
+  importId?: string;
 }
 
 /**
@@ -453,6 +564,39 @@ export async function assembleJlpt(
   }
 
   return Object.keys(missing).length > 0 ? { missing } : { blueprint: { exam: 'jlpt', level, sections } };
+}
+
+/**
+ * Blueprint of an imported test: its groups by question type, in book order
+ */
+export async function jlptOfficialBlueprint(importId: string): Promise<JlptBlueprint | null> {
+  const items = await db
+    .select()
+    .from(contentItems)
+    .where(and(eq(contentItems.importId, importId), eq(contentItems.status, 'published'), eq(contentItems.exam, 'jlpt')))
+    .orderBy(asc(contentItems.importOrder));
+  if (items.length === 0) return null;
+
+  const mondaiOf = (item: ContentItem) => (item.part ?? '').replace('jlpt-', '') as Mondai;
+  const sections = MONDAI.map((mondai) => {
+    const own = items.filter((item) => mondaiOf(item) === mondai);
+    return { mondai, groupIds: own.map((item) => item.id), takes: own.map(questionsIn) };
+  }).filter((section) => section.groupIds.length > 0);
+  return { exam: 'jlpt', level: items[0].level as JlptLevel, sections, importId };
+}
+
+/**
+ * Time for an imported test: each section's time scaled by how many of its official questions the book has
+ * (a complete test gets the official time)
+ */
+export function jlptOfficialTimeLimit(blueprint: JlptBlueprint): number {
+  const level = blueprint.level;
+  const minutes = JLPT_SECTIONS.reduce((sum, section) => {
+    const official = mondaiFor(level, 'part', section).reduce((n, m) => n + m.questions, 0);
+    const present = blueprint.sections.filter((s) => MONDAI_SECTION[s.mondai] === section).reduce((n, s) => n + s.takes.reduce((a, b) => a + b, 0), 0);
+    return sum + (official ? (SECTION_MINUTES[level][section] * Math.min(present, official)) / official : 0);
+  }, 0);
+  return Math.min(FULL_MINUTES[level], Math.max(5, Math.ceil(minutes))) * 60;
 }
 
 /**
