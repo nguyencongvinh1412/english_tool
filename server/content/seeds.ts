@@ -6,12 +6,13 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems } from '../db/schema.js';
-import { CONTENT_KINDS, contentTitle, type CefrLevel, type ContentKind } from './schemas.js';
+import { CONTENT_KINDS, contentTitle, kindLanguage, type CefrLevel, type ContentKind, type JlptLevel } from './schemas.js';
+import { JA_SEED_ITEMS } from './seedsJa.js';
 
 interface SeedItem {
   id: string;
   kind: ContentKind;
-  level: CefrLevel;
+  level: CefrLevel | JlptLevel;
   exam?: 'none' | 'toeic' | 'ielts';
   part?: string;
   topic: string;
@@ -308,7 +309,7 @@ export const SEED_ITEMS: SeedItem[] = [
  * @throws Error if a seed does not match its schema (a programming error)
  */
 export async function ensureBuiltinContent(): Promise<void> {
-  for (const seed of SEED_ITEMS) {
+  for (const seed of [...SEED_ITEMS, ...JA_SEED_ITEMS] as SeedItem[]) {
     const definition = CONTENT_KINDS[seed.kind];
     const payload = definition.schema.parse(seed.payload);
     const title = contentTitle(seed.kind, payload);
@@ -322,6 +323,7 @@ export async function ensureBuiltinContent(): Promise<void> {
         exam: seed.exam ?? 'none',
         part: seed.part ?? null,
         level: seed.level,
+        language: kindLanguage(seed.kind),
         title,
         topic: seed.topic,
         payload,

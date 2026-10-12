@@ -9,7 +9,73 @@ import type { Attempt } from './progressApi';
 export type CefrLevel = 'A2' | 'B1' | 'B2' | 'C1';
 export const CONTENT_LEVELS: CefrLevel[] = ['A2', 'B1', 'B2', 'C1'];
 
-export type ContentKind = 'reading-passage' | 'reading-gapfill' | 'listening-quiz' | 'speaking-ielts' | 'writing-prompt';
+export type JlptLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
+export const JLPT_CONTENT_LEVELS: JlptLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+/** CEFR for English content, JLPT for Japanese */
+export type ContentLevel = CefrLevel | JlptLevel;
+
+export type ContentKind =
+  | 'reading-passage'
+  | 'reading-gapfill'
+  | 'listening-quiz'
+  | 'speaking-ielts'
+  | 'writing-prompt'
+  | 'ja-dictation'
+  | 'ja-listening'
+  | 'ja-reading'
+  | 'ja-writing';
+
+/* ---------- Japanese (text uses 漢字{かんじ} reading markup) ---------- */
+
+export interface Bilingual {
+  vi: string;
+  en: string;
+}
+
+export interface JaMcq {
+  prompt: string;
+  options: string[];
+  answerIndex: number;
+  explanation: Bilingual;
+}
+
+export interface JaDictation {
+  title: string;
+  sentences: { text: string; translation: Bilingual }[];
+}
+
+export interface JaListening {
+  title: string;
+  format: 'dialogue' | 'monologue';
+  speakers: { A: Speaker; B?: Speaker };
+  script: { speaker: 'A' | 'B'; text: string }[];
+  questions: JaMcq[];
+}
+
+export interface JaReading {
+  title: string;
+  paragraphs: string[];
+  questions: JaMcq[];
+}
+
+export interface JaWriting {
+  title: string;
+  instructions: Bilingual;
+  prompt: string;
+  minChars: number;
+  timeMinutes: number;
+}
+
+export interface JaWordDefinition {
+  word: string;
+  reading: string;
+  partOfSpeech: string;
+  meaning: string;
+  translation: string;
+  hanViet: string;
+  example: string;
+  exampleTranslation: string;
+}
 export type WritingTask = 'email' | 'ielts-task1' | 'ielts-task2';
 
 export interface McqQuestion {
@@ -82,7 +148,7 @@ export interface WritingPrompt {
 export interface ContentSummary {
   id: string;
   kind: ContentKind;
-  level: CefrLevel | null;
+  level: ContentLevel | null;
   title: string;
   topic: string | null;
   exam: 'none' | 'toeic' | 'ielts';
@@ -113,6 +179,10 @@ export interface BandFeedback {
 export interface WritingFeedback extends BandFeedback {
   corrections: { original: string; corrected: string; explanation: string }[];
   improvedVersion: string;
+}
+
+export interface JaWritingFeedback extends WritingFeedback {
+  levelEstimate: JlptLevel;
 }
 
 export interface SpeakingFeedback extends BandFeedback {
@@ -146,19 +216,26 @@ function afterAi<T>(promise: Promise<T>): Promise<T> {
 }
 
 export const contentApi = {
-  list: (kind: ContentKind, level?: CefrLevel, writingTask?: WritingTask) => {
+  list: (kind: ContentKind, level?: ContentLevel, writingTask?: WritingTask) => {
     const params = new URLSearchParams({ kind });
     if (level) params.set('level', level);
     if (writingTask) params.set('writingTask', writingTask);
     return apiFetch<{ items: ContentSummary[] }>(`/api/content?${params}`);
   },
   get: <P>(id: string) => apiFetch<{ item: ContentItem<P> }>(`/api/content/${encodeURIComponent(id)}`),
-  generate: <P>(input: { kind: ContentKind; level: CefrLevel; topic?: string; writingTask?: WritingTask }) =>
+  generate: <P>(input: { kind: ContentKind; level: ContentLevel; topic?: string; writingTask?: WritingTask }) =>
     afterAi(apiFetch<{ item: ContentItem<P> }>('/api/content/generate', { method: 'POST', json: { ...input, model: selectedModel() } })),
   define: (word: string, sentence: string) =>
     afterAi(apiFetch<{ definition: WordDefinition }>('/api/ai/define', { method: 'POST', json: { word, sentence, model: selectedModel() } })),
-  scoreWriting: (contentId: string, response: string, durationSec: number) =>
-    afterAi(apiFetch<ScoreResult<WritingFeedback>>('/api/ai/score-writing', {
+  defineJapanese: (word: string, sentence: string) =>
+    afterAi(
+      apiFetch<{ definition: JaWordDefinition }>('/api/ai/define', {
+        method: 'POST',
+        json: { word, sentence, language: 'ja', model: selectedModel() },
+      })
+    ),
+  scoreWriting: <F extends WritingFeedback = WritingFeedback>(contentId: string, response: string, durationSec: number) =>
+    afterAi(apiFetch<ScoreResult<F>>('/api/ai/score-writing', {
       method: 'POST',
       json: { contentId, response, durationSec, model: selectedModel() },
     })),

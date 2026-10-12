@@ -58,15 +58,15 @@ export const SKILLS: SkillDefinition[] = [
   },
 ];
 
-/** Japanese activities; the ones marked soon arrive in the next phases (J2) */
+/** Japanese activities */
 export const JA_SKILLS: SkillDefinition[] = [
   {
     id: 'listening',
     icon: 'headphones',
     route: ROUTES.LISTENING,
     activities: [
-      { id: 'jaDictation', icon: 'type', route: ROUTES.LISTENING, soon: true },
-      { id: 'jaListening', icon: 'headphones', route: ROUTES.LISTENING, soon: true },
+      { id: 'jaDictation', icon: 'type', route: ROUTES.JA_DICTATION },
+      { id: 'jaListening', icon: 'headphones', route: ROUTES.JA_LISTENING },
     ],
   },
   {
@@ -75,7 +75,7 @@ export const JA_SKILLS: SkillDefinition[] = [
     route: ROUTES.READING,
     activities: [
       { id: 'kana', icon: 'type', route: ROUTES.KANA },
-      { id: 'jaReading', icon: 'book', route: ROUTES.READING, soon: true },
+      { id: 'jaReading', icon: 'book', route: ROUTES.JA_READING },
     ],
   },
   {
@@ -83,16 +83,16 @@ export const JA_SKILLS: SkillDefinition[] = [
     icon: 'mic',
     route: ROUTES.SPEAKING,
     activities: [
-      { id: 'jaPronunciation', icon: 'mic', route: ROUTES.SPEAKING, soon: true },
-      { id: 'jaConversation', icon: 'chat', route: ROUTES.SPEAKING, soon: true },
-      { id: 'jaScenarios', icon: 'sparkles', route: ROUTES.SPEAKING, soon: true },
+      { id: 'jaPronunciation', icon: 'mic', route: ROUTES.JA_PRONUNCIATION },
+      { id: 'jaConversation', icon: 'chat', route: ROUTES.JA_CONVERSATION },
+      { id: 'jaScenarios', icon: 'sparkles', route: ROUTES.JA_SCENARIOS },
     ],
   },
   {
     id: 'writing',
     icon: 'pen',
     route: ROUTES.WRITING,
-    activities: [{ id: 'jaWriting', icon: 'pen', route: ROUTES.WRITING, soon: true }],
+    activities: [{ id: 'jaWriting', icon: 'pen', route: ROUTES.JA_WRITING }],
   },
 ];
 

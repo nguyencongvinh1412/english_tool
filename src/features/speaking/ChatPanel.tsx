@@ -10,6 +10,8 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition, useTextToSpeech } from '@/hooks';
 import type { ChatMessage } from '@/types/api';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
+import { JaText } from '@/shared/ja/JaText';
+import { plainText } from '@/shared/ja/text';
 import { RecordButton } from './RecordButton';
 import './speaking.css';
 
@@ -21,9 +23,14 @@ interface ChatPanelProps {
   /** Quick replies shown above the input */
   suggestions?: string[];
   suggestionsLabel?: string;
+  /** Japanese: furigana in replies, ja-JP voice input, and only the Japanese part is read aloud */
+  language?: 'en' | 'ja';
 }
 
-export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error, onSend, suggestions, suggestionsLabel }) => {
+/** Japanese replies end with a "Feedback:" section in Vietnamese or English, which is not read aloud */
+const spokenPart = (content: string, language: 'en' | 'ja') => (language === 'ja' ? content.split(/\n?\s*\**Feedback\**\s*:/i)[0] : content);
+
+export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error, onSend, suggestions, suggestionsLabel, language = 'en' }) => {
   const { t } = useI18n();
   const [draft, setDraft] = useState('');
   const [spoken, setSpoken] = useState('');
@@ -31,7 +38,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
   const spokenCount = useRef(messages.length);
 
   const { isListening, transcript, interimTranscript, error: speechError, isSupported, startListening, stopListening, resetTranscript } =
-    useSpeechRecognition();
+    useSpeechRecognition(language);
   const { speak } = useTextToSpeech();
 
   // Keep the newest message in view
@@ -43,10 +50,10 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
   useEffect(() => {
     if (messages.length > spokenCount.current) {
       const last = messages[messages.length - 1];
-      if (last.role === 'assistant') speak(last.content);
+      if (last.role === 'assistant') speak(spokenPart(last.content, language));
     }
     spokenCount.current = messages.length;
-  }, [messages, speak]);
+  }, [messages, speak, language]);
 
   // When recording stops, hold the transcript for review before sending
   useEffect(() => {
@@ -86,11 +93,11 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
         {messages.map((message, index) => (
           <div key={index} className={`bubble bubble--${message.role}`}>
             <span className="bubble__role">{message.role === 'user' ? t.chat.you : t.chat.ai}</span>
-            <p className="bubble__text" lang="en">
-              <InlineMarkdown text={message.content} />
+            <p className="bubble__text" lang={language === 'ja' ? undefined : 'en'}>
+              <InlineMarkdown text={message.content} japanese={language === 'ja'} />
             </p>
             {message.role === 'assistant' && (
-              <button type="button" className="bubble__speak" onClick={() => speak(message.content)} aria-label={t.chat.listen} title={t.chat.listen}>
+              <button type="button" className="bubble__speak" onClick={() => speak(spokenPart(message.content, language))} aria-label={t.chat.listen} title={t.chat.listen}>
                 <Icon name="headphones" size={16} />
               </button>
             )}
@@ -113,8 +120,15 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
         <div className="chat__suggestions">
           <span className="chat__suggestions-label">{suggestionsLabel}</span>
           {suggestions.map((suggestion) => (
-            <button key={suggestion} type="button" className="chip" onClick={() => void send(suggestion)} disabled={isLoading} lang="en">
-              {suggestion}
+            <button
+              key={suggestion}
+              type="button"
+              className="chip"
+              onClick={() => void send(language === 'ja' ? plainText(suggestion) : suggestion)}
+              disabled={isLoading}
+              lang={language}
+            >
+              {language === 'ja' ? <JaText text={suggestion} /> : suggestion}
             </button>
           ))}
         </div>
@@ -175,7 +189,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
             aria-label={t.chat.typePlaceholder}
             disabled={isLoading}
             maxLength={2000}
-            lang="en"
+            lang={language}
           />
           <Button type="submit" icon="chevronRight" disabled={isLoading || !draft.trim()}>
             {t.chat.send}

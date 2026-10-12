@@ -24,6 +24,8 @@ export type SkillName = 'listening' | 'reading' | 'speaking' | 'writing';
 
 export interface AttemptInput {
   activity: Activity;
+  /** Defaults to the learner's current study language */
+  language?: StudyLanguage;
   contentRef?: string;
   title?: string;
   score?: number;

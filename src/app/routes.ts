@@ -29,4 +29,11 @@ export const ROUTES = {
   SCENARIOS: '/speaking/scenarios',
   // Japanese
   KANA: '/japanese/kana',
+  JA_DICTATION: '/japanese/dictation',
+  JA_LISTENING: '/japanese/listening',
+  JA_READING: '/japanese/reading',
+  JA_WRITING: '/japanese/writing',
+  JA_PRONUNCIATION: '/japanese/pronunciation',
+  JA_CONVERSATION: '/japanese/conversation',
+  JA_SCENARIOS: '/japanese/scenarios',
 } as const;

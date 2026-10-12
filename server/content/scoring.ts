@@ -3,7 +3,7 @@
  * IELTS-style band scoring for writing and speaking. Bands are estimates, not official scores.
  */
 import type { z } from 'zod';
-import type { speakingIelts, writingPrompt } from './schemas.js';
+import type { jaWriting, speakingIelts, writingPrompt } from './schemas.js';
 
 type Locale = 'en' | 'vi';
 
@@ -112,5 +112,49 @@ Return:
  "improvements": ["..."],
  "answers": [{"question": "...", "comment": "...", "betterAnswer": "a natural band-7+ answer the learner could give"}]}
 Include one "answers" entry per question above, in the same order.`,
+  };
+}
+
+const JA_WRITING_CRITERIA = [
+  ['GRA', 'Grammar (文法)'],
+  ['VOC', 'Vocabulary (語彙)'],
+  ['SCR', 'Script and spelling (表記)'],
+  ['CON', 'Content and coherence (内容)'],
+] as const;
+
+/**
+ * Prompt for scoring a Japanese writing response (JLPT has no writing paper, so this is practice feedback)
+ */
+export function jaWritingScoringPrompt(
+  task: z.infer<typeof jaWriting>,
+  response: string,
+  locale: Locale
+): { system: string; user: string } {
+  const characters = [...response.replace(/\s/g, '')].length;
+  return {
+    system: `You are an experienced Japanese teacher coaching a Vietnamese learner.
+Score the text on a 0-9 band scale per criterion (steps of 0.5), like IELTS bands: 9 = native-like, 6 = clear with some errors,
+3 = hard to follow. The overall band is the average rounded down to 0.5. Also estimate which JLPT level (N5-N1) the text is
+typical of. Check particles, conjugation, politeness consistency (です/ます vs plain form), kanji and kana usage.
+Penalise texts shorter than ${task.minChars} characters and off-topic answers.
+${locale === 'vi' ? 'Write comments, strengths, improvements and explanations in Vietnamese.' : 'Write comments, strengths, improvements and explanations in simple English.'}
+Corrections and the improved version are in Japanese. Respond with ONLY one JSON object, no markdown.`,
+    user: `TASK: ${task.title}
+Instructions: ${task.instructions.en}
+Prompt: ${task.prompt}
+
+LEARNER TEXT (${characters} characters):
+"""
+${response}
+"""
+
+Return:
+{"overallBand": 5.5, "levelEstimate": "N4",
+ "criteria": [${criteriaJson(JA_WRITING_CRITERIA)}],
+ "strengths": ["..."],
+ "improvements": ["specific, actionable advice"],
+ "corrections": [{"original": "exact phrase from the text", "corrected": "...", "explanation": "..."}],
+ "improvedVersion": "a corrected, slightly more natural version of the learner's text, keeping their ideas"}
+List up to 10 of the most important corrections; "original" must be copied exactly from the text.`,
   };
 }

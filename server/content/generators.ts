@@ -2,7 +2,7 @@
  * Content Generators
  * Prompts that ask the AI for one content item as strict JSON, per kind and level
  */
-import type { CefrLevel, ContentKind, WritingTask } from './schemas.js';
+import type { CefrLevel, ContentKind, JlptLevel, WritingTask } from './schemas.js';
 
 /** Length and language guidance per CEFR level */
 const LEVEL_GUIDE: Record<CefrLevel, string> = {
@@ -29,6 +29,19 @@ export interface GenerationTarget {
  * Builds the system and user prompts for a generation request
  */
 export function buildGenerationPrompt(
+  kind: ContentKind,
+  level: CefrLevel | JlptLevel,
+  topic: string | undefined,
+  writingTask: WritingTask | undefined
+): { system: string; user: string; target: GenerationTarget } {
+  if (kind.startsWith('ja-')) return japanesePrompt(kind, level as JlptLevel, topic);
+  return englishPrompt(kind, level as CefrLevel, topic, writingTask);
+}
+
+/**
+ * Prompts for English content
+ */
+function englishPrompt(
   kind: ContentKind,
   level: CefrLevel,
   topic: string | undefined,
@@ -239,4 +252,79 @@ JSON shape:
  "instructions": "Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
  "prompt": "the full essay question", "minWords": 250, "timeMinutes": 40}`,
   };
+}
+
+/* ---------- Japanese ---------- */
+
+/** What learners at each JLPT level can handle */
+const JLPT_GUIDE: Record<JlptLevel, string> = {
+  N5: 'JLPT N5: kana plus about 100 basic kanji, です/ます style, basic particles, present/past, very short sentences (10-25 characters).',
+  N4: 'JLPT N4: about 300 kanji, て-form, potential, simple conditionals and giving/receiving verbs, everyday topics.',
+  N3: 'JLPT N3: about 650 kanji, everyday texts, passive and causative, connected sentences of normal length.',
+  N2: 'JLPT N2: about 1,000 kanji, news, work and formal writing, nuanced grammar.',
+  N1: 'JLPT N1: about 2,000 kanji, abstract and editorial texts, advanced grammar and set phrases.',
+};
+
+const JA_RULES = `Japanese text rules (the app checks them):
+- After EVERY kanji run write its reading in hiragana in braces: 日本語{にほんご}, 食{た}べます, 今日{きょう}. Okurigana stays outside the braces.
+  Never put braces after kana, never leave a kanji without a reading, readings are kana only.
+- Natural, correct Japanese at the stated level; use です/ます style unless told otherwise. Use only kanji normally written at this level; write the rest in kana.
+- "vi" fields are natural Vietnamese, "en" fields natural English.
+- Original content only. Respond with ONLY one JSON object, no markdown, no commentary.`;
+
+const JA_MCQ = '{"prompt": "...", "options": ["...","...","...","..."], "explanation": {"vi": "...", "en": "..."}, "answerIndex": 0}';
+
+/**
+ * Prompts for Japanese content
+ */
+function japanesePrompt(kind: ContentKind, level: JlptLevel, topic: string | undefined): { system: string; user: string; target: GenerationTarget } {
+  const system = `You create Japanese practice material for Vietnamese learners. ${JLPT_GUIDE[level]}\n${JA_RULES}`;
+  const topicLine = topic ? `Topic: ${topic}` : 'Topic: choose an everyday topic suitable for the level yourself.';
+  const target: GenerationTarget = { exam: 'none', part: null };
+
+  switch (kind) {
+    case 'ja-dictation':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write a short dictation lesson: 5-6 connected sentences that tell a small story or describe one situation.
+Each sentence is complete and ends with 。, ！ or ？. Give each sentence a translation.
+JSON: {"title": "short Vietnamese or English title", "sentences": [{"text": "私{わたし}は毎朝{まいあさ}コーヒーを飲{の}みます。", "translation": {"vi": "...", "en": "..."}}]}`,
+      };
+    case 'ja-listening':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write a listening script read aloud by text-to-speech: a "dialogue" between two people (6-12 turns) or a "monologue"
+(announcement, voicemail, short talk; 4-8 lines). Spoken style, no stage directions. Then 3-4 multiple-choice questions in
+Japanese about details, purpose and what happens next; one correct option each; distractors mentioned in the script where possible.
+JSON: {"title": "short Vietnamese or English title", "format": "dialogue" | "monologue",
+ "speakers": {"A": {"name": "...", "gender": "female" | "male"}, "B": {"name": "...", "gender": "female" | "male"}},
+ "script": [{"speaker": "A", "text": "..."}], "questions": [${JA_MCQ}]}
+For a monologue omit "B" and use only speaker "A".`,
+      };
+    case 'ja-reading':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Write a graded reading text for the level (N5: 3-5 sentences; N4: 1-2 short paragraphs; N3 and above: 2-4 paragraphs).
+Then 3-5 multiple-choice questions in Japanese, answerable only from the text, in text order; one correct option each.
+JSON: {"title": "Japanese title with readings", "paragraphs": ["..."], "questions": [${JA_MCQ}]}`,
+      };
+    case 'ja-writing':
+      return {
+        system,
+        target,
+        user: `${topicLine}
+Create a short Japanese writing task for the level (N5: self-introduction or daily routine, 50-100 characters;
+N4: diary or short email, 100-200; N3: opinion or experience, 200-300; N2-N1: argumentative essay, 300-600).
+JSON: {"title": "short Vietnamese or English title", "instructions": {"vi": "what to write and include", "en": "..."},
+ "prompt": "the task in Japanese with readings", "minChars": 80, "timeMinutes": 15}`,
+      };
+    default:
+      throw new Error(`No Japanese generator for ${kind}`);
+  }
 }

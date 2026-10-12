@@ -27,7 +27,10 @@ export type ChatContext =
   | { mode: 'conversation'; topic?: string }
   | { mode: 'scenario'; scenario: { aiRole: string; userRole: string; context: string; difficulty: 'beginner' | 'intermediate' | 'advanced' } }
   | { mode: 'pronunciation' }
-  | { mode: 'dictation' };
+  | { mode: 'dictation' }
+  | { mode: 'ja-conversation'; topic?: string; politeness: 'polite' | 'casual'; level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' }
+  | { mode: 'ja-scenario'; scenario: { aiRole: string; userRole: string; context: string }; level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' }
+  | { mode: 'ja-pronunciation' };
 
 /**
  * Request payload for chat endpoint

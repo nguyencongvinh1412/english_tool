@@ -49,6 +49,28 @@ const field = (max: number) =>
     .max(max)
     .transform((value) => value.replace(/\s+/g, ' '));
 
+const JLPT = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
+
+/** How Japanese replies are written so the app can show furigana and read them aloud correctly */
+const JA_OUTPUT = `Write every Japanese sentence with each kanji run followed by its hiragana reading in braces, e.g.
+日本語{にほんご}を勉強{べんきょう}しています。 Okurigana stays outside the braces; kana needs no braces.`;
+
+/**
+ * Japanese tutor prompt shared by conversation and role-play
+ */
+function japaneseTutor(role: string, level: (typeof JLPT)[number], locale: 'en' | 'vi', politeness: 'polite' | 'casual'): string {
+  return `${role}
+The learner is studying for JLPT ${level}: use vocabulary, kanji and grammar suitable for that level and keep sentences short.
+Speak ${politeness === 'polite' ? 'politely with です/ます' : 'casually with plain forms, like friends'}.
+${JA_OUTPUT}
+
+Response format:
+1. Your reply in Japanese (1-3 sentences) that keeps the conversation going, usually with a question.
+2. A line starting with "Feedback:" in ${locale === 'vi' ? 'Vietnamese' : 'English'}: point out mistakes in the learner's Japanese
+   (particles, conjugation, politeness, word choice) with the corrected sentence, or praise briefly if it was correct.
+If the learner writes in Vietnamese or English, answer in simple Japanese and show how to say their message in Japanese.`;
+}
+
 export const chatContextSchema = z.discriminatedUnion('mode', [
   z.object({ mode: z.literal('conversation'), topic: field(60).optional() }),
   z.object({
@@ -62,6 +84,18 @@ export const chatContextSchema = z.discriminatedUnion('mode', [
   }),
   z.object({ mode: z.literal('pronunciation') }),
   z.object({ mode: z.literal('dictation') }),
+  z.object({
+    mode: z.literal('ja-conversation'),
+    topic: field(60).optional(),
+    politeness: z.enum(['polite', 'casual']),
+    level: z.enum(JLPT),
+  }),
+  z.object({
+    mode: z.literal('ja-scenario'),
+    scenario: z.object({ aiRole: field(80), userRole: field(80), context: field(400) }),
+    level: z.enum(JLPT),
+  }),
+  z.object({ mode: z.literal('ja-pronunciation') }),
 ]);
 export type ChatContext = z.infer<typeof chatContextSchema>;
 
@@ -107,5 +141,32 @@ ${GUARDRAIL}`;
 
     case 'dictation':
       return `${DICTATION}\n${GUARDRAIL}`;
+
+    case 'ja-conversation':
+      return `${japaneseTutor(
+        `You are a friendly Japanese tutor chatting with a Vietnamese learner${context.topic ? ` about: ${context.topic}` : ''}.`,
+        context.level,
+        locale,
+        context.politeness
+      )}\n${GUARDRAIL.replace('practising and learning English', 'practising and learning Japanese')}`;
+
+    case 'ja-scenario': {
+      const { aiRole, userRole, context: setting } = context.scenario;
+      return `${japaneseTutor(
+        `You play the role of a ${aiRole} in a Japanese role-play. Context: ${setting}. The learner plays: ${userRole}. Stay in character.`,
+        context.level,
+        locale,
+        'polite'
+      )}\n${GUARDRAIL.replace('practising and learning English', 'practising and learning Japanese')}`;
+    }
+
+    case 'ja-pronunciation':
+      return `You are a friendly Japanese pronunciation coach for Vietnamese learners.
+The learner said a Japanese phrase; you get the target phrase and the speech-recognition transcript (which may use different
+kanji or kana for the same sounds). Judge by sound, not by writing:
+1. Say what they did well
+2. For sounds that were missed or misheard, explain them (long vowels, small っ, ん, pitch, つ/す, ら行), with a tip
+3. 2-4 short sentences in ${locale === 'vi' ? 'Vietnamese' : 'English'}, keeping Japanese words in Japanese with readings in braces
+${GUARDRAIL.replace('practising and learning English', 'practising and learning Japanese')}`;
   }
 }

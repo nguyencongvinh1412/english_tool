@@ -11,15 +11,16 @@ import { errorMessage } from '@/shared/http';
 import {
   CONTENT_LEVELS,
   contentApi,
-  type CefrLevel,
+  type ContentLevel,
   type ContentItem,
   type ContentKind,
   type ContentSummary,
   type WritingTask,
 } from '@/shared/contentApi';
+import { JaText } from '@/shared/ja/JaText';
 import './practice.css';
 
-type LevelFilter = CefrLevel | 'all';
+type LevelFilter = ContentLevel | 'all';
 
 interface ContentLibraryProps<P> {
   kind: ContentKind;
@@ -31,7 +32,9 @@ interface ContentLibraryProps<P> {
   title: string;
   description: string;
   /** Default level for generation when "All" is selected */
-  defaultLevel?: CefrLevel;
+  defaultLevel?: ContentLevel;
+  /** Level filter options (CEFR for English, JLPT for Japanese) */
+  levels?: readonly ContentLevel[];
   /** Scores are band scores (0-9) instead of percentages */
   bandScores?: boolean;
   onOpen: (item: ContentItem<P>) => void;
@@ -46,6 +49,7 @@ export function ContentLibrary<P>({
   title,
   description,
   defaultLevel = 'B1',
+  levels = CONTENT_LEVELS,
   bandScores = false,
   onOpen,
 }: ContentLibraryProps<P>): React.JSX.Element {
@@ -114,7 +118,7 @@ export function ContentLibrary<P>({
           setItems(null);
           setLevel(next);
         }}
-        options={[{ value: 'all', label: t.library.all, tone }, ...CONTENT_LEVELS.map((l) => ({ value: l, label: l, tone }))]}
+        options={[{ value: 'all', label: t.library.all, tone }, ...levels.map((l) => ({ value: l, label: l, tone }))]}
       />
 
       {loadError !== null && <Banner tone="danger">{errorMessage(loadError, t)}</Banner>}
@@ -145,8 +149,8 @@ export function ContentLibrary<P>({
                     {item.source === 'ai' ? t.library.aiMade : t.library.builtIn}
                   </Badge>
                 </div>
-                <h3 className="library-card__title" lang="en">
-                  {item.title}
+                <h3 className="library-card__title" lang={kind.startsWith('ja-') ? undefined : 'en'}>
+                  {kind.startsWith('ja-') ? <JaText text={item.title} /> : item.title}
                 </h3>
                 {item.topic && <p className="library-card__topic">{item.topic}</p>}
                 {item.best !== null && (

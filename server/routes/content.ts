@@ -19,6 +19,13 @@ import {
   WRITING_TASKS,
   contentTitle,
   isExamOnlyKind,
+  JLPT_LEVELS,
+  jaWordDefinition,
+  jaWriting,
+  jaWritingFeedback,
+  kindLanguage,
+  type CefrLevel,
+  type JlptLevel,
   speakingFeedback,
   speakingIelts,
   wordDefinition,
@@ -27,7 +34,7 @@ import {
   type ContentKind,
 } from '../content/schemas.js';
 import { buildGenerationPrompt } from '../content/generators.js';
-import { speakingScoringPrompt, writingScoringPrompt } from '../content/scoring.js';
+import { jaWritingScoringPrompt, speakingScoringPrompt, writingScoringPrompt } from '../content/scoring.js';
 
 const LIST_LIMIT = 60;
 const MAX_RESPONSE_CHARS = 6000;
@@ -36,23 +43,32 @@ const MAX_TRANSCRIPT_CHARS = 2000;
 /** Kinds the practice library serves; TOEIC exam groups are only reachable through exam sessions */
 const LIBRARY_KINDS = CONTENT_KIND_IDS.filter((kind) => !isExamOnlyKind(kind)) as [ContentKind, ...ContentKind[]];
 
+/** CEFR levels for English content, JLPT levels for Japanese */
+const ALL_LEVELS = [...CEFR_LEVELS, ...JLPT_LEVELS] as const;
+
 const listQuerySchema = z.object({
   kind: z.enum(LIBRARY_KINDS),
-  level: z.enum(CEFR_LEVELS).optional(),
+  level: z.enum(ALL_LEVELS).optional(),
   writingTask: z.enum(WRITING_TASKS).optional(),
 });
 
-const generateSchema = z.object({
-  kind: z.enum(LIBRARY_KINDS),
-  level: z.enum(CEFR_LEVELS),
-  topic: z.string().trim().max(100).optional(),
-  writingTask: z.enum(WRITING_TASKS).optional(),
-  model: z.string().max(100).optional(),
-});
+const generateSchema = z
+  .object({
+    kind: z.enum(LIBRARY_KINDS),
+    level: z.enum(ALL_LEVELS),
+    topic: z.string().trim().max(100).optional(),
+    writingTask: z.enum(WRITING_TASKS).optional(),
+    model: z.string().max(100).optional(),
+  })
+  .refine((body) => (kindLanguage(body.kind) === 'ja') === (JLPT_LEVELS as readonly string[]).includes(body.level), {
+    message: 'Japanese content uses JLPT levels (N5-N1), English content CEFR levels',
+    path: ['level'],
+  });
 
 const defineSchema = z.object({
   word: z.string().trim().min(1).max(60),
   sentence: z.string().trim().max(500).optional(),
+  language: z.enum(['en', 'ja']).default('en'),
   model: z.string().max(100).optional(),
 });
 
@@ -179,7 +195,7 @@ export function createContentRouter(): Router {
     const body = generateSchema.parse(req.body);
     const user = currentUser(req);
     const definition = CONTENT_KINDS[body.kind];
-    const prompt = buildGenerationPrompt(body.kind, body.level, body.topic, body.writingTask);
+    const prompt = buildGenerationPrompt(body.kind, body.level as CefrLevel | JlptLevel, body.topic, body.writingTask);
 
     const payload = await runAIJson(
       user,
@@ -205,6 +221,7 @@ export function createContentRouter(): Router {
         kind: body.kind,
         skill: definition.skill,
         exam: prompt.target.exam,
+        language: kindLanguage(body.kind),
         part: prompt.target.part,
         level: body.level,
         title,
@@ -225,6 +242,30 @@ export function createContentRouter(): Router {
     const body = defineSchema.parse(req.body);
     const user = currentUser(req);
     const vietnamese = localeOf(user) === 'vi';
+
+    if (body.language === 'ja') {
+      const definition = await runAIJson(
+        user,
+        {
+          feature: 'define',
+          model: body.model,
+          system: `You are a concise Japanese dictionary for Vietnamese learners. Explain the word as it is used in the sentence.
+"reading" is the hiragana reading; "meaning" is simple English; "translation" is Vietnamese; "hanViet" is the Sino-Vietnamese
+reading of the word's kanji in capitals (e.g. 勉強 → MIỄN CƯỜNG), or "" for words without kanji.
+The example is natural Japanese with every kanji followed by its reading in braces, e.g. 学校{がっこう}に行{い}きます。
+Respond with ONLY one JSON object.`,
+          messages: [
+            {
+              role: 'user',
+              content: `Word: ${body.word}\nSentence: ${body.sentence ?? '(none)'}\nJSON: {"word": "dictionary form", "reading": "...", "partOfSpeech": "noun", "meaning": "...", "translation": "...", "hanViet": "...", "example": "...", "exampleTranslation": "${vietnamese ? 'Vietnamese' : 'English'} translation of the example"}`,
+            },
+          ],
+        },
+        jaWordDefinition
+      );
+      res.json({ definition });
+      return;
+    }
 
     const definition = await runAIJson(
       user,
@@ -253,7 +294,31 @@ Respond with ONLY one JSON object.`,
   router.post('/ai/score-writing', requireAuth, limitAiRequests, async (req, res) => {
     const body = scoreWritingSchema.parse(req.body);
     const user = currentUser(req);
-    const item = await loadItem(body.contentId, 'writing-prompt');
+    const item = await loadItem(body.contentId);
+
+    if (item.kind === 'ja-writing') {
+      const task = jaWriting.parse(item.payload);
+      const prompt = jaWritingScoringPrompt(task, body.response, localeOf(user));
+      const feedback = await runAIJson(
+        user,
+        { feature: 'score-writing', system: prompt.system, messages: [{ role: 'user', content: prompt.user }], model: body.model, timeoutMs: SCORING_TIMEOUT_MS },
+        jaWritingFeedback
+      );
+      const result = await recordAttempt(user.id, {
+        activity: 'writing-task',
+        language: 'ja',
+        contentRef: item.id,
+        title: item.title,
+        score: feedback.overallBand,
+        maxScore: 9,
+        durationSec: body.durationSec,
+        details: { characters: [...body.response.replace(/\s/g, '')].length, response: body.response, feedback },
+      });
+      res.json({ feedback, ...result });
+      return;
+    }
+
+    if (item.kind !== 'writing-prompt') throw new HttpError(404, 'This exercise was not found.', 'not_found');
     const task = writingPrompt.parse(item.payload);
     const prompt = writingScoringPrompt(task, body.response, localeOf(user));
 

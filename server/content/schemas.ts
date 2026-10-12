@@ -328,6 +328,81 @@ export const ieltsReading = z
     if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
   });
 
+/* ---------- Japanese ---------- */
+
+export const JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
+export type JlptLevel = (typeof JLPT_LEVELS)[number];
+
+const KANJI_CHAR = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff々〆ヵヶ]/;
+/** A kanji run followed by its reading in kana: 漢字{かんじ} */
+const RUBY = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff々〆ヵヶ]+\{[\u3041-\u3096\u30a1-\u30fa\u30fcー]+\}/g;
+
+/**
+ * Japanese text in which every kanji carries its reading, so learners can always see how it is read
+ * and speech can use the reading. Plain kana and punctuation need no markup.
+ */
+export const jaText = (max: number) =>
+  text(max).refine((value) => !KANJI_CHAR.test(value.replace(RUBY, '')), {
+    message: 'every kanji run needs its reading in kana right after it in braces, e.g. 日本語{にほんご}',
+  });
+
+/** Short explanation or translation for Vietnamese and English speakers */
+export const bilingual = (max: number) => z.object({ vi: text(max), en: text(max) });
+
+const jaMcq = z.object({
+  prompt: jaText(300),
+  options: z.array(jaText(150)).length(4),
+  answerIndex: z.number().int().min(0).max(3),
+  explanation: bilingual(400),
+});
+
+export const jaDictation = z.object({
+  title: text(80),
+  sentences: z
+    .array(z.object({ text: jaText(120), translation: bilingual(200) }))
+    .min(4)
+    .max(8),
+});
+
+export const jaListening = z.object({
+  title: text(80),
+  format: z.enum(['dialogue', 'monologue']),
+  speakers: z.object({ A: speaker, B: speaker.optional() }),
+  script: z
+    .array(z.object({ speaker: z.enum(['A', 'B']), text: jaText(300) }))
+    .min(4)
+    .max(16),
+  questions: z.array(jaMcq).min(3).max(5),
+});
+
+export const jaReading = z.object({
+  title: jaText(80),
+  paragraphs: z.array(jaText(900)).min(1).max(6),
+  questions: z.array(jaMcq).min(3).max(6),
+});
+
+export const jaWriting = z.object({
+  title: text(100),
+  /** What to write, for the learner */
+  instructions: bilingual(400),
+  /** The topic as a Japanese prompt */
+  prompt: jaText(300),
+  minChars: z.number().int().min(30).max(800),
+  timeMinutes: z.number().int().min(5).max(60),
+});
+
+export const jaWordDefinition = z.object({
+  word: text(40),
+  reading: z.string().trim().max(60),
+  partOfSpeech: text(40),
+  meaning: text(300),
+  translation: text(300),
+  /** Sino-Vietnamese reading of the kanji (empty for kana-only words) */
+  hanViet: z.string().trim().max(80),
+  example: jaText(200),
+  exampleTranslation: text(300),
+});
+
 /** Content kinds, their skill and payload schema */
 export const CONTENT_KINDS = {
   'reading-passage': { skill: 'reading', schema: readingPassage },
@@ -344,7 +419,16 @@ export const CONTENT_KINDS = {
   'toeic-p7': { skill: 'reading', schema: toeicP7 },
   'ielts-listening': { skill: 'listening', schema: ieltsListening },
   'ielts-reading': { skill: 'reading', schema: ieltsReading },
+  'ja-dictation': { skill: 'listening', schema: jaDictation },
+  'ja-listening': { skill: 'listening', schema: jaListening },
+  'ja-reading': { skill: 'reading', schema: jaReading },
+  'ja-writing': { skill: 'writing', schema: jaWriting },
 } as const;
+
+/**
+ * Language a content kind teaches
+ */
+export const kindLanguage = (kind: string): 'en' | 'ja' => (kind.startsWith('ja-') ? 'ja' : 'en');
 
 export type ContentKind = keyof typeof CONTENT_KINDS;
 export const CONTENT_KIND_IDS = Object.keys(CONTENT_KINDS) as [ContentKind, ...ContentKind[]];
@@ -363,6 +447,11 @@ export const bandFeedback = z.object({
 export const writingFeedback = bandFeedback.extend({
   corrections: capped(z.object({ original: text(300), corrected: text(300), explanation: text(400) }), 0, 15),
   improvedVersion: text(4000),
+});
+
+export const jaWritingFeedback = writingFeedback.extend({
+  /** JLPT level the text would be typical of */
+  levelEstimate: z.enum(JLPT_LEVELS),
 });
 
 export const speakingFeedback = bandFeedback.extend({
