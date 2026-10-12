@@ -74,6 +74,7 @@ export const JA_SKILLS: SkillDefinition[] = [
     icon: 'book',
     route: ROUTES.READING,
     activities: [
+      { id: 'vocab', icon: 'layers', route: ROUTES.JA_VOCAB },
       { id: 'kana', icon: 'type', route: ROUTES.KANA },
       { id: 'jaReading', icon: 'book', route: ROUTES.JA_READING },
     ],

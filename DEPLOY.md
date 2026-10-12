@@ -130,3 +130,9 @@ Known, accepted risk: `npm audit` reports a moderate issue in `sprintf-js` pulle
   `DATABASE_MIGRATION_URL` on a schedule and keep the dumps somewhere private.
 - **Logs:** Render → service → Logs. AI failures are logged with the provider's status, never with keys.
 - **Mac offline:** expect `ai_unavailable` errors for AI features; nothing else is affected.
+- **Japanese dictionary data:** `server/content/ja/vocab-data.json` is built from KANJIDIC2 (CC BY-SA 4.0)
+  and MIT-licensed JLPT lists. Refresh it about once a month with `npm run ja:vocab-data`, commit the
+  file and redeploy; the server updates the cards on startup and keeps the Vietnamese meanings. The
+  attribution on the flashcard page is required by the licence (see `server/content/ja/DATA-LICENSE.md`).
+- **Vietnamese meanings:** the dictionary ships with English only. Admin → Exam bank → "AI translate 40"
+  fills Vietnamese meanings deck by deck (uses the shared AI quota of the admin).

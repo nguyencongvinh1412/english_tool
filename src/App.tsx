@@ -35,6 +35,7 @@ import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
 import { ProfilePage } from '@/features/profile/ProfilePage';
 import { AdminPage } from '@/features/admin/AdminPage';
 import { KanaPage } from '@/features/japanese/KanaPage';
+import { VocabPage } from '@/features/japanese/VocabPage';
 import { JaDictationPage, JaListeningPage } from '@/features/japanese/JaListeningPages';
 import { JaReadingPage, JaWritingPage } from '@/features/japanese/JaReadingWritingPages';
 import { JaConversationPage, JaPronunciationPage, JaScenariosPage } from '@/features/japanese/JaSpeakingPages';
@@ -80,6 +81,7 @@ export default function App(): React.JSX.Element {
                       <Route path={ROUTES.CONVERSATION} element={<ConversationPage />} />
                       <Route path={ROUTES.SCENARIOS} element={<ScenariosPage />} />
                       <Route path={ROUTES.KANA} element={<KanaPage />} />
+                      <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
                       <Route path={ROUTES.JA_DICTATION} element={<JaDictationPage />} />
                       <Route path={ROUTES.JA_LISTENING} element={<JaListeningPage />} />
                       <Route path={ROUTES.JA_READING} element={<JaReadingPage />} />

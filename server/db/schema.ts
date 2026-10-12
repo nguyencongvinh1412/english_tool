@@ -274,7 +274,70 @@ export const examSessions = pgTable(
   (table) => [index('exam_sessions_user_started_idx').on(table.userId, table.startedAt)]
 );
 
+/**
+ * Japanese kanji and vocabulary for flashcards. Source fields come from server/content/ja/vocab-data.json
+ * (refreshed on startup); Vietnamese fields are added later by AI and kept across refreshes.
+ */
+export const vocabItems = pgTable(
+  'vocab_items',
+  {
+    /** "k:学" for kanji, "w:勉強|べんきょう (する)" for words */
+    id: text('id').primaryKey(),
+    /** kanji | word */
+    kind: text('kind').notNull(),
+    /** N5 to N1 */
+    level: text('level').notNull(),
+    /** Learning order within the level (kanji by frequency) */
+    position: integer('position').notNull(),
+    term: text('term').notNull(),
+    /** Word reading in kana */
+    reading: text('reading'),
+    readingsOn: text('readings_on').array(),
+    readingsKun: text('readings_kun').array(),
+    meaningsEn: text('meanings_en').array().notNull(),
+    strokes: integer('strokes'),
+    /** Sino-Vietnamese candidates from KANJIDIC2 */
+    hanVietOptions: text('han_viet_options').array(),
+    /** Chosen Sino-Vietnamese reading (AI picks one of the options) */
+    hanViet: text('han_viet'),
+    meaningVi: text('meaning_vi'),
+    /** Example sentence with furigana markup, and its Vietnamese translation */
+    example: text('example'),
+    exampleVi: text('example_vi'),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('vocab_items_deck_idx').on(table.kind, table.level, table.position)]
+);
+
+/**
+ * A learner's spaced-repetition state for one card
+ */
+export const srsCards = pgTable(
+  'srs_cards',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    /** learning (short steps) | review (days) */
+    state: text('state').notNull().default('learning'),
+    dueAt: timestamp('due_at', { withTimezone: true }).notNull(),
+    intervalDays: real('interval_days').notNull().default(0),
+    ease: real('ease').notNull().default(2.5),
+    reps: integer('reps').notNull().default(0),
+    lapses: integer('lapses').notNull().default(0),
+    /** First time the card was shown, for the daily new-card limit */
+    introducedAt: timestamp('introduced_at', { withTimezone: true }).notNull().defaultNow(),
+    lastReviewedAt: timestamp('last_reviewed_at', { withTimezone: true }),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.itemId] }), index('srs_cards_user_due_idx').on(table.userId, table.dueAt)]
+);
+
 export type User = typeof users.$inferSelect;
+export type VocabItem = typeof vocabItems.$inferSelect;
+export type SrsCard = typeof srsCards.$inferSelect;
 export type Attempt = typeof attempts.$inferSelect;
 export type ContentItem = typeof contentItems.$inferSelect;
 export type ExamSession = typeof examSessions.$inferSelect;

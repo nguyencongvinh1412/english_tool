@@ -299,3 +299,9 @@
   font-size: 1.25rem;
   font-weight: 500;
 }
+
+.dash-vocab__glyph {
+  font-family: var(--font-ja);
+  font-size: 1.75rem;
+  font-weight: 800;
+}

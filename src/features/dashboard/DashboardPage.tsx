@@ -4,6 +4,7 @@
  * recent activity, the four skills and mock tests
  */
 import type React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, Card, Icon, LinkButton, StatTile } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
@@ -13,6 +14,7 @@ import { ROUTES } from '@/app/routes';
 import { availableActivities, skillsFor, type SkillDefinition } from '@/features/skills/skills';
 import { RecentList, WeekChart } from '@/features/progress/ProgressWidgets';
 import { useProgress, type ProgressSummary } from '@/shared/progress';
+import { vocabApi } from '@/shared/vocabApi';
 import './dashboard.css';
 
 /**
@@ -30,6 +32,38 @@ function suggestSkill(skills: SkillDefinition[], summary: ProgressSummary | null
     return Date.parse(lastA) - Date.parse(lastB);
   })[0];
 }
+
+/**
+ * Flashcards waiting for review (Japanese only)
+ */
+const VocabDueCard: React.FC = () => {
+  const { t } = useI18n();
+  const [due, setDue] = useState<number | null>(null);
+
+  useEffect(() => {
+    vocabApi
+      .decks()
+      .then((data) => setDue(data.dueTotal))
+      .catch(() => setDue(null));
+  }, []);
+
+  return (
+    <Link to={ROUTES.JA_VOCAB} className="dash-skill-link reveal" style={{ ['--i' as string]: 7 }}>
+      <Card interactive tone="writing" className="dash-exams" padding="lg">
+        <span className="dash-skill__icon dash-vocab__glyph" style={{ background: 'var(--writing-edge)' }} lang="ja">
+          字
+        </span>
+        <div className="dash-skill__text">
+          <h3 className="dash-skill__title">{t.vocab.dashboardTitle}</h3>
+          <p className="dash-skill__description">{t.vocab.dashboardDue(due ?? 0)}</p>
+        </div>
+        <Badge tone={due ? 'warning' : 'writing'} icon="chevronRight">
+          {due ? t.vocab.due(due) : t.vocab.learn}
+        </Badge>
+      </Card>
+    </Link>
+  );
+};
 
 export const DashboardPage: React.FC = () => {
   const { t } = useI18n();
@@ -122,6 +156,8 @@ export const DashboardPage: React.FC = () => {
           {summary ? <RecentList attempts={summary.recent.slice(0, 4)} /> : <div className="dash-skeleton" />}
         </Card>
       </section>
+
+      {isJapanese && <VocabDueCard />}
 
       <h2 className="dash-section-title reveal" style={{ ['--i' as string]: 7 }}>
         {t.dashboard.skillsTitle}

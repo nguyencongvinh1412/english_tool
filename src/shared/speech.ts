@@ -86,23 +86,27 @@ export function splitSentences(text: string): string[] {
   return sentences.flatMap((s) => (s.length <= MAX_CLIP_CHARS ? [s] : (s.match(new RegExp(`.{1,${MAX_CLIP_CHARS}}(\\s|$)`, 'g')) ?? [s])));
 }
 
+/** Clip URL per voice and text, so repeated lines (flashcards coming back) skip the server */
+const clipCache = new Map<string, string>();
+const MAX_CACHED_CLIPS = 500;
+
 /**
  * Clip URLs for lines (generated on the server if needed)
  */
 async function fetchClips(lines: ScriptLine[], genders: Genders): Promise<string[]> {
   const voices = voicesFor(genders, languageOf(lines));
-  const clips: string[] = [];
-  for (let start = 0; start < lines.length; start += MAX_BATCH_LINES) {
-    const { clips: batch } = await apiFetch<{ clips: string[] }>('/api/tts/batch', {
-      method: 'POST',
-      json: {
-        // Japanese is sent as its reading (furigana), so kanji are pronounced as the lesson intends
-        lines: lines.slice(start, start + MAX_BATCH_LINES).map((line) => ({ text: readingText(line.text), voice: voices[line.speaker] })),
-      },
-    });
-    clips.push(...batch);
+  // Japanese is sent as its reading (furigana), so kanji are pronounced as the lesson intends
+  const requests = lines.map((line) => ({ text: readingText(line.text), voice: voices[line.speaker] }));
+  const keyOf = (request: { text: string; voice: string }) => `${request.voice}|${request.text}`;
+  const missing = requests.filter((request) => !clipCache.has(keyOf(request)));
+
+  for (let start = 0; start < missing.length; start += MAX_BATCH_LINES) {
+    const chunk = missing.slice(start, start + MAX_BATCH_LINES);
+    const { clips } = await apiFetch<{ clips: string[] }>('/api/tts/batch', { method: 'POST', json: { lines: chunk } });
+    if (clipCache.size > MAX_CACHED_CLIPS) clipCache.clear();
+    chunk.forEach((request, index) => clipCache.set(keyOf(request), clips[index]));
   }
-  return clips;
+  return requests.map((request) => clipCache.get(keyOf(request))!);
 }
 
 /**

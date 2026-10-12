@@ -36,4 +36,5 @@ export const ROUTES = {
   JA_PRONUNCIATION: '/japanese/pronunciation',
   JA_CONVERSATION: '/japanese/conversation',
   JA_SCENARIOS: '/japanese/scenarios',
+  JA_VOCAB: '/japanese/vocab',
 } as const;

@@ -57,6 +57,13 @@
       "when": 1791723034678,
       "tag": "0007_study_language",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791801969506,
+      "tag": "0008_vocab_srs",
+      "breakpoints": true
     }
   ]
 }

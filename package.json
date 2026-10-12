@@ -23,7 +23,8 @@
     "db:studio": "drizzle-kit studio",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
-    "storage:copy-to-s3": "tsx server/scripts/copyUploadsToS3.ts"
+    "storage:copy-to-s3": "tsx server/scripts/copyUploadsToS3.ts",
+    "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
