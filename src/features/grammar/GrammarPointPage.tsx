@@ -10,7 +10,7 @@ import { Badge, Banner, Button, Card, EmptyState, Icon, Spinner } from '@/design
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { ROUTES } from '@/app/routes';
-import { comparePath, grammarApi, grammarPath, type GrammarLink, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
+import { comparePath, grammarApi, grammarPath, type GrammarLink, type GrammarMistake, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
 import { GrammarPractice } from './GrammarPractice';
 import { speakOnce } from '@/shared/speech';
 import { TenseTimeline } from './TenseTimeline';
@@ -62,6 +62,14 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
   const [error, setError] = useState<unknown>(null);
   const [mastery, setMastery] = useState<Mastery>('none');
   const [practising, setPractising] = useState(false);
+  const [mistake, setMistake] = useState<GrammarMistake | null>(null);
+
+  useEffect(() => {
+    grammarApi
+      .mistakes()
+      .then(({ mistakes }) => setMistake(mistakes.find((m) => m.pointId === pointId) ?? null))
+      .catch(() => {});
+  }, [pointId]);
 
   useEffect(() => {
     grammarApi
@@ -125,6 +133,18 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
         </EmptyState>
       ) : (
         <>
+          {mistake && (
+            <Banner tone={mistake.urgent ? 'warning' : 'info'}>
+              {t.grammar.mistakeBanner(mistake.count)}
+              {mistake.examples[0] && (
+                <span lang="en">
+                  {' '}
+                  <s>{mistake.examples[0].wrong}</s> → <strong>{mistake.examples[0].right}</strong>
+                </span>
+              )}
+            </Banner>
+          )}
+
           {practising ? (
             <GrammarPractice
               pointId={point.id}

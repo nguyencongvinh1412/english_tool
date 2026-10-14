@@ -4,10 +4,13 @@
  */
 import type React from 'react';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import type { WritingFeedback, WritingPrompt } from '@/shared/contentApi';
+import { grammarPath } from '@/shared/grammarApi';
+import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { ChartView } from './ChartView';
 import './writing.css';
 
@@ -82,7 +85,8 @@ export const WritingPromptCard: React.FC<{ task: WritingPrompt }> = ({ task }) =
  * Annotated response, list of corrections and the improved version
  */
 export const WritingReview: React.FC<{ response: string; feedback: WritingFeedback }> = ({ response, feedback }) => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const titles = useGrammarTitles();
   return (
     <>
       <Card padding="lg">
@@ -104,6 +108,11 @@ export const WritingReview: React.FC<{ response: string; feedback: WritingFeedba
                   <p className="corrections__why">
                     <InlineMarkdown text={c.explanation} />
                   </p>
+                  {c.grammarPoint && (
+                    <Link to={grammarPath(c.grammarPoint)} className="corrections__grammar">
+                      <Icon name="graph" size={14} /> {t.grammar.revise}: {titles.get(c.grammarPoint)?.[locale] ?? c.grammarPoint}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ol>

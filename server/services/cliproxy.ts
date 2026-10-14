@@ -73,6 +73,8 @@ export interface ChatRequest {
   model?: string;
   /** Overrides the default request timeout, for long outputs like essay scoring */
   timeoutMs?: number;
+  /** Output limit; scoring in Vietnamese needs more than the default */
+  maxTokens?: number;
 }
 
 /**
@@ -215,7 +217,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
       },
       body: JSON.stringify({
         model,
-        max_tokens: MAX_TOKENS,
+        max_tokens: request.maxTokens ?? MAX_TOKENS,
         reasoning_effort: REASONING_EFFORT,
         messages: [
           { role: 'system', content: systemPrompt },

@@ -33,7 +33,7 @@ async function draft(id: string): Promise<void> {
   for (let attempt = 1; attempt <= 3; attempt++) {
     const started = Date.now();
     try {
-      const reply = await sendChatMessage({ systemPrompt: prompt.system, messages, model: MODEL, timeoutMs: 360_000 });
+      const reply = await sendChatMessage({ systemPrompt: prompt.system, messages, model: MODEL, timeoutMs: 360_000, maxTokens: 8192 });
       const content = grammarContent.parse(parseJson(reply));
       // Contrast notes must point at the confusable points
       content.contrastNotes = content.contrastNotes.filter((n) => point.contrasts?.includes(n.with));

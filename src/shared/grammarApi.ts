@@ -100,9 +100,38 @@ export interface PointProgress {
   lastScore: number | null;
 }
 
+export interface GrammarMistake {
+  pointId: string;
+  count: number;
+  lastAt: string;
+  /** Several recent mistakes and no practice since */
+  urgent: boolean;
+  examples: { wrong: string | null; right: string | null }[];
+}
+
+export interface GrammarAnswer {
+  onTopic: boolean;
+  answer: string;
+  points: GrammarLink[];
+}
+
 export const grammarApi = {
   map: () => apiFetch<GrammarMap>('/api/grammar'),
   point: (id: string) => apiFetch<{ point: GrammarPoint }>(`/api/grammar/${encodeURIComponent(id)}`),
+  mistakes: () => apiFetch<{ mistakes: GrammarMistake[] }>('/api/grammar/mistakes'),
+  tagMistakes: (mistakes: { prompt: string; correct: string; chosen?: string }[]) =>
+    apiFetch<{ points: (string | null)[] }>('/api/grammar/tag-mistakes', {
+      method: 'POST',
+      json: { mistakes, model: getSelectedModel() ?? undefined },
+    }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
+    }),
+  ask: (question: string) =>
+    apiFetch<GrammarAnswer>('/api/grammar/ask', { method: 'POST', json: { question, model: getSelectedModel() ?? undefined } }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
+    }),
   progress: () => apiFetch<{ points: PointProgress[] }>('/api/grammar/progress'),
   practice: (id: string) =>
     apiFetch<{ set: { id: string; items: PracticeItem[] } }>(`/api/grammar/${encodeURIComponent(id)}/practice`, {

@@ -3,6 +3,7 @@
  * Content bank (list, read, AI-generate), word definitions, and AI scoring for
  * writing and speaking. Scored attempts are recorded here, not by the client.
  */
+import { recordWritingMistakes, sanitizeCorrections } from '../grammar/mistakes.js';
 import { Router } from 'express';
 import { z } from 'zod';
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
@@ -10,7 +11,7 @@ import { db } from '../db/client.js';
 import { attempts, contentItems, type ContentItem, type User } from '../db/schema.js';
 import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
-import { GENERATE_TIMEOUT_MS, runAIJson, SCORING_TIMEOUT_MS } from '../services/ai.js';
+import { GENERATE_TIMEOUT_MS, runAIJson, SCORING_MAX_TOKENS, SCORING_TIMEOUT_MS } from '../services/ai.js';
 import { recordAttempt } from '../services/progress.js';
 import {
   CEFR_LEVELS,
@@ -301,7 +302,7 @@ Respond with ONLY one JSON object.`,
       const prompt = jaWritingScoringPrompt(task, body.response, localeOf(user));
       const feedback = await runAIJson(
         user,
-        { feature: 'score-writing', system: prompt.system, messages: [{ role: 'user', content: prompt.user }], model: body.model, timeoutMs: SCORING_TIMEOUT_MS },
+        { feature: 'score-writing', system: prompt.system, messages: [{ role: 'user', content: prompt.user }], model: body.model, timeoutMs: SCORING_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS },
         jaWritingFeedback
       );
       const result = await recordAttempt(user.id, {
@@ -330,9 +331,12 @@ Respond with ONLY one JSON object.`,
         messages: [{ role: 'user', content: prompt.user }],
         model: body.model,
         timeoutMs: SCORING_TIMEOUT_MS,
+        maxTokens: SCORING_MAX_TOKENS,
       },
       writingFeedback
     );
+    sanitizeCorrections(feedback);
+    await recordWritingMistakes(user.id, feedback);
 
     const words = body.response.split(/\s+/).filter(Boolean).length;
     const result = await recordAttempt(user.id, {
@@ -370,6 +374,7 @@ Respond with ONLY one JSON object.`,
         messages: [{ role: 'user', content: prompt.user }],
         model: body.model,
         timeoutMs: SCORING_TIMEOUT_MS,
+        maxTokens: SCORING_MAX_TOKENS,
       },
       speakingFeedback
     );

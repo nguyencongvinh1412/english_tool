@@ -445,7 +445,8 @@ export const bandFeedback = z.object({
 });
 
 export const writingFeedback = bandFeedback.extend({
-  corrections: capped(z.object({ original: text(300), corrected: text(300), explanation: text(400) }), 0, 15),
+  /** grammarPoint: id of the grammar point a grammar mistake belongs to (checked against the map when saved) */
+  corrections: capped(z.object({ original: text(300), corrected: text(300), explanation: text(400), grammarPoint: z.string().trim().max(60).optional() }), 0, 15),
   improvedVersion: text(4000),
 });
 

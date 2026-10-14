@@ -411,6 +411,28 @@ export const grammarProgress = pgTable(
   (table) => [primaryKey({ columns: [table.userId, table.pointId] }), index('grammar_progress_user_due_idx').on(table.userId, table.dueAt)]
 );
 
+/**
+ * Grammar mistakes a learner made, tagged with the grammar point they belong to (from AI-scored
+ * writing and from wrong test answers), so the map can say what to review
+ */
+export const grammarMistakes = pgTable(
+  'grammar_mistakes',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    pointId: text('point_id').notNull(),
+    /** writing | test */
+    source: text('source').notNull(),
+    /** What the learner wrote or chose, and the right form */
+    wrong: text('wrong'),
+    right: text('right'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('grammar_mistakes_user_idx').on(table.userId, table.createdAt)]
+);
+
 export type User = typeof users.$inferSelect;
 export type VocabItem = typeof vocabItems.$inferSelect;
 export type SrsCard = typeof srsCards.$inferSelect;

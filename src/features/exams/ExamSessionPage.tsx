@@ -9,6 +9,8 @@ import { Banner, Button, Card, Icon, Modal, ProgressBar, Spinner } from '@/desig
 import { useI18n } from '@/i18n/I18nProvider';
 import { apiFetch, errorMessage } from '@/shared/http';
 import { groupQuestionIds, type ExamSession, type ToeicPart } from '@/shared/examApi';
+import { grammarApi, grammarPath } from '@/shared/grammarApi';
+import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { ROUTES } from '@/app/routes';
 import { LocaleToggle } from '@/app/LocaleToggle';
 import { ExamGroupView } from './ExamGroupView';
@@ -216,9 +218,73 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
 /**
  * Scores and review after submit
  */
+/**
+ * Wrong Part 5 and 6 answers, as questions for the grammar tagger
+ */
+function wrongGrammarAnswers(groups: FlatGroup[], answers: Record<string, number>) {
+  return groups
+    .filter((g) => g.part === 5 || g.part === 6)
+    .flatMap((g) => {
+      const questions = (g.group.payload.questions ?? []) as { prompt: string; options: string[]; answerIndex?: number }[];
+      return questions.flatMap((q, i) => {
+        const chosen = answers[`${g.group.id}:${i}`];
+        if (q.answerIndex === undefined || chosen === undefined || chosen === q.answerIndex) return [];
+        // Part 6 questions only say "Blank [n]": the sentence comes from the passage
+        const passage = g.group.payload.passage;
+        const prompt = g.part === 6 && passage ? `${q.prompt} in: ${passage.slice(0, 500)}` : q.prompt;
+        return [{ prompt, correct: q.options[q.answerIndex], chosen: q.options[chosen] }];
+      });
+    });
+}
+
+/**
+ * Finds the grammar points behind the wrong answers
+ */
+const GrammarHelp: React.FC<{ mistakes: ReturnType<typeof wrongGrammarAnswers> }> = ({ mistakes }) => {
+  const { t, locale } = useI18n();
+  const titles = useGrammarTitles();
+  const [state, setState] = useState<'idle' | 'busy' | { points: string[] } | { error: unknown }>('idle');
+  if (mistakes.length === 0) return null;
+
+  const find = async () => {
+    setState('busy');
+    try {
+      const { points } = await grammarApi.tagMistakes(mistakes.slice(0, 15));
+      setState({ points: [...new Set(points.filter((p): p is string => p !== null))] });
+    } catch (error) {
+      setState({ error });
+    }
+  };
+
+  return (
+    <Card padding="lg" className="exam-grammar">
+      <h2 className="exams__section-title">{t.grammar.testHelpTitle}</h2>
+      <p>{t.grammar.testHelpBody(mistakes.length)}</p>
+      {state === 'idle' || state === 'busy' ? (
+        <Button icon="graph" onClick={() => void find()} loading={state === 'busy'}>
+          {t.grammar.testHelpButton}
+        </Button>
+      ) : 'error' in state ? (
+        <Banner tone="danger">{errorMessage(state.error, t)}</Banner>
+      ) : state.points.length === 0 ? (
+        <p>{t.grammar.testHelpNone}</p>
+      ) : (
+        <div className="grammar-links__items">
+          {state.points.map((id) => (
+            <Link key={id} to={grammarPath(id)} className="grammar-chip">
+              {titles.get(id)?.[locale] ?? id}
+            </Link>
+          ))}
+        </div>
+      )}
+    </Card>
+  );
+};
+
 const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
   const { t } = useI18n();
   const groups = useMemo(() => flatten(session), [session]);
+  const grammarMistakes = useMemo(() => wrongGrammarAnswers(groups, session.answers), [groups, session.answers]);
   const result = session.result;
   if (!result) return null;
 
@@ -276,6 +342,8 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
             ))}
           </ul>
         </Card>
+
+        <GrammarHelp mistakes={grammarMistakes} />
 
         <h2 className="exams__section-title">{t.exams.review}</h2>
         {groups.map((g) => (

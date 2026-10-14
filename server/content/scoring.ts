@@ -4,6 +4,7 @@
  */
 import type { z } from 'zod';
 import type { jaWriting, speakingIelts, writingPrompt } from './schemas.js';
+import { pointCatalog } from '../grammar/mistakes.js';
 
 type Locale = 'en' | 'vi';
 
@@ -82,7 +83,9 @@ Return:
  "improvements": ["specific, actionable advice"],
  "corrections": [{"original": "exact phrase from the response", "corrected": "...", "explanation": "..."}],
  "improvedVersion": "a rewritten version of the learner's response at about one band higher, keeping their ideas"}
-List up to 10 of the most important corrections; "original" must be copied exactly from the response.`,
+List up to 10 of the most important corrections; "original" must be copied exactly from the response.
+For a correction that is a GRAMMAR mistake add "grammarPoint": ONE id from this list (leave it out for spelling, vocabulary or style):
+${pointCatalog()}.`,
   };
 }
 

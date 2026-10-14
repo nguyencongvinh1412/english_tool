@@ -50,6 +50,8 @@ export interface RunAIOptions {
   model?: string;
   /** Request timeout; long outputs (scoring, generation) need more than chat */
   timeoutMs?: number;
+  /** Output limit for long answers (scoring feedback with corrections and a rewritten text) */
+  maxTokens?: number;
 }
 
 /** Message CLIProxyAPI errors carry when the model returned no text */
@@ -58,6 +60,8 @@ const EMPTY_REPLY_MESSAGE = 'No text content in AI response';
 /** Timeouts for long AI outputs */
 export const GENERATE_TIMEOUT_MS = 75_000;
 export const SCORING_TIMEOUT_MS = 120_000;
+/** Feedback with corrections and an improved version is long, especially in Vietnamese */
+export const SCORING_MAX_TOKENS = 8192;
 
 /**
  * Runs one AI request on behalf of a user
@@ -73,6 +77,7 @@ export async function runAI(user: User, options: RunAIOptions): Promise<string> 
       systemPrompt: options.system,
       model,
       timeoutMs: options.timeoutMs,
+      maxTokens: options.maxTokens,
     });
     await recordUsage(user, options.feature);
     return reply;

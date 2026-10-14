@@ -11,13 +11,22 @@ import { recordAttempt } from '../services/progress.js';
 import { NEW_POINT, PRACTICE_KIND, generatePracticeSet, masteryOf, schedulePoint, unseenPracticeSet } from '../grammar/practice.js';
 import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
-import { runAIJson } from '../services/ai.js';
+import { runAIJson, SCORING_MAX_TOKENS } from '../services/ai.js';
 import { GRAMMAR_CLUSTERS, GRAMMAR_POINTS, grammarEdges, type GrammarPointMeta } from '../grammar/map.js';
 import { grammarContent, grammarDraftPrompt, type GrammarContent } from '../grammar/content.js';
+import { answerGrammarQuestion, recentMistakes, tagTestMistakes } from '../grammar/mistakes.js';
 
 const STATUSES = ['draft', 'reviewed'] as const;
 const saveSchema = z.object({ content: grammarContent, status: z.enum(STATUSES) });
 const draftSchema = z.object({ model: z.string().max(100).optional() });
+const tagSchema = z.object({
+  mistakes: z
+    .array(z.object({ prompt: z.string().trim().min(1).max(600), correct: z.string().trim().min(1).max(200), chosen: z.string().trim().max(200).optional() }))
+    .min(1)
+    .max(15),
+  model: z.string().max(100).optional(),
+});
+const askSchema = z.object({ question: z.string().trim().min(3).max(400), model: z.string().max(100).optional() });
 const resultSchema = z.object({
   correct: z.number().int().min(0).max(50),
   total: z.number().int().min(1).max(50),
@@ -84,6 +93,30 @@ export function createGrammarRouter(): Router {
         lastScore: r.lastScore,
       })),
     });
+  });
+
+  /**
+   * GET /grammar/mistakes - Grammar points the learner got wrong recently, and which to review now
+   */
+  router.get('/grammar/mistakes', requireAuth, async (req, res) => {
+    res.json({ mistakes: await recentMistakes(currentUser(req).id) });
+  });
+
+  /**
+   * POST /grammar/tag-mistakes - Finds the grammar point behind wrong test answers and records them
+   */
+  router.post('/grammar/tag-mistakes', requireAuth, limitAiRequests, async (req, res) => {
+    const body = tagSchema.parse(req.body);
+    res.json({ points: await tagTestMistakes(currentUser(req), body.mistakes, body.model) });
+  });
+
+  /**
+   * POST /grammar/ask - Answer a grammar question with links to the points that explain it
+   */
+  router.post('/grammar/ask', requireAuth, limitAiRequests, async (req, res) => {
+    const body = askSchema.parse(req.body);
+    const result = await answerGrammarQuestion(currentUser(req), body.question, body.model);
+    res.json({ ...result, points: result.points.map((id) => linkOf(id)).filter((l) => l !== null) });
   });
 
   /**
@@ -212,7 +245,7 @@ export function createGrammarRouter(): Router {
     const prompt = grammarDraftPrompt(meta);
     const content = await runAIJson(
       currentUser(req),
-      { feature: 'grammar-draft', model, timeoutMs: 240_000, system: prompt.system, messages: [{ role: 'user', content: prompt.user }] },
+      { feature: 'grammar-draft', model, timeoutMs: 240_000, maxTokens: SCORING_MAX_TOKENS, system: prompt.system, messages: [{ role: 'user', content: prompt.user }] },
       grammarContent
     );
     content.contrastNotes = content.contrastNotes.filter((n) => meta.contrasts?.includes(n.with));

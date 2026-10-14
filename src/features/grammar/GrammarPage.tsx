@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import { Badge, Banner, Card, Icon, PageHeader, Segmented, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
-import { comparePath, decidePath, grammarApi, grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type Mastery, type PointProgress } from '@/shared/grammarApi';
+import { comparePath, decidePath, grammarApi, grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type GrammarMistake, type Mastery, type PointProgress } from '@/shared/grammarApi';
 import { DECISION_TREES } from './decisions';
+import { GrammarAsk } from './GrammarAsk';
 import { GrammarMap } from './GrammarMap';
 import './grammar.css';
 
@@ -40,12 +41,17 @@ export const GrammarPage: React.FC = () => {
   const [query, setQuery] = useState('');
   const [view, setView] = useState<View>(() => (window.matchMedia?.(WIDE).matches ? 'map' : 'list'));
   const [progress, setProgress] = useState<PointProgress[]>([]);
+  const [mistakes, setMistakes] = useState<GrammarMistake[]>([]);
 
   useEffect(() => {
     grammarApi.map().then(setData).catch(setError);
     grammarApi
       .progress()
       .then(({ points }) => setProgress(points))
+      .catch(() => {});
+    grammarApi
+      .mistakes()
+      .then((result) => setMistakes(result.mistakes))
       .catch(() => {});
   }, []);
 
@@ -67,6 +73,30 @@ export const GrammarPage: React.FC = () => {
       <PageHeader eyebrow="Grammar" title={t.grammar.title} description={t.grammar.intro} />
       {error !== null && <Banner tone="danger">{errorMessage(error, t)}</Banner>}
 
+      {mistakes.length > 0 && (
+        <Card padding="lg" className="grammar-mistakes-card">
+          <h2>
+            <Icon name="flag" size={20} /> {t.grammar.mistakesTitle}
+          </h2>
+          <p className="grammar__hint">{t.grammar.mistakesIntro}</p>
+          <ul className="grammar-mistakes-card__list">
+            {mistakes.slice(0, 6).map((m) => (
+              <li key={m.pointId}>
+                <Link to={grammarPath(m.pointId)} className="grammar-chip">
+                  {titleOf(m.pointId)} <span>×{m.count}</span>
+                </Link>
+                {m.examples[0] && (
+                  <span className="grammar-mistakes-card__example" lang="en">
+                    <s>{m.examples[0].wrong}</s> → {m.examples[0].right}
+                  </span>
+                )}
+                {m.urgent && <Badge tone="danger">{t.grammar.reviewNow}</Badge>}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
+
       {due.length > 0 && (
         <Card padding="lg" className="grammar-due">
           <h2>
@@ -81,6 +111,8 @@ export const GrammarPage: React.FC = () => {
           </div>
         </Card>
       )}
+
+      <GrammarAsk />
 
       <section className="grammar-tools">
         <h2 className="en-group__title">{t.grammar.toolsTitle}</h2>

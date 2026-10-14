@@ -3,12 +3,13 @@
  * Test structure, blueprint assembly from the content bank, answer hiding,
  * objective scoring with band estimates, and background AI grading of writing and speaking
  */
+import { recordWritingMistakes, sanitizeCorrections } from '../grammar/mistakes.js';
 import { and, eq, inArray, ne, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems, examSessions, users, type ContentItem, type ExamSession } from '../db/schema.js';
 import { normalizeAnswer, speakingFeedback, speakingIelts, writingFeedback, writingPrompt, type IeltsQuestion } from '../content/schemas.js';
 import { speakingScoringPrompt, writingScoringPrompt } from '../content/scoring.js';
-import { runAIJson, SCORING_TIMEOUT_MS } from '../services/ai.js';
+import { runAIJson, SCORING_MAX_TOKENS, SCORING_TIMEOUT_MS } from '../services/ai.js';
 import { recordAttempt } from '../services/progress.js';
 
 export const IELTS_COMPONENTS = ['listening', 'reading', 'writing', 'speaking'] as const;
@@ -389,9 +390,11 @@ export async function gradeIeltsSession(sessionId: string, model?: string): Prom
           const prompt = writingScoringPrompt(writingPrompt.parse(item.payload), essay, locale);
           const feedback = await runAIJson(
             user,
-            { feature: 'score-writing', model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: SCORING_TIMEOUT_MS },
+            { feature: 'score-writing', model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: SCORING_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS },
             writingFeedback
           );
+          sanitizeCorrections(feedback);
+          await recordWritingMistakes(user.id, feedback);
           return { ...task, band: feedback.overallBand, feedback };
         })
       );
@@ -420,7 +423,7 @@ export async function gradeIeltsSession(sessionId: string, model?: string): Prom
       const prompt = speakingScoringPrompt(speakingIelts.parse(item.payload), spoken, locale);
       const feedback = await runAIJson(
         user,
-        { feature: 'score-speaking', model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: SCORING_TIMEOUT_MS },
+        { feature: 'score-speaking', model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: SCORING_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS },
         speakingFeedback
       );
       await save({ speaking: { ...speaking, status: 'done', band: feedback.overallBand, feedback } });

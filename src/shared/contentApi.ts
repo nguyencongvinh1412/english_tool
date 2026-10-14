@@ -177,7 +177,7 @@ export interface BandFeedback {
 }
 
 export interface WritingFeedback extends BandFeedback {
-  corrections: { original: string; corrected: string; explanation: string }[];
+  corrections: { original: string; corrected: string; explanation: string; /** Grammar point id on the grammar map */ grammarPoint?: string }[];
   improvedVersion: string;
 }
 
