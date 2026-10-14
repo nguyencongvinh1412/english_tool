@@ -1,0 +1,200 @@
+{
+  "summary": {
+    "en": "Inversion after negative or restrictive adverbials (never, rarely, seldom, hardly, no sooner, not only, only then, under no circumstances) puts the auxiliary verb before the subject. It is used for emphasis and is typical of formal or written English, and of dramatic or literary style.",
+    "vi": "Đảo ngữ sau các trạng từ phủ định hoặc hạn định (never, rarely, seldom, hardly, no sooner, not only, only then, under no circumstances) đưa trợ động từ lên trước chủ ngữ. Cấu trúc này dùng để nhấn mạnh và thường gặp trong văn viết trang trọng, văn chương hoặc khi muốn diễn đạt kịch tính."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative (negative adverb at the start)",
+        "vi": "Khẳng định (trạng từ phủ định đứng đầu câu)"
+      },
+      "pattern": "Never + aux/modal + S + V (base form)",
+      "example": {
+        "en": "Never have I seen such a beautiful sunset.",
+        "vi": "Chưa bao giờ tôi thấy một hoàng hôn đẹp đến thế."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with simple past (use DID)",
+        "vi": "Khẳng định với thì quá khứ đơn (dùng DID)"
+      },
+      "pattern": "Rarely + did + S + V (base form)",
+      "example": {
+        "en": "Rarely did she complain, even when the work was hard.",
+        "vi": "Cô ấy hiếm khi phàn nàn, ngay cả khi công việc rất vất vả."
+      }
+    },
+    {
+      "label": {
+        "en": "With the verb 'be' (no extra auxiliary)",
+        "vi": "Với động từ 'be' (không cần trợ động từ thêm)"
+      },
+      "pattern": "Seldom + be (am/is/are/was/were) + S + complement",
+      "example": {
+        "en": "Seldom are mistakes made by such careful workers.",
+        "vi": "Những người làm việc cẩn thận như vậy hiếm khi mắc lỗi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative (the negative adverb replaces 'not')",
+        "vi": "Phủ định (trạng từ phủ định thay cho 'not')"
+      },
+      "pattern": "Hardly + had + S + V(past participle) + when/before + S + V(past simple)",
+      "example": {
+        "en": "Hardly had we arrived when it started to rain.",
+        "vi": "Chúng tôi vừa đến nơi thì trời bắt đầu mưa."
+      }
+    },
+    {
+      "label": {
+        "en": "Question-like structure with 'only'",
+        "vi": "Cấu trúc như câu hỏi với 'only'"
+      },
+      "pattern": "Only then + aux + S + V (base form)",
+      "example": {
+        "en": "Only then did I realise how much I had missed her.",
+        "vi": "Mãi lúc đó tôi mới nhận ra mình nhớ cô ấy nhiều đến nhường nào."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Emphasising frequency or rarity",
+        "vi": "Nhấn mạnh tần suất hoặc mức độ hiếm hoi"
+      },
+      "explanation": {
+        "en": "Adverbs such as never, rarely, seldom and hardly placed at the front of the sentence stress how unusual an event is. The inverted word order makes the statement sound more dramatic than the normal order would.",
+        "vi": "Các trạng từ như never, rarely, seldom và hardly đặt ở đầu câu nhấn mạnh sự hiếm hoi của sự việc. Trật tự đảo làm câu nghe kịch tính hơn so với trật tự thông thường."
+      },
+      "examples": [
+        {
+          "en": "Never have I been so embarrassed in my life.",
+          "vi": "Đời tôi chưa bao giờ xấu hổ đến thế."
+        },
+        {
+          "en": "Seldom does the committee reach a decision so quickly.",
+          "vi": "Ủy ban hiếm khi đi đến quyết định nhanh như vậy."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Linking 'no sooner' and 'hardly' with 'than' or 'when'",
+        "vi": "Dùng 'no sooner' và 'hardly' với 'than' hoặc 'when'"
+      },
+      "explanation": {
+        "en": "No sooner and hardly express that one action happened immediately before another. The main clause is inverted, and the second clause uses than (with no sooner) or when/before (with hardly).",
+        "vi": "No sooner và hardly diễn tả một hành động xảy ra ngay trước hành động khác. Mệnh đề chính bị đảo ngữ, còn mệnh đề sau dùng than (với no sooner) hoặc when/before (với hardly)."
+      },
+      "examples": [
+        {
+          "en": "No sooner had the train left than the rain started.",
+          "vi": "Tàu vừa rời ga thì trời bắt đầu mưa."
+        },
+        {
+          "en": "Hardly had she sat down when the phone rang.",
+          "vi": "Cô ấy vừa ngồi xuống thì điện thoại reo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Restrictive expressions with 'only'",
+        "vi": "Các cụm hạn định với 'only'"
+      },
+      "explanation": {
+        "en": "When only opens a time phrase or a adverbial of reason or manner, the sentence is inverted. This structure highlights the condition or moment that made something possible or clear.",
+        "vi": "Khi only đứng đầu một cụm chỉ thời gian, lý do hoặc cách thức, câu được đảo ngữ. Cấu trúc này nhấn mạnh điều kiện hoặc thời điểm khiến một việc trở nên khả thi hoặc sáng tỏ."
+      },
+      "examples": [
+        {
+          "en": "Only after the exam did she relax.",
+          "vi": "Mãi sau kỳ thi cô ấy mới thư giãn."
+        },
+        {
+          "en": "Only by practising every day can you master the pronunciation.",
+          "vi": "Chỉ khi luyện tập mỗi ngày bạn mới làm chủ được phát âm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Negative phrases with 'not only' and 'under no circumstances'",
+        "vi": "Các cụm phủ định với 'not only' và 'under no circumstances'"
+      },
+      "explanation": {
+        "en": "Phrases such as not only, under no circumstances, on no account and in no way are placed at the start of the clause to add force. The inversion applies to the clause that follows, and the negative word is never followed by a normal subject-verb order.",
+        "vi": "Các cụm như not only, under no circumstances, on no account và in no way đứng đầu mệnh đề để tăng sức nhấn mạnh. Mệnh đề theo sau được đảo ngữ, và không bao giờ dùng trật tự chủ ngữ - động từ thông thường sau các cụm này."
+      },
+      "examples": [
+        {
+          "en": "Under no circumstances should you open the door to strangers.",
+          "vi": "Trong bất kỳ hoàn cảnh nào bạn cũng không được mở cửa cho người lạ."
+        },
+        {
+          "en": "Not only did he lose the match, but he also injured his knee.",
+          "vi": "Anh ấy không những thua trận mà còn bị thương ở đầu gối."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "never",
+    "rarely",
+    "seldom",
+    "hardly",
+    "scarcely",
+    "no sooner",
+    "not only",
+    "only then",
+    "only after",
+    "only by",
+    "under no circumstances",
+    "on no account",
+    "in no way",
+    "little (meaning 'not much')"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Never I have seen such a thing.",
+      "right": "Never have I seen such a thing.",
+      "why": {
+        "en": "After a negative adverb at the start, the auxiliary verb must come before the subject. Keeping the normal word order is a direct transfer from Vietnamese and is ungrammatical here.",
+        "vi": "Sau trạng từ phủ định đứng đầu câu, trợ động từ phải đứng trước chủ ngữ. Giữ trật tự thông thường là lỗi chuyển từ tiếng Việt sang và không đúng ngữ pháp trong trường hợp này."
+      }
+    },
+    {
+      "wrong": "Rarely she complains about the noise.",
+      "right": "Rarely does she complain about the noise.",
+      "why": {
+        "en": "Inversion needs a helping verb (do/does/did) when the main verb is not be or a modal. Learners often forget to add it and leave the subject-verb order unchanged.",
+        "vi": "Đảo ngữ cần có trợ động từ (do/does/did) khi động từ chính không phải là be hoặc động từ khuyết thiếu. Người học thường quên thêm trợ động từ và giữ nguyên trật tự chủ ngữ - động từ."
+      }
+    },
+    {
+      "wrong": "Hardly had we arrived when it started to rain.",
+      "right": "Hardly had we arrived when it started to rain.",
+      "why": {
+        "en": "This sentence is correct. The mistake to avoid is using 'than' with hardly or 'when' with no sooner; in 'no sooner ... than' and 'hardly ... when/before' the pairings are fixed.",
+        "vi": "Câu này đúng. Lỗi cần tránh là dùng 'than' với hardly hoặc 'when' với no sooner; cặp 'no sooner ... than' và 'hardly ... when/before' là các cấu trúc cố định."
+      }
+    },
+    {
+      "wrong": "Only after the exam she relaxed.",
+      "right": "Only after the exam did she relax.",
+      "why": {
+        "en": "When only opens a time or reason phrase, the subject and auxiliary are inverted. Learners often put the subject before the auxiliary, as in a normal statement.",
+        "vi": "Khi only đứng đầu cụm chỉ thời gian hoặc lý do, chủ ngữ và trợ động từ phải đảo. Người học thường đặt chủ ngữ trước trợ động từ như câu khẳng định thông thường."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think of the negative word as pulling the helping verb to the front, like a magnet: 'Never / Rarely / Hardly' + the helper (have, does, had) + the subject. Practise by rewriting ordinary sentences such as 'I have never seen it' as 'Never have I seen it.'",
+    "vi": "Hãy hình dung từ phủ định như một nam châm kéo trợ động từ lên đầu câu: 'Never / Rarely / Hardly' + trợ động từ (have, does, had) + chủ ngữ. Luyện tập bằng cách viết lại câu thường như 'I have never seen it' thành 'Never have I seen it.'"
+  }
+}

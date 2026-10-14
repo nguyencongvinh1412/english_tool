@@ -8,7 +8,7 @@ import { z } from 'zod';
 dotenv.config({ quiet: true });
 
 /** Default models learners may use when an admin has not assigned any */
-const DEFAULT_LEARNER_MODELS = 'claude-haiku-5-5,gemini-3-flash,gpt-5.5';
+const DEFAULT_LEARNER_MODELS = 'claude-haiku-5-5,gemini-3-flash,claude-sonnet-5-5';
 
 /** Default AI requests per learner per day */
 const DEFAULT_LEARNER_DAILY_AI_LIMIT = 100;

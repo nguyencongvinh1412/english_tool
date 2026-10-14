@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "en": "A cleft sentence splits a simple sentence into two parts using 'It is/was + focus + that/who/which' to put one element (subject, object, adverbial) under emphasis. Use it to highlight new information, correct a misunderstanding, or contrast one element with another.",
+    "vi": "Câu chẻ tách một câu đơn thành hai phần bằng cấu trúc 'It is/was + thành phần được nhấn mạnh + that/who/which', nhằm đưa một thành phần (chủ ngữ, tân ngữ hoặc trạng ngữ) lên trọng tâm. Dùng khi muốn nhấn mạnh thông tin mới, đính chính một hiểu nhầm, hoặc đối chiếu một thành phần với thành phần khác."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative (subject focus)",
+        "vi": "Khẳng định (nhấn mạnh chủ ngữ)"
+      },
+      "pattern": "It + be + S (focus) + who/that + V + O",
+      "example": {
+        "en": "It was my sister who broke the vase.",
+        "vi": "Chính em gái tôi là người làm vỡ chiếc bình."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative (object focus)",
+        "vi": "Khẳng định (nhấn mạnh tân ngữ)"
+      },
+      "pattern": "It + be + O (focus) + that + S + V",
+      "example": {
+        "en": "It was the report that the manager rejected, not the proposal.",
+        "vi": "Thứ mà quản lý đã từ chối là bản báo cáo, chứ không phải đề xuất."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative (adverbial focus)",
+        "vi": "Khẳng định (nhấn mạnh trạng ngữ)"
+      },
+      "pattern": "It + be + adverbial (time/place/reason) + that + S + V",
+      "example": {
+        "en": "It was in 2019 that the company first expanded into Asia.",
+        "vi": "Chính vào năm 2019, công ty lần đầu mở rộng sang châu Á."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "It is/was not + focus + that/who + S + V (the negation usually goes on the focus, or on the verb in the original clause)",
+      "example": {
+        "en": "It wasn't the weather that caused the delay; it was the strike.",
+        "vi": "Không phải thời tiết gây ra sự chậm trễ; mà là cuộc đình công."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Nghi vấn"
+      },
+      "pattern": "Is/Was it + focus + that/who + S + V?",
+      "example": {
+        "en": "Was it Tom who told you about the meeting?",
+        "vi": "Có phải Tom là người đã nói với bạn về cuộc họp không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Emphasising new information",
+        "vi": "Nhấn mạnh thông tin mới"
+      },
+      "explanation": {
+        "en": "The focus element answers an implicit question such as 'Who/What/When/Where/Why…?'. The cleft places that answer at the centre of attention.",
+        "vi": "Thành phần được nhấn mạnh trả lời một câu hỏi ngầm như 'Ai/Cái gì/Khi nào/Ở đâu/Tại sao...?'. Câu chẻ đặt câu trả lời đó vào trung tâm sự chú ý."
+      },
+      "examples": [
+        {
+          "en": "It was the rain that ruined the wedding, not the caterer.",
+          "vi": "Chính cơn mưa đã phá hỏng đám cưới, chứ không phải đơn vị phục vụ tiệc."
+        },
+        {
+          "en": "It's dedication that separates good students from excellent ones.",
+          "vi": "Chính sự tận tâm mới phân biệt học sinh giỏi với học sinh xuất sắc."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Correcting a misunderstanding or contrasting",
+        "vi": "Đính chính hoặc đối chiếu"
+      },
+      "explanation": {
+        "en": "When someone has assumed the wrong element, a cleft allows you to correct it directly. It is often followed by 'not', 'rather than' or 'but' to make the contrast explicit.",
+        "vi": "Khi ai đó đã giả định sai về một thành phần, câu chẻ cho phép bạn đính chính trực tiếp. Thường đi kèm 'not', 'rather than' hoặc 'but' để làm rõ sự đối lập."
+      },
+      "examples": [
+        {
+          "en": "It was Ben who called, not Anna.",
+          "vi": "Người gọi là Ben, chứ không phải Anna."
+        },
+        {
+          "en": "It's the policy itself that's flawed, rather than its implementation.",
+          "vi": "Chính bản thân chính sách mới có sai sót, chứ không phải cách thực thi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Highlighting time, place or reason",
+        "vi": "Nhấn mạnh thời gian, địa điểm hoặc lý do"
+      },
+      "explanation": {
+        "en": "Adverbials of time, place and reason are often clefted with 'that' (or 'when/where' in some cases). This makes the circumstance stand out, especially in explanations or narratives.",
+        "vi": "Trạng ngữ chỉ thời gian, địa điểm và lý do thường được chẻ với 'that' (hoặc 'when/where' trong một số trường hợp). Điều này làm nổi bật hoàn cảnh, đặc biệt trong giải thích hoặc kể chuyện."
+      },
+      "examples": [
+        {
+          "en": "It was because of the storm that the flights were cancelled.",
+          "vi": "Chính vì cơn bão mà các chuyến bay đã bị hủy."
+        },
+        {
+          "en": "It was on that rainy morning that she first realised the truth.",
+          "vi": "Chính vào buổi sáng mưa hôm đó, cô ấy lần đầu nhận ra sự thật."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Structuring emphasis in writing and speaking",
+        "vi": "Tạo trọng tâm trong văn viết và nói"
+      },
+      "explanation": {
+        "en": "A cleft can be used to build tension or signal a key point, for example in argumentative writing. Use sparingly: overuse weakens its impact.",
+        "vi": "Câu chẻ có thể dùng để tạo độ căng hoặc đánh dấu luận điểm then chốt, ví dụ trong văn nghị luận. Nên dùng tiết chế, vì lạm dụng sẽ làm giảm hiệu quả nhấn mạnh."
+      },
+      "examples": [
+        {
+          "en": "It is this lack of transparency that undermines public trust.",
+          "vi": "Chính sự thiếu minh bạch này làm xói mòn niềm tin của công chúng."
+        },
+        {
+          "en": "What it boils down to is whether we can afford the delay.",
+          "vi": "Điều cốt lõi nằm ở chỗ liệu chúng ta có đủ khả năng chịu được sự trì hoãn hay không."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "It is/was + noun phrase/adverbial + that/who/which",
+    "'not X but Y' or 'not X, it's Y' after the cleft",
+    "A contrast with a previous or implied alternative",
+    "Implied question: Who/What/When/Where/Why…?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "It was my brother who break the window.",
+      "right": "It was my brother who broke the window.",
+      "why": {
+        "en": "The verb inside the relative clause keeps its normal tense. Here the past tense 'broke' is needed because the event is in the past; the cleft's 'was' does not change the verb.",
+        "vi": "Động từ trong mệnh đề quan hệ giữ nguyên thì bình thường. Ở đây cần quá khứ 'broke' vì sự việc xảy ra trong quá khứ; 'was' của câu chẻ không làm thay đổi động từ phía sau."
+      }
+    },
+    {
+      "wrong": "It is important that the people who we need to make a decision.",
+      "right": "It is the people we need to convince who make the decision.",
+      "why": {
+        "en": "Learners often clefts incorrectly or leave the main verb out. Keep one clear focus and a complete clause after 'that/who'. Here, the sentence needs a complete main verb ('make') for the subject 'the people'.",
+        "vi": "Người học thường chẻ sai hoặc bỏ mất động từ chính. Chỉ nên có một thành phần được nhấn mạnh rõ ràng, và phần sau 'that/who' phải là một mệnh đề đầy đủ. Ở đây, chủ ngữ 'the people' cần có động từ chính 'make'."
+      }
+    },
+    {
+      "wrong": "It was in London that I am born.",
+      "right": "It was in London that I was born.",
+      "why": {
+        "en": "The verb in the clause after 'that' must agree with the time frame of the sentence. Since 'It was' sets a past focus, the verb should be past ('was born'), and the passive form is needed here.",
+        "vi": "Động từ trong mệnh đề sau 'that' phải phù hợp với thời gian của câu. Vì 'It was' tạo trọng tâm quá khứ, động từ phải ở quá khứ ('was born'), và cần dạng bị động ở đây."
+      }
+    },
+    {
+      "wrong": "It was the teacher who she praised the students.",
+      "right": "It was the students whom the teacher praised.",
+      "why": {
+        "en": "When the focus is the object, the clause after 'that/who' should not contain the object again. Here 'the students' is the focus, so the rest of the clause must be complete without repeating it, and the order should be subject-verb-object.",
+        "vi": "Khi trọng tâm là tân ngữ, mệnh đề sau 'that/who' không được lặp lại tân ngữ đó. Ở đây 'the students' là trọng tâm, nên phần còn lại phải đầy đủ mà không lặp lại, và trật tự phải là chủ ngữ-động từ-tân ngữ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Build the cleft by asking 'What am I emphasising?' Put 'It is/was' + that element, then add 'that/who' and the rest of the original sentence in its normal form.",
+    "vi": "Hãy tự hỏi 'Mình đang nhấn mạnh điều gì?' Đặt 'It is/was' trước thành phần đó, rồi thêm 'that/who' và phần còn lại của câu gốc giữ nguyên dạng bình thường."
+  }
+}

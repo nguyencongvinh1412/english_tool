@@ -1,0 +1,202 @@
+{
+  "summary": {
+    "en": "The verb must agree with its subject in number: a singular subject takes a singular verb, and a plural subject takes a plural verb. Use it in every present simple sentence and with the verb 'be' (and 'have') in present and past.",
+    "vi": "Động từ phải hòa hợp với chủ ngữ về số: chủ ngữ số ít đi với động từ số ít, chủ ngữ số nhiều đi với động từ số nhiều. Dùng trong mọi câu hiện tại đơn và với động từ 'be' (và 'have') ở hiện tại và quá khứ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "He/She/It/Singular noun + V(s/es) | I/You/We/They/Plural noun + V",
+      "example": {
+        "en": "My sister works in a bank, and my parents work in a school.",
+        "vi": "Chị gái tôi làm việc ở ngân hàng, còn bố mẹ tôi làm việc ở trường học."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "Singular subject + doesn't + V | Plural subject + don't + V",
+      "example": {
+        "en": "The shop doesn't open on Sundays, but the cafés don't close.",
+        "vi": "Cửa hàng không mở cửa vào Chủ nhật, nhưng các quán cà phê thì không đóng cửa."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Does + singular subject + V? | Do + plural subject + V?",
+      "example": {
+        "en": "Does your brother play football? Do your friends play too?",
+        "vi": "Anh trai bạn có chơi bóng đá không? Bạn bè của bạn có chơi nữa không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Verb 'be'",
+        "vi": "Động từ 'be'"
+      },
+      "pattern": "I am / He, She, It is / You, We, They are (past: was / were)",
+      "example": {
+        "en": "The book is on the table, and the keys are in my bag.",
+        "vi": "Quyển sách ở trên bàn, còn chìa khóa ở trong túi của tôi."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Third person singular -s/-es",
+        "vi": "Ngôi thứ ba số ít thêm -s/-es"
+      },
+      "explanation": {
+        "en": "In the present simple, add -s or -es to the verb after he, she, it and singular nouns. Use 'has' instead of 'have' and 'does' instead of 'do'.",
+        "vi": "Ở hiện tại đơn, thêm -s hoặc -es vào động từ sau he, she, it và danh từ số ít. Dùng 'has' thay cho 'have' và 'does' thay cho 'do'."
+      },
+      "examples": [
+        {
+          "en": "She watches TV every evening.",
+          "vi": "Cô ấy xem TV mỗi tối."
+        },
+        {
+          "en": "He has two cats.",
+          "vi": "Anh ấy có hai con mèo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Subjects joined by 'and' or 'or/nor'",
+        "vi": "Chủ ngữ nối bằng 'and' hoặc 'or/nor'"
+      },
+      "explanation": {
+        "en": "Two subjects joined by 'and' take a plural verb. With 'or', 'nor', 'either...or' and 'neither...nor', the verb agrees with the subject closer to it.",
+        "vi": "Hai chủ ngữ nối bằng 'and' dùng động từ số nhiều. Với 'or', 'nor', 'either...or', 'neither...nor', động từ hòa hợp với chủ ngữ gần nó nhất."
+      },
+      "examples": [
+        {
+          "en": "Tom and Anna are late.",
+          "vi": "Tom và Anna đến muộn."
+        },
+        {
+          "en": "Either the teacher or the students are wrong.",
+          "vi": "Hoặc giáo viên hoặc các học sinh đã sai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Words between the subject and the verb",
+        "vi": "Từ chen giữa chủ ngữ và động từ"
+      },
+      "explanation": {
+        "en": "Phrases such as 'of the class', 'with his friends' or 'as well as' do not change the verb. Find the real subject (the head noun) and agree with it.",
+        "vi": "Các cụm như 'of the class', 'with his friends' hay 'as well as' không làm đổi động từ. Hãy tìm chủ ngữ chính (danh từ trung tâm) và chia theo nó."
+      },
+      "examples": [
+        {
+          "en": "The box of old photos is under the bed.",
+          "vi": "Hộp ảnh cũ ở dưới gầm giường."
+        },
+        {
+          "en": "The manager, together with her team, is attending the meeting.",
+          "vi": "Quản lý cùng với nhóm của cô ấy đang tham dự cuộc họp."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Indefinite pronouns and uncountable nouns",
+        "vi": "Đại từ bất định và danh từ không đếm được"
+      },
+      "explanation": {
+        "en": "Everyone, someone, nobody, everything, each and every take a singular verb. Uncountable nouns (water, information, advice) also take a singular verb.",
+        "vi": "Everyone, someone, nobody, everything, each và every đi với động từ số ít. Danh từ không đếm được (water, information, advice) cũng đi với động từ số ít."
+      },
+      "examples": [
+        {
+          "en": "Everyone likes this song.",
+          "vi": "Mọi người đều thích bài hát này."
+        },
+        {
+          "en": "The information is useful.",
+          "vi": "Thông tin này hữu ích."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Collective nouns and plural-form nouns",
+        "vi": "Danh từ tập hợp và danh từ dạng số nhiều"
+      },
+      "explanation": {
+        "en": "Collective nouns (team, family, class) take a singular verb in American English; British English often allows a plural verb when thinking of the members. Jeans, scissors and glasses are plural; subjects like 'news' and 'mathematics' are singular.",
+        "vi": "Danh từ tập hợp (team, family, class) dùng động từ số ít trong tiếng Anh Mỹ; tiếng Anh Anh thường cho phép động từ số nhiều khi nghĩ đến từng thành viên. Jeans, scissors, glasses là số nhiều; còn 'news' và 'mathematics' là số ít."
+      },
+      "examples": [
+        {
+          "en": "My family is very close. (BrE also: My family are very close.)",
+          "vi": "Gia đình tôi rất gắn bó."
+        },
+        {
+          "en": "These jeans are too small, but the news is good.",
+          "vi": "Chiếc quần jeans này quá nhỏ, nhưng tin tức thì tốt."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "he / she / it",
+    "everyone, everybody, someone, nobody, everything",
+    "each, every",
+    "and (plural), or / nor (closer subject)",
+    "of + noun, with, together with, as well as",
+    "news, mathematics, information, advice",
+    "jeans, scissors, glasses, trousers"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She work in a hospital.",
+      "right": "She works in a hospital.",
+      "why": {
+        "en": "After he, she, it, the present simple verb needs -s/-es. Vietnamese verbs do not change, so this is easy to forget.",
+        "vi": "Sau he, she, it, động từ hiện tại đơn phải thêm -s/-es. Động từ tiếng Việt không biến đổi nên dễ quên."
+      }
+    },
+    {
+      "wrong": "Everyone are happy today.",
+      "right": "Everyone is happy today.",
+      "why": {
+        "en": "'Everyone' looks plural in meaning but is grammatically singular, so it takes 'is'.",
+        "vi": "'Everyone' có nghĩa như số nhiều nhưng về ngữ pháp là số ít, nên dùng 'is'."
+      }
+    },
+    {
+      "wrong": "The price of the tickets are high.",
+      "right": "The price of the tickets is high.",
+      "why": {
+        "en": "The subject is 'price' (singular), not 'tickets'. Ignore the words between the subject and the verb.",
+        "vi": "Chủ ngữ là 'price' (số ít), không phải 'tickets'. Hãy bỏ qua các từ chen giữa chủ ngữ và động từ."
+      }
+    },
+    {
+      "wrong": "Does she goes to school by bike?",
+      "right": "Does she go to school by bike?",
+      "why": {
+        "en": "After 'does' or 'doesn't', use the base verb without -s, because 'does' already shows the third person singular.",
+        "vi": "Sau 'does' hoặc 'doesn't', dùng động từ nguyên mẫu không có -s, vì 'does' đã thể hiện ngôi thứ ba số ít."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Find the real subject first, cross out the extra words after it, then ask: one or more than one? Only one s in the sentence's subject–verb pair: the noun OR the verb takes -s (books arrive / a book arrives).",
+    "vi": "Hãy tìm chủ ngữ thật trước, gạch bỏ các từ thừa theo sau, rồi hỏi: một hay nhiều? Thường chỉ một bên có -s: danh từ HOẶC động từ (books arrive / a book arrives)."
+  }
+}

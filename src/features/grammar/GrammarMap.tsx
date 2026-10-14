@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Background, Controls, Handle, MarkerType, Position, ReactFlow, type Edge, type Node, type NodeProps } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useI18n } from '@/i18n/I18nProvider';
-import { grammarPath, type GrammarMap as MapData, type GrammarMapPoint } from '@/shared/grammarApi';
+import { grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type Mastery } from '@/shared/grammarApi';
 
 const TONES = ['listening', 'reading', 'speaking', 'writing', 'exam', 'brand'];
 const COLUMNS = 4;
@@ -24,7 +24,7 @@ const HEADER_H = 46;
 
 /** How a point relates to the hovered one */
 type Relation = 'before' | 'next' | 'contrast' | 'related';
-type PointData = { point: GrammarMapPoint; title: string; tone: string; dim: boolean; focus: boolean; relation?: Relation; relationLabel?: string };
+type PointData = { point: GrammarMapPoint; title: string; tone: string; dim: boolean; focus: boolean; relation?: Relation; relationLabel?: string; mastery?: Mastery };
 type ClusterData = { title: string; tone: string };
 
 const PointNode = memo(({ data }: NodeProps<Node<PointData>>) => (
@@ -34,7 +34,10 @@ const PointNode = memo(({ data }: NodeProps<Node<PointData>>) => (
     style={{ ['--tone' as string]: `var(--${data.tone})`, ['--tone-soft' as string]: `var(--${data.tone}-soft, var(--surface-2))` }}
   >
     <Handle type="target" position={Position.Top} className="gmap-handle" isConnectable={false} />
-    <span className="gmap-point__title">{data.title}</span>
+    <span className="gmap-point__title">
+      {data.mastery && data.mastery !== 'none' && <span className={`mastery-dot mastery-dot--${data.mastery}`} />}
+      {data.title}
+    </span>
     <span className="gmap-point__cefr">{data.point.cefr}</span>
     <Handle type="source" position={Position.Bottom} className="gmap-handle" isConnectable={false} />
   </div>
@@ -71,7 +74,7 @@ function layout(data: MapData) {
   return positions;
 }
 
-export const GrammarMap: React.FC<{ data: MapData }> = ({ data }) => {
+export const GrammarMap: React.FC<{ data: MapData; mastery: Map<string, Mastery> }> = ({ data, mastery }) => {
   const { t, locale } = useI18n();
   const navigate = useNavigate();
   const [focus, setFocus] = useState<string | null>(null);
@@ -117,6 +120,7 @@ export const GrammarMap: React.FC<{ data: MapData }> = ({ data }) => {
           tone: toneOf.get(point.cluster)!,
           dim: Boolean(relations && focus !== point.id && !relations.has(point.id)),
           focus: focus === point.id,
+          mastery: mastery.get(point.id),
           relation: relations?.get(point.id)?.[0],
           relationLabel: relations?.get(point.id)?.map((r) => relationLabels[r]).join(' · '),
         },
@@ -126,7 +130,7 @@ export const GrammarMap: React.FC<{ data: MapData }> = ({ data }) => {
     ],
     // relationLabels follows the locale
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, positions, toneOf, locale, relations, focus]
+    [data, positions, toneOf, locale, relations, focus, mastery]
   );
 
   const edges = useMemo<Edge[]>(

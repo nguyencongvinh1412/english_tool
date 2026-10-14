@@ -930,3 +930,18 @@
     animation: none;
   }
 }
+
+.en-choice--right {
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+.en-choice--wrong {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.en-choice:disabled {
+  cursor: default;
+  transform: none;
+}

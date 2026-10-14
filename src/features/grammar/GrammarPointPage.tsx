@@ -10,7 +10,8 @@ import { Badge, Banner, Button, Card, EmptyState, Icon, Spinner } from '@/design
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { ROUTES } from '@/app/routes';
-import { grammarApi, grammarPath, type GrammarLink, type GrammarPoint } from '@/shared/grammarApi';
+import { comparePath, grammarApi, grammarPath, type GrammarLink, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
+import { GrammarPractice } from './GrammarPractice';
 import { speakOnce } from '@/shared/speech';
 import { TenseTimeline } from './TenseTimeline';
 import './grammar.css';
@@ -59,6 +60,15 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
   const [point, setPoint] = useState<GrammarPoint | null>(null);
   const [compare, setCompare] = useState<GrammarPoint | null>(null);
   const [error, setError] = useState<unknown>(null);
+  const [mastery, setMastery] = useState<Mastery>('none');
+  const [practising, setPractising] = useState(false);
+
+  useEffect(() => {
+    grammarApi
+      .progress()
+      .then(({ points }) => setMastery(points.find((p) => p.pointId === pointId)?.mastery ?? 'none'))
+      .catch(() => {});
+  }, [pointId]);
 
   useEffect(() => {
     grammarApi
@@ -96,6 +106,9 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
         {locale === 'vi' && <p className="grammar-point__en">{point.title.en}</p>}
         <div className="grammar-point__badges">
           <Badge tone="reading">{point.cefr}</Badge>
+          {mastery !== 'none' && (
+            <Badge tone={mastery === 'mastered' ? 'success' : mastery === 'good' ? 'reading' : 'warning'}>{t.grammar.mastery[mastery]}</Badge>
+          )}
           {point.status === 'reviewed' ? (
             <Badge tone="success" icon="check">
               {t.grammar.reviewed}
@@ -112,6 +125,23 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
         </EmptyState>
       ) : (
         <>
+          {practising ? (
+            <GrammarPractice
+              pointId={point.id}
+              onClose={(next) => {
+                setPractising(false);
+                if (next) setMastery(next);
+              }}
+            />
+          ) : (
+            <Card padding="md" className="grammar-practice-cta">
+              <span>{t.grammar.practiceIntro}</span>
+              <Button icon="bolt" onClick={() => setPractising(true)}>
+                {t.grammar.practice}
+              </Button>
+            </Card>
+          )}
+
           <Card padding="lg" className="grammar-summary">
             <p>{text(content.summary)}</p>
             {content.tip && (
@@ -209,6 +239,11 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
                       {point.title[locale]} ↔ {other ? <Link to={grammarPath(other.id)}>{other.title[locale]}</Link> : note.with}
                     </h3>
                     <p>{text(note.note)}</p>
+                    {other && (
+                      <Link to={comparePath(point.id, other.id)} className="grammar-contrast__more">
+                        {t.grammar.compareDetail} <Icon name="chevronRight" size={14} />
+                      </Link>
+                    )}
                   </div>
                 );
               })}

@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "The passive voice in all tenses shows that the subject receives the action, or that the action matters more than who does it. Each tense keeps its own time meaning, but the form is always the correct tense of \"be\" + past participle (V3).",
+    "vi": "Bị động ở các thì dùng khi chủ ngữ là đối tượng nhận hành động, hoặc khi hành động quan trọng hơn người thực hiện. Mỗi thì giữ nguyên ý nghĩa thời gian của nó, còn cấu trúc luôn là dạng đúng của \"be\" + quá khứ phân từ (V3)."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative (present simple)",
+        "vi": "Khẳng định (hiện tại đơn)"
+      },
+      "pattern": "S + am/is/are + V3 (+ by + agent)",
+      "example": {
+        "en": "English is spoken in many countries.",
+        "vi": "Tiếng Anh được nói ở nhiều quốc gia."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative (past simple)",
+        "vi": "Khẳng định (quá khứ đơn)"
+      },
+      "pattern": "S + was/were + V3 (+ by + agent)",
+      "example": {
+        "en": "The window was broken during the storm.",
+        "vi": "Cửa sổ đã bị vỡ trong cơn bão."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative (present perfect)",
+        "vi": "Khẳng định (hiện tại hoàn thành)"
+      },
+      "pattern": "S + has/have been + V3",
+      "example": {
+        "en": "Three new bridges have been built this year.",
+        "vi": "Ba cây cầu mới đã được xây dựng trong năm nay."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative (past simple)",
+        "vi": "Phủ định (quá khứ đơn)"
+      },
+      "pattern": "S + was/were not (wasn't/weren't) + V3",
+      "example": {
+        "en": "The package wasn't delivered on time.",
+        "vi": "Gói hàng đã không được giao đúng giờ."
+      }
+    },
+    {
+      "label": {
+        "en": "Question (present continuous)",
+        "vi": "Câu hỏi (hiện tại tiếp diễn)"
+      },
+      "pattern": "Am/Is/Are + S + being + V3?",
+      "example": {
+        "en": "Is the road being repaired right now?",
+        "vi": "Con đường đang được sửa chữa lúc này phải không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Action is more important than the doer",
+        "vi": "Hành động quan trọng hơn người thực hiện"
+      },
+      "explanation": {
+        "en": "Use the passive when the person doing the action is unknown, obvious, or unimportant. Often the sentence has no 'by' phrase.",
+        "vi": "Dùng bị động khi người thực hiện hành động không rõ, dễ hiểu hoặc không quan trọng. Câu thường không có cụm 'by'."
+      },
+      "examples": [
+        {
+          "en": "My bag was stolen on the bus.",
+          "vi": "Túi của tôi đã bị lấy trộm trên xe buýt."
+        },
+        {
+          "en": "The hospital has been closed since last month.",
+          "vi": "Bệnh viện đã bị đóng cửa từ tháng trước."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Describing processes and general facts",
+        "vi": "Mô tả quy trình và sự thật chung"
+      },
+      "explanation": {
+        "en": "The present simple passive describes how things are made, done, or generally true. The agent is usually left out.",
+        "vi": "Bị động hiện tại đơn mô tả cách mọi thứ được làm hoặc sự thật nói chung. Thường không nêu người thực hiện."
+      },
+      "examples": [
+        {
+          "en": "Rice is grown in many parts of Vietnam.",
+          "vi": "Lúa được trồng ở nhiều vùng của Việt Nam."
+        },
+        {
+          "en": "Cars are produced in this factory every day.",
+          "vi": "Ô tô được sản xuất ở nhà máy này mỗi ngày."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting past events and news",
+        "vi": "Kể về sự việc trong quá khứ và tin tức"
+      },
+      "explanation": {
+        "en": "The past simple passive reports completed events with a known time. The present perfect passive reports results or changes that connect to now, often without saying when.",
+        "vi": "Bị động quá khứ đơn kể về sự việc đã hoàn thành có thời điểm rõ ràng. Bị động hiện tại hoàn thành nói về kết quả hoặc thay đổi có liên quan đến hiện tại, thường không nêu thời điểm."
+      },
+      "examples": [
+        {
+          "en": "The new museum was opened in 2019.",
+          "vi": "Bảo tàng mới được mở cửa vào năm 2019."
+        },
+        {
+          "en": "Many mistakes have been found in the report.",
+          "vi": "Nhiều lỗi đã được tìm thấy trong báo cáo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Actions in progress",
+        "vi": "Hành động đang diễn ra"
+      },
+      "explanation": {
+        "en": "Use 'be being + V3' to describe an action in progress at a specific time, now or in the past. It is less common than other passive forms, so use it when the progress really matters.",
+        "vi": "Dùng 'be being + V3' để mô tả hành động đang diễn ra tại một thời điểm cụ thể, hiện tại hoặc quá khứ. Dạng này ít gặp hơn, nên chỉ dùng khi thật sự cần nhấn mạnh sự đang diễn ra."
+      },
+      "examples": [
+        {
+          "en": "The old building is being demolished at the moment.",
+          "vi": "Tòa nhà cũ đang bị phá dỡ vào lúc này."
+        },
+        {
+          "en": "When I arrived, the car was being towed away.",
+          "vi": "Khi tôi đến, chiếc xe đang bị kéo đi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "yesterday / last year (past simple passive)",
+    "every day / usually / generally (present simple passive)",
+    "already / yet / recently / so far (present perfect passive)",
+    "at the moment / right now (present continuous passive)",
+    "by + person or thing (agent, when it is important)"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The letter is write by my friend.",
+      "right": "The letter was written by my friend.",
+      "why": {
+        "en": "Use the past participle (V3), not the base verb, and make 'be' match the tense. Here the time is past, so use 'was' and 'written'.",
+        "vi": "Dùng quá khứ phân từ (V3), không dùng động từ nguyên mẫu, và 'be' phải khớp với thì. Ở đây là quá khứ nên dùng 'was' và 'written'."
+      }
+    },
+    {
+      "wrong": "The new road has been finish last week.",
+      "right": "The new road was finished last week.",
+      "why": {
+        "en": "'Last week' is a finished past time, so use the past simple passive, not the present perfect.",
+        "vi": "'Last week' là thời điểm đã qua, nên dùng bị động quá khứ đơn, không dùng hiện tại hoàn thành."
+      }
+    },
+    {
+      "wrong": "The students are teach English every day.",
+      "right": "The students are taught English every day.",
+      "why": {
+        "en": "Passive needs 'be' + V3. Here 'be' is correct, but the verb should be 'taught' (V3 of 'teach').",
+        "vi": "Bị động cần 'be' + V3. Ở đây 'be' đúng, nhưng động từ phải là 'taught' (V3 của 'teach')."
+      }
+    },
+    {
+      "wrong": "Many houses was destroyed in the flood.",
+      "right": "Many houses were destroyed in the flood.",
+      "why": {
+        "en": "'Houses' is plural, so the verb 'be' must be 'were', not 'was'.",
+        "vi": "'Houses' là số nhiều nên 'be' phải là 'were', không phải 'was'."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Find the tense in the active sentence first, then change only the 'be' part. Ask: is the sentence about the receiver of the action? If yes, use passive.",
+    "vi": "Trước tiên xác định thì trong câu chủ động, rồi chỉ đổi phần 'be'. Hãy tự hỏi: câu có đang nói về đối tượng nhận hành động không? Nếu có, dùng bị động."
+  }
+}

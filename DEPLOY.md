@@ -82,7 +82,7 @@ Delete `english_tool.sql` and `uploads-export` afterwards; they contain user dat
 | `TTS_BASE_URL` | `https://tts.<your-domain>` |
 | `UPSTREAM_ACCESS_CLIENT_ID`, `UPSTREAM_ACCESS_CLIENT_SECRET` | the service token (step 2) |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | first admin; use a long unique password (skip if you restored the database) |
-| `LEARNER_MODELS` | models learners may use, e.g. `gemini-3-flash,gpt-5.5` |
+| `LEARNER_MODELS` | models learners may use, e.g. `claude-haiku-5-5,gemini-3-flash` |
 | `GROQ_API_KEY` | optional chat fallback |
 
 4. Deploy, then open `https://english-learning-tool.onrender.com/api/health` (or the URL Render shows) and sign in as admin.

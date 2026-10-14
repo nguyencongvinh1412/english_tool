@@ -1,0 +1,159 @@
+{
+  "summary": {
+    "en": "An indirect question is a polite way to ask a question: it is placed inside a longer sentence, usually after phrases like \"Do you know...\", \"Could you tell me...\". The word order changes: the subject comes before the verb, as in a statement, and there is no auxiliary \"do/does/did\".",
+    "vi": "Câu hỏi gián tiếp là cách hỏi lịch sự: câu hỏi được đặt trong một câu dài hơn, thường sau các cụm như \"Do you know...\", \"Could you tell me...\". Trật tự từ thay đổi: chủ ngữ đứng trước động từ như trong câu khẳng định, và không dùng trợ động từ \"do/does/did\"."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Yes/No question inside a sentence",
+        "vi": "Câu hỏi Yes/No trong câu"
+      },
+      "pattern": "Do you know + if/whether + S + V...?",
+      "example": {
+        "en": "Do you know if the bank is open on Sunday?",
+        "vi": "Bạn có biết ngân hàng có mở cửa vào Chủ nhật không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh- question inside a sentence",
+        "vi": "Câu hỏi Wh- trong câu"
+      },
+      "pattern": "Could you tell me + question word + S + V...?",
+      "example": {
+        "en": "Could you tell me where the station is?",
+        "vi": "Bạn có thể cho tôi biết nhà ga ở đâu không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Indirect question with a past verb",
+        "vi": "Câu hỏi gián tiếp ở thì quá khứ"
+      },
+      "pattern": "I wonder + question word + S + past verb",
+      "example": {
+        "en": "I wonder why she left the party so early.",
+        "vi": "Tôi không biết tại sao cô ấy rời bữa tiệc sớm như vậy."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Being polite in requests and questions",
+        "vi": "Lịch sự khi hỏi và yêu cầu"
+      },
+      "explanation": {
+        "en": "Direct questions can sound abrupt. Starting with a phrase like \"Could you tell me...\" or \"Do you know...\" makes the question softer and more courteous, which is useful in shops, offices and when talking to strangers.",
+        "vi": "Câu hỏi trực tiếp đôi khi nghe cộc lốc. Mở đầu bằng cụm như \"Could you tell me...\" hoặc \"Do you know...\" làm câu hỏi nhẹ nhàng và lịch sự hơn, hữu ích khi mua sắm, làm việc hoặc nói chuyện với người lạ."
+      },
+      "examples": [
+        {
+          "en": "Could you tell me how much this costs?",
+          "vi": "Bạn có thể cho tôi biết cái này giá bao nhiêu không?"
+        },
+        {
+          "en": "Do you know where I can buy a SIM card?",
+          "vi": "Bạn có biết tôi có thể mua thẻ SIM ở đâu không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting a question you do not know the answer to",
+        "vi": "Hỏi điều bạn chưa biết câu trả lời"
+      },
+      "explanation": {
+        "en": "Use an indirect question when you want information but do not know the answer yet, especially with \"I don't know\", \"I'm not sure\" or \"I wonder\".",
+        "vi": "Dùng câu hỏi gián tiếp khi bạn muốn biết thông tin nhưng chưa rõ câu trả lời, đặc biệt với \"I don't know\", \"I'm not sure\" hoặc \"I wonder\"."
+      },
+      "examples": [
+        {
+          "en": "I don't know what time the meeting starts.",
+          "vi": "Tôi không biết cuộc họp bắt đầu lúc mấy giờ."
+        },
+        {
+          "en": "I'm not sure whether he will come tonight.",
+          "vi": "Tôi không chắc tối nay anh ấy có đến không."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting what someone asked",
+        "vi": "Thuật lại câu hỏi của người khác"
+      },
+      "explanation": {
+        "en": "When you tell someone what another person asked, change the question into a statement word order, and usually move the tense back one step (for example, present simple becomes past simple).",
+        "vi": "Khi thuật lại câu hỏi của người khác, bạn đổi sang trật tự câu khẳng định và thường lùi thì về quá khứ một bước (ví dụ hiện tại đơn thành quá khứ đơn)."
+      },
+      "examples": [
+        {
+          "en": "She asked me where I lived.",
+          "vi": "Cô ấy hỏi tôi sống ở đâu."
+        },
+        {
+          "en": "He wanted to know if we had finished.",
+          "vi": "Anh ấy muốn biết chúng tôi đã xong chưa."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "Do you know...?",
+    "Could you tell me...?",
+    "I don't know...",
+    "I'm not sure...",
+    "I wonder...",
+    "Can you remember...?",
+    "Would you mind telling me...?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Do you know where does she live?",
+      "right": "Do you know where she lives?",
+      "why": {
+        "en": "In an indirect question the word order is statement-style (subject before verb), and the auxiliary \"does\" is removed.",
+        "vi": "Trong câu hỏi gián tiếp, trật tự là kiểu câu khẳng định (chủ ngữ trước động từ) và bỏ trợ động từ \"does\"."
+      }
+    },
+    {
+      "wrong": "Could you tell me where is the hotel?",
+      "right": "Could you tell me where the hotel is?",
+      "why": {
+        "en": "Do not invert the subject and the verb \"be\". Put the subject first, then \"is\".",
+        "vi": "Không đảo động từ \"be\" lên trước chủ ngữ. Đặt chủ ngữ trước, rồi mới đến \"is\"."
+      }
+    },
+    {
+      "wrong": "I don't know he is coming or not.",
+      "right": "I don't know whether he is coming or not.",
+      "why": {
+        "en": "Yes/No indirect questions use \"if\" or \"whether\" (or \"whether or not\"). Note that \"or not\" can follow \"whether\" but not \"if\" directly after the verb in this way; \"whether\" is the safer choice here.",
+        "vi": "Câu hỏi gián tiếp Yes/No dùng \"if\" hoặc \"whether\" (hoặc \"whether or not\"). Với \"or not\" đứng ngay sau mệnh đề, nên dùng \"whether\" cho an toàn."
+      }
+    },
+    {
+      "wrong": "She asked me where do I work.",
+      "right": "She asked me where I worked.",
+      "why": {
+        "en": "When reporting a question, use statement word order and usually shift the tense back (present simple to past simple).",
+        "vi": "Khi thuật lại câu hỏi, dùng trật tự câu khẳng định và thường lùi thì về quá khứ (hiện tại đơn thành quá khứ đơn)."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "question-forms",
+      "note": {
+        "en": "In direct questions the auxiliary comes before the subject (\"Where does she live?\"). In indirect questions the subject comes first and the auxiliary disappears (\"Do you know where she lives?\"). Also, a direct question ends with a question mark, while the main clause of an indirect question usually ends with a full stop, unless the whole sentence is a question.",
+        "vi": "Trong câu hỏi trực tiếp, trợ động từ đứng trước chủ ngữ (\"Where does she live?\"). Trong câu hỏi gián tiếp, chủ ngữ đứng trước và trợ động từ biến mất (\"Do you know where she lives?\"). Câu hỏi trực tiếp kết thúc bằng dấu hỏi, còn mệnh đề chính của câu hỏi gián tiếp thường kết thúc bằng dấu chấm, trừ khi cả câu là câu hỏi."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think of an indirect question as a hidden question: once it sits inside another sentence, it looks like a statement. Ask yourself: is the question word or 'if/whether' followed by subject + verb, with no 'do/does/did'? If yes, you are on track.",
+    "vi": "Hãy coi câu hỏi gián tiếp như một câu hỏi được giấu bên trong: khi nằm trong câu khác, nó trông giống câu khẳng định. Tự hỏi: sau từ hỏi hoặc \"if/whether\" có phải là chủ ngữ + động từ, không có \"do/does/did\" không? Nếu có, bạn đã đúng."
+  }
+}

@@ -21,6 +21,7 @@ export type Activity =
   | 'kana'
   | 'vocab'
   | 'en-vocab'
+  | 'grammar'
   | 'jlpt-language'
   | 'jlpt-reading'
   | 'jlpt-listening';

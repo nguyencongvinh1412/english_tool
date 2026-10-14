@@ -387,6 +387,30 @@ export const grammarPoints = pgTable('grammar_points', {
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
+/**
+ * A learner's mastery of each grammar point, scheduled like a flashcard from practice scores
+ */
+export const grammarProgress = pgTable(
+  'grammar_progress',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    pointId: text('point_id').notNull(),
+    state: text('state').notNull().default('learning'),
+    dueAt: timestamp('due_at', { withTimezone: true }).notNull(),
+    intervalDays: real('interval_days').notNull().default(0),
+    ease: real('ease').notNull().default(2.5),
+    reps: integer('reps').notNull().default(0),
+    lapses: integer('lapses').notNull().default(0),
+    /** Practice sets already done, so the next one is new */
+    seenSets: text('seen_sets').array().notNull().default(sql`'{}'::text[]`),
+    lastScore: real('last_score'),
+    practicedAt: timestamp('practiced_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.pointId] }), index('grammar_progress_user_due_idx').on(table.userId, table.dueAt)]
+);
+
 export type User = typeof users.$inferSelect;
 export type VocabItem = typeof vocabItems.$inferSelect;
 export type SrsCard = typeof srsCards.$inferSelect;

@@ -4,9 +4,11 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { grammarPoints } from '../db/schema.js';
+import { contentItems, grammarPoints, grammarProgress } from '../db/schema.js';
+import { recordAttempt } from '../services/progress.js';
+import { NEW_POINT, PRACTICE_KIND, generatePracticeSet, masteryOf, schedulePoint, unseenPracticeSet } from '../grammar/practice.js';
 import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { runAIJson } from '../services/ai.js';
@@ -16,6 +18,11 @@ import { grammarContent, grammarDraftPrompt, type GrammarContent } from '../gram
 const STATUSES = ['draft', 'reviewed'] as const;
 const saveSchema = z.object({ content: grammarContent, status: z.enum(STATUSES) });
 const draftSchema = z.object({ model: z.string().max(100).optional() });
+const resultSchema = z.object({
+  correct: z.number().int().min(0).max(50),
+  total: z.number().int().min(1).max(50),
+  durationSec: z.number().int().min(0).max(4 * 60 * 60).optional(),
+});
 
 const metaOf = (id: string): GrammarPointMeta => {
   const meta = GRAMMAR_POINTS.find((p) => p.id === id);
@@ -63,6 +70,23 @@ export function createGrammarRouter(): Router {
   });
 
   /**
+   * GET /grammar/progress - The learner's mastery of every practised point, and what is due
+   */
+  router.get('/grammar/progress', requireAuth, async (req, res) => {
+    const rows = await db.select().from(grammarProgress).where(eq(grammarProgress.userId, currentUser(req).id));
+    const now = Date.now();
+    res.json({
+      points: rows.map((r) => ({
+        pointId: r.pointId,
+        mastery: masteryOf(r.intervalDays),
+        due: r.dueAt.getTime() <= now,
+        dueAt: r.dueAt,
+        lastScore: r.lastScore,
+      })),
+    });
+  });
+
+  /**
    * GET /grammar/:id - One point's card with its links
    */
   router.get('/grammar/:id', requireAuth, async (req, res) => {
@@ -81,6 +105,67 @@ export function createGrammarRouter(): Router {
         related: links([...new Set([...(meta.related ?? []), ...GRAMMAR_POINTS.filter((p) => p.related?.includes(meta.id)).map((p) => p.id)])]),
       },
     });
+  });
+
+  /**
+   * POST /grammar/:id/practice - A practice set the learner has not done yet (generated when none is left)
+   */
+  router.post('/grammar/:id/practice', requireAuth, limitAiRequests, async (req, res) => {
+    const meta = metaOf(String(req.params.id));
+    const { model } = draftSchema.parse(req.body ?? {});
+    const user = currentUser(req);
+    const [progress] = await db
+      .select({ seenSets: grammarProgress.seenSets })
+      .from(grammarProgress)
+      .where(and(eq(grammarProgress.userId, user.id), eq(grammarProgress.pointId, meta.id)));
+    const set = (await unseenPracticeSet(meta.id, progress?.seenSets ?? [])) ?? (await generatePracticeSet(user, meta, model));
+    res.json({ set: { id: set.id, items: (set.payload as { items: unknown[] }).items } });
+  });
+
+  /**
+   * POST /grammar/:id/practice/:setId/result - Score of a finished set: schedules the next review and records XP
+   */
+  router.post('/grammar/:id/practice/:setId/result', requireAuth, async (req, res) => {
+    const meta = metaOf(String(req.params.id));
+    const body = resultSchema.parse(req.body);
+    const user = currentUser(req);
+    const setId = String(req.params.setId);
+    const [set] = await db
+      .select({ id: contentItems.id })
+      .from(contentItems)
+      .where(and(eq(contentItems.id, setId), eq(contentItems.kind, PRACTICE_KIND), eq(contentItems.part, meta.id)));
+    if (!set) throw new HttpError(404, 'Practice set not found.', 'not_found');
+
+    const [current] = await db.select().from(grammarProgress).where(and(eq(grammarProgress.userId, user.id), eq(grammarProgress.pointId, meta.id)));
+    const score = Math.min(1, body.correct / body.total);
+    const next = schedulePoint(current ? { state: current.state as 'learning' | 'review', intervalDays: current.intervalDays, ease: current.ease, reps: current.reps, lapses: current.lapses } : NEW_POINT, score);
+    const values = {
+      state: next.state,
+      dueAt: next.dueAt,
+      intervalDays: next.intervalDays,
+      ease: next.ease,
+      reps: next.reps,
+      lapses: next.lapses,
+      lastScore: score,
+      practicedAt: new Date(),
+    };
+    await db
+      .insert(grammarProgress)
+      .values({ userId: user.id, pointId: meta.id, ...values, seenSets: [setId] })
+      .onConflictDoUpdate({
+        target: [grammarProgress.userId, grammarProgress.pointId],
+        set: { ...values, seenSets: sql`array_append(array_remove(${grammarProgress.seenSets}, ${setId}), ${setId})` },
+      });
+
+    const { xpEarned } = await recordAttempt(user.id, {
+      activity: 'grammar',
+      contentRef: meta.id,
+      title: meta.title.en,
+      score: body.correct,
+      maxScore: body.total,
+      durationSec: body.durationSec,
+    });
+    res.json({ progress: { pointId: meta.id, mastery: masteryOf(next.intervalDays), dueAt: next.dueAt, lastScore: score }, xpEarned });
   });
 
   /**

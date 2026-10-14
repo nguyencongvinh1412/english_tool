@@ -1,0 +1,170 @@
+{
+  "summary": {
+    "en": "\"There is\" (singular) and \"there are\" (plural) say that something exists or is present in a place. Use them to introduce a new thing or to say what is in a room, a city, a list, or a picture.",
+    "vi": "\"There is\" (số ít) và \"there are\" (số nhiều) dùng để nói có một thứ gì đó tồn tại hoặc hiện diện ở một nơi nào đó. Dùng để giới thiệu một thứ mới hoặc nói về những gì có trong phòng, thành phố, danh sách hay bức tranh."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "There + is/are + noun",
+      "example": {
+        "en": "There is a book on the table. There are two chairs in the room.",
+        "vi": "Có một quyển sách trên bàn. Có hai cái ghế trong phòng."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "There + is not (isn't) / are not (aren't) + noun",
+      "example": {
+        "en": "There isn't a bus stop here. There aren't any apples in the box.",
+        "vi": "Ở đây không có trạm xe buýt. Trong hộp không có quả táo nào."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Is / Are + there + noun?",
+      "example": {
+        "en": "Is there a bank near here? Are there any students in the library?",
+        "vi": "Gần đây có ngân hàng không? Trong thư viện có sinh viên nào không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Saying that something exists or is present",
+        "vi": "Nói rằng cái gì đó có tồn tại hoặc hiện diện"
+      },
+      "explanation": {
+        "en": "Use there is or there are to tell someone that a thing or person is in a place. Use is with one thing (singular) and are with more than one thing (plural).",
+        "vi": "Dùng there is hoặc there are để cho người khác biết có một vật hay người nào đó ở một nơi. Dùng is với một thứ (số ít) và are với nhiều thứ (số nhiều)."
+      },
+      "examples": [
+        {
+          "en": "There is a cat under the bed.",
+          "vi": "Có một con mèo dưới gầm giường."
+        },
+        {
+          "en": "There are five people in the photo.",
+          "vi": "Có năm người trong bức ảnh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Introducing new information",
+        "vi": "Giới thiệu thông tin mới"
+      },
+      "explanation": {
+        "en": "We often start a description or story with there is/are when the thing is new to the listener. After that, we usually talk about it with the, this, or it.",
+        "vi": "Chúng ta thường mở đầu một đoạn mô tả hoặc câu chuyện bằng there is/are khi người nghe chưa biết về sự vật đó. Sau đó, ta thường nhắc lại bằng the, this hoặc it."
+      },
+      "examples": [
+        {
+          "en": "There is a new café near my house. It is very nice.",
+          "vi": "Có một quán cà phê mới gần nhà tôi. Nó rất đẹp."
+        },
+        {
+          "en": "There are some problems with the car.",
+          "vi": "Có một vài vấn đề với chiếc xe."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Asking about what exists",
+        "vi": "Hỏi về sự tồn tại của một thứ"
+      },
+      "explanation": {
+        "en": "To ask if something exists, put is or are before there. Answer with yes, there is / no, there isn't, or yes, there are / no, there aren't.",
+        "vi": "Để hỏi xem có cái gì đó không, đặt is hoặc are trước there. Trả lời bằng yes, there is / no, there isn't hoặc yes, there are / no, there aren't."
+      },
+      "examples": [
+        {
+          "en": "Is there a supermarket near here? — Yes, there is.",
+          "vi": "Gần đây có siêu thị không? — Có."
+        },
+        {
+          "en": "Are there any toilets on this floor? — No, there aren't.",
+          "vi": "Ở tầng này có nhà vệ sinh không? — Không có."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Counting and talking about quantity",
+        "vi": "Đếm và nói về số lượng"
+      },
+      "explanation": {
+        "en": "Use a number or words like some, any, many, or a lot of after there is/are to say how much or how many. Use any in negatives and questions with plural nouns.",
+        "vi": "Dùng số đếm hoặc các từ như some, any, many, a lot of sau there is/are để nói có bao nhiêu. Dùng any trong câu phủ định và câu hỏi với danh từ số nhiều."
+      },
+      "examples": [
+        {
+          "en": "There are some eggs in the fridge.",
+          "vi": "Trong tủ lạnh có một ít trứng."
+        },
+        {
+          "en": "There are ten students in my class.",
+          "vi": "Lớp tôi có mười học sinh."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "there is / there are",
+    "is there? / are there?",
+    "any (in negatives and questions)",
+    "some (in affirmatives)",
+    "a / an / one (with singular)",
+    "many / a lot of / two, three... (with plural)"
+  ],
+  "mistakes": [
+    {
+      "wrong": "There is many people in the park.",
+      "right": "There are many people in the park.",
+      "why": {
+        "en": "People is plural, so use are, not is. Many is used with plural nouns.",
+        "vi": "People là danh từ số nhiều nên dùng are, không dùng is. Many đi với danh từ số nhiều."
+      }
+    },
+    {
+      "wrong": "There are a book on the desk.",
+      "right": "There is a book on the desk.",
+      "why": {
+        "en": "A book is singular (one thing), so use is. Are is only for plural nouns.",
+        "vi": "A book là danh từ số ít (một vật) nên dùng is. Are chỉ dùng với danh từ số nhiều."
+      }
+    },
+    {
+      "wrong": "There is a lot of water in the glass, and there is two dogs in the yard.",
+      "right": "There is a lot of water in the glass, and there are two dogs in the yard.",
+      "why": {
+        "en": "Two dogs is plural, so use are. Do not use is before plural nouns, even with a number.",
+        "vi": "Two dogs là số nhiều nên dùng are. Không dùng is trước danh từ số nhiều, kể cả khi có số đếm."
+      }
+    },
+    {
+      "wrong": "Have many students in the class? / There have many students.",
+      "right": "Are there many students in the class?",
+      "why": {
+        "en": "There is/are is the structure for existence; do not use have or leave out the verb. Put is/are before there in questions.",
+        "vi": "Cấu trúc there is/are dùng để diễn đạt sự tồn tại; không dùng have và không bỏ động từ. Trong câu hỏi, đặt is/are trước there."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think of \"there\" as a placeholder: it means \"in this place.\" Look at the noun after it: one thing means is, more than one means are.",
+    "vi": "Hãy coi \"there\" như một chỗ giữ vị trí: nó có nghĩa là \"ở đó\". Nhìn vào danh từ theo sau: một thứ dùng is, nhiều thứ dùng are."
+  }
+}

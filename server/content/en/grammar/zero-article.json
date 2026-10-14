@@ -1,0 +1,204 @@
+{
+  "summary": {
+    "en": "We use no article (also called the zero article) before plural and uncountable nouns when we talk about things in general, and before many names, meals, languages and fixed expressions.",
+    "vi": "Chúng ta không dùng mạo từ (mạo từ zero) trước danh từ số nhiều và danh từ không đếm được khi nói chung chung, và trước nhiều tên riêng, bữa ăn, ngôn ngữ và cụm cố định."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Plural noun (general)",
+        "vi": "Danh từ số nhiều (chung chung)"
+      },
+      "pattern": "Ø + plural noun + V",
+      "example": {
+        "en": "Dogs need a lot of exercise.",
+        "vi": "Chó cần vận động nhiều."
+      }
+    },
+    {
+      "label": {
+        "en": "Uncountable noun (general)",
+        "vi": "Danh từ không đếm được (chung chung)"
+      },
+      "pattern": "Ø + uncountable noun + V",
+      "example": {
+        "en": "Water is important for life.",
+        "vi": "Nước rất quan trọng đối với sự sống."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "Ø + noun + do/does not + V",
+      "example": {
+        "en": "Children don't like cold weather.",
+        "vi": "Trẻ em không thích thời tiết lạnh."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does + Ø + noun + V?",
+      "example": {
+        "en": "Do cats like milk?",
+        "vi": "Mèo có thích sữa không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Fixed expression",
+        "vi": "Cụm cố định"
+      },
+      "pattern": "go to / at / by + Ø + noun",
+      "example": {
+        "en": "I go to school by bus.",
+        "vi": "Tôi đi học bằng xe buýt."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "General statements",
+        "vi": "Nói chung chung"
+      },
+      "explanation": {
+        "en": "Use no article with plural or uncountable nouns when you mean all of them or the idea in general, not specific ones.",
+        "vi": "Không dùng mạo từ với danh từ số nhiều hoặc không đếm được khi nói về tất cả hoặc khái niệm chung, không phải cái cụ thể."
+      },
+      "examples": [
+        {
+          "en": "Music helps me relax.",
+          "vi": "Âm nhạc giúp tôi thư giãn."
+        },
+        {
+          "en": "Apples are good for you.",
+          "vi": "Táo tốt cho sức khỏe của bạn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Meals, languages, sports and subjects",
+        "vi": "Bữa ăn, ngôn ngữ, môn thể thao, môn học"
+      },
+      "explanation": {
+        "en": "We usually do not use an article with meals, languages, sports, school subjects and days or months.",
+        "vi": "Thường không dùng mạo từ với bữa ăn, ngôn ngữ, thể thao, môn học, các thứ trong tuần và tháng."
+      },
+      "examples": [
+        {
+          "en": "We have lunch at noon.",
+          "vi": "Chúng tôi ăn trưa vào buổi trưa."
+        },
+        {
+          "en": "She speaks French and plays tennis.",
+          "vi": "Cô ấy nói tiếng Pháp và chơi quần vợt."
+        },
+        {
+          "en": "My exam is on Monday in May.",
+          "vi": "Kỳ thi của tôi vào thứ Hai trong tháng Năm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Names of people, most places",
+        "vi": "Tên người và hầu hết địa danh"
+      },
+      "explanation": {
+        "en": "Most names of people, cities, countries, streets and continents have no article.",
+        "vi": "Hầu hết tên người, thành phố, quốc gia, đường phố và châu lục không có mạo từ."
+      },
+      "examples": [
+        {
+          "en": "Linh lives in Vietnam.",
+          "vi": "Linh sống ở Việt Nam."
+        },
+        {
+          "en": "We visited Paris last year.",
+          "vi": "Năm ngoái chúng tôi đã thăm Paris."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Fixed expressions with institutions and transport",
+        "vi": "Cụm cố định với nơi chốn và phương tiện"
+      },
+      "explanation": {
+        "en": "With go to school/work/bed/hospital (for their normal purpose) and by + transport, we omit the article.",
+        "vi": "Với go to school/work/bed/hospital (đúng mục đích sử dụng) và by + phương tiện, ta bỏ mạo từ."
+      },
+      "examples": [
+        {
+          "en": "He goes to work by train.",
+          "vi": "Anh ấy đi làm bằng tàu hỏa."
+        },
+        {
+          "en": "She is in hospital after the accident.",
+          "vi": "Cô ấy nằm viện sau vụ tai nạn. (Anh-Anh; Anh-Mỹ: in the hospital)"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "general plural nouns: books, people, cars",
+    "uncountable nouns: water, money, advice, music",
+    "by bus / by car / by train",
+    "at home / at work / at school",
+    "have breakfast / lunch / dinner",
+    "in + month, on + day, names of countries and cities"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The life is difficult.",
+      "right": "Life is difficult.",
+      "why": {
+        "en": "We are talking about life in general, so we do not use 'the'.",
+        "vi": "Ta nói về cuộc sống nói chung nên không dùng 'the'."
+      }
+    },
+    {
+      "wrong": "I like the music and the sports.",
+      "right": "I like music and sports.",
+      "why": {
+        "en": "General likes with uncountable or plural nouns need no article.",
+        "vi": "Khi nói sở thích chung với danh từ không đếm được hoặc số nhiều, không cần mạo từ."
+      }
+    },
+    {
+      "wrong": "I go to the school by the bus.",
+      "right": "I go to school by bus.",
+      "why": {
+        "en": "Fixed expressions about purpose and transport have no article.",
+        "vi": "Các cụm cố định về mục đích và phương tiện không có mạo từ."
+      }
+    },
+    {
+      "wrong": "We have the dinner at seven.",
+      "right": "We have dinner at seven.",
+      "why": {
+        "en": "Do not use 'the' with the names of meals in general.",
+        "vi": "Không dùng 'the' với tên các bữa ăn nói chung."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "article-the",
+      "note": {
+        "en": "Use 'the' for specific things that the speaker and listener both know: 'The books on the table are mine.' Use no article for things in general: 'Books are useful.' Compare: 'I love music' (all music) vs 'I love the music in this film' (specific).",
+        "vi": "Dùng 'the' cho vật cụ thể mà người nói và người nghe đều biết: 'The books on the table are mine.' Không dùng mạo từ khi nói chung: 'Books are useful.' So sánh: 'I love music' (âm nhạc nói chung) và 'I love the music in this film' (âm nhạc cụ thể)."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Ask: 'Do I mean this specific one, or all in general?' If it is general (plural or uncountable), use no article.",
+    "vi": "Hãy tự hỏi: 'Mình nói cái cụ thể hay nói chung?' Nếu là chung chung (số nhiều hoặc không đếm được) thì không dùng mạo từ."
+  }
+}

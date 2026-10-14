@@ -86,9 +86,37 @@ export interface GrammarAdminRow {
   updatedAt: string | null;
 }
 
+export type PracticeItem =
+  | { type: 'choice'; prompt: string; options: string[]; answerIndex: number; explanation: Bilingual }
+  | { type: 'gap'; prompt: string; answers: string[]; hint?: string; explanation: Bilingual };
+
+export type Mastery = 'none' | 'learning' | 'good' | 'mastered';
+
+export interface PointProgress {
+  pointId: string;
+  mastery: Mastery;
+  due: boolean;
+  dueAt: string;
+  lastScore: number | null;
+}
+
 export const grammarApi = {
   map: () => apiFetch<GrammarMap>('/api/grammar'),
   point: (id: string) => apiFetch<{ point: GrammarPoint }>(`/api/grammar/${encodeURIComponent(id)}`),
+  progress: () => apiFetch<{ points: PointProgress[] }>('/api/grammar/progress'),
+  practice: (id: string) =>
+    apiFetch<{ set: { id: string; items: PracticeItem[] } }>(`/api/grammar/${encodeURIComponent(id)}/practice`, {
+      method: 'POST',
+      json: { model: getSelectedModel() ?? undefined },
+    }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
+    }),
+  result: (id: string, setId: string, correct: number, total: number, durationSec: number) =>
+    apiFetch<{ progress: Omit<PointProgress, 'due'>; xpEarned: number }>(`/api/grammar/${encodeURIComponent(id)}/practice/${setId}/result`, {
+      method: 'POST',
+      json: { correct, total, durationSec },
+    }),
   adminList: () => apiFetch<{ points: GrammarAdminRow[] }>('/api/admin/grammar'),
   save: (id: string, content: GrammarContent, status: 'draft' | 'reviewed') =>
     apiFetch<{ ok: true }>(`/api/admin/grammar/${encodeURIComponent(id)}`, { method: 'PUT', json: { content, status } }),
@@ -104,3 +132,14 @@ export const grammarApi = {
 
 /** Grammar point page */
 export const grammarPath = (id: string) => `/grammar/${id}`;
+
+/** Comparison page of two easily confused points */
+export const comparePath = (a: string, b: string) => `/grammar/compare/${a}/${b}`;
+/** Decision tree page */
+export const decidePath = (tree: string) => `/grammar/decide/${tree}`;
+
+/**
+ * Typed answer check: case, extra spaces, curly apostrophes and a final full stop do not matter
+ */
+export const normalizeAnswer = (value: string) =>
+  value.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ').replace(/[.!?]$/, '');

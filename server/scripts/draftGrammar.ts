@@ -15,7 +15,7 @@ import { grammarContent, grammarDraftPrompt } from '../grammar/content.js';
 
 const OUT_DIR = path.resolve(process.cwd(), 'server/content/en/grammar');
 const CONCURRENCY = 4;
-const MODEL = process.env.GRAMMAR_MODEL || process.env.CLIPROXY_MODEL || 'gpt-5.5';
+const MODEL = process.env.GRAMMAR_MODEL || process.env.CLIPROXY_MODEL || 'claude-haiku-5-5';
 
 /**
  * JSON object in a reply (models sometimes wrap it in a code fence)
