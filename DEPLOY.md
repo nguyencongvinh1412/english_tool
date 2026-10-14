@@ -83,6 +83,8 @@ Delete `english_tool.sql` and `uploads-export` afterwards; they contain user dat
 | `UPSTREAM_ACCESS_CLIENT_ID`, `UPSTREAM_ACCESS_CLIENT_SECRET` | the service token (step 2) |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | first admin; use a long unique password (skip if you restored the database) |
 | `LEARNER_MODELS` | models learners may use, e.g. `claude-haiku-5-5,gemini-3-flash` |
+| `SETTINGS_SECRET` | 16+ characters; encrypts API keys saved in Admin → Plans. Without it keys come only from the two variables below |
+| `ANTHROPIC_API_KEY`, `GEMINI_API_KEY` | official API keys, used when the admin sets the AI source to "Official API" |
 | `GROQ_API_KEY` | optional chat fallback |
 
 4. Deploy, then open `https://english-learning-tool.onrender.com/api/health` (or the URL Render shows) and sign in as admin.
@@ -148,3 +150,7 @@ Known, accepted risk: `npm audit` reports a moderate issue in `sprintf-js` pulle
 - **Grammar map:** explanations are AI drafts in `server/content/en/grammar/*.json` (`npm run grammar:draft`
   writes missing ones; `-- --all` redrafts). They load on startup; once an admin edits or reviews a point in
   Admin → Grammar, the database version is kept. The map structure is `server/grammar/map.ts`.
+- **Plans and AI source:** Admin → Plans. Plan limits start switched off (everyone keeps open access while credits
+  are counted, so you can see real usage); switch them on when you sell. Plans are granted by hand in the user's
+  edit dialog (prepaid, after a bank transfer). Selling requires the official API keys (the proxy uses personal
+  subscription accounts) — see `docs/plans/p9-marketing-subscription.md`.

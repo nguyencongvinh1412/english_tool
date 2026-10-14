@@ -11,6 +11,7 @@ import { recoverInterruptedImports } from './imports/jobs.js';
 import { recoverInterruptedGrading } from './exams/ielts.js';
 import { ensureEnVocab, ensureJaVocab } from './vocab/data.js';
 import { ensureGrammar } from './grammar/data.js';
+import { ensurePlans } from './billing/plans.js';
 
 /**
  * Boots the server
@@ -19,6 +20,7 @@ async function main(): Promise<void> {
   await runMigrations();
   await ensureBootstrapAdmin();
   await ensureBuiltinContent();
+  await ensurePlans();
   await recoverInterruptedImports();
   await recoverInterruptedGrading();
   await ensureJaVocab();

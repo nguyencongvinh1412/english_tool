@@ -64,6 +64,18 @@ export interface ChatMessage {
 }
 
 /**
+ * Where to send a request instead of the proxy: an official provider's OpenAI-compatible endpoint
+ */
+export interface ChatTarget {
+  url: string;
+  apiKey: string;
+  /** Shown in errors, e.g. "Anthropic" */
+  label: string;
+  /** Send reasoning_effort (some providers reject or ignore it) */
+  reasoning?: boolean;
+}
+
+/**
  * Request payload for CLIProxyAPI chat
  */
 export interface ChatRequest {
@@ -192,8 +204,8 @@ export async function listAllowedModels(): Promise<string[]> {
  * @returns Promise resolving to the assistant's response content
  * @throws {CliProxyApiError} If API call fails or times out
  */
-export async function sendChatMessage(request: ChatRequest): Promise<string> {
-  if (!isCliProxyConfigured()) {
+export async function sendChatMessage(request: ChatRequest, target?: ChatTarget): Promise<string> {
+  if (!target && !isCliProxyConfigured()) {
     throw new CliProxyApiError('CLIProxyAPI is not configured', 500, false, true);
   }
 
@@ -208,17 +220,18 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
   let response: Response;
 
   try {
-    response = await fetch(buildEndpointUrl('/v1/chat/completions'), {
+    response = await fetch(target?.url ?? buildEndpointUrl('/v1/chat/completions'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.CLIPROXY_API_KEY}`,
-        ...upstreamAccessHeaders(),
+        Authorization: `Bearer ${target?.apiKey ?? process.env.CLIPROXY_API_KEY}`,
+        // Tunnel credentials are for the proxy only
+        ...(target ? {} : upstreamAccessHeaders()),
       },
       body: JSON.stringify({
         model,
         max_tokens: request.maxTokens ?? MAX_TOKENS,
-        reasoning_effort: REASONING_EFFORT,
+        ...(target?.reasoning === false ? {} : { reasoning_effort: REASONING_EFFORT }),
         messages: [
           { role: 'system', content: systemPrompt },
           ...request.messages,
@@ -245,7 +258,7 @@ export async function sendChatMessage(request: ChatRequest): Promise<string> {
     });
 
     if (response.status === 401 || response.status === 403) {
-      throw new CliProxyApiError('Authentication failed. Check CLIPROXY_API_KEY.', 401);
+      throw new CliProxyApiError(target ? `Authentication failed. Check the ${target.label} API key.` : 'Authentication failed. Check CLIPROXY_API_KEY.', 401);
     }
 
     if (response.status === 429) {

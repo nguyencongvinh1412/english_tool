@@ -22,6 +22,7 @@ import { createImportRouter } from './routes/imports.js';
 import { createVocabRouter } from './routes/vocab.js';
 import { createWordBankRouter } from './routes/wordBank.js';
 import { createGrammarRouter } from './routes/grammar.js';
+import { createBillingRouter } from './routes/billing.js';
 
 /** Get directory name for ES modules */
 const __filename = fileURLToPath(import.meta.url);
@@ -87,6 +88,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api', checkOrigin);
   app.use('/api/auth', createAuthRouter());
   app.use('/api/me', createMeRouter());
+  app.use('/api', createBillingRouter());
   app.use('/api/admin/imports', createImportRouter());
   app.use('/api/admin', createAdminRouter());
   app.use('/api/chat', createChatRouter());

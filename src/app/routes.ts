@@ -22,6 +22,7 @@ export const ROUTES = {
   READING_GAPFILL: '/reading/sentence-completion',
   VOCABULARY: '/vocabulary',
   GRAMMAR: '/grammar',
+  PRICING: '/pricing',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
   WRITING_TASK1: '/writing/ielts-task1',

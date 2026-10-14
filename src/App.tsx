@@ -22,6 +22,7 @@ import { SkillHubPage } from '@/features/skills/SkillHubPage';
 import { ProgressProvider } from '@/shared/progress';
 import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
 import { lazyPage } from '@/app/lazyPage';
+import { UpgradeListener } from '@/features/billing/UpgradeListener';
 import { PageFallback } from '@/app/PageFallback';
 
 /* Pages load on first visit; the dashboard and sign-in stay in the main bundle */
@@ -43,6 +44,7 @@ const AdminPage = lazyPage(() => import('@/features/admin/AdminPage'), 'AdminPag
 const KanaPage = lazyPage(() => import('@/features/japanese/KanaPage'), 'KanaPage');
 const VocabPage = lazyPage(() => import('@/features/japanese/VocabPage'), 'VocabPage');
 const EnVocabPage = lazyPage(() => import('@/features/vocab/EnVocabPage'), 'EnVocabPage');
+const PricingPage = lazyPage(() => import('@/features/billing/PricingPage'), 'PricingPage');
 const GrammarPage = lazyPage(() => import('@/features/grammar/GrammarPage'), 'GrammarPage');
 const GrammarPointPage = lazyPage(() => import('@/features/grammar/GrammarPointPage'), 'GrammarPointPage');
 const ComparePage = lazyPage(() => import('@/features/grammar/ComparePage'), 'ComparePage');
@@ -67,6 +69,7 @@ export default function App(): React.JSX.Element {
             <AuthProvider>
               <ProgressProvider>
                 <BrowserWarning />
+                <UpgradeListener />
                 <Suspense fallback={<PageFallback />}>
                   <Routes>
                     {/* Open to everyone: reset links may be opened while another account is signed in */}
@@ -100,6 +103,7 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
                         <Route path={ROUTES.VOCABULARY} element={<EnVocabPage />} />
                         <Route path={ROUTES.GRAMMAR} element={<GrammarPage />} />
+                          <Route path={ROUTES.PRICING} element={<PricingPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/compare/:a/:b`} element={<ComparePage />} />
                         <Route path={`${ROUTES.GRAMMAR}/decide/:treeId`} element={<DecisionPage />} />

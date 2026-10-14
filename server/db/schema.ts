@@ -115,6 +115,8 @@ export const aiUsage = pgTable(
     day: date('day').notNull(),
     feature: text('feature').notNull(),
     requestCount: integer('request_count').notNull().default(0),
+    /** Estimated cost in credits (1 credit is about 1/1000 USD) */
+    credits: real('credits').notNull().default(0),
   },
   (table) => [primaryKey({ columns: [table.userId, table.day, table.feature] })]
 );
@@ -433,7 +435,64 @@ export const grammarMistakes = pgTable(
   (table) => [index('grammar_mistakes_user_idx').on(table.userId, table.createdAt)]
 );
 
+/**
+ * Subscription plans: what each plan allows (credits, models, features) and what it costs
+ */
+export const plans = pgTable('plans', {
+  /** free | plus | pro */
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  sortOrder: integer('sort_order').notNull().default(0),
+  /** AI credits per calendar month and per day (Vietnam time) */
+  monthlyCredits: integer('monthly_credits').notNull(),
+  dailyCredits: integer('daily_credits').notNull(),
+  models: text('models').array().notNull(),
+  /** { weeklyWriting, weeklySpeaking: number | null, fullTests, importedTests: boolean } */
+  limits: jsonb('limits').notNull(),
+  /** { month, quarter, year } in VND; null for free */
+  priceVnd: jsonb('price_vnd'),
+  /** Shown on the pricing page */
+  isPublic: boolean('is_public').notNull().default(true),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * A period during which a user has a plan. The current plan is the latest unexpired one; without it the user is on free.
+ */
+export const subscriptions = pgTable(
+  'subscriptions',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    planId: text('plan_id')
+      .notNull()
+      .references(() => plans.id),
+    startsAt: timestamp('starts_at', { withTimezone: true }).notNull().defaultNow(),
+    endsAt: timestamp('ends_at', { withTimezone: true }).notNull(),
+    /** admin | trial | payment | referral */
+    source: text('source').notNull(),
+    note: text('note'),
+    createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),
+    cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('subscriptions_user_idx').on(table.userId, table.endsAt)]
+);
+
+/**
+ * Settings an admin changes in the app: billing enforcement, AI source, payment instructions
+ */
+export const appSettings = pgTable('app_settings', {
+  key: text('key').primaryKey(),
+  value: jsonb('value').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type User = typeof users.$inferSelect;
+export type Plan = typeof plans.$inferSelect;
+export type Subscription = typeof subscriptions.$inferSelect;
 export type VocabItem = typeof vocabItems.$inferSelect;
 export type SrsCard = typeof srsCards.$inferSelect;
 export type Attempt = typeof attempts.$inferSelect;

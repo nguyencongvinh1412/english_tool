@@ -28,6 +28,10 @@ export class ApiRequestError extends Error {
   }
 }
 
+/** Server codes that mean the user's plan is the limit */
+export const PLAN_CODES = ['credits_exhausted', 'plan_limit', 'plan_required'];
+export const PLAN_LIMIT_EVENT = 'english-tool:plan-limit';
+
 /** Status 0 means the request never reached the server */
 const NETWORK_ERROR_STATUS = 0;
 
@@ -52,6 +56,8 @@ export async function apiFetch<T>(path: string, init: RequestInit & { json?: unk
 
   if (!response.ok) {
     const data = await response.json().catch(() => ({}));
+    // A plan limit anywhere in the app opens the upgrade prompt
+    if (PLAN_CODES.includes(data.code)) window.dispatchEvent(new CustomEvent(PLAN_LIMIT_EVENT, { detail: { code: data.code } }));
     throw new ApiRequestError(data.error ?? response.statusText, response.status, data.code, data.issues ?? []);
   }
 

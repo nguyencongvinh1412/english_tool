@@ -31,6 +31,10 @@ export interface CurrentUser {
   aiQuota: { used: number; limit: number | null };
   /** null = any non-blocked model (admins) */
   allowedModels: string[] | null;
+  /** Subscription plan; limits only apply when `enforced` */
+  plan: { id: 'free' | 'plus' | 'pro'; name: string; endsAt: string | null; enforced: boolean };
+  /** AI credits used and the plan's limits (null while plans are not enforced) */
+  credits: { day: { used: number; limit: number | null }; month: { used: number; limit: number | null } };
 }
 
 /** Editable profile fields, for PATCH /api/me */

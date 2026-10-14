@@ -7,7 +7,8 @@ import { db } from '../db/client.js';
 import { users, type User } from '../db/schema.js';
 import { config } from '../config.js';
 import { hashPassword } from '../auth/password.js';
-import { getAllowedModels, getDailyLimit, getUsageToday } from './aiAccess.js';
+import { effectiveModels, getDailyLimit, getUsageToday } from './aiAccess.js';
+import { entitlementsOf } from '../billing/plans.js';
 
 /**
  * Normalizes an email for storage and lookup
@@ -40,13 +41,18 @@ export function toPublicUser(user: User) {
  * Public user plus today's AI quota, for GET /api/auth/me
  */
 export async function toCurrentUser(user: User) {
+  const entitlements = await entitlementsOf(user);
   return {
     ...toPublicUser(user),
     aiQuota: {
       used: await getUsageToday(user.id),
       limit: getDailyLimit(user),
     },
-    allowedModels: getAllowedModels(user),
+    allowedModels: await effectiveModels(user),
+    /** Plan, credits left and what the plan includes; limits are null while plans are not enforced */
+    plan: { id: entitlements.plan.id, name: entitlements.plan.name, endsAt: entitlements.endsAt, enforced: entitlements.enforced },
+    credits: entitlements.credits,
+    planLimits: entitlements.limits,
   };
 }
 

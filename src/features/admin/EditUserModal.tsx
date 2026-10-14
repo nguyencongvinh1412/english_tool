@@ -9,6 +9,7 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import type { Role } from '@/shared/types';
 import { adminApi, type AdminDefaults, type AdminUser } from './adminApi';
+import { UserPlan } from './UserPlan';
 
 interface EditUserModalProps {
   user: AdminUser;
@@ -131,6 +132,8 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, defaults, is
                 />
               )}
             </Field>
+
+            <UserPlan userId={user.id} />
 
             <fieldset className="admin-models">
               <legend className="field__label">{t.admin.users.modelAccess}</legend>

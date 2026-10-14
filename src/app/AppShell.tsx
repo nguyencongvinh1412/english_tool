@@ -2,6 +2,7 @@
  * AppShell
  * Sidebar on desktop, top bar + bottom tab bar on mobile
  */
+import { creditsLeft } from '@/shared/billingApi';
 import type React from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
 import { Suspense } from 'react';
@@ -73,6 +74,7 @@ export const AppShell: React.FC = () => {
   ];
 
   const accountItems: NavItem[] = [
+    { to: ROUTES.PRICING, icon: 'ticket', label: t.nav.pricing, tone: 'brand' },
     { to: ROUTES.PROFILE, icon: 'user', label: t.nav.profile, tone: 'brand', mobile: true },
     ...(user.role === 'admin' ? [{ to: ROUTES.ADMIN, icon: 'shield' as IconName, label: t.nav.admin, tone: 'exam' }] : []),
   ];
@@ -92,8 +94,11 @@ export const AppShell: React.FC = () => {
 
   const { summary, lastGain } = useProgress();
   const streak = summary?.streak;
+  // With plans enforced the pill shows the credits left; otherwise the old daily request count
+  const left = creditsLeft(user.credits);
   const quota = user.aiQuota;
-  const quotaRatio = quota.limit ? quota.used / quota.limit : 0;
+  const quotaRatio = left !== null ? 1 - left / Math.max(1, Math.min(user.credits.day.limit ?? 1, user.credits.month.limit ?? 1)) : quota.limit ? quota.used / quota.limit : 0;
+  const quotaText = left !== null ? t.billing.creditsLeft(left) : t.shell.aiQuota(quota.used, quota.limit);
 
   return (
     <div className="shell">
@@ -145,16 +150,11 @@ export const AppShell: React.FC = () => {
               <span className="visually-hidden">{t.progress.streak(streak.current)}</span>
             </span>
           )}
-          <span
-            className={`quota-pill ${quotaRatio >= 0.9 ? 'quota-pill--low' : ''}`}
-            title={t.shell.aiQuota(quota.used, quota.limit)}
-          >
+          <Link to={ROUTES.PRICING} className={`quota-pill ${quotaRatio >= 0.9 ? 'quota-pill--low' : ''}`} title={quotaText}>
             <Icon name="bolt" size={16} />
-            <span className="quota-pill__value">
-              {quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used)}
-            </span>
-            <span className="visually-hidden">{t.shell.aiQuota(quota.used, quota.limit)}</span>
-          </span>
+            <span className="quota-pill__value">{left !== null ? left : quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used)}</span>
+            <span className="visually-hidden">{quotaText}</span>
+          </Link>
           <LocaleToggle />
           <Link to={ROUTES.PROFILE} className="topbar__avatar" aria-label={t.nav.profile}>
             <Avatar name={user.displayName} />

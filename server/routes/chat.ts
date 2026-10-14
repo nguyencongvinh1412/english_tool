@@ -9,8 +9,12 @@ import { GroqApiError, type ChatMessage } from '../services/groq.js';
 import { isCliProxyConfigured, listAllowedModels, getDefaultModel, CliProxyApiError } from '../services/cliproxy.js';
 import { sendWithFallback } from '../services/ai.js';
 import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
-import { assertQuota, getAllowedModels, recordUsage, resolveModel } from '../services/aiAccess.js';
+import { HttpError } from '../http/errors.js';
+import { assertQuota, effectiveModels, recordUsage, resolveModel } from '../services/aiAccess.js';
+import { getAiMode, keyFor, providerOf } from '../services/aiProvider.js';
+import { config } from '../config.js';
 import { chatContextSchema, chatSystemPrompt } from '../content/chatPrompts.js';
+import { inputTokens } from '../billing/pricing.js';
 
 /** Usage feature key for free-form chat requests */
 const CHAT_FEATURE = 'chat';
@@ -53,16 +57,28 @@ export function createChatRouter(): Router {
    *   Empty list when CLIProxyAPI is not configured or unreachable (Groq is used)
    */
   router.get('/models', async (req: Request, res: Response): Promise<void> => {
+    const user = currentUser(req);
+
+    // Official APIs: the models the user may use whose provider has a key
+    if ((await getAiMode()) === 'official') {
+      const candidates = (await effectiveModels(user)) ?? config.LEARNER_MODELS;
+      const models: string[] = [];
+      for (const model of candidates) {
+        const provider = providerOf(model);
+        if (provider && (await keyFor(provider))) models.push(model);
+      }
+      res.json({ models, defaultModel: models[0] ?? null });
+      return;
+    }
+
     if (!isCliProxyConfigured()) {
       res.json({ models: [], defaultModel: null });
       return;
     }
 
-    const user = currentUser(req);
-
     try {
       const proxyModels = await listAllowedModels();
-      const assigned = getAllowedModels(user);
+      const assigned = await effectiveModels(user);
       const models = assigned === null ? proxyModels : assigned.filter((m) => proxyModels.includes(m));
       const preferred = assigned === null ? getDefaultModel() : models[0];
 
@@ -91,8 +107,8 @@ export function createChatRouter(): Router {
 
     // Enforce the user's model allowlist (opus/fable are always blocked) and daily quota
     const user = currentUser(req);
-    const model = resolveModel(user, body.model);
-    await assertQuota(user);
+    const model = await resolveModel(user, body.model);
+    await assertQuota(user, CHAT_FEATURE);
     const messages: ChatMessage[] = body.messages;
     const systemPrompt = chatSystemPrompt(body.context, user.uiLocale);
 
@@ -103,9 +119,12 @@ export function createChatRouter(): Router {
         model,
       });
 
-      await recordUsage(user, CHAT_FEATURE);
+      await recordUsage(user, CHAT_FEATURE, { model, inputTokens: inputTokens(systemPrompt, messages), reply: response });
       res.json({ message: response });
     } catch (error) {
+      // Our own errors (no key for the model, plan limits) carry their status and code
+      if (error instanceof HttpError) throw error;
+
       // Handle known AI provider errors
       if (error instanceof GroqApiError || error instanceof CliProxyApiError) {
         // Log the error for debugging but send sanitized message to client

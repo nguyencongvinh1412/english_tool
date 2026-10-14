@@ -250,6 +250,7 @@
 }
 
 .quota-pill {
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;

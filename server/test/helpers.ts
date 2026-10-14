@@ -2,6 +2,7 @@
  * Test Helpers
  * Database reset and signed-in supertest agents
  */
+import { clearSettingsCache } from '../services/settings.js';
 import { sql } from 'drizzle-orm';
 import request from 'supertest';
 import type { Express } from 'express';
@@ -18,7 +19,8 @@ let passwordHashPromise: Promise<string> | null = null;
  * Removes all rows from every table between tests
  */
 export async function resetDb(): Promise<void> {
-  await db.execute(sql`TRUNCATE app_meta, grammar_points, grammar_progress, grammar_mistakes, word_bank, users, sessions, password_resets, srs_cards, vocab_items, invite_codes, ai_usage, attempts, content_items, exam_sessions, import_jobs, media_assets RESTART IDENTITY CASCADE`);
+  clearSettingsCache();
+  await db.execute(sql`TRUNCATE app_meta, app_settings, subscriptions, plans, grammar_points, grammar_progress, grammar_mistakes, word_bank, users, sessions, password_resets, srs_cards, vocab_items, invite_codes, ai_usage, attempts, content_items, exam_sessions, import_jobs, media_assets RESTART IDENTITY CASCADE`);
 }
 
 /**

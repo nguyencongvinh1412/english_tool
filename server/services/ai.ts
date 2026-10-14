@@ -10,16 +10,22 @@ import { assertQuota, recordUsage, resolveModel } from './aiAccess.js';
 import {
   sendChatMessage as sendCliProxyMessage,
   isCliProxyConfigured,
+  getDefaultModel,
   CliProxyApiError,
   type ChatMessage,
   type ChatRequest,
 } from './cliproxy.js';
 import { sendChatMessage as sendGroqMessage, GroqApiError } from './groq.js';
+import { getAiMode, officialTarget } from './aiProvider.js';
+import { inputTokens } from '../billing/pricing.js';
 
 /**
  * Sends a chat request via CLIProxyAPI, falling back to Groq if the proxy is unavailable
  */
 export async function sendWithFallback(request: ChatRequest): Promise<string> {
+  // Official APIs: the admin switched away from the proxy
+  if ((await getAiMode()) === 'official') return sendCliProxyMessage(request, await officialTarget(request.model ?? getDefaultModel()));
+
   const isMultimodal = request.messages.some((m) => typeof m.content !== 'string');
   const textOnly = () => sendGroqMessage(request as Parameters<typeof sendGroqMessage>[0]);
 
@@ -68,8 +74,8 @@ export const SCORING_MAX_TOKENS = 8192;
  * @throws HttpError 403 (model), 429 (quota), or the provider's status on failure
  */
 export async function runAI(user: User, options: RunAIOptions): Promise<string> {
-  const model = resolveModel(user, options.model);
-  await assertQuota(user);
+  const model = await resolveModel(user, options.model);
+  await assertQuota(user, options.feature);
 
   try {
     const reply = await sendWithFallback({
@@ -79,7 +85,7 @@ export async function runAI(user: User, options: RunAIOptions): Promise<string> 
       timeoutMs: options.timeoutMs,
       maxTokens: options.maxTokens,
     });
-    await recordUsage(user, options.feature);
+    await recordUsage(user, options.feature, { model, inputTokens: inputTokens(options.system, options.messages), reply });
     return reply;
   } catch (error) {
     // An empty reply is a bad answer, not an outage: let JSON callers ask again

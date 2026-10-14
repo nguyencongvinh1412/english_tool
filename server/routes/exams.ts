@@ -7,8 +7,10 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { examSessions, importJobs, type ExamSession } from '../db/schema.js';
+import { examSessions, importJobs, type ExamSession, type User } from '../db/schema.js';
 import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
+import { assertFeature } from '../services/aiAccess.js';
+import { entitlementsOf } from '../billing/plans.js';
 import { HttpError } from '../http/errors.js';
 import { recordAttempt } from '../services/progress.js';
 import { CEFR_LEVELS } from '../content/schemas.js';
@@ -75,6 +77,15 @@ import {
 } from '../exams/jlpt.js';
 import { generateJlptGroups } from '../exams/jlptBank.js';
 import { JLPT_LEVELS, type JlptLevel } from '../content/schemas.js';
+
+/**
+ * Mini tests are open to everyone; the other modes need a plan that includes them
+ * @throws HttpError 403 plan_required
+ */
+async function assertTestMode(user: User, mode: string): Promise<void> {
+  if (mode === 'official') await assertFeature(user, 'importedTests');
+  else if (mode !== 'mini') await assertFeature(user, 'fullTests');
+}
 
 /** Missing groups a learner may generate on the spot when starting a test */
 const ON_DEMAND_GROUP_LIMIT = 6;
@@ -383,7 +394,7 @@ export function createExamRouter(): Router {
   /**
    * GET /exams/toeic/catalog - Modes, parts, and how many groups the bank holds
    */
-  router.get('/exams/toeic/catalog', requireAuth, async (_req, res) => {
+  router.get('/exams/toeic/catalog', requireAuth, async (req, res) => {
     const bank = await bankCounts();
     res.json({
       modes: {
@@ -397,7 +408,7 @@ export function createExamRouter(): Router {
         minutes: PART_CONFIG[part].partMinutes,
         bankGroups: bank[part],
       })),
-      officialTests: await officialTests(),
+      officialTests: (await entitlementsOf(currentUser(req))).limits.importedTests ? await officialTests() : [],
     });
   });
 
@@ -411,6 +422,7 @@ export function createExamRouter(): Router {
     const user = currentUser(req);
     const mode = body.mode as ExamMode;
     const part = body.part as ToeicPart | undefined;
+    await assertTestMode(user, mode);
 
     if (mode === 'official') {
       const [imp] = await db
@@ -581,6 +593,7 @@ export function createExamRouter(): Router {
     const body = ieltsStartSchema.parse(req.body);
     const user = currentUser(req);
     const mode = body.mode as IeltsMode;
+    await assertTestMode(user, mode);
     const part = body.part as IeltsPart | undefined;
 
     let assembled = await assembleIelts(user.id, mode, part);
@@ -628,7 +641,7 @@ export function createExamRouter(): Router {
   /**
    * GET /exams/jlpt/catalog - Modes and sections per level, with question counts and times
    */
-  router.get('/exams/jlpt/catalog', requireAuth, async (_req, res) => {
+  router.get('/exams/jlpt/catalog', requireAuth, async (req, res) => {
     const questions = (level: JlptLevel, mode: JlptMode, section?: JlptSection) =>
       mondaiFor(level, mode, section).reduce((sum, m) => sum + m.questions, 0);
     const imports = await db
@@ -653,7 +666,7 @@ export function createExamRouter(): Router {
       )
     ).filter((test) => test !== null);
     res.json({
-      officialTests,
+      officialTests: (await entitlementsOf(currentUser(req))).limits.importedTests ? officialTests : [],
       levels: JLPT_LEVELS.map((level) => ({
         level,
         mini: { minutes: MINI_MINUTES, questions: questions(level, 'mini') },
@@ -671,6 +684,7 @@ export function createExamRouter(): Router {
     const body = jlptStartSchema.parse(req.body);
     const user = currentUser(req);
     const mode = body.mode as JlptMode;
+    await assertTestMode(user, mode);
 
     if (mode === 'official') {
       const [imp] = await db.select({ status: importJobs.status, exam: importJobs.exam }).from(importJobs).where(eq(importJobs.id, body.importId!)).limit(1);

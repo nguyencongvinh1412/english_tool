@@ -16,6 +16,7 @@ import { RecentList, WeekChart } from '@/features/progress/ProgressWidgets';
 import { useProgress, type ProgressSummary } from '@/shared/progress';
 import { vocabApi } from '@/shared/vocabApi';
 import { enVocabApi } from '@/shared/enVocabApi';
+import { creditsLeft } from '@/shared/billingApi';
 import './dashboard.css';
 
 /**
@@ -144,8 +145,8 @@ export const DashboardPage: React.FC = () => {
           <StatTile
             icon="sparkles"
             tone="listening"
-            value={quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used)}
-            label={t.dashboard.aiLeft}
+            value={creditsLeft(user.credits) ?? (quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used))}
+            label={creditsLeft(user.credits) !== null ? t.billing.creditsLeftLabel : t.dashboard.aiLeft}
           />
         </div>
       </section>

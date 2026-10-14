@@ -59,6 +59,15 @@ const envSchema = z.object({
   S3_ACCESS_KEY_ID: z.string().optional(),
   S3_SECRET_ACCESS_KEY: z.string().optional(),
 
+  /**
+   * Secret that encrypts API keys an admin saves in the app. Without it keys can only come from
+   * ANTHROPIC_API_KEY / GEMINI_API_KEY, never from the database.
+   */
+  SETTINGS_SECRET: z.string().min(16).optional(),
+  /** Official API keys, used when the admin switches the AI source to "official" */
+  ANTHROPIC_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
+
   /** Extra allowed origins for state-changing requests, comma-separated */
   APP_ORIGIN: z.string().default('').transform(parseList),
 
