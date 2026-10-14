@@ -67,6 +67,8 @@ export const AppShell: React.FC = () => {
     { to: ROUTES.READING, icon: 'book', label: t.nav.reading, tone: 'reading' },
     { to: ROUTES.SPEAKING, icon: 'mic', label: t.nav.speaking, tone: 'speaking', mobile: true },
     { to: ROUTES.WRITING, icon: 'pen', label: t.nav.writing, tone: 'writing' },
+    // The grammar map covers English only
+    ...(user.studyLanguage === 'en' ? [{ to: ROUTES.GRAMMAR, icon: 'graph' as IconName, label: t.nav.grammar, tone: 'reading' }] : []),
     { to: ROUTES.EXAMS, icon: 'exam', label: t.nav.exams, tone: 'exam', mobile: true },
   ];
 

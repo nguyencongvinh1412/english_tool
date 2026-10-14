@@ -1,0 +1,228 @@
+{
+  "summary": {
+    "en": "Use in, on, and at before time words to say when something happens. Use in for months, years, seasons, and parts of the day; on for days and dates; at for clock times and some fixed times.",
+    "vi": "Dùng in, on và at trước từ chỉ thời gian để nói việc gì xảy ra khi nào. Dùng in cho tháng, năm, mùa và các buổi trong ngày; on cho thứ và ngày tháng; at cho giờ cụ thể và một số thời điểm cố định."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V + in/on/at + time",
+      "example": {
+        "en": "I go to school at 7 o’clock.",
+        "vi": "Tôi đi học lúc 7 giờ."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does not + V + in/on/at + time",
+      "example": {
+        "en": "She does not work on Sunday.",
+        "vi": "Cô ấy không làm việc vào Chủ nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does + S + V + in/on/at + time?",
+      "example": {
+        "en": "Do you study in the evening?",
+        "vi": "Bạn có học vào buổi tối không?"
+      }
+    },
+    {
+      "label": {
+        "en": "With be",
+        "vi": "Với động từ be"
+      },
+      "pattern": "S + be + adjective/noun + in/on/at + time",
+      "example": {
+        "en": "The meeting is at 9 a.m.",
+        "vi": "Cuộc họp lúc 9 giờ sáng."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Use in for longer times",
+        "vi": "Dùng in cho khoảng thời gian dài"
+      },
+      "explanation": {
+        "en": "Use in with months, years, seasons, and centuries.",
+        "vi": "Dùng in với tháng, năm, mùa và thế kỷ."
+      },
+      "examples": [
+        {
+          "en": "My birthday is in May.",
+          "vi": "Sinh nhật của tôi vào tháng Năm."
+        },
+        {
+          "en": "They moved here in 2020.",
+          "vi": "Họ chuyển đến đây vào năm 2020."
+        },
+        {
+          "en": "It is cold in winter.",
+          "vi": "Trời lạnh vào mùa đông."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use in for parts of the day",
+        "vi": "Dùng in cho các buổi trong ngày"
+      },
+      "explanation": {
+        "en": "Use in with the morning, the afternoon, and the evening.",
+        "vi": "Dùng in với the morning, the afternoon và the evening."
+      },
+      "examples": [
+        {
+          "en": "I drink coffee in the morning.",
+          "vi": "Tôi uống cà phê vào buổi sáng."
+        },
+        {
+          "en": "We watch TV in the evening.",
+          "vi": "Chúng tôi xem TV vào buổi tối."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use on for days and dates",
+        "vi": "Dùng on cho thứ và ngày tháng"
+      },
+      "explanation": {
+        "en": "Use on with days of the week and exact dates.",
+        "vi": "Dùng on với các thứ trong tuần và ngày tháng cụ thể."
+      },
+      "examples": [
+        {
+          "en": "I have English on Monday.",
+          "vi": "Tôi có môn tiếng Anh vào thứ Hai."
+        },
+        {
+          "en": "The party is on 12 June.",
+          "vi": "Bữa tiệc vào ngày 12 tháng Sáu."
+        },
+        {
+          "en": "She visits her parents on Sundays.",
+          "vi": "Cô ấy thăm bố mẹ vào các Chủ nhật."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use at for exact times",
+        "vi": "Dùng at cho giờ cụ thể"
+      },
+      "explanation": {
+        "en": "Use at with clock times and exact points of time.",
+        "vi": "Dùng at với giờ trên đồng hồ và thời điểm chính xác."
+      },
+      "examples": [
+        {
+          "en": "The film starts at 8 p.m.",
+          "vi": "Bộ phim bắt đầu lúc 8 giờ tối."
+        },
+        {
+          "en": "We eat lunch at noon.",
+          "vi": "Chúng tôi ăn trưa lúc giữa trưa."
+        },
+        {
+          "en": "He goes to bed at midnight.",
+          "vi": "Anh ấy đi ngủ lúc nửa đêm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use at with some special time phrases",
+        "vi": "Dùng at với một số cụm thời gian đặc biệt"
+      },
+      "explanation": {
+        "en": "Use at with night, the weekend, and holiday periods such as Christmas. In American English, on the weekend is also common.",
+        "vi": "Dùng at với night, the weekend và các kỳ lễ như Christmas. Trong tiếng Anh Mỹ, on the weekend cũng phổ biến."
+      },
+      "examples": [
+        {
+          "en": "I sleep at night.",
+          "vi": "Tôi ngủ vào ban đêm."
+        },
+        {
+          "en": "We play football at the weekend.",
+          "vi": "Chúng tôi chơi bóng đá vào cuối tuần."
+        },
+        {
+          "en": "They visit us at Christmas.",
+          "vi": "Họ thăm chúng tôi vào dịp Giáng sinh."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "in May",
+    "in 2024",
+    "in summer",
+    "in the morning",
+    "on Monday",
+    "on 5 July",
+    "at 6 o’clock",
+    "at night",
+    "at the weekend"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I go to school in 7 o’clock.",
+      "right": "I go to school at 7 o’clock.",
+      "why": {
+        "en": "Use at for an exact clock time.",
+        "vi": "Dùng at cho giờ cụ thể trên đồng hồ."
+      }
+    },
+    {
+      "wrong": "She has English in Monday.",
+      "right": "She has English on Monday.",
+      "why": {
+        "en": "Use on for days of the week.",
+        "vi": "Dùng on cho các thứ trong tuần."
+      }
+    },
+    {
+      "wrong": "My birthday is on May.",
+      "right": "My birthday is in May.",
+      "why": {
+        "en": "Use in for months when there is no exact date.",
+        "vi": "Dùng in cho tháng khi không có ngày cụ thể."
+      }
+    },
+    {
+      "wrong": "We meet at the morning.",
+      "right": "We meet in the morning.",
+      "why": {
+        "en": "Use in with the morning, the afternoon, and the evening.",
+        "vi": "Dùng in với the morning, the afternoon và the evening."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "prepositions-place",
+      "note": {
+        "en": "In, on, and at can also show place, but the meaning is different. For time: in July, on Monday, at 8 o’clock. For place: in a room, on a table, at school.",
+        "vi": "In, on và at cũng có thể chỉ nơi chốn, nhưng nghĩa khác. Với thời gian: in July, on Monday, at 8 o’clock. Với nơi chốn: in a room, on a table, at school."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: in = big time, on = day/date, at = exact time.",
+    "vi": "Mẹo nhớ: in = thời gian lớn, on = thứ/ngày tháng, at = giờ cụ thể."
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Use possessives to show that something belongs to a person, animal, group, place, or thing. The main forms are ’s, of, and whose in questions.",
+    "vi": "Dùng sở hữu để nói một thứ thuộc về người, con vật, nhóm, nơi chốn hoặc sự vật nào đó. Các dạng chính là ’s, of và whose trong câu hỏi."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Possessive ’s with a singular noun",
+        "vi": "Sở hữu ’s với danh từ số ít"
+      },
+      "pattern": "singular noun + ’s + noun",
+      "example": {
+        "en": "This is Anna’s bag.",
+        "vi": "Đây là túi của Anna."
+      }
+    },
+    {
+      "label": {
+        "en": "Possessive ’ with a regular plural noun",
+        "vi": "Sở hữu ’ với danh từ số nhiều có -s"
+      },
+      "pattern": "plural noun ending in -s + ’ + noun",
+      "example": {
+        "en": "The teachers’ room is on the second floor.",
+        "vi": "Phòng giáo viên ở tầng hai."
+      }
+    },
+    {
+      "label": {
+        "en": "Possessive of",
+        "vi": "Sở hữu với of"
+      },
+      "pattern": "the + noun + of + noun",
+      "example": {
+        "en": "The door of the room is open.",
+        "vi": "Cửa của căn phòng đang mở."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with whose",
+        "vi": "Câu hỏi với whose"
+      },
+      "pattern": "Whose + noun + be + this/that/these/those?",
+      "example": {
+        "en": "Whose phone is this?",
+        "vi": "Đây là điện thoại của ai?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To show possession by people or animals",
+        "vi": "Diễn tả sở hữu của người hoặc con vật"
+      },
+      "explanation": {
+        "en": "Use ’s most often with people, names, family members, and animals.",
+        "vi": "Thường dùng ’s với người, tên riêng, thành viên gia đình và con vật."
+      },
+      "examples": [
+        {
+          "en": "My brother’s bike is new.",
+          "vi": "Xe đạp của anh trai tôi là xe mới."
+        },
+        {
+          "en": "The dog’s tail is short.",
+          "vi": "Đuôi của con chó ngắn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show possession by plural groups",
+        "vi": "Diễn tả sở hữu của nhóm số nhiều"
+      },
+      "explanation": {
+        "en": "If a plural noun already ends in -s, add only an apostrophe. If it is an irregular plural noun, add ’s.",
+        "vi": "Nếu danh từ số nhiều đã có -s, chỉ thêm dấu nháy. Nếu là danh từ số nhiều bất quy tắc, thêm ’s."
+      },
+      "examples": [
+        {
+          "en": "The students’ books are on the desks.",
+          "vi": "Sách của các học sinh ở trên bàn."
+        },
+        {
+          "en": "The children’s toys are in the box.",
+          "vi": "Đồ chơi của bọn trẻ ở trong hộp."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show parts of things or places",
+        "vi": "Diễn tả bộ phận của vật hoặc nơi chốn"
+      },
+      "explanation": {
+        "en": "Use of often with things, places, and parts of something.",
+        "vi": "Thường dùng of với đồ vật, nơi chốn và bộ phận của một thứ gì đó."
+      },
+      "examples": [
+        {
+          "en": "The top of the table is dirty.",
+          "vi": "Mặt bàn bị bẩn."
+        },
+        {
+          "en": "The name of the hotel is easy to remember.",
+          "vi": "Tên của khách sạn dễ nhớ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To ask who owns something",
+        "vi": "Hỏi ai sở hữu cái gì"
+      },
+      "explanation": {
+        "en": "Use whose before a noun, or use whose alone when the noun is already clear.",
+        "vi": "Dùng whose trước danh từ, hoặc dùng whose một mình khi danh từ đã rõ."
+      },
+      "examples": [
+        {
+          "en": "Whose jacket is this?",
+          "vi": "Đây là áo khoác của ai?"
+        },
+        {
+          "en": "Whose are these shoes?",
+          "vi": "Những đôi giày này là của ai?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "my friend’s",
+    "the teacher’s",
+    "the students’",
+    "the children’s",
+    "the door of the room",
+    "whose"
+  ],
+  "mistakes": [
+    {
+      "wrong": "This is bag Anna.",
+      "right": "This is Anna’s bag.",
+      "why": {
+        "en": "In English, the owner usually comes before the thing with ’s: Anna’s bag.",
+        "vi": "Trong tiếng Anh, người sở hữu thường đứng trước vật sở hữu với ’s: Anna’s bag."
+      }
+    },
+    {
+      "wrong": "My mother car is red.",
+      "right": "My mother’s car is red.",
+      "why": {
+        "en": "Add ’s after a singular person noun to show possession.",
+        "vi": "Thêm ’s sau danh từ chỉ người số ít để diễn tả sở hữu."
+      }
+    },
+    {
+      "wrong": "The students’s books are here.",
+      "right": "The students’ books are here.",
+      "why": {
+        "en": "For a regular plural noun ending in -s, add only an apostrophe, not another s.",
+        "vi": "Với danh từ số nhiều có -s, chỉ thêm dấu nháy, không thêm s nữa."
+      }
+    },
+    {
+      "wrong": "Who bag is this?",
+      "right": "Whose bag is this?",
+      "why": {
+        "en": "Use whose, not who, to ask about possession.",
+        "vi": "Dùng whose, không dùng who, khi hỏi về sự sở hữu."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "For people, think: owner + ’s + thing. For things, often use: thing + of + thing.",
+    "vi": "Với người, nhớ: người sở hữu + ’s + vật. Với đồ vật, thường dùng: vật + of + vật."
+  }
+}

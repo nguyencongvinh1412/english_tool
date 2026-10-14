@@ -1,0 +1,205 @@
+{
+  "summary": {
+    "en": "Reporting verbs such as suggest, deny, admit, promise and warn tell us the speaker’s attitude or purpose, not just the words they said. They often follow fixed patterns with a that-clause, a gerund, an infinitive, or an object + infinitive.",
+    "vi": "Các động từ tường thuật như suggest, deny, admit, promise và warn cho biết thái độ hoặc mục đích của người nói, không chỉ thuật lại lời nói. Chúng thường đi theo mẫu cố định với mệnh đề that, danh động từ, động từ nguyên mẫu có to, hoặc tân ngữ + động từ nguyên mẫu có to."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Verb + that-clause",
+        "vi": "Động từ + mệnh đề that"
+      },
+      "pattern": "S + reporting verb + (that) + clause",
+      "example": {
+        "en": "She admitted that she had made a mistake.",
+        "vi": "Cô ấy thừa nhận rằng cô ấy đã mắc lỗi."
+      }
+    },
+    {
+      "label": {
+        "en": "Verb + gerund",
+        "vi": "Động từ + danh động từ"
+      },
+      "pattern": "S + reporting verb + V-ing",
+      "example": {
+        "en": "He denied taking the money.",
+        "vi": "Anh ấy phủ nhận việc đã lấy tiền."
+      }
+    },
+    {
+      "label": {
+        "en": "Verb + object + infinitive",
+        "vi": "Động từ + tân ngữ + động từ nguyên mẫu có to"
+      },
+      "pattern": "S + reporting verb + object + to + verb",
+      "example": {
+        "en": "They warned us not to touch the wires.",
+        "vi": "Họ cảnh báo chúng tôi không được chạm vào dây điện."
+      }
+    },
+    {
+      "label": {
+        "en": "Verb + infinitive",
+        "vi": "Động từ + động từ nguyên mẫu có to"
+      },
+      "pattern": "S + reporting verb + to + verb",
+      "example": {
+        "en": "She promised to call me later.",
+        "vi": "Cô ấy hứa sẽ gọi cho tôi sau."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Reporting suggestions, advice and recommendations",
+        "vi": "Tường thuật lời gợi ý, lời khuyên và đề xuất"
+      },
+      "explanation": {
+        "en": "Use verbs such as suggest, recommend, advise and propose to report ideas about what someone should do. Suggest and recommend can be followed by a gerund or a that-clause; advise often takes an object + infinitive.",
+        "vi": "Dùng các động từ như suggest, recommend, advise và propose để thuật lại ý kiến về việc ai đó nên làm gì. Suggest và recommend có thể đi với danh động từ hoặc mệnh đề that; advise thường đi với tân ngữ + động từ nguyên mẫu có to."
+      },
+      "examples": [
+        {
+          "en": "The doctor advised him to rest for a few days.",
+          "vi": "Bác sĩ khuyên anh ấy nghỉ ngơi vài ngày."
+        },
+        {
+          "en": "I suggested taking a taxi.",
+          "vi": "Tôi gợi ý đi taxi."
+        },
+        {
+          "en": "She recommended that we book early.",
+          "vi": "Cô ấy khuyên chúng tôi nên đặt chỗ sớm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting admissions and denials",
+        "vi": "Tường thuật lời thừa nhận và phủ nhận"
+      },
+      "explanation": {
+        "en": "Use admit, deny and confess to report whether someone accepts or rejects responsibility for an action. These verbs are commonly followed by a gerund or a that-clause.",
+        "vi": "Dùng admit, deny và confess để thuật lại việc ai đó nhận hay phủ nhận trách nhiệm về một hành động. Các động từ này thường đi với danh động từ hoặc mệnh đề that."
+      },
+      "examples": [
+        {
+          "en": "He admitted breaking the window.",
+          "vi": "Anh ấy thừa nhận đã làm vỡ cửa sổ."
+        },
+        {
+          "en": "They denied that they had copied the report.",
+          "vi": "Họ phủ nhận rằng họ đã sao chép bản báo cáo."
+        },
+        {
+          "en": "She confessed to lying about her experience.",
+          "vi": "Cô ấy thú nhận đã nói dối về kinh nghiệm của mình."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting promises, offers and refusals",
+        "vi": "Tường thuật lời hứa, lời đề nghị giúp và lời từ chối"
+      },
+      "explanation": {
+        "en": "Use promise, offer, agree and refuse to report what someone says they will or will not do. These verbs are usually followed by to + verb.",
+        "vi": "Dùng promise, offer, agree và refuse để thuật lại điều ai đó nói họ sẽ làm hoặc sẽ không làm. Các động từ này thường đi với to + động từ nguyên mẫu."
+      },
+      "examples": [
+        {
+          "en": "He promised to send the documents by Friday.",
+          "vi": "Anh ấy hứa sẽ gửi tài liệu trước thứ Sáu."
+        },
+        {
+          "en": "She offered to help me with the presentation.",
+          "vi": "Cô ấy đề nghị giúp tôi làm bài thuyết trình."
+        },
+        {
+          "en": "The company refused to give us a refund.",
+          "vi": "Công ty từ chối hoàn tiền cho chúng tôi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting warnings, reminders and orders",
+        "vi": "Tường thuật lời cảnh báo, nhắc nhở và mệnh lệnh"
+      },
+      "explanation": {
+        "en": "Use warn, remind, tell, order and ask when one person wants another person to do or not do something. These verbs often use object + to + verb, or object + not to + verb.",
+        "vi": "Dùng warn, remind, tell, order và ask khi một người muốn người khác làm hoặc không làm điều gì. Các động từ này thường dùng tân ngữ + to + động từ, hoặc tân ngữ + not to + động từ."
+      },
+      "examples": [
+        {
+          "en": "The teacher reminded us to submit the assignment.",
+          "vi": "Giáo viên nhắc chúng tôi nộp bài tập."
+        },
+        {
+          "en": "The police ordered the driver to stop.",
+          "vi": "Cảnh sát ra lệnh cho tài xế dừng lại."
+        },
+        {
+          "en": "My mother warned me not to stay out too late.",
+          "vi": "Mẹ tôi cảnh báo tôi không được về quá muộn."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "admit",
+    "advise",
+    "agree",
+    "deny",
+    "offer",
+    "promise",
+    "recommend",
+    "refuse",
+    "remind",
+    "suggest",
+    "warn",
+    "object + to + verb",
+    "verb + -ing",
+    "that-clause"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She suggested me to apply for the job.",
+      "right": "She suggested that I apply for the job. / She suggested applying for the job.",
+      "why": {
+        "en": "Suggest is not normally used with object + to + verb. Use a that-clause or a gerund.",
+        "vi": "Suggest thường không đi với tân ngữ + to + động từ. Hãy dùng mệnh đề that hoặc danh động từ."
+      }
+    },
+    {
+      "wrong": "He denied to steal the phone.",
+      "right": "He denied stealing the phone.",
+      "why": {
+        "en": "Deny is followed by a gerund, not an infinitive.",
+        "vi": "Deny đi với danh động từ, không đi với động từ nguyên mẫu có to."
+      }
+    },
+    {
+      "wrong": "They warned us not touch the machine.",
+      "right": "They warned us not to touch the machine.",
+      "why": {
+        "en": "After warn + object, use not to + verb for a negative warning.",
+        "vi": "Sau warn + tân ngữ, dùng not to + động từ để diễn đạt lời cảnh báo phủ định."
+      }
+    },
+    {
+      "wrong": "She admitted she make a mistake.",
+      "right": "She admitted that she had made a mistake.",
+      "why": {
+        "en": "In a that-clause, the verb must have the correct tense. Here, the mistake happened before the admission, so the past perfect is natural.",
+        "vi": "Trong mệnh đề that, động từ phải đúng thì. Ở đây, lỗi xảy ra trước lời thừa nhận, nên dùng quá khứ hoàn thành là tự nhiên."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Learn reporting verbs in small pattern groups: deny/admit + -ing, promise/refuse + to do, warn/remind + someone + to do, suggest/recommend + -ing or that-clause.",
+    "vi": "Hãy học động từ tường thuật theo nhóm mẫu nhỏ: deny/admit + V-ing, promise/refuse + to do, warn/remind + someone + to do, suggest/recommend + V-ing hoặc mệnh đề that."
+  }
+}

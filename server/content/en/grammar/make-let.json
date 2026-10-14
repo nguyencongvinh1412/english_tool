@@ -1,0 +1,183 @@
+{
+  "summary": {
+    "en": "Use make, let, and help before an object + the base form of a verb: make/let/help + someone + do something. They describe causing someone to do something, allowing someone to do something, or assisting someone to do something.",
+    "vi": "Dùng make, let và help trước tân ngữ + động từ nguyên mẫu không to: make/let/help + ai đó + làm gì. Chúng diễn tả việc bắt/ khiến ai làm gì, cho phép ai làm gì, hoặc giúp ai làm gì."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + make(s)/let(s)/help(s) + O + V",
+      "example": {
+        "en": "My parents let me use the car on Sundays.",
+        "vi": "Bố mẹ tôi cho phép tôi dùng xe vào Chủ nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does/did not + make/let/help + O + V",
+      "example": {
+        "en": "The teacher did not let us leave early.",
+        "vi": "Giáo viên đã không cho chúng tôi về sớm."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does/Did + S + make/let/help + O + V?",
+      "example": {
+        "en": "Did your brother help you fix the bike?",
+        "vi": "Anh trai/em trai bạn có giúp bạn sửa xe đạp không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Passive with make",
+        "vi": "Bị động với make"
+      },
+      "pattern": "S + be + made + to V",
+      "example": {
+        "en": "We were made to wait outside for an hour.",
+        "vi": "Chúng tôi bị bắt phải đợi bên ngoài trong một giờ."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Make: force or cause someone to do something",
+        "vi": "Make: bắt buộc hoặc khiến ai làm gì"
+      },
+      "explanation": {
+        "en": "Use make + object + base verb when someone has power over another person, or when something causes a reaction or result.",
+        "vi": "Dùng make + tân ngữ + động từ nguyên mẫu khi ai đó có quyền bắt người khác làm gì, hoặc khi điều gì đó gây ra phản ứng/kết quả."
+      },
+      "examples": [
+        {
+          "en": "The manager made everyone work late.",
+          "vi": "Quản lý bắt mọi người làm việc muộn."
+        },
+        {
+          "en": "That funny video made me laugh.",
+          "vi": "Video hài đó khiến tôi cười."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Let: allow someone to do something",
+        "vi": "Let: cho phép ai làm gì"
+      },
+      "explanation": {
+        "en": "Use let + object + base verb when someone gives permission or does not stop an action.",
+        "vi": "Dùng let + tân ngữ + động từ nguyên mẫu khi ai đó cho phép hoặc không ngăn cản một hành động."
+      },
+      "examples": [
+        {
+          "en": "Please let me explain.",
+          "vi": "Làm ơn cho tôi giải thích."
+        },
+        {
+          "en": "Her father lets her go out with friends at weekends.",
+          "vi": "Bố cô ấy cho phép cô ấy đi chơi với bạn vào cuối tuần."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Help: assist someone to do something",
+        "vi": "Help: giúp ai làm gì"
+      },
+      "explanation": {
+        "en": "Use help + object + base verb to talk about assistance. Help + object + to + verb is also correct, especially in more formal English, but the bare infinitive is very common.",
+        "vi": "Dùng help + tân ngữ + động từ nguyên mẫu để nói về sự giúp đỡ. Help + tân ngữ + to + động từ cũng đúng, đặc biệt trong văn phong trang trọng hơn, nhưng dạng không có to rất phổ biến."
+      },
+      "examples": [
+        {
+          "en": "Can you help me carry these bags?",
+          "vi": "Bạn có thể giúp tôi mang những cái túi này không?"
+        },
+        {
+          "en": "This app helps students learn new words.",
+          "vi": "Ứng dụng này giúp học sinh học từ mới."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Remember the main verb changes tense, not the second verb",
+        "vi": "Nhớ: động từ chính đổi thì, không phải động từ thứ hai"
+      },
+      "explanation": {
+        "en": "Make, let, and help can change for tense or subject. The verb after the object stays in the base form.",
+        "vi": "Make, let và help có thể thay đổi theo thì hoặc chủ ngữ. Động từ sau tân ngữ giữ nguyên dạng nguyên mẫu."
+      },
+      "examples": [
+        {
+          "en": "She makes her son tidy his room every day.",
+          "vi": "Cô ấy bắt con trai dọn phòng mỗi ngày."
+        },
+        {
+          "en": "They helped us move house last month.",
+          "vi": "Họ đã giúp chúng tôi chuyển nhà tháng trước."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "make someone do something",
+    "let someone do something",
+    "help someone do something",
+    "help someone to do something",
+    "be made to do something",
+    "permission: let",
+    "force/cause: make",
+    "assistance: help"
+  ],
+  "mistakes": [
+    {
+      "wrong": "My mother makes me to study English every night.",
+      "right": "My mother makes me study English every night.",
+      "why": {
+        "en": "After make + object in the active voice, use the base verb without to.",
+        "vi": "Sau make + tân ngữ ở câu chủ động, dùng động từ nguyên mẫu không có to."
+      }
+    },
+    {
+      "wrong": "The teacher let us to use dictionaries.",
+      "right": "The teacher let us use dictionaries.",
+      "why": {
+        "en": "After let + object, use the base verb without to.",
+        "vi": "Sau let + tân ngữ, dùng động từ nguyên mẫu không có to."
+      }
+    },
+    {
+      "wrong": "She help me do my homework.",
+      "right": "She helps me do my homework.",
+      "why": {
+        "en": "With he, she, or it in the present simple, add -s to the main verb help. The second verb stays in the base form.",
+        "vi": "Với he, she, it ở thì hiện tại đơn, thêm -s vào động từ chính help. Động từ thứ hai vẫn giữ nguyên dạng."
+      }
+    },
+    {
+      "wrong": "We were made wait outside.",
+      "right": "We were made to wait outside.",
+      "why": {
+        "en": "In the passive form of make, use be made + to + verb.",
+        "vi": "Trong dạng bị động của make, dùng be made + to + động từ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Make, let, help push the next action back to the simple verb: make me go, let me go, help me go. But passive make needs to: I was made to go.",
+    "vi": "Make, let, help kéo hành động sau về động từ nguyên mẫu: make me go, let me go, help me go. Nhưng make ở bị động cần to: I was made to go."
+  }
+}

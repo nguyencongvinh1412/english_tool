@@ -1,0 +1,201 @@
+{
+  "summary": {
+    "en": "Participle clauses are reduced clauses using an -ing form, a past participle, or having + past participle. They make writing more concise and are common in formal or literary English when two clauses share the same subject or when extra information is added about a noun or situation.",
+    "vi": "Mệnh đề phân từ là mệnh đề rút gọn dùng dạng -ing, quá khứ phân từ, hoặc having + quá khứ phân từ. Cấu trúc này giúp câu ngắn gọn hơn và thường gặp trong văn viết trang trọng hoặc văn chương khi hai mệnh đề có cùng chủ ngữ, hoặc khi thêm thông tin về một danh từ hay tình huống."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Present participle clause",
+        "vi": "Mệnh đề hiện tại phân từ"
+      },
+      "pattern": "V-ing + object/complement, S + V",
+      "example": {
+        "en": "Walking along the river, she noticed a small café.",
+        "vi": "Khi đang đi dọc bờ sông, cô ấy để ý thấy một quán cà phê nhỏ."
+      }
+    },
+    {
+      "label": {
+        "en": "Past participle clause",
+        "vi": "Mệnh đề quá khứ phân từ"
+      },
+      "pattern": "Past participle + object/complement, S + V",
+      "example": {
+        "en": "Written in simple language, the report was easy to understand.",
+        "vi": "Được viết bằng ngôn ngữ đơn giản, bản báo cáo rất dễ hiểu."
+      }
+    },
+    {
+      "label": {
+        "en": "Perfect participle clause",
+        "vi": "Mệnh đề phân từ hoàn thành"
+      },
+      "pattern": "Having + past participle + object/complement, S + V",
+      "example": {
+        "en": "Having finished the interview, Minh felt much more relaxed.",
+        "vi": "Sau khi hoàn thành buổi phỏng vấn, Minh cảm thấy thoải mái hơn nhiều."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative participle clause",
+        "vi": "Mệnh đề phân từ phủ định"
+      },
+      "pattern": "Not + participle / Not having + past participle, S + V",
+      "example": {
+        "en": "Not knowing the answer, I stayed silent.",
+        "vi": "Vì không biết câu trả lời, tôi giữ im lặng."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To show two actions by the same subject",
+        "vi": "Diễn tả hai hành động của cùng một chủ ngữ"
+      },
+      "explanation": {
+        "en": "Use an -ing participle clause when one person or thing does two actions at the same time, or when one action closely follows another. The subject of the participle clause is usually the same as the subject of the main clause.",
+        "vi": "Dùng mệnh đề phân từ -ing khi một người hoặc vật thực hiện hai hành động cùng lúc, hoặc khi một hành động xảy ra ngay sau hành động khác. Chủ ngữ của mệnh đề phân từ thường giống chủ ngữ của mệnh đề chính."
+      },
+      "examples": [
+        {
+          "en": "Holding a cup of coffee, he answered the door.",
+          "vi": "Cầm một tách cà phê, anh ấy ra mở cửa."
+        },
+        {
+          "en": "She left the office, forgetting to lock the window.",
+          "vi": "Cô ấy rời văn phòng và quên khóa cửa sổ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To give a reason",
+        "vi": "Nêu lý do"
+      },
+      "explanation": {
+        "en": "A participle clause can mean because or since. This is common in written English and sounds more concise than a full reason clause.",
+        "vi": "Mệnh đề phân từ có thể mang nghĩa vì hoặc do. Cách dùng này phổ biến trong văn viết tiếng Anh và ngắn gọn hơn mệnh đề chỉ lý do đầy đủ."
+      },
+      "examples": [
+        {
+          "en": "Feeling tired after the long meeting, we decided to go home early.",
+          "vi": "Vì cảm thấy mệt sau cuộc họp dài, chúng tôi quyết định về nhà sớm."
+        },
+        {
+          "en": "Not having enough evidence, the police could not make an arrest.",
+          "vi": "Vì không có đủ bằng chứng, cảnh sát không thể bắt giữ ai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show time or sequence",
+        "vi": "Chỉ thời gian hoặc trình tự"
+      },
+      "explanation": {
+        "en": "Use having + past participle when the participle action happened before the main action and you want to make the order clear.",
+        "vi": "Dùng having + quá khứ phân từ khi hành động trong mệnh đề phân từ xảy ra trước hành động chính và người nói muốn làm rõ trình tự."
+      },
+      "examples": [
+        {
+          "en": "Having checked all the figures, the accountant sent the final invoice.",
+          "vi": "Sau khi kiểm tra tất cả các số liệu, kế toán đã gửi hóa đơn cuối cùng."
+        },
+        {
+          "en": "Having lived abroad for ten years, she understood the challenges of adapting to a new culture.",
+          "vi": "Sau khi sống ở nước ngoài mười năm, cô ấy hiểu những khó khăn khi thích nghi với một nền văn hóa mới."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To add information about a noun",
+        "vi": "Bổ sung thông tin cho một danh từ"
+      },
+      "explanation": {
+        "en": "A participle clause can work like a reduced relative clause. Use -ing for an active meaning and a past participle for a passive meaning.",
+        "vi": "Mệnh đề phân từ có thể hoạt động như mệnh đề quan hệ rút gọn. Dùng -ing cho nghĩa chủ động và quá khứ phân từ cho nghĩa bị động."
+      },
+      "examples": [
+        {
+          "en": "The students waiting outside are from the economics department.",
+          "vi": "Những sinh viên đang chờ bên ngoài đến từ khoa kinh tế."
+        },
+        {
+          "en": "The documents signed yesterday are already on your desk.",
+          "vi": "Những tài liệu được ký hôm qua đã ở trên bàn của bạn rồi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To comment on the whole situation",
+        "vi": "Bình luận về toàn bộ tình huống"
+      },
+      "explanation": {
+        "en": "Some participle clauses refer not to one noun but to the whole main clause. They often express result, attitude, or interpretation.",
+        "vi": "Một số mệnh đề phân từ không nói về một danh từ riêng lẻ mà nói về toàn bộ mệnh đề chính. Chúng thường diễn tả kết quả, thái độ hoặc cách hiểu tình huống."
+      },
+      "examples": [
+        {
+          "en": "The company closed three branches, leaving hundreds of workers unemployed.",
+          "vi": "Công ty đã đóng cửa ba chi nhánh, khiến hàng trăm công nhân mất việc."
+        },
+        {
+          "en": "The train was delayed for two hours, making us miss the opening speech.",
+          "vi": "Chuyến tàu bị hoãn hai tiếng, khiến chúng tôi lỡ bài phát biểu khai mạc."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "V-ing at the beginning or end of a sentence",
+    "having + past participle",
+    "not + V-ing / not having + past participle",
+    "past participle used without a finite verb",
+    "commas separating extra information",
+    "meanings such as because, while, after, which causes"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Walking to the station, the rain started heavily.",
+      "right": "Walking to the station, I was caught in heavy rain.",
+      "why": {
+        "en": "The subject of the participle clause must be the person or thing doing the action. In the wrong sentence, the grammar suggests that the rain was walking to the station.",
+        "vi": "Chủ ngữ của mệnh đề phân từ phải là người hoặc vật thực hiện hành động đó. Trong câu sai, cấu trúc khiến người đọc hiểu rằng cơn mưa đang đi bộ tới nhà ga."
+      }
+    },
+    {
+      "wrong": "Not know what to say, she smiled politely.",
+      "right": "Not knowing what to say, she smiled politely.",
+      "why": {
+        "en": "After not in a participle clause, use the participle form, not the base verb. Here the correct form is not knowing.",
+        "vi": "Sau not trong mệnh đề phân từ, phải dùng dạng phân từ chứ không dùng động từ nguyên mẫu. Ở đây dạng đúng là not knowing."
+      }
+    },
+    {
+      "wrong": "Finished the report, I emailed it to my manager.",
+      "right": "Having finished the report, I emailed it to my manager.",
+      "why": {
+        "en": "When the meaning is active and the first action happened before the main action, use having + past participle. Finished alone often has a passive meaning.",
+        "vi": "Khi nghĩa là chủ động và hành động thứ nhất xảy ra trước hành động chính, dùng having + quá khứ phân từ. Finished đứng một mình thường mang nghĩa bị động."
+      }
+    },
+    {
+      "wrong": "The people invited us to dinner were very friendly.",
+      "right": "The people who invited us to dinner were very friendly.",
+      "why": {
+        "en": "A past participle clause has a passive meaning. Invited us is active, so you need a full relative clause: who invited us.",
+        "vi": "Mệnh đề quá khứ phân từ mang nghĩa bị động. Invited us là nghĩa chủ động, vì vậy cần dùng mệnh đề quan hệ đầy đủ: who invited us."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Check the hidden subject: ask “Who is doing this participle action?” If the answer is not the subject of the main clause, rewrite the sentence.",
+    "vi": "Hãy kiểm tra chủ ngữ ẩn: hỏi “Ai đang thực hiện hành động phân từ này?” Nếu câu trả lời không phải là chủ ngữ của mệnh đề chính, hãy viết lại câu."
+  }
+}

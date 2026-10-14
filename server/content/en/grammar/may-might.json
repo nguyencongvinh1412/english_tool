@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Use may, might, and could to say that something is possible but not certain. They are followed by the base form of the verb and do not change for he, she, or it.",
+    "vi": "Dùng may, might và could để nói rằng một việc có khả năng xảy ra nhưng không chắc chắn. Sau chúng là động từ nguyên mẫu không to và chúng không thay đổi theo he, she, it."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + may/might/could + base verb + O",
+      "example": {
+        "en": "It might rain this afternoon.",
+        "vi": "Chiều nay có thể trời sẽ mưa."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + may not/might not + base verb + O",
+      "example": {
+        "en": "She may not come to the meeting.",
+        "vi": "Cô ấy có thể sẽ không đến cuộc họp."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "May/Might/Could + S + base verb + O?",
+      "example": {
+        "en": "Could the keys be in your bag?",
+        "vi": "Có thể chìa khóa ở trong túi của bạn không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Past possibility",
+        "vi": "Khả năng trong quá khứ"
+      },
+      "pattern": "S + may/might/could + have + past participle",
+      "example": {
+        "en": "He might have missed the bus.",
+        "vi": "Có thể anh ấy đã lỡ xe buýt."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Possible present or future situations",
+        "vi": "Tình huống có thể xảy ra ở hiện tại hoặc tương lai"
+      },
+      "explanation": {
+        "en": "Use may, might, or could when you think something is possible, but you are not sure.",
+        "vi": "Dùng may, might hoặc could khi bạn nghĩ điều gì đó có thể xảy ra, nhưng bạn không chắc."
+      },
+      "examples": [
+        {
+          "en": "They may be at home now.",
+          "vi": "Có thể bây giờ họ đang ở nhà."
+        },
+        {
+          "en": "We could finish the project tomorrow.",
+          "vi": "Chúng tôi có thể hoàn thành dự án vào ngày mai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A weaker guess",
+        "vi": "Một phỏng đoán không chắc lắm"
+      },
+      "explanation": {
+        "en": "Might often sounds less certain than may. Could also shows a real possibility, but it can sound more open or more general.",
+        "vi": "Might thường nghe kém chắc chắn hơn may. Could cũng diễn tả một khả năng có thật, nhưng có thể nghe rộng hơn hoặc chung chung hơn."
+      },
+      "examples": [
+        {
+          "en": "He might know the answer, but I am not sure.",
+          "vi": "Có thể anh ấy biết câu trả lời, nhưng tôi không chắc."
+        },
+        {
+          "en": "This road could be dangerous at night.",
+          "vi": "Con đường này có thể nguy hiểm vào ban đêm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Negative possibility",
+        "vi": "Khả năng không xảy ra"
+      },
+      "explanation": {
+        "en": "Use may not or might not to say that something is possibly not true or possibly will not happen. Could not usually means something is impossible or was not possible, so be careful.",
+        "vi": "Dùng may not hoặc might not để nói rằng điều gì đó có thể không đúng hoặc có thể sẽ không xảy ra. Could not thường có nghĩa là điều gì đó là không thể hoặc đã không thể làm được, nên cần cẩn thận."
+      },
+      "examples": [
+        {
+          "en": "The shop may not be open today.",
+          "vi": "Có thể hôm nay cửa hàng không mở cửa."
+        },
+        {
+          "en": "She might not understand the instructions.",
+          "vi": "Có thể cô ấy không hiểu hướng dẫn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Possible explanation for a past event",
+        "vi": "Cách giải thích có thể cho một sự việc trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use may have, might have, or could have + past participle to guess about something in the past.",
+        "vi": "Dùng may have, might have hoặc could have + quá khứ phân từ để phỏng đoán về một việc trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "I can't find my phone. I may have left it at the office.",
+          "vi": "Tôi không tìm thấy điện thoại. Có thể tôi đã để quên nó ở văn phòng."
+        },
+        {
+          "en": "They could have taken the wrong train.",
+          "vi": "Có thể họ đã đi nhầm tàu."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "maybe",
+    "perhaps",
+    "possibly",
+    "I'm not sure",
+    "It is possible that",
+    "there is a chance that"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She mights come later.",
+      "right": "She might come later.",
+      "why": {
+        "en": "Modal verbs do not take -s after he, she, or it. Use the base form after might.",
+        "vi": "Động từ khuyết thiếu không thêm -s sau he, she hoặc it. Sau might dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "He may to be busy.",
+      "right": "He may be busy.",
+      "why": {
+        "en": "Do not use to after may, might, or could. Use the base verb.",
+        "vi": "Không dùng to sau may, might hoặc could. Dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "It might raining tomorrow.",
+      "right": "It might rain tomorrow.",
+      "why": {
+        "en": "After might, use the base verb, not the -ing form, unless you use be + -ing: It might be raining.",
+        "vi": "Sau might dùng động từ nguyên mẫu, không dùng dạng -ing, trừ khi có be + -ing: It might be raining."
+      }
+    },
+    {
+      "wrong": "She may not comes today.",
+      "right": "She may not come today.",
+      "why": {
+        "en": "In negative sentences with a modal verb, the main verb stays in the base form.",
+        "vi": "Trong câu phủ định với động từ khuyết thiếu, động từ chính giữ nguyên dạng nguyên mẫu."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: may, might, could + verb means “maybe”. No -s, no to, no past tense form after the modal.",
+    "vi": "Hãy nhớ: may, might, could + động từ có nghĩa là “có thể”. Không thêm -s, không dùng to, không chia quá khứ ngay sau động từ khuyết thiếu."
+  }
+}

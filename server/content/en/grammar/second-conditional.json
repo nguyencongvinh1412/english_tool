@@ -1,0 +1,196 @@
+{
+  "summary": {
+    "en": "The second conditional talks about an unreal, unlikely, or imaginary situation in the present or future and its possible result. It uses past simple after if, but the meaning is not past.",
+    "vi": "Câu điều kiện loại 2 nói về một tình huống không có thật, khó xảy ra, hoặc tưởng tượng ở hiện tại hoặc tương lai và kết quả có thể có của nó. Sau if dùng quá khứ đơn, nhưng nghĩa không phải là quá khứ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "If + S + past simple, S + would + base verb",
+      "example": {
+        "en": "If I had more time, I would learn Japanese.",
+        "vi": "Nếu tôi có nhiều thời gian hơn, tôi sẽ học tiếng Nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "If + S + did not/didn't + base verb, S + would not/wouldn't + base verb",
+      "example": {
+        "en": "If she didn't live so far away, we would visit her more often.",
+        "vi": "Nếu cô ấy không sống xa như vậy, chúng tôi sẽ đến thăm cô ấy thường xuyên hơn."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Would + S + base verb + if + S + past simple?",
+      "example": {
+        "en": "Would you move abroad if you got a better job?",
+        "vi": "Bạn có chuyển ra nước ngoài sống nếu bạn có được một công việc tốt hơn không?"
+      }
+    },
+    {
+      "label": {
+        "en": "With be",
+        "vi": "Với động từ be"
+      },
+      "pattern": "If + S + were, S + would + base verb",
+      "example": {
+        "en": "If I were you, I would talk to the teacher.",
+        "vi": "Nếu tôi là bạn, tôi sẽ nói chuyện với giáo viên."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Imaginary situations now",
+        "vi": "Tình huống tưởng tượng ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use the second conditional when the situation is not true now.",
+        "vi": "Dùng câu điều kiện loại 2 khi tình huống hiện tại không có thật."
+      },
+      "examples": [
+        {
+          "en": "If I knew his number, I would call him.",
+          "vi": "Nếu tôi biết số của anh ấy, tôi sẽ gọi cho anh ấy."
+        },
+        {
+          "en": "If we had a bigger flat, we would invite more friends.",
+          "vi": "Nếu chúng tôi có căn hộ lớn hơn, chúng tôi sẽ mời nhiều bạn bè hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Unlikely future situations",
+        "vi": "Tình huống khó xảy ra trong tương lai"
+      },
+      "explanation": {
+        "en": "Use it when you think a future situation is possible but not very likely.",
+        "vi": "Dùng khi bạn nghĩ một tình huống trong tương lai có thể xảy ra nhưng không có khả năng cao."
+      },
+      "examples": [
+        {
+          "en": "If I won the lottery, I would buy a house by the sea.",
+          "vi": "Nếu tôi trúng xổ số, tôi sẽ mua một ngôi nhà bên biển."
+        },
+        {
+          "en": "If it snowed in Ho Chi Minh City, everyone would be surprised.",
+          "vi": "Nếu trời có tuyết ở Thành phố Hồ Chí Minh, mọi người sẽ rất ngạc nhiên."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Giving advice",
+        "vi": "Đưa ra lời khuyên"
+      },
+      "explanation": {
+        "en": "Use If I were you to give advice in a polite and indirect way.",
+        "vi": "Dùng If I were you để đưa ra lời khuyên một cách lịch sự và gián tiếp."
+      },
+      "examples": [
+        {
+          "en": "If I were you, I would see a doctor.",
+          "vi": "Nếu tôi là bạn, tôi sẽ đi khám bác sĩ."
+        },
+        {
+          "en": "If I were you, I wouldn't spend so much money on that phone.",
+          "vi": "Nếu tôi là bạn, tôi sẽ không tiêu quá nhiều tiền cho chiếc điện thoại đó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Possible results with could or might",
+        "vi": "Kết quả có thể với could hoặc might"
+      },
+      "explanation": {
+        "en": "You can use could for ability or possibility, and might for a less certain result.",
+        "vi": "Bạn có thể dùng could để nói về khả năng, và might để nói về kết quả kém chắc chắn hơn."
+      },
+      "examples": [
+        {
+          "en": "If I spoke English better, I could get that job.",
+          "vi": "Nếu tôi nói tiếng Anh tốt hơn, tôi có thể có được công việc đó."
+        },
+        {
+          "en": "If we left now, we might arrive before dinner.",
+          "vi": "Nếu chúng ta rời đi ngay bây giờ, có lẽ chúng ta sẽ đến trước bữa tối."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "if",
+    "would",
+    "wouldn't",
+    "If I were you",
+    "could",
+    "might"
+  ],
+  "mistakes": [
+    {
+      "wrong": "If I have more money, I would buy a car.",
+      "right": "If I had more money, I would buy a car.",
+      "why": {
+        "en": "In the second conditional, the if-clause uses the past simple: had, not have.",
+        "vi": "Trong câu điều kiện loại 2, mệnh đề if dùng quá khứ đơn: had, không dùng have."
+      }
+    },
+    {
+      "wrong": "If I was you, I will say sorry.",
+      "right": "If I were you, I would say sorry.",
+      "why": {
+        "en": "For advice, use If I were you. The result clause uses would, not will. In informal speech, some people say was, but were is safer and more standard in this structure.",
+        "vi": "Khi đưa ra lời khuyên, dùng If I were you. Mệnh đề kết quả dùng would, không dùng will. Trong văn nói thân mật, một số người nói was, nhưng were chuẩn và an toàn hơn trong cấu trúc này."
+      }
+    },
+    {
+      "wrong": "If she lived near here, she would visits us.",
+      "right": "If she lived near here, she would visit us.",
+      "why": {
+        "en": "After would, use the base verb. Do not add -s, even with he, she, or it.",
+        "vi": "Sau would dùng động từ nguyên mẫu không to. Không thêm -s, dù chủ ngữ là he, she hoặc it."
+      }
+    },
+    {
+      "wrong": "If I would know the answer, I would tell you.",
+      "right": "If I knew the answer, I would tell you.",
+      "why": {
+        "en": "Do not usually use would in the if-clause. Use the past simple there.",
+        "vi": "Thông thường không dùng would trong mệnh đề if. Ở đó dùng quá khứ đơn."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "first-conditional",
+      "note": {
+        "en": "The first conditional is for real and likely future situations: If it rains, I will stay home. The second conditional is for unreal or unlikely situations: If it rained, I would stay home.",
+        "vi": "Câu điều kiện loại 1 dùng cho tình huống có thật và có khả năng xảy ra trong tương lai: If it rains, I will stay home. Câu điều kiện loại 2 dùng cho tình huống không có thật hoặc khó xảy ra: If it rained, I would stay home."
+      }
+    },
+    {
+      "with": "third-conditional",
+      "note": {
+        "en": "The second conditional talks about an unreal present or future: If I had a car, I would drive to work. The third conditional talks about an unreal past: If I had had a car, I would have driven to work.",
+        "vi": "Câu điều kiện loại 2 nói về hiện tại hoặc tương lai không có thật: If I had a car, I would drive to work. Câu điều kiện loại 3 nói về quá khứ không có thật: If I had had a car, I would have driven to work."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: past form after if, would + base verb for the result — but the meaning is present or future, not past.",
+    "vi": "Hãy nhớ: sau if dùng dạng quá khứ, mệnh đề kết quả dùng would + động từ nguyên mẫu — nhưng nghĩa là hiện tại hoặc tương lai, không phải quá khứ."
+  }
+}

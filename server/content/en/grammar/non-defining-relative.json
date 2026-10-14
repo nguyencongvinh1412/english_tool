@@ -1,0 +1,199 @@
+{
+  "summary": {
+    "en": "A non-defining relative clause adds extra information about a person, thing, place, or whole idea. It is not necessary to identify the noun, and it is separated by commas in writing.",
+    "vi": "Mệnh đề quan hệ không xác định thêm thông tin phụ về người, vật, nơi chốn hoặc cả một ý. Mệnh đề này không cần thiết để xác định danh từ và được tách bằng dấu phẩy khi viết."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "With who for people",
+        "vi": "Dùng who cho người"
+      },
+      "pattern": "Noun referring to a person + , who + V / clause, + main clause",
+      "example": {
+        "en": "My brother, who lives in Da Nang, is a software engineer.",
+        "vi": "Anh trai tôi, người sống ở Đà Nẵng, là kỹ sư phần mềm."
+      }
+    },
+    {
+      "label": {
+        "en": "With which for things or animals",
+        "vi": "Dùng which cho vật hoặc con vật"
+      },
+      "pattern": "Noun referring to a thing/animal + , which + V / clause, + main clause",
+      "example": {
+        "en": "This laptop, which I bought last year, still works very well.",
+        "vi": "Chiếc máy tính xách tay này, cái mà tôi mua năm ngoái, vẫn hoạt động rất tốt."
+      }
+    },
+    {
+      "label": {
+        "en": "With whose for possession",
+        "vi": "Dùng whose để chỉ sở hữu"
+      },
+      "pattern": "Noun + , whose + noun + V / clause, + main clause",
+      "example": {
+        "en": "Ms Carter, whose daughter studies in Hanoi, visits Vietnam every summer.",
+        "vi": "Cô Carter, người có con gái học ở Hà Nội, đến Việt Nam vào mỗi mùa hè."
+      }
+    },
+    {
+      "label": {
+        "en": "With where for places",
+        "vi": "Dùng where cho nơi chốn"
+      },
+      "pattern": "Place noun + , where + S + V, + main clause",
+      "example": {
+        "en": "Hoi An, where many tourists take photos, is famous for its old streets.",
+        "vi": "Hội An, nơi nhiều du khách chụp ảnh, nổi tiếng với những con phố cổ."
+      }
+    },
+    {
+      "label": {
+        "en": "Commenting on a whole clause",
+        "vi": "Nhận xét về cả một mệnh đề"
+      },
+      "pattern": "Main clause + , which + V / clause",
+      "example": {
+        "en": "She passed the final interview, which surprised everyone.",
+        "vi": "Cô ấy đã vượt qua buổi phỏng vấn cuối cùng, điều đó làm mọi người ngạc nhiên."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Add extra information about a known noun",
+        "vi": "Thêm thông tin phụ về một danh từ đã rõ"
+      },
+      "explanation": {
+        "en": "Use a non-defining relative clause when the listener already knows who or what you mean. The clause gives extra details but does not identify the noun.",
+        "vi": "Dùng mệnh đề quan hệ không xác định khi người nghe đã biết bạn đang nói đến ai hoặc cái gì. Mệnh đề chỉ cung cấp chi tiết thêm chứ không dùng để xác định danh từ."
+      },
+      "examples": [
+        {
+          "en": "My father, who is 60 this year, still plays tennis every weekend.",
+          "vi": "Bố tôi, người năm nay 60 tuổi, vẫn chơi quần vợt mỗi cuối tuần."
+        },
+        {
+          "en": "The Red River, which flows through Hanoi, is one of northern Vietnam's major rivers.",
+          "vi": "Sông Hồng, con sông chảy qua Hà Nội, là một trong những con sông lớn ở miền Bắc Việt Nam."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Give polite or natural background information",
+        "vi": "Cung cấp thông tin nền một cách tự nhiên hoặc lịch sự"
+      },
+      "explanation": {
+        "en": "This structure helps you add background information without starting a new sentence. It is common in writing, presentations, and more formal speech.",
+        "vi": "Cấu trúc này giúp bạn thêm thông tin nền mà không cần bắt đầu một câu mới. Nó thường gặp trong văn viết, bài thuyết trình và lời nói trang trọng hơn."
+      },
+      "examples": [
+        {
+          "en": "Professor Lee, who gave the opening speech, has published several books on education.",
+          "vi": "Giáo sư Lee, người đã phát biểu khai mạc, đã xuất bản vài cuốn sách về giáo dục."
+        },
+        {
+          "en": "The new museum, which opened in March, has already attracted thousands of visitors.",
+          "vi": "Bảo tàng mới, nơi đã mở cửa vào tháng Ba, đã thu hút hàng nghìn khách tham quan."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Add information about possession",
+        "vi": "Thêm thông tin về sở hữu"
+      },
+      "explanation": {
+        "en": "Use whose to show that something belongs to or is connected with the person, group, or thing mentioned before it.",
+        "vi": "Dùng whose để cho biết một thứ thuộc về hoặc có liên quan đến người, nhóm hoặc vật được nhắc đến trước đó."
+      },
+      "examples": [
+        {
+          "en": "Our neighbours, whose dog is very friendly, invited us to dinner.",
+          "vi": "Hàng xóm của chúng tôi, những người có con chó rất thân thiện, đã mời chúng tôi ăn tối."
+        },
+        {
+          "en": "The company, whose main office is in Singapore, is expanding into Vietnam.",
+          "vi": "Công ty đó, có trụ sở chính ở Singapore, đang mở rộng sang Việt Nam."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Comment on the whole previous idea",
+        "vi": "Nhận xét về toàn bộ ý phía trước"
+      },
+      "explanation": {
+        "en": "Use which after a comma to refer to the whole situation or fact in the previous clause, not just one noun.",
+        "vi": "Dùng which sau dấu phẩy để nói về toàn bộ tình huống hoặc sự việc trong mệnh đề trước, không chỉ một danh từ riêng lẻ."
+      },
+      "examples": [
+        {
+          "en": "The meeting finished early, which gave us time for lunch.",
+          "vi": "Cuộc họp kết thúc sớm, điều đó cho chúng tôi thời gian ăn trưa."
+        },
+        {
+          "en": "He forgot to attach the file, which caused a delay.",
+          "vi": "Anh ấy quên đính kèm tệp, điều đó gây ra sự chậm trễ."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "commas before and after the relative clause",
+    "proper names: Lan, Mr Brown, Vietnam, London",
+    "unique nouns: my mother, the sun, the company director",
+    "relative pronouns: who, whom, which, whose, where",
+    "which after a comma referring to the whole previous clause"
+  ],
+  "mistakes": [
+    {
+      "wrong": "My sister who lives in Canada is a doctor.",
+      "right": "My sister, who lives in Canada, is a doctor.",
+      "why": {
+        "en": "If you have only one sister or the listener already knows which sister you mean, the clause is extra information, so use commas.",
+        "vi": "Nếu bạn chỉ có một chị/em gái hoặc người nghe đã biết bạn nói đến ai, mệnh đề này chỉ là thông tin phụ nên cần dùng dấu phẩy."
+      }
+    },
+    {
+      "wrong": "My father, that is a teacher, loves reading.",
+      "right": "My father, who is a teacher, loves reading.",
+      "why": {
+        "en": "Do not use that in non-defining relative clauses. Use who for people and which for things.",
+        "vi": "Không dùng that trong mệnh đề quan hệ không xác định. Dùng who cho người và which cho vật."
+      }
+    },
+    {
+      "wrong": "The hotel, which we stayed last night, was very clean.",
+      "right": "The hotel, where we stayed last night, was very clean.",
+      "why": {
+        "en": "Use where when the relative clause means 'in/at that place'. You can also say: The hotel, at which we stayed last night, was very clean, but this is more formal.",
+        "vi": "Dùng where khi mệnh đề quan hệ có nghĩa là 'ở nơi đó'. Cũng có thể nói: The hotel, at which we stayed last night, was very clean, nhưng cách này trang trọng hơn."
+      }
+    },
+    {
+      "wrong": "She got a scholarship, that made her parents proud.",
+      "right": "She got a scholarship, which made her parents proud.",
+      "why": {
+        "en": "When referring to the whole previous idea, use comma + which, not that.",
+        "vi": "Khi nói về toàn bộ ý phía trước, dùng dấu phẩy + which, không dùng that."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "defining-relative",
+      "note": {
+        "en": "Defining relative clauses identify which person or thing you mean and normally have no commas: The student who won the prize is in my class. Non-defining relative clauses only add extra information and must use commas: Nam, who won the prize, is in my class. Also, that is possible in defining clauses but not in non-defining clauses.",
+        "vi": "Mệnh đề quan hệ xác định cho biết chính xác người hoặc vật nào đang được nói đến và thường không có dấu phẩy: The student who won the prize is in my class. Mệnh đề quan hệ không xác định chỉ thêm thông tin phụ và phải dùng dấu phẩy: Nam, who won the prize, is in my class. Ngoài ra, that có thể dùng trong mệnh đề xác định nhưng không dùng trong mệnh đề không xác định."
+      }
+    }
+  ],
+  "tip": {
+    "en": "If the sentence is still clear when you remove the relative clause, use commas and do not use that.",
+    "vi": "Nếu bỏ mệnh đề quan hệ đi mà câu vẫn rõ nghĩa, hãy dùng dấu phẩy và không dùng that."
+  }
+}

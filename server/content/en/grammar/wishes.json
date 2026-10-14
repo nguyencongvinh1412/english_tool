@@ -1,0 +1,193 @@
+{
+  "summary": {
+    "en": "Use wish and if only to talk about situations we want to be different. They often express regret, dissatisfaction, or an impossible/unreal desire in the present, past, or future.",
+    "vi": "Dùng wish và if only để nói về những tình huống ta muốn khác đi. Chúng thường diễn tả sự tiếc nuối, không hài lòng, hoặc mong muốn không có thật/khó xảy ra ở hiện tại, quá khứ hoặc tương lai."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Present wish",
+        "vi": "Câu ước ở hiện tại"
+      },
+      "pattern": "S + wish(es) / If only + S + past simple",
+      "example": {
+        "en": "I wish I knew the answer.",
+        "vi": "Tôi ước gì mình biết câu trả lời."
+      }
+    },
+    {
+      "label": {
+        "en": "Past regret",
+        "vi": "Tiếc nuối về quá khứ"
+      },
+      "pattern": "S + wish(es) / If only + S + had + past participle",
+      "example": {
+        "en": "If only we had left earlier.",
+        "vi": "Giá mà chúng ta đã rời đi sớm hơn."
+      }
+    },
+    {
+      "label": {
+        "en": "Wish for change or complaint",
+        "vi": "Mong thay đổi hoặc phàn nàn"
+      },
+      "pattern": "S + wish(es) / If only + S + would + base verb",
+      "example": {
+        "en": "I wish my neighbours would be quieter.",
+        "vi": "Tôi ước gì hàng xóm của tôi yên lặng hơn."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative wish",
+        "vi": "Câu ước phủ định"
+      },
+      "pattern": "S + wish(es) / If only + S + did not / had not / would not + verb",
+      "example": {
+        "en": "She wishes she did not live so far from work.",
+        "vi": "Cô ấy ước gì mình không sống quá xa nơi làm việc."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with wish",
+        "vi": "Câu hỏi với wish"
+      },
+      "pattern": "Do/Does + S + wish + S + past simple / past perfect / would + verb?",
+      "example": {
+        "en": "Do you wish you had studied abroad?",
+        "vi": "Bạn có ước là mình đã đi du học không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Unreal or unlikely situation in the present",
+        "vi": "Tình huống không có thật hoặc khó xảy ra ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use wish or if only + past simple to say that the real present situation is different from what you want. The verb is past in form, but the meaning is present.",
+        "vi": "Dùng wish hoặc if only + quá khứ đơn để nói rằng tình huống hiện tại khác với điều bạn mong muốn. Động từ có dạng quá khứ, nhưng ý nghĩa là hiện tại."
+      },
+      "examples": [
+        {
+          "en": "I wish I had more free time.",
+          "vi": "Tôi ước gì mình có nhiều thời gian rảnh hơn."
+        },
+        {
+          "en": "If only this room were bigger.",
+          "vi": "Giá mà căn phòng này rộng hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Regret about the past",
+        "vi": "Tiếc nuối về quá khứ"
+      },
+      "explanation": {
+        "en": "Use wish or if only + past perfect to talk about something that happened or did not happen in the past, and you regret it now.",
+        "vi": "Dùng wish hoặc if only + quá khứ hoàn thành để nói về điều đã xảy ra hoặc đã không xảy ra trong quá khứ, và hiện tại bạn thấy tiếc."
+      },
+      "examples": [
+        {
+          "en": "I wish I had listened to your advice.",
+          "vi": "Tôi ước gì mình đã nghe lời khuyên của bạn."
+        },
+        {
+          "en": "If only they had told us the truth.",
+          "vi": "Giá mà họ đã nói cho chúng tôi sự thật."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Wanting someone or something to change",
+        "vi": "Muốn ai đó hoặc điều gì đó thay đổi"
+      },
+      "explanation": {
+        "en": "Use wish or if only + would + base verb when you want another person, an organisation, or a situation to change. It often shows annoyance.",
+        "vi": "Dùng wish hoặc if only + would + động từ nguyên mẫu khi bạn muốn người khác, một tổ chức, hoặc một tình huống thay đổi. Cách dùng này thường thể hiện sự khó chịu."
+      },
+      "examples": [
+        {
+          "en": "I wish he would stop interrupting me.",
+          "vi": "Tôi ước gì anh ấy ngừng ngắt lời tôi."
+        },
+        {
+          "en": "If only the rain would stop.",
+          "vi": "Giá mà mưa tạnh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Wishes about ability",
+        "vi": "Câu ước về khả năng"
+      },
+      "explanation": {
+        "en": "Use wish or if only + could + base verb to talk about an ability or possibility that you do not have now, or did not have in the past.",
+        "vi": "Dùng wish hoặc if only + could + động từ nguyên mẫu để nói về khả năng hoặc điều có thể mà bạn hiện không có, hoặc trước đây đã không có."
+      },
+      "examples": [
+        {
+          "en": "I wish I could speak Japanese.",
+          "vi": "Tôi ước gì mình có thể nói tiếng Nhật."
+        },
+        {
+          "en": "If only we could have stayed longer.",
+          "vi": "Giá mà chúng tôi đã có thể ở lại lâu hơn."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "wish",
+    "if only",
+    "I regret...",
+    "It is a pity...",
+    "too late now",
+    "unfortunately",
+    "I would like things to be different"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I wish I am rich.",
+      "right": "I wish I were rich.",
+      "why": {
+        "en": "For an unreal present wish, use the past simple after wish. Were is common in formal or careful English with all subjects; was is also common in informal speech with I/he/she/it.",
+        "vi": "Với câu ước không có thật ở hiện tại, dùng quá khứ đơn sau wish. Were thường dùng trong văn phong trang trọng hoặc cẩn thận với mọi chủ ngữ; was cũng phổ biến trong văn nói thân mật với I/he/she/it."
+      }
+    },
+    {
+      "wrong": "I wish I studied harder last year.",
+      "right": "I wish I had studied harder last year.",
+      "why": {
+        "en": "For regret about the past, use the past perfect: had + past participle.",
+        "vi": "Để diễn tả sự tiếc nuối về quá khứ, dùng quá khứ hoàn thành: had + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "She wish she could travel more.",
+      "right": "She wishes she could travel more.",
+      "why": {
+        "en": "In the present simple, add -s or -es to the verb after he, she, or it.",
+        "vi": "Ở thì hiện tại đơn, thêm -s hoặc -es vào động từ sau he, she, hoặc it."
+      }
+    },
+    {
+      "wrong": "I wish my brother will help me more.",
+      "right": "I wish my brother would help me more.",
+      "why": {
+        "en": "After wish, use would, not will, when you want someone’s behaviour to change.",
+        "vi": "Sau wish, dùng would, không dùng will, khi bạn muốn hành vi của ai đó thay đổi."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "After wish, move the verb one step back: present situation → past simple; past regret → past perfect; wanted change → would.",
+    "vi": "Sau wish, lùi động từ một bước: tình huống hiện tại → quá khứ đơn; tiếc nuối quá khứ → quá khứ hoàn thành; muốn thay đổi → would."
+  }
+}

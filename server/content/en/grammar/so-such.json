@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "en": "Use so and such to make adjectives, adverbs, or nouns stronger. They often show a strong feeling or explain a result.",
+    "vi": "Dùng so và such để nhấn mạnh tính từ, trạng từ hoặc danh từ. Chúng thường diễn tả cảm xúc mạnh hoặc giải thích một kết quả."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "So + adjective/adverb",
+        "vi": "So + tính từ/trạng từ"
+      },
+      "pattern": "so + adjective/adverb",
+      "example": {
+        "en": "The test was so difficult.",
+        "vi": "Bài kiểm tra khó quá."
+      }
+    },
+    {
+      "label": {
+        "en": "Such + noun phrase",
+        "vi": "Such + cụm danh từ"
+      },
+      "pattern": "such + a/an + adjective + singular countable noun",
+      "example": {
+        "en": "It was such a difficult test.",
+        "vi": "Đó là một bài kiểm tra khó đến thế."
+      }
+    },
+    {
+      "label": {
+        "en": "Such + plural or uncountable noun",
+        "vi": "Such + danh từ số nhiều hoặc không đếm được"
+      },
+      "pattern": "such + adjective + plural noun/uncountable noun",
+      "example": {
+        "en": "They gave us such useful advice.",
+        "vi": "Họ đã cho chúng tôi những lời khuyên rất hữu ích."
+      }
+    },
+    {
+      "label": {
+        "en": "So/Such ... that",
+        "vi": "So/Such ... that"
+      },
+      "pattern": "so/such + adjective/adverb/noun phrase + that + clause",
+      "example": {
+        "en": "She was so tired that she went to bed early.",
+        "vi": "Cô ấy mệt đến mức đi ngủ sớm."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Emphasising adjectives and adverbs",
+        "vi": "Nhấn mạnh tính từ và trạng từ"
+      },
+      "explanation": {
+        "en": "Use so before an adjective or adverb when there is no noun after it.",
+        "vi": "Dùng so trước tính từ hoặc trạng từ khi phía sau không có danh từ."
+      },
+      "examples": [
+        {
+          "en": "This soup is so hot.",
+          "vi": "Món súp này nóng quá."
+        },
+        {
+          "en": "He speaks so quickly.",
+          "vi": "Anh ấy nói nhanh quá."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Emphasising noun phrases",
+        "vi": "Nhấn mạnh cụm danh từ"
+      },
+      "explanation": {
+        "en": "Use such before a noun phrase. With a singular countable noun, use a or an.",
+        "vi": "Dùng such trước cụm danh từ. Với danh từ đếm được số ít, dùng a hoặc an."
+      },
+      "examples": [
+        {
+          "en": "She is such a kind person.",
+          "vi": "Cô ấy là một người rất tốt bụng."
+        },
+        {
+          "en": "They are such friendly neighbours.",
+          "vi": "Họ là những người hàng xóm rất thân thiện."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Showing a result",
+        "vi": "Diễn tả kết quả"
+      },
+      "explanation": {
+        "en": "Use so ... that or such ... that to say that something is very strong and it causes a result.",
+        "vi": "Dùng so ... that hoặc such ... that để nói điều gì đó ở mức độ mạnh và gây ra một kết quả."
+      },
+      "examples": [
+        {
+          "en": "The film was so boring that I fell asleep.",
+          "vi": "Bộ phim chán đến mức tôi ngủ thiếp đi."
+        },
+        {
+          "en": "It was such a long journey that we were exhausted.",
+          "vi": "Đó là một chuyến đi dài đến mức chúng tôi kiệt sức."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reacting with strong feeling",
+        "vi": "Bày tỏ cảm xúc mạnh"
+      },
+      "explanation": {
+        "en": "So and such are common in spoken English when we react to something surprising, nice, bad, or extreme.",
+        "vi": "So và such thường dùng trong văn nói khi phản ứng với điều gì đó bất ngờ, tốt, xấu hoặc ở mức độ mạnh."
+      },
+      "examples": [
+        {
+          "en": "That was so funny!",
+          "vi": "Cái đó buồn cười quá!"
+        },
+        {
+          "en": "It was such a surprise!",
+          "vi": "Đó thật là một bất ngờ!"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "very",
+    "really",
+    "extremely",
+    "that + clause",
+    "a/an + adjective + noun",
+    "plural noun",
+    "uncountable noun"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She is so a beautiful girl.",
+      "right": "She is such a beautiful girl.",
+      "why": {
+        "en": "Use such before a noun phrase like a beautiful girl. Use so before an adjective only: She is so beautiful.",
+        "vi": "Dùng such trước cụm danh từ như a beautiful girl. Dùng so trước tính từ riêng lẻ: She is so beautiful."
+      }
+    },
+    {
+      "wrong": "It was such cold yesterday.",
+      "right": "It was so cold yesterday.",
+      "why": {
+        "en": "Cold is an adjective here, not a noun phrase, so use so.",
+        "vi": "Cold ở đây là tính từ, không phải cụm danh từ, nên dùng so."
+      }
+    },
+    {
+      "wrong": "He is such good teacher.",
+      "right": "He is such a good teacher.",
+      "why": {
+        "en": "Teacher is a singular countable noun, so it needs a/an: such a good teacher.",
+        "vi": "Teacher là danh từ đếm được số ít, nên cần a/an: such a good teacher."
+      }
+    },
+    {
+      "wrong": "The room so noisy that I couldn't study.",
+      "right": "The room was so noisy that I couldn't study.",
+      "why": {
+        "en": "In English, a sentence with an adjective needs the verb be: was so noisy.",
+        "vi": "Trong tiếng Anh, câu có tính từ cần động từ be: was so noisy."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "too-enough",
+      "note": {
+        "en": "So and such mean 'very' and often show a strong feeling or a result. Too means 'more than is good or possible', and enough means 'as much as needed': The bag is so heavy = very heavy; The bag is too heavy = I cannot carry it; The bag is light enough = I can carry it.",
+        "vi": "So và such có nghĩa gần với 'rất/quá' và thường nhấn mạnh cảm xúc hoặc kết quả. Too nghĩa là 'quá mức tốt hoặc có thể', còn enough nghĩa là 'đủ mức cần thiết': The bag is so heavy = rất nặng; The bag is too heavy = tôi không mang nổi; The bag is light enough = tôi có thể mang được."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: so + adjective, such + noun phrase.",
+    "vi": "Hãy nhớ: so + tính từ, such + cụm danh từ."
+  }
+}

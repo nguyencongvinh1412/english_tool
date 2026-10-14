@@ -1,0 +1,198 @@
+{
+  "summary": {
+    "en": "Use will + base verb to talk about the future, especially quick decisions, promises, offers, and predictions. Will does not change with the subject.",
+    "vi": "Dùng will + động từ nguyên mẫu để nói về tương lai, đặc biệt là quyết định ngay lúc nói, lời hứa, lời đề nghị giúp đỡ và dự đoán. Will không thay đổi theo chủ ngữ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + will + base verb + O",
+      "example": {
+        "en": "I will call you tonight.",
+        "vi": "Tối nay tôi sẽ gọi cho bạn."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + will not / won’t + base verb + O",
+      "example": {
+        "en": "She won’t be late.",
+        "vi": "Cô ấy sẽ không đến muộn."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Có/Không"
+      },
+      "pattern": "Will + S + base verb + O?",
+      "example": {
+        "en": "Will they join us tomorrow?",
+        "vi": "Ngày mai họ sẽ tham gia cùng chúng ta chứ?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi với từ để hỏi"
+      },
+      "pattern": "Wh-word + will + S + base verb?",
+      "example": {
+        "en": "When will the meeting start?",
+        "vi": "Khi nào cuộc họp sẽ bắt đầu?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Quick decisions",
+        "vi": "Quyết định ngay lúc nói"
+      },
+      "explanation": {
+        "en": "Use will when you decide something now, at the moment of speaking.",
+        "vi": "Dùng will khi bạn quyết định điều gì đó ngay lúc đang nói."
+      },
+      "examples": [
+        {
+          "en": "This bag is heavy. I’ll help you.",
+          "vi": "Cái túi này nặng. Tôi sẽ giúp bạn."
+        },
+        {
+          "en": "I’m hungry. I’ll make a sandwich.",
+          "vi": "Tôi đói. Tôi sẽ làm một cái bánh sandwich."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Promises and offers",
+        "vi": "Lời hứa và lời đề nghị giúp đỡ"
+      },
+      "explanation": {
+        "en": "Use will to say what you promise to do, or to offer help.",
+        "vi": "Dùng will để nói điều bạn hứa sẽ làm, hoặc để đề nghị giúp đỡ."
+      },
+      "examples": [
+        {
+          "en": "I’ll send you the file before 5 p.m.",
+          "vi": "Tôi sẽ gửi bạn tệp trước 5 giờ chiều."
+        },
+        {
+          "en": "Don’t worry. We won’t tell anyone.",
+          "vi": "Đừng lo. Chúng tôi sẽ không nói với ai đâu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predictions about the future",
+        "vi": "Dự đoán về tương lai"
+      },
+      "explanation": {
+        "en": "Use will for what you think, believe, or guess about the future.",
+        "vi": "Dùng will cho điều bạn nghĩ, tin hoặc đoán về tương lai."
+      },
+      "examples": [
+        {
+          "en": "I think it will rain tomorrow.",
+          "vi": "Tôi nghĩ ngày mai trời sẽ mưa."
+        },
+        {
+          "en": "She will be a good teacher.",
+          "vi": "Cô ấy sẽ là một giáo viên giỏi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Future facts",
+        "vi": "Sự việc trong tương lai"
+      },
+      "explanation": {
+        "en": "Use will for simple future information, especially when there is no fixed personal plan.",
+        "vi": "Dùng will để nói thông tin tương lai đơn giản, đặc biệt khi đó không phải là kế hoạch cá nhân đã sắp xếp chắc chắn."
+      },
+      "examples": [
+        {
+          "en": "The new shop will open next month.",
+          "vi": "Cửa hàng mới sẽ mở vào tháng sau."
+        },
+        {
+          "en": "You will get your results on Friday.",
+          "vi": "Bạn sẽ nhận kết quả vào thứ Sáu."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "tomorrow",
+    "next week/month/year",
+    "soon",
+    "in the future",
+    "I think",
+    "I hope",
+    "probably",
+    "maybe"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She will goes to school tomorrow.",
+      "right": "She will go to school tomorrow.",
+      "why": {
+        "en": "After will, use the base verb. Do not add -s or -es.",
+        "vi": "Sau will dùng động từ nguyên mẫu. Không thêm -s hoặc -es."
+      }
+    },
+    {
+      "wrong": "I no will come tonight.",
+      "right": "I won’t come tonight.",
+      "why": {
+        "en": "The negative form is will not or won’t, not no will.",
+        "vi": "Dạng phủ định là will not hoặc won’t, không dùng no will."
+      }
+    },
+    {
+      "wrong": "You will are happy here.",
+      "right": "You will be happy here.",
+      "why": {
+        "en": "After will, use the base form be, not am/is/are.",
+        "vi": "Sau will dùng dạng nguyên mẫu be, không dùng am/is/are."
+      }
+    },
+    {
+      "wrong": "When you will arrive?",
+      "right": "When will you arrive?",
+      "why": {
+        "en": "In questions, put will before the subject.",
+        "vi": "Trong câu hỏi, đặt will trước chủ ngữ."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "future-going-to",
+      "note": {
+        "en": "Use be going to for plans made before now or predictions with clear present evidence. Use will for quick decisions, promises, offers, and general guesses.",
+        "vi": "Dùng be going to cho kế hoạch đã có từ trước hoặc dự đoán có bằng chứng rõ ở hiện tại. Dùng will cho quyết định ngay lúc nói, lời hứa, lời đề nghị giúp đỡ và phỏng đoán chung."
+      }
+    },
+    {
+      "with": "future-present-continuous",
+      "note": {
+        "en": "Use the present continuous for fixed arrangements with a time or place, especially with other people. Use will when there is no arranged plan, or when you decide now.",
+        "vi": "Dùng hiện tại tiếp diễn cho sự sắp xếp chắc chắn có thời gian hoặc địa điểm, đặc biệt khi liên quan đến người khác. Dùng will khi chưa có sự sắp xếp, hoặc khi bạn quyết định ngay lúc nói."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: will = decide now or say what you think about the future.",
+    "vi": "Hãy nhớ: will = quyết định ngay lúc nói hoặc nói điều bạn nghĩ về tương lai."
+  }
+}

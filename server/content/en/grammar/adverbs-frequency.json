@@ -1,0 +1,196 @@
+{
+  "summary": {
+    "en": "Adverbs of frequency say how often something happens, for example always or sometimes. Adverbs of manner say how someone does something, for example slowly or well.",
+    "vi": "Trạng từ tần suất cho biết việc gì xảy ra thường xuyên như thế nào, ví dụ always hoặc sometimes. Trạng từ cách thức cho biết ai đó làm việc gì như thế nào, ví dụ slowly hoặc well."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with frequency adverb",
+        "vi": "Khẳng định với trạng từ tần suất"
+      },
+      "pattern": "S + adverb of frequency + V(s/es) + O",
+      "example": {
+        "en": "I always have breakfast.",
+        "vi": "Tôi luôn ăn sáng."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with be",
+        "vi": "Khẳng định với động từ be"
+      },
+      "pattern": "S + be + adverb of frequency + adjective/noun",
+      "example": {
+        "en": "She is often late.",
+        "vi": "Cô ấy thường đến muộn."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does not + adverb of frequency + V + O",
+      "example": {
+        "en": "He does not usually drink coffee.",
+        "vi": "Anh ấy thường không uống cà phê."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does + S + adverb of frequency + V + O?",
+      "example": {
+        "en": "Do you often watch TV?",
+        "vi": "Bạn có thường xem TV không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Manner adverb",
+        "vi": "Trạng từ cách thức"
+      },
+      "pattern": "S + V(s/es) + O + adverb of manner",
+      "example": {
+        "en": "They speak English slowly.",
+        "vi": "Họ nói tiếng Anh chậm rãi."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Talk about habits and routines",
+        "vi": "Nói về thói quen và việc thường làm"
+      },
+      "explanation": {
+        "en": "Use adverbs of frequency with the present simple to say how often you do something.",
+        "vi": "Dùng trạng từ tần suất với thì hiện tại đơn để nói bạn làm việc gì thường xuyên như thế nào."
+      },
+      "examples": [
+        {
+          "en": "I usually go to bed at ten.",
+          "vi": "Tôi thường đi ngủ lúc mười giờ."
+        },
+        {
+          "en": "We sometimes eat out on Sunday.",
+          "vi": "Thỉnh thoảng chúng tôi ăn ngoài vào Chủ nhật."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Say something is true all the time or not at all",
+        "vi": "Nói điều gì luôn đúng hoặc không bao giờ xảy ra"
+      },
+      "explanation": {
+        "en": "Always means every time. Never means not at any time. Never is already negative, so do not use not with it.",
+        "vi": "Always nghĩa là luôn luôn. Never nghĩa là không bao giờ. Never đã mang nghĩa phủ định, nên không dùng thêm not."
+      },
+      "examples": [
+        {
+          "en": "She always drinks water after lunch.",
+          "vi": "Cô ấy luôn uống nước sau bữa trưa."
+        },
+        {
+          "en": "I never smoke.",
+          "vi": "Tôi không bao giờ hút thuốc."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Describe how someone does an action",
+        "vi": "Miêu tả ai đó làm hành động như thế nào"
+      },
+      "explanation": {
+        "en": "Use an adverb of manner after the verb or after the object. Many manner adverbs end in -ly.",
+        "vi": "Dùng trạng từ cách thức sau động từ hoặc sau tân ngữ. Nhiều trạng từ cách thức có đuôi -ly."
+      },
+      "examples": [
+        {
+          "en": "He walks slowly.",
+          "vi": "Anh ấy đi chậm."
+        },
+        {
+          "en": "Please write your name clearly.",
+          "vi": "Vui lòng viết tên của bạn rõ ràng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use common irregular manner adverbs",
+        "vi": "Dùng một số trạng từ cách thức bất quy tắc thường gặp"
+      },
+      "explanation": {
+        "en": "Some adverbs do not use -ly. Good is an adjective, but well is an adverb.",
+        "vi": "Một số trạng từ không dùng đuôi -ly. Good là tính từ, còn well là trạng từ."
+      },
+      "examples": [
+        {
+          "en": "She sings well.",
+          "vi": "Cô ấy hát hay."
+        },
+        {
+          "en": "He works hard.",
+          "vi": "Anh ấy làm việc chăm chỉ."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "always",
+    "usually",
+    "often",
+    "sometimes",
+    "never",
+    "slowly",
+    "quickly",
+    "carefully",
+    "well",
+    "hard"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She often is late.",
+      "right": "She is often late.",
+      "why": {
+        "en": "With the verb be, the frequency adverb usually comes after be.",
+        "vi": "Với động từ be, trạng từ tần suất thường đứng sau be."
+      }
+    },
+    {
+      "wrong": "He play usually football.",
+      "right": "He usually plays football.",
+      "why": {
+        "en": "The frequency adverb usually comes before the main verb. In the present simple, add -s to the verb with he, she, or it.",
+        "vi": "Trạng từ tần suất thường đứng trước động từ chính. Ở thì hiện tại đơn, thêm -s vào động từ với he, she hoặc it."
+      }
+    },
+    {
+      "wrong": "I don't never drink tea.",
+      "right": "I never drink tea.",
+      "why": {
+        "en": "Never is negative, so do not use it with don't or doesn't in a simple sentence.",
+        "vi": "Never đã mang nghĩa phủ định, nên không dùng với don't hoặc doesn't trong câu đơn giản."
+      }
+    },
+    {
+      "wrong": "She speaks English good.",
+      "right": "She speaks English well.",
+      "why": {
+        "en": "Good is an adjective. Use well as the adverb to describe how she speaks.",
+        "vi": "Good là tính từ. Dùng well làm trạng từ để miêu tả cô ấy nói như thế nào."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Frequency adverbs usually go before the main verb but after be; manner adverbs often go at the end.",
+    "vi": "Trạng từ tần suất thường đứng trước động từ chính nhưng sau be; trạng từ cách thức thường đứng ở cuối câu."
+  }
+}

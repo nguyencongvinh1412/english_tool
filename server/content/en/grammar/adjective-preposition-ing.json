@@ -1,0 +1,203 @@
+{
+  "summary": {
+    "en": "After a preposition, use the -ing form of the verb, not the infinitive. This happens after single prepositions, prepositional phrases, and many adjective/verb + preposition combinations.",
+    "vi": "Sau giới từ, dùng dạng V-ing của động từ, không dùng to V. Cấu trúc này xuất hiện sau giới từ đơn, cụm giới từ, và nhiều kết hợp tính từ/động từ + giới từ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V + preposition + V-ing",
+      "example": {
+        "en": "She is interested in learning Japanese.",
+        "vi": "Cô ấy hứng thú với việc học tiếng Nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + V + preposition + not + V-ing",
+      "example": {
+        "en": "He apologized for not calling me.",
+        "vi": "Anh ấy xin lỗi vì đã không gọi cho tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Question word / Auxiliary + S + V + preposition + V-ing?",
+      "example": {
+        "en": "Are you good at speaking in public?",
+        "vi": "Bạn có giỏi nói trước đám đông không?"
+      }
+    },
+    {
+      "label": {
+        "en": "After a prepositional phrase",
+        "vi": "Sau cụm giới từ"
+      },
+      "pattern": "S + V + prepositional phrase + V-ing",
+      "example": {
+        "en": "We went home instead of waiting for the bus.",
+        "vi": "Chúng tôi về nhà thay vì chờ xe buýt."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "After common prepositions",
+        "vi": "Sau các giới từ thông dụng"
+      },
+      "explanation": {
+        "en": "Use V-ing after prepositions such as after, before, by, without, about, for, from, in, on, and with.",
+        "vi": "Dùng V-ing sau các giới từ như after, before, by, without, about, for, from, in, on, và with."
+      },
+      "examples": [
+        {
+          "en": "Please turn off the lights before leaving.",
+          "vi": "Vui lòng tắt đèn trước khi rời đi."
+        },
+        {
+          "en": "You can improve your English by reading every day.",
+          "vi": "Bạn có thể cải thiện tiếng Anh bằng cách đọc mỗi ngày."
+        },
+        {
+          "en": "She left without saying goodbye.",
+          "vi": "Cô ấy rời đi mà không nói lời tạm biệt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "After adjective + preposition",
+        "vi": "Sau tính từ + giới từ"
+      },
+      "explanation": {
+        "en": "Many adjectives are followed by a preposition, and the verb after that preposition must be in the -ing form.",
+        "vi": "Nhiều tính từ đi với một giới từ, và động từ sau giới từ đó phải ở dạng V-ing."
+      },
+      "examples": [
+        {
+          "en": "I am afraid of flying.",
+          "vi": "Tôi sợ đi máy bay."
+        },
+        {
+          "en": "They are excited about moving to a new city.",
+          "vi": "Họ hào hứng về việc chuyển đến một thành phố mới."
+        },
+        {
+          "en": "He is responsible for checking the emails.",
+          "vi": "Anh ấy chịu trách nhiệm kiểm tra email."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "After verb + preposition",
+        "vi": "Sau động từ + giới từ"
+      },
+      "explanation": {
+        "en": "Some verbs are commonly used with a preposition. If another verb comes after the preposition, use V-ing.",
+        "vi": "Một số động từ thường đi với giới từ. Nếu sau giới từ là một động từ khác, hãy dùng V-ing."
+      },
+      "examples": [
+        {
+          "en": "She insisted on paying for dinner.",
+          "vi": "Cô ấy khăng khăng đòi trả tiền bữa tối."
+        },
+        {
+          "en": "We talked about studying abroad.",
+          "vi": "Chúng tôi đã nói về việc du học."
+        },
+        {
+          "en": "He succeeded in finding a better job.",
+          "vi": "Anh ấy đã thành công trong việc tìm được một công việc tốt hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "After noun + preposition",
+        "vi": "Sau danh từ + giới từ"
+      },
+      "explanation": {
+        "en": "Some nouns are followed by a preposition. Use V-ing if the idea after the preposition is an action.",
+        "vi": "Một số danh từ đi với giới từ. Dùng V-ing nếu ý sau giới từ là một hành động."
+      },
+      "examples": [
+        {
+          "en": "There is a good reason for changing the plan.",
+          "vi": "Có một lý do hợp lý để thay đổi kế hoạch."
+        },
+        {
+          "en": "She has experience in teaching young children.",
+          "vi": "Cô ấy có kinh nghiệm dạy trẻ nhỏ."
+        },
+        {
+          "en": "What is the advantage of working from home?",
+          "vi": "Lợi ích của việc làm việc tại nhà là gì?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "after",
+    "before",
+    "by",
+    "without",
+    "instead of",
+    "because of",
+    "interested in",
+    "good at",
+    "afraid of",
+    "responsible for",
+    "talk about",
+    "insist on"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She is interested in learn English.",
+      "right": "She is interested in learning English.",
+      "why": {
+        "en": "After the preposition 'in', use the -ing form: learning.",
+        "vi": "Sau giới từ 'in', dùng dạng V-ing: learning."
+      }
+    },
+    {
+      "wrong": "He left without to say goodbye.",
+      "right": "He left without saying goodbye.",
+      "why": {
+        "en": "Do not use 'to + verb' after a preposition. Use V-ing after 'without'.",
+        "vi": "Không dùng 'to + động từ' sau giới từ. Sau 'without' dùng V-ing."
+      }
+    },
+    {
+      "wrong": "I am good at speak English.",
+      "right": "I am good at speaking English.",
+      "why": {
+        "en": "'At' is a preposition, so the next verb is in the -ing form.",
+        "vi": "'At' là giới từ, nên động từ theo sau phải ở dạng V-ing."
+      }
+    },
+    {
+      "wrong": "Before go to work, I drink coffee.",
+      "right": "Before going to work, I drink coffee.",
+      "why": {
+        "en": "When 'before' is a preposition followed by an action, use V-ing.",
+        "vi": "Khi 'before' là giới từ và theo sau là một hành động, dùng V-ing."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Preposition + action = V-ing: in learning, before leaving, without saying.",
+    "vi": "Giới từ + hành động = V-ing: in learning, before leaving, without saying."
+  }
+}

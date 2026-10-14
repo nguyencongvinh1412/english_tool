@@ -1,0 +1,183 @@
+{
+  "summary": {
+    "en": "-ed and -ing adjectives describe feelings and the things or people that cause feelings. Use -ed for how a person feels, and -ing for what makes the person feel that way.",
+    "vi": "Tính từ đuôi -ed và -ing diễn tả cảm xúc và người/vật gây ra cảm xúc đó. Dùng -ed để nói một người cảm thấy thế nào, và dùng -ing để nói điều gì làm người đó có cảm xúc ấy."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Feeling with -ed",
+        "vi": "Cảm xúc với -ed"
+      },
+      "pattern": "S + be/feel + -ed adjective",
+      "example": {
+        "en": "I am tired after work.",
+        "vi": "Tôi mệt sau giờ làm."
+      }
+    },
+    {
+      "label": {
+        "en": "Cause with -ing",
+        "vi": "Nguyên nhân với -ing"
+      },
+      "pattern": "S + be + -ing adjective",
+      "example": {
+        "en": "This film is boring.",
+        "vi": "Bộ phim này chán."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + be not + -ed/-ing adjective",
+      "example": {
+        "en": "She is not interested in football.",
+        "vi": "Cô ấy không hứng thú với bóng đá."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + -ed/-ing adjective?",
+      "example": {
+        "en": "Are you excited about the trip?",
+        "vi": "Bạn có hào hứng về chuyến đi không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Use -ed for feelings",
+        "vi": "Dùng -ed cho cảm xúc"
+      },
+      "explanation": {
+        "en": "-ed adjectives describe how a person or animal feels.",
+        "vi": "Tính từ đuôi -ed diễn tả người hoặc con vật cảm thấy thế nào."
+      },
+      "examples": [
+        {
+          "en": "Tom is frightened of big dogs.",
+          "vi": "Tom sợ những con chó to."
+        },
+        {
+          "en": "We were surprised by the news.",
+          "vi": "Chúng tôi ngạc nhiên vì tin đó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use -ing for the cause",
+        "vi": "Dùng -ing cho nguyên nhân gây cảm xúc"
+      },
+      "explanation": {
+        "en": "-ing adjectives describe a person, thing, or situation that gives a feeling.",
+        "vi": "Tính từ đuôi -ing diễn tả người, vật hoặc tình huống gây ra một cảm xúc."
+      },
+      "examples": [
+        {
+          "en": "The story is interesting.",
+          "vi": "Câu chuyện thú vị."
+        },
+        {
+          "en": "The exam was worrying.",
+          "vi": "Bài kiểm tra đó đáng lo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use them before nouns",
+        "vi": "Dùng trước danh từ"
+      },
+      "explanation": {
+        "en": "Both -ed and -ing adjectives can go before a noun.",
+        "vi": "Cả tính từ đuôi -ed và -ing đều có thể đứng trước danh từ."
+      },
+      "examples": [
+        {
+          "en": "A tired student needs a rest.",
+          "vi": "Một học sinh mệt cần nghỉ ngơi."
+        },
+        {
+          "en": "It was an exciting match.",
+          "vi": "Đó là một trận đấu hào hứng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Common pairs",
+        "vi": "Các cặp thường gặp"
+      },
+      "explanation": {
+        "en": "Many adjectives have two forms: bored/boring, interested/interesting, excited/exciting, tired/tiring, surprised/surprising.",
+        "vi": "Nhiều tính từ có hai dạng: bored/boring, interested/interesting, excited/exciting, tired/tiring, surprised/surprising."
+      },
+      "examples": [
+        {
+          "en": "I am bored because the lesson is boring.",
+          "vi": "Tôi thấy chán vì bài học chán."
+        },
+        {
+          "en": "She is excited because the game is exciting.",
+          "vi": "Cô ấy hào hứng vì trò chơi rất hào hứng."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "feel",
+    "be",
+    "get",
+    "about",
+    "by",
+    "with",
+    "in",
+    "because"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I am boring.",
+      "right": "I am bored.",
+      "why": {
+        "en": "Use -ed for your feeling. “I am boring” means other people feel bored because of you.",
+        "vi": "Dùng -ed cho cảm xúc của bạn. “I am boring” nghĩa là người khác thấy chán vì bạn."
+      }
+    },
+    {
+      "wrong": "This book is interested.",
+      "right": "This book is interesting.",
+      "why": {
+        "en": "A book does not feel. It causes a feeling, so use -ing.",
+        "vi": "Quyển sách không có cảm xúc. Nó gây ra cảm xúc, nên dùng -ing."
+      }
+    },
+    {
+      "wrong": "She very tired.",
+      "right": "She is very tired.",
+      "why": {
+        "en": "An adjective needs the verb “be” in this sentence.",
+        "vi": "Tính từ cần động từ “be” trong câu này."
+      }
+    },
+    {
+      "wrong": "I feel interesting in music.",
+      "right": "I feel interested in music.",
+      "why": {
+        "en": "Use “interested in” for a person’s feeling about a subject.",
+        "vi": "Dùng “interested in” để nói cảm xúc/sự quan tâm của một người đối với một chủ đề."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: -ed = the feeling inside you; -ing = the thing giving the feeling.",
+    "vi": "Hãy nhớ: -ed = cảm xúc bên trong bạn; -ing = thứ gây ra cảm xúc đó."
+  }
+}

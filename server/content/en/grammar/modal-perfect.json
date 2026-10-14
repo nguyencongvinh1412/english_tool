@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "en": "Use should have, must have, and could have + past participle to talk about past actions, missed chances, or deductions about the past. They do not mean the same thing: should have often shows regret or criticism, must have shows strong certainty, and could have shows a past possibility or ability that did not happen.",
+    "vi": "Dùng should have, must have và could have + quá khứ phân từ để nói về hành động trong quá khứ, cơ hội đã bỏ lỡ, hoặc suy đoán về quá khứ. Chúng không giống nhau: should have thường diễn tả sự tiếc nuối hoặc phê bình, must have diễn tả sự chắc chắn cao, còn could have diễn tả khả năng/cơ hội trong quá khứ nhưng đã không xảy ra."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + should/must/could + have + past participle",
+      "example": {
+        "en": "You should have told me earlier.",
+        "vi": "Lẽ ra bạn nên nói với tôi sớm hơn."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + should not / must not / could not + have + past participle",
+      "example": {
+        "en": "She could not have finished the report alone.",
+        "vi": "Cô ấy không thể nào đã hoàn thành bản báo cáo một mình."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Should/Must/Could + S + have + past participle?",
+      "example": {
+        "en": "Could he have taken the wrong train?",
+        "vi": "Có thể nào anh ấy đã lên nhầm tàu không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Short answers",
+        "vi": "Câu trả lời ngắn"
+      },
+      "pattern": "Yes, S + could/must/should have. / No, S + could not/should not have.",
+      "example": {
+        "en": "A: Could they have missed the email? B: Yes, they could have.",
+        "vi": "A: Có thể họ đã bỏ lỡ email không? B: Có, có thể."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Regret or criticism about the past",
+        "vi": "Tiếc nuối hoặc phê bình về quá khứ"
+      },
+      "explanation": {
+        "en": "Use should have + past participle to say that the right or better action did not happen. In the negative, should not have means the action was wrong or unwise.",
+        "vi": "Dùng should have + quá khứ phân từ để nói rằng một việc đúng hơn hoặc tốt hơn đã không xảy ra. Ở dạng phủ định, should not have nghĩa là hành động đó là sai hoặc không khôn ngoan."
+      },
+      "examples": [
+        {
+          "en": "I should have checked the address before leaving.",
+          "vi": "Lẽ ra tôi nên kiểm tra địa chỉ trước khi rời đi."
+        },
+        {
+          "en": "You should not have spoken to her like that.",
+          "vi": "Lẽ ra bạn không nên nói với cô ấy như vậy."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Strong deduction about the past",
+        "vi": "Suy đoán rất chắc về quá khứ"
+      },
+      "explanation": {
+        "en": "Use must have + past participle when you are very sure something happened because there is evidence now.",
+        "vi": "Dùng must have + quá khứ phân từ khi bạn rất chắc rằng điều gì đó đã xảy ra vì hiện tại có bằng chứng."
+      },
+      "examples": [
+        {
+          "en": "The ground is wet. It must have rained last night.",
+          "vi": "Mặt đất ướt. Chắc hẳn tối qua trời đã mưa."
+        },
+        {
+          "en": "She looks exhausted. She must have worked late.",
+          "vi": "Cô ấy trông kiệt sức. Chắc hẳn cô ấy đã làm việc muộn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past possibility or uncertainty",
+        "vi": "Khả năng hoặc sự không chắc chắn trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use could have + past participle to say that something was possible in the past, but you are not sure whether it happened.",
+        "vi": "Dùng could have + quá khứ phân từ để nói rằng một điều gì đó có khả năng đã xảy ra trong quá khứ, nhưng bạn không chắc nó có xảy ra hay không."
+      },
+      "examples": [
+        {
+          "en": "He could have left his phone at the café.",
+          "vi": "Có thể anh ấy đã để quên điện thoại ở quán cà phê."
+        },
+        {
+          "en": "The message could have gone to your spam folder.",
+          "vi": "Tin nhắn có thể đã vào thư mục spam của bạn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Missed opportunity or unused ability",
+        "vi": "Cơ hội bị bỏ lỡ hoặc khả năng đã không dùng"
+      },
+      "explanation": {
+        "en": "Use could have + past participle to say that someone had the chance or ability to do something, but did not do it.",
+        "vi": "Dùng could have + quá khứ phân từ để nói rằng ai đó đã có cơ hội hoặc khả năng làm điều gì đó, nhưng đã không làm."
+      },
+      "examples": [
+        {
+          "en": "We could have saved money by booking earlier.",
+          "vi": "Lẽ ra chúng ta đã có thể tiết kiệm tiền bằng cách đặt sớm hơn."
+        },
+        {
+          "en": "She could have become a doctor, but she chose law.",
+          "vi": "Cô ấy đã có thể trở thành bác sĩ, nhưng cô ấy chọn ngành luật."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "yesterday",
+    "last night",
+    "earlier",
+    "before",
+    "by now",
+    "I think",
+    "I’m sure",
+    "maybe",
+    "perhaps",
+    "It was a mistake"
+  ],
+  "mistakes": [
+    {
+      "wrong": "You should have tell me.",
+      "right": "You should have told me.",
+      "why": {
+        "en": "After should have, use the past participle, not the base verb.",
+        "vi": "Sau should have phải dùng quá khứ phân từ, không dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "She must has forgotten the meeting.",
+      "right": "She must have forgotten the meeting.",
+      "why": {
+        "en": "Modal verbs are followed by the base form. Use must have, not must has.",
+        "vi": "Sau động từ khuyết thiếu dùng dạng nguyên mẫu. Dùng must have, không dùng must has."
+      }
+    },
+    {
+      "wrong": "He should have went home earlier.",
+      "right": "He should have gone home earlier.",
+      "why": {
+        "en": "Went is the past simple form. After should have, use the past participle gone.",
+        "vi": "Went là dạng quá khứ đơn. Sau should have phải dùng quá khứ phân từ gone."
+      }
+    },
+    {
+      "wrong": "It must have rain last night.",
+      "right": "It must have rained last night.",
+      "why": {
+        "en": "The verb after must have must be a past participle. For regular verbs, add -ed.",
+        "vi": "Động từ sau must have phải ở dạng quá khứ phân từ. Với động từ có quy tắc, thêm -ed."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: should have = regret, must have = strong certainty, could have = possible or possible but not done.",
+    "vi": "Hãy nhớ: should have = tiếc nuối, must have = chắc hẳn, could have = có thể đã xảy ra hoặc lẽ ra đã có thể làm nhưng không làm."
+  }
+}

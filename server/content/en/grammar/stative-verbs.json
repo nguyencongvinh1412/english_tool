@@ -1,0 +1,201 @@
+{
+  "summary": {
+    "en": "State verbs describe feelings, thoughts, possession, senses, or states that are not actions. We usually use them in the present simple, not the present continuous, even when the meaning is “now”.",
+    "vi": "Động từ chỉ trạng thái diễn tả cảm xúc, suy nghĩ, sự sở hữu, giác quan hoặc tình trạng, không phải hành động. Ta thường dùng chúng ở thì hiện tại đơn, không dùng hiện tại tiếp diễn, dù nghĩa là “ngay bây giờ”."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with state verbs",
+        "vi": "Khẳng định với động từ chỉ trạng thái"
+      },
+      "pattern": "S + state verb(s/es) + O/complement",
+      "example": {
+        "en": "She likes this song.",
+        "vi": "Cô ấy thích bài hát này."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative with state verbs",
+        "vi": "Phủ định với động từ chỉ trạng thái"
+      },
+      "pattern": "S + do/does not + state verb + O/complement",
+      "example": {
+        "en": "I do not understand the question.",
+        "vi": "Tôi không hiểu câu hỏi."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with state verbs",
+        "vi": "Câu hỏi với động từ chỉ trạng thái"
+      },
+      "pattern": "Do/Does + S + state verb + O/complement?",
+      "example": {
+        "en": "Do you know his address?",
+        "vi": "Bạn có biết địa chỉ của anh ấy không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Action verbs in the present continuous",
+        "vi": "Động từ chỉ hành động ở hiện tại tiếp diễn"
+      },
+      "pattern": "S + am/is/are + action verb-ing + O",
+      "example": {
+        "en": "They are playing football now.",
+        "vi": "Bây giờ họ đang chơi bóng đá."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Feelings and opinions",
+        "vi": "Cảm xúc và ý kiến"
+      },
+      "explanation": {
+        "en": "Use the present simple for feelings and opinions such as like, love, hate, prefer, want, agree, and believe.",
+        "vi": "Dùng hiện tại đơn cho cảm xúc và ý kiến như like, love, hate, prefer, want, agree và believe."
+      },
+      "examples": [
+        {
+          "en": "I want a cup of tea.",
+          "vi": "Tôi muốn một tách trà."
+        },
+        {
+          "en": "He believes the story.",
+          "vi": "Anh ấy tin câu chuyện đó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Knowledge and thinking states",
+        "vi": "Trạng thái hiểu biết và suy nghĩ"
+      },
+      "explanation": {
+        "en": "Verbs such as know, understand, remember, forget, and mean usually describe a state, not an action in progress.",
+        "vi": "Các động từ như know, understand, remember, forget và mean thường diễn tả trạng thái, không phải hành động đang diễn ra."
+      },
+      "examples": [
+        {
+          "en": "We know the answer.",
+          "vi": "Chúng tôi biết câu trả lời."
+        },
+        {
+          "en": "This word means “quick”.",
+          "vi": "Từ này có nghĩa là “nhanh”."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Possession and relationships",
+        "vi": "Sở hữu và mối quan hệ"
+      },
+      "explanation": {
+        "en": "Use state verbs like have, own, belong, and need in the present simple when they show possession, connection, or necessity.",
+        "vi": "Dùng các động từ trạng thái như have, own, belong và need ở hiện tại đơn khi chúng chỉ sự sở hữu, liên hệ hoặc nhu cầu."
+      },
+      "examples": [
+        {
+          "en": "She has two brothers.",
+          "vi": "Cô ấy có hai anh/em trai."
+        },
+        {
+          "en": "This bag belongs to Minh.",
+          "vi": "Cái túi này thuộc về Minh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Senses and appearance",
+        "vi": "Giác quan và vẻ ngoài"
+      },
+      "explanation": {
+        "en": "Verbs such as seem, look, sound, smell, and taste are often state verbs when they describe how something is or appears.",
+        "vi": "Các động từ như seem, look, sound, smell và taste thường là động từ trạng thái khi chúng mô tả bản chất hoặc vẻ ngoài của sự vật."
+      },
+      "examples": [
+        {
+          "en": "The soup smells delicious.",
+          "vi": "Món súp có mùi thơm ngon."
+        },
+        {
+          "en": "You look tired today.",
+          "vi": "Hôm nay bạn trông có vẻ mệt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Some verbs can be state or action verbs",
+        "vi": "Một số động từ vừa có thể chỉ trạng thái vừa có thể chỉ hành động"
+      },
+      "explanation": {
+        "en": "Some verbs change meaning. For example, have can mean “possess” as a state, or “eat/drink/experience” as an action.",
+        "vi": "Một số động từ đổi nghĩa tùy cách dùng. Ví dụ, have có thể nghĩa là “có/sở hữu” như một trạng thái, hoặc “ăn/uống/trải qua” như một hành động."
+      },
+      "examples": [
+        {
+          "en": "I have a car.",
+          "vi": "Tôi có một chiếc ô tô."
+        },
+        {
+          "en": "I am having lunch now.",
+          "vi": "Bây giờ tôi đang ăn trưa."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "now with a state meaning",
+    "at the moment with a state meaning",
+    "usually",
+    "always",
+    "often",
+    "still"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I am knowing the answer.",
+      "right": "I know the answer.",
+      "why": {
+        "en": "Know is usually a state verb, so we use the present simple, not the present continuous.",
+        "vi": "Know thường là động từ chỉ trạng thái, nên ta dùng hiện tại đơn, không dùng hiện tại tiếp diễn."
+      }
+    },
+    {
+      "wrong": "She liking English songs.",
+      "right": "She likes English songs.",
+      "why": {
+        "en": "Like is a state verb and needs the present simple. With he, she, or it, add -s.",
+        "vi": "Like là động từ chỉ trạng thái và cần dùng hiện tại đơn. Với he, she hoặc it, thêm -s."
+      }
+    },
+    {
+      "wrong": "This phone belong to me.",
+      "right": "This phone belongs to me.",
+      "why": {
+        "en": "Belong is a state verb. In the present simple, a singular subject takes -s.",
+        "vi": "Belong là động từ chỉ trạng thái. Ở hiện tại đơn, chủ ngữ số ít cần thêm -s vào động từ."
+      }
+    },
+    {
+      "wrong": "I am have two sisters.",
+      "right": "I have two sisters.",
+      "why": {
+        "en": "When have means possession, it is a state verb. Do not use be before it.",
+        "vi": "Khi have có nghĩa là sở hữu, nó là động từ chỉ trạng thái. Không dùng be trước have."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "If the verb means “being”, “feeling”, “knowing”, or “having”, think present simple first.",
+    "vi": "Nếu động từ mang nghĩa “ở trong trạng thái”, “cảm thấy”, “biết” hoặc “có”, hãy nghĩ đến hiện tại đơn trước."
+  }
+}

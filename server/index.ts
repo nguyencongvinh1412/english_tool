@@ -10,6 +10,7 @@ import { createApp } from './app.js';
 import { recoverInterruptedImports } from './imports/jobs.js';
 import { recoverInterruptedGrading } from './exams/ielts.js';
 import { ensureEnVocab, ensureJaVocab } from './vocab/data.js';
+import { ensureGrammar } from './grammar/data.js';
 
 /**
  * Boots the server
@@ -22,6 +23,7 @@ async function main(): Promise<void> {
   await recoverInterruptedGrading();
   await ensureJaVocab();
   await ensureEnVocab();
+  await ensureGrammar();
 
   const app = createApp({ logRequests: true });
 

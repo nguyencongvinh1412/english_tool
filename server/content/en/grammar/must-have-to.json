@@ -1,0 +1,204 @@
+{
+  "summary": {
+    "en": "Use must and have to to say that something is necessary or obligatory. Must often sounds more personal or strong; have to often talks about rules, facts, or outside situations.",
+    "vi": "Dùng must và have to để nói rằng điều gì đó là cần thiết hoặc bắt buộc. Must thường nghe mang tính cá nhân hoặc mạnh hơn; have to thường nói về quy định, sự thật hoặc hoàn cảnh bên ngoài."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with must",
+        "vi": "Khẳng định với must"
+      },
+      "pattern": "S + must + base verb",
+      "example": {
+        "en": "You must wear a helmet.",
+        "vi": "Bạn phải đội mũ bảo hiểm."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with have to",
+        "vi": "Khẳng định với have to"
+      },
+      "pattern": "S + have/has to + base verb",
+      "example": {
+        "en": "She has to start work at 8 a.m.",
+        "vi": "Cô ấy phải bắt đầu làm việc lúc 8 giờ sáng."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative with have to",
+        "vi": "Phủ định với have to"
+      },
+      "pattern": "S + do/does not have to + base verb",
+      "example": {
+        "en": "We do not have to pay today.",
+        "vi": "Chúng tôi không phải trả tiền hôm nay."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with have to",
+        "vi": "Câu hỏi với have to"
+      },
+      "pattern": "Do/Does + S + have to + base verb?",
+      "example": {
+        "en": "Do I have to bring my passport?",
+        "vi": "Tôi có phải mang hộ chiếu không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Past with have to",
+        "vi": "Quá khứ với have to"
+      },
+      "pattern": "S + had to + base verb",
+      "example": {
+        "en": "They had to wait for two hours.",
+        "vi": "Họ đã phải chờ trong hai tiếng."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Strong personal obligation",
+        "vi": "Nghĩa vụ cá nhân mạnh"
+      },
+      "explanation": {
+        "en": "Use must when the speaker feels that something is very important or necessary.",
+        "vi": "Dùng must khi người nói cảm thấy điều gì đó rất quan trọng hoặc cần thiết."
+      },
+      "examples": [
+        {
+          "en": "I must call my mother tonight.",
+          "vi": "Tối nay tôi phải gọi cho mẹ tôi."
+        },
+        {
+          "en": "You must see this film. It is excellent.",
+          "vi": "Bạn phải xem bộ phim này. Nó rất hay."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Rules and outside obligations",
+        "vi": "Quy định và nghĩa vụ từ bên ngoài"
+      },
+      "explanation": {
+        "en": "Use have to when the obligation comes from a rule, a law, a job, a timetable, or a situation.",
+        "vi": "Dùng have to khi nghĩa vụ đến từ quy định, luật lệ, công việc, thời gian biểu hoặc hoàn cảnh."
+      },
+      "examples": [
+        {
+          "en": "Students have to show their ID cards.",
+          "vi": "Sinh viên phải xuất trình thẻ sinh viên."
+        },
+        {
+          "en": "He has to wear a uniform at work.",
+          "vi": "Anh ấy phải mặc đồng phục ở nơi làm việc."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Questions about obligation",
+        "vi": "Hỏi về nghĩa vụ"
+      },
+      "explanation": {
+        "en": "Use do/does have to to ask if something is necessary. Must I...? is possible but more formal and less common in everyday speech.",
+        "vi": "Dùng do/does have to để hỏi điều gì đó có bắt buộc không. Must I...? có thể dùng nhưng trang trọng hơn và ít phổ biến hơn trong giao tiếp hằng ngày."
+      },
+      "examples": [
+        {
+          "en": "Do we have to finish this today?",
+          "vi": "Chúng ta có phải hoàn thành việc này hôm nay không?"
+        },
+        {
+          "en": "Does she have to take an exam?",
+          "vi": "Cô ấy có phải thi không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past obligation",
+        "vi": "Nghĩa vụ trong quá khứ"
+      },
+      "explanation": {
+        "en": "Must does not normally have a past form for obligation. Use had to for past obligations.",
+        "vi": "Must thường không có dạng quá khứ để nói về nghĩa vụ. Dùng had to cho nghĩa vụ trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "Yesterday I had to work late.",
+          "vi": "Hôm qua tôi đã phải làm việc muộn."
+        },
+        {
+          "en": "When we were children, we had to help at home.",
+          "vi": "Khi còn nhỏ, chúng tôi phải giúp việc nhà."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "rules",
+    "laws",
+    "school rules",
+    "work rules",
+    "important",
+    "necessary",
+    "today",
+    "tomorrow",
+    "every day",
+    "had to"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She have to go now.",
+      "right": "She has to go now.",
+      "why": {
+        "en": "With he, she, and it, use has to, not have to.",
+        "vi": "Với he, she và it, dùng has to, không dùng have to."
+      }
+    },
+    {
+      "wrong": "You must to wear a seat belt.",
+      "right": "You must wear a seat belt.",
+      "why": {
+        "en": "After must, use the base verb without to.",
+        "vi": "Sau must, dùng động từ nguyên mẫu không có to."
+      }
+    },
+    {
+      "wrong": "Do you must leave now?",
+      "right": "Do you have to leave now?",
+      "why": {
+        "en": "Do not use do with must in questions. In everyday English, use Do you have to...?",
+        "vi": "Không dùng do với must trong câu hỏi. Trong tiếng Anh hằng ngày, dùng Do you have to...?"
+      }
+    },
+    {
+      "wrong": "Yesterday I must finish the report.",
+      "right": "Yesterday I had to finish the report.",
+      "why": {
+        "en": "For past obligation, use had to, not must.",
+        "vi": "Để nói nghĩa vụ trong quá khứ, dùng had to, không dùng must."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "dont-have-to",
+      "note": {
+        "en": "Have to means there is an obligation. Don't have to means there is no obligation; you can do it if you want, but it is not necessary.",
+        "vi": "Have to nghĩa là có nghĩa vụ phải làm. Don't have to nghĩa là không có nghĩa vụ; bạn có thể làm nếu muốn, nhưng không cần thiết."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: must = strong necessity; have to = rule or situation. After both, use the base verb.",
+    "vi": "Hãy nhớ: must = sự cần thiết mạnh; have to = quy định hoặc hoàn cảnh. Sau cả hai, dùng động từ nguyên mẫu."
+  }
+}

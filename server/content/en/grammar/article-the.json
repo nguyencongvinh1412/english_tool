@@ -1,0 +1,215 @@
+{
+  "summary": {
+    "en": "The is the definite article. Use the before a noun when the speaker and listener know which person, thing, or place we mean.",
+    "vi": "The là mạo từ xác định. Dùng the trước danh từ khi người nói và người nghe đều biết người, vật hoặc nơi chốn cụ thể nào đang được nói đến."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Singular noun",
+        "vi": "Danh từ số ít"
+      },
+      "pattern": "the + singular noun",
+      "example": {
+        "en": "Please close the door.",
+        "vi": "Làm ơn đóng cánh cửa đó lại."
+      }
+    },
+    {
+      "label": {
+        "en": "Plural noun",
+        "vi": "Danh từ số nhiều"
+      },
+      "pattern": "the + plural noun",
+      "example": {
+        "en": "The children are in the garden.",
+        "vi": "Bọn trẻ đang ở trong vườn."
+      }
+    },
+    {
+      "label": {
+        "en": "Uncountable noun",
+        "vi": "Danh từ không đếm được"
+      },
+      "pattern": "the + uncountable noun",
+      "example": {
+        "en": "The water in this bottle is cold.",
+        "vi": "Nước trong chai này lạnh."
+      }
+    },
+    {
+      "label": {
+        "en": "With adjectives to make a noun phrase",
+        "vi": "Dùng với tính từ để tạo cụm danh từ"
+      },
+      "pattern": "the + adjective + noun",
+      "example": {
+        "en": "I like the red bag, not the black one.",
+        "vi": "Tôi thích chiếc túi màu đỏ, không phải chiếc màu đen."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "When we know which one",
+        "vi": "Khi ta biết rõ là cái nào/người nào"
+      },
+      "explanation": {
+        "en": "Use the when the noun is clear from the situation or from what was said before.",
+        "vi": "Dùng the khi danh từ đã rõ trong tình huống hoặc đã được nhắc đến trước đó."
+      },
+      "examples": [
+        {
+          "en": "I bought a phone yesterday. The phone is very fast.",
+          "vi": "Hôm qua tôi mua một chiếc điện thoại. Chiếc điện thoại đó rất nhanh."
+        },
+        {
+          "en": "Can you open the window?",
+          "vi": "Bạn mở cửa sổ đó được không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With something unique",
+        "vi": "Với vật duy nhất"
+      },
+      "explanation": {
+        "en": "Use the for things that are normally only one in our world or in the place we mean.",
+        "vi": "Dùng the cho những thứ thường chỉ có một trong thế giới hoặc trong nơi ta đang nói đến."
+      },
+      "examples": [
+        {
+          "en": "The sun is very bright today.",
+          "vi": "Hôm nay mặt trời rất chói."
+        },
+        {
+          "en": "The manager is in a meeting.",
+          "vi": "Người quản lý đang họp."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With places and things in a shared space",
+        "vi": "Với địa điểm và đồ vật trong không gian chung"
+      },
+      "explanation": {
+        "en": "Use the when both people know the place or object because they are in the same home, room, school, or town.",
+        "vi": "Dùng the khi cả hai người đều biết địa điểm hoặc đồ vật vì họ ở cùng nhà, phòng, trường hoặc thị trấn."
+      },
+      "examples": [
+        {
+          "en": "Dad is in the kitchen.",
+          "vi": "Bố đang ở trong bếp."
+        },
+        {
+          "en": "I left my bag on the table.",
+          "vi": "Tôi để túi của tôi trên bàn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With superlatives and order words",
+        "vi": "Với so sánh nhất và từ chỉ thứ tự"
+      },
+      "explanation": {
+        "en": "Use the before superlative adjectives and words like first, second, next, and last when they describe a specific noun.",
+        "vi": "Dùng the trước tính từ so sánh nhất và các từ như first, second, next, last khi chúng mô tả một danh từ cụ thể."
+      },
+      "examples": [
+        {
+          "en": "She is the tallest student in the class.",
+          "vi": "Cô ấy là học sinh cao nhất trong lớp."
+        },
+        {
+          "en": "Take the first bus on the left.",
+          "vi": "Hãy bắt chuyến xe buýt đầu tiên ở bên trái."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With some names of places",
+        "vi": "Với một số tên địa danh"
+      },
+      "explanation": {
+        "en": "Use the with many rivers, seas, oceans, deserts, mountain ranges, and country names with words like kingdom, republic, or states.",
+        "vi": "Dùng the với nhiều tên sông, biển, đại dương, sa mạc, dãy núi và tên quốc gia có các từ như kingdom, republic hoặc states."
+      },
+      "examples": [
+        {
+          "en": "The Nile is a long river.",
+          "vi": "Sông Nile là một con sông dài."
+        },
+        {
+          "en": "She lives in the United States.",
+          "vi": "Cô ấy sống ở Hoa Kỳ."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "mentioned before: a book → the book",
+    "only one here: the door, the teacher, the kitchen",
+    "unique: the sun, the moon, the world",
+    "superlatives: the best, the biggest, the most important",
+    "order words: the first, the second, the next, the last"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Sun is hot today.",
+      "right": "The sun is hot today.",
+      "why": {
+        "en": "Sun is unique, so we usually say the sun.",
+        "vi": "Mặt trời là duy nhất, nên ta thường nói the sun."
+      }
+    },
+    {
+      "wrong": "I bought a shirt. Shirt is blue.",
+      "right": "I bought a shirt. The shirt is blue.",
+      "why": {
+        "en": "After the first mention, the listener knows which shirt, so use the.",
+        "vi": "Sau lần nhắc đầu tiên, người nghe đã biết chiếc áo nào, nên dùng the."
+      }
+    },
+    {
+      "wrong": "She is best student in class.",
+      "right": "She is the best student in the class.",
+      "why": {
+        "en": "Use the with superlatives like best. Also use the class when we mean a specific class.",
+        "vi": "Dùng the với so sánh nhất như best. Cũng dùng the class khi nói đến một lớp cụ thể."
+      }
+    },
+    {
+      "wrong": "I like the music.",
+      "right": "I like music.",
+      "why": {
+        "en": "When speaking generally about music, do not use the. Use the music only when you mean specific music, for example the music in this film.",
+        "vi": "Khi nói chung về âm nhạc, không dùng the. Chỉ dùng the music khi nói về âm nhạc cụ thể, ví dụ nhạc trong bộ phim này."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "articles-a-an",
+      "note": {
+        "en": "Use a/an when you introduce one person or thing for the first time: I saw a cat. Use the when it is already known or specific: The cat was black.",
+        "vi": "Dùng a/an khi giới thiệu một người hoặc vật lần đầu: I saw a cat. Dùng the khi người/vật đó đã được biết hoặc cụ thể: The cat was black."
+      }
+    },
+    {
+      "with": "zero-article",
+      "note": {
+        "en": "Use no article for general plural or uncountable nouns: Dogs are friendly. Water is important. Use the for a specific group or thing: The dogs in my street are noisy. The water in this glass is cold.",
+        "vi": "Không dùng mạo từ khi nói chung với danh từ số nhiều hoặc không đếm được: Dogs are friendly. Water is important. Dùng the khi nói về một nhóm hoặc vật cụ thể: The dogs in my street are noisy. The water in this glass is cold."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: “Do we both know which one?” If yes, use the.",
+    "vi": "Hãy nghĩ: “Cả hai người có biết rõ là cái nào/người nào không?” Nếu có, dùng the."
+  }
+}

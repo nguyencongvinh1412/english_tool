@@ -1,0 +1,200 @@
+{
+  "summary": {
+    "en": "The present perfect connects the past with now. Use it for life experiences, recent actions, and past actions with a present result.",
+    "vi": "Thì hiện tại hoàn thành nối quá khứ với hiện tại. Dùng cho trải nghiệm trong đời, hành động vừa xảy ra, và hành động trong quá khứ có kết quả ở hiện tại."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + have/has + past participle + O",
+      "example": {
+        "en": "She has finished her homework.",
+        "vi": "Cô ấy đã làm xong bài tập về nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + have/has + not + past participle + O",
+      "example": {
+        "en": "I have not visited London.",
+        "vi": "Tôi chưa từng đến thăm London."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Have/Has + S + past participle + O?",
+      "example": {
+        "en": "Have you seen this film?",
+        "vi": "Bạn đã xem bộ phim này chưa?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + have/has + S + past participle?",
+      "example": {
+        "en": "Where has Tom gone?",
+        "vi": "Tom đã đi đâu rồi?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Life experience",
+        "vi": "Trải nghiệm trong đời"
+      },
+      "explanation": {
+        "en": "Use the present perfect to talk about experiences up to now. The exact time is not important.",
+        "vi": "Dùng hiện tại hoàn thành để nói về trải nghiệm cho đến hiện tại. Thời điểm chính xác không quan trọng."
+      },
+      "examples": [
+        {
+          "en": "I have eaten sushi before.",
+          "vi": "Tôi đã từng ăn sushi trước đây."
+        },
+        {
+          "en": "They have never been to Japan.",
+          "vi": "Họ chưa bao giờ đến Nhật Bản."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Recent action",
+        "vi": "Hành động vừa xảy ra"
+      },
+      "explanation": {
+        "en": "Use the present perfect for something that happened a short time ago, often with just, already, or yet.",
+        "vi": "Dùng hiện tại hoàn thành cho việc vừa mới xảy ra, thường đi với just, already hoặc yet."
+      },
+      "examples": [
+        {
+          "en": "She has just left.",
+          "vi": "Cô ấy vừa mới rời đi."
+        },
+        {
+          "en": "Have you finished yet?",
+          "vi": "Bạn đã làm xong chưa?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past action with a present result",
+        "vi": "Hành động quá khứ có kết quả ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use the present perfect when a past action is important because we can see or feel the result now.",
+        "vi": "Dùng hiện tại hoàn thành khi một hành động trong quá khứ quan trọng vì ta thấy hoặc cảm nhận kết quả ở hiện tại."
+      },
+      "examples": [
+        {
+          "en": "I have lost my keys.",
+          "vi": "Tôi đã làm mất chìa khóa rồi."
+        },
+        {
+          "en": "He has broken his phone.",
+          "vi": "Anh ấy đã làm hỏng điện thoại rồi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A time period continuing to now",
+        "vi": "Khoảng thời gian kéo dài đến hiện tại"
+      },
+      "explanation": {
+        "en": "Use the present perfect with for or since when the situation started in the past and is still true now.",
+        "vi": "Dùng hiện tại hoàn thành với for hoặc since khi tình huống bắt đầu trong quá khứ và vẫn đúng ở hiện tại."
+      },
+      "examples": [
+        {
+          "en": "We have lived here for five years.",
+          "vi": "Chúng tôi đã sống ở đây được năm năm."
+        },
+        {
+          "en": "She has known me since 2020.",
+          "vi": "Cô ấy đã biết tôi từ năm 2020."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "ever",
+    "never",
+    "just",
+    "already",
+    "yet",
+    "before",
+    "so far",
+    "recently",
+    "for",
+    "since"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She have finished her work.",
+      "right": "She has finished her work.",
+      "why": {
+        "en": "Use has with he, she, and it.",
+        "vi": "Dùng has với he, she và it."
+      }
+    },
+    {
+      "wrong": "I have see that film.",
+      "right": "I have seen that film.",
+      "why": {
+        "en": "After have or has, use the past participle, not the base verb.",
+        "vi": "Sau have hoặc has, dùng quá khứ phân từ, không dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "I have visited Da Nang yesterday.",
+      "right": "I visited Da Nang yesterday.",
+      "why": {
+        "en": "Do not use the present perfect with a finished past time like yesterday, last week, or in 2020. Use the past simple.",
+        "vi": "Không dùng hiện tại hoàn thành với thời gian quá khứ đã kết thúc như yesterday, last week hoặc in 2020. Hãy dùng quá khứ đơn."
+      }
+    },
+    {
+      "wrong": "Have you ever went to Thailand?",
+      "right": "Have you ever been to Thailand?",
+      "why": {
+        "en": "In present perfect questions, use the past participle. The past participle of go is gone, but for travel experience we usually say been to a place.",
+        "vi": "Trong câu hỏi hiện tại hoàn thành, dùng quá khứ phân từ. Quá khứ phân từ của go là gone, nhưng khi nói về trải nghiệm đi đến nơi nào đó, ta thường dùng been to."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "past-simple",
+      "note": {
+        "en": "Use the past simple for a finished action at a clear past time: I saw him yesterday. Use the present perfect when the time is not finished or not important: I have seen him before.",
+        "vi": "Dùng quá khứ đơn cho hành động đã kết thúc tại một thời điểm quá khứ rõ ràng: I saw him yesterday. Dùng hiện tại hoàn thành khi thời gian chưa kết thúc hoặc không quan trọng: I have seen him before."
+      }
+    },
+    {
+      "with": "present-perfect-continuous",
+      "note": {
+        "en": "The present perfect often focuses on the result or number: I have read three chapters. The present perfect continuous focuses on the activity and its duration: I have been reading for two hours.",
+        "vi": "Hiện tại hoàn thành thường nhấn mạnh kết quả hoặc số lượng: I have read three chapters. Hiện tại hoàn thành tiếp diễn nhấn mạnh hoạt động và thời gian kéo dài: I have been reading for two hours."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: have/has + past participle = past action important now.",
+    "vi": "Hãy nhớ: have/has + quá khứ phân từ = hành động quá khứ quan trọng ở hiện tại."
+  }
+}

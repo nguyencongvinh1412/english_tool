@@ -1,0 +1,200 @@
+{
+  "summary": {
+    "en": "Use too to say something is more than wanted or possible. Use enough to say something is sufficient or not sufficient for a purpose.",
+    "vi": "Dùng too để nói một điều gì đó quá mức mong muốn hoặc quá mức có thể. Dùng enough để nói một điều gì đó đủ hoặc không đủ cho một mục đích."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Too + adjective/adverb",
+        "vi": "Too + tính từ/trạng từ"
+      },
+      "pattern": "S + be/V + too + adjective/adverb (+ for + person) (+ to + verb)",
+      "example": {
+        "en": "This bag is too heavy for me to carry.",
+        "vi": "Cái túi này quá nặng nên tôi không mang nổi."
+      }
+    },
+    {
+      "label": {
+        "en": "Adjective/adverb + enough",
+        "vi": "Tính từ/trạng từ + enough"
+      },
+      "pattern": "S + be/V + adjective/adverb + enough (+ for + person) (+ to + verb)",
+      "example": {
+        "en": "She is old enough to drive.",
+        "vi": "Cô ấy đủ tuổi để lái xe."
+      }
+    },
+    {
+      "label": {
+        "en": "Enough + noun",
+        "vi": "Enough + danh từ"
+      },
+      "pattern": "S + have/has + enough + noun (+ to + verb)",
+      "example": {
+        "en": "We have enough time to finish the work.",
+        "vi": "Chúng tôi có đủ thời gian để hoàn thành công việc."
+      }
+    },
+    {
+      "label": {
+        "en": "Not enough",
+        "vi": "Không đủ"
+      },
+      "pattern": "S + be/V + not + adjective/adverb + enough OR S + do/does not have + enough + noun",
+      "example": {
+        "en": "The room is not big enough for six people.",
+        "vi": "Căn phòng không đủ rộng cho sáu người."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + adjective + enough (+ to + verb)? / Do/Does + S + have + enough + noun?",
+      "example": {
+        "en": "Do you have enough money to buy a ticket?",
+        "vi": "Bạn có đủ tiền để mua vé không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To show a problem or limit",
+        "vi": "Diễn tả vấn đề hoặc giới hạn"
+      },
+      "explanation": {
+        "en": "Too usually means “more than is good, needed, or possible”. It often has a negative meaning.",
+        "vi": "Too thường có nghĩa là “nhiều/quá mức tốt, cần thiết hoặc có thể”. Nó thường mang nghĩa tiêu cực."
+      },
+      "examples": [
+        {
+          "en": "The coffee is too hot to drink.",
+          "vi": "Cà phê quá nóng nên không uống được."
+        },
+        {
+          "en": "He is driving too fast.",
+          "vi": "Anh ấy đang lái xe quá nhanh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show something is sufficient",
+        "vi": "Diễn tả điều gì đó là đủ"
+      },
+      "explanation": {
+        "en": "Use adjective/adverb + enough when the level is sufficient for something.",
+        "vi": "Dùng tính từ/trạng từ + enough khi mức độ là đủ cho việc gì đó."
+      },
+      "examples": [
+        {
+          "en": "The water is warm enough for the baby.",
+          "vi": "Nước đủ ấm cho em bé."
+        },
+        {
+          "en": "You speak clearly enough.",
+          "vi": "Bạn nói đủ rõ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To talk about enough quantity",
+        "vi": "Nói về số lượng đủ"
+      },
+      "explanation": {
+        "en": "Put enough before a noun when you mean a sufficient amount or number.",
+        "vi": "Đặt enough trước danh từ khi muốn nói số lượng hoặc con số đủ."
+      },
+      "examples": [
+        {
+          "en": "There are enough chairs for everyone.",
+          "vi": "Có đủ ghế cho mọi người."
+        },
+        {
+          "en": "I do not have enough information.",
+          "vi": "Tôi không có đủ thông tin."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To explain purpose or result with to + verb",
+        "vi": "Giải thích mục đích hoặc kết quả với to + động từ"
+      },
+      "explanation": {
+        "en": "After too and enough, use to + base verb to show what someone can or cannot do.",
+        "vi": "Sau too và enough, dùng to + động từ nguyên mẫu để nói ai đó có thể hoặc không thể làm gì."
+      },
+      "examples": [
+        {
+          "en": "It is too late to call her.",
+          "vi": "Quá muộn để gọi cho cô ấy."
+        },
+        {
+          "en": "Tom is strong enough to lift the box.",
+          "vi": "Tom đủ khỏe để nhấc cái hộp."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "too + adjective/adverb",
+    "adjective/adverb + enough",
+    "enough + noun",
+    "not enough",
+    "for + person",
+    "to + verb"
+  ],
+  "mistakes": [
+    {
+      "wrong": "This exercise is too easy enough.",
+      "right": "This exercise is easy enough.",
+      "why": {
+        "en": "Do not use too and enough together before one adjective. Choose too for a problem, or enough for sufficiency.",
+        "vi": "Không dùng too và enough cùng nhau với một tính từ. Chọn too để nói quá mức gây vấn đề, hoặc enough để nói đủ."
+      }
+    },
+    {
+      "wrong": "She is enough tall to play basketball.",
+      "right": "She is tall enough to play basketball.",
+      "why": {
+        "en": "Enough comes after an adjective: tall enough, old enough, strong enough.",
+        "vi": "Enough đứng sau tính từ: tall enough, old enough, strong enough."
+      }
+    },
+    {
+      "wrong": "We do not have money enough.",
+      "right": "We do not have enough money.",
+      "why": {
+        "en": "With a noun, enough comes before the noun: enough money, enough time, enough people.",
+        "vi": "Với danh từ, enough đứng trước danh từ: enough money, enough time, enough people."
+      }
+    },
+    {
+      "wrong": "The soup too hot.",
+      "right": "The soup is too hot.",
+      "why": {
+        "en": "In English, a sentence with an adjective needs the verb be: is, am, are, was, or were.",
+        "vi": "Trong tiếng Anh, câu có tính từ cần động từ be: is, am, are, was hoặc were."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "so-such",
+      "note": {
+        "en": "Too means “more than is good or possible”, often negative: It is too expensive. So and such make the meaning stronger, but they do not always show a problem: It is so nice. It is such a nice day.",
+        "vi": "Too nghĩa là “quá mức tốt hoặc có thể”, thường mang nghĩa tiêu cực: It is too expensive. So và such làm nghĩa mạnh hơn, nhưng không phải lúc nào cũng diễn tả vấn đề: It is so nice. It is such a nice day."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember the position: too before an adjective, enough after an adjective, but enough before a noun.",
+    "vi": "Hãy nhớ vị trí: too đứng trước tính từ, enough đứng sau tính từ, nhưng enough đứng trước danh từ."
+  }
+}

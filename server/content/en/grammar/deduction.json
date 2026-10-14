@@ -1,0 +1,207 @@
+{
+  "summary": {
+    "en": "Use must, can't, and might to make deductions: guesses based on evidence, not direct knowledge. Must means you are almost sure something is true; can't means you are almost sure it is not true; might means it is possible but not certain.",
+    "vi": "Dùng must, can't và might để suy đoán dựa trên bằng chứng, không phải điều mình biết trực tiếp. Must nghĩa là bạn gần như chắc điều gì đó đúng; can't nghĩa là bạn gần như chắc điều đó không đúng; might nghĩa là có thể đúng nhưng không chắc."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Present deduction: affirmative",
+        "vi": "Suy đoán hiện tại: khẳng định"
+      },
+      "pattern": "S + must / might + base verb",
+      "example": {
+        "en": "She must know the answer.",
+        "vi": "Chắc hẳn cô ấy biết câu trả lời."
+      }
+    },
+    {
+      "label": {
+        "en": "Present deduction: negative",
+        "vi": "Suy đoán hiện tại: phủ định"
+      },
+      "pattern": "S + can't / might not + base verb",
+      "example": {
+        "en": "He can't be at home; his car isn't there.",
+        "vi": "Chắc chắn anh ấy không ở nhà; xe của anh ấy không có ở đó."
+      }
+    },
+    {
+      "label": {
+        "en": "Deduction about an action happening now",
+        "vi": "Suy đoán về hành động đang xảy ra"
+      },
+      "pattern": "S + must / can't / might + be + V-ing",
+      "example": {
+        "en": "They might be waiting outside.",
+        "vi": "Có thể họ đang đợi bên ngoài."
+      }
+    },
+    {
+      "label": {
+        "en": "Past deduction",
+        "vi": "Suy đoán về quá khứ"
+      },
+      "pattern": "S + must / can't / might + have + past participle",
+      "example": {
+        "en": "You must have left your keys at the office.",
+        "vi": "Chắc hẳn bạn đã để quên chìa khóa ở văn phòng."
+      }
+    },
+    {
+      "label": {
+        "en": "Questions about deduction",
+        "vi": "Câu hỏi về suy đoán"
+      },
+      "pattern": "Can / Could + S + base verb...? / Could + S + have + past participle...?",
+      "example": {
+        "en": "Could he have misunderstood the message?",
+        "vi": "Liệu có thể anh ấy đã hiểu nhầm tin nhắn không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Strong positive deduction with must",
+        "vi": "Suy đoán khẳng định rất chắc với must"
+      },
+      "explanation": {
+        "en": "Use must when the evidence makes you feel almost certain that something is true. It is not an obligation here.",
+        "vi": "Dùng must khi bằng chứng khiến bạn gần như chắc điều gì đó là đúng. Ở đây must không mang nghĩa bắt buộc."
+      },
+      "examples": [
+        {
+          "en": "The lights are on. Someone must be in the office.",
+          "vi": "Đèn đang bật. Chắc hẳn có ai đó đang ở trong văn phòng."
+        },
+        {
+          "en": "She got the highest mark again. She must study very hard.",
+          "vi": "Cô ấy lại được điểm cao nhất. Chắc hẳn cô ấy học rất chăm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Strong negative deduction with can't",
+        "vi": "Suy đoán phủ định rất chắc với can't"
+      },
+      "explanation": {
+        "en": "Use can't when the evidence makes you feel almost certain that something is impossible or not true. In American English, cannot is also common in formal writing.",
+        "vi": "Dùng can't khi bằng chứng khiến bạn gần như chắc điều gì đó là không thể hoặc không đúng. Trong tiếng Anh Mỹ, cannot cũng thường dùng trong văn viết trang trọng."
+      },
+      "examples": [
+        {
+          "en": "That can't be Minh. Minh is in Da Nang today.",
+          "vi": "Đó chắc chắn không thể là Minh. Hôm nay Minh đang ở Đà Nẵng."
+        },
+        {
+          "en": "This bill can't be right; we only ordered two coffees.",
+          "vi": "Hóa đơn này chắc chắn không đúng; chúng ta chỉ gọi hai ly cà phê thôi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Weak or uncertain deduction with might",
+        "vi": "Suy đoán yếu hoặc không chắc với might"
+      },
+      "explanation": {
+        "en": "Use might when something is possible, but you do not have enough evidence to be sure. May and could are also possible in many cases, but might often sounds a little less certain.",
+        "vi": "Dùng might khi điều gì đó có thể xảy ra, nhưng bạn không có đủ bằng chứng để chắc chắn. May và could cũng có thể dùng trong nhiều trường hợp, nhưng might thường nghe kém chắc chắn hơn một chút."
+      },
+      "examples": [
+        {
+          "en": "He isn't answering. He might be in a meeting.",
+          "vi": "Anh ấy không trả lời. Có thể anh ấy đang họp."
+        },
+        {
+          "en": "The restaurant might be closed on Mondays.",
+          "vi": "Nhà hàng có thể đóng cửa vào các ngày thứ Hai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Deductions about the past",
+        "vi": "Suy đoán về quá khứ"
+      },
+      "explanation": {
+        "en": "Use must have, can't have, or might have + past participle to make deductions about something before now.",
+        "vi": "Dùng must have, can't have hoặc might have + quá khứ phân từ để suy đoán về điều đã xảy ra trước hiện tại."
+      },
+      "examples": [
+        {
+          "en": "The road is wet. It must have rained last night.",
+          "vi": "Đường ướt. Chắc hẳn tối qua trời đã mưa."
+        },
+        {
+          "en": "She can't have seen my email; she would have replied.",
+          "vi": "Chắc chắn cô ấy chưa thấy email của tôi; nếu thấy thì cô ấy đã trả lời rồi."
+        },
+        {
+          "en": "I might have put the receipt in my bag.",
+          "vi": "Có thể tôi đã để hóa đơn trong túi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "I’m sure...",
+    "I don’t think it’s possible...",
+    "Look at the evidence...",
+    "because...",
+    "so...",
+    "perhaps",
+    "probably",
+    "It looks as if...",
+    "There’s no way..."
+  ],
+  "mistakes": [
+    {
+      "wrong": "She must is tired.",
+      "right": "She must be tired.",
+      "why": {
+        "en": "After must, can't, and might, use the base form of the verb. For adjectives or nouns, use be.",
+        "vi": "Sau must, can't và might, dùng động từ nguyên mẫu. Với tính từ hoặc danh từ, dùng be."
+      }
+    },
+    {
+      "wrong": "He must to know the truth.",
+      "right": "He must know the truth.",
+      "why": {
+        "en": "Do not use to after modal verbs such as must, can't, and might.",
+        "vi": "Không dùng to sau các động từ khuyết thiếu như must, can't và might."
+      }
+    },
+    {
+      "wrong": "She must doesn't like coffee.",
+      "right": "She can't like coffee. / She must not like coffee.",
+      "why": {
+        "en": "Do not use doesn't after must. For a strong negative deduction, can't is usually the clearest choice. Must not can mean a negative deduction, especially in American English, but it can also mean prohibition, so be careful.",
+        "vi": "Không dùng doesn't sau must. Để suy đoán phủ định mạnh, can't thường là lựa chọn rõ nhất. Must not có thể mang nghĩa suy đoán phủ định, đặc biệt trong tiếng Anh Mỹ, nhưng cũng có thể nghĩa là cấm, nên cần cẩn thận."
+      }
+    },
+    {
+      "wrong": "He must went home.",
+      "right": "He must have gone home.",
+      "why": {
+        "en": "For deductions about the past, use modal + have + past participle, not modal + past simple.",
+        "vi": "Khi suy đoán về quá khứ, dùng động từ khuyết thiếu + have + quá khứ phân từ, không dùng động từ khuyết thiếu + quá khứ đơn."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "must-have-to",
+      "note": {
+        "en": "Must for deduction means 'I am almost sure'. Must and have to for obligation mean 'it is necessary'. Compare: 'She must be tired' = I guess this from evidence; 'She must finish the report' = she is required to finish it. Have to is not normally used for deduction: say 'He must be at work', not 'He has to be at work' when you mean a guess.",
+        "vi": "Must dùng để suy đoán nghĩa là 'tôi gần như chắc'. Must và have to dùng để nói nghĩa vụ nghĩa là 'cần phải'. So sánh: 'She must be tired' = tôi suy ra từ bằng chứng; 'She must finish the report' = cô ấy bắt buộc phải hoàn thành báo cáo. Have to thường không dùng để suy đoán: nói 'He must be at work', không nói 'He has to be at work' khi bạn muốn diễn đạt một phỏng đoán."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Evidence + must = almost sure yes; evidence + can't = almost sure no; evidence + might = maybe.",
+    "vi": "Có bằng chứng + must = gần như chắc là có/đúng; + can't = gần như chắc là không/sai; + might = có thể."
+  }
+}

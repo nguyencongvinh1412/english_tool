@@ -1,0 +1,199 @@
+{
+  "summary": {
+    "en": "A phrasal verb is a verb plus one or two small words, such as up, off, in, out, or on. Use phrasal verbs often in everyday English, especially in speaking and informal writing.",
+    "vi": "Cụm động từ là động từ đi với một hoặc hai từ ngắn như up, off, in, out hoặc on. Cụm động từ được dùng rất thường xuyên trong tiếng Anh hằng ngày, đặc biệt trong văn nói và văn viết thân mật."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Intransitive phrasal verb",
+        "vi": "Cụm động từ không có tân ngữ"
+      },
+      "pattern": "S + phrasal verb",
+      "example": {
+        "en": "The plane took off on time.",
+        "vi": "Máy bay đã cất cánh đúng giờ."
+      }
+    },
+    {
+      "label": {
+        "en": "Transitive phrasal verb",
+        "vi": "Cụm động từ có tân ngữ"
+      },
+      "pattern": "S + phrasal verb + O",
+      "example": {
+        "en": "She looks after her younger brother.",
+        "vi": "Cô ấy chăm sóc em trai của mình."
+      }
+    },
+    {
+      "label": {
+        "en": "Separable phrasal verb",
+        "vi": "Cụm động từ có thể tách"
+      },
+      "pattern": "S + verb + O + particle / S + verb + particle + noun",
+      "example": {
+        "en": "Please turn the TV off. / Please turn off the TV.",
+        "vi": "Làm ơn tắt TV đi."
+      }
+    },
+    {
+      "label": {
+        "en": "With a pronoun object",
+        "vi": "Với tân ngữ là đại từ"
+      },
+      "pattern": "S + verb + pronoun + particle",
+      "example": {
+        "en": "I wrote the number down. I wrote it down.",
+        "vi": "Tôi đã ghi số đó lại. Tôi đã ghi nó lại."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative and question",
+        "vi": "Phủ định và câu hỏi"
+      },
+      "pattern": "S + do/does/did not + base verb + particle / Do/Does/Did + S + base verb + particle?",
+      "example": {
+        "en": "He does not give up easily. Did you find out the answer?",
+        "vi": "Anh ấy không dễ bỏ cuộc. Bạn đã tìm ra câu trả lời chưa?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Everyday actions",
+        "vi": "Hành động hằng ngày"
+      },
+      "explanation": {
+        "en": "Many common actions are expressed with phrasal verbs, especially in conversation.",
+        "vi": "Nhiều hành động thông dụng được diễn đạt bằng cụm động từ, đặc biệt trong hội thoại."
+      },
+      "examples": [
+        {
+          "en": "I get up at six every morning.",
+          "vi": "Tôi thức dậy lúc sáu giờ mỗi sáng."
+        },
+        {
+          "en": "Can you put on your jacket?",
+          "vi": "Bạn có thể mặc áo khoác vào không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Meaning different from the main verb",
+        "vi": "Nghĩa khác với động từ chính"
+      },
+      "explanation": {
+        "en": "The meaning of a phrasal verb is often not clear from the verb alone, so learn it as one unit.",
+        "vi": "Nghĩa của cụm động từ thường không rõ nếu chỉ nhìn vào động từ chính, vì vậy hãy học cả cụm như một đơn vị."
+      },
+      "examples": [
+        {
+          "en": "I ran into an old friend at the station.",
+          "vi": "Tôi tình cờ gặp một người bạn cũ ở nhà ga."
+        },
+        {
+          "en": "We need to work out this problem.",
+          "vi": "Chúng ta cần giải quyết vấn đề này."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Separable phrasal verbs",
+        "vi": "Cụm động từ có thể tách"
+      },
+      "explanation": {
+        "en": "Some phrasal verbs can take a noun object in two positions. But if the object is a pronoun, it must go between the verb and the particle.",
+        "vi": "Một số cụm động từ có thể đặt tân ngữ là danh từ ở hai vị trí. Nhưng nếu tân ngữ là đại từ, nó phải đứng giữa động từ và tiểu từ."
+      },
+      "examples": [
+        {
+          "en": "She turned down the offer. / She turned the offer down.",
+          "vi": "Cô ấy đã từ chối lời đề nghị."
+        },
+        {
+          "en": "She turned it down.",
+          "vi": "Cô ấy đã từ chối nó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Inseparable phrasal verbs",
+        "vi": "Cụm động từ không thể tách"
+      },
+      "explanation": {
+        "en": "Some phrasal verbs cannot be separated. The object must come after the whole phrasal verb.",
+        "vi": "Một số cụm động từ không thể tách. Tân ngữ phải đứng sau toàn bộ cụm động từ."
+      },
+      "examples": [
+        {
+          "en": "My aunt looks after my son.",
+          "vi": "Dì của tôi chăm sóc con trai tôi."
+        },
+        {
+          "en": "We are looking for a new apartment.",
+          "vi": "Chúng tôi đang tìm một căn hộ mới."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "up",
+    "down",
+    "on",
+    "off",
+    "in",
+    "out",
+    "away",
+    "back",
+    "over",
+    "look for",
+    "look after",
+    "give up",
+    "find out"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She look after her little sister.",
+      "right": "She looks after her little sister.",
+      "why": {
+        "en": "In the present simple, add -s or -es to the verb for he, she, or it. The particle after does not change.",
+        "vi": "Ở thì hiện tại đơn, thêm -s hoặc -es vào động từ với he, she hoặc it. Tiểu từ after không thay đổi."
+      }
+    },
+    {
+      "wrong": "Please turn off it.",
+      "right": "Please turn it off.",
+      "why": {
+        "en": "With a separable phrasal verb, a pronoun object must go between the verb and the particle.",
+        "vi": "Với cụm động từ có thể tách, tân ngữ là đại từ phải đứng giữa động từ và tiểu từ."
+      }
+    },
+    {
+      "wrong": "I am looking my keys.",
+      "right": "I am looking for my keys.",
+      "why": {
+        "en": "Look for means try to find. Do not drop the particle for.",
+        "vi": "Look for có nghĩa là cố tìm. Không được bỏ tiểu từ for."
+      }
+    },
+    {
+      "wrong": "He gave up smoke last year.",
+      "right": "He gave up smoking last year.",
+      "why": {
+        "en": "After give up, use a noun or an -ing form for an activity.",
+        "vi": "Sau give up, dùng danh từ hoặc dạng -ing để nói về một hoạt động."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Learn phrasal verbs in short examples, not as single words: turn it off, look after children, give up smoking.",
+    "vi": "Hãy học cụm động từ trong ví dụ ngắn, không học từng từ riêng lẻ: turn it off, look after children, give up smoking."
+  }
+}

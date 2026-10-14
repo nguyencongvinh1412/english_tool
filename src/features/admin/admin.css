@@ -365,3 +365,17 @@
   font-size: 1.25rem;
   font-weight: 800;
 }
+
+.grammar-admin__json {
+  width: 100%;
+  min-height: 55vh;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.grammar-admin__edited {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}

@@ -145,3 +145,6 @@ Known, accepted risk: `npm audit` reports a moderate issue in `sprintf-js` pulle
   up to 4 missing groups on the spot, but a full test needs the bank.
 - **Imported books (TOEIC and JLPT):** published tests are for the learners you invited. Do not import
   books you are not allowed to use, and never share the app publicly with imported tests in it.
+- **Grammar map:** explanations are AI drafts in `server/content/en/grammar/*.json` (`npm run grammar:draft`
+  writes missing ones; `-- --all` redrafts). They load on startup; once an admin edits or reviews a point in
+  Admin → Grammar, the database version is kept. The map structure is `server/grammar/map.ts`.

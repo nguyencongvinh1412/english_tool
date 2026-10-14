@@ -1,0 +1,184 @@
+{
+  "summary": {
+    "en": "Reported commands and requests tell someone what another person ordered, asked, or told someone to do. We usually use a reporting verb + object + to-infinitive, for example: She told me to wait.",
+    "vi": "Câu tường thuật mệnh lệnh và yêu cầu dùng để kể lại việc ai đó ra lệnh, yêu cầu hoặc bảo ai làm gì. Ta thường dùng động từ tường thuật + tân ngữ + to-infinitive, ví dụ: She told me to wait."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative command or request",
+        "vi": "Mệnh lệnh hoặc yêu cầu khẳng định"
+      },
+      "pattern": "S + told/asked/ordered/advised/reminded + O + to + V",
+      "example": {
+        "en": "The teacher told us to open our books.",
+        "vi": "Giáo viên bảo chúng tôi mở sách ra."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative command or request",
+        "vi": "Mệnh lệnh hoặc yêu cầu phủ định"
+      },
+      "pattern": "S + told/asked/warned/advised + O + not to + V",
+      "example": {
+        "en": "My mother warned me not to come home late.",
+        "vi": "Mẹ tôi cảnh báo tôi không được về nhà muộn."
+      }
+    },
+    {
+      "label": {
+        "en": "Polite request with ask",
+        "vi": "Lời yêu cầu lịch sự với ask"
+      },
+      "pattern": "S + asked + O + to + V",
+      "example": {
+        "en": "He asked me to help him with the report.",
+        "vi": "Anh ấy nhờ tôi giúp anh ấy làm bản báo cáo."
+      }
+    },
+    {
+      "label": {
+        "en": "Reporting direct speech",
+        "vi": "Tường thuật lời nói trực tiếp"
+      },
+      "pattern": "“Imperative sentence,” + S + said → S + told/asked + O + to/not to + V",
+      "example": {
+        "en": "“Please sit down,” she said to us. → She asked us to sit down.",
+        "vi": "“Làm ơn ngồi xuống,” cô ấy nói với chúng tôi. → Cô ấy yêu cầu chúng tôi ngồi xuống."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To report instructions",
+        "vi": "Tường thuật lời hướng dẫn"
+      },
+      "explanation": {
+        "en": "Use this structure when someone gives practical instructions or directions.",
+        "vi": "Dùng cấu trúc này khi ai đó đưa ra hướng dẫn hoặc chỉ dẫn thực tế."
+      },
+      "examples": [
+        {
+          "en": "The guide told us to follow the red line.",
+          "vi": "Hướng dẫn viên bảo chúng tôi đi theo vạch đỏ."
+        },
+        {
+          "en": "The doctor advised him to drink more water.",
+          "vi": "Bác sĩ khuyên anh ấy uống nhiều nước hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To report orders or strong commands",
+        "vi": "Tường thuật mệnh lệnh hoặc yêu cầu mạnh"
+      },
+      "explanation": {
+        "en": "Use verbs like order, tell, and command when the speaker has authority or sounds strong.",
+        "vi": "Dùng các động từ như order, tell và command khi người nói có quyền hoặc giọng điệu mạnh."
+      },
+      "examples": [
+        {
+          "en": "The police officer ordered the driver to stop.",
+          "vi": "Cảnh sát ra lệnh cho tài xế dừng lại."
+        },
+        {
+          "en": "The manager told everyone to leave the building.",
+          "vi": "Quản lý bảo mọi người rời khỏi tòa nhà."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To report polite requests",
+        "vi": "Tường thuật lời nhờ vả lịch sự"
+      },
+      "explanation": {
+        "en": "Use ask + object + to + verb for polite requests, especially with please in the direct sentence.",
+        "vi": "Dùng ask + tân ngữ + to + động từ cho lời nhờ vả lịch sự, đặc biệt khi câu trực tiếp có please."
+      },
+      "examples": [
+        {
+          "en": "“Please call me later,” Lan said. → Lan asked me to call her later.",
+          "vi": "“Làm ơn gọi cho tôi sau,” Lan nói. → Lan nhờ tôi gọi cho cô ấy sau."
+        },
+        {
+          "en": "They asked us to wait outside.",
+          "vi": "Họ yêu cầu chúng tôi chờ bên ngoài."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To report warnings and advice",
+        "vi": "Tường thuật lời cảnh báo và lời khuyên"
+      },
+      "explanation": {
+        "en": "Use warn, advise, or remind when the meaning is not just an order but also a warning, suggestion, or reminder.",
+        "vi": "Dùng warn, advise hoặc remind khi ý nghĩa không chỉ là mệnh lệnh mà còn là cảnh báo, lời khuyên hoặc lời nhắc."
+      },
+      "examples": [
+        {
+          "en": "She warned the children not to touch the hot pan.",
+          "vi": "Cô ấy cảnh báo bọn trẻ không được chạm vào cái chảo nóng."
+        },
+        {
+          "en": "My dad reminded me to lock the door.",
+          "vi": "Bố tôi nhắc tôi khóa cửa."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "tell someone to do something",
+    "ask someone to do something",
+    "order someone to do something",
+    "advise someone to do something",
+    "warn someone not to do something",
+    "remind someone to do something",
+    "please",
+    "don’t",
+    "never"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She said me to close the window.",
+      "right": "She told me to close the window.",
+      "why": {
+        "en": "In standard English, we do not use say + object + to-infinitive for commands. Use tell/ask + object + to + verb.",
+        "vi": "Trong tiếng Anh chuẩn, không dùng say + tân ngữ + to-infinitive để tường thuật mệnh lệnh. Hãy dùng tell/ask + tân ngữ + to + động từ."
+      }
+    },
+    {
+      "wrong": "The teacher told us open the books.",
+      "right": "The teacher told us to open the books.",
+      "why": {
+        "en": "After told + object in reported commands, use to + base verb.",
+        "vi": "Sau told + tân ngữ trong câu tường thuật mệnh lệnh, dùng to + động từ nguyên thể."
+      }
+    },
+    {
+      "wrong": "He told me don’t be late.",
+      "right": "He told me not to be late.",
+      "why": {
+        "en": "For negative reported commands, use not to + verb, not don’t + verb.",
+        "vi": "Với câu tường thuật mệnh lệnh phủ định, dùng not to + động từ, không dùng don’t + động từ."
+      }
+    },
+    {
+      "wrong": "My mother told to study harder.",
+      "right": "My mother told me to study harder.",
+      "why": {
+        "en": "Tell usually needs an object: tell someone to do something. Do not leave out the person who receives the command.",
+        "vi": "Tell thường cần tân ngữ: tell someone to do something. Không bỏ người nhận mệnh lệnh."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: reported command = reporting verb + person + to/not to + verb.",
+    "vi": "Hãy nhớ: câu tường thuật mệnh lệnh = động từ tường thuật + người nhận + to/not to + động từ."
+  }
+}

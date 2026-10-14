@@ -1,0 +1,196 @@
+{
+  "summary": {
+    "en": "A question tag is a short question added to the end of a statement, such as isn’t it? or do you?. We use it to check information or invite the listener to agree or respond.",
+    "vi": "Câu hỏi đuôi là một câu hỏi ngắn thêm vào cuối câu trần thuật, như isn’t it? hoặc do you?. Ta dùng để kiểm tra thông tin hoặc mời người nghe đồng ý hay phản hồi."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative statement + negative tag",
+        "vi": "Câu khẳng định + đuôi phủ định"
+      },
+      "pattern": "S + auxiliary/be/modal + ... , auxiliary/be/modal + not + pronoun?",
+      "example": {
+        "en": "You are busy, aren’t you?",
+        "vi": "Bạn đang bận, phải không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Negative statement + affirmative tag",
+        "vi": "Câu phủ định + đuôi khẳng định"
+      },
+      "pattern": "S + auxiliary/be/modal + not + ... , auxiliary/be/modal + pronoun?",
+      "example": {
+        "en": "She hasn’t called, has she?",
+        "vi": "Cô ấy chưa gọi, đúng không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Present and past simple with do/does/did",
+        "vi": "Hiện tại đơn và quá khứ đơn dùng do/does/did"
+      },
+      "pattern": "S + main verb + ... , don’t/doesn’t/didn’t + pronoun?",
+      "example": {
+        "en": "He likes coffee, doesn’t he?",
+        "vi": "Anh ấy thích cà phê, phải không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Imperatives with will you?",
+        "vi": "Câu mệnh lệnh với will you?"
+      },
+      "pattern": "Imperative verb + ... , will you?",
+      "example": {
+        "en": "Close the door, will you?",
+        "vi": "Đóng cửa giúp tôi nhé?"
+      }
+    },
+    {
+      "label": {
+        "en": "Let’s with shall we?",
+        "vi": "Let’s với shall we?"
+      },
+      "pattern": "Let’s + verb + ... , shall we?",
+      "example": {
+        "en": "Let’s take a break, shall we?",
+        "vi": "Chúng ta nghỉ một chút nhé?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Checking if something is true",
+        "vi": "Kiểm tra xem điều gì có đúng không"
+      },
+      "explanation": {
+        "en": "Use a question tag when you think something is true but want the listener to confirm it.",
+        "vi": "Dùng câu hỏi đuôi khi bạn nghĩ điều gì đó đúng nhưng muốn người nghe xác nhận."
+      },
+      "examples": [
+        {
+          "en": "The meeting starts at nine, doesn’t it?",
+          "vi": "Cuộc họp bắt đầu lúc chín giờ, đúng không?"
+        },
+        {
+          "en": "You’ve finished your report, haven’t you?",
+          "vi": "Bạn đã làm xong báo cáo rồi, phải không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Asking for agreement",
+        "vi": "Hỏi để người nghe đồng tình"
+      },
+      "explanation": {
+        "en": "Use a falling voice when you are quite sure and mainly want agreement.",
+        "vi": "Dùng giọng hạ xuống khi bạn khá chắc chắn và chủ yếu muốn người nghe đồng tình."
+      },
+      "examples": [
+        {
+          "en": "It’s a beautiful day, isn’t it?",
+          "vi": "Hôm nay là một ngày đẹp trời, phải không?"
+        },
+        {
+          "en": "This soup is really good, isn’t it?",
+          "vi": "Món súp này thật sự ngon, đúng không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Asking a real question",
+        "vi": "Hỏi thật sự để lấy thông tin"
+      },
+      "explanation": {
+        "en": "Use a rising voice when you are not sure and really need an answer.",
+        "vi": "Dùng giọng lên khi bạn không chắc và thật sự cần câu trả lời."
+      },
+      "examples": [
+        {
+          "en": "You don’t know Tom’s number, do you?",
+          "vi": "Bạn không biết số điện thoại của Tom, đúng không?"
+        },
+        {
+          "en": "She can drive, can’t she?",
+          "vi": "Cô ấy biết lái xe, phải không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Making requests or suggestions softer",
+        "vi": "Làm lời yêu cầu hoặc gợi ý nhẹ nhàng hơn"
+      },
+      "explanation": {
+        "en": "Tags after imperatives and Let’s make the sentence sound more friendly or polite.",
+        "vi": "Đuôi sau câu mệnh lệnh và Let’s làm câu nghe thân thiện hoặc lịch sự hơn."
+      },
+      "examples": [
+        {
+          "en": "Send me the file today, will you?",
+          "vi": "Gửi cho tôi tập tin hôm nay nhé?"
+        },
+        {
+          "en": "Let’s sit near the window, shall we?",
+          "vi": "Chúng ta ngồi gần cửa sổ nhé?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "isn’t it?",
+    "aren’t you?",
+    "don’t they?",
+    "doesn’t he?",
+    "did she?",
+    "can’t we?",
+    "will you?",
+    "shall we?",
+    "right?",
+    "OK?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "You are tired, are you?",
+      "right": "You are tired, aren’t you?",
+      "why": {
+        "en": "After an affirmative statement, the usual tag is negative.",
+        "vi": "Sau câu khẳng định, đuôi thường ở dạng phủ định."
+      }
+    },
+    {
+      "wrong": "She like music, doesn’t she?",
+      "right": "She likes music, doesn’t she?",
+      "why": {
+        "en": "The main statement still needs correct grammar. With he/she/it in the present simple, add -s or -es to the verb.",
+        "vi": "Phần câu chính vẫn phải đúng ngữ pháp. Với he/she/it ở thì hiện tại đơn, động từ cần thêm -s hoặc -es."
+      }
+    },
+    {
+      "wrong": "He went home, didn’t he went?",
+      "right": "He went home, didn’t he?",
+      "why": {
+        "en": "A tag uses only the auxiliary verb and a pronoun. Do not repeat the main verb in the tag.",
+        "vi": "Câu hỏi đuôi chỉ dùng trợ động từ và đại từ. Không lặp lại động từ chính trong phần đuôi."
+      }
+    },
+    {
+      "wrong": "This is your bag, isn’t this?",
+      "right": "This is your bag, isn’t it?",
+      "why": {
+        "en": "In question tags, use a pronoun such as it, he, she, they, or you, not this or that.",
+        "vi": "Trong câu hỏi đuôi, dùng đại từ như it, he, she, they hoặc you, không dùng this hay that."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Match the tag to the first verb: be with be, can with can, have with have, and use do/does/did when there is no auxiliary.",
+    "vi": "Hãy làm cho đuôi khớp với động từ đầu: be đi với be, can đi với can, have đi với have; nếu không có trợ động từ thì dùng do/does/did."
+  }
+}

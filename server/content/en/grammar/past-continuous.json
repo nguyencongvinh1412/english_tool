@@ -1,0 +1,188 @@
+{
+  "summary": {
+    "en": "The past continuous describes an action that was in progress at a specific time in the past. It is often used to give background information or to show that a longer action was happening when a shorter action happened.",
+    "vi": "Quá khứ tiếp diễn diễn tả một hành động đang diễn ra tại một thời điểm cụ thể trong quá khứ. Thì này thường dùng để nói bối cảnh hoặc cho thấy một hành động dài đang diễn ra thì một hành động ngắn xảy ra."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + was/were + V-ing + O",
+      "example": {
+        "en": "I was watching TV at 8 p.m. last night.",
+        "vi": "Tối qua lúc 8 giờ tôi đang xem TV."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + was/were + not + V-ing + O",
+      "example": {
+        "en": "They were not sleeping when I called.",
+        "vi": "Họ không đang ngủ khi tôi gọi."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Có/Không"
+      },
+      "pattern": "Was/Were + S + V-ing + O?",
+      "example": {
+        "en": "Were you studying at 9 o'clock?",
+        "vi": "Lúc 9 giờ bạn có đang học không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + was/were + S + V-ing?",
+      "example": {
+        "en": "What were you doing when the rain started?",
+        "vi": "Bạn đang làm gì khi trời bắt đầu mưa?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Action in progress at a past time",
+        "vi": "Hành động đang diễn ra tại một thời điểm trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past continuous for an action happening around a specific time in the past.",
+        "vi": "Dùng quá khứ tiếp diễn cho một hành động đang xảy ra quanh một thời điểm cụ thể trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "At 7 a.m., she was having breakfast.",
+          "vi": "Lúc 7 giờ sáng, cô ấy đang ăn sáng."
+        },
+        {
+          "en": "This time yesterday, we were sitting on the train.",
+          "vi": "Giờ này hôm qua, chúng tôi đang ngồi trên tàu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Long action interrupted by a short action",
+        "vi": "Hành động dài bị hành động ngắn xen vào"
+      },
+      "explanation": {
+        "en": "Use the past continuous for the longer action, and the past simple for the shorter action.",
+        "vi": "Dùng quá khứ tiếp diễn cho hành động dài hơn, và quá khứ đơn cho hành động ngắn xen vào."
+      },
+      "examples": [
+        {
+          "en": "I was cooking when the phone rang.",
+          "vi": "Tôi đang nấu ăn thì điện thoại reo."
+        },
+        {
+          "en": "He was walking home when he saw an accident.",
+          "vi": "Anh ấy đang đi bộ về nhà thì thấy một vụ tai nạn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Two actions happening at the same time",
+        "vi": "Hai hành động xảy ra cùng lúc"
+      },
+      "explanation": {
+        "en": "Use the past continuous for two actions that were in progress at the same time in the past.",
+        "vi": "Dùng quá khứ tiếp diễn cho hai hành động cùng đang diễn ra trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "I was doing my homework while my brother was playing games.",
+          "vi": "Tôi đang làm bài tập trong khi em trai tôi đang chơi game."
+        },
+        {
+          "en": "They were talking while we were eating.",
+          "vi": "Họ đang nói chuyện trong khi chúng tôi đang ăn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Background in a story",
+        "vi": "Bối cảnh trong câu chuyện"
+      },
+      "explanation": {
+        "en": "Use the past continuous to describe the situation around the main events of a story.",
+        "vi": "Dùng quá khứ tiếp diễn để miêu tả tình huống xung quanh các sự kiện chính của một câu chuyện."
+      },
+      "examples": [
+        {
+          "en": "It was raining, and people were running to the bus stop.",
+          "vi": "Trời đang mưa, và mọi người đang chạy đến trạm xe buýt."
+        },
+        {
+          "en": "The children were laughing when the teacher came in.",
+          "vi": "Bọn trẻ đang cười khi giáo viên bước vào."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "at 8 o'clock last night",
+    "at that moment",
+    "this time yesterday",
+    "when",
+    "while"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I watching TV at 9 p.m.",
+      "right": "I was watching TV at 9 p.m.",
+      "why": {
+        "en": "The past continuous needs was or were before the -ing verb.",
+        "vi": "Quá khứ tiếp diễn cần was hoặc were trước động từ đuôi -ing."
+      }
+    },
+    {
+      "wrong": "She were cooking when I arrived.",
+      "right": "She was cooking when I arrived.",
+      "why": {
+        "en": "Use was with I, he, she, it, and singular nouns. Use were with you, we, they, and plural nouns.",
+        "vi": "Dùng was với I, he, she, it và danh từ số ít. Dùng were với you, we, they và danh từ số nhiều."
+      }
+    },
+    {
+      "wrong": "I was cook dinner when he called.",
+      "right": "I was cooking dinner when he called.",
+      "why": {
+        "en": "After was or were in the past continuous, use the -ing form of the verb.",
+        "vi": "Sau was hoặc were trong thì quá khứ tiếp diễn, dùng dạng động từ thêm -ing."
+      }
+    },
+    {
+      "wrong": "When I was seeing him, he was reading.",
+      "right": "When I saw him, he was reading.",
+      "why": {
+        "en": "The shorter action often uses the past simple. Also, see is usually not used in the continuous form when it means notice with your eyes.",
+        "vi": "Hành động ngắn xen vào thường dùng quá khứ đơn. Ngoài ra, see thường không dùng ở dạng tiếp diễn khi có nghĩa là nhìn thấy bằng mắt."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "past-simple",
+      "note": {
+        "en": "The past simple tells us that an action happened and finished in the past. The past continuous focuses on the action in progress at that time. Compare: I cooked dinner at 7. = I finished or did the action then. I was cooking dinner at 7. = I was in the middle of cooking then.",
+        "vi": "Quá khứ đơn cho biết một hành động đã xảy ra và kết thúc trong quá khứ. Quá khứ tiếp diễn nhấn mạnh hành động đang diễn ra tại thời điểm đó. So sánh: I cooked dinner at 7. = Tôi đã nấu bữa tối lúc 7 giờ. I was cooking dinner at 7. = Lúc 7 giờ tôi đang nấu dở bữa tối."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: was/were + doing = was in the middle of doing.",
+    "vi": "Hãy nhớ: was/were + doing = lúc đó đang làm dở việc gì."
+  }
+}

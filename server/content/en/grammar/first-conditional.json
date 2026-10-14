@@ -1,0 +1,196 @@
+{
+  "summary": {
+    "en": "The first conditional talks about a real possible situation in the future and its likely result. Use present simple in the if-clause and will/won’t in the main clause.",
+    "vi": "Câu điều kiện loại 1 nói về một tình huống có thể xảy ra thật trong tương lai và kết quả có khả năng xảy ra. Dùng hiện tại đơn trong mệnh đề if và will/won’t trong mệnh đề chính."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "If + S + present simple, S + will + V",
+      "example": {
+        "en": "If it rains tomorrow, we will stay at home.",
+        "vi": "Nếu ngày mai trời mưa, chúng tôi sẽ ở nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "If + S + do/does not + V, S + will not/won’t + V",
+      "example": {
+        "en": "If she doesn’t call me, I won’t wait.",
+        "vi": "Nếu cô ấy không gọi cho tôi, tôi sẽ không đợi."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Will + S + V + if + S + present simple?",
+      "example": {
+        "en": "Will you help me if I need you?",
+        "vi": "Bạn sẽ giúp tôi nếu tôi cần bạn chứ?"
+      }
+    },
+    {
+      "label": {
+        "en": "Main clause first",
+        "vi": "Mệnh đề chính đứng trước"
+      },
+      "pattern": "S + will + V + if + S + present simple",
+      "example": {
+        "en": "I will buy a new phone if I save enough money.",
+        "vi": "Tôi sẽ mua điện thoại mới nếu tôi tiết kiệm đủ tiền."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Real future possibilities",
+        "vi": "Khả năng có thật trong tương lai"
+      },
+      "explanation": {
+        "en": "Use the first conditional when the condition can really happen in the future.",
+        "vi": "Dùng câu điều kiện loại 1 khi điều kiện có thể thật sự xảy ra trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "If I finish work early, I will meet you for coffee.",
+          "vi": "Nếu tôi xong việc sớm, tôi sẽ gặp bạn uống cà phê."
+        },
+        {
+          "en": "If the bus is late, we will take a taxi.",
+          "vi": "Nếu xe buýt đến muộn, chúng ta sẽ đi taxi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Warnings",
+        "vi": "Lời cảnh báo"
+      },
+      "explanation": {
+        "en": "Use it to say what bad result may happen if someone does or does not do something.",
+        "vi": "Dùng để nói kết quả xấu có thể xảy ra nếu ai đó làm hoặc không làm điều gì."
+      },
+      "examples": [
+        {
+          "en": "If you drive too fast, you will have an accident.",
+          "vi": "Nếu bạn lái xe quá nhanh, bạn sẽ gặp tai nạn."
+        },
+        {
+          "en": "If he doesn’t study, he won’t pass the exam.",
+          "vi": "Nếu anh ấy không học, anh ấy sẽ không qua kỳ thi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Promises and offers",
+        "vi": "Lời hứa và lời đề nghị"
+      },
+      "explanation": {
+        "en": "Use it to promise or offer to do something when a condition is true.",
+        "vi": "Dùng để hứa hoặc đề nghị làm gì đó khi một điều kiện xảy ra."
+      },
+      "examples": [
+        {
+          "en": "If you help me now, I will help you later.",
+          "vi": "Nếu bạn giúp tôi bây giờ, tôi sẽ giúp bạn sau."
+        },
+        {
+          "en": "If you are tired, I will cook dinner.",
+          "vi": "Nếu bạn mệt, tôi sẽ nấu bữa tối."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Plans and decisions",
+        "vi": "Kế hoạch và quyết định"
+      },
+      "explanation": {
+        "en": "Use it to talk about what you will do if a future situation happens.",
+        "vi": "Dùng để nói bạn sẽ làm gì nếu một tình huống trong tương lai xảy ra."
+      },
+      "examples": [
+        {
+          "en": "If we have time on Sunday, we will visit my grandparents.",
+          "vi": "Nếu chúng tôi có thời gian vào Chủ nhật, chúng tôi sẽ thăm ông bà tôi."
+        },
+        {
+          "en": "If the shop is open, I will buy some bread.",
+          "vi": "Nếu cửa hàng mở cửa, tôi sẽ mua ít bánh mì."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "if",
+    "tomorrow",
+    "next week",
+    "later",
+    "soon",
+    "this weekend"
+  ],
+  "mistakes": [
+    {
+      "wrong": "If it will rain tomorrow, we will stay at home.",
+      "right": "If it rains tomorrow, we will stay at home.",
+      "why": {
+        "en": "Do not use will in the if-clause of the first conditional. Use present simple: rains.",
+        "vi": "Không dùng will trong mệnh đề if của câu điều kiện loại 1. Dùng hiện tại đơn: rains."
+      }
+    },
+    {
+      "wrong": "If she come late, we will start without her.",
+      "right": "If she comes late, we will start without her.",
+      "why": {
+        "en": "With he, she, it in the present simple, add -s or -es to the verb.",
+        "vi": "Với he, she, it ở thì hiện tại đơn, thêm -s hoặc -es vào động từ."
+      }
+    },
+    {
+      "wrong": "If I am free, I meet you.",
+      "right": "If I am free, I will meet you.",
+      "why": {
+        "en": "For a future result, use will + verb in the main clause.",
+        "vi": "Với kết quả trong tương lai, dùng will + động từ ở mệnh đề chính."
+      }
+    },
+    {
+      "wrong": "If you don’t hurry, you will late.",
+      "right": "If you don’t hurry, you will be late.",
+      "why": {
+        "en": "Late is an adjective, so it needs be after will: will be late.",
+        "vi": "Late là tính từ, nên cần be sau will: will be late."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "second-conditional",
+      "note": {
+        "en": "The first conditional is for real future possibilities: If I have time, I will call you. The second conditional is for imaginary or unlikely situations: If I had time, I would call you.",
+        "vi": "Câu điều kiện loại 1 dùng cho khả năng có thật trong tương lai: If I have time, I will call you. Câu điều kiện loại 2 dùng cho tình huống tưởng tượng hoặc ít có khả năng xảy ra: If I had time, I would call you."
+      }
+    },
+    {
+      "with": "zero-conditional",
+      "note": {
+        "en": "The first conditional talks about one possible future result: If it rains tomorrow, we will stay home. The zero conditional talks about facts or things that are always true: If it rains, the ground gets wet.",
+        "vi": "Câu điều kiện loại 1 nói về một kết quả có thể xảy ra trong tương lai: If it rains tomorrow, we will stay home. Câu điều kiện loại 0 nói về sự thật hoặc điều luôn đúng: If it rains, the ground gets wet."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: after if, use present simple; for the result, use will.",
+    "vi": "Hãy nhớ: sau if dùng hiện tại đơn; ở phần kết quả dùng will."
+  }
+}

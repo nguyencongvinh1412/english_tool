@@ -1,0 +1,188 @@
+{
+  "summary": {
+    "en": "Reflexive pronouns end in -self or -selves, for example myself and themselves. Use them when the subject and the object are the same person or thing, or to mean “without help.”",
+    "vi": "Đại từ phản thân kết thúc bằng -self hoặc -selves, ví dụ myself và themselves. Dùng chúng khi chủ ngữ và tân ngữ là cùng một người hoặc vật, hoặc để diễn đạt ý “tự mình, không có sự giúp đỡ.”"
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Reflexive pronouns",
+        "vi": "Các đại từ phản thân"
+      },
+      "pattern": "I → myself; you → yourself/yourselves; he → himself; she → herself; it → itself; we → ourselves; they → themselves",
+      "example": {
+        "en": "I made this cake myself.",
+        "vi": "Tôi tự làm chiếc bánh này."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V + reflexive pronoun",
+      "example": {
+        "en": "She looked at herself in the mirror.",
+        "vi": "Cô ấy nhìn chính mình trong gương."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does/did not + V + reflexive pronoun",
+      "example": {
+        "en": "He did not hurt himself.",
+        "vi": "Anh ấy không làm chính mình bị thương."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does/Did + S + V + reflexive pronoun?",
+      "example": {
+        "en": "Did you enjoy yourself at the party?",
+        "vi": "Bạn có vui ở bữa tiệc không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "When the subject and object are the same",
+        "vi": "Khi chủ ngữ và tân ngữ là cùng một người hoặc vật"
+      },
+      "explanation": {
+        "en": "Use a reflexive pronoun when the action goes back to the subject.",
+        "vi": "Dùng đại từ phản thân khi hành động quay trở lại chính chủ ngữ."
+      },
+      "examples": [
+        {
+          "en": "Tom cut himself while cooking.",
+          "vi": "Tom tự cắt vào tay khi nấu ăn."
+        },
+        {
+          "en": "The cat washed itself.",
+          "vi": "Con mèo tự liếm rửa mình."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To mean “without help”",
+        "vi": "Để diễn đạt “tự mình, không cần giúp”"
+      },
+      "explanation": {
+        "en": "Use a reflexive pronoun after the subject or at the end of the sentence to show that someone did something alone.",
+        "vi": "Dùng đại từ phản thân sau chủ ngữ hoặc ở cuối câu để cho thấy ai đó tự làm việc gì một mình."
+      },
+      "examples": [
+        {
+          "en": "I fixed the bike myself.",
+          "vi": "Tôi tự sửa chiếc xe đạp."
+        },
+        {
+          "en": "My children can dress themselves.",
+          "vi": "Các con tôi có thể tự mặc quần áo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "For emphasis",
+        "vi": "Để nhấn mạnh"
+      },
+      "explanation": {
+        "en": "A reflexive pronoun can emphasize the person, meaning “that person, not someone else.”",
+        "vi": "Đại từ phản thân có thể dùng để nhấn mạnh người đó, nghĩa là “chính người đó, không phải ai khác.”"
+      },
+      "examples": [
+        {
+          "en": "The manager herself answered the phone.",
+          "vi": "Chính người quản lý đã nghe điện thoại."
+        },
+        {
+          "en": "We ourselves saw the accident.",
+          "vi": "Chính chúng tôi đã nhìn thấy vụ tai nạn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With some common phrases",
+        "vi": "Với một số cụm từ thông dụng"
+      },
+      "explanation": {
+        "en": "Some expressions often use reflexive pronouns, such as enjoy yourself, help yourself, and by myself.",
+        "vi": "Một số cách nói thường dùng đại từ phản thân, như enjoy yourself, help yourself và by myself."
+      },
+      "examples": [
+        {
+          "en": "Please help yourself to some tea.",
+          "vi": "Xin cứ tự nhiên dùng trà."
+        },
+        {
+          "en": "I live by myself.",
+          "vi": "Tôi sống một mình."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "myself",
+    "yourself",
+    "yourselves",
+    "himself",
+    "herself",
+    "itself",
+    "ourselves",
+    "themselves",
+    "by myself",
+    "by yourself",
+    "enjoy yourself",
+    "help yourself",
+    "look at yourself"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She looks at her in the mirror.",
+      "right": "She looks at herself in the mirror.",
+      "why": {
+        "en": "When “she” and “her” are the same person, use the reflexive pronoun “herself.”",
+        "vi": "Khi “she” và “her” là cùng một người, dùng đại từ phản thân “herself.”"
+      }
+    },
+    {
+      "wrong": "I do it by me.",
+      "right": "I do it by myself.",
+      "why": {
+        "en": "To mean “alone” or “without help,” use “by + reflexive pronoun,” not “by + object pronoun.”",
+        "vi": "Để diễn đạt “một mình” hoặc “không cần giúp,” dùng “by + đại từ phản thân,” không dùng “by + đại từ tân ngữ.”"
+      }
+    },
+    {
+      "wrong": "He hurt hisself.",
+      "right": "He hurt himself.",
+      "why": {
+        "en": "“Hisself” is not standard English. The correct reflexive pronoun for “he” is “himself.”",
+        "vi": "“Hisself” không phải tiếng Anh chuẩn. Đại từ phản thân đúng của “he” là “himself.”"
+      }
+    },
+    {
+      "wrong": "They cook dinner themself.",
+      "right": "They cook dinner themselves.",
+      "why": {
+        "en": "For plural “they,” use “themselves.” In modern English, singular “they” can also use “themselves”; “themself” exists but is less common and not usually taught at A2.",
+        "vi": "Với “they” số nhiều, dùng “themselves.” Trong tiếng Anh hiện đại, “they” số ít cũng có thể dùng “themselves”; “themself” có tồn tại nhưng ít phổ biến hơn và thường không học ở trình độ A2."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "If the person doing the action and the person receiving the action are the same, choose a word ending in -self or -selves.",
+    "vi": "Nếu người làm hành động và người nhận hành động là cùng một người, hãy chọn từ kết thúc bằng -self hoặc -selves."
+  }
+}

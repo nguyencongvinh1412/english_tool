@@ -1,0 +1,202 @@
+{
+  "summary": {
+    "en": "Comparatives compare two people, things, places, or actions. Use them when one is more/less different than the other in a quality, amount, or way of doing something.",
+    "vi": "So sánh hơn dùng để so sánh hai người, vật, nơi chốn hoặc hành động. Dùng khi một bên khác hơn/kém hơn bên kia về tính chất, số lượng hoặc cách làm."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Short adjective + -er",
+        "vi": "Tính từ ngắn + -er"
+      },
+      "pattern": "S + be + adjective-er + than + noun/pronoun",
+      "example": {
+        "en": "My room is smaller than my sister's room.",
+        "vi": "Phòng của tôi nhỏ hơn phòng của chị tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "More + long adjective",
+        "vi": "More + tính từ dài"
+      },
+      "pattern": "S + be + more + adjective + than + noun/pronoun",
+      "example": {
+        "en": "This exercise is more difficult than the last one.",
+        "vi": "Bài tập này khó hơn bài trước."
+      }
+    },
+    {
+      "label": {
+        "en": "Less + adjective",
+        "vi": "Less + tính từ"
+      },
+      "pattern": "S + be + less + adjective + than + noun/pronoun",
+      "example": {
+        "en": "The bus is less expensive than a taxi.",
+        "vi": "Xe buýt rẻ hơn taxi."
+      }
+    },
+    {
+      "label": {
+        "en": "Comparative adverb",
+        "vi": "Trạng từ so sánh hơn"
+      },
+      "pattern": "S + V + comparative adverb + than + noun/pronoun",
+      "example": {
+        "en": "She runs faster than me.",
+        "vi": "Cô ấy chạy nhanh hơn tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + comparative adjective + than + noun/pronoun?",
+      "example": {
+        "en": "Is your new phone better than your old phone?",
+        "vi": "Điện thoại mới của bạn có tốt hơn điện thoại cũ không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Compare two things",
+        "vi": "So sánh hai vật hoặc hai người"
+      },
+      "explanation": {
+        "en": "Use a comparative to say one person or thing has more of a quality than another.",
+        "vi": "Dùng so sánh hơn để nói một người hoặc vật có một tính chất nhiều hơn người/vật khác."
+      },
+      "examples": [
+        {
+          "en": "Lan is taller than Hoa.",
+          "vi": "Lan cao hơn Hoa."
+        },
+        {
+          "en": "This bag is heavier than that bag.",
+          "vi": "Cái túi này nặng hơn cái túi kia."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Compare actions",
+        "vi": "So sánh hành động"
+      },
+      "explanation": {
+        "en": "Use comparative adverbs to compare how people do something.",
+        "vi": "Dùng trạng từ so sánh hơn để so sánh cách người ta làm việc gì đó."
+      },
+      "examples": [
+        {
+          "en": "He speaks English more clearly than before.",
+          "vi": "Anh ấy nói tiếng Anh rõ hơn trước."
+        },
+        {
+          "en": "I can finish my homework faster than yesterday.",
+          "vi": "Tôi có thể làm xong bài tập nhanh hơn hôm qua."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Talk about change",
+        "vi": "Nói về sự thay đổi"
+      },
+      "explanation": {
+        "en": "Use a comparative to show that something is changing.",
+        "vi": "Dùng so sánh hơn để cho thấy điều gì đó đang thay đổi."
+      },
+      "examples": [
+        {
+          "en": "The weather is getting colder.",
+          "vi": "Thời tiết đang trở nên lạnh hơn."
+        },
+        {
+          "en": "My English is becoming better.",
+          "vi": "Tiếng Anh của tôi đang trở nên tốt hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Show a small or big difference",
+        "vi": "Diễn tả sự khác biệt ít hoặc nhiều"
+      },
+      "explanation": {
+        "en": "Put much, a lot, far, a little, or a bit before a comparative.",
+        "vi": "Đặt much, a lot, far, a little hoặc a bit trước dạng so sánh hơn."
+      },
+      "examples": [
+        {
+          "en": "This book is much more interesting than that one.",
+          "vi": "Cuốn sách này thú vị hơn cuốn kia nhiều."
+        },
+        {
+          "en": "Your house is a little bigger than mine.",
+          "vi": "Nhà của bạn lớn hơn nhà tôi một chút."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "than",
+    "much",
+    "a lot",
+    "far",
+    "a little",
+    "a bit",
+    "getting",
+    "becoming"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She taller than me.",
+      "right": "She is taller than me.",
+      "why": {
+        "en": "Do not leave out the verb be before a comparative adjective.",
+        "vi": "Không được bỏ động từ be trước tính từ so sánh hơn."
+      }
+    },
+    {
+      "wrong": "This car is more fast than that car.",
+      "right": "This car is faster than that car.",
+      "why": {
+        "en": "Use -er with most short adjectives: fast → faster. Do not use more fast.",
+        "vi": "Dùng -er với đa số tính từ ngắn: fast → faster. Không dùng more fast."
+      }
+    },
+    {
+      "wrong": "My brother is more tall than me.",
+      "right": "My brother is taller than me.",
+      "why": {
+        "en": "Tall is a short adjective, so the comparative form is taller.",
+        "vi": "Tall là tính từ ngắn, nên dạng so sánh hơn là taller."
+      }
+    },
+    {
+      "wrong": "Today is more hot than yesterday.",
+      "right": "Today is hotter than yesterday.",
+      "why": {
+        "en": "For one-syllable adjectives ending in consonant + vowel + consonant, double the final consonant: hot → hotter.",
+        "vi": "Với tính từ một âm tiết kết thúc bằng phụ âm + nguyên âm + phụ âm, gấp đôi phụ âm cuối: hot → hotter."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "as-as",
+      "note": {
+        "en": "Use comparatives to say two things are different: My bag is heavier than yours. Use as ... as to say they are equal or not equal: My bag is as heavy as yours; My bag is not as heavy as yours.",
+        "vi": "Dùng so sánh hơn để nói hai thứ khác nhau: My bag is heavier than yours. Dùng as ... as để nói chúng bằng nhau hoặc không bằng nhau: My bag is as heavy as yours; My bag is not as heavy as yours."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Short adjective? Add -er. Long adjective? Use more. Then add than for the second thing.",
+    "vi": "Tính từ ngắn thì thêm -er. Tính từ dài thì dùng more. Sau đó thêm than để nói đối tượng thứ hai."
+  }
+}

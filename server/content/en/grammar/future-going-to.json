@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "en": "Use be going to + verb for future plans and for predictions when we can see evidence now. The verb be changes: am/is/are going to.",
+    "vi": "Dùng be going to + động từ để nói về kế hoạch trong tương lai và dự đoán khi có dấu hiệu ở hiện tại. Động từ be thay đổi: am/is/are going to."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + am/is/are + going to + V",
+      "example": {
+        "en": "I am going to visit my grandparents this weekend.",
+        "vi": "Cuối tuần này tôi sẽ đi thăm ông bà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + am/is/are + not + going to + V",
+      "example": {
+        "en": "She is not going to buy a new phone.",
+        "vi": "Cô ấy sẽ không mua điện thoại mới."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Am/Is/Are + S + going to + V?",
+      "example": {
+        "en": "Are you going to study tonight?",
+        "vi": "Tối nay bạn có định học không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi có từ để hỏi"
+      },
+      "pattern": "Wh-word + am/is/are + S + going to + V?",
+      "example": {
+        "en": "What are they going to do after school?",
+        "vi": "Sau giờ học họ định làm gì?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Future plans and intentions",
+        "vi": "Kế hoạch và dự định trong tương lai"
+      },
+      "explanation": {
+        "en": "Use be going to when you have a plan or intention before the time of speaking.",
+        "vi": "Dùng be going to khi bạn đã có kế hoạch hoặc dự định trước lúc nói."
+      },
+      "examples": [
+        {
+          "en": "We are going to have dinner at home tonight.",
+          "vi": "Tối nay chúng tôi định ăn tối ở nhà."
+        },
+        {
+          "en": "He is going to learn to drive next month.",
+          "vi": "Tháng sau anh ấy định học lái xe."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predictions with present evidence",
+        "vi": "Dự đoán dựa trên dấu hiệu hiện tại"
+      },
+      "explanation": {
+        "en": "Use be going to when something in the present makes the future result clear or likely.",
+        "vi": "Dùng be going to khi điều gì đó ở hiện tại cho thấy kết quả trong tương lai rõ ràng hoặc rất có khả năng xảy ra."
+      },
+      "examples": [
+        {
+          "en": "Look at those dark clouds. It is going to rain.",
+          "vi": "Nhìn những đám mây đen kia kìa. Trời sắp mưa."
+        },
+        {
+          "en": "Be careful! You are going to drop the glass.",
+          "vi": "Cẩn thận! Bạn sắp làm rơi cái cốc đấy."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Near future changes",
+        "vi": "Thay đổi sắp xảy ra"
+      },
+      "explanation": {
+        "en": "Use be going to for something that seems ready to happen soon.",
+        "vi": "Dùng be going to cho điều gì đó có vẻ sắp xảy ra."
+      },
+      "examples": [
+        {
+          "en": "The bus is going to leave in five minutes.",
+          "vi": "Xe buýt sắp rời đi trong năm phút nữa."
+        },
+        {
+          "en": "The baby is going to wake up.",
+          "vi": "Em bé sắp thức dậy."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "tomorrow",
+    "tonight",
+    "this weekend",
+    "next week",
+    "next month",
+    "soon",
+    "in a few minutes",
+    "Look!",
+    "Be careful!"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I going to buy a ticket.",
+      "right": "I am going to buy a ticket.",
+      "why": {
+        "en": "You must use the correct form of be before going to: am, is, or are.",
+        "vi": "Phải dùng dạng đúng của be trước going to: am, is hoặc are."
+      }
+    },
+    {
+      "wrong": "She are going to cook dinner.",
+      "right": "She is going to cook dinner.",
+      "why": {
+        "en": "With he, she, it, or one singular noun, use is.",
+        "vi": "Với he, she, it hoặc một danh từ số ít, dùng is."
+      }
+    },
+    {
+      "wrong": "They are going to watching a film.",
+      "right": "They are going to watch a film.",
+      "why": {
+        "en": "After going to, use the base verb, not -ing.",
+        "vi": "Sau going to, dùng động từ nguyên thể, không dùng dạng -ing."
+      }
+    },
+    {
+      "wrong": "Are he going to come?",
+      "right": "Is he going to come?",
+      "why": {
+        "en": "In questions, put the correct form of be before the subject. With he, use is.",
+        "vi": "Trong câu hỏi, đặt dạng đúng của be trước chủ ngữ. Với he, dùng is."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "future-will",
+      "note": {
+        "en": "Use will for quick decisions, promises, offers, or general predictions without clear present evidence. Use be going to for plans already made or predictions with evidence now.",
+        "vi": "Dùng will cho quyết định ngay lúc nói, lời hứa, lời đề nghị giúp đỡ, hoặc dự đoán chung không có dấu hiệu rõ ở hiện tại. Dùng be going to cho kế hoạch đã có sẵn hoặc dự đoán có dấu hiệu ở hiện tại."
+      }
+    },
+    {
+      "with": "future-present-continuous",
+      "note": {
+        "en": "Use the present continuous for fixed personal arrangements, especially with a time and place. Use be going to for an intention or plan, even if the details are not fixed.",
+        "vi": "Dùng hiện tại tiếp diễn cho lịch hẹn/sắp xếp cá nhân đã chốt, thường có thời gian và địa điểm. Dùng be going to cho ý định hoặc kế hoạch, dù chi tiết chưa được chốt."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: be + going to + base verb. The be is small, but it is necessary.",
+    "vi": "Hãy nhớ: be + going to + động từ nguyên thể. Từ be nhỏ nhưng bắt buộc phải có."
+  }
+}

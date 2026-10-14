@@ -1,0 +1,200 @@
+{
+  "summary": {
+    "en": "Use should and ought to to give advice or say what is a good idea. They are softer than must and have to, and they do not usually mean a rule or strong obligation.",
+    "vi": "Dùng should và ought to để đưa ra lời khuyên hoặc nói điều gì là ý hay nên làm. Chúng nhẹ hơn must và have to, và thường không mang nghĩa quy định hay nghĩa vụ mạnh."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + should + base verb",
+      "example": {
+        "en": "You should drink more water.",
+        "vi": "Bạn nên uống nhiều nước hơn."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with ought to",
+        "vi": "Khẳng định với ought to"
+      },
+      "pattern": "S + ought to + base verb",
+      "example": {
+        "en": "She ought to see a doctor.",
+        "vi": "Cô ấy nên đi khám bác sĩ."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + should not / shouldn't + base verb",
+      "example": {
+        "en": "You shouldn't eat too much sugar.",
+        "vi": "Bạn không nên ăn quá nhiều đường."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Should + S + base verb?",
+      "example": {
+        "en": "Should I call him now?",
+        "vi": "Tôi có nên gọi cho anh ấy bây giờ không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi với từ để hỏi"
+      },
+      "pattern": "Wh-word + should + S + base verb?",
+      "example": {
+        "en": "What should we do next?",
+        "vi": "Tiếp theo chúng ta nên làm gì?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Giving advice",
+        "vi": "Đưa ra lời khuyên"
+      },
+      "explanation": {
+        "en": "Use should or ought to when you think something is a good or sensible action.",
+        "vi": "Dùng should hoặc ought to khi bạn nghĩ việc gì đó là tốt hoặc hợp lý nên làm."
+      },
+      "examples": [
+        {
+          "en": "You should go to bed earlier.",
+          "vi": "Bạn nên đi ngủ sớm hơn."
+        },
+        {
+          "en": "He ought to talk to his teacher.",
+          "vi": "Anh ấy nên nói chuyện với giáo viên của mình."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Saying something is not a good idea",
+        "vi": "Nói điều gì đó không phải là ý hay"
+      },
+      "explanation": {
+        "en": "Use shouldn't to advise someone not to do something. Ought not to is possible, but it is less common and more formal.",
+        "vi": "Dùng shouldn't để khuyên ai đó không làm việc gì. Ought not to cũng có thể dùng, nhưng ít phổ biến hơn và trang trọng hơn."
+      },
+      "examples": [
+        {
+          "en": "You shouldn't drive when you are very tired.",
+          "vi": "Bạn không nên lái xe khi rất mệt."
+        },
+        {
+          "en": "They shouldn't spend all their money.",
+          "vi": "Họ không nên tiêu hết tiền."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Asking for advice",
+        "vi": "Hỏi xin lời khuyên"
+      },
+      "explanation": {
+        "en": "Use should in questions when you want to know the best thing to do. Ought to is rarely used in questions in everyday English.",
+        "vi": "Dùng should trong câu hỏi khi bạn muốn biết điều tốt nhất nên làm. Ought to hiếm khi được dùng trong câu hỏi hằng ngày."
+      },
+      "examples": [
+        {
+          "en": "Should I buy this phone?",
+          "vi": "Tôi có nên mua chiếc điện thoại này không?"
+        },
+        {
+          "en": "Where should we meet?",
+          "vi": "Chúng ta nên gặp nhau ở đâu?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Saying what is probably right or expected",
+        "vi": "Nói điều có lẽ đúng hoặc được mong đợi"
+      },
+      "explanation": {
+        "en": "Should can also mean that something is expected to happen, especially when you have a reason for thinking so.",
+        "vi": "Should cũng có thể có nghĩa là điều gì đó được mong đợi sẽ xảy ra, đặc biệt khi bạn có lý do để nghĩ như vậy."
+      },
+      "examples": [
+        {
+          "en": "The bus should arrive soon.",
+          "vi": "Xe buýt chắc sẽ đến sớm thôi."
+        },
+        {
+          "en": "This exercise should be easy for you.",
+          "vi": "Bài tập này chắc sẽ dễ đối với bạn."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "I think you should ...",
+    "Maybe you should ...",
+    "You ought to ...",
+    "You shouldn't ...",
+    "Should I ...?",
+    "What should we ...?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "You should to study more.",
+      "right": "You should study more.",
+      "why": {
+        "en": "After should, use the base verb without to.",
+        "vi": "Sau should dùng động từ nguyên mẫu không có to."
+      }
+    },
+    {
+      "wrong": "She should goes home now.",
+      "right": "She should go home now.",
+      "why": {
+        "en": "Do not add -s after should. The verb stays in the base form for all subjects.",
+        "vi": "Không thêm -s sau should. Động từ giữ dạng nguyên mẫu cho mọi chủ ngữ."
+      }
+    },
+    {
+      "wrong": "You ought see a doctor.",
+      "right": "You ought to see a doctor.",
+      "why": {
+        "en": "Ought is normally followed by to + base verb.",
+        "vi": "Ought thường đi với to + động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "You should are careful.",
+      "right": "You should be careful.",
+      "why": {
+        "en": "After should, use the base form be, not am, is, are, was, or were.",
+        "vi": "Sau should dùng dạng nguyên mẫu be, không dùng am, is, are, was hoặc were."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "must-have-to",
+      "note": {
+        "en": "Should and ought to give advice: the person can choose. Must and have to show strong obligation, rules, or something necessary. Compare: You should wear a helmet = it is a good idea. You must wear a helmet = it is required.",
+        "vi": "Should và ought to đưa ra lời khuyên: người nghe vẫn có thể lựa chọn. Must và have to diễn tả nghĩa vụ mạnh, quy định hoặc điều cần thiết. So sánh: You should wear a helmet = đội mũ bảo hiểm là ý hay. You must wear a helmet = bắt buộc phải đội."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: should + verb, but ought to + verb.",
+    "vi": "Hãy nhớ: should + động từ, nhưng ought to + động từ."
+  }
+}

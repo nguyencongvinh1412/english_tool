@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "en": "Use have/get something done when another person does a service or job for you, or when something happens to you or your property. The structure focuses on the result, not on who does the action.",
+    "vi": "Dùng have/get something done khi người khác làm một dịch vụ hoặc công việc cho bạn, hoặc khi điều gì đó xảy ra với bạn hay tài sản của bạn. Cấu trúc này nhấn mạnh kết quả, không nhấn mạnh ai thực hiện hành động."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + have/get + object + past participle",
+      "example": {
+        "en": "I had my laptop repaired yesterday.",
+        "vi": "Hôm qua tôi đã đem máy tính xách tay đi sửa."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does/did not + have/get + object + past participle",
+      "example": {
+        "en": "She didn’t get her passport renewed in time.",
+        "vi": "Cô ấy đã không kịp đi gia hạn hộ chiếu."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does/Did + S + have/get + object + past participle?",
+      "example": {
+        "en": "Did you have your eyes tested?",
+        "vi": "Bạn đã đi kiểm tra mắt chưa?"
+      }
+    },
+    {
+      "label": {
+        "en": "Different tenses",
+        "vi": "Các thì khác nhau"
+      },
+      "pattern": "S + modal/be going to/present perfect/etc. + have/get + object + past participle",
+      "example": {
+        "en": "We’re going to have the house painted next month.",
+        "vi": "Tháng tới chúng tôi sẽ thuê người sơn nhà."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Services done for you",
+        "vi": "Dịch vụ người khác làm cho mình"
+      },
+      "explanation": {
+        "en": "Use this structure when you arrange for someone to do a job, especially a professional service.",
+        "vi": "Dùng cấu trúc này khi bạn sắp xếp để ai đó làm một việc cho mình, đặc biệt là dịch vụ chuyên nghiệp."
+      },
+      "examples": [
+        {
+          "en": "I need to get my hair cut before the interview.",
+          "vi": "Tôi cần đi cắt tóc trước buổi phỏng vấn."
+        },
+        {
+          "en": "They had their wedding photos taken in Da Lat.",
+          "vi": "Họ đã chụp ảnh cưới ở Đà Lạt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Repairs and maintenance",
+        "vi": "Sửa chữa và bảo trì"
+      },
+      "explanation": {
+        "en": "It is very common with objects such as cars, phones, computers, clothes, and houses.",
+        "vi": "Cấu trúc này rất thường dùng với các đồ vật như xe, điện thoại, máy tính, quần áo và nhà cửa."
+      },
+      "examples": [
+        {
+          "en": "He had his car serviced last week.",
+          "vi": "Tuần trước anh ấy đã đem xe đi bảo dưỡng."
+        },
+        {
+          "en": "We should get the air conditioner cleaned.",
+          "vi": "Chúng ta nên gọi người vệ sinh máy lạnh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Unpleasant things that happen to someone",
+        "vi": "Việc không may xảy ra với ai đó"
+      },
+      "explanation": {
+        "en": "Have something done can also describe a bad experience, often without saying who caused it.",
+        "vi": "Have something done cũng có thể diễn tả một trải nghiệm không tốt, thường không nói ai gây ra việc đó."
+      },
+      "examples": [
+        {
+          "en": "She had her phone stolen on the bus.",
+          "vi": "Cô ấy bị mất điện thoại trên xe buýt."
+        },
+        {
+          "en": "They had their house broken into while they were away.",
+          "vi": "Nhà của họ bị đột nhập khi họ đi vắng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Have vs get",
+        "vi": "Have và get"
+      },
+      "explanation": {
+        "en": "Have is a little more neutral or formal. Get is common in conversation and can suggest making an arrangement or finally causing something to happen.",
+        "vi": "Have trung tính hoặc trang trọng hơn một chút. Get phổ biến trong giao tiếp và có thể gợi ý việc sắp xếp hoặc cuối cùng làm cho việc gì đó xảy ra."
+      },
+      "examples": [
+        {
+          "en": "I had my suit cleaned for the conference.",
+          "vi": "Tôi đã đem bộ vest đi giặt khô cho hội nghị."
+        },
+        {
+          "en": "I finally got my bike fixed.",
+          "vi": "Cuối cùng tôi cũng đem xe đạp đi sửa xong."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "my hair cut",
+    "my car repaired",
+    "my phone fixed",
+    "my passport renewed",
+    "my eyes tested",
+    "the house painted",
+    "last week",
+    "next month",
+    "by a mechanic",
+    "at the salon"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I cut my hair yesterday.",
+      "right": "I had my hair cut yesterday.",
+      "why": {
+        "en": "If you did not cut it yourself, use have/get + object + past participle.",
+        "vi": "Nếu bạn không tự cắt tóc cho mình, hãy dùng have/get + tân ngữ + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "She got her phone repair.",
+      "right": "She got her phone repaired.",
+      "why": {
+        "en": "After the object, use the past participle: repaired, fixed, cleaned, stolen, etc.",
+        "vi": "Sau tân ngữ phải dùng quá khứ phân từ: repaired, fixed, cleaned, stolen, v.v."
+      }
+    },
+    {
+      "wrong": "He have his car washed every Sunday.",
+      "right": "He has his car washed every Sunday.",
+      "why": {
+        "en": "In the present simple, add -s to have with he, she, and it: has.",
+        "vi": "Ở thì hiện tại đơn, thêm -s với have khi chủ ngữ là he, she, it: has."
+      }
+    },
+    {
+      "wrong": "Did you had your computer fixed?",
+      "right": "Did you have your computer fixed?",
+      "why": {
+        "en": "After did, use the base verb have, not had.",
+        "vi": "Sau did, dùng động từ nguyên thể have, không dùng had."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: you have/get the thing done, but someone else does the work.",
+    "vi": "Hãy nhớ: bạn have/get một việc được làm, nhưng người khác mới là người thực hiện."
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "A reduced relative clause is a shorter form of a relative clause, usually without who, which, that and the verb be. It is used to make writing or formal speech more concise when the meaning is clear.",
+    "vi": "Mệnh đề quan hệ rút gọn là dạng ngắn hơn của mệnh đề quan hệ, thường bỏ who, which, that và động từ be. Cách này được dùng để viết hoặc nói trang trọng ngắn gọn hơn khi ý nghĩa đã rõ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Active meaning: -ing form",
+        "vi": "Nghĩa chủ động: dạng -ing"
+      },
+      "pattern": "N + V-ing + ...",
+      "example": {
+        "en": "The woman standing by the door is my manager.",
+        "vi": "Người phụ nữ đang đứng cạnh cửa là quản lý của tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Passive meaning: past participle",
+        "vi": "Nghĩa bị động: quá khứ phân từ"
+      },
+      "pattern": "N + past participle + ...",
+      "example": {
+        "en": "The documents sent yesterday need to be checked.",
+        "vi": "Những tài liệu được gửi hôm qua cần được kiểm tra."
+      }
+    },
+    {
+      "label": {
+        "en": "After be + adjective/prepositional phrase",
+        "vi": "Sau be + tính từ/cụm giới từ"
+      },
+      "pattern": "N + adjective/prepositional phrase + ...",
+      "example": {
+        "en": "Anyone interested in the course should contact Ms Lee.",
+        "vi": "Bất kỳ ai quan tâm đến khóa học nên liên hệ cô Lee."
+      }
+    },
+    {
+      "label": {
+        "en": "To-infinitive after first, last, only, next, superlatives",
+        "vi": "To-infinitive sau first, last, only, next, so sánh nhất"
+      },
+      "pattern": "N + to V + ...",
+      "example": {
+        "en": "She was the first person to arrive.",
+        "vi": "Cô ấy là người đầu tiên đến."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative reduced clause",
+        "vi": "Mệnh đề rút gọn phủ định"
+      },
+      "pattern": "N + not + V-ing / past participle / adjective + ...",
+      "example": {
+        "en": "Students not wearing an ID card cannot enter the exam room.",
+        "vi": "Sinh viên không đeo thẻ không được vào phòng thi."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To shorten an active relative clause",
+        "vi": "Rút gọn mệnh đề quan hệ mang nghĩa chủ động"
+      },
+      "explanation": {
+        "en": "When the noun does the action in the relative clause, use the -ing form. This often replaces who/which/that + verb.",
+        "vi": "Khi danh từ tự thực hiện hành động trong mệnh đề quan hệ, dùng dạng -ing. Dạng này thường thay cho who/which/that + động từ."
+      },
+      "examples": [
+        {
+          "en": "The man talking to the receptionist is our new client.",
+          "vi": "Người đàn ông đang nói chuyện với lễ tân là khách hàng mới của chúng ta."
+        },
+        {
+          "en": "The company offering the best price won the contract.",
+          "vi": "Công ty đưa ra mức giá tốt nhất đã thắng hợp đồng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To shorten a passive relative clause",
+        "vi": "Rút gọn mệnh đề quan hệ mang nghĩa bị động"
+      },
+      "explanation": {
+        "en": "When the noun receives the action, use the past participle. This often replaces which/that/who + be + past participle.",
+        "vi": "Khi danh từ nhận tác động của hành động, dùng quá khứ phân từ. Dạng này thường thay cho which/that/who + be + quá khứ phân từ."
+      },
+      "examples": [
+        {
+          "en": "The photos taken at the conference are on our website.",
+          "vi": "Những bức ảnh được chụp tại hội nghị đang ở trên trang web của chúng tôi."
+        },
+        {
+          "en": "The report prepared by the finance team was very detailed.",
+          "vi": "Bản báo cáo được nhóm tài chính chuẩn bị rất chi tiết."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To reduce clauses with be + adjective or prepositional phrase",
+        "vi": "Rút gọn mệnh đề có be + tính từ hoặc cụm giới từ"
+      },
+      "explanation": {
+        "en": "If the relative clause contains only who/which/that + be + an adjective or a prepositional phrase, you can usually remove the relative pronoun and be.",
+        "vi": "Nếu mệnh đề quan hệ chỉ có who/which/that + be + tính từ hoặc cụm giới từ, thường có thể bỏ đại từ quan hệ và động từ be."
+      },
+      "examples": [
+        {
+          "en": "The people in the waiting room have been here for two hours.",
+          "vi": "Những người trong phòng chờ đã ở đây hai tiếng rồi."
+        },
+        {
+          "en": "Applications suitable for beginners are marked with a blue icon.",
+          "vi": "Những ứng dụng phù hợp với người mới bắt đầu được đánh dấu bằng biểu tượng màu xanh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To express purpose or order with to-infinitive",
+        "vi": "Diễn tả mục đích hoặc thứ tự bằng to-infinitive"
+      },
+      "explanation": {
+        "en": "Use to + verb after words such as the first, the last, the next, the only, and superlatives. It often replaces a relative clause with can, could, will, would, or a simple verb.",
+        "vi": "Dùng to + động từ sau các từ như the first, the last, the next, the only và dạng so sánh nhất. Nó thường thay cho mệnh đề quan hệ có can, could, will, would hoặc một động từ đơn."
+      },
+      "examples": [
+        {
+          "en": "He is the only employee to speak Japanese fluently.",
+          "vi": "Anh ấy là nhân viên duy nhất nói tiếng Nhật trôi chảy."
+        },
+        {
+          "en": "This is the best way to solve the problem.",
+          "vi": "Đây là cách tốt nhất để giải quyết vấn đề."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "who/which/that + be can often be removed",
+    "active meaning: use V-ing",
+    "passive meaning: use past participle",
+    "first, last, next, only, best, easiest + to V",
+    "common in writing, reports, notices, and formal speech"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The man stand near the window is my teacher.",
+      "right": "The man standing near the window is my teacher.",
+      "why": {
+        "en": "After reducing an active relative clause, use the -ing form, not the base verb.",
+        "vi": "Sau khi rút gọn mệnh đề quan hệ mang nghĩa chủ động, dùng dạng -ing, không dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "The book writing by this author is famous.",
+      "right": "The book written by this author is famous.",
+      "why": {
+        "en": "The book does not write; it is written. For passive meaning, use the past participle.",
+        "vi": "Quyển sách không tự viết; nó được viết. Với nghĩa bị động, dùng quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "Students not wear uniforms must speak to the teacher.",
+      "right": "Students not wearing uniforms must speak to the teacher.",
+      "why": {
+        "en": "In a negative active reduced clause, use not + V-ing.",
+        "vi": "Trong mệnh đề quan hệ rút gọn phủ định mang nghĩa chủ động, dùng not + V-ing."
+      }
+    },
+    {
+      "wrong": "She is the first person arrived at the office.",
+      "right": "She is the first person to arrive at the office.",
+      "why": {
+        "en": "After the first, the last, the only, and similar expressions, use to + verb, not an -ed form.",
+        "vi": "Sau the first, the last, the only và các cụm tương tự, dùng to + động từ, không dùng dạng -ed."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Ask: does the noun do the action? Use -ing. Does it receive the action? Use the past participle.",
+    "vi": "Hãy hỏi: danh từ có tự làm hành động không? Nếu có, dùng -ing. Nếu danh từ nhận tác động, dùng quá khứ phân từ."
+  }
+}

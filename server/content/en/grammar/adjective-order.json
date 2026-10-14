@@ -1,0 +1,183 @@
+{
+  "summary": {
+    "en": "When several adjectives come before a noun, they usually follow a common order in English. This helps the phrase sound natural, for example: a beautiful old wooden table.",
+    "vi": "Khi có nhiều tính từ đứng trước danh từ, chúng thường theo một trật tự quen thuộc trong tiếng Anh. Trật tự này giúp cụm từ nghe tự nhiên, ví dụ: a beautiful old wooden table."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Basic order before a noun",
+        "vi": "Trật tự cơ bản trước danh từ"
+      },
+      "pattern": "opinion + size + age + shape + colour + origin + material + purpose + noun",
+      "example": {
+        "en": "She bought a lovely small old round blue Italian glass coffee table.",
+        "vi": "Cô ấy đã mua một chiếc bàn cà phê bằng kính của Ý, màu xanh, tròn, cũ, nhỏ và đáng yêu."
+      }
+    },
+    {
+      "label": {
+        "en": "With one or two adjectives",
+        "vi": "Với một hoặc hai tính từ"
+      },
+      "pattern": "determiner + adjective(s) + noun",
+      "example": {
+        "en": "He lives in a quiet little village.",
+        "vi": "Anh ấy sống trong một ngôi làng nhỏ yên tĩnh."
+      }
+    },
+    {
+      "label": {
+        "en": "Adjectives after be or linking verbs",
+        "vi": "Tính từ sau be hoặc động từ nối"
+      },
+      "pattern": "S + be / look / seem / feel + adjective(s)",
+      "example": {
+        "en": "The room is small and bright.",
+        "vi": "Căn phòng nhỏ và sáng."
+      }
+    },
+    {
+      "label": {
+        "en": "Using commas between similar adjectives",
+        "vi": "Dùng dấu phẩy giữa các tính từ cùng loại"
+      },
+      "pattern": "opinion adjective, opinion adjective + noun",
+      "example": {
+        "en": "It was a long, boring meeting.",
+        "vi": "Đó là một cuộc họp dài và nhàm chán."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To describe a noun naturally",
+        "vi": "Miêu tả danh từ một cách tự nhiên"
+      },
+      "explanation": {
+        "en": "Put adjectives before the noun in the usual order. English speakers expect opinion words before more factual words like age, colour, origin, and material.",
+        "vi": "Đặt tính từ trước danh từ theo trật tự thông thường. Người nói tiếng Anh thường đặt tính từ chỉ ý kiến trước các tính từ mang tính thực tế hơn như tuổi, màu sắc, nguồn gốc và chất liệu."
+      },
+      "examples": [
+        {
+          "en": "They have a beautiful old French house.",
+          "vi": "Họ có một ngôi nhà Pháp cổ rất đẹp."
+        },
+        {
+          "en": "I need a new black leather bag.",
+          "vi": "Tôi cần một chiếc túi da màu đen mới."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To separate opinion and fact",
+        "vi": "Phân biệt ý kiến và sự thật"
+      },
+      "explanation": {
+        "en": "Opinion adjectives show what someone thinks. Fact adjectives give information everyone can see or check. Opinion usually comes first.",
+        "vi": "Tính từ chỉ ý kiến nói lên cảm nhận của ai đó. Tính từ chỉ sự thật cung cấp thông tin có thể nhìn thấy hoặc kiểm chứng. Tính từ ý kiến thường đứng trước."
+      },
+      "examples": [
+        {
+          "en": "It is a delicious hot meal.",
+          "vi": "Đó là một bữa ăn nóng hổi ngon miệng."
+        },
+        {
+          "en": "She wore an elegant red dress.",
+          "vi": "Cô ấy mặc một chiếc váy đỏ thanh lịch."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To avoid too many adjectives",
+        "vi": "Tránh dùng quá nhiều tính từ"
+      },
+      "explanation": {
+        "en": "In everyday English, people usually use only one to three adjectives before a noun. Too many adjectives can sound unnatural or heavy.",
+        "vi": "Trong tiếng Anh hằng ngày, người ta thường chỉ dùng một đến ba tính từ trước danh từ. Quá nhiều tính từ có thể nghe không tự nhiên hoặc nặng nề."
+      },
+      "examples": [
+        {
+          "en": "I bought a nice wooden chair.",
+          "vi": "Tôi đã mua một chiếc ghế gỗ đẹp."
+        },
+        {
+          "en": "She has a small white dog.",
+          "vi": "Cô ấy có một con chó nhỏ màu trắng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To use and between adjectives after a verb",
+        "vi": "Dùng and giữa các tính từ sau động từ"
+      },
+      "explanation": {
+        "en": "When adjectives come after be, look, seem, feel, or become, we often use and before the last adjective.",
+        "vi": "Khi tính từ đứng sau be, look, seem, feel hoặc become, ta thường dùng and trước tính từ cuối cùng."
+      },
+      "examples": [
+        {
+          "en": "The bag is old and dirty.",
+          "vi": "Chiếc túi cũ và bẩn."
+        },
+        {
+          "en": "The children looked tired and hungry.",
+          "vi": "Bọn trẻ trông mệt và đói."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "opinion: nice, beautiful, strange, useful",
+    "size: big, small, tall, tiny",
+    "age: new, old, young, ancient",
+    "shape: round, square, long, flat",
+    "colour: red, black, white, blue",
+    "origin: Vietnamese, British, American, Japanese",
+    "material: wooden, plastic, cotton, leather",
+    "purpose: coffee cup, running shoes, shopping bag"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I bought a leather black bag.",
+      "right": "I bought a black leather bag.",
+      "why": {
+        "en": "Colour usually comes before material: black leather, not leather black.",
+        "vi": "Màu sắc thường đứng trước chất liệu: black leather, không phải leather black."
+      }
+    },
+    {
+      "wrong": "She has a small nice house.",
+      "right": "She has a nice small house.",
+      "why": {
+        "en": "Opinion adjectives usually come before size adjectives: nice small house.",
+        "vi": "Tính từ chỉ ý kiến thường đứng trước tính từ chỉ kích cỡ: nice small house."
+      }
+    },
+    {
+      "wrong": "He wears a shirt blue.",
+      "right": "He wears a blue shirt.",
+      "why": {
+        "en": "Most adjectives come before the noun in English. Vietnamese often puts describing words after the noun, but English usually does not.",
+        "vi": "Trong tiếng Anh, hầu hết tính từ đứng trước danh từ. Tiếng Việt thường đặt từ miêu tả sau danh từ, nhưng tiếng Anh thường không làm vậy."
+      }
+    },
+    {
+      "wrong": "It is beautiful old house.",
+      "right": "It is a beautiful old house.",
+      "why": {
+        "en": "A singular countable noun needs an article or another determiner. Use a before beautiful old house.",
+        "vi": "Danh từ đếm được số ít cần có mạo từ hoặc từ hạn định. Dùng a trước beautiful old house."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: opinion first, then facts. A useful short order is: opinion, size, age, colour, origin, material, noun.",
+    "vi": "Hãy nhớ: ý kiến trước, sự thật sau. Trật tự ngắn gọn hữu ích là: ý kiến, kích cỡ, tuổi, màu sắc, nguồn gốc, chất liệu, danh từ."
+  }
+}

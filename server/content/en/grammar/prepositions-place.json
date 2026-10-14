@@ -1,0 +1,211 @@
+{
+  "summary": {
+    "en": "Use in, on, and at to say where a person or thing is. In is usually for inside a space or area, on is for a surface or line, and at is for a point or specific place.",
+    "vi": "Dùng in, on và at để nói người hoặc vật ở đâu. In thường dùng cho bên trong một không gian hoặc khu vực, on dùng cho bề mặt hoặc tuyến đường, và at dùng cho một điểm hoặc địa điểm cụ thể."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + be + in/on/at + place",
+      "example": {
+        "en": "She is in the kitchen.",
+        "vi": "Cô ấy ở trong bếp."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + be + not + in/on/at + place",
+      "example": {
+        "en": "The keys are not on the table.",
+        "vi": "Chìa khóa không ở trên bàn."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + in/on/at + place?",
+      "example": {
+        "en": "Is Tom at school?",
+        "vi": "Tom có ở trường không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Where question",
+        "vi": "Câu hỏi với Where"
+      },
+      "pattern": "Where + be + S? — S + be + in/on/at + place",
+      "example": {
+        "en": "Where is your bag? It is on the chair.",
+        "vi": "Cặp của bạn ở đâu? Nó ở trên ghế."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "In: inside a room, box, building, town, or country",
+        "vi": "In: ở trong phòng, hộp, tòa nhà, thị trấn hoặc quốc gia"
+      },
+      "explanation": {
+        "en": "Use in when something is inside a space or within an area.",
+        "vi": "Dùng in khi một vật hoặc người ở bên trong một không gian hoặc trong phạm vi một khu vực."
+      },
+      "examples": [
+        {
+          "en": "The cat is in the box.",
+          "vi": "Con mèo ở trong hộp."
+        },
+        {
+          "en": "My mother is in the living room.",
+          "vi": "Mẹ tôi ở trong phòng khách."
+        },
+        {
+          "en": "We live in Vietnam.",
+          "vi": "Chúng tôi sống ở Việt Nam."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "On: on a surface",
+        "vi": "On: ở trên bề mặt"
+      },
+      "explanation": {
+        "en": "Use on when something touches the top or side of a surface.",
+        "vi": "Dùng on khi một vật chạm vào mặt trên hoặc bề mặt của một vật khác."
+      },
+      "examples": [
+        {
+          "en": "The book is on the desk.",
+          "vi": "Quyển sách ở trên bàn học."
+        },
+        {
+          "en": "There is a picture on the wall.",
+          "vi": "Có một bức tranh trên tường."
+        },
+        {
+          "en": "Your phone is on the bed.",
+          "vi": "Điện thoại của bạn ở trên giường."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "On: on a street, road, or floor",
+        "vi": "On: ở trên đường, phố hoặc tầng"
+      },
+      "explanation": {
+        "en": "Use on with streets, roads, and floors in a building.",
+        "vi": "Dùng on với tên phố, đường và các tầng trong một tòa nhà."
+      },
+      "examples": [
+        {
+          "en": "The bank is on King Street.",
+          "vi": "Ngân hàng ở trên phố King."
+        },
+        {
+          "en": "Our classroom is on the second floor.",
+          "vi": "Lớp học của chúng tôi ở tầng hai."
+        },
+        {
+          "en": "There is a bus stop on this road.",
+          "vi": "Có một trạm xe buýt trên con đường này."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "At: at a point or specific place",
+        "vi": "At: ở một điểm hoặc địa điểm cụ thể"
+      },
+      "explanation": {
+        "en": "Use at when you think of a place as a point: a school, a shop, a bus stop, a door, or a desk.",
+        "vi": "Dùng at khi xem địa điểm như một điểm cụ thể: trường học, cửa hàng, trạm xe buýt, cửa ra vào hoặc bàn làm việc."
+      },
+      "examples": [
+        {
+          "en": "I am at the bus stop.",
+          "vi": "Tôi đang ở trạm xe buýt."
+        },
+        {
+          "en": "She is at the door.",
+          "vi": "Cô ấy đang ở cửa."
+        },
+        {
+          "en": "Dad is at work.",
+          "vi": "Bố đang ở chỗ làm."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "in a room",
+    "in a box",
+    "in Vietnam",
+    "on the table",
+    "on the wall",
+    "on the second floor",
+    "on King Street",
+    "at school",
+    "at home",
+    "at work",
+    "at the bus stop",
+    "at the door"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She in the kitchen.",
+      "right": "She is in the kitchen.",
+      "why": {
+        "en": "In English, we need the verb be before a place phrase when there is no other main verb.",
+        "vi": "Trong tiếng Anh, cần có động từ be trước cụm chỉ nơi chốn khi câu không có động từ chính khác."
+      }
+    },
+    {
+      "wrong": "The book is in the table.",
+      "right": "The book is on the table.",
+      "why": {
+        "en": "Use on for a surface. The book is on top of the table, not inside it.",
+        "vi": "Dùng on cho bề mặt. Quyển sách ở trên mặt bàn, không phải ở bên trong bàn."
+      }
+    },
+    {
+      "wrong": "I am on home.",
+      "right": "I am at home.",
+      "why": {
+        "en": "The natural phrase is at home, not on home or in home.",
+        "vi": "Cụm tự nhiên là at home, không dùng on home hoặc in home."
+      }
+    },
+    {
+      "wrong": "He live in Hanoi.",
+      "right": "He lives in Hanoi.",
+      "why": {
+        "en": "With he, she, or it in the present simple, add -s or -es to the verb: lives.",
+        "vi": "Với he, she hoặc it ở thì hiện tại đơn, thêm -s hoặc -es vào động từ: lives."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "prepositions-time",
+      "note": {
+        "en": "In, on, and at can also talk about time, but the rules are different. For place, use them to answer Where? For time, use them to answer When? For example: in the room = place; in the morning = time.",
+        "vi": "In, on và at cũng có thể nói về thời gian, nhưng quy tắc khác nhau. Với nơi chốn, chúng trả lời câu hỏi Where? Với thời gian, chúng trả lời câu hỏi When? Ví dụ: in the room = nơi chốn; in the morning = thời gian."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: in = inside, on = touching a surface, at = a point.",
+    "vi": "Hãy nhớ: in = bên trong, on = chạm trên bề mặt, at = một điểm cụ thể."
+  }
+}

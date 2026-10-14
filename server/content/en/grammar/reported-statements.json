@@ -1,0 +1,192 @@
+{
+  "summary": {
+    "en": "Reported statements tell someone what another person said, without using the person’s exact words. We often change pronouns, time words, and verb tenses, especially after a past reporting verb like said or told.",
+    "vi": "Câu tường thuật câu kể dùng để kể lại điều người khác đã nói, không dùng nguyên văn lời nói đó. Ta thường đổi đại từ, từ chỉ thời gian và thì của động từ, đặc biệt sau động từ tường thuật ở quá khứ như said hoặc told."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with said",
+        "vi": "Khẳng định với said"
+      },
+      "pattern": "S + said (that) + S + V(backshifted) + O",
+      "example": {
+        "en": "Mai said that she was tired.",
+        "vi": "Mai nói rằng cô ấy mệt."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with told",
+        "vi": "Khẳng định với told"
+      },
+      "pattern": "S + told + object + (that) + S + V(backshifted) + O",
+      "example": {
+        "en": "He told me that he had lost his phone.",
+        "vi": "Anh ấy nói với tôi rằng anh ấy đã làm mất điện thoại."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative statement",
+        "vi": "Câu phủ định"
+      },
+      "pattern": "S + said/told + (object) + (that) + S + did not / was not / had not + ...",
+      "example": {
+        "en": "Lan said that she did not like the film.",
+        "vi": "Lan nói rằng cô ấy không thích bộ phim đó."
+      }
+    },
+    {
+      "label": {
+        "en": "No backshift when still true",
+        "vi": "Không lùi thì khi điều đó vẫn đúng"
+      },
+      "pattern": "S + said/told + (object) + (that) + S + present verb + O",
+      "example": {
+        "en": "The teacher said that water boils at 100°C.",
+        "vi": "Giáo viên nói rằng nước sôi ở 100°C."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Reporting what someone said",
+        "vi": "Tường thuật điều ai đó đã nói"
+      },
+      "explanation": {
+        "en": "Use reported statements to tell another person the meaning of someone’s words, not the exact words.",
+        "vi": "Dùng câu tường thuật câu kể để kể lại ý nghĩa lời nói của ai đó, không phải nguyên văn từng từ."
+      },
+      "examples": [
+        {
+          "en": "Direct: “I am busy.” Reported: She said that she was busy.",
+          "vi": "Trực tiếp: “Tôi bận.” Tường thuật: Cô ấy nói rằng cô ấy bận."
+        },
+        {
+          "en": "Direct: “We live near the station.” Reported: They said that they lived near the station.",
+          "vi": "Trực tiếp: “Chúng tôi sống gần nhà ga.” Tường thuật: Họ nói rằng họ sống gần nhà ga."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Using said and told correctly",
+        "vi": "Dùng said và told đúng cách"
+      },
+      "explanation": {
+        "en": "Use said without an object, or with to + person. Use told with an object directly after it.",
+        "vi": "Dùng said không có tân ngữ, hoặc có to + người. Dùng told với tân ngữ ngay sau nó."
+      },
+      "examples": [
+        {
+          "en": "She said that she was hungry.",
+          "vi": "Cô ấy nói rằng cô ấy đói."
+        },
+        {
+          "en": "She said to me that she was hungry.",
+          "vi": "Cô ấy nói với tôi rằng cô ấy đói."
+        },
+        {
+          "en": "She told me that she was hungry.",
+          "vi": "Cô ấy nói với tôi rằng cô ấy đói."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Backshifting tenses after a past reporting verb",
+        "vi": "Lùi thì sau động từ tường thuật ở quá khứ"
+      },
+      "explanation": {
+        "en": "When the reporting verb is in the past, we often move the tense one step back: present simple becomes past simple, present continuous becomes past continuous, and past simple often becomes past perfect.",
+        "vi": "Khi động từ tường thuật ở quá khứ, ta thường lùi thì một bước: hiện tại đơn thành quá khứ đơn, hiện tại tiếp diễn thành quá khứ tiếp diễn, và quá khứ đơn thường thành quá khứ hoàn thành."
+      },
+      "examples": [
+        {
+          "en": "Direct: “I work in a bank.” Reported: He said that he worked in a bank.",
+          "vi": "Trực tiếp: “Tôi làm việc ở ngân hàng.” Tường thuật: Anh ấy nói rằng anh ấy làm việc ở ngân hàng."
+        },
+        {
+          "en": "Direct: “I am studying.” Reported: She said that she was studying.",
+          "vi": "Trực tiếp: “Tôi đang học.” Tường thuật: Cô ấy nói rằng cô ấy đang học."
+        },
+        {
+          "en": "Direct: “I bought a new laptop.” Reported: Nam said that he had bought a new laptop.",
+          "vi": "Trực tiếp: “Tôi đã mua một máy tính xách tay mới.” Tường thuật: Nam nói rằng anh ấy đã mua một máy tính xách tay mới."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Changing pronouns and time words",
+        "vi": "Đổi đại từ và từ chỉ thời gian"
+      },
+      "explanation": {
+        "en": "Change words like I, my, here, now, today, and tomorrow so they fit the speaker’s situation.",
+        "vi": "Đổi các từ như I, my, here, now, today và tomorrow sao cho phù hợp với tình huống của người tường thuật."
+      },
+      "examples": [
+        {
+          "en": "Direct: “I will call you tomorrow.” Reported: He said that he would call me the next day.",
+          "vi": "Trực tiếp: “Tôi sẽ gọi cho bạn ngày mai.” Tường thuật: Anh ấy nói rằng anh ấy sẽ gọi cho tôi vào ngày hôm sau."
+        },
+        {
+          "en": "Direct: “My parents are here.” Reported: She said that her parents were there.",
+          "vi": "Trực tiếp: “Bố mẹ tôi đang ở đây.” Tường thuật: Cô ấy nói rằng bố mẹ cô ấy đang ở đó."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "said that",
+    "told me that",
+    "told him/her that",
+    "explained that",
+    "thought that",
+    "the next day",
+    "the day before",
+    "there",
+    "then"
+  ],
+  "mistakes": [
+    {
+      "wrong": "He said me that he was busy.",
+      "right": "He told me that he was busy. / He said to me that he was busy.",
+      "why": {
+        "en": "Said does not take a direct person object. Use told + person, or said to + person.",
+        "vi": "Said không đi trực tiếp với tân ngữ chỉ người. Dùng told + người, hoặc said to + người."
+      }
+    },
+    {
+      "wrong": "She said that she is tired.",
+      "right": "She said that she was tired.",
+      "why": {
+        "en": "After a past reporting verb, the present simple often changes to the past simple.",
+        "vi": "Sau động từ tường thuật ở quá khứ, hiện tại đơn thường đổi thành quá khứ đơn."
+      }
+    },
+    {
+      "wrong": "Nam said that I had lost my keys.",
+      "right": "Nam said that he had lost his keys.",
+      "why": {
+        "en": "Change pronouns to match the person you are talking about. Nam’s words about himself become he and his.",
+        "vi": "Cần đổi đại từ cho phù hợp với người được nói đến. Lời Nam nói về chính mình đổi thành he và his."
+      }
+    },
+    {
+      "wrong": "She said that she was not like coffee.",
+      "right": "She said that she did not like coffee.",
+      "why": {
+        "en": "Like is a main verb, so the negative in the past simple uses did not + base verb.",
+        "vi": "Like là động từ chính, nên phủ định ở quá khứ đơn dùng did not + động từ nguyên mẫu."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think: report the idea, not the exact words; after said/told in the past, move the tense back and change pronouns.",
+    "vi": "Hãy nhớ: tường thuật ý, không chép nguyên văn; sau said/told ở quá khứ, lùi thì và đổi đại từ."
+  }
+}

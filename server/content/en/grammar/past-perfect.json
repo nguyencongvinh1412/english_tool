@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "The past perfect describes an action or situation that happened before another point in the past. It is often used to show the earlier of two past events.",
+    "vi": "Thì quá khứ hoàn thành diễn tả một hành động hoặc tình huống xảy ra trước một thời điểm khác trong quá khứ. Thì này thường dùng để cho biết sự việc nào xảy ra trước trong hai sự việc quá khứ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + had + past participle + O",
+      "example": {
+        "en": "She had left before I arrived.",
+        "vi": "Cô ấy đã rời đi trước khi tôi đến."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + had not / hadn't + past participle + O",
+      "example": {
+        "en": "I hadn't seen that film before last night.",
+        "vi": "Tôi chưa từng xem bộ phim đó trước tối qua."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Had + S + past participle + O?",
+      "example": {
+        "en": "Had you finished your homework when your friend called?",
+        "vi": "Bạn đã làm xong bài tập về nhà khi bạn của bạn gọi chưa?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + had + S + past participle + O?",
+      "example": {
+        "en": "What had they done before the police arrived?",
+        "vi": "Họ đã làm gì trước khi cảnh sát đến?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "An action before another past action",
+        "vi": "Một hành động xảy ra trước một hành động quá khứ khác"
+      },
+      "explanation": {
+        "en": "Use the past perfect for the earlier action. Use the past simple for the later action.",
+        "vi": "Dùng quá khứ hoàn thành cho hành động xảy ra trước. Dùng quá khứ đơn cho hành động xảy ra sau."
+      },
+      "examples": [
+        {
+          "en": "When we got to the station, the train had already left.",
+          "vi": "Khi chúng tôi đến nhà ga, tàu đã rời đi rồi."
+        },
+        {
+          "en": "He had cooked dinner before his wife came home.",
+          "vi": "Anh ấy đã nấu bữa tối trước khi vợ anh ấy về nhà."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A situation that was true before a past time",
+        "vi": "Một tình huống đã đúng trước một thời điểm trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past perfect to talk about a state or experience that existed before a past moment.",
+        "vi": "Dùng quá khứ hoàn thành để nói về một trạng thái hoặc trải nghiệm đã có trước một thời điểm quá khứ."
+      },
+      "examples": [
+        {
+          "en": "By 2019, they had lived in Da Nang for ten years.",
+          "vi": "Đến năm 2019, họ đã sống ở Đà Nẵng được mười năm."
+        },
+        {
+          "en": "Before I moved to London, I had never used the Tube.",
+          "vi": "Trước khi tôi chuyển đến London, tôi chưa từng đi tàu điện ngầm ở đó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Giving background or explaining a past result",
+        "vi": "Đưa thông tin nền hoặc giải thích một kết quả trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past perfect to explain why something happened or how someone felt in the past.",
+        "vi": "Dùng quá khứ hoàn thành để giải thích vì sao một việc đã xảy ra hoặc vì sao ai đó có cảm xúc nào đó trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "She was tired because she had worked all day.",
+          "vi": "Cô ấy mệt vì cô ấy đã làm việc cả ngày."
+        },
+        {
+          "en": "I couldn't enter the office because I had forgotten my key.",
+          "vi": "Tôi không thể vào văn phòng vì tôi đã quên chìa khóa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reported speech with a past reporting verb",
+        "vi": "Câu tường thuật với động từ tường thuật ở quá khứ"
+      },
+      "explanation": {
+        "en": "After reporting verbs like said, told, or explained in the past, the past perfect can report an earlier past action.",
+        "vi": "Sau các động từ tường thuật ở quá khứ như said, told, hoặc explained, có thể dùng quá khứ hoàn thành để thuật lại một hành động xảy ra trước đó."
+      },
+      "examples": [
+        {
+          "en": "He said he had lost his wallet.",
+          "vi": "Anh ấy nói rằng anh ấy đã làm mất ví."
+        },
+        {
+          "en": "They told me they had booked the tickets online.",
+          "vi": "Họ nói với tôi rằng họ đã đặt vé qua mạng."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "before",
+    "after",
+    "when",
+    "by the time",
+    "already",
+    "just",
+    "never",
+    "until then"
+  ],
+  "mistakes": [
+    {
+      "wrong": "When I arrived, she left.",
+      "right": "When I arrived, she had left.",
+      "why": {
+        "en": "The leaving happened before the arriving, so use the past perfect for the earlier action.",
+        "vi": "Việc rời đi xảy ra trước việc tôi đến, nên dùng quá khứ hoàn thành cho hành động xảy ra trước."
+      }
+    },
+    {
+      "wrong": "She had went home before the meeting started.",
+      "right": "She had gone home before the meeting started.",
+      "why": {
+        "en": "After had, use the past participle, not the past simple form. Go becomes gone.",
+        "vi": "Sau had phải dùng quá khứ phân từ, không dùng dạng quá khứ đơn. Go đổi thành gone."
+      }
+    },
+    {
+      "wrong": "I had not saw him before.",
+      "right": "I had not seen him before.",
+      "why": {
+        "en": "In negative sentences, had not is followed by the past participle. See becomes seen.",
+        "vi": "Trong câu phủ định, had not đi với quá khứ phân từ. See đổi thành seen."
+      }
+    },
+    {
+      "wrong": "Had you finished your work before you went out?",
+      "right": "Had you finished your work before you went out?",
+      "why": {
+        "en": "This sentence is correct: in questions, put had before the subject and use the past participle.",
+        "vi": "Câu này đúng: trong câu hỏi, đặt had trước chủ ngữ và dùng quá khứ phân từ."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "past-simple",
+      "note": {
+        "en": "Use the past simple for finished actions in the past, often in time order: I got home and cooked dinner. Use the past perfect only when you need to show that one past action happened before another past point: I cooked dinner after I had got home. In American English, speakers sometimes use the past simple with after or before when the order is clear, but the past perfect is still correct and often clearer.",
+        "vi": "Dùng quá khứ đơn cho các hành động đã kết thúc trong quá khứ, thường theo thứ tự thời gian: I got home and cooked dinner. Dùng quá khứ hoàn thành khi cần nhấn mạnh một hành động quá khứ xảy ra trước một thời điểm quá khứ khác: I cooked dinner after I had got home. Trong tiếng Anh Mỹ, người nói đôi khi dùng quá khứ đơn với after hoặc before khi thứ tự đã rõ, nhưng quá khứ hoàn thành vẫn đúng và thường rõ hơn."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Past perfect means “past before past”: had + past participle shows the earlier past action.",
+    "vi": "Quá khứ hoàn thành là “quá khứ trước một quá khứ khác”: had + quá khứ phân từ cho biết hành động xảy ra trước."
+  }
+}

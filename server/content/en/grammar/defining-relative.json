@@ -1,0 +1,221 @@
+{
+  "summary": {
+    "en": "A defining relative clause gives essential information about a person, thing, place, or possession. Use it after a noun to show exactly which one you mean.",
+    "vi": "Mệnh đề quan hệ xác định cung cấp thông tin cần thiết về người, vật, nơi chốn hoặc sự sở hữu. Dùng nó sau một danh từ để nói rõ chính xác bạn đang nói đến người/vật/nơi nào."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Subject relative clause",
+        "vi": "Mệnh đề quan hệ làm chủ ngữ"
+      },
+      "pattern": "Noun + who/which/that + V + ...",
+      "example": {
+        "en": "The man who lives next door is a doctor.",
+        "vi": "Người đàn ông sống cạnh nhà là bác sĩ."
+      }
+    },
+    {
+      "label": {
+        "en": "Object relative clause",
+        "vi": "Mệnh đề quan hệ làm tân ngữ"
+      },
+      "pattern": "Noun + who/which/that + S + V + ...",
+      "example": {
+        "en": "The book that you lent me was very useful.",
+        "vi": "Quyển sách mà bạn cho tôi mượn rất hữu ích."
+      }
+    },
+    {
+      "label": {
+        "en": "Object relative clause with omitted pronoun",
+        "vi": "Mệnh đề quan hệ làm tân ngữ lược bỏ đại từ"
+      },
+      "pattern": "Noun + S + V + ...",
+      "example": {
+        "en": "The film we watched last night was boring.",
+        "vi": "Bộ phim chúng tôi xem tối qua rất chán."
+      }
+    },
+    {
+      "label": {
+        "en": "Possessive relative clause",
+        "vi": "Mệnh đề quan hệ chỉ sự sở hữu"
+      },
+      "pattern": "Noun + whose + noun + V + ...",
+      "example": {
+        "en": "I know a girl whose brother works in Japan.",
+        "vi": "Tôi biết một cô gái có anh trai làm việc ở Nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "Place relative clause",
+        "vi": "Mệnh đề quan hệ chỉ nơi chốn"
+      },
+      "pattern": "Place noun + where + S + V + ...",
+      "example": {
+        "en": "This is the café where we first met.",
+        "vi": "Đây là quán cà phê nơi chúng tôi gặp nhau lần đầu."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To identify a person",
+        "vi": "Để xác định một người"
+      },
+      "explanation": {
+        "en": "Use who or that for people. The clause tells us which person you mean.",
+        "vi": "Dùng who hoặc that cho người. Mệnh đề cho biết bạn đang nói đến người nào."
+      },
+      "examples": [
+        {
+          "en": "The woman who called you is my manager.",
+          "vi": "Người phụ nữ đã gọi cho bạn là quản lý của tôi."
+        },
+        {
+          "en": "Students that arrive late must speak to the teacher.",
+          "vi": "Những học sinh đến muộn phải nói chuyện với giáo viên."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To identify a thing or animal",
+        "vi": "Để xác định một vật hoặc con vật"
+      },
+      "explanation": {
+        "en": "Use which or that for things and animals. The clause is necessary to understand the noun.",
+        "vi": "Dùng which hoặc that cho vật và con vật. Mệnh đề này cần thiết để hiểu danh từ đang nói đến."
+      },
+      "examples": [
+        {
+          "en": "I need a phone that has a good camera.",
+          "vi": "Tôi cần một chiếc điện thoại có máy ảnh tốt."
+        },
+        {
+          "en": "The dog which barked all night belongs to our neighbour.",
+          "vi": "Con chó sủa suốt đêm thuộc về hàng xóm của chúng tôi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show possession",
+        "vi": "Để chỉ sự sở hữu"
+      },
+      "explanation": {
+        "en": "Use whose before a noun to show that something belongs to a person, animal, or sometimes a thing.",
+        "vi": "Dùng whose trước một danh từ để cho biết một thứ thuộc về người, con vật, hoặc đôi khi là một vật."
+      },
+      "examples": [
+        {
+          "en": "The boy whose bike was stolen looked very upset.",
+          "vi": "Cậu bé bị mất xe đạp trông rất buồn."
+        },
+        {
+          "en": "We stayed in a hotel whose rooms faced the sea.",
+          "vi": "Chúng tôi ở trong một khách sạn có các phòng hướng ra biển."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To identify a place",
+        "vi": "Để xác định một nơi chốn"
+      },
+      "explanation": {
+        "en": "Use where after a place noun when the relative clause talks about something happening in that place.",
+        "vi": "Dùng where sau danh từ chỉ nơi chốn khi mệnh đề quan hệ nói về việc gì đó xảy ra ở nơi đó."
+      },
+      "examples": [
+        {
+          "en": "Do you know a shop where I can buy a cheap umbrella?",
+          "vi": "Bạn có biết cửa hàng nào tôi có thể mua một chiếc ô rẻ không?"
+        },
+        {
+          "en": "The town where she grew up is near the coast.",
+          "vi": "Thị trấn nơi cô ấy lớn lên nằm gần bờ biển."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To avoid repeating words",
+        "vi": "Để tránh lặp từ"
+      },
+      "explanation": {
+        "en": "A defining relative clause connects information smoothly instead of using two short repeated sentences.",
+        "vi": "Mệnh đề quan hệ xác định nối thông tin một cách tự nhiên thay vì dùng hai câu ngắn bị lặp từ."
+      },
+      "examples": [
+        {
+          "en": "I met a man. He repairs computers. → I met a man who repairs computers.",
+          "vi": "Tôi gặp một người đàn ông. Ông ấy sửa máy tính. → Tôi gặp một người đàn ông sửa máy tính."
+        },
+        {
+          "en": "She bought a dress. It was on sale. → She bought a dress that was on sale.",
+          "vi": "Cô ấy mua một chiếc váy. Nó đang được giảm giá. → Cô ấy mua một chiếc váy đang được giảm giá."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "the person who ...",
+    "the thing which/that ...",
+    "a place where ...",
+    "someone whose ...",
+    "the one that ...",
+    "the book I bought",
+    "the house where I live"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The girl she sits next to me is from Da Nang.",
+      "right": "The girl who sits next to me is from Da Nang.",
+      "why": {
+        "en": "Do not use both the relative pronoun and another subject pronoun for the same person. Use who as the subject of the relative clause.",
+        "vi": "Không dùng cả đại từ quan hệ và một đại từ chủ ngữ khác cho cùng một người. Dùng who làm chủ ngữ của mệnh đề quan hệ."
+      }
+    },
+    {
+      "wrong": "The man who live upstairs is very friendly.",
+      "right": "The man who lives upstairs is very friendly.",
+      "why": {
+        "en": "When the relative pronoun is the subject, the verb agrees with the noun before it. The man is singular, so use lives.",
+        "vi": "Khi đại từ quan hệ làm chủ ngữ, động từ hòa hợp với danh từ đứng trước nó. The man là số ít nên dùng lives."
+      }
+    },
+    {
+      "wrong": "This is the restaurant which we had dinner last night.",
+      "right": "This is the restaurant where we had dinner last night.",
+      "why": {
+        "en": "Use where when you mean in that place. Which needs a preposition here: the restaurant which we had dinner in is also possible but less natural in everyday speech.",
+        "vi": "Dùng where khi ý là ở nơi đó. Which cần có giới từ trong trường hợp này: the restaurant which we had dinner in cũng có thể dùng nhưng kém tự nhiên hơn trong giao tiếp hằng ngày."
+      }
+    },
+    {
+      "wrong": "My brother who lives in Canada, is coming home next month.",
+      "right": "My brother who lives in Canada is coming home next month.",
+      "why": {
+        "en": "A defining relative clause does not use commas. Here who lives in Canada tells us which brother you mean.",
+        "vi": "Mệnh đề quan hệ xác định không dùng dấu phẩy. Ở đây who lives in Canada cho biết bạn đang nói đến người anh/em trai nào."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "non-defining-relative",
+      "note": {
+        "en": "A defining relative clause gives necessary information and has no commas: The teacher who teaches us maths is strict. A non-defining relative clause adds extra information and uses commas: Mr Brown, who teaches us maths, is strict.",
+        "vi": "Mệnh đề quan hệ xác định cung cấp thông tin cần thiết và không có dấu phẩy: The teacher who teaches us maths is strict. Mệnh đề quan hệ không xác định chỉ thêm thông tin phụ và dùng dấu phẩy: Mr Brown, who teaches us maths, is strict."
+      }
+    }
+  ],
+  "tip": {
+    "en": "If the sentence is not clear without the relative clause, it is defining: no commas.",
+    "vi": "Nếu bỏ mệnh đề quan hệ đi mà câu không còn rõ nghĩa, đó là mệnh đề xác định: không dùng dấu phẩy."
+  }
+}

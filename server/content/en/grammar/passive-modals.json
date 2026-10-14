@@ -1,0 +1,180 @@
+{
+  "summary": {
+    "en": "The passive with modals is used when we want to focus on the action or the thing/person receiving the action, not on who does it. It is formed with a modal verb + be + past participle.",
+    "vi": "Bị động với động từ khuyết thiếu được dùng khi ta muốn nhấn mạnh hành động hoặc người/vật chịu tác động, không nhấn mạnh người thực hiện. Cấu trúc là động từ khuyết thiếu + be + quá khứ phân từ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "Subject + modal + be + past participle",
+      "example": {
+        "en": "The report must be finished today.",
+        "vi": "Bản báo cáo phải được hoàn thành hôm nay."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "Subject + modal + not + be + past participle",
+      "example": {
+        "en": "This door must not be opened.",
+        "vi": "Cánh cửa này không được phép mở."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Modal + subject + be + past participle?",
+      "example": {
+        "en": "Can the problem be solved quickly?",
+        "vi": "Vấn đề có thể được giải quyết nhanh chóng không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + modal + subject + be + past participle?",
+      "example": {
+        "en": "When should the documents be sent?",
+        "vi": "Khi nào các tài liệu nên được gửi đi?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Rules and strong necessity",
+        "vi": "Quy định và sự cần thiết mạnh"
+      },
+      "explanation": {
+        "en": "Use must be or have to be when something is required by a rule, law, or situation.",
+        "vi": "Dùng must be hoặc have to be khi điều gì đó là bắt buộc theo quy định, luật lệ hoặc tình huống."
+      },
+      "examples": [
+        {
+          "en": "Seat belts must be worn at all times.",
+          "vi": "Dây an toàn phải được thắt mọi lúc."
+        },
+        {
+          "en": "All applications have to be submitted before Friday.",
+          "vi": "Tất cả đơn đăng ký phải được nộp trước thứ Sáu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Permission and possibility",
+        "vi": "Sự cho phép và khả năng"
+      },
+      "explanation": {
+        "en": "Use can be or may be when something is allowed or possible.",
+        "vi": "Dùng can be hoặc may be khi điều gì đó được cho phép hoặc có khả năng xảy ra."
+      },
+      "examples": [
+        {
+          "en": "Tickets can be bought online.",
+          "vi": "Vé có thể được mua trực tuyến."
+        },
+        {
+          "en": "Mobile phones may be used after the exam.",
+          "vi": "Điện thoại di động có thể được sử dụng sau bài thi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Advice and recommendation",
+        "vi": "Lời khuyên và sự khuyến nghị"
+      },
+      "explanation": {
+        "en": "Use should be or ought to be when saying what is a good or correct action.",
+        "vi": "Dùng should be hoặc ought to be khi nói điều gì là hành động tốt hoặc đúng nên làm."
+      },
+      "examples": [
+        {
+          "en": "This medicine should be taken after meals.",
+          "vi": "Thuốc này nên được uống sau bữa ăn."
+        },
+        {
+          "en": "The instructions ought to be read carefully.",
+          "vi": "Phần hướng dẫn nên được đọc cẩn thận."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Future possibility or arrangement",
+        "vi": "Khả năng hoặc sự sắp xếp trong tương lai"
+      },
+      "explanation": {
+        "en": "Use will be, might be, or could be to talk about what will happen or may happen to someone or something.",
+        "vi": "Dùng will be, might be hoặc could be để nói điều sẽ xảy ra hoặc có thể xảy ra với ai/cái gì."
+      },
+      "examples": [
+        {
+          "en": "The winner will be announced tomorrow.",
+          "vi": "Người chiến thắng sẽ được công bố vào ngày mai."
+        },
+        {
+          "en": "The meeting might be cancelled.",
+          "vi": "Cuộc họp có thể bị hủy."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "must be + past participle",
+    "can be + past participle",
+    "should be + past participle",
+    "may/might/could be + past participle",
+    "by + person/organisation, when the doer is important"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The homework must finish today.",
+      "right": "The homework must be finished today.",
+      "why": {
+        "en": "In the passive after a modal, use be + past participle. Homework does not finish itself; someone finishes it.",
+        "vi": "Trong câu bị động sau động từ khuyết thiếu, dùng be + quá khứ phân từ. Bài tập không tự hoàn thành; ai đó hoàn thành nó."
+      }
+    },
+    {
+      "wrong": "This form must be fill in.",
+      "right": "This form must be filled in.",
+      "why": {
+        "en": "After be in a passive form, the main verb must be the past participle: filled, not fill.",
+        "vi": "Sau be trong cấu trúc bị động, động từ chính phải ở dạng quá khứ phân từ: filled, không phải fill."
+      }
+    },
+    {
+      "wrong": "The room can cleaned now.",
+      "right": "The room can be cleaned now.",
+      "why": {
+        "en": "Do not leave out be. The correct passive pattern is modal + be + past participle.",
+        "vi": "Không được bỏ be. Cấu trúc bị động đúng là động từ khuyết thiếu + be + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "The documents must be sented today.",
+      "right": "The documents must be sent today.",
+      "why": {
+        "en": "Some past participles are irregular. The past participle of send is sent, not sented.",
+        "vi": "Một số quá khứ phân từ là bất quy tắc. Quá khứ phân từ của send là sent, không phải sented."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember the fixed middle part: modal + be + V3. The modal changes, but be stays be.",
+    "vi": "Hãy nhớ phần giữa cố định: động từ khuyết thiếu + be + V3. Động từ khuyết thiếu có thể thay đổi, nhưng be luôn giữ nguyên là be."
+  }
+}

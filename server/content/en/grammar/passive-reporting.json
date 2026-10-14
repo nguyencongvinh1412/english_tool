@@ -1,0 +1,202 @@
+{
+  "summary": {
+    "en": "This structure reports information in a formal or neutral way without naming the source: It is said that..., He is said to.... It is common in news reports, academic writing, biographies, and cautious statements when the speaker does not want to say who believes or says something.",
+    "vi": "Cấu trúc này dùng để tường thuật thông tin theo cách trang trọng hoặc trung lập mà không nêu rõ nguồn: It is said that..., He is said to.... Cấu trúc này thường gặp trong bản tin, văn viết học thuật, tiểu sử và những phát biểu thận trọng khi người nói không muốn nói rõ ai tin hoặc nói điều đó."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Impersonal passive with it",
+        "vi": "Bị động vô nhân xưng với it"
+      },
+      "pattern": "It + passive reporting verb + that + clause",
+      "example": {
+        "en": "It is believed that the painting was stolen during the war.",
+        "vi": "Người ta tin rằng bức tranh đã bị đánh cắp trong chiến tranh."
+      }
+    },
+    {
+      "label": {
+        "en": "Personal passive with to-infinitive",
+        "vi": "Bị động với chủ ngữ người/vật + to-infinitive"
+      },
+      "pattern": "Subject + passive reporting verb + to + infinitive",
+      "example": {
+        "en": "The painting is believed to have been stolen during the war.",
+        "vi": "Bức tranh được cho là đã bị đánh cắp trong chiến tranh."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative form",
+        "vi": "Dạng phủ định"
+      },
+      "pattern": "Subject + passive reporting verb + not + to + infinitive / It + passive reporting verb + that + clause with negative meaning",
+      "example": {
+        "en": "The minister is said not to support the proposal.",
+        "vi": "Người ta nói rằng vị bộ trưởng không ủng hộ đề xuất đó."
+      }
+    },
+    {
+      "label": {
+        "en": "Question form",
+        "vi": "Dạng câu hỏi"
+      },
+      "pattern": "Be + subject + passive reporting verb + to + infinitive? / Is it + passive reporting verb + that + clause?",
+      "example": {
+        "en": "Is the company expected to announce a merger soon?",
+        "vi": "Công ty có được dự đoán là sẽ sớm công bố một vụ sáp nhập không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Perfect infinitive for earlier time",
+        "vi": "Động từ nguyên mẫu hoàn thành cho thời điểm trước đó"
+      },
+      "pattern": "Subject + passive reporting verb + to have + past participle",
+      "example": {
+        "en": "The suspect is thought to have left the country last week.",
+        "vi": "Nghi phạm được cho là đã rời khỏi đất nước vào tuần trước."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To avoid naming the source of information",
+        "vi": "Tránh nêu rõ nguồn thông tin"
+      },
+      "explanation": {
+        "en": "Use this structure when the source is unknown, unimportant, confidential, or too general to mention. It sounds more formal than People say that....",
+        "vi": "Dùng cấu trúc này khi nguồn thông tin không rõ, không quan trọng, cần giữ kín, hoặc quá chung chung để nêu ra. Cấu trúc này trang trọng hơn People say that...."
+      },
+      "examples": [
+        {
+          "en": "It is widely believed that the policy will be revised.",
+          "vi": "Nhiều người tin rằng chính sách này sẽ được sửa đổi."
+        },
+        {
+          "en": "The mayor is said to be considering resignation.",
+          "vi": "Người ta nói rằng thị trưởng đang cân nhắc từ chức."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To report claims, beliefs, expectations, and rumours cautiously",
+        "vi": "Tường thuật lời khẳng định, niềm tin, dự đoán và tin đồn một cách thận trọng"
+      },
+      "explanation": {
+        "en": "The passive reporting verb shows distance: the writer reports what others say or believe without fully confirming it as fact.",
+        "vi": "Động từ tường thuật ở dạng bị động tạo khoảng cách: người viết thuật lại điều người khác nói hoặc tin mà không hoàn toàn xác nhận đó là sự thật."
+      },
+      "examples": [
+        {
+          "en": "The treatment is claimed to reduce symptoms within two weeks.",
+          "vi": "Người ta khẳng định rằng phương pháp điều trị này làm giảm triệu chứng trong vòng hai tuần."
+        },
+        {
+          "en": "Several senior officials are rumoured to be involved.",
+          "vi": "Có tin đồn rằng một số quan chức cấp cao có liên quan."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To focus on the person or thing being reported",
+        "vi": "Nhấn mạnh người hoặc vật được nhắc đến"
+      },
+      "explanation": {
+        "en": "Use the personal passive when the reported subject is more important than the anonymous source. This is especially common in news and formal profiles.",
+        "vi": "Dùng dạng bị động với chủ ngữ cụ thể khi người hoặc vật được nhắc đến quan trọng hơn nguồn tin không xác định. Cách này đặc biệt phổ biến trong tin tức và bài viết trang trọng về tiểu sử/hồ sơ."
+      },
+      "examples": [
+        {
+          "en": "She is considered to be one of the leading experts in the field.",
+          "vi": "Bà ấy được xem là một trong những chuyên gia hàng đầu trong lĩnh vực này."
+        },
+        {
+          "en": "The building is reported to have serious structural problems.",
+          "vi": "Tòa nhà được báo cáo là có những vấn đề nghiêm trọng về kết cấu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show time relationships clearly",
+        "vi": "Thể hiện rõ quan hệ thời gian"
+      },
+      "explanation": {
+        "en": "Use to do / to be doing for the same or later time, and to have done / to have been doing for an earlier time. This is important because the reporting verb may be in the present while the reported action happened in the past.",
+        "vi": "Dùng to do / to be doing cho sự việc cùng thời điểm hoặc sau đó, và to have done / to have been doing cho sự việc xảy ra trước đó. Điều này quan trọng vì động từ tường thuật có thể ở hiện tại trong khi hành động được tường thuật đã xảy ra trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "He is believed to live in Canada now.",
+          "vi": "Người ta tin rằng hiện nay ông ấy sống ở Canada."
+        },
+        {
+          "en": "He is believed to have lived in Canada in the 1990s.",
+          "vi": "Người ta tin rằng ông ấy đã từng sống ở Canada vào thập niên 1990."
+        },
+        {
+          "en": "The company is said to be negotiating with foreign investors.",
+          "vi": "Người ta nói rằng công ty đang đàm phán với các nhà đầu tư nước ngoài."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "according to reports",
+    "widely believed",
+    "generally considered",
+    "is said to",
+    "is thought to",
+    "is believed to",
+    "is expected to",
+    "is reported to",
+    "is alleged to",
+    "is rumoured to",
+    "it is claimed that",
+    "it is understood that"
+  ],
+  "mistakes": [
+    {
+      "wrong": "It said that the CEO will resign.",
+      "right": "It is said that the CEO will resign.",
+      "why": {
+        "en": "In this structure, the reporting verb must be passive: is said, was reported, is believed. Do not omit be.",
+        "vi": "Trong cấu trúc này, động từ tường thuật phải ở dạng bị động: is said, was reported, is believed. Không được bỏ be."
+      }
+    },
+    {
+      "wrong": "The CEO is said that he will resign.",
+      "right": "The CEO is said to be going to resign.",
+      "why": {
+        "en": "After a personal subject, use to + infinitive, not a that-clause. Use It is said that... if you want a that-clause.",
+        "vi": "Sau chủ ngữ người/vật cụ thể, dùng to + infinitive, không dùng mệnh đề that. Nếu muốn dùng mệnh đề that, hãy dùng It is said that...."
+      }
+    },
+    {
+      "wrong": "He is believed to left the country last night.",
+      "right": "He is believed to have left the country last night.",
+      "why": {
+        "en": "For an action before the time of reporting, use the perfect infinitive: to have + past participle.",
+        "vi": "Với hành động xảy ra trước thời điểm tường thuật, dùng nguyên mẫu hoàn thành: to have + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "It is expected him to win the prize.",
+      "right": "He is expected to win the prize.",
+      "why": {
+        "en": "Do not put an object after It is expected in this pattern. Either use the personal passive, He is expected to..., or say It is expected that he will....",
+        "vi": "Không đặt tân ngữ sau It is expected trong mẫu này. Hãy dùng bị động với chủ ngữ cụ thể: He is expected to..., hoặc nói It is expected that he will...."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "If the sentence starts with It, use that + clause; if it starts with the reported person or thing, use to + infinitive.",
+    "vi": "Nếu câu bắt đầu bằng It, dùng that + mệnh đề; nếu câu bắt đầu bằng người/vật được tường thuật, dùng to + động từ nguyên mẫu."
+  }
+}

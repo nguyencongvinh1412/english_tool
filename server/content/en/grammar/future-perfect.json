@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "en": "The future perfect describes an action that will be completed before a specific time or another action in the future. It often looks forward from now to a future deadline and says “finished by then”.",
+    "vi": "Thì tương lai hoàn thành diễn tả một hành động sẽ hoàn tất trước một thời điểm hoặc một hành động khác trong tương lai. Thì này thường nhìn từ hiện tại tới một hạn chót trong tương lai và nói rằng việc đó “sẽ xong trước lúc ấy”."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + will have + past participle + O",
+      "example": {
+        "en": "By Friday, we will have finished the report.",
+        "vi": "Trước thứ Sáu, chúng tôi sẽ hoàn thành bản báo cáo."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + will not / won’t have + past participle + O",
+      "example": {
+        "en": "She won’t have arrived by 8 o’clock.",
+        "vi": "Cô ấy sẽ chưa đến trước 8 giờ."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Will + S + have + past participle + O?",
+      "example": {
+        "en": "Will they have repaired the road by next month?",
+        "vi": "Họ sẽ sửa xong con đường trước tháng sau chứ?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + will + S + have + past participle + O?",
+      "example": {
+        "en": "How many units will you have completed by the end of the course?",
+        "vi": "Bạn sẽ hoàn thành bao nhiêu bài trước khi khóa học kết thúc?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Completion before a future time",
+        "vi": "Hoàn tất trước một thời điểm trong tương lai"
+      },
+      "explanation": {
+        "en": "Use the future perfect when the important idea is that something will be finished before a future deadline.",
+        "vi": "Dùng thì tương lai hoàn thành khi ý quan trọng là một việc sẽ được hoàn tất trước một hạn chót trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "By this time tomorrow, I will have submitted my application.",
+          "vi": "Trước giờ này ngày mai, tôi sẽ nộp xong hồ sơ."
+        },
+        {
+          "en": "The builders will have completed the new bridge by December.",
+          "vi": "Những người xây dựng sẽ hoàn thành cây cầu mới trước tháng Mười Hai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Completion before another future action",
+        "vi": "Hoàn tất trước một hành động khác trong tương lai"
+      },
+      "explanation": {
+        "en": "Use the future perfect for the earlier completed action. The other future action is usually in the present simple after time words like when, before, or by the time.",
+        "vi": "Dùng thì tương lai hoàn thành cho hành động hoàn tất trước. Hành động tương lai còn lại thường dùng hiện tại đơn sau các từ chỉ thời gian như when, before hoặc by the time."
+      },
+      "examples": [
+        {
+          "en": "By the time you get home, I will have cooked dinner.",
+          "vi": "Khi bạn về đến nhà, tôi sẽ nấu xong bữa tối."
+        },
+        {
+          "en": "We will have left before the meeting starts.",
+          "vi": "Chúng tôi sẽ rời đi trước khi cuộc họp bắt đầu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Duration up to a future point",
+        "vi": "Khoảng thời gian kéo dài đến một mốc trong tương lai"
+      },
+      "explanation": {
+        "en": "With for, the future perfect can show how long a state or repeated activity will have continued up to a future time. For actions still in progress, the future perfect continuous is also common, but the simple future perfect is used especially with stative verbs such as know, live, or work in some contexts.",
+        "vi": "Với for, thì tương lai hoàn thành có thể diễn tả một trạng thái hoặc hoạt động lặp lại sẽ kéo dài được bao lâu tính đến một thời điểm trong tương lai. Với hành động vẫn đang tiếp diễn, thì tương lai hoàn thành tiếp diễn cũng thường dùng, nhưng tương lai hoàn thành đơn hay dùng đặc biệt với các động từ trạng thái như know, live, hoặc work trong một số ngữ cảnh."
+      },
+      "examples": [
+        {
+          "en": "Next year, they will have been married for twenty years.",
+          "vi": "Năm tới, họ sẽ kết hôn được hai mươi năm."
+        },
+        {
+          "en": "By June, I will have known Mai for ten years.",
+          "vi": "Đến tháng Sáu, tôi sẽ quen Mai được mười năm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Prediction about a completed action",
+        "vi": "Dự đoán về một hành động đã hoàn tất"
+      },
+      "explanation": {
+        "en": "It can express a strong guess that something will already be finished at a future time.",
+        "vi": "Thì này có thể diễn tả một phỏng đoán khá chắc rằng một việc sẽ đã hoàn tất vào một thời điểm trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "Don’t call at 10; he will have gone to bed by then.",
+          "vi": "Đừng gọi lúc 10 giờ; lúc đó chắc anh ấy đã đi ngủ rồi."
+        },
+        {
+          "en": "The guests will probably have eaten before they arrive.",
+          "vi": "Có lẽ khách sẽ đã ăn trước khi họ đến."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "by + future time",
+    "by then",
+    "by the time + present simple",
+    "before + present simple / future time",
+    "by the end of...",
+    "in two weeks’ time",
+    "for + length of time + by/until a future point"
+  ],
+  "mistakes": [
+    {
+      "wrong": "By next week, I will finish the project.",
+      "right": "By next week, I will have finished the project.",
+      "why": {
+        "en": "Will finish only says the action happens in the future. Will have finished clearly means it is completed before the deadline.",
+        "vi": "Will finish chỉ nói hành động xảy ra trong tương lai. Will have finished nói rõ rằng việc đó hoàn tất trước hạn chót."
+      }
+    },
+    {
+      "wrong": "By the time she will arrive, we will have left.",
+      "right": "By the time she arrives, we will have left.",
+      "why": {
+        "en": "After time expressions such as by the time, when, and before, use the present simple for a future meaning, not will.",
+        "vi": "Sau các cụm chỉ thời gian như by the time, when và before, dùng hiện tại đơn để chỉ tương lai, không dùng will."
+      }
+    },
+    {
+      "wrong": "He will has completed the course by July.",
+      "right": "He will have completed the course by July.",
+      "why": {
+        "en": "After will, use the base form have. Do not add -s after will.",
+        "vi": "Sau will, dùng dạng nguyên mẫu have. Không thêm -s sau will."
+      }
+    },
+    {
+      "wrong": "They will have finish the work before lunch.",
+      "right": "They will have finished the work before lunch.",
+      "why": {
+        "en": "The future perfect is will have + past participle. Finish must become finished.",
+        "vi": "Thì tương lai hoàn thành có dạng will have + quá khứ phân từ. Finish phải đổi thành finished."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "future-continuous",
+      "note": {
+        "en": "The future perfect focuses on completion before a future time: “At 9, I will have finished dinner.” The future continuous focuses on an action in progress at a future time: “At 9, I will be having dinner.”",
+        "vi": "Tương lai hoàn thành nhấn mạnh việc đã hoàn tất trước một thời điểm trong tương lai: “At 9, I will have finished dinner.” Tương lai tiếp diễn nhấn mạnh hành động đang diễn ra tại một thời điểm trong tương lai: “At 9, I will be having dinner.”"
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: by then = finished before then. Use will have + V3.",
+    "vi": "Hãy nhớ: by then = xong trước lúc đó. Dùng will have + V3."
+  }
+}

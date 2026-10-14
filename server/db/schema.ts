@@ -3,6 +3,7 @@
  * Drizzle table definitions; run `npm run db:generate` after changing this file
  */
 import {
+  boolean,
   pgTable,
   pgEnum,
   uuid,
@@ -368,6 +369,23 @@ export const wordBank = pgTable(
   },
   (table) => [primaryKey({ columns: [table.userId, table.itemId] }), index('word_bank_user_created_idx').on(table.userId, table.createdAt)]
 );
+
+/**
+ * Explanation of each English grammar point (structure lives in server/grammar/map.ts). Loaded from the
+ * AI drafts in server/content/en/grammar; once an admin edits a point, the database version is kept.
+ */
+export const grammarPoints = pgTable('grammar_points', {
+  id: text('id').primaryKey(),
+  content: jsonb('content').notNull(),
+  /** draft | reviewed */
+  status: text('status').notNull().default('draft'),
+  /** Edited in the app: draft files no longer overwrite it */
+  edited: boolean('edited').notNull().default(false),
+  /** Hash of the draft file last loaded */
+  seedHash: text('seed_hash'),
+  reviewedBy: uuid('reviewed_by').references(() => users.id, { onDelete: 'set null' }),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
 
 export type User = typeof users.$inferSelect;
 export type VocabItem = typeof vocabItems.$inferSelect;

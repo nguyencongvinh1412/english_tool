@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "en": "Use because, so, therefore, and due to to connect a reason with a result. Because and due to show the reason; so and therefore show the result.",
+    "vi": "Dùng because, so, therefore và due to để nối lý do với kết quả. Because và due to nêu lý do; so và therefore nêu kết quả."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Because + clause",
+        "vi": "Because + mệnh đề"
+      },
+      "pattern": "Because + S + V, S + V. / S + V because + S + V.",
+      "example": {
+        "en": "Because it was raining, we stayed at home.",
+        "vi": "Vì trời đang mưa nên chúng tôi ở nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "So + result clause",
+        "vi": "So + mệnh đề kết quả"
+      },
+      "pattern": "S + V, so + S + V.",
+      "example": {
+        "en": "It was raining, so we stayed at home.",
+        "vi": "Trời đang mưa, nên chúng tôi ở nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Therefore + result sentence",
+        "vi": "Therefore + câu kết quả"
+      },
+      "pattern": "S + V. Therefore, S + V.",
+      "example": {
+        "en": "The road was closed. Therefore, we had to take another route.",
+        "vi": "Con đường đã bị đóng. Vì vậy, chúng tôi phải đi đường khác."
+      }
+    },
+    {
+      "label": {
+        "en": "Due to + noun phrase",
+        "vi": "Due to + cụm danh từ"
+      },
+      "pattern": "Due to + noun phrase, S + V. / S + V due to + noun phrase.",
+      "example": {
+        "en": "Due to the heavy rain, the match was cancelled.",
+        "vi": "Do mưa lớn, trận đấu đã bị hủy."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Give a reason",
+        "vi": "Nêu lý do"
+      },
+      "explanation": {
+        "en": "Use because before a full clause with a subject and a verb. It answers the question Why?",
+        "vi": "Dùng because trước một mệnh đề đầy đủ có chủ ngữ và động từ. Nó trả lời câu hỏi Tại sao?"
+      },
+      "examples": [
+        {
+          "en": "I went to bed early because I was tired.",
+          "vi": "Tôi đi ngủ sớm vì tôi mệt."
+        },
+        {
+          "en": "Because she missed the bus, she was late for work.",
+          "vi": "Vì cô ấy lỡ xe buýt nên cô ấy đi làm muộn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Show a result",
+        "vi": "Diễn tả kết quả"
+      },
+      "explanation": {
+        "en": "Use so before the result of a situation. In everyday English, so is more common than therefore.",
+        "vi": "Dùng so trước kết quả của một tình huống. Trong tiếng Anh hằng ngày, so phổ biến hơn therefore."
+      },
+      "examples": [
+        {
+          "en": "The shop was closed, so we went home.",
+          "vi": "Cửa hàng đã đóng cửa, nên chúng tôi về nhà."
+        },
+        {
+          "en": "He did not study, so he failed the test.",
+          "vi": "Anh ấy không học, nên anh ấy trượt bài kiểm tra."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Show a formal result",
+        "vi": "Diễn tả kết quả một cách trang trọng"
+      },
+      "explanation": {
+        "en": "Use therefore to show a logical result, especially in writing, reports, school work, or formal speech.",
+        "vi": "Dùng therefore để nêu kết quả hợp lý, đặc biệt trong văn viết, báo cáo, bài học thuật hoặc lời nói trang trọng."
+      },
+      "examples": [
+        {
+          "en": "The company lost money last year. Therefore, it will reduce costs this year.",
+          "vi": "Công ty bị lỗ năm ngoái. Vì vậy, năm nay công ty sẽ cắt giảm chi phí."
+        },
+        {
+          "en": "The evidence is weak; therefore, we cannot be sure.",
+          "vi": "Bằng chứng còn yếu; vì vậy, chúng ta không thể chắc chắn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Give a reason with a noun phrase",
+        "vi": "Nêu lý do bằng cụm danh từ"
+      },
+      "explanation": {
+        "en": "Use due to before a noun phrase, not a full clause. It is often used in notices and formal situations.",
+        "vi": "Dùng due to trước một cụm danh từ, không dùng trước một mệnh đề đầy đủ. Cách này thường dùng trong thông báo và tình huống trang trọng."
+      },
+      "examples": [
+        {
+          "en": "The flight was delayed due to bad weather.",
+          "vi": "Chuyến bay bị hoãn do thời tiết xấu."
+        },
+        {
+          "en": "Due to a technical problem, the website is not working.",
+          "vi": "Do sự cố kỹ thuật, trang web không hoạt động."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "because",
+    "so",
+    "therefore",
+    "due to",
+    "as a result",
+    "for this reason",
+    "bad weather",
+    "a problem",
+    "traffic",
+    "illness"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Because I was tired, so I went to bed early.",
+      "right": "Because I was tired, I went to bed early. / I was tired, so I went to bed early.",
+      "why": {
+        "en": "Do not use because and so together for the same reason-result link in one sentence.",
+        "vi": "Không dùng because và so cùng lúc cho cùng một quan hệ lý do-kết quả trong một câu."
+      }
+    },
+    {
+      "wrong": "Due to it rained, we stayed home.",
+      "right": "Because it rained, we stayed home. / Due to the rain, we stayed home.",
+      "why": {
+        "en": "Due to is followed by a noun phrase, not a full clause with subject and verb.",
+        "vi": "Due to đi với cụm danh từ, không đi với mệnh đề đầy đủ có chủ ngữ và động từ."
+      }
+    },
+    {
+      "wrong": "He was sick, because he did not go to school.",
+      "right": "He did not go to school because he was sick. / He was sick, so he did not go to school.",
+      "why": {
+        "en": "Put the reason after because and the result after so. Being sick is the reason; not going to school is the result.",
+        "vi": "Đặt lý do sau because và kết quả sau so. Bị ốm là lý do; không đi học là kết quả."
+      }
+    },
+    {
+      "wrong": "It was raining, therefore we stayed at home.",
+      "right": "It was raining. Therefore, we stayed at home. / It was raining; therefore, we stayed at home.",
+      "why": {
+        "en": "Therefore usually connects two sentences or two independent clauses. Use a full stop or semicolon before it, not just a comma.",
+        "vi": "Therefore thường nối hai câu hoặc hai mệnh đề độc lập. Dùng dấu chấm hoặc dấu chấm phẩy trước nó, không chỉ dùng dấu phẩy."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think: because = reason, so = result, therefore = formal result, due to = reason noun.",
+    "vi": "Hãy nhớ: because = lý do, so = kết quả, therefore = kết quả trang trọng, due to = lý do bằng danh từ."
+  }
+}

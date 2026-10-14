@@ -1,0 +1,180 @@
+{
+  "summary": {
+    "en": "Use to, in order to, and so that to talk about purpose: the reason why someone does something. To and in order to are followed by the base verb; so that is followed by a subject and a verb.",
+    "vi": "Dùng to, in order to và so that để nói về mục đích: lý do vì sao ai đó làm việc gì. To và in order to đi với động từ nguyên mẫu; so that đi với chủ ngữ và động từ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Purpose with to",
+        "vi": "Chỉ mục đích với to"
+      },
+      "pattern": "S + V + to + base verb",
+      "example": {
+        "en": "I called Anna to ask about the meeting.",
+        "vi": "Tôi đã gọi cho Anna để hỏi về cuộc họp."
+      }
+    },
+    {
+      "label": {
+        "en": "More formal purpose with in order to",
+        "vi": "Chỉ mục đích trang trọng hơn với in order to"
+      },
+      "pattern": "S + V + in order to + base verb",
+      "example": {
+        "en": "We arrived early in order to get good seats.",
+        "vi": "Chúng tôi đến sớm để có chỗ ngồi tốt."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative purpose",
+        "vi": "Mục đích phủ định"
+      },
+      "pattern": "S + V + in order not to / so as not to + base verb",
+      "example": {
+        "en": "She spoke quietly in order not to wake the baby.",
+        "vi": "Cô ấy nói nhỏ để không đánh thức em bé."
+      }
+    },
+    {
+      "label": {
+        "en": "Purpose with so that",
+        "vi": "Chỉ mục đích với so that"
+      },
+      "pattern": "S + V + so that + S + can/could/will/would + base verb",
+      "example": {
+        "en": "I saved the file so that you can edit it later.",
+        "vi": "Tôi đã lưu tệp để bạn có thể chỉnh sửa sau."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Say the purpose of an action",
+        "vi": "Nêu mục đích của một hành động"
+      },
+      "explanation": {
+        "en": "Use to + base verb after an action to explain why someone does it. This is common in everyday English.",
+        "vi": "Dùng to + động từ nguyên mẫu sau một hành động để giải thích vì sao ai đó làm việc đó. Cách này rất phổ biến trong tiếng Anh hằng ngày."
+      },
+      "examples": [
+        {
+          "en": "I went to the shop to buy some bread.",
+          "vi": "Tôi đã đến cửa hàng để mua bánh mì."
+        },
+        {
+          "en": "He studies English to get a better job.",
+          "vi": "Anh ấy học tiếng Anh để có một công việc tốt hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use in order to for a clearer or more formal purpose",
+        "vi": "Dùng in order to để mục đích rõ hơn hoặc trang trọng hơn"
+      },
+      "explanation": {
+        "en": "In order to has the same basic meaning as to, but it sounds more careful, formal, or emphatic.",
+        "vi": "In order to có nghĩa cơ bản giống to, nhưng nghe cẩn thận, trang trọng hoặc nhấn mạnh hơn."
+      },
+      "examples": [
+        {
+          "en": "Please complete this form in order to apply for the course.",
+          "vi": "Vui lòng hoàn thành mẫu đơn này để đăng ký khóa học."
+        },
+        {
+          "en": "The company changed its website in order to attract more customers.",
+          "vi": "Công ty đã thay đổi trang web để thu hút nhiều khách hàng hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use so that when the purpose has a different subject",
+        "vi": "Dùng so that khi mục đích có chủ ngữ khác"
+      },
+      "explanation": {
+        "en": "Use so that + subject + verb when you want to say what another person or thing can do as the result of your action.",
+        "vi": "Dùng so that + chủ ngữ + động từ khi bạn muốn nói người hoặc vật khác có thể làm gì nhờ hành động của bạn."
+      },
+      "examples": [
+        {
+          "en": "I left the door open so that the cat could come in.",
+          "vi": "Tôi để cửa mở để con mèo có thể vào."
+        },
+        {
+          "en": "She wrote the address down so that I would not forget it.",
+          "vi": "Cô ấy viết địa chỉ ra để tôi không quên."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Talk about avoiding something",
+        "vi": "Nói về việc tránh điều gì đó"
+      },
+      "explanation": {
+        "en": "For negative purpose, use in order not to or so as not to. In everyday speech, people also often use so that + subject + won’t/wouldn’t/can’t/couldn’t.",
+        "vi": "Để nói mục đích phủ định, dùng in order not to hoặc so as not to. Trong văn nói hằng ngày, người ta cũng thường dùng so that + chủ ngữ + won’t/wouldn’t/can’t/couldn’t."
+      },
+      "examples": [
+        {
+          "en": "I took a taxi in order not to be late.",
+          "vi": "Tôi đã đi taxi để không bị muộn."
+        },
+        {
+          "en": "He turned off his phone so that nobody would disturb him.",
+          "vi": "Anh ấy tắt điện thoại để không ai làm phiền anh ấy."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "to + base verb",
+    "in order to + base verb",
+    "in order not to + base verb",
+    "so that + subject + can/could/will/would + base verb",
+    "ask yourself: Why did someone do it?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I go to the gym to healthy.",
+      "right": "I go to the gym to be healthy.",
+      "why": {
+        "en": "After to, use a base verb. Healthy is an adjective, so you need be before it.",
+        "vi": "Sau to cần dùng động từ nguyên mẫu. Healthy là tính từ, nên cần thêm be trước nó."
+      }
+    },
+    {
+      "wrong": "She studies hard in order to gets a scholarship.",
+      "right": "She studies hard in order to get a scholarship.",
+      "why": {
+        "en": "After in order to, use the base verb, not gets. Do not add third-person -s after to.",
+        "vi": "Sau in order to dùng động từ nguyên mẫu, không dùng gets. Không thêm -s ngôi thứ ba sau to."
+      }
+    },
+    {
+      "wrong": "I saved money so that buy a new phone.",
+      "right": "I saved money to buy a new phone.",
+      "why": {
+        "en": "So that needs a subject and a verb. If the subject is the same, use to + base verb.",
+        "vi": "So that cần có chủ ngữ và động từ. Nếu chủ ngữ giống nhau, dùng to + động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "We left early to not miss the train.",
+      "right": "We left early in order not to miss the train.",
+      "why": {
+        "en": "For negative purpose, in order not to is clearer and more standard than to not, especially in careful writing.",
+        "vi": "Để nói mục đích phủ định, in order not to rõ ràng và chuẩn hơn to not, đặc biệt trong văn viết cẩn thận."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "If you can ask “Why did someone do this?” and the answer is a goal, use to or in order to; if you need a new subject, use so that.",
+    "vi": "Nếu có thể hỏi “Ai đó làm việc này để làm gì?” và câu trả lời là một mục tiêu, hãy dùng to hoặc in order to; nếu cần một chủ ngữ mới, hãy dùng so that."
+  }
+}

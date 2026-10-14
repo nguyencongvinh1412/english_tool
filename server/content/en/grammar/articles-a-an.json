@@ -1,0 +1,192 @@
+{
+  "summary": {
+    "en": "Use a or an before a singular countable noun when you mean one, or when the listener does not know exactly which one. Use a before a consonant sound and an before a vowel sound.",
+    "vi": "Dùng a hoặc an trước danh từ đếm được số ít khi muốn nói một, hoặc khi người nghe chưa biết chính xác là cái/người nào. Dùng a trước âm phụ âm và an trước âm nguyên âm."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "With a consonant sound",
+        "vi": "Với âm phụ âm"
+      },
+      "pattern": "a + singular countable noun",
+      "example": {
+        "en": "I have a book.",
+        "vi": "Tôi có một quyển sách."
+      }
+    },
+    {
+      "label": {
+        "en": "With a vowel sound",
+        "vi": "Với âm nguyên âm"
+      },
+      "pattern": "an + singular countable noun",
+      "example": {
+        "en": "She eats an apple.",
+        "vi": "Cô ấy ăn một quả táo."
+      }
+    },
+    {
+      "label": {
+        "en": "Before an adjective + noun",
+        "vi": "Trước tính từ + danh từ"
+      },
+      "pattern": "a/an + adjective + singular countable noun",
+      "example": {
+        "en": "It is an old house.",
+        "vi": "Đó là một ngôi nhà cũ."
+      }
+    },
+    {
+      "label": {
+        "en": "In negative sentences",
+        "vi": "Trong câu phủ định"
+      },
+      "pattern": "not + a/an + singular countable noun",
+      "example": {
+        "en": "He is not a teacher.",
+        "vi": "Anh ấy không phải là giáo viên."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "One thing or one person",
+        "vi": "Một vật hoặc một người"
+      },
+      "explanation": {
+        "en": "Use a/an to mean one with a singular countable noun.",
+        "vi": "Dùng a/an để nói nghĩa là một với danh từ đếm được số ít."
+      },
+      "examples": [
+        {
+          "en": "I need a pen.",
+          "vi": "Tôi cần một cây bút."
+        },
+        {
+          "en": "There is an egg on the table.",
+          "vi": "Có một quả trứng trên bàn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Something not specific",
+        "vi": "Một thứ không xác định cụ thể"
+      },
+      "explanation": {
+        "en": "Use a/an when you do not say exactly which person or thing.",
+        "vi": "Dùng a/an khi bạn không nói chính xác người hoặc vật nào."
+      },
+      "examples": [
+        {
+          "en": "She wants a car.",
+          "vi": "Cô ấy muốn một chiếc ô tô."
+        },
+        {
+          "en": "We live in an apartment.",
+          "vi": "Chúng tôi sống trong một căn hộ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Jobs",
+        "vi": "Nghề nghiệp"
+      },
+      "explanation": {
+        "en": "Use a/an before a singular job noun.",
+        "vi": "Dùng a/an trước danh từ nghề nghiệp số ít."
+      },
+      "examples": [
+        {
+          "en": "My father is a doctor.",
+          "vi": "Bố tôi là bác sĩ."
+        },
+        {
+          "en": "Anna is an engineer.",
+          "vi": "Anna là kỹ sư."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Sound, not letter",
+        "vi": "Theo âm, không theo chữ cái"
+      },
+      "explanation": {
+        "en": "Choose a or an by the first sound of the next word, not only the first letter.",
+        "vi": "Chọn a hoặc an theo âm đầu của từ tiếp theo, không chỉ theo chữ cái đầu."
+      },
+      "examples": [
+        {
+          "en": "He is a university student.",
+          "vi": "Anh ấy là một sinh viên đại học."
+        },
+        {
+          "en": "I have an umbrella.",
+          "vi": "Tôi có một chiếc ô."
+        },
+        {
+          "en": "She waits for an hour.",
+          "vi": "Cô ấy chờ một giờ."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "one",
+    "singular countable noun",
+    "first mention",
+    "job names",
+    "a new thing or person"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I am student.",
+      "right": "I am a student.",
+      "why": {
+        "en": "Student is a singular countable noun. Use a/an before it.",
+        "vi": "Student là danh từ đếm được số ít. Cần dùng a/an trước nó."
+      }
+    },
+    {
+      "wrong": "She has a apple.",
+      "right": "She has an apple.",
+      "why": {
+        "en": "Apple begins with a vowel sound, so use an.",
+        "vi": "Apple bắt đầu bằng âm nguyên âm, nên dùng an."
+      }
+    },
+    {
+      "wrong": "He is an teacher.",
+      "right": "He is a teacher.",
+      "why": {
+        "en": "Teacher begins with a consonant sound, so use a.",
+        "vi": "Teacher bắt đầu bằng âm phụ âm, nên dùng a."
+      }
+    },
+    {
+      "wrong": "I need a water.",
+      "right": "I need water.",
+      "why": {
+        "en": "Water is uncountable here. Do not use a/an directly before an uncountable noun.",
+        "vi": "Water ở đây là danh từ không đếm được. Không dùng a/an trực tiếp trước danh từ không đếm được."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "article-the",
+      "note": {
+        "en": "Use a/an when the noun is new or not specific: I saw a dog. Use the when the listener knows which one: The dog was small.",
+        "vi": "Dùng a/an khi danh từ mới được nhắc đến hoặc không xác định cụ thể: I saw a dog. Dùng the khi người nghe biết là cái/người nào: The dog was small."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: a/an = one new thing. Choose a or an by sound: a book, an apple.",
+    "vi": "Hãy nhớ: a/an = một thứ mới được nhắc đến. Chọn a hoặc an theo âm: a book, an apple."
+  }
+}

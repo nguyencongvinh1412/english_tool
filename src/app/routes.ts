@@ -21,6 +21,7 @@ export const ROUTES = {
   READING_PASSAGE: '/reading/passages',
   READING_GAPFILL: '/reading/sentence-completion',
   VOCABULARY: '/vocabulary',
+  GRAMMAR: '/grammar',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
   WRITING_TASK1: '/writing/ielts-task1',

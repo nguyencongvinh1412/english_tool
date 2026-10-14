@@ -1,0 +1,184 @@
+{
+  "summary": {
+    "en": "After some verbs and expressions, English uses V-ing; after others, it uses to + base verb. At B1 level, it is best to learn common verb patterns as fixed combinations.",
+    "vi": "Sau một số động từ và cách diễn đạt, tiếng Anh dùng V-ing; sau những từ khác, dùng to + động từ nguyên mẫu. Ở trình độ B1, cách tốt nhất là học các mẫu động từ thông dụng như các cụm cố định."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Verb + gerund",
+        "vi": "Động từ + V-ing"
+      },
+      "pattern": "S + enjoy / avoid / finish / keep / mind + V-ing",
+      "example": {
+        "en": "She enjoys cooking at weekends.",
+        "vi": "Cô ấy thích nấu ăn vào cuối tuần."
+      }
+    },
+    {
+      "label": {
+        "en": "Verb + infinitive",
+        "vi": "Động từ + to V"
+      },
+      "pattern": "S + want / hope / decide / need / plan + to + V",
+      "example": {
+        "en": "We decided to leave early.",
+        "vi": "Chúng tôi quyết định rời đi sớm."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative form",
+        "vi": "Dạng phủ định"
+      },
+      "pattern": "S + V + not + to + V / S + V + not + V-ing",
+      "example": {
+        "en": "He promised not to be late again.",
+        "vi": "Anh ấy hứa sẽ không đến muộn nữa."
+      }
+    },
+    {
+      "label": {
+        "en": "Question form",
+        "vi": "Dạng câu hỏi"
+      },
+      "pattern": "Question word / auxiliary + S + V + to V / V-ing?",
+      "example": {
+        "en": "Do you mind opening the window?",
+        "vi": "Bạn có phiền mở cửa sổ không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Use V-ing after common verbs like enjoy, avoid, finish, keep, mind",
+        "vi": "Dùng V-ing sau các động từ thông dụng như enjoy, avoid, finish, keep, mind"
+      },
+      "explanation": {
+        "en": "Some verbs are followed by a gerund. The action often feels like an activity, habit, or experience.",
+        "vi": "Một số động từ được theo sau bởi danh động từ V-ing. Hành động thường mang nghĩa một hoạt động, thói quen hoặc trải nghiệm."
+      },
+      "examples": [
+        {
+          "en": "I avoid eating too much sugar.",
+          "vi": "Tôi tránh ăn quá nhiều đường."
+        },
+        {
+          "en": "They finished painting the room yesterday.",
+          "vi": "Họ đã sơn xong căn phòng hôm qua."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use to V after common verbs like want, hope, decide, need, plan",
+        "vi": "Dùng to V sau các động từ thông dụng như want, hope, decide, need, plan"
+      },
+      "explanation": {
+        "en": "Some verbs are followed by to + base verb. The action often points to a future plan, wish, decision, or purpose.",
+        "vi": "Một số động từ được theo sau bởi to + động từ nguyên mẫu. Hành động thường hướng tới kế hoạch, mong muốn, quyết định hoặc mục đích trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "She hopes to study abroad next year.",
+          "vi": "Cô ấy hy vọng sẽ đi du học vào năm tới."
+        },
+        {
+          "en": "I need to call my manager.",
+          "vi": "Tôi cần gọi cho quản lý của mình."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use V-ing after prepositions",
+        "vi": "Dùng V-ing sau giới từ"
+      },
+      "explanation": {
+        "en": "After a preposition such as in, about, for, of, at, or after, use V-ing, not to V.",
+        "vi": "Sau giới từ như in, about, for, of, at hoặc after, dùng V-ing, không dùng to V."
+      },
+      "examples": [
+        {
+          "en": "Thank you for helping me.",
+          "vi": "Cảm ơn bạn đã giúp tôi."
+        },
+        {
+          "en": "She is good at explaining difficult ideas.",
+          "vi": "Cô ấy giỏi giải thích những ý tưởng khó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Some verbs can take both forms with a change in meaning",
+        "vi": "Một số động từ có thể đi với cả hai dạng nhưng nghĩa thay đổi"
+      },
+      "explanation": {
+        "en": "Verbs such as stop, remember, and try can be followed by V-ing or to V, but the meaning is different.",
+        "vi": "Các động từ như stop, remember và try có thể đi với V-ing hoặc to V, nhưng nghĩa sẽ khác nhau."
+      },
+      "examples": [
+        {
+          "en": "He stopped smoking last year.",
+          "vi": "Anh ấy đã bỏ hút thuốc vào năm ngoái."
+        },
+        {
+          "en": "He stopped to smoke outside.",
+          "vi": "Anh ấy dừng lại để hút thuốc ở bên ngoài."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "enjoy + V-ing",
+    "avoid + V-ing",
+    "finish + V-ing",
+    "mind + V-ing",
+    "want + to V",
+    "decide + to V",
+    "hope + to V",
+    "need + to V",
+    "preposition + V-ing"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I enjoy to listen to music.",
+      "right": "I enjoy listening to music.",
+      "why": {
+        "en": "Enjoy is followed by V-ing, not to V.",
+        "vi": "Enjoy đi với V-ing, không đi với to V."
+      }
+    },
+    {
+      "wrong": "She decided going home early.",
+      "right": "She decided to go home early.",
+      "why": {
+        "en": "Decide is followed by to + base verb.",
+        "vi": "Decide đi với to + động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "Thank you for help me.",
+      "right": "Thank you for helping me.",
+      "why": {
+        "en": "After a preposition like for, use V-ing.",
+        "vi": "Sau giới từ như for, dùng V-ing."
+      }
+    },
+    {
+      "wrong": "He wants buy a new phone.",
+      "right": "He wants to buy a new phone.",
+      "why": {
+        "en": "Want is followed by to + base verb. Do not leave out to.",
+        "vi": "Want đi với to + động từ nguyên mẫu. Không được bỏ to."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Learn the verb together with its partner: enjoy doing, decide to do, good at doing.",
+    "vi": "Hãy học động từ cùng “bạn đi kèm” của nó: enjoy doing, decide to do, good at doing."
+  }
+}

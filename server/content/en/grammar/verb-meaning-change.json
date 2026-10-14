@@ -1,0 +1,209 @@
+{
+  "summary": {
+    "en": "Some verbs change meaning depending on whether they are followed by -ing or to + infinitive. With stop, remember, and try, the second verb tells us either an activity, a purpose, a memory, or an experiment.",
+    "vi": "Một số động từ đổi nghĩa tùy theo sau chúng là V-ing hay to + động từ nguyên mẫu. Với stop, remember và try, động từ thứ hai cho biết một hoạt động, mục đích, ký ức hoặc việc thử làm."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with -ing",
+        "vi": "Khẳng định với V-ing"
+      },
+      "pattern": "S + stop/remember/try + V-ing",
+      "example": {
+        "en": "She stopped checking her phone during meetings.",
+        "vi": "Cô ấy đã ngừng kiểm tra điện thoại trong các cuộc họp."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with to + infinitive",
+        "vi": "Khẳng định với to + động từ nguyên mẫu"
+      },
+      "pattern": "S + stop/remember/try + to + V",
+      "example": {
+        "en": "She stopped to check her phone after the meeting.",
+        "vi": "Cô ấy dừng lại để kiểm tra điện thoại sau cuộc họp."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does/did not + stop/remember/try + V-ing / to + V",
+      "example": {
+        "en": "He did not remember to lock the door.",
+        "vi": "Anh ấy đã không nhớ khóa cửa."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does/Did + S + stop/remember/try + V-ing / to + V?",
+      "example": {
+        "en": "Did you try restarting the computer?",
+        "vi": "Bạn đã thử khởi động lại máy tính chưa?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Stop + -ing: end an activity",
+        "vi": "Stop + V-ing: ngừng một hoạt động"
+      },
+      "explanation": {
+        "en": "Use stop + -ing when someone stops doing an action. The action after stop is the thing that ends.",
+        "vi": "Dùng stop + V-ing khi ai đó ngừng làm một việc. Hành động sau stop là việc bị dừng lại."
+      },
+      "examples": [
+        {
+          "en": "You should stop working so late every night.",
+          "vi": "Bạn nên ngừng làm việc muộn như vậy mỗi tối."
+        },
+        {
+          "en": "The children stopped talking when the teacher came in.",
+          "vi": "Bọn trẻ ngừng nói chuyện khi giáo viên bước vào."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Stop + to + infinitive: stop in order to do something",
+        "vi": "Stop + to V: dừng lại để làm việc gì"
+      },
+      "explanation": {
+        "en": "Use stop + to + infinitive when someone stops one action so that they can do another action. The infinitive gives the purpose.",
+        "vi": "Dùng stop + to V khi ai đó dừng một việc để làm việc khác. To V diễn tả mục đích."
+      },
+      "examples": [
+        {
+          "en": "We stopped to buy some water on the way home.",
+          "vi": "Chúng tôi dừng lại để mua nước trên đường về nhà."
+        },
+        {
+          "en": "He stopped to answer a message before entering the room.",
+          "vi": "Anh ấy dừng lại để trả lời một tin nhắn trước khi vào phòng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Remember + -ing: have a memory of a past action",
+        "vi": "Remember + V-ing: nhớ đã làm việc gì trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use remember + -ing when the action happened before the remembering. It means you have a memory of doing it.",
+        "vi": "Dùng remember + V-ing khi hành động đã xảy ra trước lúc nhớ. Nghĩa là bạn nhớ việc mình đã làm."
+      },
+      "examples": [
+        {
+          "en": "I remember meeting her at a conference last year.",
+          "vi": "Tôi nhớ đã gặp cô ấy ở một hội nghị năm ngoái."
+        },
+        {
+          "en": "Do you remember sending me this file?",
+          "vi": "Bạn có nhớ đã gửi cho tôi tệp này không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Remember + to + infinitive: not forget to do a future or necessary action",
+        "vi": "Remember + to V: nhớ làm một việc cần làm"
+      },
+      "explanation": {
+        "en": "Use remember + to + infinitive when the action happens after the remembering. It means not forgetting to do something.",
+        "vi": "Dùng remember + to V khi hành động xảy ra sau lúc nhớ. Nghĩa là không quên làm việc gì."
+      },
+      "examples": [
+        {
+          "en": "Please remember to bring your passport.",
+          "vi": "Làm ơn nhớ mang hộ chiếu của bạn."
+        },
+        {
+          "en": "She remembered to turn off the lights before leaving.",
+          "vi": "Cô ấy đã nhớ tắt đèn trước khi rời đi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Try + -ing and try + to + infinitive",
+        "vi": "Try + V-ing và try + to V"
+      },
+      "explanation": {
+        "en": "Use try + -ing to mean ‘do something as an experiment to see if it works’. Use try + to + infinitive to mean ‘make an effort to do something difficult’.",
+        "vi": "Dùng try + V-ing với nghĩa ‘thử làm gì để xem có hiệu quả không’. Dùng try + to V với nghĩa ‘cố gắng làm một việc khó’."
+      },
+      "examples": [
+        {
+          "en": "If you cannot sleep, try drinking less coffee in the evening.",
+          "vi": "Nếu bạn không ngủ được, hãy thử uống ít cà phê hơn vào buổi tối."
+        },
+        {
+          "en": "I tried to explain the problem, but nobody listened.",
+          "vi": "Tôi đã cố gắng giải thích vấn đề, nhưng không ai lắng nghe."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "stop + -ing = quit/end an activity",
+    "stop + to V = pause in order to do something",
+    "remember + -ing = remember a past action",
+    "remember + to V = not forget a necessary action",
+    "try + -ing = experiment; see if it works",
+    "try + to V = make an effort; attempt something difficult"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I stopped to smoke last year.",
+      "right": "I stopped smoking last year.",
+      "why": {
+        "en": "If you mean you quit the habit, use stop + -ing. Stop to smoke means you paused another activity in order to smoke.",
+        "vi": "Nếu muốn nói bạn bỏ thói quen hút thuốc, dùng stop + V-ing. Stop to smoke nghĩa là bạn dừng một việc khác để hút thuốc."
+      }
+    },
+    {
+      "wrong": "Remember calling me when you arrive.",
+      "right": "Remember to call me when you arrive.",
+      "why": {
+        "en": "The call will happen in the future, after the remembering, so use remember + to + infinitive.",
+        "vi": "Việc gọi điện sẽ xảy ra trong tương lai, sau lúc nhớ, nên dùng remember + to V."
+      }
+    },
+    {
+      "wrong": "I remember to meet him in Da Nang in 2020.",
+      "right": "I remember meeting him in Da Nang in 2020.",
+      "why": {
+        "en": "The meeting happened in the past, and you have a memory of it, so use remember + -ing.",
+        "vi": "Việc gặp đã xảy ra trong quá khứ và bạn nhớ việc đó, nên dùng remember + V-ing."
+      }
+    },
+    {
+      "wrong": "Try to restarting your phone.",
+      "right": "Try restarting your phone.",
+      "why": {
+        "en": "When you suggest an experiment or possible solution, use try + -ing. After to, use the base verb: try to restart means make an effort to restart.",
+        "vi": "Khi gợi ý một cách thử hoặc giải pháp có thể hiệu quả, dùng try + V-ing. Sau to phải dùng động từ nguyên mẫu: try to restart nghĩa là cố gắng khởi động lại."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "gerund-infinitive",
+      "note": {
+        "en": "The general choice between gerund and infinitive often depends on the verb before it, but stop, remember, and try are special because both forms are possible and the meaning changes clearly.",
+        "vi": "Việc chọn danh động từ hay động từ nguyên mẫu thường phụ thuộc vào động từ đứng trước, nhưng stop, remember và try đặc biệt vì cả hai dạng đều dùng được và nghĩa thay đổi rõ ràng."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think of time and purpose: -ing often points to an activity or memory; to + V often points forward to a purpose, duty, or effort.",
+    "vi": "Hãy nghĩ về thời gian và mục đích: V-ing thường chỉ một hoạt động hoặc ký ức; to V thường hướng tới mục đích, việc cần làm hoặc sự cố gắng."
+  }
+}

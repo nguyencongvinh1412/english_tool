@@ -1,0 +1,210 @@
+{
+  "summary": {
+    "en": "Use some, any, much, many, and a lot of to talk about quantity. Some and any often depend on positive/negative/question forms; much is for uncountable nouns, many is for plural countable nouns, and a lot of works with both.",
+    "vi": "Dùng some, any, much, many và a lot of để nói về số lượng. Some và any thường phụ thuộc vào câu khẳng định/phủ định/câu hỏi; much dùng với danh từ không đếm được, many dùng với danh từ đếm được số nhiều, còn a lot of dùng được với cả hai loại."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V + some / a lot of + noun",
+      "example": {
+        "en": "We have some bread and a lot of apples.",
+        "vi": "Chúng tôi có một ít bánh mì và rất nhiều táo."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does not + V + any / much / many + noun",
+      "example": {
+        "en": "She doesn't have any money, and she doesn't have many friends here.",
+        "vi": "Cô ấy không có chút tiền nào, và cô ấy không có nhiều bạn ở đây."
+      }
+    },
+    {
+      "label": {
+        "en": "Questions",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does + S + V + any / much / many + noun?",
+      "example": {
+        "en": "Do you have any homework? How much time do we need?",
+        "vi": "Bạn có bài tập về nhà nào không? Chúng ta cần bao nhiêu thời gian?"
+      }
+    },
+    {
+      "label": {
+        "en": "Offers and requests",
+        "vi": "Lời mời và lời đề nghị"
+      },
+      "pattern": "Would you like some + noun? / Can I have some + noun?",
+      "example": {
+        "en": "Would you like some tea? Can I have some water?",
+        "vi": "Bạn có muốn uống trà không? Tôi xin một ít nước được không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Some in positive sentences",
+        "vi": "Some trong câu khẳng định"
+      },
+      "explanation": {
+        "en": "Use some with plural countable nouns and uncountable nouns when the exact number or amount is not important.",
+        "vi": "Dùng some với danh từ đếm được số nhiều và danh từ không đếm được khi số lượng chính xác không quan trọng."
+      },
+      "examples": [
+        {
+          "en": "I bought some oranges.",
+          "vi": "Tôi đã mua vài quả cam."
+        },
+        {
+          "en": "There is some milk in the fridge.",
+          "vi": "Có một ít sữa trong tủ lạnh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Any in negatives and most questions",
+        "vi": "Any trong câu phủ định và hầu hết câu hỏi"
+      },
+      "explanation": {
+        "en": "Use any when you mean zero in a negative sentence, or when you do not know the answer in a question.",
+        "vi": "Dùng any khi muốn nói là không có gì trong câu phủ định, hoặc khi bạn chưa biết câu trả lời trong câu hỏi."
+      },
+      "examples": [
+        {
+          "en": "We don't have any eggs.",
+          "vi": "Chúng tôi không có quả trứng nào."
+        },
+        {
+          "en": "Are there any chairs in the room?",
+          "vi": "Trong phòng có cái ghế nào không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Much and many",
+        "vi": "Much và many"
+      },
+      "explanation": {
+        "en": "Use much with uncountable nouns and many with plural countable nouns. They are common in questions and negative sentences.",
+        "vi": "Dùng much với danh từ không đếm được và many với danh từ đếm được số nhiều. Chúng thường dùng trong câu hỏi và câu phủ định."
+      },
+      "examples": [
+        {
+          "en": "How much rice do you want?",
+          "vi": "Bạn muốn bao nhiêu gạo?"
+        },
+        {
+          "en": "He doesn't read many books.",
+          "vi": "Anh ấy không đọc nhiều sách."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A lot of in everyday English",
+        "vi": "A lot of trong tiếng Anh hằng ngày"
+      },
+      "explanation": {
+        "en": "Use a lot of with both plural countable nouns and uncountable nouns. It is very common in positive sentences and also possible in negatives and questions.",
+        "vi": "Dùng a lot of với cả danh từ đếm được số nhiều và danh từ không đếm được. Cách này rất phổ biến trong câu khẳng định và cũng có thể dùng trong câu phủ định, câu hỏi."
+      },
+      "examples": [
+        {
+          "en": "They have a lot of children.",
+          "vi": "Họ có nhiều con."
+        },
+        {
+          "en": "I drink a lot of coffee.",
+          "vi": "Tôi uống nhiều cà phê."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Some in offers and requests",
+        "vi": "Some trong lời mời và lời đề nghị"
+      },
+      "explanation": {
+        "en": "In questions, use some when you offer something or ask for something and expect a positive answer.",
+        "vi": "Trong câu hỏi, dùng some khi bạn mời ai đó hoặc xin/đề nghị điều gì và mong câu trả lời là đồng ý."
+      },
+      "examples": [
+        {
+          "en": "Would you like some cake?",
+          "vi": "Bạn có muốn ăn một ít bánh không?"
+        },
+        {
+          "en": "Can I have some sugar, please?",
+          "vi": "Cho tôi xin một ít đường được không?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "some + plural countable noun / uncountable noun",
+    "any in negatives and most questions",
+    "much + uncountable noun",
+    "many + plural countable noun",
+    "a lot of + plural countable noun / uncountable noun",
+    "How much ...?",
+    "How many ...?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have any friends in this city.",
+      "right": "I have some friends in this city.",
+      "why": {
+        "en": "In a positive sentence, use some, not any, for an indefinite quantity.",
+        "vi": "Trong câu khẳng định, dùng some, không dùng any, để nói về một số lượng không xác định."
+      }
+    },
+    {
+      "wrong": "She doesn't have some money.",
+      "right": "She doesn't have any money.",
+      "why": {
+        "en": "In a negative sentence, any is the normal choice.",
+        "vi": "Trong câu phủ định, any là lựa chọn thông thường."
+      }
+    },
+    {
+      "wrong": "How many water do you drink every day?",
+      "right": "How much water do you drink every day?",
+      "why": {
+        "en": "Water is uncountable, so use much, not many.",
+        "vi": "Water là danh từ không đếm được, nên dùng much, không dùng many."
+      }
+    },
+    {
+      "wrong": "There are much people in the shop.",
+      "right": "There are many people in the shop.",
+      "why": {
+        "en": "People is a plural countable noun, so use many. You can also say: There are a lot of people in the shop.",
+        "vi": "People là danh từ đếm được số nhiều, nên dùng many. Cũng có thể nói: There are a lot of people in the shop."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "few-little",
+      "note": {
+        "en": "Some, any, much, many, and a lot of mainly show quantity. Few/a few and little/a little also show the speaker's feeling about the quantity: a few/a little means a small but enough amount, while few/little means not many or not much and often sounds negative.",
+        "vi": "Some, any, much, many và a lot of chủ yếu diễn tả số lượng. Few/a few và little/a little còn thể hiện cảm giác của người nói về số lượng đó: a few/a little nghĩa là ít nhưng vẫn đủ, còn few/little nghĩa là không nhiều và thường mang sắc thái tiêu cực."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: many apples, much water, a lot of both; some for yes, any for no or maybe.",
+    "vi": "Hãy nhớ: many apples, much water, a lot of dùng cho cả hai; some cho câu khẳng định, any cho câu phủ định hoặc khi chưa biết."
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "summary": {
+    "en": "When, while, as soon as, and until introduce time clauses. They tell us when something happens, and when we talk about the future, we usually use the present simple in the time clause, not will.",
+    "vi": "When, while, as soon as và until mở đầu mệnh đề thời gian. Chúng cho biết khi nào một việc xảy ra, và khi nói về tương lai, ta thường dùng thì hiện tại đơn trong mệnh đề thời gian, không dùng will."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Time clause before main clause",
+        "vi": "Mệnh đề thời gian đứng trước mệnh đề chính"
+      },
+      "pattern": "When / While / As soon as / Until + S + V, S + V",
+      "example": {
+        "en": "When I get home, I will call you.",
+        "vi": "Khi tôi về đến nhà, tôi sẽ gọi cho bạn."
+      }
+    },
+    {
+      "label": {
+        "en": "Time clause after main clause",
+        "vi": "Mệnh đề thời gian đứng sau mệnh đề chính"
+      },
+      "pattern": "S + V + when / while / as soon as / until + S + V",
+      "example": {
+        "en": "I will call you when I get home.",
+        "vi": "Tôi sẽ gọi cho bạn khi tôi về đến nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative time clause",
+        "vi": "Mệnh đề thời gian phủ định"
+      },
+      "pattern": "S + will not / do not / does not + V + until + S + V",
+      "example": {
+        "en": "We will not start until everyone is ready.",
+        "vi": "Chúng ta sẽ không bắt đầu cho đến khi mọi người sẵn sàng."
+      }
+    },
+    {
+      "label": {
+        "en": "Past time clause",
+        "vi": "Mệnh đề thời gian ở quá khứ"
+      },
+      "pattern": "When / While / As soon as / Until + S + V-ed / was/were + V-ing, S + V-ed",
+      "example": {
+        "en": "While I was cooking, my sister cleaned the table.",
+        "vi": "Trong khi tôi đang nấu ăn, em gái tôi dọn bàn."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "When: at the time something happens",
+        "vi": "When: vào lúc một việc xảy ra"
+      },
+      "explanation": {
+        "en": "Use when for a general time or a specific moment. It can talk about the past, present, or future.",
+        "vi": "Dùng when để nói về một thời điểm chung hoặc một thời điểm cụ thể. Nó có thể dùng cho quá khứ, hiện tại hoặc tương lai."
+      },
+      "examples": [
+        {
+          "en": "When the lesson ends, we can go for lunch.",
+          "vi": "Khi buổi học kết thúc, chúng ta có thể đi ăn trưa."
+        },
+        {
+          "en": "I was very nervous when I took the test.",
+          "vi": "Tôi đã rất lo lắng khi làm bài kiểm tra."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "While: during the same time",
+        "vi": "While: trong cùng khoảng thời gian"
+      },
+      "explanation": {
+        "en": "Use while for actions or situations that happen at the same time, especially longer actions.",
+        "vi": "Dùng while cho các hành động hoặc tình huống xảy ra cùng lúc, đặc biệt là các hành động kéo dài."
+      },
+      "examples": [
+        {
+          "en": "Please do not talk while the teacher is explaining.",
+          "vi": "Làm ơn đừng nói chuyện khi giáo viên đang giải thích."
+        },
+        {
+          "en": "While I was waiting for the bus, it started to rain.",
+          "vi": "Trong khi tôi đang đợi xe buýt, trời bắt đầu mưa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "As soon as: immediately after",
+        "vi": "As soon as: ngay khi"
+      },
+      "explanation": {
+        "en": "Use as soon as when one action happens immediately after another action.",
+        "vi": "Dùng as soon as khi một hành động xảy ra ngay sau một hành động khác."
+      },
+      "examples": [
+        {
+          "en": "As soon as I receive the email, I will reply.",
+          "vi": "Ngay khi tôi nhận được email, tôi sẽ trả lời."
+        },
+        {
+          "en": "She called her parents as soon as she arrived.",
+          "vi": "Cô ấy gọi cho bố mẹ ngay khi cô ấy đến nơi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Until: up to a time",
+        "vi": "Until: cho đến một thời điểm"
+      },
+      "explanation": {
+        "en": "Use until to show that an action or situation continues up to a certain time and then stops or changes.",
+        "vi": "Dùng until để diễn tả một hành động hoặc tình huống tiếp tục đến một thời điểm nhất định rồi dừng lại hoặc thay đổi."
+      },
+      "examples": [
+        {
+          "en": "I stayed at the office until the meeting finished.",
+          "vi": "Tôi ở lại văn phòng cho đến khi cuộc họp kết thúc."
+        },
+        {
+          "en": "Do not leave until I come back.",
+          "vi": "Đừng rời đi cho đến khi tôi quay lại."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Future meaning with present tense",
+        "vi": "Nghĩa tương lai với thì hiện tại"
+      },
+      "explanation": {
+        "en": "After when, while, as soon as, and until, use the present simple or present perfect for future time. Do not normally use will in the time clause.",
+        "vi": "Sau when, while, as soon as và until, dùng hiện tại đơn hoặc hiện tại hoàn thành để nói về tương lai. Thường không dùng will trong mệnh đề thời gian."
+      },
+      "examples": [
+        {
+          "en": "I will tell you when he arrives.",
+          "vi": "Tôi sẽ nói cho bạn biết khi anh ấy đến."
+        },
+        {
+          "en": "We will leave as soon as we have finished dinner.",
+          "vi": "Chúng tôi sẽ rời đi ngay khi ăn tối xong."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "when",
+    "while",
+    "as soon as",
+    "until",
+    "before",
+    "after",
+    "by the time",
+    "immediately after",
+    "at the same time"
+  ],
+  "mistakes": [
+    {
+      "wrong": "When I will arrive, I will call you.",
+      "right": "When I arrive, I will call you.",
+      "why": {
+        "en": "For future time clauses after when, use the present simple, not will.",
+        "vi": "Trong mệnh đề thời gian chỉ tương lai sau when, dùng hiện tại đơn, không dùng will."
+      }
+    },
+    {
+      "wrong": "While I cooking, my phone rang.",
+      "right": "While I was cooking, my phone rang.",
+      "why": {
+        "en": "A continuous action needs be + -ing. Do not leave out was or were.",
+        "vi": "Một hành động đang diễn ra cần be + V-ing. Không được bỏ was hoặc were."
+      }
+    },
+    {
+      "wrong": "I wait until he will come.",
+      "right": "I will wait until he comes.",
+      "why": {
+        "en": "The main clause can use will for the future, but the until-clause uses the present simple.",
+        "vi": "Mệnh đề chính có thể dùng will để nói về tương lai, nhưng mệnh đề với until dùng hiện tại đơn."
+      }
+    },
+    {
+      "wrong": "As soon as she arrive, we will start.",
+      "right": "As soon as she arrives, we will start.",
+      "why": {
+        "en": "With he, she, or it in the present simple, add -s or -es to the verb.",
+        "vi": "Với he, she hoặc it ở thì hiện tại đơn, thêm -s hoặc -es vào động từ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Future plan? Put will in the main clause, but keep the time clause in the present: I will go when I am ready.",
+    "vi": "Kế hoạch tương lai? Đặt will ở mệnh đề chính, nhưng giữ mệnh đề thời gian ở hiện tại: I will go when I am ready."
+  }
+}

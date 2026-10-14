@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "en": "Use few/a few with plural countable nouns, and little/a little with uncountable nouns. Few and little mean “not much/many” and often sound negative; a few and a little mean “some” and sound more positive.",
+    "vi": "Dùng few/a few với danh từ đếm được số nhiều, và little/a little với danh từ không đếm được. Few và little nghĩa là “không nhiều” và thường mang ý phủ định; a few và a little nghĩa là “một ít/một vài” và tích cực hơn."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "With plural countable nouns",
+        "vi": "Với danh từ đếm được số nhiều"
+      },
+      "pattern": "few/a few + plural countable noun",
+      "example": {
+        "en": "I have a few questions.",
+        "vi": "Tôi có một vài câu hỏi."
+      }
+    },
+    {
+      "label": {
+        "en": "With uncountable nouns",
+        "vi": "Với danh từ không đếm được"
+      },
+      "pattern": "little/a little + uncountable noun",
+      "example": {
+        "en": "There is a little milk in the fridge.",
+        "vi": "Có một ít sữa trong tủ lạnh."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative meaning without not",
+        "vi": "Ý phủ định nhưng không dùng not"
+      },
+      "pattern": "few/little + noun + affirmative verb",
+      "example": {
+        "en": "Few people understood the joke.",
+        "vi": "Rất ít người hiểu câu chuyện cười đó."
+      }
+    },
+    {
+      "label": {
+        "en": "Questions",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Do/Does/Did + subject + have/need/want + a few/a little + noun?",
+      "example": {
+        "en": "Do you need a little help?",
+        "vi": "Bạn có cần một chút giúp đỡ không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "A few = some, enough or useful",
+        "vi": "A few = một vài, đủ hoặc có ích"
+      },
+      "explanation": {
+        "en": "Use a few with plural countable nouns when you mean a small number, but the meaning is usually positive.",
+        "vi": "Dùng a few với danh từ đếm được số nhiều khi muốn nói một số lượng nhỏ, nhưng nghĩa thường tích cực."
+      },
+      "examples": [
+        {
+          "en": "We have a few minutes before the meeting.",
+          "vi": "Chúng ta có vài phút trước cuộc họp."
+        },
+        {
+          "en": "She invited a few friends to dinner.",
+          "vi": "Cô ấy mời một vài người bạn đến ăn tối."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Few = not many, almost none",
+        "vi": "Few = không nhiều, hầu như không có"
+      },
+      "explanation": {
+        "en": "Use few with plural countable nouns to show that the number is smaller than expected or not enough.",
+        "vi": "Dùng few với danh từ đếm được số nhiều để nói số lượng ít hơn mong đợi hoặc không đủ."
+      },
+      "examples": [
+        {
+          "en": "Few students finished the test on time.",
+          "vi": "Rất ít học sinh hoàn thành bài kiểm tra đúng giờ."
+        },
+        {
+          "en": "There were few seats left on the bus.",
+          "vi": "Còn rất ít chỗ ngồi trên xe buýt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A little = some, enough or useful",
+        "vi": "A little = một chút, đủ hoặc có ích"
+      },
+      "explanation": {
+        "en": "Use a little with uncountable nouns when you mean a small amount, but it is enough or helpful.",
+        "vi": "Dùng a little với danh từ không đếm được khi muốn nói một lượng nhỏ nhưng đủ hoặc có ích."
+      },
+      "examples": [
+        {
+          "en": "I speak a little French.",
+          "vi": "Tôi nói được một chút tiếng Pháp."
+        },
+        {
+          "en": "Add a little sugar to the tea.",
+          "vi": "Thêm một chút đường vào trà."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Little = not much, almost none",
+        "vi": "Little = không nhiều, hầu như không có"
+      },
+      "explanation": {
+        "en": "Use little with uncountable nouns to show that the amount is smaller than expected or not enough.",
+        "vi": "Dùng little với danh từ không đếm được để nói lượng ít hơn mong đợi hoặc không đủ."
+      },
+      "examples": [
+        {
+          "en": "We have little time to prepare.",
+          "vi": "Chúng ta có rất ít thời gian để chuẩn bị."
+        },
+        {
+          "en": "He showed little interest in the topic.",
+          "vi": "Anh ấy tỏ ra rất ít quan tâm đến chủ đề đó."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "a few + plural countable noun: a few books, a few days",
+    "few + plural countable noun: few people, few chances",
+    "a little + uncountable noun: a little water, a little money",
+    "little + uncountable noun: little time, little information"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have a little friends in London.",
+      "right": "I have a few friends in London.",
+      "why": {
+        "en": "Friends is a plural countable noun, so use a few, not a little.",
+        "vi": "Friends là danh từ đếm được số nhiều, nên dùng a few, không dùng a little."
+      }
+    },
+    {
+      "wrong": "There are little people in the room.",
+      "right": "There are few people in the room.",
+      "why": {
+        "en": "People is plural and countable in this sentence, so use few. Little is for uncountable nouns.",
+        "vi": "People trong câu này là danh từ số nhiều và đếm được, nên dùng few. Little dùng cho danh từ không đếm được."
+      }
+    },
+    {
+      "wrong": "She has few money.",
+      "right": "She has little money.",
+      "why": {
+        "en": "Money is uncountable, so use little or a little, not few.",
+        "vi": "Money là danh từ không đếm được, nên dùng little hoặc a little, không dùng few."
+      }
+    },
+    {
+      "wrong": "He know a few good restaurants.",
+      "right": "He knows a few good restaurants.",
+      "why": {
+        "en": "After he/she/it in the present simple, add -s or -es to the verb. The quantifier does not change the verb rule.",
+        "vi": "Sau he/she/it ở thì hiện tại đơn, thêm -s hoặc -es vào động từ. Lượng từ không làm thay đổi quy tắc chia động từ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "No a = negative feeling: few/little. With a = some and more positive: a few/a little.",
+    "vi": "Không có a = cảm giác tiêu cực: few/little. Có a = một ít/một vài và tích cực hơn: a few/a little."
+  }
+}

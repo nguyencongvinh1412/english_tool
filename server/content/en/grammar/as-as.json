@@ -1,0 +1,188 @@
+{
+  "summary": {
+    "en": "Use as ... as to say that two people or things are equal in some way. It is often used with adjectives or adverbs.",
+    "vi": "Dùng as ... as để nói hai người hoặc hai vật bằng nhau về một điểm nào đó. Cấu trúc này thường dùng với tính từ hoặc trạng từ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with an adjective",
+        "vi": "Khẳng định với tính từ"
+      },
+      "pattern": "S + be + as + adjective + as + noun/pronoun",
+      "example": {
+        "en": "My bag is as heavy as yours.",
+        "vi": "Cặp của tôi nặng bằng cặp của bạn."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with an adverb",
+        "vi": "Khẳng định với trạng từ"
+      },
+      "pattern": "S + verb + as + adverb + as + noun/pronoun",
+      "example": {
+        "en": "She runs as fast as her brother.",
+        "vi": "Cô ấy chạy nhanh bằng anh trai/em trai của cô ấy."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + be/do/does/did + not + as + adjective/adverb + as + noun/pronoun",
+      "example": {
+        "en": "This exercise is not as difficult as the last one.",
+        "vi": "Bài tập này không khó bằng bài trước."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be/Do/Does/Did + S + verb + as + adjective/adverb + as + noun/pronoun?",
+      "example": {
+        "en": "Is your new phone as expensive as your old one?",
+        "vi": "Điện thoại mới của bạn có đắt bằng cái cũ không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Say two things are equal",
+        "vi": "Nói hai thứ ngang bằng nhau"
+      },
+      "explanation": {
+        "en": "Use as + adjective/adverb + as when the level is the same or nearly the same.",
+        "vi": "Dùng as + tính từ/trạng từ + as khi mức độ giống nhau hoặc gần như giống nhau."
+      },
+      "examples": [
+        {
+          "en": "Lan is as tall as Mai.",
+          "vi": "Lan cao bằng Mai."
+        },
+        {
+          "en": "This room is as large as that room.",
+          "vi": "Phòng này rộng bằng phòng kia."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Say two things are not equal",
+        "vi": "Nói hai thứ không ngang bằng nhau"
+      },
+      "explanation": {
+        "en": "Use not as ... as to say that one thing has a lower level than another.",
+        "vi": "Dùng not as ... as để nói một thứ có mức độ thấp hơn thứ khác."
+      },
+      "examples": [
+        {
+          "en": "My English is not as good as my sister's.",
+          "vi": "Tiếng Anh của tôi không giỏi bằng của chị/em gái tôi."
+        },
+        {
+          "en": "The bus is not as fast as the train.",
+          "vi": "Xe buýt không nhanh bằng tàu hỏa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Compare actions",
+        "vi": "So sánh hành động"
+      },
+      "explanation": {
+        "en": "With many action verbs, use an adverb between as and as.",
+        "vi": "Với nhiều động từ chỉ hành động, dùng trạng từ ở giữa as và as."
+      },
+      "examples": [
+        {
+          "en": "He speaks as clearly as the teacher.",
+          "vi": "Anh ấy nói rõ bằng giáo viên."
+        },
+        {
+          "en": "I cannot swim as well as you.",
+          "vi": "Tôi không thể bơi giỏi bằng bạn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use numbers with as many/much ... as",
+        "vi": "Dùng số lượng với as many/much ... as"
+      },
+      "explanation": {
+        "en": "Use as many ... as with countable nouns and as much ... as with uncountable nouns.",
+        "vi": "Dùng as many ... as với danh từ đếm được và as much ... as với danh từ không đếm được."
+      },
+      "examples": [
+        {
+          "en": "I have as many books as Nam.",
+          "vi": "Tôi có nhiều sách bằng Nam."
+        },
+        {
+          "en": "She does not drink as much coffee as her father.",
+          "vi": "Cô ấy không uống nhiều cà phê bằng bố cô ấy."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "as ... as",
+    "not as ... as",
+    "not so ... as",
+    "as much ... as",
+    "as many ... as"
+  ],
+  "mistakes": [
+    {
+      "wrong": "My brother as tall as me.",
+      "right": "My brother is as tall as me.",
+      "why": {
+        "en": "The sentence needs the verb be before as tall as.",
+        "vi": "Câu cần động từ be trước as tall as."
+      }
+    },
+    {
+      "wrong": "She is as taller as her friend.",
+      "right": "She is as tall as her friend.",
+      "why": {
+        "en": "After as, use the normal adjective, not the comparative form.",
+        "vi": "Sau as, dùng tính từ dạng thường, không dùng dạng so sánh hơn."
+      }
+    },
+    {
+      "wrong": "He runs as fast than me.",
+      "right": "He runs as fast as me.",
+      "why": {
+        "en": "The correct structure is as ... as, not as ... than.",
+        "vi": "Cấu trúc đúng là as ... as, không phải as ... than."
+      }
+    },
+    {
+      "wrong": "This car not as expensive as that car.",
+      "right": "This car is not as expensive as that car.",
+      "why": {
+        "en": "Use is not with an adjective. Do not leave out be.",
+        "vi": "Dùng is not với tính từ. Không được bỏ động từ be."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "comparatives",
+      "note": {
+        "en": "Use as ... as for equality: This phone is as cheap as that one. Use a comparative for difference: This phone is cheaper than that one.",
+        "vi": "Dùng as ... as để nói bằng nhau: Chiếc điện thoại này rẻ bằng chiếc kia. Dùng so sánh hơn để nói khác nhau: Chiếc điện thoại này rẻ hơn chiếc kia."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think of as ... as as two equal arms: as tall as, as fast as, as good as.",
+    "vi": "Hãy nhớ as ... as như hai cánh tay bằng nhau: as tall as, as fast as, as good as."
+  }
+}

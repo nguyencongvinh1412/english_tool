@@ -1,0 +1,182 @@
+{
+  "summary": {
+    "en": "Reported questions tell someone what another person asked, without using the exact words. We use them after verbs such as ask, want to know, wonder, and enquire/inquire.",
+    "vi": "Câu tường thuật dạng câu hỏi dùng để kể lại điều người khác đã hỏi, không dùng nguyên văn. Ta dùng sau các động từ như ask, want to know, wonder, và enquire/inquire."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi có từ hỏi Wh-"
+      },
+      "pattern": "S + asked/wanted to know + wh-word + S + V",
+      "example": {
+        "en": "She asked where I lived.",
+        "vi": "Cô ấy hỏi tôi sống ở đâu."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "S + asked/wanted to know + if/whether + S + V",
+      "example": {
+        "en": "He asked if I was busy.",
+        "vi": "Anh ấy hỏi tôi có bận không."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative reported question",
+        "vi": "Câu hỏi tường thuật phủ định"
+      },
+      "pattern": "S + asked/wanted to know + question word/if/whether + S + negative verb",
+      "example": {
+        "en": "They asked why we didn’t call them.",
+        "vi": "Họ hỏi tại sao chúng tôi đã không gọi cho họ."
+      }
+    },
+    {
+      "label": {
+        "en": "Polite reported question",
+        "vi": "Câu hỏi tường thuật lịch sự"
+      },
+      "pattern": "S + wondered/would like to know + question word/if/whether + S + V",
+      "example": {
+        "en": "I wondered whether the train was late.",
+        "vi": "Tôi tự hỏi liệu chuyến tàu có trễ không."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Reporting information questions",
+        "vi": "Tường thuật câu hỏi lấy thông tin"
+      },
+      "explanation": {
+        "en": "Use the original question word, such as what, where, when, why, who, or how. In reported questions, use statement word order: subject before verb.",
+        "vi": "Dùng lại từ hỏi ban đầu, như what, where, when, why, who, hoặc how. Trong câu hỏi tường thuật, dùng trật tự câu kể: chủ ngữ đứng trước động từ."
+      },
+      "examples": [
+        {
+          "en": "“Where are you going?” → He asked where I was going.",
+          "vi": "“Bạn đang đi đâu?” → Anh ấy hỏi tôi đang đi đâu."
+        },
+        {
+          "en": "“What does she want?” → I asked what she wanted.",
+          "vi": "“Cô ấy muốn gì?” → Tôi hỏi cô ấy muốn gì."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting yes/no questions",
+        "vi": "Tường thuật câu hỏi yes/no"
+      },
+      "explanation": {
+        "en": "When there is no question word, use if or whether. Whether is a little more formal; both are common in British and American English.",
+        "vi": "Khi câu hỏi không có từ hỏi, dùng if hoặc whether. Whether trang trọng hơn một chút; cả hai đều thông dụng trong tiếng Anh Anh và Anh Mỹ."
+      },
+      "examples": [
+        {
+          "en": "“Do you like coffee?” → She asked if I liked coffee.",
+          "vi": "“Bạn có thích cà phê không?” → Cô ấy hỏi tôi có thích cà phê không."
+        },
+        {
+          "en": "“Is the shop open?” → He wanted to know whether the shop was open.",
+          "vi": "“Cửa hàng có mở cửa không?” → Anh ấy muốn biết liệu cửa hàng có mở cửa không."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Changing tense, pronouns, and time words",
+        "vi": "Thay đổi thì, đại từ và từ chỉ thời gian"
+      },
+      "explanation": {
+        "en": "If the reporting verb is in the past, we often move the tense back and change pronouns and time words to fit the new situation.",
+        "vi": "Nếu động từ tường thuật ở quá khứ, ta thường lùi thì và đổi đại từ, từ chỉ thời gian cho phù hợp với tình huống mới."
+      },
+      "examples": [
+        {
+          "en": "“Are you free tomorrow?” → She asked if I was free the next day.",
+          "vi": "“Ngày mai bạn có rảnh không?” → Cô ấy hỏi tôi ngày hôm sau có rảnh không."
+        },
+        {
+          "en": "“Why did you leave early?” → My boss asked why I had left early.",
+          "vi": "“Tại sao bạn đã về sớm?” → Sếp tôi hỏi tại sao tôi đã về sớm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Reporting a question that is still true",
+        "vi": "Tường thuật câu hỏi về điều vẫn đúng"
+      },
+      "explanation": {
+        "en": "Backshift is common, but not always necessary when the information is still true or the question has just been asked.",
+        "vi": "Lùi thì là cách dùng phổ biến, nhưng không phải lúc nào cũng bắt buộc nếu thông tin vẫn đúng hoặc câu hỏi vừa mới được hỏi."
+      },
+      "examples": [
+        {
+          "en": "She asked what my name is.",
+          "vi": "Cô ấy hỏi tên tôi là gì."
+        },
+        {
+          "en": "He asked if the meeting starts at nine.",
+          "vi": "Anh ấy hỏi cuộc họp có bắt đầu lúc chín giờ không."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "ask",
+    "want to know",
+    "wonder",
+    "enquire/inquire",
+    "question words: what, where, when, why, who, how",
+    "if",
+    "whether"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She asked where did I live.",
+      "right": "She asked where I lived.",
+      "why": {
+        "en": "A reported question uses statement word order: subject before verb. Do not use question word order after asked where.",
+        "vi": "Câu hỏi tường thuật dùng trật tự câu kể: chủ ngữ trước động từ. Không dùng trật tự câu hỏi sau asked where."
+      }
+    },
+    {
+      "wrong": "He asked me do I like music.",
+      "right": "He asked me if I liked music.",
+      "why": {
+        "en": "For a yes/no question, use if or whether. Also, after a past reporting verb, the tense often changes from do like to liked.",
+        "vi": "Với câu hỏi yes/no, dùng if hoặc whether. Ngoài ra, sau động từ tường thuật ở quá khứ, thì thường đổi từ do like thành liked."
+      }
+    },
+    {
+      "wrong": "They asked why I late.",
+      "right": "They asked why I was late.",
+      "why": {
+        "en": "English needs the verb be before an adjective. Late is an adjective here, so we say I was late.",
+        "vi": "Tiếng Anh cần động từ be trước tính từ. Late ở đây là tính từ, nên nói I was late."
+      }
+    },
+    {
+      "wrong": "She asked me where I am going tomorrow.",
+      "right": "She asked me where I was going the next day.",
+      "why": {
+        "en": "When reporting a past question, we often change the tense and time word: am going becomes was going, and tomorrow becomes the next day.",
+        "vi": "Khi tường thuật một câu hỏi trong quá khứ, ta thường đổi thì và từ chỉ thời gian: am going thành was going, và tomorrow thành the next day."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: reported questions are not real questions in word order. Say “He asked where I was,” not “where was I.”",
+    "vi": "Hãy nhớ: câu hỏi tường thuật không dùng trật tự như câu hỏi trực tiếp. Nói “He asked where I was”, không nói “where was I”."
+  }
+}

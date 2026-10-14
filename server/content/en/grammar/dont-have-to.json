@@ -1,0 +1,202 @@
+{
+  "summary": {
+    "en": "Use mustn't to say something is prohibited or very important not to do. Use don't have to and needn't to say something is not necessary; you can do it if you want, but it is not required.",
+    "vi": "Dùng mustn't để nói điều gì đó bị cấm hoặc rất quan trọng là không được làm. Dùng don't have to và needn't để nói điều gì đó không cần thiết; bạn có thể làm nếu muốn, nhưng không bắt buộc."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Prohibition with mustn't",
+        "vi": "Cấm đoán với mustn't"
+      },
+      "pattern": "S + mustn't + base verb",
+      "example": {
+        "en": "You mustn't park here.",
+        "vi": "Bạn không được đỗ xe ở đây."
+      }
+    },
+    {
+      "label": {
+        "en": "No necessity with don't/doesn't have to",
+        "vi": "Không cần thiết với don't/doesn't have to"
+      },
+      "pattern": "S + don't/doesn't have to + base verb",
+      "example": {
+        "en": "She doesn't have to work on Sunday.",
+        "vi": "Cô ấy không phải làm việc vào Chủ nhật."
+      }
+    },
+    {
+      "label": {
+        "en": "No necessity with needn't",
+        "vi": "Không cần thiết với needn't"
+      },
+      "pattern": "S + needn't + base verb",
+      "example": {
+        "en": "You needn't bring any food.",
+        "vi": "Bạn không cần mang đồ ăn."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with have to",
+        "vi": "Câu hỏi với have to"
+      },
+      "pattern": "Do/Does + S + have to + base verb?",
+      "example": {
+        "en": "Do we have to wear a uniform?",
+        "vi": "Chúng ta có phải mặc đồng phục không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Question with need",
+        "vi": "Câu hỏi với need"
+      },
+      "pattern": "Need + S + base verb?",
+      "example": {
+        "en": "Need I sign this form now?",
+        "vi": "Tôi có cần ký mẫu này bây giờ không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Rules and warnings: mustn't",
+        "vi": "Quy định và cảnh báo: mustn't"
+      },
+      "explanation": {
+        "en": "Use mustn't when something is not allowed. It means 'do not do this'.",
+        "vi": "Dùng mustn't khi điều gì đó không được phép. Nó có nghĩa là “đừng làm việc này”."
+      },
+      "examples": [
+        {
+          "en": "Visitors mustn't touch the paintings.",
+          "vi": "Khách tham quan không được chạm vào các bức tranh."
+        },
+        {
+          "en": "You mustn't tell anyone my password.",
+          "vi": "Bạn không được nói mật khẩu của tôi cho bất kỳ ai."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "No obligation: don't have to",
+        "vi": "Không bắt buộc: don't have to"
+      },
+      "explanation": {
+        "en": "Use don't have to when there is no rule or need to do something. The action is optional.",
+        "vi": "Dùng don't have to khi không có quy định hoặc nhu cầu phải làm điều gì đó. Hành động đó là tùy chọn."
+      },
+      "examples": [
+        {
+          "en": "You don't have to pay now; you can pay tomorrow.",
+          "vi": "Bạn không phải trả tiền bây giờ; bạn có thể trả vào ngày mai."
+        },
+        {
+          "en": "He doesn't have to get up early on Saturdays.",
+          "vi": "Anh ấy không phải dậy sớm vào thứ Bảy."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "No necessity: needn't",
+        "vi": "Không cần thiết: needn't"
+      },
+      "explanation": {
+        "en": "Needn't is similar to don't have to, but it often sounds a little more formal or British. It is used more in British English than in American English.",
+        "vi": "Needn't gần giống don't have to, nhưng thường nghe hơi trang trọng hơn hoặc mang sắc thái Anh-Anh. Nó được dùng nhiều hơn trong tiếng Anh-Anh so với tiếng Anh-Mỹ."
+      },
+      "examples": [
+        {
+          "en": "You needn't worry; everything is fine.",
+          "vi": "Bạn không cần lo lắng; mọi thứ đều ổn."
+        },
+        {
+          "en": "We needn't book a table; the restaurant is usually quiet.",
+          "vi": "Chúng ta không cần đặt bàn; nhà hàng thường khá vắng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Asking about necessity",
+        "vi": "Hỏi về sự cần thiết"
+      },
+      "explanation": {
+        "en": "To ask if something is necessary, use Do/Does ... have to ...? This is the most common form. Need I ...? is possible but formal and much less common.",
+        "vi": "Để hỏi điều gì đó có cần thiết không, dùng Do/Does ... have to ...? Đây là dạng thông dụng nhất. Need I ...? có thể dùng nhưng trang trọng và ít phổ biến hơn nhiều."
+      },
+      "examples": [
+        {
+          "en": "Do I have to finish this today?",
+          "vi": "Tôi có phải hoàn thành việc này hôm nay không?"
+        },
+        {
+          "en": "Does she have to bring her passport?",
+          "vi": "Cô ấy có phải mang hộ chiếu không?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "no need",
+    "not necessary",
+    "optional",
+    "allowed, but not required",
+    "against the rules",
+    "forbidden",
+    "do not",
+    "not allowed"
+  ],
+  "mistakes": [
+    {
+      "wrong": "You mustn't come early; the meeting starts at 10.",
+      "right": "You don't have to come early; the meeting starts at 10.",
+      "why": {
+        "en": "Mustn't means it is forbidden. Here the meaning is 'it is not necessary', so use don't have to.",
+        "vi": "Mustn't có nghĩa là bị cấm. Ở đây ý là “không cần thiết”, nên dùng don't have to."
+      }
+    },
+    {
+      "wrong": "She don't have to wear a uniform.",
+      "right": "She doesn't have to wear a uniform.",
+      "why": {
+        "en": "With he, she, and it in the present simple negative, use doesn't, not don't.",
+        "vi": "Với he, she và it ở phủ định hiện tại đơn, dùng doesn't, không dùng don't."
+      }
+    },
+    {
+      "wrong": "You needn't to call me tonight.",
+      "right": "You needn't call me tonight.",
+      "why": {
+        "en": "After needn't, use the base verb without to.",
+        "vi": "Sau needn't, dùng động từ nguyên thể không có to."
+      }
+    },
+    {
+      "wrong": "He mustn't to smoke here.",
+      "right": "He mustn't smoke here.",
+      "why": {
+        "en": "After mustn't, use the base verb without to.",
+        "vi": "Sau mustn't, dùng động từ nguyên thể không có to."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "must-have-to",
+      "note": {
+        "en": "Must and have to are affirmative forms of obligation: You must go / You have to go. But their negatives are different: mustn't means 'do not do it', while don't have to means 'it is not necessary'.",
+        "vi": "Must và have to ở dạng khẳng định diễn tả nghĩa vụ: You must go / You have to go. Nhưng dạng phủ định của chúng khác nhau: mustn't nghĩa là “không được làm”, còn don't have to nghĩa là “không cần thiết”."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: mustn't = stop; don't have to / needn't = no need.",
+    "vi": "Hãy nhớ: mustn't = dừng lại/không được; don't have to / needn't = không cần."
+  }
+}

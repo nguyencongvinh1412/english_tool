@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "Use used to and would to talk about past habits or repeated actions that are not true now. Use used to, not would, for past states such as having, knowing, liking, or living.",
+    "vi": "Dùng used to và would để nói về thói quen hoặc hành động lặp lại trong quá khứ mà bây giờ không còn nữa. Dùng used to, không dùng would, cho các trạng thái trong quá khứ như có, biết, thích, hoặc sống ở đâu."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative with used to",
+        "vi": "Khẳng định với used to"
+      },
+      "pattern": "S + used to + base verb + O",
+      "example": {
+        "en": "I used to ride my bike to school.",
+        "vi": "Trước đây tôi thường đạp xe đi học."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative with used to",
+        "vi": "Phủ định với used to"
+      },
+      "pattern": "S + did not / didn't + use to + base verb + O",
+      "example": {
+        "en": "She didn't use to drink coffee.",
+        "vi": "Trước đây cô ấy không thường uống cà phê."
+      }
+    },
+    {
+      "label": {
+        "en": "Question with used to",
+        "vi": "Câu hỏi với used to"
+      },
+      "pattern": "Did + S + use to + base verb + O?",
+      "example": {
+        "en": "Did you use to play football after school?",
+        "vi": "Trước đây bạn có thường chơi bóng đá sau giờ học không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with would",
+        "vi": "Khẳng định với would"
+      },
+      "pattern": "S + would + base verb + O",
+      "example": {
+        "en": "Every summer, we would visit our grandparents.",
+        "vi": "Mỗi mùa hè, chúng tôi thường đến thăm ông bà."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Past habits that are no longer true",
+        "vi": "Thói quen trong quá khứ nay không còn"
+      },
+      "explanation": {
+        "en": "Use used to for something you did regularly in the past but do not do now.",
+        "vi": "Dùng used to cho việc bạn làm thường xuyên trong quá khứ nhưng bây giờ không làm nữa."
+      },
+      "examples": [
+        {
+          "en": "He used to smoke, but he stopped five years ago.",
+          "vi": "Trước đây anh ấy thường hút thuốc, nhưng anh ấy đã bỏ năm năm trước."
+        },
+        {
+          "en": "We used to eat out every Friday.",
+          "vi": "Trước đây chúng tôi thường đi ăn ngoài vào mỗi thứ Sáu."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past states",
+        "vi": "Trạng thái trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use used to for past situations or states. Do not use would in this meaning.",
+        "vi": "Dùng used to cho tình huống hoặc trạng thái trong quá khứ. Không dùng would với nghĩa này."
+      },
+      "examples": [
+        {
+          "en": "I used to live near the beach.",
+          "vi": "Trước đây tôi từng sống gần biển."
+        },
+        {
+          "en": "She used to like horror films.",
+          "vi": "Trước đây cô ấy từng thích phim kinh dị."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Repeated past actions in stories",
+        "vi": "Hành động lặp lại trong quá khứ khi kể chuyện"
+      },
+      "explanation": {
+        "en": "Use would for repeated actions in the past, especially when the time or situation is already clear.",
+        "vi": "Dùng would cho các hành động lặp lại trong quá khứ, đặc biệt khi thời gian hoặc tình huống đã rõ."
+      },
+      "examples": [
+        {
+          "en": "When I was a child, my father would tell me stories at night.",
+          "vi": "Khi tôi còn nhỏ, bố tôi thường kể chuyện cho tôi nghe vào buổi tối."
+        },
+        {
+          "en": "On rainy days, we would stay inside and play cards.",
+          "vi": "Vào những ngày mưa, chúng tôi thường ở trong nhà và chơi bài."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Emphasising change from past to present",
+        "vi": "Nhấn mạnh sự thay đổi từ quá khứ đến hiện tại"
+      },
+      "explanation": {
+        "en": "Used to often shows a contrast between the past and now.",
+        "vi": "Used to thường cho thấy sự đối lập giữa quá khứ và hiện tại."
+      },
+      "examples": [
+        {
+          "en": "This town used to be quiet, but now it is very busy.",
+          "vi": "Thị trấn này trước đây từng yên tĩnh, nhưng bây giờ rất nhộn nhịp."
+        },
+        {
+          "en": "I used to be shy, but now I speak more confidently.",
+          "vi": "Trước đây tôi từng nhút nhát, nhưng bây giờ tôi nói tự tin hơn."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "when I was a child",
+    "in the past",
+    "years ago",
+    "every summer",
+    "every weekend",
+    "after school",
+    "on Sundays",
+    "but now"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I use to play badminton when I was young.",
+      "right": "I used to play badminton when I was young.",
+      "why": {
+        "en": "In affirmative sentences, use used to, not use to.",
+        "vi": "Trong câu khẳng định, dùng used to, không dùng use to."
+      }
+    },
+    {
+      "wrong": "She didn't used to like tea.",
+      "right": "She didn't use to like tea.",
+      "why": {
+        "en": "After did or didn't, the verb form is use to, not used to.",
+        "vi": "Sau did hoặc didn't, dùng dạng use to, không dùng used to."
+      }
+    },
+    {
+      "wrong": "Did you used to live here?",
+      "right": "Did you use to live here?",
+      "why": {
+        "en": "In questions with did, use the base form use to.",
+        "vi": "Trong câu hỏi với did, dùng dạng gốc use to."
+      }
+    },
+    {
+      "wrong": "I would have long hair when I was a child.",
+      "right": "I used to have long hair when I was a child.",
+      "why": {
+        "en": "Have long hair describes a past state, so used to is correct. Would is for repeated actions, not states.",
+        "vi": "Have long hair diễn tả một trạng thái trong quá khứ, nên dùng used to. Would dùng cho hành động lặp lại, không dùng cho trạng thái."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "past-simple",
+      "note": {
+        "en": "The past simple can describe one finished past action or a past habit. Used to and would focus on habits or repeated actions, and used to often shows that the situation is different now.",
+        "vi": "Thì quá khứ đơn có thể diễn tả một hành động đã kết thúc trong quá khứ hoặc một thói quen trong quá khứ. Used to và would tập trung vào thói quen hoặc hành động lặp lại, và used to thường cho thấy hiện tại đã khác."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Use used to for both past habits and past states; use would only for repeated past actions.",
+    "vi": "Dùng used to cho cả thói quen và trạng thái trong quá khứ; chỉ dùng would cho hành động lặp lại trong quá khứ."
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "summary": {
+    "en": "Use can, could, and may to ask for permission or to make requests. Could and may are more polite than can; may is more formal.",
+    "vi": "Dùng can, could và may để xin phép hoặc đưa ra lời đề nghị/nhờ vả. Could và may lịch sự hơn can; may trang trọng hơn."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Permission question",
+        "vi": "Câu hỏi xin phép"
+      },
+      "pattern": "Can/Could/May + I + V + O?",
+      "example": {
+        "en": "Could I open the window?",
+        "vi": "Tôi có thể mở cửa sổ được không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Request question",
+        "vi": "Câu hỏi nhờ vả/đề nghị"
+      },
+      "pattern": "Can/Could + you + V + O?",
+      "example": {
+        "en": "Can you help me with this form?",
+        "vi": "Bạn có thể giúp tôi với mẫu đơn này không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Giving permission",
+        "vi": "Cho phép"
+      },
+      "pattern": "Yes, you can/may. / Sure. / Of course.",
+      "example": {
+        "en": "Yes, you can use my phone.",
+        "vi": "Được, bạn có thể dùng điện thoại của tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Refusing permission or a request",
+        "vi": "Từ chối cho phép hoặc từ chối lời nhờ"
+      },
+      "pattern": "Sorry, you can't. / I'm sorry, I can't.",
+      "example": {
+        "en": "Sorry, you can't park here.",
+        "vi": "Xin lỗi, bạn không thể đỗ xe ở đây."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Ask for permission",
+        "vi": "Xin phép"
+      },
+      "explanation": {
+        "en": "Use Can I...? in everyday situations. Use Could I...? or May I...? when you want to sound more polite.",
+        "vi": "Dùng Can I...? trong tình huống hằng ngày. Dùng Could I...? hoặc May I...? khi muốn lịch sự hơn."
+      },
+      "examples": [
+        {
+          "en": "Can I sit here?",
+          "vi": "Tôi ngồi ở đây được không?"
+        },
+        {
+          "en": "May I leave early today?",
+          "vi": "Hôm nay tôi có thể về sớm được không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Ask someone to do something",
+        "vi": "Nhờ ai đó làm việc gì"
+      },
+      "explanation": {
+        "en": "Use Can you...? for normal requests. Use Could you...? for a more polite request.",
+        "vi": "Dùng Can you...? cho lời nhờ thông thường. Dùng Could you...? để nhờ một cách lịch sự hơn."
+      },
+      "examples": [
+        {
+          "en": "Can you pass me the salt?",
+          "vi": "Bạn đưa giúp tôi lọ muối được không?"
+        },
+        {
+          "en": "Could you speak more slowly, please?",
+          "vi": "Bạn có thể nói chậm hơn được không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Say yes or no politely",
+        "vi": "Đồng ý hoặc từ chối một cách lịch sự"
+      },
+      "explanation": {
+        "en": "Answer with short polite phrases. When you refuse, often give a reason.",
+        "vi": "Trả lời bằng các cụm từ ngắn và lịch sự. Khi từ chối, thường nên đưa ra lý do."
+      },
+      "examples": [
+        {
+          "en": "Of course. You can borrow my pen.",
+          "vi": "Tất nhiên rồi. Bạn có thể mượn bút của tôi."
+        },
+        {
+          "en": "I'm sorry, I can't come tonight. I have to work.",
+          "vi": "Xin lỗi, tối nay tôi không thể đến. Tôi phải làm việc."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Make requests softer with please",
+        "vi": "Làm lời nhờ nhẹ nhàng hơn với please"
+      },
+      "explanation": {
+        "en": "Please can go at the beginning or the end of the request. It is very common at the end.",
+        "vi": "Please có thể đứng ở đầu hoặc cuối lời nhờ. Vị trí cuối câu rất phổ biến."
+      },
+      "examples": [
+        {
+          "en": "Could you close the door, please?",
+          "vi": "Bạn có thể đóng cửa giúp tôi được không?"
+        },
+        {
+          "en": "Please can I use your computer?",
+          "vi": "Làm ơn cho tôi dùng máy tính của bạn được không?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "please",
+    "Can I...?",
+    "Could I...?",
+    "May I...?",
+    "Can you...?",
+    "Could you...?",
+    "Sure.",
+    "Of course.",
+    "I'm sorry, I can't."
+  ],
+  "mistakes": [
+    {
+      "wrong": "Can I to use your phone?",
+      "right": "Can I use your phone?",
+      "why": {
+        "en": "After can, could, and may, use the base verb without to.",
+        "vi": "Sau can, could và may, dùng động từ nguyên mẫu không có to."
+      }
+    },
+    {
+      "wrong": "Could you helps me?",
+      "right": "Could you help me?",
+      "why": {
+        "en": "After could, use the base verb. Do not add -s.",
+        "vi": "Sau could, dùng động từ nguyên mẫu. Không thêm -s."
+      }
+    },
+    {
+      "wrong": "You can help me?",
+      "right": "Can you help me?",
+      "why": {
+        "en": "In questions with can or could, put can/could before the subject.",
+        "vi": "Trong câu hỏi với can hoặc could, đặt can/could trước chủ ngữ."
+      }
+    },
+    {
+      "wrong": "May you open the door?",
+      "right": "Could you open the door?",
+      "why": {
+        "en": "May I...? is used to ask for permission for yourself. For a request to another person, use Can you...? or Could you...?",
+        "vi": "May I...? dùng để xin phép cho bản thân. Khi nhờ người khác làm gì, dùng Can you...? hoặc Could you...?"
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: I ask for permission with Can I...?; I ask for help with Can you...?. Use could to sound more polite.",
+    "vi": "Hãy nhớ: xin phép dùng Can I...?; nhờ giúp đỡ dùng Can you...?. Dùng could để lịch sự hơn."
+  }
+}

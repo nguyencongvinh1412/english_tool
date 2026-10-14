@@ -1,0 +1,192 @@
+{
+  "summary": {
+    "en": "The present simple talks about habits, facts, routines, and things that are generally true. With he, she, it, add -s or -es to the main verb in affirmative sentences.",
+    "vi": "Hiện tại đơn dùng để nói về thói quen, sự thật, lịch trình và những điều nói chung là đúng. Với he, she, it, thêm -s hoặc -es vào động từ chính trong câu khẳng định."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V(s/es) + O",
+      "example": {
+        "en": "She works in a bank.",
+        "vi": "Cô ấy làm việc ở ngân hàng."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + do/does not + V + O",
+      "example": {
+        "en": "They do not like coffee.",
+        "vi": "Họ không thích cà phê."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Nghi vấn"
+      },
+      "pattern": "Do/Does + S + V + O?",
+      "example": {
+        "en": "Does your brother play football?",
+        "vi": "Anh/em trai của bạn có chơi bóng đá không?"
+      }
+    },
+    {
+      "label": {
+        "en": "With be",
+        "vi": "Với động từ be"
+      },
+      "pattern": "S + am/is/are + adjective/noun/place",
+      "example": {
+        "en": "I am a student.",
+        "vi": "Tôi là học sinh/sinh viên."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Habits and routines",
+        "vi": "Thói quen và việc thường làm"
+      },
+      "explanation": {
+        "en": "Use the present simple for actions that happen regularly.",
+        "vi": "Dùng hiện tại đơn cho những hành động xảy ra thường xuyên."
+      },
+      "examples": [
+        {
+          "en": "I get up at six every day.",
+          "vi": "Tôi thức dậy lúc sáu giờ mỗi ngày."
+        },
+        {
+          "en": "He goes to school by bus.",
+          "vi": "Cậu ấy đi học bằng xe buýt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Facts and general truths",
+        "vi": "Sự thật và điều đúng nói chung"
+      },
+      "explanation": {
+        "en": "Use it for things that are always or usually true.",
+        "vi": "Dùng thì này cho những điều luôn đúng hoặc thường đúng."
+      },
+      "examples": [
+        {
+          "en": "Water boils at 100 degrees Celsius.",
+          "vi": "Nước sôi ở 100 độ C."
+        },
+        {
+          "en": "The sun rises in the east.",
+          "vi": "Mặt trời mọc ở phía đông."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Permanent situations",
+        "vi": "Tình huống lâu dài"
+      },
+      "explanation": {
+        "en": "Use the present simple for jobs, homes, and situations that are not temporary.",
+        "vi": "Dùng hiện tại đơn cho công việc, nơi ở và tình huống không mang tính tạm thời."
+      },
+      "examples": [
+        {
+          "en": "My parents live in Da Nang.",
+          "vi": "Bố mẹ tôi sống ở Đà Nẵng."
+        },
+        {
+          "en": "She teaches English.",
+          "vi": "Cô ấy dạy tiếng Anh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Timetables and schedules",
+        "vi": "Thời khóa biểu và lịch trình"
+      },
+      "explanation": {
+        "en": "Use the present simple for fixed times, such as buses, trains, classes, and films.",
+        "vi": "Dùng hiện tại đơn cho thời gian cố định, như xe buýt, tàu, lớp học và phim."
+      },
+      "examples": [
+        {
+          "en": "The train leaves at 7:30.",
+          "vi": "Tàu rời đi lúc 7:30."
+        },
+        {
+          "en": "The class starts on Monday.",
+          "vi": "Lớp học bắt đầu vào thứ Hai."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "always",
+    "usually",
+    "often",
+    "sometimes",
+    "never",
+    "every day",
+    "every week",
+    "on Mondays",
+    "in the morning"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She go to work by bike.",
+      "right": "She goes to work by bike.",
+      "why": {
+        "en": "With he, she, it in affirmative sentences, add -s or -es to the verb.",
+        "vi": "Với he, she, it trong câu khẳng định, thêm -s hoặc -es vào động từ."
+      }
+    },
+    {
+      "wrong": "He does not likes tea.",
+      "right": "He does not like tea.",
+      "why": {
+        "en": "After does not, use the base form of the verb, not the -s form.",
+        "vi": "Sau does not, dùng động từ nguyên mẫu, không dùng dạng thêm -s."
+      }
+    },
+    {
+      "wrong": "You are go to school every day.",
+      "right": "You go to school every day.",
+      "why": {
+        "en": "Do not use be before a main verb in the present simple.",
+        "vi": "Không dùng be trước động từ chính trong thì hiện tại đơn."
+      }
+    },
+    {
+      "wrong": "Where you live?",
+      "right": "Where do you live?",
+      "why": {
+        "en": "Use do or does to make questions with most present simple verbs.",
+        "vi": "Dùng do hoặc does để đặt câu hỏi với hầu hết động từ ở hiện tại đơn."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "present-continuous",
+      "note": {
+        "en": "Use the present simple for habits and general facts: I work in Hanoi. Use the present continuous for actions happening now or around now: I am working at home today.",
+        "vi": "Dùng hiện tại đơn cho thói quen và sự thật nói chung: I work in Hanoi. Dùng hiện tại tiếp diễn cho hành động đang xảy ra bây giờ hoặc quanh thời điểm hiện tại: I am working at home today."
+      }
+    }
+  ],
+  "tip": {
+    "en": "For he, she, it, remember: one person, one extra -s.",
+    "vi": "Với he, she, it, hãy nhớ: một người/đối tượng thì thêm một -s."
+  }
+}

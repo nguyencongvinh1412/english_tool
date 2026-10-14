@@ -1,0 +1,182 @@
+{
+  "summary": {
+    "en": "And, but, or, and so are simple linking words. Use them to connect words, phrases, or short sentences.",
+    "vi": "And, but, or và so là các từ nối đơn giản. Dùng chúng để nối từ, cụm từ hoặc câu ngắn."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Adding with and",
+        "vi": "Thêm ý với and"
+      },
+      "pattern": "A + and + B",
+      "example": {
+        "en": "I like tea and coffee.",
+        "vi": "Tôi thích trà và cà phê."
+      }
+    },
+    {
+      "label": {
+        "en": "Contrast with but",
+        "vi": "Đối lập với but"
+      },
+      "pattern": "A + but + B",
+      "example": {
+        "en": "She is tired, but she is happy.",
+        "vi": "Cô ấy mệt, nhưng cô ấy vui."
+      }
+    },
+    {
+      "label": {
+        "en": "Choice with or",
+        "vi": "Lựa chọn với or"
+      },
+      "pattern": "A + or + B",
+      "example": {
+        "en": "Do you want rice or noodles?",
+        "vi": "Bạn muốn cơm hay mì?"
+      }
+    },
+    {
+      "label": {
+        "en": "Result with so",
+        "vi": "Kết quả với so"
+      },
+      "pattern": "Reason + so + result",
+      "example": {
+        "en": "It is late, so I must go home.",
+        "vi": "Muộn rồi, nên tôi phải về nhà."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Add similar ideas",
+        "vi": "Thêm các ý giống nhau"
+      },
+      "explanation": {
+        "en": "Use and to join two similar or extra ideas.",
+        "vi": "Dùng and để nối hai ý giống nhau hoặc thêm thông tin."
+      },
+      "examples": [
+        {
+          "en": "My brother is tall and strong.",
+          "vi": "Anh trai tôi cao và khỏe."
+        },
+        {
+          "en": "I get up at six and go to school at seven.",
+          "vi": "Tôi thức dậy lúc sáu giờ và đi học lúc bảy giờ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Show a difference",
+        "vi": "Diễn tả sự khác biệt"
+      },
+      "explanation": {
+        "en": "Use but when the second idea is different from or surprising after the first idea.",
+        "vi": "Dùng but khi ý thứ hai khác hoặc trái với điều người nghe có thể nghĩ từ ý thứ nhất."
+      },
+      "examples": [
+        {
+          "en": "The bag is small, but it is heavy.",
+          "vi": "Cái túi nhỏ, nhưng nó nặng."
+        },
+        {
+          "en": "I like English, but I do not like tests.",
+          "vi": "Tôi thích tiếng Anh, nhưng tôi không thích bài kiểm tra."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Give a choice",
+        "vi": "Đưa ra lựa chọn"
+      },
+      "explanation": {
+        "en": "Use or to talk about choices. It is common in questions.",
+        "vi": "Dùng or để nói về các lựa chọn. Từ này rất hay dùng trong câu hỏi."
+      },
+      "examples": [
+        {
+          "en": "Is he a teacher or a doctor?",
+          "vi": "Anh ấy là giáo viên hay bác sĩ?"
+        },
+        {
+          "en": "You can have water or juice.",
+          "vi": "Bạn có thể uống nước lọc hoặc nước trái cây."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Show a result",
+        "vi": "Diễn tả kết quả"
+      },
+      "explanation": {
+        "en": "Use so before the result of a situation.",
+        "vi": "Dùng so trước kết quả của một tình huống."
+      },
+      "examples": [
+        {
+          "en": "I am hungry, so I eat a sandwich.",
+          "vi": "Tôi đói, nên tôi ăn một cái bánh sandwich."
+        },
+        {
+          "en": "It is raining, so we stay at home.",
+          "vi": "Trời đang mưa, nên chúng tôi ở nhà."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "and",
+    "but",
+    "or",
+    "so",
+    "also",
+    "not...but",
+    "either...or"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I am tired and I go to bed early.",
+      "right": "I am tired, so I go to bed early.",
+      "why": {
+        "en": "Use so for a result. Going to bed early is the result of being tired.",
+        "vi": "Dùng so để chỉ kết quả. Đi ngủ sớm là kết quả của việc mệt."
+      }
+    },
+    {
+      "wrong": "She beautiful and kind.",
+      "right": "She is beautiful and kind.",
+      "why": {
+        "en": "Do not leave out the verb be before adjectives.",
+        "vi": "Không bỏ động từ be trước tính từ."
+      }
+    },
+    {
+      "wrong": "Do you want tea and coffee?",
+      "right": "Do you want tea or coffee?",
+      "why": {
+        "en": "Use or when you ask someone to choose one thing.",
+        "vi": "Dùng or khi hỏi ai đó chọn một thứ."
+      }
+    },
+    {
+      "wrong": "He likes football, but he play every day.",
+      "right": "He likes football, and he plays every day.",
+      "why": {
+        "en": "Use and for two similar positive ideas. Also, with he/she/it in the present simple, add -s to the verb: plays.",
+        "vi": "Dùng and cho hai ý khẳng định cùng hướng. Ngoài ra, với he/she/it ở thì hiện tại đơn, thêm -s vào động từ: plays."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: and adds, but changes, or chooses, so gives a result.",
+    "vi": "Hãy nhớ: and thêm ý, but đổi hướng, or chọn lựa, so nêu kết quả."
+  }
+}

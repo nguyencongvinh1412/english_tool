@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "en": "The third conditional talks about an unreal situation in the past and its imagined result. Use it to say that something did not happen, and therefore the result did not happen either.",
+    "vi": "Câu điều kiện loại 3 nói về một tình huống không có thật trong quá khứ và kết quả tưởng tượng của nó. Dùng để diễn tả rằng một việc đã không xảy ra, nên kết quả cũng không xảy ra."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "If + S + had + past participle, S + would have + past participle",
+      "example": {
+        "en": "If I had studied harder, I would have passed the exam.",
+        "vi": "Nếu tôi đã học chăm hơn, tôi đã đỗ kỳ thi rồi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "If + S + had not / hadn't + past participle, S + would not / wouldn't have + past participle",
+      "example": {
+        "en": "If she hadn't missed the bus, she wouldn't have been late.",
+        "vi": "Nếu cô ấy đã không lỡ xe buýt, cô ấy đã không đến muộn."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Would + S + have + past participle + if + S + had + past participle?",
+      "example": {
+        "en": "Would you have accepted the job if they had offered you more money?",
+        "vi": "Bạn có nhận công việc đó không nếu họ đã đề nghị bạn nhiều tiền hơn?"
+      }
+    },
+    {
+      "label": {
+        "en": "With could have or might have",
+        "vi": "Với could have hoặc might have"
+      },
+      "pattern": "If + S + had + past participle, S + could/might have + past participle",
+      "example": {
+        "en": "If we had left earlier, we could have caught the train.",
+        "vi": "Nếu chúng tôi đã đi sớm hơn, chúng tôi đã có thể bắt kịp chuyến tàu."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Imagined past result",
+        "vi": "Kết quả tưởng tượng trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the third conditional to imagine a different result from a past situation. The real past situation was different.",
+        "vi": "Dùng câu điều kiện loại 3 để tưởng tượng một kết quả khác cho một tình huống trong quá khứ. Thực tế trong quá khứ đã khác."
+      },
+      "examples": [
+        {
+          "en": "If they had invited me, I would have gone to the party.",
+          "vi": "Nếu họ đã mời tôi, tôi đã đi dự tiệc rồi."
+        },
+        {
+          "en": "If it hadn't rained, we would have played football.",
+          "vi": "Nếu trời đã không mưa, chúng tôi đã chơi bóng đá rồi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Regret",
+        "vi": "Sự hối tiếc"
+      },
+      "explanation": {
+        "en": "Use it to express regret about something you did or did not do in the past.",
+        "vi": "Dùng để diễn tả sự hối tiếc về điều bạn đã làm hoặc đã không làm trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "If I had listened to your advice, I wouldn't have made that mistake.",
+          "vi": "Nếu tôi đã nghe lời khuyên của bạn, tôi đã không mắc lỗi đó."
+        },
+        {
+          "en": "If he had saved more money, he could have bought a better laptop.",
+          "vi": "Nếu anh ấy đã tiết kiệm nhiều tiền hơn, anh ấy đã có thể mua một chiếc máy tính xách tay tốt hơn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Criticism or blame",
+        "vi": "Phê bình hoặc trách móc"
+      },
+      "explanation": {
+        "en": "The third conditional can suggest that someone should have acted differently.",
+        "vi": "Câu điều kiện loại 3 có thể hàm ý rằng ai đó lẽ ra nên hành động khác đi."
+      },
+      "examples": [
+        {
+          "en": "If you had told me earlier, I could have helped you.",
+          "vi": "Nếu bạn đã nói với tôi sớm hơn, tôi đã có thể giúp bạn."
+        },
+        {
+          "en": "If the company had checked the figures, it wouldn't have lost so much money.",
+          "vi": "Nếu công ty đã kiểm tra các số liệu, họ đã không mất nhiều tiền như vậy."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Different degrees of certainty",
+        "vi": "Các mức độ chắc chắn khác nhau"
+      },
+      "explanation": {
+        "en": "Use would have for an imagined result you feel sure about, could have for possibility or ability, and might have for a less certain possibility.",
+        "vi": "Dùng would have cho kết quả tưởng tượng mà bạn khá chắc chắn, could have cho khả năng hoặc năng lực, và might have cho khả năng kém chắc chắn hơn."
+      },
+      "examples": [
+        {
+          "en": "If she had applied, she would have got the job.",
+          "vi": "Nếu cô ấy đã nộp đơn, cô ấy đã nhận được công việc đó rồi."
+        },
+        {
+          "en": "If she had applied, she might have got the job.",
+          "vi": "Nếu cô ấy đã nộp đơn, có lẽ cô ấy đã nhận được công việc đó."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "if",
+    "had + past participle",
+    "would have + past participle",
+    "could have + past participle",
+    "might have + past participle",
+    "If only ... had ...",
+    "I wish ... had ..."
+  ],
+  "mistakes": [
+    {
+      "wrong": "If I studied harder, I would have passed the exam.",
+      "right": "If I had studied harder, I would have passed the exam.",
+      "why": {
+        "en": "For an unreal past condition, use the past perfect after if: had studied, not studied.",
+        "vi": "Với điều kiện không có thật trong quá khứ, dùng quá khứ hoàn thành sau if: had studied, không dùng studied."
+      }
+    },
+    {
+      "wrong": "If she had missed the bus, she will be late.",
+      "right": "If she had missed the bus, she would have been late.",
+      "why": {
+        "en": "The result is also imagined in the past, so use would have + past participle, not will + verb.",
+        "vi": "Kết quả cũng là tưởng tượng trong quá khứ, nên dùng would have + quá khứ phân từ, không dùng will + động từ."
+      }
+    },
+    {
+      "wrong": "If he had have known, he would have called you.",
+      "right": "If he had known, he would have called you.",
+      "why": {
+        "en": "After had, use the past participle directly. Do not add have in the if-clause.",
+        "vi": "Sau had, dùng trực tiếp quá khứ phân từ. Không thêm have trong mệnh đề if."
+      }
+    },
+    {
+      "wrong": "If I had money yesterday, I would have bought it.",
+      "right": "If I had had money yesterday, I would have bought it.",
+      "why": {
+        "en": "When have means possess and the condition is unreal in the past, use had had.",
+        "vi": "Khi have nghĩa là “có/sở hữu” và điều kiện không có thật trong quá khứ, dùng had had."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "second-conditional",
+      "note": {
+        "en": "The second conditional imagines an unreal present or future situation: If I had more time, I would travel. The third conditional imagines a different past: If I had had more time last year, I would have travelled. In short: second conditional = unreal now/future; third conditional = unreal past.",
+        "vi": "Câu điều kiện loại 2 tưởng tượng một tình huống không có thật ở hiện tại hoặc tương lai: If I had more time, I would travel. Câu điều kiện loại 3 tưởng tượng một quá khứ khác: If I had had more time last year, I would have travelled. Nói ngắn gọn: loại 2 = không thật ở hiện tại/tương lai; loại 3 = không thật trong quá khứ."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Remember: past condition, past result — had done + would have done.",
+    "vi": "Hãy nhớ: điều kiện trong quá khứ, kết quả trong quá khứ — had done + would have done."
+  }
+}

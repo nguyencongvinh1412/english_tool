@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "The past perfect continuous describes an action that was in progress before another past time or event. It often emphasizes duration, continuity, or the visible result of the earlier activity.",
+    "vi": "Thì quá khứ hoàn thành tiếp diễn diễn tả một hành động đang tiếp diễn trước một thời điểm hoặc sự kiện khác trong quá khứ. Thì này thường nhấn mạnh khoảng thời gian, sự liên tục, hoặc kết quả có thể thấy của hoạt động trước đó."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + had been + V-ing + O",
+      "example": {
+        "en": "She had been working all night before the report was finished.",
+        "vi": "Cô ấy đã làm việc suốt đêm trước khi bản báo cáo được hoàn thành."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + had not / hadn't been + V-ing + O",
+      "example": {
+        "en": "They hadn't been living there long when the landlord sold the house.",
+        "vi": "Họ chưa sống ở đó lâu thì chủ nhà đã bán căn nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Có/Không"
+      },
+      "pattern": "Had + S + been + V-ing + O?",
+      "example": {
+        "en": "Had you been waiting long before the bus arrived?",
+        "vi": "Bạn đã đợi lâu trước khi xe buýt đến chưa?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + had + S + been + V-ing + O?",
+      "example": {
+        "en": "How long had he been studying English before he moved to Canada?",
+        "vi": "Anh ấy đã học tiếng Anh bao lâu trước khi chuyển đến Canada?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Duration before a past event",
+        "vi": "Khoảng thời gian trước một sự kiện trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past perfect continuous to show that an action continued for some time up to another moment in the past.",
+        "vi": "Dùng thì quá khứ hoàn thành tiếp diễn để cho thấy một hành động đã kéo dài một khoảng thời gian cho đến một thời điểm khác trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "I had been studying for three hours when my friend called.",
+          "vi": "Tôi đã học được ba tiếng thì bạn tôi gọi."
+        },
+        {
+          "en": "By the time we reached the hotel, we had been driving for six hours.",
+          "vi": "Khi chúng tôi đến khách sạn, chúng tôi đã lái xe được sáu tiếng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Cause of a past result",
+        "vi": "Nguyên nhân của một kết quả trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use it when a past situation or physical state was the result of an earlier continuing activity.",
+        "vi": "Dùng thì này khi một tình huống hoặc trạng thái trong quá khứ là kết quả của một hoạt động đã tiếp diễn trước đó."
+      },
+      "examples": [
+        {
+          "en": "Her eyes were red because she had been crying.",
+          "vi": "Mắt cô ấy đỏ vì cô ấy đã khóc."
+        },
+        {
+          "en": "The ground was wet because it had been raining all morning.",
+          "vi": "Mặt đất ướt vì trời đã mưa suốt buổi sáng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Repeated activity before a past time",
+        "vi": "Hoạt động lặp lại trước một thời điểm trong quá khứ"
+      },
+      "explanation": {
+        "en": "It can describe an activity that happened again and again over a period before another past event.",
+        "vi": "Thì này có thể diễn tả một hoạt động xảy ra lặp đi lặp lại trong một khoảng thời gian trước một sự kiện quá khứ khác."
+      },
+      "examples": [
+        {
+          "en": "He had been applying for jobs for months before he got an interview.",
+          "vi": "Anh ấy đã nộp đơn xin việc suốt nhiều tháng trước khi có được một cuộc phỏng vấn."
+        },
+        {
+          "en": "We had been meeting every Friday before she left the company.",
+          "vi": "Chúng tôi đã gặp nhau vào mỗi thứ Sáu trước khi cô ấy rời công ty."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Background explanation in stories",
+        "vi": "Giải thích bối cảnh trong câu chuyện"
+      },
+      "explanation": {
+        "en": "In narratives, it gives background information about what had been happening before the main past events.",
+        "vi": "Trong kể chuyện, thì này cung cấp thông tin nền về điều đã và đang xảy ra trước các sự kiện chính trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "Everyone was tired. They had been preparing for the wedding since early morning.",
+          "vi": "Mọi người đều mệt. Họ đã chuẩn bị cho đám cưới từ sáng sớm."
+        },
+        {
+          "en": "The team looked confident because they had been training hard for weeks.",
+          "vi": "Đội trông rất tự tin vì họ đã tập luyện chăm chỉ suốt nhiều tuần."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "for two hours",
+    "for a long time",
+    "since Monday",
+    "all morning / all day / all night",
+    "before",
+    "when",
+    "by the time",
+    "because"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She had working there for five years before she resigned.",
+      "right": "She had been working there for five years before she resigned.",
+      "why": {
+        "en": "The past perfect continuous needs had been + V-ing, not had + V-ing.",
+        "vi": "Thì quá khứ hoàn thành tiếp diễn cần cấu trúc had been + V-ing, không phải had + V-ing."
+      }
+    },
+    {
+      "wrong": "He had been work all day, so he was exhausted.",
+      "right": "He had been working all day, so he was exhausted.",
+      "why": {
+        "en": "After had been, use the -ing form of the main verb.",
+        "vi": "Sau had been, dùng dạng -ing của động từ chính."
+      }
+    },
+    {
+      "wrong": "They were hungry because they had been not eating since breakfast.",
+      "right": "They were hungry because they had not been eating since breakfast.",
+      "why": {
+        "en": "Put not after had: had not been eating. The short form is hadn't been eating.",
+        "vi": "Đặt not sau had: had not been eating. Dạng rút gọn là hadn't been eating."
+      }
+    },
+    {
+      "wrong": "When I arrived, she has been waiting for an hour.",
+      "right": "When I arrived, she had been waiting for an hour.",
+      "why": {
+        "en": "The reference point is in the past, so use had been, not has been.",
+        "vi": "Mốc thời gian là trong quá khứ, nên dùng had been, không dùng has been."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "past-perfect",
+      "note": {
+        "en": "Use the past perfect continuous to emphasize the duration or ongoing nature of an earlier activity: She had been reading for two hours. Use the past perfect to emphasize completion or result: She had read three chapters.",
+        "vi": "Dùng quá khứ hoàn thành tiếp diễn để nhấn mạnh thời lượng hoặc tính đang tiếp diễn của hoạt động trước đó: She had been reading for two hours. Dùng quá khứ hoàn thành để nhấn mạnh sự hoàn tất hoặc kết quả: She had read three chapters."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: had been doing = an action was continuing before another past moment.",
+    "vi": "Hãy nhớ: had been doing = một hành động đang tiếp diễn trước một mốc quá khứ khác."
+  }
+}

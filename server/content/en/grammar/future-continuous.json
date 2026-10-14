@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "en": "The future continuous describes an action that will be in progress at a particular time in the future. It is often used to picture what someone will be doing then, or to ask politely about future plans.",
+    "vi": "Thì tương lai tiếp diễn diễn tả một hành động sẽ đang diễn ra tại một thời điểm cụ thể trong tương lai. Thì này thường dùng để hình dung ai đó sẽ đang làm gì lúc đó, hoặc để hỏi lịch sự về kế hoạch tương lai."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + will be + V-ing",
+      "example": {
+        "en": "At 8 p.m. tomorrow, I will be studying at home.",
+        "vi": "Lúc 8 giờ tối mai, tôi sẽ đang học ở nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + will not / won’t be + V-ing",
+      "example": {
+        "en": "She won’t be working this weekend.",
+        "vi": "Cô ấy sẽ không làm việc vào cuối tuần này."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Will + S + be + V-ing?",
+      "example": {
+        "en": "Will you be using the computer later?",
+        "vi": "Lát nữa bạn có dùng máy tính không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi có từ để hỏi"
+      },
+      "pattern": "Wh-word + will + S + be + V-ing?",
+      "example": {
+        "en": "What will you be doing at this time next year?",
+        "vi": "Vào giờ này năm sau bạn sẽ đang làm gì?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Action in progress at a future time",
+        "vi": "Hành động đang diễn ra tại một thời điểm trong tương lai"
+      },
+      "explanation": {
+        "en": "Use the future continuous when an action will already be happening at a certain future time.",
+        "vi": "Dùng thì tương lai tiếp diễn khi một hành động sẽ đang diễn ra tại một thời điểm xác định trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "This time tomorrow, we will be flying to Singapore.",
+          "vi": "Giờ này ngày mai, chúng tôi sẽ đang bay đến Singapore."
+        },
+        {
+          "en": "At noon, they will be having lunch.",
+          "vi": "Vào buổi trưa, họ sẽ đang ăn trưa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Future action interrupted by another future action",
+        "vi": "Hành động tương lai bị xen vào bởi hành động khác"
+      },
+      "explanation": {
+        "en": "The longer action uses the future continuous; the shorter action often uses the present simple after words like when or if.",
+        "vi": "Hành động dài hơn dùng thì tương lai tiếp diễn; hành động ngắn hơn thường dùng hiện tại đơn sau các từ như when hoặc if."
+      },
+      "examples": [
+        {
+          "en": "I will be cooking when you arrive.",
+          "vi": "Tôi sẽ đang nấu ăn khi bạn đến."
+        },
+        {
+          "en": "They will be sleeping if you call too late.",
+          "vi": "Họ sẽ đang ngủ nếu bạn gọi quá muộn."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Polite questions about future arrangements",
+        "vi": "Hỏi lịch sự về sự sắp xếp trong tương lai"
+      },
+      "explanation": {
+        "en": "Use will be + V-ing to ask about someone’s plans in a less direct and more polite way.",
+        "vi": "Dùng will be + V-ing để hỏi về kế hoạch của ai đó một cách nhẹ nhàng và lịch sự hơn."
+      },
+      "examples": [
+        {
+          "en": "Will you be joining us for dinner?",
+          "vi": "Bạn có tham gia ăn tối với chúng tôi không?"
+        },
+        {
+          "en": "Will Mr Brown be attending the meeting?",
+          "vi": "Ông Brown có tham dự cuộc họp không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Expected future events",
+        "vi": "Sự việc dự kiến sẽ xảy ra trong tương lai"
+      },
+      "explanation": {
+        "en": "The future continuous can describe something that is expected to happen as part of a normal plan or routine.",
+        "vi": "Thì tương lai tiếp diễn có thể diễn tả việc được dự kiến sẽ xảy ra như một phần của kế hoạch hoặc lịch trình thông thường."
+      },
+      "examples": [
+        {
+          "en": "The train will be arriving at platform 3 in a few minutes.",
+          "vi": "Tàu sẽ đến sân ga số 3 trong vài phút nữa."
+        },
+        {
+          "en": "Our team will be visiting the factory next week.",
+          "vi": "Nhóm của chúng tôi sẽ đến thăm nhà máy vào tuần tới."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "at this time tomorrow",
+    "at 7 p.m. tonight",
+    "this time next week",
+    "when you arrive",
+    "all day tomorrow",
+    "in a few minutes",
+    "later"
+  ],
+  "mistakes": [
+    {
+      "wrong": "At 9 p.m. tonight, I will studying.",
+      "right": "At 9 p.m. tonight, I will be studying.",
+      "why": {
+        "en": "The future continuous needs the full form will be + V-ing. Do not leave out be.",
+        "vi": "Thì tương lai tiếp diễn cần đủ dạng will be + V-ing. Không được bỏ be."
+      }
+    },
+    {
+      "wrong": "She will be study at this time tomorrow.",
+      "right": "She will be studying at this time tomorrow.",
+      "why": {
+        "en": "After will be, use the -ing form of the verb.",
+        "vi": "Sau will be, dùng dạng V-ing của động từ."
+      }
+    },
+    {
+      "wrong": "When you will arrive, I will be waiting outside.",
+      "right": "When you arrive, I will be waiting outside.",
+      "why": {
+        "en": "After time words like when, use the present simple for the future meaning, not will.",
+        "vi": "Sau các từ chỉ thời gian như when, dùng hiện tại đơn để nói về tương lai, không dùng will."
+      }
+    },
+    {
+      "wrong": "At 10 tomorrow, he will be works in the office.",
+      "right": "At 10 tomorrow, he will be working in the office.",
+      "why": {
+        "en": "Do not add third-person -s after will be. Use the -ing form: working.",
+        "vi": "Không thêm -s ngôi thứ ba sau will be. Dùng dạng V-ing: working."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "future-perfect",
+      "note": {
+        "en": "The future continuous focuses on an action in progress at a future time: At 8, I will be finishing my report. The future perfect focuses on an action completed before a future time: By 8, I will have finished my report.",
+        "vi": "Thì tương lai tiếp diễn nhấn mạnh hành động đang diễn ra tại một thời điểm trong tương lai: Lúc 8 giờ, tôi sẽ đang hoàn thành báo cáo. Thì tương lai hoàn thành nhấn mạnh hành động đã xong trước một thời điểm trong tương lai: Trước 8 giờ, tôi sẽ đã hoàn thành báo cáo."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: future time + action in progress = will be + V-ing.",
+    "vi": "Hãy nhớ: thời điểm tương lai + hành động đang diễn ra = will be + V-ing."
+  }
+}

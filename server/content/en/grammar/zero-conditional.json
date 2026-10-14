@@ -1,0 +1,169 @@
+{
+  "summary": {
+    "en": "The zero conditional talks about things that are always true, usually true, or happen as a rule. It uses the present simple in both parts of the sentence.",
+    "vi": "Câu điều kiện loại 0 nói về những điều luôn đúng, thường đúng, hoặc xảy ra như một quy luật. Câu này dùng thì hiện tại đơn ở cả hai mệnh đề."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "If/When + S + present simple, S + present simple",
+      "example": {
+        "en": "If water reaches 100°C, it boils.",
+        "vi": "Nếu nước đạt 100°C, nó sôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Affirmative with the if/when clause second",
+        "vi": "Khẳng định với mệnh đề if/when đứng sau"
+      },
+      "pattern": "S + present simple + if/when + S + present simple",
+      "example": {
+        "en": "Plants die if they do not get water.",
+        "vi": "Cây chết nếu chúng không được tưới nước."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "If/When + S + do/does not + V, S + do/does not + V",
+      "example": {
+        "en": "If you do not sleep enough, you feel tired.",
+        "vi": "Nếu bạn không ngủ đủ, bạn cảm thấy mệt."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "What happens if/when + S + present simple?",
+      "example": {
+        "en": "What happens if you heat ice?",
+        "vi": "Điều gì xảy ra nếu bạn làm nóng đá?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Scientific facts and natural laws",
+        "vi": "Sự thật khoa học và quy luật tự nhiên"
+      },
+      "explanation": {
+        "en": "Use the zero conditional for facts that are always true in the same situation.",
+        "vi": "Dùng câu điều kiện loại 0 cho những sự thật luôn đúng trong cùng một tình huống."
+      },
+      "examples": [
+        {
+          "en": "If you mix red and blue, you get purple.",
+          "vi": "Nếu bạn pha màu đỏ và màu xanh dương, bạn được màu tím."
+        },
+        {
+          "en": "When the sun goes down, it gets dark.",
+          "vi": "Khi mặt trời lặn, trời tối."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "General habits or routines",
+        "vi": "Thói quen hoặc lịch trình chung"
+      },
+      "explanation": {
+        "en": "Use it for things that regularly happen in a certain situation.",
+        "vi": "Dùng nó cho những việc thường xuyên xảy ra trong một tình huống nhất định."
+      },
+      "examples": [
+        {
+          "en": "If I have time after work, I go for a walk.",
+          "vi": "Nếu tôi có thời gian sau giờ làm, tôi đi dạo."
+        },
+        {
+          "en": "When my father cooks, he listens to music.",
+          "vi": "Khi bố tôi nấu ăn, ông ấy nghe nhạc."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Rules and instructions",
+        "vi": "Quy tắc và hướng dẫn"
+      },
+      "explanation": {
+        "en": "Use the zero conditional to explain what the rule says or what the correct action is.",
+        "vi": "Dùng câu điều kiện loại 0 để giải thích quy tắc nói gì hoặc hành động đúng là gì."
+      },
+      "examples": [
+        {
+          "en": "If the light is red, cars stop.",
+          "vi": "Nếu đèn đỏ, xe dừng lại."
+        },
+        {
+          "en": "When you press this button, the machine starts.",
+          "vi": "Khi bạn bấm nút này, máy bắt đầu chạy."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "if",
+    "when",
+    "always",
+    "usually",
+    "every time",
+    "as a rule"
+  ],
+  "mistakes": [
+    {
+      "wrong": "If water reach 100°C, it boils.",
+      "right": "If water reaches 100°C, it boils.",
+      "why": {
+        "en": "In the present simple, add -s or -es with he, she, it, and singular nouns.",
+        "vi": "Ở thì hiện tại đơn, thêm -s hoặc -es với he, she, it và danh từ số ít."
+      }
+    },
+    {
+      "wrong": "If you heat ice, it will melt.",
+      "right": "If you heat ice, it melts.",
+      "why": {
+        "en": "For a general fact, use present simple in both parts. Do not use will for the result in the zero conditional.",
+        "vi": "Với sự thật chung, dùng hiện tại đơn ở cả hai mệnh đề. Không dùng will cho kết quả trong câu điều kiện loại 0."
+      }
+    },
+    {
+      "wrong": "If the weather cold, I wear a coat.",
+      "right": "If the weather is cold, I wear a coat.",
+      "why": {
+        "en": "Use the verb be before an adjective: is cold, are tired, am hungry.",
+        "vi": "Dùng động từ be trước tính từ: is cold, are tired, am hungry."
+      }
+    },
+    {
+      "wrong": "When people eats too much sugar, they feel bad.",
+      "right": "When people eat too much sugar, they feel bad.",
+      "why": {
+        "en": "People is plural, so use the base verb eat, not eats.",
+        "vi": "People là số nhiều, nên dùng động từ nguyên mẫu eat, không dùng eats."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "first-conditional",
+      "note": {
+        "en": "The zero conditional is for facts, rules, and repeated results: If it rains, the ground gets wet. The first conditional is for a real future possibility: If it rains tomorrow, we will stay home.",
+        "vi": "Câu điều kiện loại 0 dùng cho sự thật, quy tắc và kết quả lặp lại: Nếu trời mưa, mặt đất ướt. Câu điều kiện loại 1 dùng cho khả năng có thật trong tương lai: Nếu ngày mai trời mưa, chúng tôi sẽ ở nhà."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Zero conditional = present simple + present simple. Think: “This is always or usually true.”",
+    "vi": "Câu điều kiện loại 0 = hiện tại đơn + hiện tại đơn. Hãy nhớ: “Điều này luôn đúng hoặc thường đúng.”"
+  }
+}

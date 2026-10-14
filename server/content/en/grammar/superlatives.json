@@ -1,0 +1,194 @@
+{
+  "summary": {
+    "en": "Superlatives show that one person or thing is number one in a group. Use them to say who or what is the biggest, best, most interesting, etc.",
+    "vi": "So sánh nhất cho biết một người hoặc vật đứng đầu trong một nhóm. Dùng để nói ai hoặc cái gì là lớn nhất, tốt nhất, thú vị nhất, v.v."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Short adjectives: the + adjective + -est",
+        "vi": "Tính từ ngắn: the + tính từ + -est"
+      },
+      "pattern": "S + be + the + adjective-est + in/of + group",
+      "example": {
+        "en": "Lan is the tallest student in the class.",
+        "vi": "Lan là học sinh cao nhất trong lớp."
+      }
+    },
+    {
+      "label": {
+        "en": "Long adjectives: the most + adjective",
+        "vi": "Tính từ dài: the most + tính từ"
+      },
+      "pattern": "S + be + the most + adjective + in/of + group",
+      "example": {
+        "en": "This is the most expensive phone in the shop.",
+        "vi": "Đây là chiếc điện thoại đắt nhất trong cửa hàng."
+      }
+    },
+    {
+      "label": {
+        "en": "Irregular superlatives",
+        "vi": "So sánh nhất bất quy tắc"
+      },
+      "pattern": "good → the best; bad → the worst; far → the farthest/furthest",
+      "example": {
+        "en": "That was the best meal of the trip.",
+        "vi": "Đó là bữa ăn ngon nhất trong chuyến đi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + be + not + the + superlative + in/of + group",
+      "example": {
+        "en": "This hotel is not the cheapest in the city.",
+        "vi": "Khách sạn này không phải là rẻ nhất trong thành phố."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + the + superlative + in/of + group?",
+      "example": {
+        "en": "Is Mount Everest the highest mountain in the world?",
+        "vi": "Núi Everest có phải là ngọn núi cao nhất thế giới không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To choose number one in a group",
+        "vi": "Để chọn người/vật đứng đầu trong một nhóm"
+      },
+      "explanation": {
+        "en": "Use a superlative when you compare one person or thing with all the others in the same group.",
+        "vi": "Dùng so sánh nhất khi bạn so sánh một người hoặc vật với tất cả những người hoặc vật khác trong cùng nhóm."
+      },
+      "examples": [
+        {
+          "en": "Tom is the youngest in his family.",
+          "vi": "Tom là người trẻ nhất trong gia đình anh ấy."
+        },
+        {
+          "en": "This is the longest river in the country.",
+          "vi": "Đây là con sông dài nhất trong nước."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To talk about places, times, and experiences",
+        "vi": "Để nói về địa điểm, thời điểm và trải nghiệm"
+      },
+      "explanation": {
+        "en": "Superlatives are common when we describe the top or extreme example in our life or experience.",
+        "vi": "So sánh nhất thường được dùng khi mô tả điều nổi bật nhất hoặc ở mức cao nhất trong cuộc sống hay trải nghiệm của chúng ta."
+      },
+      "examples": [
+        {
+          "en": "It was the happiest day of my life.",
+          "vi": "Đó là ngày hạnh phúc nhất trong đời tôi."
+        },
+        {
+          "en": "Da Lat is one of the most beautiful cities in Vietnam.",
+          "vi": "Đà Lạt là một trong những thành phố đẹp nhất ở Việt Nam."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "With in and of",
+        "vi": "Dùng với in và of"
+      },
+      "explanation": {
+        "en": "Use in with a place or group. Use of with a time period or a set of things.",
+        "vi": "Dùng in với địa điểm hoặc nhóm. Dùng of với khoảng thời gian hoặc một tập hợp các thứ."
+      },
+      "examples": [
+        {
+          "en": "She is the best player in the team.",
+          "vi": "Cô ấy là cầu thủ giỏi nhất trong đội."
+        },
+        {
+          "en": "Monday is the busiest day of the week.",
+          "vi": "Thứ Hai là ngày bận nhất trong tuần."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Spelling changes",
+        "vi": "Thay đổi chính tả"
+      },
+      "explanation": {
+        "en": "For many short adjectives, add -est. If the adjective ends in -y, change y to i and add -est. Sometimes double the final consonant.",
+        "vi": "Với nhiều tính từ ngắn, thêm -est. Nếu tính từ kết thúc bằng -y, đổi y thành i rồi thêm -est. Đôi khi gấp đôi phụ âm cuối."
+      },
+      "examples": [
+        {
+          "en": "easy → the easiest: This is the easiest question.",
+          "vi": "easy → the easiest: Đây là câu hỏi dễ nhất."
+        },
+        {
+          "en": "big → the biggest: Russia is the biggest country in the world.",
+          "vi": "big → the biggest: Nga là quốc gia lớn nhất thế giới."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "the",
+    "in the class",
+    "in the world",
+    "in my family",
+    "of all",
+    "of the year",
+    "one of the most",
+    "ever"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She is tallest student in my class.",
+      "right": "She is the tallest student in my class.",
+      "why": {
+        "en": "We usually use the before a superlative adjective.",
+        "vi": "Ta thường dùng the trước tính từ so sánh nhất."
+      }
+    },
+    {
+      "wrong": "This is the most cheap bag.",
+      "right": "This is the cheapest bag.",
+      "why": {
+        "en": "Cheap is a short adjective, so we usually add -est, not most.",
+        "vi": "Cheap là tính từ ngắn, nên thường thêm -est, không dùng most."
+      }
+    },
+    {
+      "wrong": "He the best student in the class.",
+      "right": "He is the best student in the class.",
+      "why": {
+        "en": "English needs the verb be before a noun phrase or adjective phrase like the best student.",
+        "vi": "Tiếng Anh cần động từ be trước cụm danh từ hoặc cụm tính từ như the best student."
+      }
+    },
+    {
+      "wrong": "This is the most beautifulest dress.",
+      "right": "This is the most beautiful dress.",
+      "why": {
+        "en": "Do not use most and -est together. For long adjectives, use the most + adjective.",
+        "vi": "Không dùng most và -est cùng lúc. Với tính từ dài, dùng the most + tính từ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think: comparatives compare two; superlatives choose number one. Number one usually needs the.",
+    "vi": "Hãy nhớ: so sánh hơn so sánh hai đối tượng; so sánh nhất chọn số một. Số một thường cần the."
+  }
+}

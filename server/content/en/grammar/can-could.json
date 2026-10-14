@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Use can to talk about ability now. Use could to talk about general ability in the past.",
+    "vi": "Dùng can để nói về khả năng ở hiện tại. Dùng could để nói về khả năng chung trong quá khứ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + can/could + base verb",
+      "example": {
+        "en": "I can swim.",
+        "vi": "Tôi biết bơi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + cannot/can't/could not/couldn't + base verb",
+      "example": {
+        "en": "She can't drive.",
+        "vi": "Cô ấy không biết lái xe."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Can/Could + S + base verb?",
+      "example": {
+        "en": "Can you play the guitar?",
+        "vi": "Bạn biết chơi đàn ghi-ta không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Short answer",
+        "vi": "Câu trả lời ngắn"
+      },
+      "pattern": "Yes, S + can/could. / No, S + can't/couldn't.",
+      "example": {
+        "en": "Yes, I can.",
+        "vi": "Vâng, tôi có thể / tôi biết."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Present ability",
+        "vi": "Khả năng ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use can for something a person is able to do now.",
+        "vi": "Dùng can cho việc ai đó có khả năng làm ở hiện tại."
+      },
+      "examples": [
+        {
+          "en": "My brother can speak English.",
+          "vi": "Anh trai tôi có thể nói tiếng Anh."
+        },
+        {
+          "en": "I can use this computer.",
+          "vi": "Tôi có thể dùng máy tính này."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "No present ability",
+        "vi": "Không có khả năng ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use can't or cannot when someone is not able to do something now. Cannot is more formal than can't.",
+        "vi": "Dùng can't hoặc cannot khi ai đó không có khả năng làm việc gì ở hiện tại. Cannot trang trọng hơn can't."
+      },
+      "examples": [
+        {
+          "en": "He can't read Chinese.",
+          "vi": "Anh ấy không biết đọc tiếng Trung."
+        },
+        {
+          "en": "We cannot come today.",
+          "vi": "Hôm nay chúng tôi không thể đến."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past general ability",
+        "vi": "Khả năng chung trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use could for an ability someone had in the past, especially with words like when I was young.",
+        "vi": "Dùng could cho khả năng ai đó đã có trong quá khứ, đặc biệt với các cụm như when I was young."
+      },
+      "examples": [
+        {
+          "en": "When I was five, I could ride a bike.",
+          "vi": "Khi tôi năm tuổi, tôi đã biết đi xe đạp."
+        },
+        {
+          "en": "My grandmother could sing very well.",
+          "vi": "Bà tôi từng hát rất hay."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Questions about ability",
+        "vi": "Hỏi về khả năng"
+      },
+      "explanation": {
+        "en": "Put can or could before the subject to ask if someone is able to do something.",
+        "vi": "Đặt can hoặc could trước chủ ngữ để hỏi ai đó có khả năng làm việc gì không."
+      },
+      "examples": [
+        {
+          "en": "Can your sister cook?",
+          "vi": "Chị/em gái bạn biết nấu ăn không?"
+        },
+        {
+          "en": "Could you swim when you were a child?",
+          "vi": "Khi còn nhỏ bạn có biết bơi không?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "now",
+    "today",
+    "when I was young",
+    "when I was a child",
+    "at the age of five",
+    "before"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She can speaks English.",
+      "right": "She can speak English.",
+      "why": {
+        "en": "After can or could, use the base verb. Do not add -s or -es.",
+        "vi": "Sau can hoặc could, dùng động từ nguyên mẫu. Không thêm -s hoặc -es."
+      }
+    },
+    {
+      "wrong": "I can to swim.",
+      "right": "I can swim.",
+      "why": {
+        "en": "Do not use to after can or could.",
+        "vi": "Không dùng to sau can hoặc could."
+      }
+    },
+    {
+      "wrong": "He no can drive.",
+      "right": "He can't drive.",
+      "why": {
+        "en": "Use can't or cannot for the negative form, not no can.",
+        "vi": "Dùng can't hoặc cannot cho dạng phủ định, không dùng no can."
+      }
+    },
+    {
+      "wrong": "Can you are play piano?",
+      "right": "Can you play the piano?",
+      "why": {
+        "en": "In a question with can, use Can + subject + base verb. Do not add be before the main verb.",
+        "vi": "Trong câu hỏi với can, dùng Can + chủ ngữ + động từ nguyên mẫu. Không thêm be trước động từ chính."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Can and could do not change: I can, she can, we can. The next verb is always the base form.",
+    "vi": "Can và could không thay đổi: I can, she can, we can. Động từ theo sau luôn ở dạng nguyên mẫu."
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "The present continuous uses am/is/are + verb-ing. Use it for actions happening now, temporary situations, and near-future arrangements.",
+    "vi": "Thì hiện tại tiếp diễn dùng am/is/are + động từ-ing. Dùng cho hành động đang xảy ra bây giờ, tình huống tạm thời và kế hoạch gần trong tương lai."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + am/is/are + V-ing + O",
+      "example": {
+        "en": "She is reading a book.",
+        "vi": "Cô ấy đang đọc một quyển sách."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + am/is/are + not + V-ing + O",
+      "example": {
+        "en": "They are not watching TV.",
+        "vi": "Họ không đang xem TV."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Am/Is/Are + S + V-ing + O?",
+      "example": {
+        "en": "Are you studying English?",
+        "vi": "Bạn đang học tiếng Anh à?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi có từ để hỏi"
+      },
+      "pattern": "Wh-word + am/is/are + S + V-ing?",
+      "example": {
+        "en": "What is he doing?",
+        "vi": "Anh ấy đang làm gì?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Actions happening now",
+        "vi": "Hành động đang xảy ra ngay bây giờ"
+      },
+      "explanation": {
+        "en": "Use the present continuous for something in progress at the moment of speaking.",
+        "vi": "Dùng hiện tại tiếp diễn cho việc đang diễn ra tại thời điểm nói."
+      },
+      "examples": [
+        {
+          "en": "I am eating lunch now.",
+          "vi": "Tôi đang ăn trưa bây giờ."
+        },
+        {
+          "en": "The children are playing outside.",
+          "vi": "Bọn trẻ đang chơi ở bên ngoài."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Temporary situations",
+        "vi": "Tình huống tạm thời"
+      },
+      "explanation": {
+        "en": "Use it for actions or situations that are true for a short time, not always.",
+        "vi": "Dùng cho hành động hoặc tình huống đúng trong một thời gian ngắn, không phải luôn luôn."
+      },
+      "examples": [
+        {
+          "en": "I am staying with my aunt this week.",
+          "vi": "Tuần này tôi đang ở với dì tôi."
+        },
+        {
+          "en": "He is working in Hanoi for two months.",
+          "vi": "Anh ấy đang làm việc ở Hà Nội trong hai tháng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Changes happening around now",
+        "vi": "Sự thay đổi đang diễn ra gần đây"
+      },
+      "explanation": {
+        "en": "Use it when something is changing or developing now.",
+        "vi": "Dùng khi một việc đang thay đổi hoặc phát triển trong thời gian hiện tại."
+      },
+      "examples": [
+        {
+          "en": "The weather is getting colder.",
+          "vi": "Thời tiết đang trở nên lạnh hơn."
+        },
+        {
+          "en": "My English is improving.",
+          "vi": "Tiếng Anh của tôi đang tiến bộ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Fixed plans in the near future",
+        "vi": "Kế hoạch đã sắp xếp trong tương lai gần"
+      },
+      "explanation": {
+        "en": "Use it for a future plan when the time or arrangement is already decided.",
+        "vi": "Dùng cho kế hoạch tương lai khi thời gian hoặc sự sắp xếp đã được quyết định."
+      },
+      "examples": [
+        {
+          "en": "We are meeting Lan tonight.",
+          "vi": "Tối nay chúng tôi sẽ gặp Lan."
+        },
+        {
+          "en": "I am going to Da Nang tomorrow.",
+          "vi": "Ngày mai tôi sẽ đi Đà Nẵng."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "now",
+    "right now",
+    "at the moment",
+    "today",
+    "this week",
+    "these days",
+    "Look!",
+    "Listen!"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She reading a book.",
+      "right": "She is reading a book.",
+      "why": {
+        "en": "The present continuous needs the verb be: am, is, or are.",
+        "vi": "Thì hiện tại tiếp diễn cần động từ be: am, is hoặc are."
+      }
+    },
+    {
+      "wrong": "I am study English now.",
+      "right": "I am studying English now.",
+      "why": {
+        "en": "After am/is/are, use the -ing form of the verb.",
+        "vi": "Sau am/is/are, dùng dạng động từ thêm -ing."
+      }
+    },
+    {
+      "wrong": "He is play football.",
+      "right": "He is playing football.",
+      "why": {
+        "en": "Do not use the base verb after be in the present continuous. Use V-ing.",
+        "vi": "Không dùng động từ nguyên mẫu sau be trong thì hiện tại tiếp diễn. Hãy dùng V-ing."
+      }
+    },
+    {
+      "wrong": "Are you cook dinner?",
+      "right": "Are you cooking dinner?",
+      "why": {
+        "en": "In questions, the main verb still needs -ing.",
+        "vi": "Trong câu hỏi, động từ chính vẫn cần thêm -ing."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "present-simple",
+      "note": {
+        "en": "Use the present simple for habits and general facts: I work every day. Use the present continuous for actions happening now or temporary situations: I am working now.",
+        "vi": "Dùng hiện tại đơn cho thói quen và sự thật chung: I work every day. Dùng hiện tại tiếp diễn cho việc đang xảy ra bây giờ hoặc tình huống tạm thời: I am working now."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: be + doing. If the action is happening now, say: I am doing it.",
+    "vi": "Hãy nhớ: be + doing. Nếu hành động đang xảy ra bây giờ, nói: I am doing it."
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "summary": {
+    "en": "The past simple talks about finished actions or situations in the past. We often use it with a finished time, such as yesterday, last week, or in 2020.",
+    "vi": "Thì quá khứ đơn nói về hành động hoặc tình huống đã kết thúc trong quá khứ. Ta thường dùng thì này với thời gian đã kết thúc, như yesterday, last week, hoặc in 2020."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + V2/ed + O",
+      "example": {
+        "en": "I visited my grandmother yesterday.",
+        "vi": "Hôm qua tôi đã thăm bà tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + did not/didn't + V(base) + O",
+      "example": {
+        "en": "She didn't watch TV last night.",
+        "vi": "Tối qua cô ấy đã không xem TV."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Did + S + V(base) + O?",
+      "example": {
+        "en": "Did you play football on Sunday?",
+        "vi": "Bạn đã chơi bóng đá vào Chủ nhật phải không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Past simple of be",
+        "vi": "Quá khứ đơn của be"
+      },
+      "pattern": "S + was/were + adjective/noun/place",
+      "example": {
+        "en": "They were at home yesterday.",
+        "vi": "Hôm qua họ đã ở nhà."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative and question with be",
+        "vi": "Phủ định và câu hỏi với be"
+      },
+      "pattern": "S + was not/were not; Was/Were + S ...?",
+      "example": {
+        "en": "Was he tired after work?",
+        "vi": "Anh ấy có mệt sau giờ làm không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Finished action in the past",
+        "vi": "Hành động đã kết thúc trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past simple for one action that started and finished in the past.",
+        "vi": "Dùng quá khứ đơn cho một hành động đã bắt đầu và kết thúc trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "I bought a new bag yesterday.",
+          "vi": "Hôm qua tôi đã mua một cái túi mới."
+        },
+        {
+          "en": "He called me at 8 o'clock.",
+          "vi": "Anh ấy đã gọi cho tôi lúc 8 giờ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Finished past time",
+        "vi": "Thời gian quá khứ đã kết thúc"
+      },
+      "explanation": {
+        "en": "Use it when the time is finished: yesterday, last month, in 2019, two days ago.",
+        "vi": "Dùng thì này khi thời gian đã kết thúc: yesterday, last month, in 2019, two days ago."
+      },
+      "examples": [
+        {
+          "en": "We lived in Da Nang in 2019.",
+          "vi": "Chúng tôi đã sống ở Đà Nẵng vào năm 2019."
+        },
+        {
+          "en": "My parents arrived two hours ago.",
+          "vi": "Bố mẹ tôi đã đến cách đây hai giờ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A sequence of past actions",
+        "vi": "Một chuỗi hành động trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use the past simple for actions that happened one after another.",
+        "vi": "Dùng quá khứ đơn cho các hành động xảy ra lần lượt."
+      },
+      "examples": [
+        {
+          "en": "She got up, had breakfast, and went to school.",
+          "vi": "Cô ấy đã thức dậy, ăn sáng và đi học."
+        },
+        {
+          "en": "I opened the door and saw my friend.",
+          "vi": "Tôi đã mở cửa và nhìn thấy bạn tôi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past state with be",
+        "vi": "Trạng thái trong quá khứ với be"
+      },
+      "explanation": {
+        "en": "Use was or were to talk about a past feeling, place, job, age, or situation.",
+        "vi": "Dùng was hoặc were để nói về cảm xúc, địa điểm, nghề nghiệp, tuổi tác hoặc tình huống trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "I was very happy yesterday.",
+          "vi": "Hôm qua tôi đã rất vui."
+        },
+        {
+          "en": "They were students in 2020.",
+          "vi": "Họ là sinh viên vào năm 2020."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "yesterday",
+    "last night/week/month/year",
+    "ago",
+    "in 2010",
+    "on Monday",
+    "at 7 o'clock",
+    "when I was young"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I go to school yesterday.",
+      "right": "I went to school yesterday.",
+      "why": {
+        "en": "Yesterday is a finished past time, so use the past form went.",
+        "vi": "Yesterday là thời gian quá khứ đã kết thúc, nên dùng dạng quá khứ went."
+      }
+    },
+    {
+      "wrong": "She didn't watched the film.",
+      "right": "She didn't watch the film.",
+      "why": {
+        "en": "After didn't, use the base form of the verb, not the past form.",
+        "vi": "Sau didn't, dùng động từ nguyên mẫu, không dùng dạng quá khứ."
+      }
+    },
+    {
+      "wrong": "Did you went home early?",
+      "right": "Did you go home early?",
+      "why": {
+        "en": "In past simple questions with did, the main verb stays in the base form.",
+        "vi": "Trong câu hỏi quá khứ đơn với did, động từ chính giữ dạng nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "They happy yesterday.",
+      "right": "They were happy yesterday.",
+      "why": {
+        "en": "English needs the verb be with adjectives. In the past, use was or were.",
+        "vi": "Tiếng Anh cần động từ be với tính từ. Ở quá khứ, dùng was hoặc were."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "present-perfect",
+      "note": {
+        "en": "Use the past simple with a finished time: I saw her yesterday. Use the present perfect when the time is not finished or not said: I have seen her.",
+        "vi": "Dùng quá khứ đơn với thời gian đã kết thúc: I saw her yesterday. Dùng hiện tại hoàn thành khi thời gian chưa kết thúc hoặc không nói rõ: I have seen her."
+      }
+    },
+    {
+      "with": "past-continuous",
+      "note": {
+        "en": "The past simple shows a finished action: I cooked dinner. The past continuous shows an action in progress at a past time: I was cooking at 6.",
+        "vi": "Quá khứ đơn chỉ hành động đã hoàn thành: I cooked dinner. Quá khứ tiếp diễn chỉ hành động đang diễn ra tại một thời điểm quá khứ: I was cooking at 6."
+      }
+    },
+    {
+      "with": "used-to",
+      "note": {
+        "en": "Use the past simple for one past action or a fact: I visited Hue in 2022. Use used to for an old habit or situation that is not true now: I used to live in Hue.",
+        "vi": "Dùng quá khứ đơn cho một hành động hoặc sự thật trong quá khứ: I visited Hue in 2022. Dùng used to cho thói quen hoặc tình huống trước đây mà bây giờ không còn đúng: I used to live in Hue."
+      }
+    }
+  ],
+  "tip": {
+    "en": "If you see a finished past time, think: Did + base verb for questions and negatives, past form for positives.",
+    "vi": "Nếu thấy thời gian quá khứ đã kết thúc, hãy nhớ: câu hỏi và phủ định dùng Did + động từ nguyên mẫu, câu khẳng định dùng dạng quá khứ."
+  }
+}

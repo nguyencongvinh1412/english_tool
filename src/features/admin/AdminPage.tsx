@@ -11,9 +11,10 @@ import { InvitesTab } from './InvitesTab';
 import { UsageTab } from './UsageTab';
 import { ExamBankTab } from './ExamBankTab';
 import { ImportsTab } from './ImportsTab';
+import { GrammarAdminTab } from './GrammarAdminTab';
 import './admin.css';
 
-type AdminTab = 'users' | 'invites' | 'usage' | 'bank' | 'imports';
+type AdminTab = 'users' | 'invites' | 'usage' | 'bank' | 'imports' | 'grammar';
 
 export const AdminPage: React.FC = () => {
   const { t } = useI18n();
@@ -34,6 +35,7 @@ export const AdminPage: React.FC = () => {
             { id: 'usage', label: t.admin.tabs.usage },
             { id: 'bank', label: t.examBank.tab },
             { id: 'imports', label: t.imports.tab },
+            { id: 'grammar', label: t.nav.grammar },
           ]}
         />
       </div>
@@ -44,6 +46,7 @@ export const AdminPage: React.FC = () => {
         {tab === 'usage' && <UsageTab />}
         {tab === 'bank' && <ExamBankTab />}
         {tab === 'imports' && <ImportsTab />}
+        {tab === 'grammar' && <GrammarAdminTab />}
       </div>
     </div>
   );

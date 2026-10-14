@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Countable nouns are things we can count: one apple, two apples. Uncountable nouns are things we do not count one by one; we use them as a general amount: water, rice, music.",
+    "vi": "Danh từ đếm được là những thứ ta có thể đếm: một quả táo, hai quả táo. Danh từ không đếm được là những thứ ta không đếm từng cái một; ta dùng để nói về một lượng nói chung: nước, gạo, âm nhạc."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Countable singular",
+        "vi": "Danh từ đếm được số ít"
+      },
+      "pattern": "a/an + singular countable noun",
+      "example": {
+        "en": "I have a book.",
+        "vi": "Tôi có một quyển sách."
+      }
+    },
+    {
+      "label": {
+        "en": "Countable plural",
+        "vi": "Danh từ đếm được số nhiều"
+      },
+      "pattern": "number / some / many + plural countable noun",
+      "example": {
+        "en": "She has three cats.",
+        "vi": "Cô ấy có ba con mèo."
+      }
+    },
+    {
+      "label": {
+        "en": "Uncountable nouns",
+        "vi": "Danh từ không đếm được"
+      },
+      "pattern": "some / much / a little + uncountable noun",
+      "example": {
+        "en": "We need some water.",
+        "vi": "Chúng ta cần một ít nước."
+      }
+    },
+    {
+      "label": {
+        "en": "Questions",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "How many + plural countable noun...? / How much + uncountable noun...?",
+      "example": {
+        "en": "How many eggs do you want? How much milk do you want?",
+        "vi": "Bạn muốn bao nhiêu quả trứng? Bạn muốn bao nhiêu sữa?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Use countable nouns for separate things",
+        "vi": "Dùng danh từ đếm được cho những vật riêng lẻ"
+      },
+      "explanation": {
+        "en": "Use a/an with one thing. Add -s or -es for more than one thing.",
+        "vi": "Dùng a/an với một vật. Thêm -s hoặc -es khi có nhiều hơn một vật."
+      },
+      "examples": [
+        {
+          "en": "This is an orange.",
+          "vi": "Đây là một quả cam."
+        },
+        {
+          "en": "I have two phones.",
+          "vi": "Tôi có hai cái điện thoại."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use uncountable nouns for materials, food, drinks, and ideas",
+        "vi": "Dùng danh từ không đếm được cho chất liệu, đồ ăn, đồ uống và ý niệm"
+      },
+      "explanation": {
+        "en": "Uncountable nouns usually have no plural -s. Do not use a/an directly before them.",
+        "vi": "Danh từ không đếm được thường không có dạng số nhiều -s. Không dùng a/an trực tiếp trước chúng."
+      },
+      "examples": [
+        {
+          "en": "I drink water every day.",
+          "vi": "Tôi uống nước mỗi ngày."
+        },
+        {
+          "en": "This is good information.",
+          "vi": "Đây là thông tin tốt."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use some in positive sentences",
+        "vi": "Dùng some trong câu khẳng định"
+      },
+      "explanation": {
+        "en": "Use some with plural countable nouns and uncountable nouns when you do not say the exact number or amount.",
+        "vi": "Dùng some với danh từ đếm được số nhiều và danh từ không đếm được khi không nói số lượng chính xác."
+      },
+      "examples": [
+        {
+          "en": "There are some bananas on the table.",
+          "vi": "Có vài quả chuối trên bàn."
+        },
+        {
+          "en": "There is some rice in the bowl.",
+          "vi": "Có một ít cơm trong bát."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Use many and how many with countable nouns; much and how much with uncountable nouns",
+        "vi": "Dùng many và how many với danh từ đếm được; much và how much với danh từ không đếm được"
+      },
+      "explanation": {
+        "en": "Many asks or talks about number. Much asks or talks about amount.",
+        "vi": "Many hỏi hoặc nói về số lượng đếm được. Much hỏi hoặc nói về lượng không đếm từng cái."
+      },
+      "examples": [
+        {
+          "en": "How many students are in your class?",
+          "vi": "Lớp bạn có bao nhiêu học sinh?"
+        },
+        {
+          "en": "How much coffee do you drink?",
+          "vi": "Bạn uống bao nhiêu cà phê?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "a/an + singular noun",
+    "one, two, three + plural noun",
+    "some + plural countable noun or uncountable noun",
+    "many / how many + plural countable noun",
+    "much / how much + uncountable noun",
+    "a little + uncountable noun"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have book.",
+      "right": "I have a book.",
+      "why": {
+        "en": "A singular countable noun needs a/an or another determiner.",
+        "vi": "Danh từ đếm được số ít cần a/an hoặc một từ hạn định khác."
+      }
+    },
+    {
+      "wrong": "I need two informations.",
+      "right": "I need some information.",
+      "why": {
+        "en": "Information is uncountable in English. Do not add -s or use a number directly before it.",
+        "vi": "Information là danh từ không đếm được trong tiếng Anh. Không thêm -s hoặc dùng số trực tiếp trước nó."
+      }
+    },
+    {
+      "wrong": "How much apples do you want?",
+      "right": "How many apples do you want?",
+      "why": {
+        "en": "Apples is a plural countable noun, so use how many.",
+        "vi": "Apples là danh từ đếm được số nhiều, nên dùng how many."
+      }
+    },
+    {
+      "wrong": "She drinks a water.",
+      "right": "She drinks water. / She drinks a glass of water.",
+      "why": {
+        "en": "Water is uncountable. Use it without a/an, or use a container phrase like a glass of.",
+        "vi": "Water là danh từ không đếm được. Dùng không có a/an, hoặc dùng cụm chỉ vật chứa như a glass of."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "If you can count it one by one, use a/an or plural -s. If not, use some, much, or a phrase like a cup of.",
+    "vi": "Nếu bạn có thể đếm từng cái, dùng a/an hoặc thêm -s số nhiều. Nếu không, dùng some, much, hoặc cụm như a cup of."
+  }
+}

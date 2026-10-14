@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "en": "The passive voice focuses on the person or thing that receives an action, not the person who does it. Use it when the doer is unknown, not important, or already clear.",
+    "vi": "Câu bị động tập trung vào người hoặc vật nhận hành động, không phải người thực hiện hành động. Dùng khi người thực hiện không rõ, không quan trọng, hoặc đã rõ trong ngữ cảnh."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + am/is/are + past participle (+ by + agent)",
+      "example": {
+        "en": "The room is cleaned every day.",
+        "vi": "Căn phòng được dọn dẹp mỗi ngày."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + am/is/are + not + past participle",
+      "example": {
+        "en": "These books are not sold here.",
+        "vi": "Những cuốn sách này không được bán ở đây."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Am/Is/Are + S + past participle?",
+      "example": {
+        "en": "Is this door locked at night?",
+        "vi": "Cánh cửa này có được khóa vào ban đêm không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Past simple passive",
+        "vi": "Bị động thì quá khứ đơn"
+      },
+      "pattern": "S + was/were + past participle (+ by + agent)",
+      "example": {
+        "en": "The bridge was built in 1990.",
+        "vi": "Cây cầu được xây vào năm 1990."
+      }
+    },
+    {
+      "label": {
+        "en": "Past simple passive question",
+        "vi": "Câu hỏi bị động thì quá khứ đơn"
+      },
+      "pattern": "Was/Were + S + past participle?",
+      "example": {
+        "en": "Were the windows repaired yesterday?",
+        "vi": "Các cửa sổ đã được sửa hôm qua phải không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "When the doer is unknown",
+        "vi": "Khi không biết người thực hiện"
+      },
+      "explanation": {
+        "en": "Use the passive when we do not know who does or did the action.",
+        "vi": "Dùng câu bị động khi chúng ta không biết ai thực hiện hoặc đã thực hiện hành động."
+      },
+      "examples": [
+        {
+          "en": "My bike was stolen last night.",
+          "vi": "Xe đạp của tôi đã bị lấy trộm tối qua."
+        },
+        {
+          "en": "The window was broken.",
+          "vi": "Cửa sổ đã bị vỡ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "When the doer is not important",
+        "vi": "Khi người thực hiện không quan trọng"
+      },
+      "explanation": {
+        "en": "Use the passive when the action or result is more important than the person who does it.",
+        "vi": "Dùng câu bị động khi hành động hoặc kết quả quan trọng hơn người thực hiện."
+      },
+      "examples": [
+        {
+          "en": "Rice is grown in many countries.",
+          "vi": "Gạo được trồng ở nhiều quốc gia."
+        },
+        {
+          "en": "English is spoken in this office.",
+          "vi": "Tiếng Anh được nói ở văn phòng này."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "For rules, signs, and notices",
+        "vi": "Dùng trong quy định, biển báo và thông báo"
+      },
+      "explanation": {
+        "en": "The passive is common in public information because the rule is more important than the person who gives it.",
+        "vi": "Câu bị động thường dùng trong thông tin công cộng vì quy định quan trọng hơn người đưa ra quy định."
+      },
+      "examples": [
+        {
+          "en": "Smoking is not allowed here.",
+          "vi": "Không được phép hút thuốc ở đây."
+        },
+        {
+          "en": "Tickets are checked at the door.",
+          "vi": "Vé được kiểm tra ở cửa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "When you want to mention the doer",
+        "vi": "Khi muốn nhắc đến người thực hiện"
+      },
+      "explanation": {
+        "en": "Add by + person or thing if the doer is important or interesting.",
+        "vi": "Thêm by + người hoặc vật nếu người thực hiện quan trọng hoặc đáng chú ý."
+      },
+      "examples": [
+        {
+          "en": "This song was written by a young musician.",
+          "vi": "Bài hát này được viết bởi một nhạc sĩ trẻ."
+        },
+        {
+          "en": "The cake was made by my sister.",
+          "vi": "Chiếc bánh được làm bởi chị/em gái tôi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "by + person/thing",
+    "am/is/are + past participle",
+    "was/were + past participle",
+    "not important who does the action",
+    "unknown doer"
+  ],
+  "mistakes": [
+    {
+      "wrong": "The room cleaned every day.",
+      "right": "The room is cleaned every day.",
+      "why": {
+        "en": "A passive sentence needs the verb be before the past participle.",
+        "vi": "Câu bị động cần có động từ be trước quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "The bridge built in 1990.",
+      "right": "The bridge was built in 1990.",
+      "why": {
+        "en": "For past simple passive, use was or were + past participle.",
+        "vi": "Với câu bị động thì quá khứ đơn, dùng was hoặc were + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "English is speak in this class.",
+      "right": "English is spoken in this class.",
+      "why": {
+        "en": "After be in the passive, use the past participle, not the base verb.",
+        "vi": "Sau be trong câu bị động, dùng quá khứ phân từ, không dùng động từ nguyên mẫu."
+      }
+    },
+    {
+      "wrong": "This book is wrote by Mark Twain.",
+      "right": "This book was written by Mark Twain.",
+      "why": {
+        "en": "Use the correct past participle: write becomes written. Also use was for a completed past action.",
+        "vi": "Dùng đúng quá khứ phân từ: write thành written. Đồng thời dùng was cho hành động đã hoàn thành trong quá khứ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Passive = be + past participle: is made, are used, was built, were found.",
+    "vi": "Câu bị động = be + quá khứ phân từ: is made, are used, was built, were found."
+  }
+}

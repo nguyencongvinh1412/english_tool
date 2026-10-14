@@ -1,0 +1,201 @@
+{
+  "summary": {
+    "en": "We use who, which, that, whose, and where to add information about a person, thing, animal, place, or owner. They often join two ideas into one sentence: I know a girl. She speaks French. → I know a girl who speaks French.",
+    "vi": "Ta dùng who, which, that, whose và where để thêm thông tin về người, vật, con vật, nơi chốn hoặc người sở hữu. Chúng thường nối hai ý thành một câu: I know a girl. She speaks French. → I know a girl who speaks French."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "People: who / that",
+        "vi": "Người: who / that"
+      },
+      "pattern": "person + who/that + V + ...",
+      "example": {
+        "en": "She is the teacher who helped me.",
+        "vi": "Cô ấy là giáo viên đã giúp tôi."
+      }
+    },
+    {
+      "label": {
+        "en": "Things or animals: which / that",
+        "vi": "Vật hoặc con vật: which / that"
+      },
+      "pattern": "thing/animal + which/that + V + ...",
+      "example": {
+        "en": "This is the book that I bought yesterday.",
+        "vi": "Đây là quyển sách mà tôi đã mua hôm qua."
+      }
+    },
+    {
+      "label": {
+        "en": "Possession: whose",
+        "vi": "Sở hữu: whose"
+      },
+      "pattern": "person/thing + whose + noun + V + ...",
+      "example": {
+        "en": "I have a friend whose brother lives in London.",
+        "vi": "Tôi có một người bạn mà anh trai của bạn ấy sống ở London."
+      }
+    },
+    {
+      "label": {
+        "en": "Place: where",
+        "vi": "Nơi chốn: where"
+      },
+      "pattern": "place + where + S + V + ...",
+      "example": {
+        "en": "This is the café where we met.",
+        "vi": "Đây là quán cà phê nơi chúng ta đã gặp nhau."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "To talk about a person",
+        "vi": "Để nói về một người"
+      },
+      "explanation": {
+        "en": "Use who for people. In everyday English, that is also common when the information is necessary to identify the person.",
+        "vi": "Dùng who cho người. Trong tiếng Anh hằng ngày, that cũng thường dùng khi thông tin đó cần thiết để xác định người được nói đến."
+      },
+      "examples": [
+        {
+          "en": "The man who lives next door is very kind.",
+          "vi": "Người đàn ông sống bên cạnh rất tốt bụng."
+        },
+        {
+          "en": "She is the student that won the prize.",
+          "vi": "Cô ấy là học sinh đã thắng giải."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To talk about a thing or animal",
+        "vi": "Để nói về một vật hoặc con vật"
+      },
+      "explanation": {
+        "en": "Use which for things and animals. That is also common in simple defining sentences.",
+        "vi": "Dùng which cho vật và con vật. That cũng thường dùng trong câu xác định đơn giản."
+      },
+      "examples": [
+        {
+          "en": "I like the phone which has a good camera.",
+          "vi": "Tôi thích chiếc điện thoại có camera tốt."
+        },
+        {
+          "en": "This is the dog that barks every night.",
+          "vi": "Đây là con chó sủa mỗi đêm."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To show possession",
+        "vi": "Để chỉ sự sở hữu"
+      },
+      "explanation": {
+        "en": "Use whose before a noun to mean his, her, its, or their. It can be used for people and sometimes for animals or things.",
+        "vi": "Dùng whose trước danh từ để có nghĩa là của anh ấy, cô ấy, nó hoặc họ. Nó có thể dùng cho người và đôi khi cho động vật hoặc vật."
+      },
+      "examples": [
+        {
+          "en": "The girl whose bag is red is my sister.",
+          "vi": "Cô gái có chiếc túi màu đỏ là em gái tôi."
+        },
+        {
+          "en": "We visited a house whose windows were very small.",
+          "vi": "Chúng tôi đã thăm một ngôi nhà có cửa sổ rất nhỏ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To talk about a place",
+        "vi": "Để nói về nơi chốn"
+      },
+      "explanation": {
+        "en": "Use where after a place word, such as school, city, room, café, or country.",
+        "vi": "Dùng where sau từ chỉ nơi chốn, như school, city, room, café hoặc country."
+      },
+      "examples": [
+        {
+          "en": "Da Nang is the city where I was born.",
+          "vi": "Đà Nẵng là thành phố nơi tôi sinh ra."
+        },
+        {
+          "en": "This is the room where we study English.",
+          "vi": "Đây là căn phòng nơi chúng tôi học tiếng Anh."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "To combine two short sentences",
+        "vi": "Để nối hai câu ngắn"
+      },
+      "explanation": {
+        "en": "A relative pronoun helps avoid repeating the same noun.",
+        "vi": "Đại từ quan hệ giúp tránh lặp lại cùng một danh từ."
+      },
+      "examples": [
+        {
+          "en": "I met a woman. She works with your father. → I met a woman who works with your father.",
+          "vi": "Tôi đã gặp một người phụ nữ. Cô ấy làm việc với bố bạn. → Tôi đã gặp một người phụ nữ làm việc với bố bạn."
+        },
+        {
+          "en": "He bought a car. It is very fast. → He bought a car which is very fast.",
+          "vi": "Anh ấy đã mua một chiếc xe. Nó rất nhanh. → Anh ấy đã mua một chiếc xe rất nhanh."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "the man who ...",
+    "the woman that ...",
+    "the book which ...",
+    "the place where ...",
+    "the person whose ...",
+    "This is the ... who/which/that/where ..."
+  ],
+  "mistakes": [
+    {
+      "wrong": "The man he lives next door is friendly.",
+      "right": "The man who lives next door is friendly.",
+      "why": {
+        "en": "Do not use both a relative pronoun and a subject pronoun for the same person. Use who instead of he.",
+        "vi": "Không dùng cả đại từ quan hệ và đại từ chủ ngữ cho cùng một người. Dùng who thay cho he."
+      }
+    },
+    {
+      "wrong": "This is the book who I bought.",
+      "right": "This is the book which I bought.",
+      "why": {
+        "en": "Use who for people. Use which or that for things.",
+        "vi": "Dùng who cho người. Dùng which hoặc that cho vật."
+      }
+    },
+    {
+      "wrong": "She is the girl whose lives near my house.",
+      "right": "She is the girl who lives near my house.",
+      "why": {
+        "en": "Whose must be followed by a noun, for example whose brother or whose house. Here we need who because the girl is the subject of lives.",
+        "vi": "Whose phải theo sau bởi một danh từ, ví dụ whose brother hoặc whose house. Ở đây cần who vì cô gái là chủ ngữ của lives."
+      }
+    },
+    {
+      "wrong": "This is the café which we met.",
+      "right": "This is the café where we met.",
+      "why": {
+        "en": "For a place with the meaning “in/at that place”, use where.",
+        "vi": "Với nơi chốn mang nghĩa “ở/tại nơi đó”, dùng where."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Think: who = person, which = thing, whose = owner, where = place, that = person or thing in many simple defining sentences.",
+    "vi": "Hãy nhớ: who = người, which = vật, whose = người/vật sở hữu, where = nơi chốn, that = người hoặc vật trong nhiều câu xác định đơn giản."
+  }
+}

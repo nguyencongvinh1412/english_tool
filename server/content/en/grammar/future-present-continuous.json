@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "en": "Use the present continuous for future arrangements: plans with a fixed time, place, or person, often already agreed. It is common for social plans, appointments, travel, and scheduled personal activities.",
+    "vi": "Dùng thì hiện tại tiếp diễn để nói về lịch hẹn hoặc kế hoạch tương lai đã được sắp xếp: thường có thời gian, địa điểm hoặc người tham gia rõ ràng. Cách dùng này phổ biến với kế hoạch gặp gỡ, cuộc hẹn, đi lại và hoạt động cá nhân đã chốt."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + am/is/are + V-ing + future time",
+      "example": {
+        "en": "I am meeting Anna at 6 p.m.",
+        "vi": "Tôi sẽ gặp Anna lúc 6 giờ tối."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + am/is/are + not + V-ing + future time",
+      "example": {
+        "en": "We are not going out tonight.",
+        "vi": "Tối nay chúng tôi sẽ không đi chơi."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Yes/No"
+      },
+      "pattern": "Am/Is/Are + S + V-ing + future time?",
+      "example": {
+        "en": "Are you seeing the doctor tomorrow?",
+        "vi": "Ngày mai bạn có đi khám bác sĩ không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi Wh-"
+      },
+      "pattern": "Wh-word + am/is/are + S + V-ing + future time?",
+      "example": {
+        "en": "What are you doing this weekend?",
+        "vi": "Cuối tuần này bạn sẽ làm gì?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Personal arrangements",
+        "vi": "Lịch hẹn cá nhân"
+      },
+      "explanation": {
+        "en": "Use it when you have arranged to do something with someone or at a fixed time.",
+        "vi": "Dùng khi bạn đã sắp xếp làm việc gì đó với ai hoặc vào một thời điểm cụ thể."
+      },
+      "examples": [
+        {
+          "en": "I am having lunch with my manager tomorrow.",
+          "vi": "Ngày mai tôi sẽ ăn trưa với quản lý của tôi."
+        },
+        {
+          "en": "She is visiting her parents on Sunday.",
+          "vi": "Chủ nhật cô ấy sẽ đi thăm bố mẹ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Appointments",
+        "vi": "Cuộc hẹn"
+      },
+      "explanation": {
+        "en": "Use it for appointments that are already booked, such as a doctor, dentist, teacher, or client meeting.",
+        "vi": "Dùng cho các cuộc hẹn đã được đặt trước, như gặp bác sĩ, nha sĩ, giáo viên hoặc khách hàng."
+      },
+      "examples": [
+        {
+          "en": "He is seeing the dentist at 10 a.m.",
+          "vi": "Anh ấy sẽ gặp nha sĩ lúc 10 giờ sáng."
+        },
+        {
+          "en": "We are meeting the client after lunch.",
+          "vi": "Chúng tôi sẽ gặp khách hàng sau bữa trưa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Travel plans",
+        "vi": "Kế hoạch đi lại"
+      },
+      "explanation": {
+        "en": "Use it for future travel when the ticket, time, or plan is arranged.",
+        "vi": "Dùng cho việc đi lại trong tương lai khi vé, thời gian hoặc kế hoạch đã được sắp xếp."
+      },
+      "examples": [
+        {
+          "en": "They are flying to Da Nang next Friday.",
+          "vi": "Thứ Sáu tới họ sẽ bay đến Đà Nẵng."
+        },
+        {
+          "en": "I am taking the 7:30 train tomorrow morning.",
+          "vi": "Sáng mai tôi sẽ đi chuyến tàu lúc 7 giờ 30."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "tomorrow",
+    "tonight",
+    "this weekend",
+    "next Monday",
+    "at 6 p.m.",
+    "after work",
+    "on Friday",
+    "with Tom",
+    "at the restaurant"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I meeting my friend tonight.",
+      "right": "I am meeting my friend tonight.",
+      "why": {
+        "en": "The present continuous needs the verb be: am, is, or are.",
+        "vi": "Thì hiện tại tiếp diễn cần động từ be: am, is hoặc are."
+      }
+    },
+    {
+      "wrong": "She is meet the doctor tomorrow.",
+      "right": "She is meeting the doctor tomorrow.",
+      "why": {
+        "en": "After am/is/are, use the -ing form of the verb.",
+        "vi": "Sau am/is/are, dùng dạng động từ thêm -ing."
+      }
+    },
+    {
+      "wrong": "We meet our teacher at 5 p.m. tomorrow.",
+      "right": "We are meeting our teacher at 5 p.m. tomorrow.",
+      "why": {
+        "en": "For a future arrangement, use the present continuous, not the simple present. The simple present is mainly for timetables and regular facts.",
+        "vi": "Với lịch hẹn trong tương lai, dùng hiện tại tiếp diễn, không dùng hiện tại đơn. Hiện tại đơn chủ yếu dùng cho thời gian biểu và sự thật/lịch cố định."
+      }
+    },
+    {
+      "wrong": "Are you go to the party tonight?",
+      "right": "Are you going to the party tonight?",
+      "why": {
+        "en": "In questions, keep be before the subject and use the -ing form after the subject.",
+        "vi": "Trong câu hỏi, đặt be trước chủ ngữ và dùng động từ dạng -ing sau chủ ngữ."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "future-going-to",
+      "note": {
+        "en": "Be going to is often for intentions or plans in your mind. The present continuous usually sounds more fixed, with a time, place, or arrangement with another person. Compare: I am going to visit Lan soon. = an intention; I am visiting Lan at 3 p.m. tomorrow. = an arrangement.",
+        "vi": "Be going to thường dùng cho ý định hoặc kế hoạch trong đầu. Hiện tại tiếp diễn thường nghe chắc chắn hơn, có thời gian, địa điểm hoặc sự sắp xếp với người khác. So sánh: I am going to visit Lan soon. = một ý định; I am visiting Lan at 3 p.m. tomorrow. = một lịch hẹn đã sắp xếp."
+      }
+    },
+    {
+      "with": "future-will",
+      "note": {
+        "en": "Will is common for quick decisions, promises, offers, and predictions. The present continuous is for arrangements already made. Compare: I will call him now. = a decision now; I am calling him at 8 tonight. = an arranged call.",
+        "vi": "Will thường dùng cho quyết định ngay lúc nói, lời hứa, đề nghị giúp đỡ và dự đoán. Hiện tại tiếp diễn dùng cho việc đã được sắp xếp trước. So sánh: I will call him now. = quyết định ngay bây giờ; I am calling him at 8 tonight. = cuộc gọi đã hẹn trước."
+      }
+    }
+  ],
+  "tip": {
+    "en": "If your plan is in your calendar, you can often use the present continuous.",
+    "vi": "Nếu kế hoạch đã nằm trong lịch của bạn, bạn thường có thể dùng hiện tại tiếp diễn."
+  }
+}

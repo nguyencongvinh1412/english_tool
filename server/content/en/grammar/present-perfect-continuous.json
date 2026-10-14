@@ -1,0 +1,192 @@
+{
+  "summary": {
+    "en": "The present perfect continuous describes an action that started in the past and is still continuing now, or has just stopped with a visible present result. It often focuses on the duration or repeated activity, not the finished result.",
+    "vi": "Thì hiện tại hoàn thành tiếp diễn diễn tả một hành động bắt đầu trong quá khứ và vẫn đang tiếp tục đến hiện tại, hoặc vừa mới dừng lại và có kết quả thấy được ở hiện tại. Thì này thường nhấn mạnh khoảng thời gian hoặc quá trình lặp lại, không nhấn mạnh kết quả đã hoàn tất."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + have/has + been + V-ing",
+      "example": {
+        "en": "She has been studying English for three years.",
+        "vi": "Cô ấy đã học tiếng Anh được ba năm rồi."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + have/has + not + been + V-ing",
+      "example": {
+        "en": "I have not been sleeping well recently.",
+        "vi": "Gần đây tôi ngủ không ngon."
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question",
+        "vi": "Câu hỏi Có/Không"
+      },
+      "pattern": "Have/Has + S + been + V-ing?",
+      "example": {
+        "en": "Have you been waiting long?",
+        "vi": "Bạn đã đợi lâu chưa?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question",
+        "vi": "Câu hỏi có từ để hỏi"
+      },
+      "pattern": "Wh-word + have/has + S + been + V-ing?",
+      "example": {
+        "en": "What have you been doing all morning?",
+        "vi": "Bạn đã làm gì suốt buổi sáng vậy?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Actions continuing up to now",
+        "vi": "Hành động kéo dài đến hiện tại"
+      },
+      "explanation": {
+        "en": "Use the present perfect continuous for an action that began in the past and is still happening now. It commonly goes with for and since.",
+        "vi": "Dùng thì hiện tại hoàn thành tiếp diễn cho hành động bắt đầu trong quá khứ và vẫn đang diễn ra ở hiện tại. Thì này thường đi với for và since."
+      },
+      "examples": [
+        {
+          "en": "We have been living here since 2020.",
+          "vi": "Chúng tôi đã sống ở đây từ năm 2020."
+        },
+        {
+          "en": "He has been working on this project for two months.",
+          "vi": "Anh ấy đã làm dự án này được hai tháng."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Recent activity with a present result",
+        "vi": "Hoạt động vừa xảy ra và có kết quả hiện tại"
+      },
+      "explanation": {
+        "en": "Use it when an activity has just stopped or is still connected to now, and we can see or feel the result.",
+        "vi": "Dùng thì này khi một hoạt động vừa mới dừng lại hoặc vẫn liên quan đến hiện tại, và ta có thể thấy hoặc cảm nhận kết quả."
+      },
+      "examples": [
+        {
+          "en": "Your eyes are red. Have you been crying?",
+          "vi": "Mắt bạn đỏ quá. Bạn vừa khóc à?"
+        },
+        {
+          "en": "The ground is wet because it has been raining.",
+          "vi": "Mặt đất ướt vì trời vừa mưa."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Repeated actions in a recent period",
+        "vi": "Hành động lặp lại trong thời gian gần đây"
+      },
+      "explanation": {
+        "en": "Use it for repeated actions that have happened again and again recently, especially when the situation may continue.",
+        "vi": "Dùng thì này cho các hành động lặp đi lặp lại trong thời gian gần đây, đặc biệt khi tình huống có thể còn tiếp tục."
+      },
+      "examples": [
+        {
+          "en": "She has been calling me every evening this week.",
+          "vi": "Tuần này tối nào cô ấy cũng gọi cho tôi."
+        },
+        {
+          "en": "They have been arguing a lot lately.",
+          "vi": "Gần đây họ cãi nhau rất nhiều."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Emphasising duration",
+        "vi": "Nhấn mạnh khoảng thời gian"
+      },
+      "explanation": {
+        "en": "Choose this tense when the length of time is important, or when you want to show effort, irritation, or surprise.",
+        "vi": "Chọn thì này khi độ dài thời gian là điều quan trọng, hoặc khi muốn thể hiện sự cố gắng, khó chịu hay ngạc nhiên."
+      },
+      "examples": [
+        {
+          "en": "I have been waiting for you for an hour!",
+          "vi": "Tôi đã đợi bạn suốt một tiếng rồi đấy!"
+        },
+        {
+          "en": "You have been playing games all day.",
+          "vi": "Bạn đã chơi game suốt cả ngày rồi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "for",
+    "since",
+    "all day",
+    "all morning",
+    "recently",
+    "lately",
+    "how long",
+    "these days",
+    "over the last few weeks"
+  ],
+  "mistakes": [
+    {
+      "wrong": "She has studying English for three years.",
+      "right": "She has been studying English for three years.",
+      "why": {
+        "en": "The present perfect continuous needs have/has + been + V-ing. Do not leave out been.",
+        "vi": "Thì hiện tại hoàn thành tiếp diễn cần have/has + been + V-ing. Không được bỏ been."
+      }
+    },
+    {
+      "wrong": "He have been working here since 2021.",
+      "right": "He has been working here since 2021.",
+      "why": {
+        "en": "With he, she, it, or a singular noun, use has, not have.",
+        "vi": "Với he, she, it hoặc danh từ số ít, dùng has, không dùng have."
+      }
+    },
+    {
+      "wrong": "I am living here for five years.",
+      "right": "I have been living here for five years.",
+      "why": {
+        "en": "For an action that started in the past and continues now, use the present perfect continuous, not the present continuous.",
+        "vi": "Với hành động bắt đầu trong quá khứ và còn tiếp tục đến hiện tại, dùng hiện tại hoàn thành tiếp diễn, không dùng hiện tại tiếp diễn."
+      }
+    },
+    {
+      "wrong": "She has been knowing him since school.",
+      "right": "She has known him since school.",
+      "why": {
+        "en": "Some state verbs, such as know, like, believe, and understand, are not usually used in continuous forms. Use the present perfect simple.",
+        "vi": "Một số động từ chỉ trạng thái như know, like, believe, understand thường không dùng ở dạng tiếp diễn. Hãy dùng hiện tại hoàn thành đơn."
+      }
+    }
+  ],
+  "contrastNotes": [
+    {
+      "with": "present-perfect",
+      "note": {
+        "en": "The present perfect continuous focuses on the activity and its duration: I have been reading this book all week. The present perfect often focuses on the completed result or number: I have read three chapters.",
+        "vi": "Hiện tại hoàn thành tiếp diễn nhấn mạnh hoạt động và thời gian kéo dài: I have been reading this book all week. Hiện tại hoàn thành thường nhấn mạnh kết quả đã hoàn tất hoặc số lượng: I have read three chapters."
+      }
+    }
+  ],
+  "tip": {
+    "en": "Think: started before now + still continuing, or just stopped + you can see the result.",
+    "vi": "Hãy nhớ: bắt đầu trước hiện tại + vẫn tiếp tục, hoặc vừa dừng lại + có thể thấy kết quả."
+  }
+}

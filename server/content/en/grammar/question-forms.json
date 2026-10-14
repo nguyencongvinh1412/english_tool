@@ -1,0 +1,197 @@
+{
+  "summary": {
+    "en": "Question forms are used to ask for information or to check if something is true. In simple A1 English, we often use be, do/does, can, or question words like what, where, when, who, and how.",
+    "vi": "Cách đặt câu hỏi dùng để hỏi thông tin hoặc kiểm tra xem điều gì đó có đúng không. Ở trình độ A1, ta thường dùng be, do/does, can, hoặc các từ hỏi như what, where, when, who và how."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Yes/No question with be",
+        "vi": "Câu hỏi Có/Không với be"
+      },
+      "pattern": "Am/Is/Are + S + adjective/noun/place?",
+      "example": {
+        "en": "Are you tired?",
+        "vi": "Bạn có mệt không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question with be",
+        "vi": "Câu hỏi Wh- với be"
+      },
+      "pattern": "Question word + am/is/are + S?",
+      "example": {
+        "en": "Where is your bag?",
+        "vi": "Túi của bạn ở đâu?"
+      }
+    },
+    {
+      "label": {
+        "en": "Yes/No question with do/does",
+        "vi": "Câu hỏi Có/Không với do/does"
+      },
+      "pattern": "Do/Does + S + base verb + O?",
+      "example": {
+        "en": "Do you like coffee?",
+        "vi": "Bạn có thích cà phê không?"
+      }
+    },
+    {
+      "label": {
+        "en": "Wh-question with do/does",
+        "vi": "Câu hỏi Wh- với do/does"
+      },
+      "pattern": "Question word + do/does + S + base verb + O?",
+      "example": {
+        "en": "What does he eat for breakfast?",
+        "vi": "Anh ấy ăn gì vào bữa sáng?"
+      }
+    },
+    {
+      "label": {
+        "en": "Question with can",
+        "vi": "Câu hỏi với can"
+      },
+      "pattern": "Can + S + base verb?",
+      "example": {
+        "en": "Can you swim?",
+        "vi": "Bạn có biết bơi không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Ask if something is true",
+        "vi": "Hỏi xem điều gì đó có đúng không"
+      },
+      "explanation": {
+        "en": "Use a Yes/No question when the answer can be yes or no.",
+        "vi": "Dùng câu hỏi Có/Không khi câu trả lời có thể là yes hoặc no."
+      },
+      "examples": [
+        {
+          "en": "Is she your teacher?",
+          "vi": "Cô ấy có phải là giáo viên của bạn không?"
+        },
+        {
+          "en": "Do they live here?",
+          "vi": "Họ có sống ở đây không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Ask for specific information",
+        "vi": "Hỏi thông tin cụ thể"
+      },
+      "explanation": {
+        "en": "Use a question word such as what, where, when, who, or how to ask for information.",
+        "vi": "Dùng từ hỏi như what, where, when, who hoặc how để hỏi thông tin."
+      },
+      "examples": [
+        {
+          "en": "What is your name?",
+          "vi": "Tên bạn là gì?"
+        },
+        {
+          "en": "Where do you work?",
+          "vi": "Bạn làm việc ở đâu?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Ask about ability",
+        "vi": "Hỏi về khả năng"
+      },
+      "explanation": {
+        "en": "Use can before the subject to ask what someone is able to do.",
+        "vi": "Dùng can trước chủ ngữ để hỏi ai đó có thể làm gì."
+      },
+      "examples": [
+        {
+          "en": "Can your brother drive?",
+          "vi": "Anh/em trai của bạn có biết lái xe không?"
+        },
+        {
+          "en": "Can you help me?",
+          "vi": "Bạn có thể giúp tôi không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Ask about daily habits",
+        "vi": "Hỏi về thói quen hằng ngày"
+      },
+      "explanation": {
+        "en": "Use do or does with the base verb to ask about routines and general facts.",
+        "vi": "Dùng do hoặc does với động từ nguyên thể để hỏi về thói quen và sự thật chung."
+      },
+      "examples": [
+        {
+          "en": "Do you get up early?",
+          "vi": "Bạn có dậy sớm không?"
+        },
+        {
+          "en": "Does she study English every day?",
+          "vi": "Cô ấy có học tiếng Anh mỗi ngày không?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "what",
+    "where",
+    "when",
+    "who",
+    "how",
+    "do",
+    "does",
+    "am",
+    "is",
+    "are",
+    "can"
+  ],
+  "mistakes": [
+    {
+      "wrong": "You are a student?",
+      "right": "Are you a student?",
+      "why": {
+        "en": "In a normal Yes/No question with be, put be before the subject.",
+        "vi": "Trong câu hỏi Có/Không thông thường với be, đặt be trước chủ ngữ."
+      }
+    },
+    {
+      "wrong": "Where you live?",
+      "right": "Where do you live?",
+      "why": {
+        "en": "With most present simple verbs, use do/does after the question word.",
+        "vi": "Với hầu hết động từ ở thì hiện tại đơn, dùng do/does sau từ hỏi."
+      }
+    },
+    {
+      "wrong": "Does she likes tea?",
+      "right": "Does she like tea?",
+      "why": {
+        "en": "After does, use the base verb. Do not add -s to the main verb.",
+        "vi": "Sau does, dùng động từ nguyên thể. Không thêm -s vào động từ chính."
+      }
+    },
+    {
+      "wrong": "What is you name?",
+      "right": "What is your name?",
+      "why": {
+        "en": "Use your before a noun to show possession: your name, your phone, your bag.",
+        "vi": "Dùng your trước danh từ để chỉ sự sở hữu: your name, your phone, your bag."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "For questions, move be or can before the subject; if there is no be or can, use do/does.",
+    "vi": "Khi đặt câu hỏi, đưa be hoặc can lên trước chủ ngữ; nếu không có be hoặc can, dùng do/does."
+  }
+}

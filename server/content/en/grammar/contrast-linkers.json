@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Use although, despite, and however to show contrast between two ideas. They are more formal and clearer than but in many written or spoken situations.",
+    "vi": "Dùng although, despite và however để diễn tả sự tương phản giữa hai ý. Chúng trang trọng hơn và rõ nghĩa hơn but trong nhiều tình huống nói hoặc viết."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Although + clause",
+        "vi": "Although + mệnh đề"
+      },
+      "pattern": "Although + S + V, S + V",
+      "example": {
+        "en": "Although it was raining, we went out.",
+        "vi": "Mặc dù trời đang mưa, chúng tôi vẫn ra ngoài."
+      }
+    },
+    {
+      "label": {
+        "en": "Main clause + although",
+        "vi": "Mệnh đề chính + although"
+      },
+      "pattern": "S + V + although + S + V",
+      "example": {
+        "en": "We went out although it was raining.",
+        "vi": "Chúng tôi vẫn ra ngoài mặc dù trời đang mưa."
+      }
+    },
+    {
+      "label": {
+        "en": "Despite + noun / -ing",
+        "vi": "Despite + danh từ / V-ing"
+      },
+      "pattern": "Despite + noun / V-ing, S + V",
+      "example": {
+        "en": "Despite the rain, we went out.",
+        "vi": "Bất chấp trời mưa, chúng tôi vẫn ra ngoài."
+      }
+    },
+    {
+      "label": {
+        "en": "However as a sentence connector",
+        "vi": "However làm từ nối giữa câu"
+      },
+      "pattern": "S + V. However, S + V",
+      "example": {
+        "en": "It was raining. However, we went out.",
+        "vi": "Trời đang mưa. Tuy nhiên, chúng tôi vẫn ra ngoài."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Contrasting two facts",
+        "vi": "Đối lập hai sự thật"
+      },
+      "explanation": {
+        "en": "Use although or however when both ideas are true, but one idea is surprising because of the other.",
+        "vi": "Dùng although hoặc however khi cả hai ý đều đúng, nhưng một ý gây bất ngờ vì ý kia."
+      },
+      "examples": [
+        {
+          "en": "Although the exam was difficult, she passed.",
+          "vi": "Mặc dù bài thi khó, cô ấy đã đỗ."
+        },
+        {
+          "en": "The exam was difficult. However, she passed.",
+          "vi": "Bài thi khó. Tuy nhiên, cô ấy đã đỗ."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Contrasting with a noun or action",
+        "vi": "Đối lập với danh từ hoặc hành động"
+      },
+      "explanation": {
+        "en": "Use despite before a noun phrase or an -ing form, not before a full clause with a subject and verb.",
+        "vi": "Dùng despite trước một cụm danh từ hoặc dạng V-ing, không dùng trước một mệnh đề đầy đủ có chủ ngữ và động từ."
+      },
+      "examples": [
+        {
+          "en": "Despite his age, he runs every morning.",
+          "vi": "Dù tuổi đã cao, ông ấy vẫn chạy bộ mỗi sáng."
+        },
+        {
+          "en": "Despite feeling tired, I finished the report.",
+          "vi": "Dù cảm thấy mệt, tôi đã hoàn thành báo cáo."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Starting a sentence with contrast",
+        "vi": "Bắt đầu câu bằng ý tương phản"
+      },
+      "explanation": {
+        "en": "When although or despite comes at the beginning, use a comma before the main clause.",
+        "vi": "Khi although hoặc despite đứng đầu câu, dùng dấu phẩy trước mệnh đề chính."
+      },
+      "examples": [
+        {
+          "en": "Although I was busy, I called my mother.",
+          "vi": "Mặc dù tôi bận, tôi vẫn gọi cho mẹ."
+        },
+        {
+          "en": "Despite the high price, many people bought the phone.",
+          "vi": "Dù giá cao, nhiều người vẫn mua chiếc điện thoại đó."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Linking two separate sentences",
+        "vi": "Nối hai câu riêng biệt"
+      },
+      "explanation": {
+        "en": "However usually connects two separate sentences. It is followed by a comma. In formal writing, avoid using it exactly like but between two clauses without punctuation.",
+        "vi": "However thường nối hai câu riêng biệt. Sau however thường có dấu phẩy. Trong văn viết trang trọng, tránh dùng nó giống hệt but giữa hai mệnh đề mà không có dấu câu phù hợp."
+      },
+      "examples": [
+        {
+          "en": "I wanted to join the trip. However, I had to work.",
+          "vi": "Tôi muốn tham gia chuyến đi. Tuy nhiên, tôi phải làm việc."
+        },
+        {
+          "en": "The hotel is small. However, it is very comfortable.",
+          "vi": "Khách sạn nhỏ. Tuy nhiên, nó rất thoải mái."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "although",
+    "even though",
+    "despite",
+    "in spite of",
+    "however",
+    "nevertheless"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Although he was tired, but he went to work.",
+      "right": "Although he was tired, he went to work.",
+      "why": {
+        "en": "Do not use although and but together in the same contrast structure.",
+        "vi": "Không dùng although và but cùng nhau trong cùng một cấu trúc tương phản."
+      }
+    },
+    {
+      "wrong": "Despite he was tired, he went to work.",
+      "right": "Although he was tired, he went to work.",
+      "why": {
+        "en": "Despite is not followed by a full clause. Use although + subject + verb, or use despite + noun / -ing.",
+        "vi": "Despite không đi với một mệnh đề đầy đủ. Hãy dùng although + chủ ngữ + động từ, hoặc despite + danh từ / V-ing."
+      }
+    },
+    {
+      "wrong": "Despite of the rain, we played football.",
+      "right": "Despite the rain, we played football.",
+      "why": {
+        "en": "Use despite without of. The similar phrase is in spite of.",
+        "vi": "Dùng despite không có of. Cụm tương tự là in spite of."
+      }
+    },
+    {
+      "wrong": "It was late, however we continued working.",
+      "right": "It was late. However, we continued working.",
+      "why": {
+        "en": "However usually starts a new sentence or follows a semicolon, and it is followed by a comma.",
+        "vi": "However thường bắt đầu một câu mới hoặc đứng sau dấu chấm phẩy, và sau nó có dấu phẩy."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: although + sentence, despite + noun or -ing, however + new sentence.",
+    "vi": "Hãy nhớ: although + câu, despite + danh từ hoặc V-ing, however + câu mới."
+  }
+}

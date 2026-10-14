@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "en": "Some adjectives and verbs are normally followed by a fixed preposition, such as interested in and good at. After the preposition, use a noun or the -ing form of a verb.",
+    "vi": "Một số tính từ và động từ thường đi với một giới từ cố định, như interested in và good at. Sau giới từ, dùng danh từ hoặc dạng -ing của động từ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Affirmative",
+        "vi": "Khẳng định"
+      },
+      "pattern": "S + be + adjective + preposition + noun / V-ing",
+      "example": {
+        "en": "She is interested in photography.",
+        "vi": "Cô ấy quan tâm đến nhiếp ảnh."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative",
+        "vi": "Phủ định"
+      },
+      "pattern": "S + be not + adjective + preposition + noun / V-ing",
+      "example": {
+        "en": "I am not good at remembering names.",
+        "vi": "Tôi không giỏi nhớ tên."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Be + S + adjective + preposition + noun / V-ing?",
+      "example": {
+        "en": "Are you afraid of spiders?",
+        "vi": "Bạn có sợ nhện không?"
+      }
+    },
+    {
+      "label": {
+        "en": "With very, quite, really",
+        "vi": "Với very, quite, really"
+      },
+      "pattern": "S + be + very / quite / really + adjective + preposition + noun / V-ing",
+      "example": {
+        "en": "They are really excited about moving to a new city.",
+        "vi": "Họ thật sự hào hứng về việc chuyển đến một thành phố mới."
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Talking about interests",
+        "vi": "Nói về sở thích hoặc điều quan tâm"
+      },
+      "explanation": {
+        "en": "Use interested in for things or activities that you want to know more about or enjoy.",
+        "vi": "Dùng interested in cho những điều hoặc hoạt động mà bạn muốn tìm hiểu thêm hoặc yêu thích."
+      },
+      "examples": [
+        {
+          "en": "My brother is interested in history.",
+          "vi": "Anh trai tôi quan tâm đến lịch sử."
+        },
+        {
+          "en": "Are you interested in joining the club?",
+          "vi": "Bạn có quan tâm đến việc tham gia câu lạc bộ không?"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Talking about ability",
+        "vi": "Nói về khả năng"
+      },
+      "explanation": {
+        "en": "Use good at or bad at to describe what someone can or cannot do well.",
+        "vi": "Dùng good at hoặc bad at để miêu tả ai đó làm tốt hoặc không làm tốt việc gì."
+      },
+      "examples": [
+        {
+          "en": "He is good at maths.",
+          "vi": "Anh ấy giỏi toán."
+        },
+        {
+          "en": "I am bad at cooking, but I want to learn.",
+          "vi": "Tôi nấu ăn dở, nhưng tôi muốn học."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Talking about feelings",
+        "vi": "Nói về cảm xúc"
+      },
+      "explanation": {
+        "en": "Many feeling adjectives have fixed prepositions: afraid of, proud of, worried about, excited about, pleased with.",
+        "vi": "Nhiều tính từ chỉ cảm xúc đi với giới từ cố định: afraid of, proud of, worried about, excited about, pleased with."
+      },
+      "examples": [
+        {
+          "en": "She is worried about her exam results.",
+          "vi": "Cô ấy lo lắng về kết quả thi của mình."
+        },
+        {
+          "en": "We are proud of our team.",
+          "vi": "Chúng tôi tự hào về đội của mình."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Using a verb after the preposition",
+        "vi": "Dùng động từ sau giới từ"
+      },
+      "explanation": {
+        "en": "After a preposition, use the -ing form, not the infinitive with to.",
+        "vi": "Sau giới từ, dùng dạng -ing, không dùng động từ nguyên mẫu có to."
+      },
+      "examples": [
+        {
+          "en": "Tom is keen on playing tennis.",
+          "vi": "Tom rất thích chơi quần vợt."
+        },
+        {
+          "en": "I am tired of waiting.",
+          "vi": "Tôi mệt mỏi vì phải chờ đợi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "interested in",
+    "good at",
+    "bad at",
+    "afraid of",
+    "proud of",
+    "worried about",
+    "excited about",
+    "pleased with",
+    "keen on",
+    "tired of"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I interested in music.",
+      "right": "I am interested in music.",
+      "why": {
+        "en": "Interested is an adjective here, so it needs the verb be.",
+        "vi": "Interested ở đây là tính từ, nên cần động từ be."
+      }
+    },
+    {
+      "wrong": "She is good in English.",
+      "right": "She is good at English.",
+      "why": {
+        "en": "Use good at to talk about skill or ability.",
+        "vi": "Dùng good at để nói về kỹ năng hoặc khả năng."
+      }
+    },
+    {
+      "wrong": "He is interested in to learn Japanese.",
+      "right": "He is interested in learning Japanese.",
+      "why": {
+        "en": "After a preposition, use a noun or V-ing, not to + verb.",
+        "vi": "Sau giới từ, dùng danh từ hoặc V-ing, không dùng to + động từ."
+      }
+    },
+    {
+      "wrong": "They are worry about the test.",
+      "right": "They are worried about the test.",
+      "why": {
+        "en": "After be, use the adjective worried, not the verb worry.",
+        "vi": "Sau be, dùng tính từ worried, không dùng động từ worry."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Learn the adjective and preposition as one small phrase: interested in, good at, afraid of.",
+    "vi": "Hãy học tính từ và giới từ như một cụm nhỏ: interested in, good at, afraid of."
+  }
+}

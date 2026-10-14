@@ -1,0 +1,181 @@
+{
+  "summary": {
+    "en": "Use unless, in case, and provided that to talk about conditions and possible situations. They are often used like the first conditional: present simple in the condition part, and will/can/must/imperative in the main part.",
+    "vi": "Dùng unless, in case và provided that để nói về điều kiện và tình huống có thể xảy ra. Chúng thường dùng giống câu điều kiện loại 1: mệnh đề điều kiện dùng hiện tại đơn, mệnh đề chính dùng will/can/must/câu mệnh lệnh."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Unless",
+        "vi": "Unless"
+      },
+      "pattern": "Unless + S + present simple, S + will/can/must + V",
+      "example": {
+        "en": "Unless it rains, we will play football.",
+        "vi": "Nếu trời không mưa, chúng tôi sẽ chơi bóng đá."
+      }
+    },
+    {
+      "label": {
+        "en": "In case",
+        "vi": "In case"
+      },
+      "pattern": "S + will/should/imperative + V + in case + S + present simple",
+      "example": {
+        "en": "Take an umbrella in case it rains.",
+        "vi": "Hãy mang ô phòng khi trời mưa."
+      }
+    },
+    {
+      "label": {
+        "en": "Provided that",
+        "vi": "Provided that"
+      },
+      "pattern": "S + will/can + V + provided that + S + present simple",
+      "example": {
+        "en": "You can borrow my bike provided that you bring it back tonight.",
+        "vi": "Bạn có thể mượn xe đạp của tôi miễn là bạn trả lại nó tối nay."
+      }
+    },
+    {
+      "label": {
+        "en": "Question",
+        "vi": "Câu hỏi"
+      },
+      "pattern": "Will/Can + S + V + unless/in case/provided that + S + present simple?",
+      "example": {
+        "en": "Can we leave early provided that we finish the work?",
+        "vi": "Chúng ta có thể về sớm miễn là chúng ta hoàn thành công việc không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Unless = if not",
+        "vi": "Unless = nếu không"
+      },
+      "explanation": {
+        "en": "Use unless to say that something will happen only if another thing does not happen. Do not usually use another negative verb after unless.",
+        "vi": "Dùng unless để nói rằng một việc sẽ xảy ra chỉ khi một việc khác không xảy ra. Thường không dùng thêm động từ phủ định sau unless."
+      },
+      "examples": [
+        {
+          "en": "I will call you unless I am too busy.",
+          "vi": "Tôi sẽ gọi cho bạn nếu tôi không quá bận."
+        },
+        {
+          "en": "Unless she studies harder, she will fail the test.",
+          "vi": "Nếu cô ấy không học chăm hơn, cô ấy sẽ trượt bài kiểm tra."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "In case = because something may happen",
+        "vi": "In case = phòng khi điều gì đó có thể xảy ra"
+      },
+      "explanation": {
+        "en": "Use in case when you do something now to be ready for a possible future problem or situation.",
+        "vi": "Dùng in case khi bạn làm gì đó bây giờ để chuẩn bị cho một vấn đề hoặc tình huống có thể xảy ra trong tương lai."
+      },
+      "examples": [
+        {
+          "en": "Save your work in case the computer stops suddenly.",
+          "vi": "Hãy lưu bài làm của bạn phòng khi máy tính đột ngột dừng lại."
+        },
+        {
+          "en": "I wrote down the address in case my phone battery died.",
+          "vi": "Tôi đã ghi lại địa chỉ phòng khi điện thoại hết pin."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Provided that = only if",
+        "vi": "Provided that = miễn là / với điều kiện là"
+      },
+      "explanation": {
+        "en": "Use provided that to give a clear condition. It sounds a little more formal than if.",
+        "vi": "Dùng provided that để đưa ra một điều kiện rõ ràng. Cách nói này hơi trang trọng hơn if."
+      },
+      "examples": [
+        {
+          "en": "You can join the trip provided that your parents agree.",
+          "vi": "Bạn có thể tham gia chuyến đi với điều kiện là bố mẹ bạn đồng ý."
+        },
+        {
+          "en": "We will finish on time provided that everyone helps.",
+          "vi": "Chúng ta sẽ hoàn thành đúng giờ miễn là mọi người cùng giúp."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Order of clauses",
+        "vi": "Thứ tự mệnh đề"
+      },
+      "explanation": {
+        "en": "The condition clause can come first or second. Use a comma when the condition clause comes first.",
+        "vi": "Mệnh đề điều kiện có thể đứng đầu hoặc đứng sau. Dùng dấu phẩy khi mệnh đề điều kiện đứng đầu câu."
+      },
+      "examples": [
+        {
+          "en": "Unless the bus is late, I will arrive at eight.",
+          "vi": "Nếu xe buýt không trễ, tôi sẽ đến lúc tám giờ."
+        },
+        {
+          "en": "I will arrive at eight unless the bus is late.",
+          "vi": "Tôi sẽ đến lúc tám giờ nếu xe buýt không trễ."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "unless",
+    "in case",
+    "provided that",
+    "as long as",
+    "only if",
+    "just in case"
+  ],
+  "mistakes": [
+    {
+      "wrong": "Unless you don't hurry, you will miss the bus.",
+      "right": "Unless you hurry, you will miss the bus.",
+      "why": {
+        "en": "Unless already means if not, so do not add another negative here.",
+        "vi": "Unless đã có nghĩa là nếu không, nên không thêm một phủ định nữa ở đây."
+      }
+    },
+    {
+      "wrong": "Unless it will rain, we will go out.",
+      "right": "Unless it rains, we will go out.",
+      "why": {
+        "en": "After unless, use the present simple for a future condition, not will.",
+        "vi": "Sau unless, dùng hiện tại đơn cho điều kiện tương lai, không dùng will."
+      }
+    },
+    {
+      "wrong": "I will take some money in case I will need it.",
+      "right": "I will take some money in case I need it.",
+      "why": {
+        "en": "After in case, use the present simple to talk about a possible future situation.",
+        "vi": "Sau in case, dùng hiện tại đơn để nói về một tình huống có thể xảy ra trong tương lai."
+      }
+    },
+    {
+      "wrong": "You can go provided that you are finish your homework.",
+      "right": "You can go provided that you finish your homework.",
+      "why": {
+        "en": "Use the present simple after provided that. Do not use be before a normal verb like finish.",
+        "vi": "Dùng hiện tại đơn sau provided that. Không dùng be trước động từ thường như finish."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Remember: unless = if not; in case = prepare for a possibility; provided that = only if.",
+    "vi": "Hãy nhớ: unless = nếu không; in case = phòng khi; provided that = miễn là / với điều kiện là."
+  }
+}

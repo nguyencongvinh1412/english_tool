@@ -1,0 +1,186 @@
+{
+  "summary": {
+    "en": "Mixed conditionals combine the time meaning of the second and third conditionals: one part refers to an unreal past, and the other to an unreal present or future. Use them when a past situation affects the present, or when a present characteristic would have changed a past result.",
+    "vi": "Câu điều kiện hỗn hợp kết hợp ý nghĩa thời gian của câu điều kiện loại 2 và loại 3: một mệnh đề nói về quá khứ không có thật, mệnh đề còn lại nói về hiện tại hoặc tương lai không có thật. Dùng cấu trúc này khi một tình huống trong quá khứ ảnh hưởng đến hiện tại, hoặc một đặc điểm ở hiện tại lẽ ra đã làm thay đổi kết quả trong quá khứ."
+  },
+  "forms": [
+    {
+      "label": {
+        "en": "Past condition → present result",
+        "vi": "Điều kiện quá khứ → kết quả hiện tại"
+      },
+      "pattern": "If + S + had + past participle, S + would/could/might + bare infinitive",
+      "example": {
+        "en": "If I had studied medicine, I would be a doctor now.",
+        "vi": "Nếu trước đây tôi học ngành y, bây giờ tôi đã là bác sĩ."
+      }
+    },
+    {
+      "label": {
+        "en": "Negative: past condition → present result",
+        "vi": "Phủ định: điều kiện quá khứ → kết quả hiện tại"
+      },
+      "pattern": "If + S + had not + past participle, S + would/could/might not + bare infinitive",
+      "example": {
+        "en": "If she had not missed the interview, she might have the job now.",
+        "vi": "Nếu cô ấy đã không bỏ lỡ buổi phỏng vấn, bây giờ có lẽ cô ấy đã có công việc đó."
+      }
+    },
+    {
+      "label": {
+        "en": "Present condition → past result",
+        "vi": "Điều kiện hiện tại → kết quả quá khứ"
+      },
+      "pattern": "If + S + past simple, S + would/could/might + have + past participle",
+      "example": {
+        "en": "If he were more careful, he would not have made that mistake yesterday.",
+        "vi": "Nếu anh ấy cẩn thận hơn, hôm qua anh ấy đã không mắc lỗi đó."
+      }
+    },
+    {
+      "label": {
+        "en": "Question form",
+        "vi": "Dạng câu hỏi"
+      },
+      "pattern": "If + S + had + past participle, would/could/might + S + bare infinitive?",
+      "example": {
+        "en": "If you had accepted the offer, would you be working in London now?",
+        "vi": "Nếu bạn đã nhận lời đề nghị đó, bây giờ bạn có đang làm việc ở London không?"
+      }
+    }
+  ],
+  "uses": [
+    {
+      "title": {
+        "en": "Past cause, present result",
+        "vi": "Nguyên nhân trong quá khứ, kết quả ở hiện tại"
+      },
+      "explanation": {
+        "en": "Use this when an unreal past action or event explains an unreal present situation.",
+        "vi": "Dùng khi một hành động hoặc sự việc không có thật trong quá khứ giải thích một tình huống không có thật ở hiện tại."
+      },
+      "examples": [
+        {
+          "en": "If we had left earlier, we would be at the airport by now.",
+          "vi": "Nếu chúng ta đã đi sớm hơn, bây giờ chúng ta đã ở sân bay rồi."
+        },
+        {
+          "en": "If I had saved more money, I could buy a car today.",
+          "vi": "Nếu trước đây tôi tiết kiệm nhiều tiền hơn, hôm nay tôi đã có thể mua ô tô."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Past decision, present feeling or state",
+        "vi": "Quyết định trong quá khứ, cảm xúc hoặc trạng thái hiện tại"
+      },
+      "explanation": {
+        "en": "Mixed conditionals are often used to express regret, relief, or dissatisfaction about how a past choice affects life now.",
+        "vi": "Câu điều kiện hỗn hợp thường được dùng để diễn tả sự tiếc nuối, nhẹ nhõm hoặc không hài lòng về việc một lựa chọn trong quá khứ ảnh hưởng đến cuộc sống hiện tại."
+      },
+      "examples": [
+        {
+          "en": "If I had not moved here, I would not know so many interesting people.",
+          "vi": "Nếu tôi đã không chuyển đến đây, bây giờ tôi đã không quen biết nhiều người thú vị như vậy."
+        },
+        {
+          "en": "If she had taken the scholarship, she would be living abroad now.",
+          "vi": "Nếu cô ấy đã nhận học bổng đó, bây giờ cô ấy đã đang sống ở nước ngoài."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Present characteristic, past result",
+        "vi": "Đặc điểm hiện tại, kết quả trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use this pattern when a general present quality, ability, or situation would have changed something in the past.",
+        "vi": "Dùng mẫu này khi một phẩm chất, khả năng hoặc tình huống chung ở hiện tại lẽ ra đã làm thay đổi điều gì đó trong quá khứ."
+      },
+      "examples": [
+        {
+          "en": "If I were better at public speaking, I would have accepted the invitation last week.",
+          "vi": "Nếu tôi giỏi nói trước đám đông hơn, tuần trước tôi đã nhận lời mời đó."
+        },
+        {
+          "en": "If he did not live so far away, he could have joined us for dinner yesterday.",
+          "vi": "Nếu anh ấy không sống xa như vậy, hôm qua anh ấy đã có thể ăn tối cùng chúng tôi."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Present attitude, past action",
+        "vi": "Thái độ hiện tại, hành động trong quá khứ"
+      },
+      "explanation": {
+        "en": "Use it to say that someone’s usual attitude or personality makes a past action unlikely or impossible in your imagination.",
+        "vi": "Dùng để nói rằng thái độ hoặc tính cách thường có của ai đó khiến một hành động trong quá khứ trở nên khó xảy ra hoặc không thể xảy ra trong tưởng tượng của bạn."
+      },
+      "examples": [
+        {
+          "en": "If she were less proud, she would have apologised immediately.",
+          "vi": "Nếu cô ấy bớt kiêu hãnh, cô ấy đã xin lỗi ngay lập tức."
+        },
+        {
+          "en": "If I liked horror films, I would have gone with you last night.",
+          "vi": "Nếu tôi thích phim kinh dị, tối qua tôi đã đi cùng bạn rồi."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "now",
+    "today",
+    "these days",
+    "by now",
+    "at the moment",
+    "yesterday",
+    "last week",
+    "then",
+    "in the past",
+    "if only",
+    "I wish"
+  ],
+  "mistakes": [
+    {
+      "wrong": "If I studied harder last year, I would be at a better university now.",
+      "right": "If I had studied harder last year, I would be at a better university now.",
+      "why": {
+        "en": "The condition is about an unreal past action, so use the past perfect: had + past participle.",
+        "vi": "Điều kiện nói về một hành động không có thật trong quá khứ, nên dùng quá khứ hoàn thành: had + quá khứ phân từ."
+      }
+    },
+    {
+      "wrong": "If she had taken the job, she would have happy now.",
+      "right": "If she had taken the job, she would be happy now.",
+      "why": {
+        "en": "The result is a present state, so use would + bare infinitive. With adjectives, the bare infinitive is be.",
+        "vi": "Kết quả là một trạng thái ở hiện tại, nên dùng would + động từ nguyên mẫu. Với tính từ, động từ nguyên mẫu cần dùng là be."
+      }
+    },
+    {
+      "wrong": "If he were more responsible, he will not have forgotten the meeting.",
+      "right": "If he were more responsible, he would not have forgotten the meeting.",
+      "why": {
+        "en": "This is an unreal condition, not a real future possibility, so do not use will in the result clause.",
+        "vi": "Đây là điều kiện không có thật, không phải khả năng có thật trong tương lai, nên không dùng will ở mệnh đề kết quả."
+      }
+    },
+    {
+      "wrong": "If I had known about the traffic, I would come earlier today.",
+      "right": "If I had known about the traffic, I would have come earlier today.",
+      "why": {
+        "en": "Here today refers to an earlier action that is already finished, so the result is past: would have + past participle.",
+        "vi": "Ở đây today nói về một hành động đã xảy ra và kết thúc trước đó trong ngày, nên kết quả thuộc quá khứ: would have + quá khứ phân từ."
+      }
+    }
+  ],
+  "contrastNotes": [],
+  "tip": {
+    "en": "Check the time in each half: past condition + present result, or present condition + past result.",
+    "vi": "Hãy kiểm tra thời gian ở từng vế: điều kiện quá khứ + kết quả hiện tại, hoặc điều kiện hiện tại + kết quả quá khứ."
+  }
+}
