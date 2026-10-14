@@ -1,6 +1,6 @@
 # Render Blueprint: the web app as a Docker service.
-# Database and files live on Supabase; AI and voices are reached through a Cloudflare Tunnel to the
-# Mac running CLIProxyAPI and Kokoro. Secrets are entered in the Render dashboard (sync: false).
+# Database and files live on Supabase; AI uses official API keys; voices come from a Kokoro server
+# (a Hugging Face Space) once TTS_BASE_URL is set. Secrets are entered in the Render dashboard (sync: false).
 services:
   - type: web
     # Same name as the earlier blueprint, so an existing service is updated instead of duplicated
@@ -37,19 +37,23 @@ services:
         sync: false
       - key: S3_SECRET_ACCESS_KEY
         sync: false
-      # AI proxy and Kokoro on the Mac, behind Cloudflare Access
+      # AI: official API keys (switch the source in Admin -> Plans -> AI source after the first sign-in)
+      - key: SETTINGS_SECRET
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      # Voices (Kokoro): set once the Hugging Face Space exists (phase D3); browser voices are used until then
+      - key: TTS_BASE_URL
+        sync: false
+      # Optional: a private CLIProxyAPI reachable from Render (not recommended for public use)
       - key: CLIPROXY_BASE_URL
         sync: false
       - key: CLIPROXY_API_KEY
         sync: false
       - key: CLIPROXY_MODEL
-        sync: false
-      - key: TTS_BASE_URL
-        sync: false
-      - key: UPSTREAM_ACCESS_CLIENT_ID
-        sync: false
-      - key: UPSTREAM_ACCESS_CLIENT_SECRET
-        sync: false
+        value: claude-haiku-5-5
       - key: GROQ_API_KEY
         sync: false
       # First admin account (created once when no admin exists)
@@ -60,4 +64,4 @@ services:
       - key: LEARNER_DAILY_AI_LIMIT
         value: "100"
       - key: LEARNER_MODELS
-        sync: false
+        value: claude-haiku-5-5,gemini-3-flash

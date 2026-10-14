@@ -1,24 +1,22 @@
 # Deploying English Practice
 
 ```
-Learners ──https──▶ Render (web app, Docker)
+Learners ──https──▶ Render (web app, Docker: Express + SPA)
                       ├──▶ Supabase Postgres      (users, progress, question bank)
                       ├──▶ Supabase Storage (S3)  (imported books, photos, recordings)
-                      └──https + service token──▶ Cloudflare Tunnel ──▶ Mac
-                                                     ├─ CLIProxyAPI :8317  (AI)
-                                                     └─ Kokoro      :8880  (voices)
+                      ├──▶ Anthropic / Gemini APIs (official keys, chosen in Admin -> Plans)
+                      └──▶ Kokoro on a Hugging Face Space (voices, optional; browser voices until set)
 ```
 
-When the Mac is off, the site still works: lessons, the question bank and published tests are served from
-Render and Supabase. AI features (chat, generation, scoring) return a friendly error and listening falls back
-to browser voices.
+On your own machine nothing changes: `npm run dev` with the CLI proxy and the Docker database. The two databases
+are separate, so the AI source (Admin -> Plans) must be set again in production.
 
 ## What you need
 
 - A **Supabase** project (region Singapore is closest to Vietnam).
 - A **Render** account connected to the GitHub repository.
-- A **Cloudflare** account with a domain you control (any cheap domain works). The tunnel needs it for
-  stable hostnames and for Cloudflare Access, which keeps the AI proxy and Kokoro private.
+- An **Anthropic API key** (console.anthropic.com, prepaid credit) and optionally a **Gemini API key**.
+- Optional: a domain (Cloudflare DNS) for `learn.<your-domain>`.
 
 ## 1. Supabase
 
@@ -48,25 +46,7 @@ SOURCE_DIR=./uploads-export S3_ENDPOINT=... S3_REGION=... S3_BUCKET=media \
 
 Delete `english_tool.sql` and `uploads-export` afterwards; they contain user data.
 
-## 2. Cloudflare Tunnel (on the Mac)
-
-1. Zero Trust → Networks → Tunnels → **Create a tunnel** (Cloudflared). Copy the token into `.env` as
-   `TUNNEL_TOKEN`.
-2. Add two **public hostnames** to the tunnel:
-   - `ai.<your-domain>` → `http://host.docker.internal:8317` (CLIProxyAPI)
-   - `tts.<your-domain>` → `http://tts:8880` (Kokoro, reached on the compose network)
-3. Zero Trust → Access → Service Auth → **Create service token**. Keep the Client ID and Secret.
-4. Zero Trust → Access → Applications → **Add a self-hosted application** covering both hostnames, with one
-   policy: action **Service Auth**, include **Service Token** = the token above. Requests without the token are
-   rejected by Cloudflare before they reach the Mac.
-5. Start it: `docker compose --profile tunnel up -d tunnel`
-6. Check from anywhere (should list models only with the headers):
-   ```bash
-   curl -H "CF-Access-Client-Id: $ID" -H "CF-Access-Client-Secret: $SECRET" \
-        -H "Authorization: Bearer $CLIPROXY_API_KEY" https://ai.<your-domain>/v1/models
-   ```
-
-## 3. Render
+## 2. Render
 
 1. Merge the release branch into `main` and push.
 2. Render → New → **Blueprint** → pick the repository; it reads `render.yaml`.
@@ -76,20 +56,19 @@ Delete `english_tool.sql` and `uploads-export` afterwards; they contain user dat
 |---|---|
 | `DATABASE_URL`, `DATABASE_MIGRATION_URL` | Supabase connection strings (step 1) |
 | `S3_ENDPOINT`, `S3_REGION`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | Supabase S3 connection (step 1) |
-| `CLIPROXY_BASE_URL` | `https://ai.<your-domain>` |
-| `CLIPROXY_API_KEY` | the key from CLIProxyAPI's `config.yaml` |
-| `CLIPROXY_MODEL` | default model, e.g. `gemini-3-flash` |
-| `TTS_BASE_URL` | `https://tts.<your-domain>` |
-| `UPSTREAM_ACCESS_CLIENT_ID`, `UPSTREAM_ACCESS_CLIENT_SECRET` | the service token (step 2) |
+| `TTS_BASE_URL` | the Hugging Face Space URL (phase D3). Until then enter any placeholder; the app falls back to browser voices |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | first admin; use a long unique password (skip if you restored the database) |
-| `LEARNER_MODELS` | models learners may use, e.g. `claude-haiku-5-5,gemini-3-flash` |
+| `LEARNER_MODELS` | models learners may use (default in render.yaml: `claude-haiku-5-5,gemini-3-flash`) |
 | `SETTINGS_SECRET` | 16+ characters; encrypts API keys saved in Admin → Plans. Without it keys come only from the two variables below |
 | `ANTHROPIC_API_KEY`, `GEMINI_API_KEY` | official API keys, used when the admin sets the AI source to "Official API" |
 | `GROQ_API_KEY` | optional chat fallback |
 
 4. Deploy, then open `https://english-learning-tool.onrender.com/api/health` (or the URL Render shows) and sign in as admin.
    The blueprint uses the free plan, which sleeps after 15 idle minutes; choose *Starter* in Render to keep it awake.
-5. Optional: add a custom domain in Render (e.g. `learn.<your-domain>`).
+5. **Switch the AI source:** sign in as admin -> Admin -> Plans -> AI source -> *Official API*, paste the Anthropic key
+   (or set `ANTHROPIC_API_KEY`), press the test button with `claude-haiku-5-5`. New databases start in proxy mode, so
+   AI features fail until you do this.
+6. Optional: add a custom domain in Render (e.g. `learn.<your-domain>`).
 
 ## Security checklist
 
@@ -111,14 +90,13 @@ What the app already does:
 - **Files:** uploads are admin-only, checked by extension and file signature and size-limited; source books are
   visible to admins only; everything is served through signed-in requests.
 - **Headers:** Content-Security-Policy (own scripts only), HSTS, no framing, no MIME sniffing (helmet).
-- **Upstreams:** the AI proxy and Kokoro are reachable only through Cloudflare Access with a service token, and
-  the proxy additionally requires its API key.
+- **Upstreams:** API keys are encrypted at rest (AES-256-GCM with `SETTINGS_SECRET`) and never sent to the browser;
+  the Kokoro Space is private or token-protected (phase D3).
 
 Before going live:
 
-- [ ] Use long unique values for `ADMIN_PASSWORD`, `CLIPROXY_API_KEY` and the service token; never commit `.env`.
+- [ ] Use long unique values for `ADMIN_PASSWORD` and `SETTINGS_SECRET`; never commit `.env`.
 - [ ] Keep the Supabase bucket private and the database password out of chat and screenshots.
-- [ ] Re-login the Claude account in CLIProxyAPI if Claude models report "OAuth access token has been revoked".
 - [ ] Set conservative `LEARNER_DAILY_AI_LIMIT` and `LEARNER_MODELS` for the first users.
 - [ ] After the first admin signs in, remove `ADMIN_PASSWORD` from Render.
 - [ ] Rotate the service token and API key if either is ever exposed.
