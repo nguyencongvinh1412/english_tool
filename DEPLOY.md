@@ -70,6 +70,32 @@ Delete `english_tool.sql` and `uploads-export` afterwards; they contain user dat
    AI features fail until you do this.
 6. Optional: add a custom domain in Render (e.g. `learn.<your-domain>`).
 
+## 3. Personal use: reach your own CLI proxy from Render (ngrok)
+
+Only for a deployment used by you alone (the proxy runs on personal subscription accounts; never sell or share it).
+
+1. Create an ngrok account, `brew install ngrok`, `ngrok config add-authtoken <token>`.
+2. ngrok dashboard -> Domains -> create the free static domain, e.g. `abc-xyz.ngrok-free.app`.
+3. With CLIProxyAPI running on :8317, start the tunnel on the Mac:
+   `ngrok http --url=abc-xyz.ngrok-free.app 8317`
+4. Check: `curl -H "Authorization: Bearer $CLIPROXY_API_KEY" https://abc-xyz.ngrok-free.app/v1/models`
+5. Render -> Environment: `CLIPROXY_BASE_URL=https://abc-xyz.ngrok-free.app` (no trailing slash) and `CLIPROXY_API_KEY`
+   (use a long random key, 32+ characters: the address is public). Redeploy, keep Admin -> Plans -> AI source on *Proxy*
+   and press the test button.
+
+The Mac, CLIProxyAPI and ngrok must be running for AI features; everything else works without them.
+Switch to *Official API* and stop the tunnel before real users arrive.
+
+## 4. Voices
+
+Production uses the learner's **browser voices** (`TTS_BASE_URL` empty). To get natural voices later, point
+`TTS_BASE_URL` at any Kokoro-compatible server (`/v1/audio/speech`, `/v1/audio/voices`; add `TTS_API_TOKEN` if it
+needs a bearer token). With `STORAGE_DRIVER=s3` every generated clip is cached in the bucket (`media/tts/<hash>.mp3`),
+so each sentence is generated once, and a server that is asleep is woken when a learner opens the site
+(`/api/tts/status` reports `waking`; browser voices play meanwhile). `npm run tts:warm` pre-generates English words
+and grammar examples from a Kokoro server you run yourself. Hugging Face's free Docker Spaces are not available on
+every account; a paid TTS API (Azure Speech, Google) or a small VPS are the alternatives being evaluated.
+
 ## Security checklist
 
 What the app already does:

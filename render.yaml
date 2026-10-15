@@ -1,6 +1,6 @@
 # Render Blueprint: the web app as a Docker service.
-# Database and files live on Supabase; AI uses official API keys; voices come from a Kokoro server
-# (a Hugging Face Space) once TTS_BASE_URL is set. Secrets are entered in the Render dashboard (sync: false).
+# Database and files live on Supabase; AI uses official API keys; voices use the browser until a voice
+# server is configured (TTS_BASE_URL). Secrets are entered in the Render dashboard (sync: false).
 services:
   - type: web
     # Same name as the earlier blueprint, so an existing service is updated instead of duplicated
@@ -44,8 +44,10 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      # Voices (Kokoro): set once the Hugging Face Space exists (phase D3); browser voices are used until then
+      # Voices: empty = browser voices. Set a Kokoro-compatible server URL (and TTS_API_TOKEN if it needs a bearer token) later
       - key: TTS_BASE_URL
+        value: ""
+      - key: TTS_API_TOKEN
         sync: false
       # Optional: a private CLIProxyAPI reachable from Render (not recommended for public use)
       - key: CLIPROXY_BASE_URL
