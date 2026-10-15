@@ -9,7 +9,7 @@ import { mkdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Readable } from 'node:stream';
 import type { Request, Response } from 'express';
-import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { config } from '../config.js';
 import { HttpError } from '../http/errors.js';
 
@@ -29,7 +29,8 @@ function s3(): S3Client {
   return s3Client;
 }
 
-const isBucket = () => config.STORAGE_DRIVER === 's3';
+/** Whether files live in the S3-compatible bucket (otherwise on local disk) */
+export const isBucket = () => config.STORAGE_DRIVER === 's3';
 
 /**
  * Absolute local path for a storage key (local driver)
@@ -148,4 +149,25 @@ export async function sendObject(key: string, mime: string, cacheSec: number, re
     res.on('close', resolve);
     body.pipe(res);
   });
+}
+
+/**
+ * Whether a bucket object exists (bucket driver only)
+ */
+export async function bucketHas(key: string): Promise<boolean> {
+  try {
+    await s3().send(new HeadObjectCommand({ Bucket: config.S3_BUCKET, Key: key }));
+    return true;
+  } catch (error) {
+    const status = (error as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode;
+    if (status === 404 || status === 403) return false;
+    throw error;
+  }
+}
+
+/**
+ * Stores bytes under a chosen key in the bucket (bucket driver only), for content-addressed files such as audio clips
+ */
+export async function bucketPut(key: string, data: Buffer, mime: string): Promise<void> {
+  await s3().send(new PutObjectCommand({ Bucket: config.S3_BUCKET, Key: key, Body: data, ContentType: mime }));
 }

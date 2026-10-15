@@ -66,4 +66,31 @@ describe('TTS', () => {
     expect(response.status).toBe(503);
     expect(response.body.code).toBe('tts_unavailable');
   });
+
+  it('reports "waking" while the voice server starts, then available', async () => {
+    const agent = await signIn(app, await createUser());
+    // First probe fails (server asleep); the background wake-up then succeeds
+    kokoro.mockRejectedValueOnce(new TypeError('timeout'));
+    let release!: () => void;
+    kokoro.mockImplementationOnce(() => new Promise((resolve) => (release = () => resolve(new Response('[]', { status: 200 })))));
+
+    const first = await agent.get('/api/tts/status');
+    expect(first.body).toMatchObject({ available: false, waking: true });
+    expect((await agent.get('/api/tts/status')).body.waking).toBe(true);
+
+    release();
+    await vi.waitFor(async () => expect((await agent.get('/api/tts/status')).body).toMatchObject({ available: true, waking: false }));
+  });
+
+  it('sends the bearer token to the voice server', async () => {
+    const agent = await signIn(app, await createUser());
+    const previous = config.TTS_API_TOKEN;
+    (config as { TTS_API_TOKEN?: string }).TTS_API_TOKEN = 'hf_test';
+    try {
+      await agent.post('/api/tts/batch').send({ lines: [{ text: 'Token check.', voice: 'af_heart' }] });
+    } finally {
+      (config as { TTS_API_TOKEN?: string }).TTS_API_TOKEN = previous;
+    }
+    expect((kokoro.mock.calls[0][1]?.headers as Record<string, string>).Authorization).toBe('Bearer hf_test');
+  });
 });

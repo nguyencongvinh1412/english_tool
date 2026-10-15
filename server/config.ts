@@ -45,7 +45,9 @@ const envSchema = z.object({
 
   /** Kokoro text-to-speech server; empty disables server voices (browser speech is used) */
   TTS_BASE_URL: z.string().default('http://localhost:8880').transform((url) => url.replace(/\/+$/, '')),
-  /** Where generated audio clips are cached */
+  /** Bearer token for a protected voice server (e.g. a private Hugging Face Space: an hf_ access token) */
+  TTS_API_TOKEN: z.string().optional(),
+  /** Where generated audio clips are cached on disk (with STORAGE_DRIVER=s3 clips go to the bucket under tts/) */
   TTS_CACHE_DIR: z.string().default('.cache/tts'),
 
   /** Where uploaded documents, images and audio are stored: local disk or an S3-compatible bucket */

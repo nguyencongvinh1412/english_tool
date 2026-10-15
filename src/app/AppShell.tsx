@@ -5,7 +5,7 @@
 import { creditsLeft } from '@/shared/billingApi';
 import type React from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { PageFallback } from './PageFallback';
 import { Icon, type IconName } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
@@ -15,6 +15,7 @@ import { ModelPicker } from './ModelPicker';
 import { StudyLanguageSwitch } from './StudyLanguageSwitch';
 import { ROUTES } from './routes';
 import { useProgress } from '@/shared/progress';
+import { warmVoices } from '@/shared/speech';
 import './AppShell.css';
 
 interface NavItem {
@@ -61,6 +62,11 @@ export const AppShell: React.FC = () => {
   const { t } = useI18n();
   const { logout } = useAuth();
   const user = useCurrentUser();
+
+  // The voice server may be asleep; start it now so natural voices are ready when a lesson needs them
+  useEffect(() => {
+    warmVoices();
+  }, []);
 
   const items: NavItem[] = [
     { to: ROUTES.HOME, icon: 'home', label: t.nav.home, tone: 'brand', mobile: true, end: true },

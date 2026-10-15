@@ -18,6 +18,8 @@ export type Genders = { A: Gender; B?: Gender; C?: Gender };
 const LINE_PAUSE_MS = 450;
 /** Re-check an unavailable voice service after this long */
 const STATUS_RETRY_MS = 60_000;
+/** While the voice server is waking up (a sleeping Space needs about a minute), ask again sooner */
+const WAKING_RETRY_MS = 8_000;
 /** Longest text the server accepts per clip; longer text is split into sentences */
 const MAX_CLIP_CHARS = 600;
 /** The TTS batch endpoint accepts at most 60 lines per request */
@@ -54,24 +56,31 @@ export function voicesFor(genders: Genders, language: SpeechLanguage = 'en'): Re
   return { A: a, B: b, C: c };
 }
 
-let status: { available: boolean; checkedAt: number; pending?: Promise<boolean> } | null = null;
+let status: { available: boolean; checkedAt: number; retryMs: number; pending?: Promise<boolean> } | null = null;
 
 /**
- * Whether the server voice service is up (cached; rechecked periodically when down)
+ * Whether the server voice service is up (cached; rechecked periodically when down, sooner while it wakes up)
  */
 async function serverVoicesAvailable(): Promise<boolean> {
   if (status?.pending) return status.pending;
-  if (status && (status.available || Date.now() - status.checkedAt < STATUS_RETRY_MS)) return status.available;
+  if (status && (status.available || Date.now() - status.checkedAt < status.retryMs)) return status.available;
 
-  const pending = apiFetch<{ available: boolean }>('/api/tts/status')
-    .then((r) => r.available)
-    .catch(() => false)
-    .then((available) => {
-      status = { available, checkedAt: Date.now() };
-      return available;
+  const pending = apiFetch<{ available: boolean; waking?: boolean }>('/api/tts/status')
+    .then((r) => ({ available: r.available, retryMs: r.waking ? WAKING_RETRY_MS : STATUS_RETRY_MS }))
+    .catch(() => ({ available: false, retryMs: STATUS_RETRY_MS }))
+    .then((result) => {
+      status = { ...result, checkedAt: Date.now() };
+      return result.available;
     });
-  status = { available: false, checkedAt: Date.now(), pending };
+  status = { available: false, checkedAt: Date.now(), retryMs: STATUS_RETRY_MS, pending };
   return pending;
+}
+
+/**
+ * Starts waking the voice server (it may be asleep) so natural voices are ready by the time they are needed
+ */
+export function warmVoices(): void {
+  void serverVoicesAvailable();
 }
 
 /**

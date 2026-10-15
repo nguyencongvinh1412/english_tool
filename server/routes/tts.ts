@@ -6,7 +6,8 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { currentUser, createRateLimiter, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
-import { CLIP_FILE_PATTERN, TTS_VOICES, clipPath, ensureClip, ttsAvailable } from '../services/tts.js';
+import { CLIP_FILE_PATTERN, TTS_VOICES, clipKey, clipPath, ensureClip, ttsStatus } from '../services/tts.js';
+import { isBucket, sendObject } from '../services/storage.js';
 
 const MAX_LINES = 60;
 const MAX_LINE_CHARS = 600;
@@ -31,10 +32,12 @@ export function createTtsRouter(): Router {
   const limiter = createRateLimiter(BATCH_PER_MINUTE, 60_000);
 
   /**
-   * GET /status - Whether natural voices are available (otherwise the browser voice is used)
+   * GET /status - Whether natural voices are available (otherwise the browser voice is used).
+   * "waking" means the voice server is starting up; ask again in a few seconds. Calling this also wakes it.
    */
   router.get('/status', requireAuth, async (_req, res) => {
-    res.json({ available: await ttsAvailable(), voices: TTS_VOICES });
+    const state = await ttsStatus();
+    res.json({ available: state === 'available', waking: state === 'waking', voices: TTS_VOICES });
   });
 
   /**
@@ -64,6 +67,11 @@ export function createTtsRouter(): Router {
     const file = String(req.params.file);
     if (!CLIP_FILE_PATTERN.test(file)) {
       throw new HttpError(404, 'Audio not found.', 'not_found');
+    }
+
+    if (isBucket()) {
+      sendObject(clipKey(file), 'audio/mpeg', CLIP_MAX_AGE_SEC, req, res).catch(next);
+      return;
     }
 
     res.sendFile(

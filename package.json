@@ -23,6 +23,7 @@
     "db:studio": "drizzle-kit studio",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
+    "tts:warm": "tsx server/scripts/warmTts.ts",
     "storage:copy-to-s3": "tsx server/scripts/copyUploadsToS3.ts",
     "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts",
     "en:vocab-data": "tsx server/scripts/buildEnVocab.ts",
