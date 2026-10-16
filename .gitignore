@@ -20,6 +20,10 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+.env.backup
+
+# Database dumps contain user data
+backups/
 
 # Editor directories and files
 .vscode/*

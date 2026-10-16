@@ -96,6 +96,20 @@ so each sentence is generated once, and a server that is asleep is woken when a 
 and grammar examples from a Kokoro server you run yourself. Hugging Face's free Docker Spaces are not available on
 every account; a paid TTS API (Azure Speech, Google) or a small VPS are the alternatives being evaluated.
 
+## 5. Backups and Supabase hardening
+
+**Backups.** The free Supabase plan has no automatic backups. From the Mac (Docker running) put the **session pooler**
+string (port 5432) in `.env.backup` as `BACKUP_DATABASE_URL=...` and run `npm run db:backup`. It writes
+`backups/english_tool-<time>.dump` (gitignored, owner-only, newest 14 kept) using `pg_dump` from a Postgres 17 image
+(`PG_IMAGE` overrides it; use the server's major version or newer). Run it weekly, or add it to cron/launchd.
+Restore into an empty database: `pg_restore --no-owner --no-privileges -d "<url>" backups/<file>.dump`.
+Uploaded files live in the bucket, which is not covered by the dump; keep the originals of imported books.
+
+**Hardening.** Supabase exposes every table in `public` through its REST API for the anon role unless Row Level Security
+is on. The app connects directly as the table owner and never uses that API, so run `scripts/supabase-harden.sql` once in
+the Supabase SQL editor (again after migrations that add tables). Never put the Supabase *anon* or *service_role* key in
+the app or the browser.
+
 ## Security checklist
 
 What the app already does:
