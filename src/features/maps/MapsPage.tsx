@@ -15,7 +15,7 @@ import { mapsApi, type MapSummary } from '@/shared/mapsApi';
 import { useMapProposal } from './useMapProposal';
 import './maps.css';
 
-type Template = 'blank' | 'cluster';
+type Template = 'blank' | 'cluster' | 'compare' | 'outline';
 
 export const MapsPage: React.FC = () => {
   const { t, locale, formatDate } = useI18n();
@@ -89,34 +89,32 @@ export const MapsPage: React.FC = () => {
         <h2>{m.newMap}</h2>
         <div className="maps-new__fields">
           <Field label={m.titlePlaceholder}>{(id) => <TextInput id={id} value={title} maxLength={100} onChange={(e) => setTitle(e.target.value)} />}</Field>
-          {english && (
-            <>
-              <div>
-                <p className="maps__label">{m.template}</p>
-                <Segmented<Template>
-                  label={m.template}
-                  value={template}
-                  onChange={setTemplate}
-                  options={[
-                    { value: 'blank', label: m.templates.blank, tone: 'reading' },
-                    { value: 'cluster', label: m.templates.topic, tone: 'reading' },
-                  ]}
-                />
-              </div>
-              {template === 'cluster' && (
-                <Field label={m.topicLabel}>
-                  {(id) => (
-                    <Select id={id} value={clusterId} onChange={(e) => setClusterId(e.target.value)}>
-                      {clusters.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.title[locale]}
-                        </option>
-                      ))}
-                    </Select>
-                  )}
-                </Field>
+          <div>
+            <p className="maps__label">{m.template}</p>
+            <Segmented<Template>
+              label={m.template}
+              value={template}
+              onChange={setTemplate}
+              options={[
+                { value: 'blank', label: m.templates.blank, tone: 'reading' },
+                ...(english ? [{ value: 'cluster' as const, label: m.templates.topic, tone: 'reading' }] : []),
+                { value: 'compare', label: m.templates.compare, tone: 'reading' },
+                { value: 'outline', label: m.templates.outline, tone: 'reading' },
+              ]}
+            />
+          </div>
+          {english && template === 'cluster' && (
+            <Field label={m.topicLabel}>
+              {(id) => (
+                <Select id={id} value={clusterId} onChange={(e) => setClusterId(e.target.value)}>
+                  {clusters.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.title[locale]}
+                    </option>
+                  ))}
+                </Select>
               )}
-            </>
+            </Field>
           )}
         </div>
         <Button onClick={() => void create()} loading={creating} icon="plus" disabled={(maps?.length ?? 0) >= limit}>

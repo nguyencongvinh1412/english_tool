@@ -44,6 +44,22 @@ describe('mind maps', () => {
     expect((await agent.post('/api/maps').send({ template: 'cluster', clusterId: 'nope' })).status).toBe(400);
   });
 
+  it('starts from a comparison or study-notes skeleton in the learner\'s language', async () => {
+    const agent = await signIn(app, await createUser({ uiLocale: 'vi' }));
+
+    const compare = await agent.post('/api/maps').send({ template: 'compare' });
+    expect(compare.status).toBe(201);
+    expect(compare.body.map.title).toBe('A hay B?');
+    expect(compare.body.map.doc.nodes.root.children).toHaveLength(5);
+    expect(Object.keys(compare.body.map.doc.nodes).length).toBe(1 + 5 + 8);
+
+    const notes = await agent.post('/api/maps').send({ template: 'outline', title: 'My notes' });
+    expect(notes.body.map.title).toBe('My notes');
+    expect(Object.values(notes.body.map.doc.nodes).map((n) => (n as { text: string }).text)).toContain('Quy tắc');
+    // Saved as valid maps: they can be edited straight away
+    expect((await agent.put(`/api/maps/${notes.body.map.id}`).send({ doc: notes.body.map.doc, version: 1 })).status).toBe(200);
+  });
+
   it('saves a document and rejects a stale version', async () => {
     const agent = await signIn(app, await createUser());
     const { id } = (await agent.post('/api/maps').send({ title: 'A' })).body.map;
@@ -129,5 +145,20 @@ describe('mind maps', () => {
     expect(body.grammar.map((g: { id: string }) => g.id)).toContain('present-perfect');
     expect((await agent.get('/api/maps/lookup').query({ q: 'ca' })).body.words).toEqual([{ id: 'en:cat', term: 'cat', level: 'A1', meaning: 'a pet' }]);
     expect((await agent.get('/api/maps/lookup').query({ q: '' })).status).toBe(400);
+  });
+
+  it('finds words by reading and by English meaning', async () => {
+    const user = await createUser({ studyLanguage: 'ja' });
+    const agent = await signIn(app, user);
+    await db.insert(vocabItems).values([
+      { id: 'ja:勉強', kind: 'word', level: 'N5', position: 1, term: '勉強', reading: 'べんきょう', meaningsEn: ['study', 'diligence'], language: 'ja' },
+      { id: 'ja:経済', kind: 'word', level: 'N3', position: 2, term: '経済', reading: 'けいざい', meaningsEn: ['economy'], language: 'ja' },
+    ]);
+
+    expect((await agent.get('/api/maps/lookup').query({ q: 'べん' })).body.words.map((w: { id: string }) => w.id)).toEqual(['ja:勉強']);
+    expect((await agent.get('/api/maps/lookup').query({ q: 'econ' })).body.words.map((w: { id: string }) => w.id)).toEqual(['ja:経済']);
+    expect((await agent.get('/api/maps/lookup').query({ q: '勉' })).body.words).toHaveLength(1);
+    // A '%' typed by the learner is not a wildcard
+    expect((await agent.get('/api/maps/lookup').query({ q: '%' })).body.words).toEqual([]);
   });
 });

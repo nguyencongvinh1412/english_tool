@@ -70,7 +70,7 @@ export type ProposeBody =
 
 export const mapsApi = {
   list: () => apiFetch<{ maps: MapSummary[]; limit: number }>('/api/maps'),
-  create: (body: { title?: string; template?: 'blank' | 'cluster'; clusterId?: string }) => apiFetch<{ map: MindMap }>('/api/maps', { method: 'POST', json: body }),
+  create: (body: { title?: string; template?: 'blank' | 'cluster' | 'compare' | 'outline'; clusterId?: string }) => apiFetch<{ map: MindMap }>('/api/maps', { method: 'POST', json: body }),
   get: (id: string) => apiFetch<{ map: MindMap }>(`/api/maps/${id}`),
   /** `keepalive` lets a save started while the page closes still go out */
   save: (id: string, body: { title?: string; doc?: MapDoc; version: number }, keepalive = false) =>

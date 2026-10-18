@@ -11,14 +11,14 @@ import { mindMaps, vocabItems } from '../db/schema.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
-import { MAX_MAPS_PER_USER, DocError, blankDoc, checkDoc, clusterDoc, docSchema, wordLinks, type MapDoc } from '../maps/doc.js';
+import { MAX_MAPS_PER_USER, DocError, blankDoc, checkDoc, clusterDoc, docSchema, templateDoc, wordLinks, type MapDoc } from '../maps/doc.js';
 
 const idSchema = z.uuid();
 const titleSchema = z.string().trim().min(1).max(100);
 
 const createSchema = z.object({
   title: titleSchema.optional(),
-  template: z.enum(['blank', 'cluster']).default('blank'),
+  template: z.enum(['blank', 'cluster', 'compare', 'outline']).default('blank'),
   clusterId: z.string().max(60).optional(),
 });
 
@@ -75,11 +75,20 @@ export function createMapsRouter(): Router {
     const grammar = GRAMMAR_POINTS.filter((p) => fold(p.title.en).includes(needle) || fold(p.title.vi).includes(needle) || p.id.includes(needle))
       .slice(0, 8)
       .map((p) => ({ id: p.id, title: p.title, cefr: p.cefr }));
+    // Words match by their spelling, their reading (Japanese kana) or the start of an English meaning
+    const escaped = q.toLowerCase().replace(/[%_\\]/g, '\\$&');
+    const prefix = `${escaped}%`;
     const words = await db
       .select({ id: vocabItems.id, term: vocabItems.term, level: vocabItems.level, meaning: vocabItems.meaningVi, meaningEn: vocabItems.meaningsEn })
       .from(vocabItems)
-      .where(and(eq(vocabItems.language, user.studyLanguage), sql`lower(${vocabItems.term}) like ${`${q.toLowerCase().replace(/[%_\\]/g, '\\$&')}%`}`))
-      .orderBy(vocabItems.position)
+      .where(
+        and(
+          eq(vocabItems.language, user.studyLanguage),
+          sql`(lower(${vocabItems.term}) like ${prefix} or lower(coalesce(${vocabItems.reading}, '')) like ${prefix} or exists (select 1 from unnest(${vocabItems.meaningsEn}) as m where lower(m) like ${prefix}))`
+        )
+      )
+      // Spelling matches first, then readings and meanings
+      .orderBy(sql`case when lower(${vocabItems.term}) like ${prefix} then 0 else 1 end`, vocabItems.position)
       .limit(8);
     res.json({ grammar, words: words.map((w) => ({ id: w.id, term: w.term, level: w.level, meaning: w.meaning ?? w.meaningEn[0] ?? null })) });
   });
@@ -99,6 +108,11 @@ export function createMapsRouter(): Router {
     if (body.template === 'cluster') {
       const started = body.clusterId ? clusterDoc(body.clusterId, user.uiLocale) : null;
       if (!started) throw new HttpError(400, 'Unknown grammar topic.', 'unknown_topic');
+      title = body.title ?? started.title;
+      doc = started.doc;
+    }
+    if (body.template === 'compare' || body.template === 'outline') {
+      const started = templateDoc(body.template, user.uiLocale);
       title = body.title ?? started.title;
       doc = started.doc;
     }

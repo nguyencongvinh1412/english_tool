@@ -358,13 +358,23 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
   /* ---------- Export ---------- */
 
   const markdown = () => toMarkdown({ ...doc, nodes: { ...doc.nodes, [doc.root]: { ...doc.nodes[doc.root], text: title.trim() || doc.nodes[doc.root].text } } });
-  const download = () => {
-    const url = URL.createObjectURL(new Blob([markdown()], { type: 'text/markdown;charset=utf-8' }));
+  const save = (blob: Blob, extension: string) => {
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `${(title.trim() || 'mind-map').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '').slice(0, 60) || 'mind-map'}.md`;
+    link.download = `${(title.trim() || 'mind-map').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '').slice(0, 60) || 'mind-map'}.${extension}`;
     link.click();
     URL.revokeObjectURL(url);
+  };
+  const download = () => save(new Blob([markdown()], { type: 'text/markdown;charset=utf-8' }), 'md');
+  const downloadPng = async () => {
+    try {
+      // Loaded on demand: most visits never export an image
+      const { renderPng } = await import('./exportPng');
+      save(await renderPng(doc, layout, tones, title.trim() || doc.nodes[doc.root].text), 'png');
+    } catch {
+      toast(e.pngFailed, 'danger');
+    }
   };
   const copy = async () => {
     try {
@@ -427,6 +437,9 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
         <Button size="sm" variant="ghost" onClick={() => apply(setAllCollapsed(doc, true), doc.root, { select: doc.root })}>
           {e.collapseAll}
         </Button>
+        <Button size="sm" variant="ghost" icon="image" onClick={() => void downloadPng()}>
+          {e.png}
+        </Button>
         <Button size="sm" variant="ghost" icon="file" onClick={download}>
           {e.download}
         </Button>
@@ -456,28 +469,53 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
       {dialog}
 
       <div className="mmap-body">
-        <div className="mmap-stage">
-          {view === 'map' ? (
-            <MapCanvas
-              doc={doc}
-              layout={layout}
-              tones={tones}
-              selected={current}
-              editing={editing}
-              actions={actions}
-              fitKey={initial.id}
-              anchor={anchor}
-              focusRequest={focusRequest}
-              label={title}
-              marks={issueMarks}
-              onSelect={select}
-              onEdit={setEditing}
-            />
-          ) : (
-            <MapActionsContext.Provider value={actions}>
-              <MapOutline doc={doc} tones={tones} selected={current} editing={editing} onSelect={select} onEdit={setEditing} />
-            </MapActionsContext.Provider>
-          )}
+        <div className="mmap-stagewrap">
+          <div className="mmap-stage">
+            {view === 'map' ? (
+              <MapCanvas
+                doc={doc}
+                layout={layout}
+                tones={tones}
+                selected={current}
+                editing={editing}
+                actions={actions}
+                fitKey={initial.id}
+                anchor={anchor}
+                focusRequest={focusRequest}
+                label={title}
+                marks={issueMarks}
+                onSelect={select}
+                onEdit={setEditing}
+              />
+            ) : (
+              <MapActionsContext.Provider value={actions}>
+                <MapOutline doc={doc} tones={tones} selected={current} editing={editing} onSelect={select} onEdit={setEditing} />
+              </MapActionsContext.Provider>
+            )}
+          </div>
+          <div className="mmap-quick" role="toolbar" aria-label={e.quick}>
+            <button type="button" onClick={() => addChildTo(current)}>
+              + {e.addChild}
+            </button>
+            {current !== doc.root && (
+              <button type="button" onClick={() => addSiblingOf(current)}>
+                + {e.addSibling}
+              </button>
+            )}
+            <button type="button" onClick={() => setEditing(current)}>
+              {e.rename}
+            </button>
+            {node.children.length > 0 && (
+              <button type="button" onClick={() => toggle(current)}>
+                {node.collapsed ? e.expand : e.collapse}
+              </button>
+            )}
+            {current !== doc.root && (
+              <button type="button" className="mmap-quick__danger" onClick={() => remove(current)}>
+                {e.remove}
+              </button>
+            )}
+          </div>
         </div>
         <div className="mmap-side">
           {issues && (

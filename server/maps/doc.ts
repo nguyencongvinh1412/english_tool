@@ -96,3 +96,66 @@ export function clusterDoc(clusterId: string, locale: 'en' | 'vi'): { title: str
   nodes.root = { text: cluster.title[locale], children };
   return { title: cluster.title[locale], doc: { root: 'root', nodes } };
 }
+
+export type TemplateKind = 'compare' | 'outline';
+
+const TEMPLATES: Record<TemplateKind, Record<'en' | 'vi', { title: string; branches: { text: string; children: string[] }[] }>> = {
+  compare: {
+    en: {
+      title: 'A or B?',
+      branches: [
+        { text: 'Forms', children: ['A', 'B'] },
+        { text: 'When to use', children: ['A', 'B'] },
+        { text: 'Examples', children: ['A', 'B'] },
+        { text: 'Signal words', children: ['A', 'B'] },
+        { text: 'Common mistakes', children: [] },
+      ],
+    },
+    vi: {
+      title: 'A hay B?',
+      branches: [
+        { text: 'Cấu trúc', children: ['A', 'B'] },
+        { text: 'Khi nào dùng', children: ['A', 'B'] },
+        { text: 'Ví dụ', children: ['A', 'B'] },
+        { text: 'Dấu hiệu nhận biết', children: ['A', 'B'] },
+        { text: 'Lỗi hay gặp', children: [] },
+      ],
+    },
+  },
+  outline: {
+    en: {
+      title: 'Study notes',
+      branches: [
+        { text: 'Rules', children: [] },
+        { text: 'Examples', children: [] },
+        { text: 'Common mistakes', children: [] },
+        { text: 'To practise', children: [] },
+      ],
+    },
+    vi: {
+      title: 'Ghi chú học tập',
+      branches: [
+        { text: 'Quy tắc', children: [] },
+        { text: 'Ví dụ', children: [] },
+        { text: 'Lỗi hay gặp', children: [] },
+        { text: 'Cần luyện thêm', children: [] },
+      ],
+    },
+  },
+};
+
+/**
+ * A starter skeleton (compare two things, or general study notes) in the learner's language
+ */
+export function templateDoc(kind: TemplateKind, locale: 'en' | 'vi'): { title: string; doc: MapDoc } {
+  const template = TEMPLATES[kind][locale];
+  const nodes: MapDoc['nodes'] = {};
+  const rootChildren = template.branches.map((branch, i) => {
+    const id = `b${i + 1}`;
+    nodes[id] = { text: branch.text, children: branch.children.map((_, j) => `${id}c${j + 1}`) };
+    branch.children.forEach((text, j) => (nodes[`${id}c${j + 1}`] = { text, children: [] }));
+    return id;
+  });
+  nodes.root = { text: template.title, children: rootChildren };
+  return { title: template.title, doc: { root: 'root', nodes } };
+}
