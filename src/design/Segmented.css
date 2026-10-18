@@ -9,19 +9,20 @@
   --seg-tone: var(--success);
 
   min-height: 44px;
-  padding: 0.375rem 1.25rem;
-  font-weight: 800;
+  padding: 0.375rem 1.125rem;
+  font-weight: 600;
   color: var(--text-muted);
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom-width: 5px;
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.08s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.segmented__option:active {
-  transform: translateY(2px);
+.segmented__option:hover {
+  border-color: var(--seg-tone);
 }
 
 .segmented__option--active {

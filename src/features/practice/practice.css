@@ -36,7 +36,7 @@
 
 .practice-head__title {
   font-size: clamp(1.375rem, 3vw, 1.75rem);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* ---------- Library ---------- */
@@ -78,7 +78,7 @@
 
 .library-card__title {
   font-size: 1.1875rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .library-card__topic {
@@ -100,7 +100,7 @@
 
 .library-generator__title {
   font-size: 1.1875rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .library-generator__body,
@@ -159,7 +159,7 @@
 
 .quiz-q__number {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -196,8 +196,7 @@
   padding: 0.5rem 0.75rem;
   font-weight: 700;
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom-width: 4px;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
   transition:
@@ -231,9 +230,9 @@
   width: 28px;
   height: 28px;
   font-size: 0.8125rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 8px;
 }
 
@@ -324,7 +323,7 @@
   height: 94px;
   font-family: var(--font-display);
   font-size: 2.125rem;
-  font-weight: 800;
+  font-weight: 700;
   background: var(--surface);
   border-radius: 50%;
 }
@@ -332,7 +331,7 @@
 .band__label {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .band__note {
@@ -356,7 +355,7 @@
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .band-criterion__name abbr {
@@ -407,7 +406,7 @@
   gap: 0.375rem;
   margin-bottom: 0.375rem;
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .band__list-title--good {

@@ -12,15 +12,14 @@
   gap: 1.5rem;
   overflow: hidden;
   padding: 1.75rem 1.5rem;
-  background: var(--brand-soft);
-  border: 2px solid color-mix(in srgb, var(--brand) 45%, var(--border));
-  border-bottom: calc(2px + var(--edge)) solid var(--brand-edge);
+  background: linear-gradient(135deg, var(--brand-soft), color-mix(in srgb, var(--brand-soft) 40%, var(--surface)));
+  border: 1px solid color-mix(in srgb, var(--brand) 22%, var(--border));
   border-radius: var(--radius-lg);
 }
 
 .dash-hero__title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 800;
+  font-size: clamp(1.625rem, 3.6vw, 2.25rem);
+  font-weight: 700;
 }
 
 .dash-hero__subtitle {
@@ -28,7 +27,7 @@
   max-width: 460px;
   color: var(--text-muted);
   font-size: 1.0625rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .dash-hero__art {
@@ -42,11 +41,11 @@
   padding: 0.625rem 1rem;
   font-family: var(--font-display);
   font-size: 1.375rem;
-  font-weight: 800;
+  font-weight: 700;
   background: var(--surface);
-  border: 3px solid var(--border-strong);
-  border-bottom-width: 6px;
-  border-radius: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-pop);
   white-space: nowrap;
   animation: bubble-bob 3.2s ease-in-out infinite alternate;
 }
@@ -63,7 +62,6 @@
   border: inherit;
   border-top: none;
   border-right: none;
-  border-bottom-width: 3px;
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
@@ -71,14 +69,14 @@
   top: 0;
   left: 4%;
   border-color: var(--listening);
-  rotate: -5deg;
+  rotate: 0deg;
 }
 
 .dash-bubble--b {
   top: 18px;
   right: 2%;
   border-color: var(--speaking);
-  rotate: 4deg;
+  rotate: 0deg;
   animation-delay: -1.2s;
 }
 
@@ -86,7 +84,7 @@
   bottom: 0;
   left: 18%;
   border-color: var(--reading);
-  rotate: -2deg;
+  rotate: 0deg;
   animation-delay: -2.1s;
 }
 
@@ -159,7 +157,7 @@
 .dash-section-title {
   margin-top: 0.75rem;
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .dash-skills {
@@ -217,12 +215,12 @@
 }
 
 .dash-skill-link:hover .dash-skill__icon {
-  transform: rotate(-8deg) scale(1.08);
+  transform: scale(1.06);
 }
 
 .dash-skill__title {
   font-size: 1.375rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .dash-skill__description {
@@ -270,7 +268,7 @@
 .dash-card-title {
   margin-bottom: 1rem;
   font-size: 1.125rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .dash-skeleton {
@@ -303,5 +301,5 @@
 .dash-vocab__glyph {
   font-family: var(--font-ja);
   font-size: 1.75rem;
-  font-weight: 800;
+  font-weight: 700;
 }

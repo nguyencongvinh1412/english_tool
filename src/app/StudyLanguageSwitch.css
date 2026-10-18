@@ -5,7 +5,7 @@
 
 .study-switch__caption {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-faint);
@@ -24,7 +24,7 @@
   min-height: 40px;
   padding: 0 0.5rem;
   font: inherit;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
   background: none;
   border: 2px solid transparent;
@@ -43,7 +43,7 @@
   color: var(--text);
   background: var(--surface);
   border-color: var(--border);
-  box-shadow: 0 3px 0 var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Japanese keeps a red sun accent so the active language is obvious at a glance */
@@ -60,7 +60,7 @@
   padding: 0 0.625rem;
   font: inherit;
   font-size: 0.8125rem;
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
   color: var(--text);
   background: var(--surface-3);
@@ -74,8 +74,13 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .study-switch__option--ja.study-switch__option--active,
-  .study-toggle--ja {
+  :root:not([data-theme]) .study-switch__option--ja.study-switch__option--active,
+  :root:not([data-theme]) .study-toggle--ja {
     color: #ff6b7f;
   }
+}
+
+:root[data-theme='dark'] .study-switch__option--ja.study-switch__option--active,
+:root[data-theme='dark'] .study-toggle--ja {
+  color: #ff6b7f;
 }

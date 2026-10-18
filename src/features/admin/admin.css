@@ -21,7 +21,7 @@
 
 .admin-table-wrap {
   background: var(--surface);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -35,19 +35,19 @@
 .admin-table th {
   padding: 0.75rem 1rem;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-align: left;
   text-transform: uppercase;
   color: var(--text-muted);
   background: var(--surface-2);
-  border-bottom: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-table td {
   padding: 0.875rem 1rem;
   vertical-align: middle;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-table tbody tr:last-child td {
@@ -98,8 +98,7 @@
     margin-bottom: 0.875rem;
     padding: 0.75rem 1rem;
     background: var(--surface);
-    border: 2px solid var(--border);
-    border-bottom-width: calc(2px + var(--edge));
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
   }
 
@@ -120,7 +119,7 @@
   .admin-table td::before {
     content: attr(data-label);
     font-size: 0.75rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -154,7 +153,7 @@
 }
 
 .admin-user__name {
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .admin-user__you {
@@ -169,7 +168,7 @@
 }
 
 .admin-usage {
-  font-weight: 800;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -248,7 +247,7 @@
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
   background: var(--surface-2);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 999px;
 }
 
@@ -285,7 +284,7 @@
 .usage__title {
   margin-bottom: 1rem;
   font-size: 1.125rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .bar-list {
@@ -331,7 +330,7 @@
 
 .bar-list__value {
   min-width: 2.5ch;
-  font-weight: 800;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -363,7 +362,7 @@
 .admin__section-title {
   margin: 0 0 0.25rem;
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .grammar-admin__json {

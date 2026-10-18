@@ -35,7 +35,7 @@
   margin: 0 0 1rem;
   font-family: var(--font-test);
   font-size: 1.0625rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* Spoken choices: only the numbers are printed */
@@ -65,7 +65,7 @@
   gap: 0.375rem;
   margin-top: 0.5rem;
   padding: 0.25rem 0.875rem;
-  font-weight: 800;
+  font-weight: 700;
   border-radius: 999px;
 }
 

@@ -14,7 +14,7 @@ const MAX_SIDE = 12000;
 const INK = '#2b2f36';
 const MUTED = '#6b7280';
 
-const FALLBACK: Record<NodeColor, string> = { listening: '#a560e8', reading: '#1cb0f6', speaking: '#ff9600', writing: '#ff4b8c', exam: '#1cb0f6', brand: '#58cc02' };
+const FALLBACK: Record<NodeColor, string> = { listening: '#7c5cf0', reading: '#2f6bff', speaking: '#f08a00', writing: '#e5489a', exam: '#0e9fb5', brand: '#2f6bff' };
 
 /** The app's own colours, so the picture matches what the learner sees */
 function palette(): Record<NodeColor, string> {
@@ -59,7 +59,7 @@ export function drawMap(canvas: HTMLCanvasElement, doc: MapDoc, layout: MapLayou
   ctx.fillRect(0, 0, width, height);
 
   const at = (id: string) => ({ x: layout.positions.get(id)!.x - minX + PAD, y: layout.positions.get(id)!.y - minY + PAD + TITLE_H });
-  const font = (size: number, weight = 700) => `${weight} ${size}px Nunito, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif`;
+  const font = (size: number, weight = 700) => `${weight} ${size}px Inter, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif`;
 
   ctx.fillStyle = INK;
   ctx.font = font(20, 800);

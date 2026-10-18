@@ -11,7 +11,7 @@
 .journey__label {
   margin: 0 0 0.25rem;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
 }
@@ -41,7 +41,7 @@
   height: 0.875rem;
   overflow: hidden;
   background: var(--surface-2);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 999px;
 }
 
@@ -93,7 +93,7 @@
   margin-right: 0.25rem;
   vertical-align: -1px;
   background: var(--surface-2);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 999px;
 }
 
@@ -155,7 +155,7 @@
   color: var(--text);
   text-decoration: none;
   background: var(--surface-2);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 }
 

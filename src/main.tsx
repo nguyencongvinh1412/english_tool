@@ -4,6 +4,9 @@ import './design/tokens.css';
 import './design/base.css';
 import './index.css';
 import App from './App';
+import { initTheme } from './shared/theme';
+
+initTheme();
 
 /**
  * Application entry point

@@ -15,15 +15,13 @@
   color: #ffffff;
   background: var(--listening-edge);
   border: none;
-  border-bottom: 6px solid color-mix(in srgb, var(--listening-edge) 70%, #000);
-  border-radius: 50%;
+    border-radius: 50%;
   cursor: pointer;
   transition: transform 0.08s ease;
 }
 
 .lq-play:active {
   transform: translateY(4px);
-  border-bottom-width: 2px;
 }
 
 .lq-play--on {
@@ -38,7 +36,7 @@
 
 .lq-player__title {
   font-size: 1.125rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .lq-player__sub {
@@ -80,7 +78,7 @@
 
 .lq-transcript__title {
   font-size: 1.125rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .lq-transcript__locked {
@@ -107,7 +105,7 @@
 }
 
 .lq-line__speaker {
-  font-weight: 800;
+  font-weight: 700;
   color: var(--listening-edge);
 }
 
@@ -116,13 +114,21 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .lq-line__speaker {
+  :root:not([data-theme]) .lq-line__speaker {
     color: #d7b4ff;
   }
 
-  .lq-line--B .lq-line__speaker {
+  :root:not([data-theme]) .lq-line--B .lq-line__speaker {
     color: var(--speaking);
   }
+}
+
+:root[data-theme='dark'] .lq-line__speaker {
+  color: #d7b4ff;
+}
+
+:root[data-theme='dark'] .lq-line--B .lq-line__speaker {
+  color: var(--speaking);
 }
 
 .lq-line--active {

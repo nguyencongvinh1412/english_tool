@@ -19,7 +19,7 @@
 }
 
 .ja-dict__count {
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
@@ -152,6 +152,6 @@
   display: grid;
   gap: 0.25rem;
   font-size: 0.8125rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
 }

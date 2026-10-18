@@ -30,7 +30,7 @@
   height: 56px;
   font-family: var(--font-ja);
   font-size: 1.875rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
   background: var(--writing-edge);
   border-radius: 18px;
@@ -183,7 +183,7 @@
 
 .vocab-back__hanviet {
   font-size: 0.875rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--exam);
 }
@@ -208,7 +208,7 @@
 
 .vocab-back__readings dt {
   font-size: 0.8125rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
@@ -249,7 +249,6 @@
   color: var(--text);
   background: var(--tone-soft);
   border: 2px solid var(--tone);
-  border-bottom-width: var(--edge);
   border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.12s var(--ease-out);
@@ -261,7 +260,6 @@
 
 .vocab-grade:active:not(:disabled) {
   transform: translateY(2px);
-  border-bottom-width: 2px;
 }
 
 .vocab-grade:disabled {
@@ -295,7 +293,7 @@
 }
 
 .vocab-grade__label {
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .vocab-grade__when {
@@ -344,7 +342,7 @@
 
 .vocab-row {
   background: var(--surface);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
 }
 
@@ -449,7 +447,7 @@
 .en-word__term {
   font-family: var(--font-display);
   font-size: clamp(2rem, 8vw, 2.75rem);
-  font-weight: 800;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
@@ -511,7 +509,7 @@
 .en-question__meaning {
   margin: 0;
   font-size: 1.375rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .en-question__sentence {
@@ -528,7 +526,7 @@
 
 .en-blank {
   margin: 0 0.25rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--reading);
 }
@@ -550,8 +548,7 @@
   text-align: left;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom-width: var(--edge);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.12s var(--ease-out), border-color 0.12s;
@@ -576,7 +573,7 @@
   font-family: inherit;
   font-size: 0.8125rem;
   color: var(--text-muted);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 50%;
 }
 
@@ -598,7 +595,7 @@
   gap: 0.5rem;
   margin: 0;
   padding: 0.5rem 1rem;
-  font-weight: 800;
+  font-weight: 700;
   border-radius: 999px;
 }
 
@@ -617,7 +614,7 @@
 }
 
 .en-row__term {
-  font-weight: 800;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
@@ -688,7 +685,7 @@
 
 .match__clock {
   font-variant-numeric: tabular-nums;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--reading);
 }
 
@@ -717,8 +714,7 @@
   text-align: left;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom-width: var(--edge);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
   overflow-wrap: anywhere;
@@ -802,7 +798,7 @@
 
 .en-sentence__label {
   font-size: 0.875rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
 }
 

@@ -26,6 +26,8 @@ export const en = {
     label: 'Language',
   },
   nav: {
+    collapse: 'Collapse sidebar',
+    expand: 'Expand sidebar',
     home: 'Home',
     listening: 'Listening',
     reading: 'Reading',
@@ -159,6 +161,7 @@ export const en = {
     start: 'Start',
   },
   profile: {
+    theme: { title: 'Appearance', hint: 'Saved in this browser.', auto: 'System', light: 'Light', warm: 'Warm paper', dark: 'Dark' },
     title: 'Profile',
     subtitle: 'Your account, goals and preferences.',
     details: 'Details',

@@ -18,7 +18,7 @@
 .week-chart__value {
   min-height: 1.25rem;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -49,7 +49,7 @@
 
 .week-chart__day {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
@@ -74,7 +74,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.625rem 0;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .recent__item:last-child {
@@ -101,7 +101,7 @@
 }
 
 .recent__title {
-  font-weight: 800;
+  font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -113,7 +113,7 @@
 }
 
 .recent__score {
-  font-weight: 800;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -121,7 +121,7 @@
   min-width: 3rem;
   padding: 0.125rem 0.5rem;
   font-size: 0.8125rem;
-  font-weight: 800;
+  font-weight: 700;
   text-align: center;
   color: var(--warning);
   background: var(--warning-soft);
@@ -227,7 +227,7 @@
 }
 
 .skill-stats__name {
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .skill-stats__meta {

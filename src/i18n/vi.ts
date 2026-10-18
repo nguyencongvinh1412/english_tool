@@ -28,6 +28,8 @@ export const vi: Messages = {
     label: 'Ngôn ngữ',
   },
   nav: {
+    collapse: 'Thu gọn thanh bên',
+    expand: 'Mở rộng thanh bên',
     home: 'Trang chủ',
     listening: 'Nghe',
     reading: 'Đọc',
@@ -161,6 +163,7 @@ export const vi: Messages = {
     start: 'Bắt đầu',
   },
   profile: {
+    theme: { title: 'Giao diện', hint: 'Lưu trong trình duyệt này.', auto: 'Theo hệ thống', light: 'Sáng', warm: 'Giấy ấm', dark: 'Tối' },
     title: 'Hồ sơ',
     subtitle: 'Tài khoản, mục tiêu và tuỳ chọn của bạn.',
     details: 'Thông tin',

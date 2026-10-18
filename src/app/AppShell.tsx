@@ -5,12 +5,13 @@
 import { creditsLeft } from '@/shared/billingApi';
 import type React from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { PageFallback } from './PageFallback';
 import { Icon, type IconName } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from './AuthProvider';
 import { LocaleToggle } from './LocaleToggle';
+import { ThemeMenu } from './ThemeMenu';
 import { ModelPicker } from './ModelPicker';
 import { StudyLanguageSwitch } from './StudyLanguageSwitch';
 import { ROUTES } from './routes';
@@ -58,6 +59,31 @@ const Avatar: React.FC<{ name: string }> = ({ name }) => (
   </span>
 );
 
+const SIDEBAR_KEY = 'sidebar-collapsed';
+
+/** Sidebar collapse state: remembered per browser; narrow laptops start collapsed */
+function useSidebarCollapsed(): [boolean, () => void] {
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    try {
+      const stored = localStorage.getItem(SIDEBAR_KEY);
+      if (stored !== null) return stored === '1';
+    } catch {
+      // storage blocked: use the default
+    }
+    return window.innerWidth < 1100;
+  });
+  const toggle = () =>
+    setCollapsed((current) => {
+      try {
+        localStorage.setItem(SIDEBAR_KEY, current ? '0' : '1');
+      } catch {
+        // storage blocked: the choice lasts until reload
+      }
+      return !current;
+    });
+  return [collapsed, toggle];
+}
+
 export const AppShell: React.FC = () => {
   const { t } = useI18n();
   const { logout } = useAuth();
@@ -87,11 +113,14 @@ export const AppShell: React.FC = () => {
     ...(user.role === 'admin' ? [{ to: ROUTES.ADMIN, icon: 'shield' as IconName, label: t.nav.admin, tone: 'exam' }] : []),
   ];
 
+  const [collapsed, toggleCollapsed] = useSidebarCollapsed();
+
   const renderLink = (item: NavItem, variant: 'side' | 'tab') => (
     <NavLink
       key={item.to}
       to={item.to}
       end={item.end}
+      title={variant === 'side' && collapsed ? item.label : undefined}
       className={({ isActive }) => `${variant}-link ${isActive ? `${variant}-link--active` : ''}`}
       style={{ ['--nav-tone' as string]: `var(--${item.tone})` }}
     >
@@ -109,13 +138,23 @@ export const AppShell: React.FC = () => {
   const quotaText = left !== null ? t.billing.creditsLeft(left) : t.shell.aiQuota(quota.used, quota.limit);
 
   return (
-    <div className="shell">
+    <div className={`shell ${collapsed ? 'shell--collapsed' : ''}`}>
       <aside className="sidebar">
         <div className="sidebar__brand">
-          <Logo />
+          <Logo compact={collapsed} />
+          <button
+            type="button"
+            className="icon-button sidebar__toggle"
+            onClick={toggleCollapsed}
+            aria-label={collapsed ? t.nav.expand : t.nav.collapse}
+            aria-expanded={!collapsed}
+            title={collapsed ? t.nav.expand : t.nav.collapse}
+          >
+            <Icon name={collapsed ? 'chevronRight' : 'chevronLeft'} size={20} />
+          </button>
         </div>
         <div className="sidebar__study">
-          <StudyLanguageSwitch />
+          <StudyLanguageSwitch compact={collapsed} />
         </div>
 
         <nav className="sidebar__nav" aria-label={t.nav.mainNav}>
@@ -163,6 +202,7 @@ export const AppShell: React.FC = () => {
             <span className="quota-pill__value">{left !== null ? left : quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used)}</span>
             <span className="visually-hidden">{quotaText}</span>
           </Link>
+          <ThemeMenu />
           <LocaleToggle />
           <Link to={ROUTES.PROFILE} className="topbar__avatar" aria-label={t.nav.profile}>
             <Avatar name={user.displayName} />

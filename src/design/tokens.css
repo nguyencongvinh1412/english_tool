@@ -1,5 +1,6 @@
 /**
- * Design tokens: "tactile sticker" theme
+ * Design tokens: clean, modern learning-platform theme
+ * (white surfaces, hairline borders, soft shadows, one blue brand colour).
  * Light palette on :root, dark palette via prefers-color-scheme.
  * Components only use these variables, never raw colors.
  */
@@ -8,114 +9,181 @@
   color-scheme: light;
 
   /* Brand */
-  --brand: #58cc02;
-  --brand-strong: #46a302;
-  --brand-edge: #3f8f02;
-  --brand-ink: #133300;
-  --brand-soft: #e8f8d8;
+  --brand: #2f6bff;
+  --brand-strong: #1d4fd8;
+  --brand-edge: #1d4fd8;
+  --brand-ink: #ffffff;
+  --brand-soft: #eaf1ff;
 
-  /* Exam mode (calm blue) */
-  --exam: #1cb0f6;
-  --exam-strong: #1899d6;
-  --exam-edge: #127fb3;
-  --exam-ink: #002b40;
-  --exam-soft: #ddf4ff;
+  /* Exam mode (teal, distinct from the brand blue) */
+  --exam: #0e9fb5;
+  --exam-strong: #0b8294;
+  --exam-edge: #0b8294;
+  --exam-ink: #ffffff;
+  --exam-soft: #e0f6fa;
 
   /* Skills */
-  --listening: #a560e8;
-  --listening-edge: #8545c4;
-  --listening-soft: #f3e8ff;
-  --reading: #1cb0f6;
-  --reading-edge: #1588c0;
-  --reading-soft: #ddf4ff;
-  --speaking: #ff9600;
-  --speaking-edge: #d17a00;
-  --speaking-soft: #fff1dc;
-  --writing: #ff4b8c;
-  --writing-edge: #c02a63;
-  --writing-soft: #ffe4ee;
+  --listening: #7c5cf0;
+  --listening-edge: #5b3fd0;
+  --listening-soft: #efebff;
+  --reading: #2f6bff;
+  --reading-edge: #1d4fd8;
+  --reading-soft: #eaf1ff;
+  --speaking: #f08a00;
+  --speaking-edge: #b86600;
+  --speaking-soft: #fff1da;
+  --writing: #e5489a;
+  --writing-edge: #b52c75;
+  --writing-soft: #ffe6f2;
 
   /* Feedback (text-safe on white: >= 4.5:1) */
-  --success: #3a7f00;
-  --success-soft: #e8f8d8;
+  --success: #0f8a4f;
+  --success-soft: #e3f6ec;
   --danger: #d92d2d;
-  --danger-edge: #a81f1f;
-  --danger-soft: #ffe5e5;
+  --danger-edge: #b32222;
+  --danger-soft: #fde9e9;
   --warning: #8a5a00;
-  --warning-soft: #fff4d1;
-  --streak: #ff9600;
-  --xp: #ffc800;
+  --warning-soft: #fff4d6;
+  --streak: #f08a00;
+  --xp: #f5b400;
 
   /* Surfaces & text */
-  --bg: #fbfaf5;
-  --bg-dots: #ece9dc;
+  --bg: #f5f7fb;
+  --bg-dots: transparent;
   --surface: #ffffff;
-  --surface-2: #f7f7f2;
-  --surface-3: #efeee6;
-  --border: #e5e5dc;
-  --border-strong: #d4d3c8;
-  --text: #2f3437;
-  --text-muted: #6b7175;
-  --text-faint: #8f9599;
-  --focus: #1cb0f6;
-  --link: #0b6fa4;
-  --overlay: rgb(20 25 28 / 55%);
+  --surface-2: #f6f8fc;
+  --surface-3: #eceff6;
+  --border: #e3e8f1;
+  --border-strong: #cdd5e3;
+  --text: #1c2540;
+  --text-muted: #5b6684;
+  --text-faint: #8a93ab;
+  --focus: #2f6bff;
+  --link: #1d5be0;
+  --overlay: rgb(15 23 42 / 50%);
 
   /* Typography */
-  --font-display: 'Baloo 2', 'Nunito', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
-  --font-body: 'Nunito', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   /* Japanese: Noto Sans JP is loaded on demand; system Japanese fonts until then */
   --font-ja: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
 
   /* Shape */
-  --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 22px;
-  --edge: 4px;
-  --shadow-pop: 0 10px 30px rgb(30 40 20 / 10%);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --edge: 0px;
+  --shadow-sm: 0 1px 2px rgb(20 30 60 / 6%), 0 1px 3px rgb(20 30 60 / 4%);
+  --shadow-pop: 0 8px 24px rgb(20 30 60 / 10%);
 
   /* Layout */
-  --sidebar-width: 248px;
+  --sidebar-width: 256px;
   --topbar-height: 64px;
-  --tabbar-height: 68px;
-  --content-max: 1040px;
+  --tabbar-height: 64px;
+  --content-max: 1440px;
 
   /* Motion */
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Manual themes (Profile): data-theme on <html> overrides the system setting */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface-2: #f3f5f9;
+  --border: #dde3ee;
+  --border-strong: #c3ccdd;
+  --text: #121a30;
+  --text-muted: #4a5573;
+}
+
+/* Warm paper: low glare, easy on the eyes for long reading */
+:root[data-theme='warm'] {
+  color-scheme: light;
+  --bg: #f4efe4;
+  --surface: #fffdf8;
+  --surface-2: #f8f3e8;
+  --surface-3: #ebe4d3;
+  --border: #e2d9c4;
+  --border-strong: #cbbfa3;
+  --text: #2b2418;
+  --text-muted: #6a5f4a;
+  --text-faint: #8f836b;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     color-scheme: dark;
 
-    --brand-soft: #1f3a12;
-    --exam-soft: #0f3347;
-    --listening-soft: #33204a;
-    --reading-soft: #0f3347;
+    --brand: #5b8cff;
+    --brand-strong: #7da3ff;
+    --brand-edge: #3b6ae6;
+    --brand-ink: #0b1226;
+    --brand-soft: #1b2a4f;
+    --exam-soft: #12353d;
+    --listening-soft: #2a2450;
+    --reading-soft: #1b2a4f;
     --speaking-soft: #3d2a0d;
-    --writing-soft: #43182a;
+    --writing-soft: #43182f;
 
-    --success: #79d634;
-    --success-soft: #1f3a12;
+    --success: #4cd68f;
+    --success-soft: #11382a;
     --danger: #ff6b6b;
     --danger-edge: #c94848;
     --danger-soft: #431d1d;
     --warning: #ffc94d;
     --warning-soft: #3d300d;
-    --link: #5cc8ff;
+    --link: #8fb0ff;
 
-    --bg: #131f24;
-    --bg-dots: #1c2b31;
-    --surface: #1a282e;
-    --surface-2: #202f36;
-    --surface-3: #2a3c44;
-    --border: #2e4048;
-    --border-strong: #3d525b;
-    --text: #eef4f6;
-    --text-muted: #a3b3ba;
-    --text-faint: #7e9098;
+    --bg: #111318;
+    --surface: #1a1d24;
+    --surface-2: #22262e;
+    --surface-3: #2d323c;
+    --border: #2f343e;
+    --border-strong: #444b58;
+    --text: #f3f5f8;
+    --text-muted: #b9c0cc;
+    --text-faint: #8d95a3;
     --overlay: rgb(0 0 0 / 65%);
-    --shadow-pop: 0 10px 30px rgb(0 0 0 / 40%);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+    --shadow-pop: 0 10px 30px rgb(0 0 0 / 45%);
   }
 }
+
+:root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --brand: #5b8cff;
+    --brand-strong: #7da3ff;
+    --brand-edge: #3b6ae6;
+    --brand-ink: #0b1226;
+    --brand-soft: #1b2a4f;
+    --exam-soft: #12353d;
+    --listening-soft: #2a2450;
+    --reading-soft: #1b2a4f;
+    --speaking-soft: #3d2a0d;
+    --writing-soft: #43182f;
+
+    --success: #4cd68f;
+    --success-soft: #11382a;
+    --danger: #ff6b6b;
+    --danger-edge: #c94848;
+    --danger-soft: #431d1d;
+    --warning: #ffc94d;
+    --warning-soft: #3d300d;
+    --link: #8fb0ff;
+
+    --bg: #111318;
+    --surface: #1a1d24;
+    --surface-2: #22262e;
+    --surface-3: #2d323c;
+    --border: #2f343e;
+    --border-strong: #444b58;
+    --text: #f3f5f8;
+    --text-muted: #b9c0cc;
+    --text-faint: #8d95a3;
+    --overlay: rgb(0 0 0 / 65%);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+    --shadow-pop: 0 10px 30px rgb(0 0 0 / 45%);
+  }

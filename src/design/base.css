@@ -23,9 +23,6 @@ body {
   line-height: 1.6;
   color: var(--text);
   background-color: var(--bg);
-  /* Dotted "exercise book" paper */
-  background-image: radial-gradient(var(--bg-dots) 1.2px, transparent 1.2px);
-  background-size: 22px 22px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,13 +34,14 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  line-height: 1.2;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   color: var(--text);
 }
 
 a {
   color: var(--link);
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -66,7 +64,7 @@ svg {
 }
 
 :focus-visible {
-  outline: 3px solid var(--focus);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -85,14 +83,14 @@ svg {
 
 /* Staggered entrance used on page sections: style="--i: n" sets the order */
 .reveal {
-  animation: reveal-up 0.5s var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 70ms);
+  animation: reveal-up 0.35s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
 }
 
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -110,7 +108,7 @@ svg {
   }
 }
 
-/* Japanese text anywhere uses Japanese fonts (kanji are missing from Nunito) */
+/* Japanese text anywhere uses Japanese fonts (kanji are missing from Inter) */
 :lang(ja) {
   font-family: var(--font-ja);
   /* Break lines between phrases, not inside words (Chrome); strict rules keep small kana and 。 off line starts */
