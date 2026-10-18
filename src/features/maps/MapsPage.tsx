@@ -12,6 +12,7 @@ import { ROUTES } from '@/app/routes';
 import { errorMessage } from '@/shared/http';
 import { grammarApi, type GrammarCluster } from '@/shared/grammarApi';
 import { mapsApi, type MapSummary } from '@/shared/mapsApi';
+import { useMapProposal } from './useMapProposal';
 import './maps.css';
 
 type Template = 'blank' | 'cluster';
@@ -32,6 +33,9 @@ export const MapsPage: React.FC = () => {
   const [removing, setRemoving] = useState<MapSummary | null>(null);
 
   const english = user.studyLanguage === 'en';
+  const [topic, setTopic] = useState('');
+  const [focus, setFocus] = useState('');
+  const { propose, dialog, asking } = useMapProposal(({ map }) => navigate(`${ROUTES.MAPS}/${map.id}`));
 
   useEffect(() => {
     mapsApi
@@ -120,6 +124,25 @@ export const MapsPage: React.FC = () => {
         </Button>
         {maps && <p className="grammar__hint">{m.count(maps.length, limit)}</p>}
       </Card>
+
+      <Card padding="lg" className="maps-ai reveal">
+        <h2>{m.ai.title}</h2>
+        <p className="grammar__hint">{m.ai.intro}</p>
+        <div className="maps-ai__row">
+          <input className="input" value={focus} maxLength={400} placeholder={m.ai.focusPlaceholder} aria-label={m.ai.focusPlaceholder} onChange={(e) => setFocus(e.target.value)} />
+          <Button variant="secondary" icon="sparkles" loading={asking} disabled={(maps?.length ?? 0) >= limit} onClick={() => void propose({ intent: 'create', instruction: focus.trim() || undefined })}>
+            {m.ai.learned}
+          </Button>
+        </div>
+        <div className="maps-ai__row">
+          <input className="input" value={topic} maxLength={200} placeholder={m.ai.topicPlaceholder} aria-label={m.ai.topicPlaceholder} onChange={(e) => setTopic(e.target.value)} />
+          <Button variant="secondary" icon="sparkles" loading={asking} disabled={topic.trim().length < 3 || (maps?.length ?? 0) >= limit} onClick={() => void propose({ intent: 'topic', topic: topic.trim(), instruction: focus.trim() || undefined })}>
+            {m.ai.topicButton}
+          </Button>
+        </div>
+        {asking && <p className="grammar__hint">{m.ai.working}</p>}
+      </Card>
+      {dialog}
 
       {!maps ? (
         error === null && <Spinner size={30} label={t.common.loading} />

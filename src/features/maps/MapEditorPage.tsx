@@ -6,7 +6,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Banner, Button, Segmented, Spinner, useToast } from '@/design';
+import { Banner, Button, Icon, Segmented, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { ApiRequestError, errorMessage } from '@/shared/http';
@@ -42,6 +42,7 @@ import { layoutMap } from './mapLayout';
 import { MapActionsContext, type MapActions } from './mapActions';
 import { MapCanvas } from './MapCanvas';
 import { MapOutline } from './MapOutline';
+import { useMapProposal } from './useMapProposal';
 import { NodePanel } from './NodePanel';
 import './maps.css';
 
@@ -53,7 +54,7 @@ const RETRY_MS = 3000;
 const WIDE = '(min-width: 900px)';
 const isTyping = (target: EventTarget | null) => target instanceof HTMLElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
 
-const Editor: React.FC<{ initial: MindMap; onReload: () => void }> = ({ initial, onReload }) => {
+const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (previousVersion: number) => void }> = ({ initial, onReload, onAiUpdated }) => {
   const { t } = useI18n();
   const toast = useToast();
   const e = t.maps.editor;
@@ -67,6 +68,7 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void }> = ({ initial,
   const [anchor, setAnchor] = useState<{ id: string; from: { x: number; y: number }; nonce: number } | null>(null);
   const [focusRequest, setFocusRequest] = useState<FocusRequest | null>(null);
   const [copied, setCopied] = useState(false);
+  const [instruction, setInstruction] = useState('');
   const seq = useRef(0);
 
   const doc = history.present;
@@ -153,6 +155,18 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void }> = ({ initial,
       void flush(true);
     };
   }, [flush]);
+
+  // The AI works from the saved map: save what is pending first, and leave the editor when its update is accepted
+  const { propose, dialog, asking } = useMapProposal(({ previousVersion }) => {
+    // The saved map now differs from what is open here, so drop any pending save of the old copy
+    conflict.current = true;
+    if (previousVersion !== null) onAiUpdated(previousVersion);
+  });
+  const askAi = async () => {
+    await flush();
+    if (conflict.current) return;
+    await propose({ intent: 'update', mapId: initial.id, instruction: instruction.trim() || undefined });
+  };
 
   /* ---------- Editing ---------- */
 
@@ -385,6 +399,20 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void }> = ({ initial,
         </Button>
       </div>
 
+      <details className="mmap-ai">
+        <summary>
+          <Icon name="sparkles" size={16} /> {t.maps.ai.update}
+        </summary>
+        <div className="maps-ai__row">
+          <input className="input" value={instruction} maxLength={400} placeholder={t.maps.ai.updateHint} aria-label={t.maps.ai.updateHint} onChange={(ev) => setInstruction(ev.target.value)} />
+          <Button variant="secondary" icon="sparkles" loading={asking} onClick={() => void askAi()}>
+            {t.maps.ai.update}
+          </Button>
+        </div>
+        {asking && <p className="grammar__hint">{t.maps.ai.working}</p>}
+      </details>
+      {dialog}
+
       <div className="mmap-body">
         <div className="mmap-stage">
           {view === 'map' ? (
@@ -433,6 +461,9 @@ export const MapEditorPage: React.FC = () => {
   const [error, setError] = useState<unknown>(null);
   // Changing the key remounts the editor with fresh data after a conflict
   const [generation, setGeneration] = useState(0);
+  const toast = useToast();
+  // After the AI updated this map, the version to restore to undo it
+  const [undo, setUndo] = useState<number | null>(null);
 
   const load = useCallback(() => {
     if (!mapId) return;
@@ -455,5 +486,36 @@ export const MapEditorPage: React.FC = () => {
     setMap(null);
     load();
   };
-  return <Editor key={`${map.id}:${generation}`} initial={map} onReload={reload} />;
+  const restore = async () => {
+    if (undo === null) return;
+    try {
+      await mapsApi.restore(map.id, undo);
+      setUndo(null);
+      toast(t.maps.ai.restored, 'success');
+      reload();
+    } catch (err) {
+      toast(errorMessage(err, t), 'danger');
+    }
+  };
+  return (
+    <>
+      {undo !== null && (
+        <Banner tone="success">
+          {t.maps.ai.undoDone}{' '}
+          <Button size="sm" variant="secondary" onClick={() => void restore()}>
+            {t.maps.ai.undo}
+          </Button>
+        </Banner>
+      )}
+      <Editor
+        key={`${map.id}:${generation}`}
+        initial={map}
+        onReload={reload}
+        onAiUpdated={(previousVersion) => {
+          setUndo(previousVersion);
+          reload();
+        }}
+      />
+    </>
+  );
 };

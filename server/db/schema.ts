@@ -453,6 +453,52 @@ export const mindMaps = pgTable(
 );
 
 /**
+ * What a map looked like before the AI changed it, so the change can be undone. Only the last few are kept per map.
+ */
+export const mindMapVersions = pgTable(
+  'mind_map_versions',
+  {
+    mapId: uuid('map_id')
+      .notNull()
+      .references(() => mindMaps.id, { onDelete: 'cascade' }),
+    /** The map's version number when this copy was taken */
+    version: integer('version').notNull(),
+    title: text('title').notNull(),
+    doc: jsonb('doc').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.mapId, table.version] })]
+);
+
+/**
+ * A map the AI proposed and the learner has not accepted yet. Nothing touches `mind_maps` until it is confirmed;
+ * cancelling (or letting it expire) deletes the draft, name included.
+ */
+export const mindMapDrafts = pgTable(
+  'mind_map_drafts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** The map being updated; null when the draft creates a new one */
+    mapId: uuid('map_id').references(() => mindMaps.id, { onDelete: 'cascade' }),
+    /** The map's version the proposal was made from: a different version means it changed meanwhile */
+    baseVersion: integer('base_version'),
+    language: studyLanguage('language').notNull().default('en'),
+    title: text('title').notNull(),
+    doc: jsonb('doc').notNull(),
+    /** What differs from the current map (empty for a new one), computed on the server */
+    changes: jsonb('changes').notNull().default([]),
+    summary: text('summary'),
+    instruction: text('instruction'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  },
+  (table) => [index('mind_map_drafts_user_idx').on(table.userId, table.createdAt)]
+);
+
+/**
  * Grammar mistakes a learner made, tagged with the grammar point they belong to (from AI-scored
  * writing and from wrong test answers), so the map can say what to review
  */

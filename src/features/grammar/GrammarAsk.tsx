@@ -4,15 +4,21 @@
  */
 import type React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Banner, Button, Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { grammarApi, grammarPath, type GrammarAnswer } from '@/shared/grammarApi';
+import { mapsApi } from '@/shared/mapsApi';
+import { ROUTES } from '@/app/routes';
+import { mapIntent } from '@/features/maps/intent';
+import { useMapProposal } from '@/features/maps/useMapProposal';
 
 export const GrammarAsk: React.FC = () => {
   const { t, locale } = useI18n();
+  const navigate = useNavigate();
+  const { propose, dialog, asking } = useMapProposal(({ map }) => navigate(`${ROUTES.MAPS}/${map.id}`));
   const [question, setQuestion] = useState('');
   const [busy, setBusy] = useState(false);
   const [answer, setAnswer] = useState<{ asked: string; result: GrammarAnswer } | { error: unknown } | null>(null);
@@ -23,6 +29,15 @@ export const GrammarAsk: React.FC = () => {
     if (asked.length < 3) return;
     setBusy(true);
     try {
+      // "Draw a mind map of the tenses" and the like: the AI drafts a map instead of answering a question
+      const intent = mapIntent(asked);
+      if (intent) {
+        const latest = intent === 'update' ? (await mapsApi.list()).maps[0] : undefined;
+        await propose(latest ? { intent: 'update', mapId: latest.id, instruction: asked } : intent === 'learned' ? { intent: 'create', instruction: asked } : { intent: 'topic', topic: asked });
+        setQuestion('');
+        setAnswer(null);
+        return;
+      }
       setAnswer({ asked, result: await grammarApi.ask(asked) });
     } catch (error) {
       setAnswer({ error });
@@ -45,10 +60,12 @@ export const GrammarAsk: React.FC = () => {
           aria-label={t.grammar.askTitle}
           onChange={(e) => setQuestion(e.target.value)}
         />
-        <Button type="submit" icon="sparkles" loading={busy} disabled={question.trim().length < 3}>
+        <Button type="submit" icon="sparkles" loading={busy || asking} disabled={question.trim().length < 3}>
           {t.grammar.askButton}
         </Button>
       </form>
+      <p className="grammar__hint">{t.maps.ai.assistantTip}</p>
+      {dialog}
       {answer && 'error' in answer && <Banner tone="danger">{errorMessage(answer.error, t)}</Banner>}
       {answer && 'result' in answer && (
         <div className="grammar-ask__answer" aria-live="polite">

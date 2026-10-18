@@ -25,6 +25,8 @@ interface NodeData extends Record<string, unknown> {
   hidden: number;
   selected?: boolean;
   editing?: boolean;
+  /** In a proposal preview: new or changed compared with the saved map */
+  mark?: 'added' | 'changed';
 }
 
 const EditInput: React.FC<{ id: string; initial: string }> = ({ id, initial }) => {
@@ -49,7 +51,7 @@ const EditInput: React.FC<{ id: string; initial: string }> = ({ id, initial }) =
 const MapNodeView = memo(({ data }: NodeProps<Node<NodeData>>) => {
   const actions = useContext(MapActionsContext)!;
   return (
-    <div className={`mnode mnode--${data.tone} ${data.isRoot ? 'is-root' : ''} ${data.selected ? 'is-selected' : ''}`} data-node-id={data.id} title={data.text}>
+    <div className={`mnode mnode--${data.tone} ${data.isRoot ? 'is-root' : ''} ${data.selected ? 'is-selected' : ''} ${data.mark ? `is-${data.mark}` : ''}`} data-node-id={data.id} title={data.text}>
       <Handle type="target" position={Position.Left} className="tree-handle" isConnectable={false} />
       {data.editing ? (
         <EditInput id={data.id} initial={data.text} />
@@ -93,11 +95,12 @@ interface Props {
   anchor: { id: string; from: { x: number; y: number }; nonce: number } | null;
   focusRequest: FocusRequest | null;
   label: string;
+  marks?: Map<string, 'added' | 'changed'>;
   onSelect: (id: string) => void;
   onEdit: (id: string) => void;
 }
 
-export const MapCanvas: React.FC<Props> = ({ doc, layout, tones, selected, editing, actions, fitKey, anchor, focusRequest, label, onSelect, onEdit }) => {
+export const MapCanvas: React.FC<Props> = ({ doc, layout, tones, selected, editing, actions, fitKey, anchor, focusRequest, label, marks, onSelect, onEdit }) => {
   const baseNodes = useMemo<Node[]>(
     () =>
       [...layout.positions].map(([id, position]) => {
@@ -118,10 +121,11 @@ export const MapCanvas: React.FC<Props> = ({ doc, layout, tones, selected, editi
             hasChildren: node.children.length > 0,
             collapsed: Boolean(node.collapsed),
             hidden: node.collapsed ? descendantCount(doc, id) : 0,
+            mark: marks?.get(id),
           } satisfies NodeData,
         };
       }),
-    [doc, layout, tones]
+    [doc, layout, tones, marks]
   );
 
   // Only the selected and the edited node get new objects

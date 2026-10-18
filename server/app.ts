@@ -24,6 +24,7 @@ import { createWordBankRouter } from './routes/wordBank.js';
 import { createGrammarRouter } from './routes/grammar.js';
 import { createBillingRouter } from './routes/billing.js';
 import { createMapsRouter } from './routes/maps.js';
+import { createMapsAiRouter } from './routes/mapsAi.js';
 
 /** Get directory name for ES modules */
 const __filename = fileURLToPath(import.meta.url);
@@ -90,6 +91,8 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api/auth', createAuthRouter());
   app.use('/api/me', createMeRouter());
   app.use('/api', createBillingRouter());
+  // The AI routes come first: /maps/propose and /maps/drafts/... must not be read as /maps/:id
+  app.use('/api', createMapsAiRouter());
   app.use('/api', createMapsRouter());
   app.use('/api/admin/imports', createImportRouter());
   app.use('/api/admin', createAdminRouter());

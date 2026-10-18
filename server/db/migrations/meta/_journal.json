@@ -134,6 +134,13 @@
       "when": 1792304257536,
       "tag": "0018_mind_maps",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1792306141276,
+      "tag": "0019_mind_map_ai",
+      "breakpoints": true
     }
   ]
 }
