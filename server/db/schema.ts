@@ -414,6 +414,24 @@ export const grammarProgress = pgTable(
 );
 
 /**
+ * One row per learner, language and day: how much they knew at the end of it (words seen and mastered, grammar
+ * points practised and mastered), written as they study, so the progress page can draw trends
+ */
+export const progressSnapshots = pgTable(
+  'progress_snapshots',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    language: studyLanguage('language').notNull(),
+    /** Calendar day in Asia/Ho_Chi_Minh */
+    day: date('day').notNull(),
+    data: jsonb('data').notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.language, table.day] })]
+);
+
+/**
  * Grammar mistakes a learner made, tagged with the grammar point they belong to (from AI-scored
  * writing and from wrong test answers), so the map can say what to review
  */

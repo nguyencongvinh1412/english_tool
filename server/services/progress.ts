@@ -6,6 +6,7 @@ import { and, desc, eq, gte, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { attempts } from '../db/schema.js';
 import { quotaDay } from './aiAccess.js';
+import { recordSnapshot } from '../progress/journey.js';
 
 /** Which skill each activity trains; the server decides, not the client */
 export const ACTIVITY_SKILLS = {
@@ -237,6 +238,13 @@ export async function recordAttempt(userId: string, input: AttemptInput) {
       day: quotaDay(),
     })
     .returning();
+
+  // Keep today's totals for the progress charts; a failure here must not lose the attempt
+  try {
+    await recordSnapshot(userId, attempt.language);
+  } catch (error) {
+    console.error('Progress snapshot failed:', error);
+  }
 
   return { attempt: toPublicAttempt(attempt), xpEarned: xp };
 }

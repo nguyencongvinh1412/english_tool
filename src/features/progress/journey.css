@@ -1,0 +1,208 @@
+.journey {
+  display: grid;
+  gap: 1rem;
+}
+
+.journey h2,
+.journey h3 {
+  margin: 0;
+}
+
+.journey__label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.journey-goal {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.journey-goal__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.journey-week {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+/* Coverage bars: mastered, then learning, on a track for what is not started */
+.jbar {
+  display: flex;
+  height: 0.875rem;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+}
+
+.jbar--muted {
+  opacity: 0.5;
+}
+
+.jbar__mastered {
+  background: var(--brand);
+}
+
+.jbar__learning {
+  background: var(--reading);
+}
+
+.jmeter {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.jmeter__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.jmeter__head span {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.jlegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  list-style: none;
+}
+
+.jlegend__dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.25rem;
+  vertical-align: -1px;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+}
+
+.jlegend__dot--mastered {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.jlegend__dot--learning {
+  background: var(--reading);
+  border-color: var(--reading);
+}
+
+.jrows {
+  display: grid;
+  gap: 0.625rem;
+  padding: 0;
+  margin: 0.75rem 0;
+  list-style: none;
+}
+
+.jrow {
+  display: grid;
+  grid-template-columns: minmax(7rem, 13rem) minmax(0, 1fr) minmax(0, 16rem);
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.jrow__name {
+  font-weight: 700;
+}
+
+.jrow__name small {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.jrow__count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.jsteps {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  list-style: none;
+}
+
+.jsteps a {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.jsteps a:hover {
+  border-color: var(--brand);
+}
+
+.jweak,
+.jexams {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  list-style: none;
+}
+
+.jweak li,
+.jexams li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jtrend {
+  display: grid;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
+}
+
+.jtrend svg {
+  width: 100%;
+  height: 150px;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.jtrend__axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .jrow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+}

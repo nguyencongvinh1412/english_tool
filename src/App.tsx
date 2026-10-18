@@ -45,6 +45,7 @@ const KanaPage = lazyPage(() => import('@/features/japanese/KanaPage'), 'KanaPag
 const VocabPage = lazyPage(() => import('@/features/japanese/VocabPage'), 'VocabPage');
 const EnVocabPage = lazyPage(() => import('@/features/vocab/EnVocabPage'), 'EnVocabPage');
 const PricingPage = lazyPage(() => import('@/features/billing/PricingPage'), 'PricingPage');
+const JourneyPage = lazyPage(() => import('@/features/progress/JourneyPage'), 'JourneyPage');
 const GrammarPage = lazyPage(() => import('@/features/grammar/GrammarPage'), 'GrammarPage');
 const GrammarPointPage = lazyPage(() => import('@/features/grammar/GrammarPointPage'), 'GrammarPointPage');
 const ComparePage = lazyPage(() => import('@/features/grammar/ComparePage'), 'ComparePage');
@@ -102,6 +103,7 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.KANA} element={<KanaPage />} />
                         <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
                         <Route path={ROUTES.VOCABULARY} element={<EnVocabPage />} />
+                        <Route path={ROUTES.PROGRESS} element={<JourneyPage />} />
                         <Route path={ROUTES.GRAMMAR} element={<GrammarPage />} />
                           <Route path={ROUTES.PRICING} element={<PricingPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />

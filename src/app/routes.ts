@@ -23,6 +23,7 @@ export const ROUTES = {
   VOCABULARY: '/vocabulary',
   GRAMMAR: '/grammar',
   PRICING: '/pricing',
+  PROGRESS: '/progress',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
   WRITING_TASK1: '/writing/ielts-task1',

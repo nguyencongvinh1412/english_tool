@@ -8,6 +8,7 @@ import { and, desc, eq, lt, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { attempts } from '../db/schema.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
+import { buildJourney } from '../progress/journey.js';
 import { ACTIVITY_SKILLS, getProgressSummary, recordAttempt, toPublicAttempt, type Activity } from '../services/progress.js';
 
 const ACTIVITIES = Object.keys(ACTIVITY_SKILLS) as [Activity, ...Activity[]];
@@ -138,6 +139,15 @@ export function createProgressRouter(): Router {
     const { language } = summaryQuerySchema.parse(req.query);
     const user = currentUser(req);
     res.json(await getProgressSummary(user.id, language ?? user.studyLanguage));
+  });
+
+  /**
+   * GET /progress/journey - What the learner has covered and how far that is from their goal
+   */
+  router.get('/progress/journey', requireAuth, async (req, res) => {
+    const { language } = summaryQuerySchema.parse(req.query);
+    const user = currentUser(req);
+    res.json(await buildJourney(user, language ?? user.studyLanguage));
   });
 
   return router;

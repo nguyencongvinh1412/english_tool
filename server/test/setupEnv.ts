@@ -12,6 +12,9 @@ if (!process.env.DATABASE_URL_TEST) {
 
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.DATABASE_URL_TEST;
+// A migration URL left in .env (production) would make runMigrations() change that database instead of the test one.
+// Point it at the test database (deleting it is not enough: config.ts runs dotenv again and would bring it back)
+process.env.DATABASE_MIGRATION_URL = process.env.DATABASE_URL_TEST;
 
 // Tests create their own users; never bootstrap from the real admin credentials
 delete process.env.ADMIN_EMAIL;

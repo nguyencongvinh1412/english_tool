@@ -56,6 +56,8 @@ services:
       NODE_ENV: production
       PORT: 3002
       DATABASE_URL: postgres://english:${DB_PASSWORD}@db:5432/english_tool
+      # Migrations always target the local database, even if .env holds a production DATABASE_MIGRATION_URL
+      DATABASE_MIGRATION_URL: postgres://english:${DB_PASSWORD}@db:5432/english_tool
       CLIPROXY_BASE_URL: http://host.docker.internal:8317
       TTS_BASE_URL: http://tts:8880
       TTS_CACHE_DIR: /data/tts-cache
