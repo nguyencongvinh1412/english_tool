@@ -50,17 +50,8 @@
   border-radius: var(--radius-lg);
 }
 
-.gtree-flow .react-flow__node {
-  cursor: pointer;
-}
-
 .gtree-flow .react-flow__node-root {
   cursor: default;
-}
-
-.gtree-flow .react-flow__controls button {
-  color: var(--text);
-  background: var(--surface);
 }
 
 .gtree-tone--listening { --tone: var(--listening); --tone-soft: var(--listening-soft, var(--surface-2)); }
@@ -214,16 +205,6 @@
   border-radius: 999px;
 }
 
-.gtree-handle {
-  width: 1px;
-  height: 1px;
-  min-width: 0;
-  min-height: 0;
-  background: transparent;
-  border: 0;
-  opacity: 0;
-}
-
 .gtree-edge path {
   fill: none;
   stroke: var(--tone, var(--border));
@@ -233,15 +214,6 @@
 .gtree-edge--left path,
 .gtree-edge--right path {
   stroke: var(--text-muted);
-}
-
-.gtree-flow .react-flow__edges svg {
-  /* The global "svg { max-width: 100% }" would shrink the edge layer (width 0) and hide every edge */
-  max-width: none;
-}
-
-.gtree-flow .react-flow__edge-path {
-  stroke-linecap: round;
 }
 
 /* Side panel: the point under the pointer and everything linked to it */

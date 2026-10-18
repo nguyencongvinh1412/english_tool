@@ -24,6 +24,7 @@ export const ROUTES = {
   GRAMMAR: '/grammar',
   PRICING: '/pricing',
   PROGRESS: '/progress',
+  MAPS: '/maps',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
   WRITING_TASK1: '/writing/ielts-task1',

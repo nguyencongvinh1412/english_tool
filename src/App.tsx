@@ -46,6 +46,8 @@ const VocabPage = lazyPage(() => import('@/features/japanese/VocabPage'), 'Vocab
 const EnVocabPage = lazyPage(() => import('@/features/vocab/EnVocabPage'), 'EnVocabPage');
 const PricingPage = lazyPage(() => import('@/features/billing/PricingPage'), 'PricingPage');
 const JourneyPage = lazyPage(() => import('@/features/progress/JourneyPage'), 'JourneyPage');
+const MapsPage = lazyPage(() => import('@/features/maps/MapsPage'), 'MapsPage');
+const MapEditorPage = lazyPage(() => import('@/features/maps/MapEditorPage'), 'MapEditorPage');
 const GrammarPage = lazyPage(() => import('@/features/grammar/GrammarPage'), 'GrammarPage');
 const GrammarPointPage = lazyPage(() => import('@/features/grammar/GrammarPointPage'), 'GrammarPointPage');
 const ComparePage = lazyPage(() => import('@/features/grammar/ComparePage'), 'ComparePage');
@@ -104,6 +106,8 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
                         <Route path={ROUTES.VOCABULARY} element={<EnVocabPage />} />
                         <Route path={ROUTES.PROGRESS} element={<JourneyPage />} />
+                        <Route path={ROUTES.MAPS} element={<MapsPage />} />
+                        <Route path={`${ROUTES.MAPS}/:mapId`} element={<MapEditorPage />} />
                         <Route path={ROUTES.GRAMMAR} element={<GrammarPage />} />
                           <Route path={ROUTES.PRICING} element={<PricingPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />

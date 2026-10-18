@@ -432,6 +432,27 @@ export const progressSnapshots = pgTable(
 );
 
 /**
+ * A learner's personal mind map: a tree of short notes, each optionally linked to a grammar point or a word.
+ * `doc` is validated in server/maps/doc.ts; `version` grows on every save so two open tabs cannot overwrite each other.
+ */
+export const mindMaps = pgTable(
+  'mind_maps',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    language: studyLanguage('language').notNull().default('en'),
+    title: text('title').notNull(),
+    doc: jsonb('doc').notNull(),
+    version: integer('version').notNull().default(1),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('mind_maps_user_updated_idx').on(table.userId, table.updatedAt)]
+);
+
+/**
  * Grammar mistakes a learner made, tagged with the grammar point they belong to (from AI-scored
  * writing and from wrong test answers), so the map can say what to review
  */

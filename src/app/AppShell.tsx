@@ -78,6 +78,7 @@ export const AppShell: React.FC = () => {
     ...(user.studyLanguage === 'en' ? [{ to: ROUTES.GRAMMAR, icon: 'graph' as IconName, label: t.nav.grammar, tone: 'reading' }] : []),
     { to: ROUTES.EXAMS, icon: 'exam', label: t.nav.exams, tone: 'exam', mobile: true },
     { to: ROUTES.PROGRESS, icon: 'chart', label: t.nav.journey, tone: 'brand' },
+    { to: ROUTES.MAPS, icon: 'layers', label: t.nav.maps, tone: 'writing' },
   ];
 
   const accountItems: NavItem[] = [

@@ -127,6 +127,13 @@
       "when": 1792303191779,
       "tag": "0017_progress_snapshots",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1792304257536,
+      "tag": "0018_mind_maps",
+      "breakpoints": true
     }
   ]
 }

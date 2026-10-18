@@ -1,0 +1,29 @@
+/* Shared by every tree drawn with TreeCanvas */
+
+.tree-canvas .react-flow__node {
+  cursor: pointer;
+}
+
+.tree-canvas .react-flow__controls button {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.tree-canvas .react-flow__edges svg {
+  /* The global "svg { max-width: 100% }" would shrink the edge layer (width 0) and hide every edge */
+  max-width: none;
+}
+
+.tree-canvas .react-flow__edge-path {
+  stroke-linecap: round;
+}
+
+.tree-handle {
+  width: 1px;
+  height: 1px;
+  min-width: 0;
+  min-height: 0;
+  background: transparent;
+  border: 0;
+  opacity: 0;
+}

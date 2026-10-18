@@ -8,9 +8,12 @@ import type React from 'react';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Background, Controls, ReactFlow, ReactFlowProvider, useReactFlow, type Edge, type Node, type NodeMouseHandler, type NodeTypes } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import './tree.css';
 
 export interface FocusRequest {
   id: string;
+  /** Only move the view when the node is outside it */
+  onlyIfHidden?: boolean;
   /** Changes on every request, so asking for the same node twice works */
   nonce: number;
 }
@@ -30,11 +33,13 @@ interface Props {
   reveal?: { ids: string[]; nonce: number } | null;
   focusRequest?: FocusRequest | null;
   onNodeClick?: NodeMouseHandler;
+  onNodeDoubleClick?: NodeMouseHandler;
+  onPaneClick?: () => void;
   className?: string;
   label: string;
 }
 
-const Inner: React.FC<Props> = ({ nodes, edges, nodeTypes, fitKey, anchor, reveal, focusRequest, onNodeClick, className, label }) => {
+const Inner: React.FC<Props> = ({ nodes, edges, nodeTypes, fitKey, anchor, reveal, focusRequest, onNodeClick, onNodeDoubleClick, onPaneClick, className, label }) => {
   const flow = useReactFlow();
   const nodesRef = useRef(nodes);
   // Declared first: the effects below read the current nodes
@@ -71,12 +76,22 @@ const Inner: React.FC<Props> = ({ nodes, edges, nodeTypes, fitKey, anchor, revea
   useEffect(() => {
     if (!focusRequest) return;
     const node = nodesRef.current.find((n) => n.id === focusRequest.id);
-    if (node) void flow.setCenter(node.position.x + (node.width ?? 160) / 2, node.position.y + (node.height ?? 40) / 2, { zoom: Math.max(flow.getZoom(), 0.9), duration: 350 });
+    if (!node) return;
+    const width = node.width ?? 160;
+    const height = node.height ?? 40;
+    if (focusRequest.onlyIfHidden) {
+      const view = flow.getViewport();
+      const box = document.querySelector('.tree-canvas')?.getBoundingClientRect();
+      const left = node.position.x * view.zoom + view.x;
+      const top = node.position.y * view.zoom + view.y;
+      if (box && left >= 0 && top >= 0 && left + width * view.zoom <= box.width && top + height * view.zoom <= box.height) return;
+    }
+    void flow.setCenter(node.position.x + width / 2, node.position.y + height / 2, { zoom: Math.max(flow.getZoom(), 0.9), duration: 350 });
   }, [focusRequest, flow]);
 
   return (
     <ReactFlow
-      className={className}
+      className={`tree-canvas ${className ?? ''}`}
       aria-label={label}
       nodes={nodes}
       edges={edges}
@@ -92,6 +107,8 @@ const Inner: React.FC<Props> = ({ nodes, edges, nodeTypes, fitKey, anchor, revea
       minZoom={0.25}
       maxZoom={1.6}
       onNodeClick={onNodeClick}
+      onNodeDoubleClick={onNodeDoubleClick}
+      onPaneClick={onPaneClick}
       proOptions={{ hideAttribution: false }}
     >
       <Background gap={28} size={1} />

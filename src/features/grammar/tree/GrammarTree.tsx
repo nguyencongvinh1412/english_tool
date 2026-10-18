@@ -32,8 +32,8 @@ type RootData = { label: string };
 
 const Handles = () => (
   <>
-    <Handle type="target" position={Position.Left} className="gtree-handle" isConnectable={false} />
-    <Handle type="source" position={Position.Right} className="gtree-handle" isConnectable={false} />
+    <Handle type="target" position={Position.Left} className="tree-handle" isConnectable={false} />
+    <Handle type="source" position={Position.Right} className="tree-handle" isConnectable={false} />
   </>
 );
 
