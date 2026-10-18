@@ -20,190 +20,322 @@
   color: var(--text-muted);
 }
 
-/* ---------- Map ---------- */
+/* ---------- Tree ---------- */
 
-.gmap {
-  height: min(78vh, 900px);
-  min-height: 460px;
+.gtree-wrap {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.gtree-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.gtree-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.gtree {
+  height: min(76vh, 880px);
+  min-height: 440px;
   overflow: hidden;
   background: var(--surface);
   border: 2px solid var(--border);
   border-radius: var(--radius-lg);
 }
 
-.gmap .react-flow__node {
+.gtree-flow .react-flow__node {
   cursor: pointer;
 }
 
-.gmap .react-flow__node-cluster {
+.gtree-flow .react-flow__node-root {
   cursor: default;
-  pointer-events: none;
 }
 
-.gmap-cluster {
-  padding: 0.5rem 0.75rem;
+.gtree-flow .react-flow__controls button {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.gtree-tone--listening { --tone: var(--listening); --tone-soft: var(--listening-soft, var(--surface-2)); }
+.gtree-tone--reading { --tone: var(--reading); --tone-soft: var(--reading-soft, var(--surface-2)); }
+.gtree-tone--speaking { --tone: var(--speaking); --tone-soft: var(--speaking-soft, var(--surface-2)); }
+.gtree-tone--writing { --tone: var(--writing); --tone-soft: var(--writing-soft, var(--surface-2)); }
+.gtree-tone--exam { --tone: var(--exam); --tone-soft: var(--exam-soft, var(--surface-2)); }
+.gtree-tone--brand { --tone: var(--brand); --tone-soft: var(--brand-soft, var(--surface-2)); }
+
+.gtree-root,
+.gtree-cluster,
+.gtree-point {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* No paint containment: the relation tag sits above the node */
+  contain: layout style;
+}
+
+.gtree-root {
+  justify-content: center;
+  padding: 0 0.75rem;
+  white-space: nowrap;
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+}
+
+.gtree-cluster {
+  gap: 0.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
   font-weight: 800;
   color: #ffffff;
   background: var(--tone);
   border-radius: var(--radius-sm);
 }
 
-.gmap-point {
-  display: flex;
-  align-items: center;
+.gtree-cluster__chevron {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.gtree-cluster.is-open .gtree-cluster__chevron {
+  transform: rotate(45deg);
+}
+
+.gtree-cluster__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gtree-cluster__count,
+.gtree-cluster__hint {
+  flex: none;
+  min-width: 1.5rem;
+  padding: 0 0.375rem;
+  font-size: 0.75rem;
+  line-height: 1.375rem;
+  text-align: center;
+  background: rgb(255 255 255 / 0.25);
+  border-radius: 999px;
+}
+
+.gtree-cluster__hint {
+  color: var(--text);
+  background: #ffffff;
+}
+
+.gtree-point {
   justify-content: space-between;
   gap: 0.375rem;
-  width: 100%;
-  height: 100%;
-  padding: 0.375rem 0.625rem;
+  padding: 0 0.625rem;
   font-size: 0.8125rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--text);
   background: var(--surface);
-  border: 2px solid color-mix(in srgb, var(--tone) 55%, var(--border));
-  border-bottom-width: 4px;
+  border: 2px solid var(--tone);
   border-radius: var(--radius-sm);
-  transition: opacity 0.15s, transform 0.15s;
 }
 
-.gmap-point:hover,
-.gmap-point--focus {
+.gtree-point:hover,
+.gtree-point.is-focus {
   background: var(--tone-soft);
-  border-color: var(--tone);
-  transform: translateY(-1px);
 }
 
-.gmap-point--dim {
-  opacity: 0.25;
+.gtree-point.is-empty {
+  border-style: dashed;
 }
 
-/* Points linked to the hovered one: border style by relation, with a small tag */
-.gmap-point[data-relation] {
+.gtree-point.is-center {
+  font-size: 0.9375rem;
+  background: var(--tone-soft);
+  box-shadow: 0 0 0 3px var(--tone);
+}
+
+/* Linked to the hovered point: an outline (no layout change) and a small tag */
+.gtree-point.is-rel {
   position: relative;
-  border-width: 3px;
+  box-shadow: 0 0 0 2px var(--rel);
 }
 
-.gmap-point[data-relation]::after {
+.gtree-point.is-rel::after {
   content: attr(data-relation);
   position: absolute;
-  top: -0.6rem;
+  top: -0.75rem;
   right: 0.375rem;
   padding: 0 0.375rem;
   font-size: 0.625rem;
   font-weight: 800;
   line-height: 1.1rem;
   color: #ffffff;
+  white-space: nowrap;
   background: var(--rel);
   border-radius: 999px;
+}
+
+.gtree-point.is-rel--before { --rel: var(--text-muted); }
+.gtree-point.is-rel--next { --rel: var(--success); }
+.gtree-point.is-rel--contrast { --rel: var(--danger); }
+.gtree-point.is-rel--related { --rel: var(--listening); }
+
+.gtree-point__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.gmap-point--before {
-  --rel: var(--text-muted);
-  border-color: var(--rel);
-}
-
-.gmap-point--next {
-  --rel: var(--success);
-  border-color: var(--rel);
-}
-
-.gmap-point--contrast {
-  --rel: var(--danger);
-  border-color: var(--rel);
-  border-style: dashed;
-}
-
-.gmap-point--related {
-  --rel: var(--listening);
-  border-color: var(--rel);
-  border-style: dotted;
-}
-
-.gmap-point--empty {
-  border-style: dashed;
-}
-
-.gmap-point__title {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.gmap-point__cefr {
-  flex-shrink: 0;
+.gtree-point__cefr {
+  flex: none;
+  padding: 0 0.375rem;
   font-size: 0.6875rem;
   font-weight: 800;
-  color: var(--tone);
+  line-height: 1.25rem;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-radius: 999px;
 }
 
-.gmap-handle {
+.gtree-handle {
+  width: 1px;
+  height: 1px;
+  min-width: 0;
+  min-height: 0;
+  background: transparent;
+  border: 0;
   opacity: 0;
-  pointer-events: none;
 }
 
-.gmap-edge path {
-  stroke-width: 3.5;
+.gtree-edge path {
+  fill: none;
+  stroke: var(--tone, var(--border));
+  stroke-width: 2;
 }
 
-.gmap-edge--builds path {
+.gtree-edge--left path,
+.gtree-edge--right path {
   stroke: var(--text-muted);
 }
 
-.gmap-edge--contrast path {
-  stroke: var(--danger);
-  stroke-dasharray: 8 6;
+.gtree-flow .react-flow__edges svg {
+  /* The global "svg { max-width: 100% }" would shrink the edge layer (width 0) and hide every edge */
+  max-width: none;
 }
 
-.gmap-edge--related path {
-  stroke: var(--listening);
-  stroke-dasharray: 2 6;
+.gtree-flow .react-flow__edge-path {
+  stroke-linecap: round;
 }
 
-.gmap .react-flow__controls button {
-  color: var(--text);
+/* Side panel: the point under the pointer and everything linked to it */
+.gtree-panel {
+  display: grid;
+  gap: 0.75rem;
+  max-height: min(76vh, 880px);
+  padding: 1rem;
+  overflow-y: auto;
   background: var(--surface);
-  border-color: var(--border);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
 }
 
-.grammar-legend {
+.gtree-panel h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.gtree-panel__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.gtree-panel__summary {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.gtree-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gtree-panel__group h3 {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.gtree-panel__group ul {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.gtree-panel__group li {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.8125rem;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.gtree-panel__group li > a:first-child {
   font-weight: 700;
 }
 
-.grammar-legend li {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
+.gtree-panel__compare {
+  font-size: 0.75rem;
 }
 
-.grammar-legend__line {
-  display: inline-block;
-  width: 28px;
-  border-top: 3px solid var(--text-muted);
+.gtree-panel__locate {
+  display: inline-flex;
+  padding: 0.125rem;
+  margin-left: auto;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
 }
 
-.grammar-legend__line--contrast {
-  border-top: 3px dashed var(--danger);
+.gtree-panel__locate:hover {
+  color: var(--text);
+  background: var(--surface-2);
 }
 
-.grammar-legend__line--related {
-  border-top: 3px dotted var(--listening);
-}
+@media (max-width: 899px) {
+  .gtree-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.grammar-legend__line--next {
-  border-top: 3px solid var(--success);
+  .gtree-panel {
+    max-height: none;
+  }
 }
 
 /* ---------- List ---------- */
@@ -598,12 +730,6 @@ a.grammar-chip:hover {
   font-size: 12px;
   font-weight: 700;
   fill: var(--exam);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gmap-point {
-    transition: none;
-  }
 }
 
 /* ---------- Mastery, due points, tools ---------- */

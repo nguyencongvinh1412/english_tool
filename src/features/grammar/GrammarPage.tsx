@@ -11,7 +11,7 @@ import { errorMessage } from '@/shared/http';
 import { comparePath, decidePath, grammarApi, grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type GrammarMistake, type Mastery, type PointProgress } from '@/shared/grammarApi';
 import { DECISION_TREES } from './decisions';
 import { GrammarAsk } from './GrammarAsk';
-import { GrammarMap } from './GrammarMap';
+import { GrammarTree } from './tree/GrammarTree';
 import './grammar.css';
 
 type View = 'map' | 'list';
@@ -161,24 +161,7 @@ export const GrammarPage: React.FC = () => {
           </div>
         </section>
       ) : view === 'map' ? (
-        <>
-          <ul className="grammar-legend">
-            <li>
-              <span className="grammar-legend__line grammar-legend__line--builds" /> {t.grammar.legend.builds}
-            </li>
-            <li>
-              <span className="grammar-legend__line grammar-legend__line--next" /> {t.grammar.links.leadsTo}
-            </li>
-            <li>
-              <span className="grammar-legend__line grammar-legend__line--contrast" /> {t.grammar.legend.contrast}
-            </li>
-            <li>
-              <span className="grammar-legend__line grammar-legend__line--related" /> {t.grammar.legend.related}
-            </li>
-            <li className="grammar__hint">{t.grammar.mapHint}</li>
-          </ul>
-          <GrammarMap data={data} mastery={mastery} />
-        </>
+        <GrammarTree data={data} mastery={mastery} />
       ) : (
         <div className="grammar-clusters">
           {data.clusters.map((cluster) => {
