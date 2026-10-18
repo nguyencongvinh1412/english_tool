@@ -433,11 +433,13 @@
 
 /* Proposal preview: what the AI added or changed */
 .mnode.is-added {
+  color: var(--text);
   background: color-mix(in srgb, var(--success) 14%, var(--surface));
   box-shadow: 0 0 0 3px var(--success);
 }
 
 .mnode.is-changed {
+  color: var(--text);
   background: color-mix(in srgb, var(--speaking) 14%, var(--surface));
   box-shadow: 0 0 0 3px var(--speaking);
 }
@@ -541,4 +543,86 @@
 
 .mmap-ai .maps-ai__row {
   margin-top: 0.5rem;
+}
+
+/* A node the AI check flagged */
+.mnode.is-issue {
+  color: var(--text);
+  background: color-mix(in srgb, var(--danger) 10%, var(--surface));
+  box-shadow: 0 0 0 3px var(--danger);
+}
+
+.issues {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+}
+
+.issues__list {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.issue {
+  display: grid;
+  gap: 0.375rem;
+  padding: 0.75rem;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.issue__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.issue__node {
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  text-decoration: underline dotted;
+}
+
+.issue p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.issue__fix {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.issue__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.mmap-side {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.mmap-side .issues {
+  max-height: 46vh;
+  padding: 0.75rem;
+  margin: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 2px solid var(--danger);
+  border-radius: var(--radius-lg);
 }

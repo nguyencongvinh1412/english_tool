@@ -26,7 +26,7 @@ interface NodeData extends Record<string, unknown> {
   selected?: boolean;
   editing?: boolean;
   /** In a proposal preview: new or changed compared with the saved map */
-  mark?: 'added' | 'changed';
+  mark?: 'added' | 'changed' | 'issue';
 }
 
 const EditInput: React.FC<{ id: string; initial: string }> = ({ id, initial }) => {
@@ -95,7 +95,7 @@ interface Props {
   anchor: { id: string; from: { x: number; y: number }; nonce: number } | null;
   focusRequest: FocusRequest | null;
   label: string;
-  marks?: Map<string, 'added' | 'changed'>;
+  marks?: Map<string, 'added' | 'changed' | 'issue'>;
   onSelect: (id: string) => void;
   onEdit: (id: string) => void;
 }

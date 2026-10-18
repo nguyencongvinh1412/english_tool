@@ -10,7 +10,7 @@ import { Banner, Button, Icon, Segmented, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { ApiRequestError, errorMessage } from '@/shared/http';
-import { mapsApi, type MindMap } from '@/shared/mapsApi';
+import { mapsApi, type MapIssue, type MindMap } from '@/shared/mapsApi';
 import type { FocusRequest } from '@/features/grammar/tree/TreeCanvas';
 import {
   MAX_DEPTH,
@@ -41,6 +41,7 @@ import {
 import { layoutMap } from './mapLayout';
 import { MapActionsContext, type MapActions } from './mapActions';
 import { MapCanvas } from './MapCanvas';
+import { IssuesPanel } from './IssuesPanel';
 import { MapOutline } from './MapOutline';
 import { useMapProposal } from './useMapProposal';
 import { NodePanel } from './NodePanel';
@@ -69,6 +70,9 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
   const [focusRequest, setFocusRequest] = useState<FocusRequest | null>(null);
   const [copied, setCopied] = useState(false);
   const [instruction, setInstruction] = useState('');
+  const [issues, setIssues] = useState<MapIssue[] | null>(null);
+  const [checking, setChecking] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
   const seq = useRef(0);
 
   const doc = history.present;
@@ -162,10 +166,30 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
     conflict.current = true;
     if (previousVersion !== null) onAiUpdated(previousVersion);
   });
-  const askAi = async () => {
+  const askAi = async (fix?: MapIssue[]) => {
     await flush();
     if (conflict.current) return;
-    await propose({ intent: 'update', mapId: initial.id, instruction: instruction.trim() || undefined });
+    await propose({
+      intent: 'update',
+      mapId: initial.id,
+      instruction: instruction.trim() || undefined,
+      issues: fix?.map((i) => ({ nodeId: i.nodeId, problem: i.problem, suggestion: i.suggestion })),
+    });
+  };
+
+  // Check the saved map (save what is pending first), then show what the AI found
+  const runCheck = async () => {
+    await flush();
+    if (conflict.current) return;
+    setChecking(true);
+    try {
+      setIssues((await mapsApi.check(initial.id)).issues);
+      setAiOpen(true);
+    } catch (error) {
+      toast(errorMessage(error, t), 'danger');
+    } finally {
+      setChecking(false);
+    }
   };
 
   /* ---------- Editing ---------- */
@@ -219,6 +243,18 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
   };
 
   const change = (id: string, changes: Partial<MapNode>) => apply(updateNode(doc, id, changes), id);
+
+  // A suggestion is an ordinary edit, so Ctrl+Z undoes it
+  const applyIssue = (issue: MapIssue) => {
+    if (!issue.fix || !doc.nodes[issue.nodeId]) return;
+    change(issue.nodeId, {
+      ...(issue.fix.text && { text: issue.fix.text }),
+      ...(issue.fix.note !== undefined && { note: issue.fix.note === '' ? undefined : issue.fix.note }),
+      ...(issue.fix.link && { link: issue.fix.link }),
+    });
+    setIssues((list) => list?.filter((i) => i.id !== issue.id) ?? null);
+  };
+  const issueMarks = useMemo(() => (issues && issues.length > 0 ? new Map(issues.filter((i) => doc.nodes[i.nodeId]).map((i) => [i.nodeId, 'issue' as const])) : undefined), [issues, doc]);
 
   // Stable for the nodes: they read the latest handlers through a ref
   const handlers = useRef<Pick<MapActions, 'commitText' | 'toggle'>>({ commitText: () => undefined, toggle: () => undefined });
@@ -399,10 +435,16 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
         </Button>
       </div>
 
-      <details className="mmap-ai">
+      <details className="mmap-ai" open={aiOpen || undefined} onToggle={(ev) => setAiOpen(ev.currentTarget.open)}>
         <summary>
-          <Icon name="sparkles" size={16} /> {t.maps.ai.update}
+          <Icon name="sparkles" size={16} /> {t.maps.ai.title}
         </summary>
+        <div className="maps-ai__row">
+          <Button variant="secondary" icon="check" loading={checking} onClick={() => void runCheck()}>
+            {t.maps.ai.check.button}
+          </Button>
+        </div>
+        {checking && <p className="grammar__hint">{t.maps.ai.check.working}</p>}
         <div className="maps-ai__row">
           <input className="input" value={instruction} maxLength={400} placeholder={t.maps.ai.updateHint} aria-label={t.maps.ai.updateHint} onChange={(ev) => setInstruction(ev.target.value)} />
           <Button variant="secondary" icon="sparkles" loading={asking} onClick={() => void askAi()}>
@@ -427,6 +469,7 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
               anchor={anchor}
               focusRequest={focusRequest}
               label={title}
+              marks={issueMarks}
               onSelect={select}
               onEdit={setEditing}
             />
@@ -436,18 +479,34 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
             </MapActionsContext.Provider>
           )}
         </div>
-        <NodePanel
-          id={current}
-          node={node}
-          isRoot={current === doc.root}
-          canMove={canMove}
-          onChange={(changes) => change(current, changes)}
-          onAddChild={() => addChildTo(current)}
-          onAddSibling={() => addSiblingOf(current)}
-          onRemove={() => remove(current)}
-          onMove={(kind) => move(current, kind)}
-          onToggle={() => toggle(current)}
-        />
+        <div className="mmap-side">
+          {issues && (
+            <IssuesPanel
+              issues={issues}
+              doc={doc}
+              busy={asking}
+              onLocate={(id) => {
+                select(id);
+                setFocusRequest({ id, onlyIfHidden: true, nonce: ++seq.current });
+              }}
+              onApply={applyIssue}
+              onDismiss={(issue) => setIssues((list) => list?.filter((i) => i.id !== issue.id) ?? null)}
+              onFixAll={() => void askAi(issues)}
+            />
+          )}
+          <NodePanel
+            id={current}
+            node={node}
+            isRoot={current === doc.root}
+            canMove={canMove}
+            onChange={(changes) => change(current, changes)}
+            onAddChild={() => addChildTo(current)}
+            onAddSibling={() => addSiblingOf(current)}
+            onRemove={() => remove(current)}
+            onMove={(kind) => move(current, kind)}
+            onToggle={() => toggle(current)}
+          />
+        </div>
       </div>
       <p className="grammar__hint">{canAddChild(doc, current) ? '' : e.limitDepth(MAX_DEPTH)}</p>
     </div>

@@ -13,6 +13,8 @@ import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js
 import { HttpError } from '../http/errors.js';
 import { SCORING_MAX_TOKENS, SCORING_TIMEOUT_MS, runAIJson } from '../services/ai.js';
 import { MAX_MAPS_PER_USER, DocError, type MapDoc } from '../maps/doc.js';
+import { GRAMMAR_POINTS } from '../grammar/map.js';
+import { MAX_ISSUES, checkPrompt, checkSchema, cleanIssues, referenceFor, verdictSchema, verifyPrompt, type MapIssue } from '../maps/check.js';
 import { diffDocs, learnerContext, lookupWords, proposalPrompt, proposalSchema, docToTree, treeToDoc, wordsIn, type Mode } from '../maps/ai.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -30,6 +32,8 @@ const proposeSchema = z
     topic: z.string().trim().min(3).max(200).optional(),
     instruction: z.string().trim().max(400).optional(),
     model: z.string().trim().max(100).optional(),
+    /** Problems found by the check that the AI should fix */
+    issues: z.array(z.object({ nodeId: z.string().max(24), problem: z.string().max(500), suggestion: z.string().max(500).default('') })).max(MAX_ISSUES).optional(),
   })
   .refine((b) => b.intent !== 'update' || b.mapId, { message: 'mapId is required to update a map', path: ['mapId'] })
   .refine((b) => b.intent !== 'topic' || b.topic, { message: 'topic is required', path: ['topic'] });
@@ -97,8 +101,11 @@ async function propose(user: User, body: z.infer<typeof proposeSchema>) {
     body.topic && `Topic: ${body.topic}`,
     body.instruction && `Instruction: ${body.instruction}`,
     base && `Current map (JSON):\n${JSON.stringify(docToTree(base.doc))}`,
+    base && body.issues?.length
+      ? `Problems to fix (change only what is needed to fix them):\n${body.issues.map((i) => `- node "${base.doc.nodes[i.nodeId]?.text ?? i.nodeId}" (id ${i.nodeId}): ${i.problem}${i.suggestion ? ` Suggestion: ${i.suggestion}` : ''}`).join('\n')}`
+      : '',
     `Learner data:\n${await learnerContext(user)}`,
-    mode === 'update' && !body.instruction ? 'Instruction: bring the map up to date with what the learner has studied.' : '',
+    mode === 'update' && !body.instruction && !body.issues?.length ? 'Instruction: bring the map up to date with what the learner has studied.' : '',
   ]
     .filter(Boolean)
     .join('\n\n');
@@ -155,6 +162,40 @@ export function createMapsAiRouter(): Router {
   router.post('/maps/propose', requireAuth, limitAiRequests, async (req, res) => {
     const draft = await propose(currentUser(req), proposeSchema.parse(req.body));
     res.status(201).json({ draft: await present(draft) });
+  });
+
+  /**
+   * POST /maps/:id/check - Two AI passes: list possible problems, then keep only the ones a stricter reviewer confirms
+   */
+  router.post('/maps/:id/check', requireAuth, limitAiRequests, async (req, res) => {
+    const user = currentUser(req);
+    const id = idSchema.parse(req.params.id);
+    const { model } = z.object({ model: z.string().trim().max(100).optional() }).parse(req.body ?? {});
+    const [map] = await db.select().from(mindMaps).where(and(eq(mindMaps.id, id), eq(mindMaps.userId, user.id))).limit(1);
+    if (!map) throw new HttpError(404, 'Map not found.', 'not_found');
+
+    const doc = map.doc as MapDoc;
+    const reference = await referenceFor(doc);
+    const catalog = user.studyLanguage === 'en' ? GRAMMAR_POINTS.map((p) => `${p.id} | ${p.title.en}`).join('\n') : '(none for this language)';
+    const common = { feature: 'mindmap-check', model, timeoutMs: SCORING_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS };
+
+    const first = await runAIJson(
+      user,
+      { ...common, system: checkPrompt(user), messages: [{ role: 'user', content: `Map (JSON):\n${JSON.stringify(docToTree(doc))}\n\nReference cards:\n${reference}\n\nGrammar catalog:\n${catalog}` }] },
+      checkSchema
+    );
+    const candidates = cleanIssues(first.issues, doc);
+    if (candidates.length === 0) {
+      res.json({ issues: [], version: map.version });
+      return;
+    }
+
+    // Second pass: a stricter reviewer drops what is not really wrong
+    const review = candidates.map((c, index) => JSON.stringify({ index, nodeId: c.nodeId, node: c.nodeText, kind: c.kind, problem: c.problem, suggestion: c.suggestion })).join('\n');
+    const { verdicts } = await runAIJson(user, { ...common, system: verifyPrompt(user), messages: [{ role: 'user', content: `Reference cards:\n${reference}\n\nMap (JSON):\n${JSON.stringify(docToTree(doc))}\n\nIssues:\n${review}` }] }, verdictSchema);
+    const keep = new Set(verdicts.filter((v) => v.keep).map((v) => v.index));
+    const issues: MapIssue[] = candidates.flatMap((c, i) => (keep.has(i) ? [{ id: `i${i + 1}`, ...c }] : []));
+    res.json({ issues, version: map.version });
   });
 
   router.get('/maps/drafts/:id', requireAuth, async (req, res) => {

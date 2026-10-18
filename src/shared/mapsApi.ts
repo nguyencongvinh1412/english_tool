@@ -52,10 +52,21 @@ export interface MapDraft {
   expiresAt: string;
 }
 
+export interface MapIssue {
+  id: string;
+  nodeId: string;
+  nodeText: string;
+  kind: 'wrong' | 'unclear' | 'link' | 'missing';
+  severity: 'error' | 'warning' | 'tip';
+  problem: string;
+  suggestion: string;
+  fix?: { text?: string; note?: string; link?: { kind: 'grammar'; id: string } };
+}
+
 export type ProposeBody =
   | { intent: 'create'; instruction?: string }
   | { intent: 'topic'; topic: string; instruction?: string }
-  | { intent: 'update'; mapId: string; instruction?: string };
+  | { intent: 'update'; mapId: string; instruction?: string; issues?: { nodeId: string; problem: string; suggestion: string }[] };
 
 export const mapsApi = {
   list: () => apiFetch<{ maps: MapSummary[]; limit: number }>('/api/maps'),
@@ -69,6 +80,11 @@ export const mapsApi = {
     apiFetch<{ draft: MapDraft }>('/api/maps/propose', { method: 'POST', json: { ...body, model: getSelectedModel() ?? undefined } }).then((r) => {
       window.dispatchEvent(new Event(AI_USED_EVENT));
       return r.draft;
+    }),
+  check: (id: string) =>
+    apiFetch<{ issues: MapIssue[]; version: number }>(`/api/maps/${id}/check`, { method: 'POST', json: { model: getSelectedModel() ?? undefined } }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
     }),
   renameDraft: (id: string, title: string) => apiFetch<{ draft: MapDraft }>(`/api/maps/drafts/${id}`, { method: 'PATCH', json: { title } }).then((r) => r.draft),
   confirmDraft: (id: string, title?: string) => apiFetch<{ map: MindMap; previousVersion: number | null }>(`/api/maps/drafts/${id}/confirm`, { method: 'POST', json: { title } }),
