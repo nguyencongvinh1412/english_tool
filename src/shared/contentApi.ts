@@ -145,6 +145,16 @@ export interface WritingPrompt {
   email?: { from: string; subject: string; body: string };
 }
 
+/** Which part of the library a list shows */
+export type LibraryFilter = 'all' | 'mine' | 'starter' | 'ai' | 'done' | 'todo' | 'hidden';
+export const LIBRARY_FILTERS: LibraryFilter[] = ['all', 'done', 'todo', 'mine', 'starter', 'ai', 'hidden'];
+
+export interface LibraryPage {
+  items: ContentSummary[];
+  total: number;
+  hasMore: boolean;
+}
+
 export interface ContentSummary {
   id: string;
   kind: ContentKind;
@@ -156,6 +166,12 @@ export interface ContentSummary {
   source: 'builtin' | 'ai' | 'imported';
   createdAt: string;
   best: number | null;
+  /** The caller made this item */
+  mine: boolean;
+  /** The caller hid this item from their list */
+  hidden: boolean;
+  /** The caller may delete it for everyone */
+  canDelete: boolean;
 }
 
 export interface ContentItem<P> extends ContentSummary {
@@ -216,14 +232,24 @@ function afterAi<T>(promise: Promise<T>): Promise<T> {
 }
 
 export const contentApi = {
-  list: (kind: ContentKind, level?: ContentLevel, writingTask?: WritingTask) => {
+  list: (
+    kind: ContentKind,
+    options: { level?: ContentLevel; writingTask?: WritingTask; q?: string; filter?: LibraryFilter; limit?: number; offset?: number } = {}
+  ) => {
     const params = new URLSearchParams({ kind });
-    if (level) params.set('level', level);
-    if (writingTask) params.set('writingTask', writingTask);
-    return apiFetch<{ items: ContentSummary[] }>(`/api/content?${params}`);
+    if (options.level) params.set('level', options.level);
+    if (options.writingTask) params.set('writingTask', options.writingTask);
+    if (options.q) params.set('q', options.q);
+    if (options.filter && options.filter !== 'all') params.set('filter', options.filter);
+    if (options.limit) params.set('limit', String(options.limit));
+    if (options.offset) params.set('offset', String(options.offset));
+    return apiFetch<LibraryPage>(`/api/content?${params}`);
   },
+  hide: (id: string) => apiFetch<void>(`/api/content/${encodeURIComponent(id)}/hide`, { method: 'POST' }),
+  unhide: (id: string) => apiFetch<void>(`/api/content/${encodeURIComponent(id)}/hide`, { method: 'DELETE' }),
+  remove: (id: string) => apiFetch<void>(`/api/content/${encodeURIComponent(id)}`, { method: 'DELETE' }),
   get: <P>(id: string) => apiFetch<{ item: ContentItem<P> }>(`/api/content/${encodeURIComponent(id)}`),
-  generate: <P>(input: { kind: ContentKind; level: ContentLevel; topic?: string; writingTask?: WritingTask }) =>
+  generate: <P>(input: { kind: ContentKind; level: ContentLevel; topic?: string; writingTask?: WritingTask; avoidTitles?: string[] }) =>
     afterAi(apiFetch<{ item: ContentItem<P> }>('/api/content/generate', { method: 'POST', json: { ...input, model: selectedModel() } })),
   define: (word: string, sentence: string) =>
     afterAi(apiFetch<{ definition: WordDefinition }>('/api/ai/define', { method: 'POST', json: { word, sentence, model: selectedModel() } })),

@@ -15,17 +15,29 @@ const LETTERS = ['A', 'B', 'C', 'D'];
 /**
  * Questions in Japanese with furigana; all answered, then checked at once
  */
-export const JaQuiz: React.FC<{ questions: JaMcq[]; onChecked: (correct: number, total: number) => void }> = ({ questions, onChecked }) => {
+interface JaQuizProps {
+  questions: JaMcq[];
+  /** Answers are option indexes as strings, null when unanswered */
+  onChecked: (correct: number, total: number, answers: (string | null)[]) => void;
+  /** Session buttons (more questions, end), shown before and after checking in place of "Try again" */
+  actions?: React.ReactNode;
+  /** Shows these saved answers, already checked and read-only (reviewing a finished round) */
+  reviewAnswers?: (string | null)[];
+}
+
+export const JaQuiz: React.FC<JaQuizProps> = ({ questions, onChecked, actions, reviewAnswers }) => {
   const { t, locale } = useI18n();
-  const [answers, setAnswers] = useState<(number | null)[]>(() => questions.map(() => null));
-  const [checked, setChecked] = useState(false);
+  const [answers, setAnswers] = useState<(number | null)[]>(() =>
+    reviewAnswers ? reviewAnswers.map((a) => (a === null ? null : Number(a))) : questions.map(() => null)
+  );
+  const [checked, setChecked] = useState(reviewAnswers !== undefined);
 
   const unanswered = answers.filter((a) => a === null).length;
   const correctCount = questions.filter((q, i) => answers[i] === q.answerIndex).length;
 
   const check = () => {
     setChecked(true);
-    onChecked(correctCount, questions.length);
+    onChecked(correctCount, questions.length, answers.map((a) => (a === null ? null : String(a))));
   };
 
   const retry = () => {
@@ -84,9 +96,11 @@ export const JaQuiz: React.FC<{ questions: JaMcq[]; onChecked: (correct: number,
         {checked ? (
           <>
             <Banner tone={correctCount / questions.length >= 0.8 ? 'success' : 'info'}>{t.quiz.score(correctCount, questions.length)}</Banner>
-            <Button variant="secondary" icon="arrowLeft" onClick={retry}>
-              {t.quiz.tryAgain}
-            </Button>
+            {reviewAnswers === undefined && !actions && (
+              <Button variant="secondary" icon="arrowLeft" onClick={retry}>
+                {t.quiz.tryAgain}
+              </Button>
+            )}
           </>
         ) : (
           <>
@@ -97,6 +111,7 @@ export const JaQuiz: React.FC<{ questions: JaMcq[]; onChecked: (correct: number,
           </>
         )}
       </div>
+      {actions && reviewAnswers === undefined && <div className="quiz__footer quiz__session">{actions}</div>}
     </div>
   );
 };

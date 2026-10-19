@@ -141,6 +141,13 @@
       "when": 1792306141276,
       "tag": "0019_mind_map_ai",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1792383020029,
+      "tag": "0020_gifted_goblin_queen",
+      "breakpoints": true
     }
   ]
 }

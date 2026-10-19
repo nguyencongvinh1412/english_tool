@@ -246,6 +246,24 @@ export const contentItems = pgTable(
   ]
 );
 
+/**
+ * Library items a learner hid from their own list. The library is shared, so "remove" means hide for
+ * this learner only; the item stays for everyone else.
+ */
+export const contentHidden = pgTable(
+  'content_hidden',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    contentId: text('content_id')
+      .notNull()
+      .references(() => contentItems.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.contentId] })]
+);
+
 export const examStatus = pgEnum('exam_status', ['in_progress', 'submitted']);
 
 /**

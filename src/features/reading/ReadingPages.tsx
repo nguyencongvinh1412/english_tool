@@ -11,6 +11,8 @@ import { contentApi, type ContentItem, type ReadingGapfill, type ReadingPassage,
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { QuizRunner } from '@/features/practice/QuizRunner';
+import { QuizSession, type RoundProps } from '@/features/practice/QuizSession';
+import { quizEntries } from '@/features/practice/session';
 import './reading.css';
 import { DefinitionSheet } from '@/features/vocab/DefinitionSheet';
 import { sentenceWith } from '@/shared/enVocabApi';
@@ -51,10 +53,9 @@ function useQuizRecorder(item: ContentItem<unknown>) {
 /**
  * Passage + questions, with tap-to-define
  */
-const PassageSession: React.FC<{ item: ContentItem<ReadingPassage>; onBack: () => void }> = ({ item, onBack }) => {
+const PassageRound: React.FC<RoundProps<ReadingPassage>> = ({ item, onBack, onChecked: reportChecked, actions, reviewAnswers }) => {
   const { t } = useI18n();
-  const onChecked = useQuizRecorder(item);
-  const [attempt, setAttempt] = useState(0);
+  const record = useQuizRecorder(item);
   const [lookup, setLookup] = useState<{ word: string; context: string; state: WordDefinition | 'loading' | { error: unknown } } | null>(null);
   const cache = useRef(new Map<string, WordDefinition>());
 
@@ -105,7 +106,15 @@ const PassageSession: React.FC<{ item: ContentItem<ReadingPassage>; onBack: () =
         </Card>
 
         <div className="reading-layout__questions">
-          <QuizRunner key={attempt} questions={item.payload.questions} onChecked={onChecked} onRetry={() => setAttempt((n) => n + 1)} />
+          <QuizRunner
+            questions={item.payload.questions}
+            actions={actions}
+            reviewAnswers={reviewAnswers}
+            onChecked={(correct, total, answers) => {
+              record(correct, total);
+              reportChecked(correct, total, answers);
+            }}
+          />
         </div>
       </div>
 
@@ -119,15 +128,22 @@ const PassageSession: React.FC<{ item: ContentItem<ReadingPassage>; onBack: () =
 /**
  * Sentence completion set
  */
-const GapfillSession: React.FC<{ item: ContentItem<ReadingGapfill>; onBack: () => void }> = ({ item, onBack }) => {
-  const onChecked = useQuizRecorder(item);
-  const [attempt, setAttempt] = useState(0);
+const GapfillRound: React.FC<RoundProps<ReadingGapfill>> = ({ item, onBack, onChecked: reportChecked, actions, reviewAnswers }) => {
+  const record = useQuizRecorder(item);
 
   return (
     <div className="practice" style={{ ['--skill' as string]: 'var(--reading)' }}>
       <PracticeHeader title={item.payload.title} level={item.level} onBack={onBack} />
       <div className="practice__narrow">
-        <QuizRunner key={attempt} questions={item.payload.questions} onChecked={onChecked} onRetry={() => setAttempt((n) => n + 1)} />
+        <QuizRunner
+          questions={item.payload.questions}
+          actions={actions}
+          reviewAnswers={reviewAnswers}
+          onChecked={(correct, total, answers) => {
+            record(correct, total);
+            reportChecked(correct, total, answers);
+          }}
+        />
       </div>
     </div>
   );
@@ -137,7 +153,18 @@ export const ReadingPassagePage: React.FC = () => {
   const { t } = useI18n();
   const [item, setItem] = useState<ContentItem<ReadingPassage> | null>(null);
 
-  if (item) return <PassageSession key={item.id} item={item} onBack={() => setItem(null)} />;
+  if (item) {
+    return (
+      <QuizSession<ReadingPassage>
+        key={item.id}
+        first={item}
+        tone="reading"
+        entriesOf={(passage, answers, { label }) => quizEntries(passage.questions, answers, label)}
+        Round={PassageRound}
+        onBack={() => setItem(null)}
+      />
+    );
+  }
 
   return (
     <ContentLibrary<ReadingPassage>
@@ -156,7 +183,18 @@ export const GapfillPage: React.FC = () => {
   const { t } = useI18n();
   const [item, setItem] = useState<ContentItem<ReadingGapfill> | null>(null);
 
-  if (item) return <GapfillSession key={item.id} item={item} onBack={() => setItem(null)} />;
+  if (item) {
+    return (
+      <QuizSession<ReadingGapfill>
+        key={item.id}
+        first={item}
+        tone="reading"
+        entriesOf={(set, answers, { label }) => quizEntries(set.questions, answers, label)}
+        Round={GapfillRound}
+        onBack={() => setItem(null)}
+      />
+    );
+  }
 
   return (
     <ContentLibrary<ReadingGapfill>

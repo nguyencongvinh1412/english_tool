@@ -6,9 +6,9 @@
 import { recordWritingMistakes, sanitizeCorrections } from '../grammar/mistakes.js';
 import { Router } from 'express';
 import { z } from 'zod';
-import { and, desc, eq, inArray, sql } from 'drizzle-orm';
+import { and, desc, eq, ilike, inArray, ne, or, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { attempts, contentItems, type ContentItem, type User } from '../db/schema.js';
+import { attempts, contentHidden, contentItems, type ContentItem, type User } from '../db/schema.js';
 import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { GENERATE_TIMEOUT_MS, runAIJson, SCORING_MAX_TOKENS, SCORING_TIMEOUT_MS } from '../services/ai.js';
@@ -37,7 +37,10 @@ import {
 import { buildGenerationPrompt } from '../content/generators.js';
 import { jaWritingScoringPrompt, speakingScoringPrompt, writingScoringPrompt } from '../content/scoring.js';
 
-const LIST_LIMIT = 60;
+/** Items per page of the library; the client asks for more with offset */
+const DEFAULT_PAGE_SIZE = 12;
+const MAX_PAGE_SIZE = 50;
+const LIST_FILTERS = ['all', 'mine', 'starter', 'ai', 'done', 'todo', 'hidden'] as const;
 const MAX_RESPONSE_CHARS = 6000;
 const MAX_TRANSCRIPT_CHARS = 2000;
 
@@ -51,6 +54,11 @@ const listQuerySchema = z.object({
   kind: z.enum(LIBRARY_KINDS),
   level: z.enum(ALL_LEVELS).optional(),
   writingTask: z.enum(WRITING_TASKS).optional(),
+  /** Keyword matched against title and topic */
+  q: z.string().trim().max(100).optional(),
+  filter: z.enum(LIST_FILTERS).default('all'),
+  limit: z.coerce.number().int().min(1).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
+  offset: z.coerce.number().int().min(0).max(100_000).default(0),
 });
 
 const generateSchema = z
@@ -59,6 +67,8 @@ const generateSchema = z
     level: z.enum(ALL_LEVELS),
     topic: z.string().trim().max(100).optional(),
     writingTask: z.enum(WRITING_TASKS).optional(),
+    /** Titles of exercises the learner already did this session; the AI writes something different */
+    avoidTitles: z.array(z.string().trim().min(1).max(160)).max(12).optional(),
     model: z.string().max(100).optional(),
   })
   .refine((body) => (kindLanguage(body.kind) === 'ja') === (JLPT_LEVELS as readonly string[]).includes(body.level), {
@@ -93,8 +103,11 @@ const scoreSpeakingSchema = z.object({
 /**
  * Item fields for lists (no payload)
  */
-function toSummary(item: ContentItem, best: number | undefined) {
+function toSummary(item: ContentItem, best: number | undefined, extra: { mine?: boolean; hidden?: boolean; canDelete?: boolean } = {}) {
   return {
+    mine: extra.mine ?? false,
+    hidden: extra.hidden ?? false,
+    canDelete: extra.canDelete ?? false,
     id: item.id,
     kind: item.kind,
     level: item.level,
@@ -125,6 +138,15 @@ async function loadItem(id: string, kind?: ContentKind): Promise<ContentItem> {
   return item;
 }
 
+/**
+ * AI-made items can be deleted by an admin, or by their author while nobody else has practised them.
+ * Starter and imported items are never deleted (they are re-seeded or belong to an exam).
+ */
+function canDelete(item: ContentItem, user: User, usedByOthers: boolean): boolean {
+  if (item.source !== 'ai') return false;
+  return user.role === 'admin' || (item.createdBy === user.id && !usedByOthers);
+}
+
 /** Feedback language follows the learner's UI language */
 const localeOf = (user: User) => user.uiLocale;
 
@@ -136,49 +158,85 @@ export function createContentRouter(): Router {
   const router = Router();
 
   /**
-   * GET /content?kind=&level=&writingTask= - Published items with the caller's best score
+   * GET /content?kind=&level=&q=&filter=&limit=&offset= - A page of published items with the caller's best score.
+   * Items the caller hid are left out unless filter=hidden.
    */
   router.get('/content', requireAuth, async (req, res) => {
     const query = listQuerySchema.parse(req.query);
     const user = currentUser(req);
 
+    const hidden = sql`exists (select 1 from ${contentHidden} where ${contentHidden.contentId} = ${contentItems.id} and ${contentHidden.userId} = ${user.id})`;
+    const attempted = sql`exists (select 1 from ${attempts} where ${attempts.contentRef} = ${contentItems.id} and ${attempts.userId} = ${user.id})`;
+    const keyword = query.q ? `%${query.q.replace(/[\\%_]/g, '\\$&')}%` : null;
+
+    const where = and(
+      eq(contentItems.kind, query.kind),
+      eq(contentItems.status, 'published'),
+      query.level ? eq(contentItems.level, query.level) : undefined,
+      query.writingTask ? sql`${contentItems.payload}->>'taskType' = ${query.writingTask}` : undefined,
+      keyword ? or(ilike(contentItems.title, keyword), ilike(contentItems.topic, keyword)) : undefined,
+      query.filter === 'hidden' ? hidden : sql`not ${hidden}`,
+      query.filter === 'mine' ? eq(contentItems.createdBy, user.id) : undefined,
+      query.filter === 'starter' ? eq(contentItems.source, 'builtin') : undefined,
+      query.filter === 'ai' ? eq(contentItems.source, 'ai') : undefined,
+      query.filter === 'done' ? attempted : undefined,
+      query.filter === 'todo' ? sql`not ${attempted}` : undefined
+    );
+
+    const [{ total }] = await db.select({ total: sql<number>`count(*)::int` }).from(contentItems).where(where);
     const items = await db
       .select()
       .from(contentItems)
-      .where(
-        and(
-          eq(contentItems.kind, query.kind),
-          eq(contentItems.status, 'published'),
-          query.level ? eq(contentItems.level, query.level) : undefined,
-          query.writingTask ? sql`${contentItems.payload}->>'taskType' = ${query.writingTask}` : undefined
-        )
-      )
+      .where(where)
       // Built-in items first, then the newest generated ones
-      .orderBy(sql`${contentItems.source} = 'builtin' desc`, desc(contentItems.createdAt))
-      .limit(LIST_LIMIT);
+      .orderBy(sql`${contentItems.source} = 'builtin' desc`, desc(contentItems.createdAt), contentItems.id)
+      .limit(query.limit)
+      .offset(query.offset);
 
-    const bestRows = items.length
+    const ids = items.map((item) => item.id);
+    const bestRows = ids.length
       ? await db
           .select({
             contentRef: attempts.contentRef,
             best: sql<number>`round(max(${attempts.score} / ${attempts.maxScore} * 100))::int`,
           })
           .from(attempts)
-          .where(
-            and(
-              eq(attempts.userId, user.id),
-              inArray(
-                attempts.contentRef,
-                items.map((item) => item.id)
-              ),
-              sql`${attempts.maxScore} > 0`
-            )
-          )
+          .where(and(eq(attempts.userId, user.id), inArray(attempts.contentRef, ids), sql`${attempts.maxScore} > 0`))
           .groupBy(attempts.contentRef)
       : [];
     const best = new Map(bestRows.map((row) => [row.contentRef, row.best]));
 
-    res.json({ items: items.map((item) => toSummary(item, best.get(item.id))) });
+    // Which of the caller's own items someone else has already practised (those can no longer be deleted)
+    const mineIds = items.filter((item) => item.createdBy === user.id).map((item) => item.id);
+    const usedByOthers = new Set(
+      mineIds.length
+        ? (
+            await db
+              .selectDistinct({ contentRef: attempts.contentRef })
+              .from(attempts)
+              .where(and(inArray(attempts.contentRef, mineIds), ne(attempts.userId, user.id)))
+          ).map((row) => row.contentRef)
+        : []
+    );
+    const hiddenRows = ids.length
+      ? await db
+          .select({ contentId: contentHidden.contentId })
+          .from(contentHidden)
+          .where(and(eq(contentHidden.userId, user.id), inArray(contentHidden.contentId, ids)))
+      : [];
+    const hiddenIds = new Set(hiddenRows.map((row) => row.contentId));
+
+    res.json({
+      items: items.map((item) =>
+        toSummary(item, best.get(item.id), {
+          mine: item.createdBy === user.id,
+          hidden: hiddenIds.has(item.id),
+          canDelete: canDelete(item, user, usedByOthers.has(item.id)),
+        })
+      ),
+      total,
+      hasMore: query.offset + items.length < total,
+    });
   });
 
   /**
@@ -190,13 +248,51 @@ export function createContentRouter(): Router {
   });
 
   /**
+   * POST /content/:id/hide - Remove an item from the caller's own list (it stays for everyone else)
+   */
+  router.post('/content/:id/hide', requireAuth, async (req, res) => {
+    const item = await loadItem(String(req.params.id));
+    await db.insert(contentHidden).values({ userId: currentUser(req).id, contentId: item.id }).onConflictDoNothing();
+    res.status(204).end();
+  });
+
+  /**
+   * DELETE /content/:id/hide - Show a hidden item again
+   */
+  router.delete('/content/:id/hide', requireAuth, async (req, res) => {
+    await db
+      .delete(contentHidden)
+      .where(and(eq(contentHidden.userId, currentUser(req).id), eq(contentHidden.contentId, String(req.params.id))));
+    res.status(204).end();
+  });
+
+  /**
+   * DELETE /content/:id - Delete an AI-made item for everyone (admin, or the author if nobody else practised it)
+   */
+  router.delete('/content/:id', requireAuth, async (req, res) => {
+    const user = currentUser(req);
+    const item = await loadItem(String(req.params.id));
+    const [other] = await db
+      .select({ id: attempts.id })
+      .from(attempts)
+      .where(and(eq(attempts.contentRef, item.id), ne(attempts.userId, user.id)))
+      .limit(1);
+
+    if (!canDelete(item, user, other !== undefined)) {
+      throw new HttpError(403, 'You cannot delete this exercise. Hide it to remove it from your list.', 'forbidden');
+    }
+    await db.delete(contentItems).where(eq(contentItems.id, item.id));
+    res.status(204).end();
+  });
+
+  /**
    * POST /content/generate - Ask the AI for a new item and add it to the shared bank
    */
   router.post('/content/generate', requireAuth, limitAiRequests, async (req, res) => {
     const body = generateSchema.parse(req.body);
     const user = currentUser(req);
     const definition = CONTENT_KINDS[body.kind];
-    const prompt = buildGenerationPrompt(body.kind, body.level as CefrLevel | JlptLevel, body.topic, body.writingTask);
+    const prompt = buildGenerationPrompt(body.kind, body.level as CefrLevel | JlptLevel, body.topic, body.writingTask, body.avoidTitles);
 
     const payload = await runAIJson(
       user,

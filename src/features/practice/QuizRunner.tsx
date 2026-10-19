@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Banner, Button, Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import type { QuizQuestion } from '@/shared/contentApi';
+import { correctValue } from './session';
 import './practice.css';
 
 const TFNG_OPTIONS = ['true', 'false', 'not_given'] as const;
@@ -18,13 +19,10 @@ interface QuizRunnerProps {
   onChecked: (correct: number, total: number, answers: (string | null)[]) => void;
   /** Called when the learner wants a fresh try */
   onRetry?: () => void;
-}
-
-/**
- * Value of the correct answer, comparable with the stored choice
- */
-function correctValue(question: QuizQuestion): string {
-  return question.type === 'mcq' ? String(question.answerIndex) : question.answer;
+  /** Session buttons (more questions, end). Shown before and after checking, in place of "Try again" */
+  actions?: React.ReactNode;
+  /** Shows these saved answers, already checked and read-only (reviewing a finished round) */
+  reviewAnswers?: (string | null)[];
 }
 
 /**
@@ -41,10 +39,10 @@ const Prompt: React.FC<{ text: string }> = ({ text }) => (
   </>
 );
 
-export const QuizRunner: React.FC<QuizRunnerProps> = ({ questions, onChecked, onRetry }) => {
+export const QuizRunner: React.FC<QuizRunnerProps> = ({ questions, onChecked, onRetry, actions, reviewAnswers }) => {
   const { t } = useI18n();
-  const [answers, setAnswers] = useState<(string | null)[]>(() => questions.map(() => null));
-  const [checked, setChecked] = useState(false);
+  const [answers, setAnswers] = useState<(string | null)[]>(() => reviewAnswers ?? questions.map(() => null));
+  const [checked, setChecked] = useState(reviewAnswers !== undefined);
 
   const unanswered = answers.filter((a) => a === null).length;
   const correctCount = questions.filter((q, i) => answers[i] === correctValue(q)).length;
@@ -128,9 +126,11 @@ export const QuizRunner: React.FC<QuizRunnerProps> = ({ questions, onChecked, on
             <Banner tone={correctCount / questions.length >= 0.8 ? 'success' : 'info'}>
               {t.quiz.score(correctCount, questions.length)}
             </Banner>
-            <Button variant="secondary" icon="sparkles" onClick={retry}>
-              {t.quiz.tryAgain}
-            </Button>
+            {reviewAnswers === undefined && !actions && (
+              <Button variant="secondary" icon="sparkles" onClick={retry}>
+                {t.quiz.tryAgain}
+              </Button>
+            )}
           </>
         ) : (
           <>
@@ -141,6 +141,7 @@ export const QuizRunner: React.FC<QuizRunnerProps> = ({ questions, onChecked, on
           </>
         )}
       </div>
+      {actions && reviewAnswers === undefined && <div className="quiz__footer quiz__session">{actions}</div>}
     </div>
   );
 };

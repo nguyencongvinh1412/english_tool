@@ -41,6 +41,103 @@
 
 /* ---------- Library ---------- */
 
+.library-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.library-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 16rem;
+  max-width: 28rem;
+  color: var(--text-muted);
+}
+
+.library-search > svg {
+  position: absolute;
+  left: 0.875rem;
+  pointer-events: none;
+}
+
+.library-search .input {
+  width: 100%;
+  padding-left: 2.5rem;
+}
+
+.library-show {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.library-item {
+  position: relative;
+}
+
+.library-item__actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.library-item:hover .library-item__actions,
+.library-item:focus-within .library-item__actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .library-item__actions {
+    opacity: 1;
+  }
+}
+
+.library-action {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border, var(--surface-2));
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.library-action:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.library-action--danger:hover {
+  color: var(--danger);
+}
+
+.library-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.library-more__count {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
 .library-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -422,4 +519,107 @@
   flex-direction: column;
   gap: 0.375rem;
   padding-left: 1.25rem;
+}
+
+/* ---------- Practice session (more questions, end, summary) ---------- */
+
+.quiz__session {
+  padding-top: 0.25rem;
+}
+
+.session-tag {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--skill-edge, var(--brand-strong));
+}
+
+.session-review__title {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.session-summary {
+  max-width: 820px;
+}
+
+.session-summary__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+}
+
+.session-summary__heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+}
+
+.session-summary__intro {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+}
+
+.session-summary__list,
+.session-miss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session-set {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.375rem 0.75rem;
+}
+
+.session-set__name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.session-set__bar {
+  grid-column: 1 / -1;
+}
+
+.session-miss {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0.875rem;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.session-miss p {
+  margin: 0;
+}
+
+.session-miss__where {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.session-miss__prompt {
+  font-weight: 700;
+}
+
+.session-miss__yours {
+  color: var(--danger);
+}
+
+.session-miss__right {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.session-miss__why {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }

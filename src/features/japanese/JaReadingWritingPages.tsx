@@ -11,6 +11,8 @@ import { JaText } from '@/shared/ja/JaText';
 import { contentApi, JLPT_CONTENT_LEVELS, type ContentItem, type JaReading, type JaWriting, type JaWritingFeedback } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
+import { QuizSession, type RoundProps } from '@/features/practice/QuizSession';
+import { jaEntries } from '@/features/practice/session';
 import { BandFeedback } from '@/features/practice/BandFeedback';
 import { WritingReview } from '@/features/writing/WritingReview';
 import '@/features/reading/reading.css';
@@ -21,7 +23,7 @@ import './japanese.css';
 
 /* ---------- Reading ---------- */
 
-const JaReadingSession: React.FC<{ item: ContentItem<JaReading>; onBack: () => void }> = ({ item, onBack }) => {
+const JaReadingRound: React.FC<RoundProps<JaReading>> = ({ item, onBack, onChecked, actions, reviewAnswers }) => {
   const { t } = useI18n();
   const { furigana } = useJaLevel();
   const { lookup, define, close } = useJaLookup();
@@ -48,7 +50,15 @@ const JaReadingSession: React.FC<{ item: ContentItem<JaReading>; onBack: () => v
         </Card>
 
         <div className="reading-layout__questions">
-          <JaQuiz questions={item.payload.questions} onChecked={finish} />
+          <JaQuiz
+            questions={item.payload.questions}
+            actions={actions}
+            reviewAnswers={reviewAnswers}
+            onChecked={(correct, total, answers) => {
+              finish(correct, total);
+              onChecked(correct, total, answers);
+            }}
+          />
         </div>
       </div>
 
@@ -59,10 +69,23 @@ const JaReadingSession: React.FC<{ item: ContentItem<JaReading>; onBack: () => v
 
 export const JaReadingPage: React.FC = () => {
   const { t } = useI18n();
-  const { level } = useJaLevel();
+  const { level, furigana } = useJaLevel();
   const [item, setItem] = useState<ContentItem<JaReading> | null>(null);
 
-  if (item) return <JaReadingSession key={item.id} item={item} onBack={() => setItem(null)} />;
+  if (item) {
+    return (
+      <QuizSession<JaReading>
+        key={item.id}
+        first={item}
+        tone="reading"
+        lang="ja"
+        entriesOf={(reading, answers, { locale }) => jaEntries(reading.questions, answers, locale)}
+        renderText={(text) => <JaText text={text} defaultMode={furigana} />}
+        Round={JaReadingRound}
+        onBack={() => setItem(null)}
+      />
+    );
+  }
   return (
     <ContentLibrary<JaReading>
       kind="ja-reading"

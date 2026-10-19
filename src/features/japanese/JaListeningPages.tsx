@@ -12,6 +12,8 @@ import { isImeComposing } from '@/shared/ime';
 import { JLPT_CONTENT_LEVELS, type ContentItem, type JaDictation, type JaListening } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
+import { QuizSession, type RoundProps } from '@/features/practice/QuizSession';
+import { jaEntries } from '@/features/practice/session';
 import '@/features/listening/listening-quiz.css';
 import '@/features/listening/dictation.css';
 import { JaQuiz } from './JaQuiz';
@@ -26,15 +28,15 @@ const SPEEDS = [
 
 /* ---------- Comprehension ---------- */
 
-const JaListeningSession: React.FC<{ item: ContentItem<JaListening>; onBack: () => void }> = ({ item, onBack }) => {
+const JaListeningRound: React.FC<RoundProps<JaListening>> = ({ item, onBack, onChecked, actions, reviewAnswers }) => {
   const { t } = useI18n();
   const { furigana } = useJaLevel();
   const quiz = item.payload;
   const [speed, setSpeed] = useState('1');
   const [currentLine, setCurrentLine] = useState(-1);
   const [plays, setPlays] = useState(0);
-  const [checked, setChecked] = useState(false);
-  const [showTranscript, setShowTranscript] = useState(false);
+  const [checked, setChecked] = useState(reviewAnswers !== undefined);
+  const [showTranscript, setShowTranscript] = useState(reviewAnswers !== undefined);
   const stopRef = useRef<(() => void) | null>(null);
   const { start, finish } = useJaRecorder(item, 'listening-quiz');
   const genders = { A: quiz.speakers.A.gender, B: quiz.speakers.B?.gender };
@@ -79,9 +81,12 @@ const JaListeningSession: React.FC<{ item: ContentItem<JaListening>; onBack: () 
       <div className="practice__narrow">
         <JaQuiz
           questions={quiz.questions}
-          onChecked={(correct, total) => {
+          actions={actions}
+          reviewAnswers={reviewAnswers}
+          onChecked={(correct, total, answers) => {
             setChecked(true);
             finish(correct, total);
+            onChecked(correct, total, answers);
           }}
         />
 
@@ -118,10 +123,23 @@ const JaListeningSession: React.FC<{ item: ContentItem<JaListening>; onBack: () 
 
 export const JaListeningPage: React.FC = () => {
   const { t } = useI18n();
-  const { level } = useJaLevel();
+  const { level, furigana } = useJaLevel();
   const [item, setItem] = useState<ContentItem<JaListening> | null>(null);
 
-  if (item) return <JaListeningSession key={item.id} item={item} onBack={() => setItem(null)} />;
+  if (item) {
+    return (
+      <QuizSession<JaListening>
+        key={item.id}
+        first={item}
+        tone="listening"
+        lang="ja"
+        entriesOf={(quiz, answers, { locale }) => jaEntries(quiz.questions, answers, locale)}
+        renderText={(text) => <JaText text={text} defaultMode={furigana} />}
+        Round={JaListeningRound}
+        onBack={() => setItem(null)}
+      />
+    );
+  }
   return (
     <ContentLibrary<JaListening>
       kind="ja-listening"

@@ -12,6 +12,8 @@ import type { ContentItem, ListeningQuiz } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { QuizRunner } from '@/features/practice/QuizRunner';
+import { QuizSession, type RoundProps } from '@/features/practice/QuizSession';
+import { quizEntries } from '@/features/practice/session';
 import './listening-quiz.css';
 
 const SPEEDS = [
@@ -19,15 +21,14 @@ const SPEEDS = [
   { value: '1', label: '1×' },
 ] as const;
 
-const ListeningSession: React.FC<{ item: ContentItem<ListeningQuiz>; onBack: () => void }> = ({ item, onBack }) => {
+const ListeningRound: React.FC<RoundProps<ListeningQuiz>> = ({ item, onBack, onChecked: reportChecked, actions, reviewAnswers }) => {
   const { t } = useI18n();
   const { record } = useProgress();
   const [speed, setSpeed] = useState<'0.8' | '1'>('1');
   const [currentLine, setCurrentLine] = useState(-1);
   const [plays, setPlays] = useState(0);
-  const [checked, setChecked] = useState(false);
-  const [showTranscript, setShowTranscript] = useState(false);
-  const [attempt, setAttempt] = useState(0);
+  const [checked, setChecked] = useState(reviewAnswers !== undefined);
+  const [showTranscript, setShowTranscript] = useState(reviewAnswers !== undefined);
   const stopRef = useRef<(() => void) | null>(null);
   const startedAt = useRef(0);
   const quiz = item.payload;
@@ -56,8 +57,9 @@ const ListeningSession: React.FC<{ item: ContentItem<ListeningQuiz>; onBack: () 
   }, []);
 
   const onChecked = useCallback(
-    (correct: number, total: number) => {
+    (correct: number, total: number, answers: (string | null)[]) => {
       setChecked(true);
+      reportChecked(correct, total, answers);
       void record({
         activity: 'listening-quiz',
         contentRef: item.id,
@@ -68,7 +70,7 @@ const ListeningSession: React.FC<{ item: ContentItem<ListeningQuiz>; onBack: () 
         details: { plays, level: item.level },
       }).catch(() => {});
     },
-    [record, item, plays]
+    [record, item, plays, reportChecked]
   );
 
   const speakerName = (key: 'A' | 'B') => quiz.speakers[key]?.name ?? key;
@@ -105,17 +107,7 @@ const ListeningSession: React.FC<{ item: ContentItem<ListeningQuiz>; onBack: () 
       </Card>
 
       <div className="practice__narrow">
-        <QuizRunner
-          key={attempt}
-          questions={quiz.questions}
-          onChecked={onChecked}
-          onRetry={() => {
-            setAttempt((n) => n + 1);
-            setChecked(false);
-            setShowTranscript(false);
-            startedAt.current = Date.now();
-          }}
-        />
+        <QuizRunner questions={quiz.questions} onChecked={onChecked} actions={actions} reviewAnswers={reviewAnswers} />
 
         <Card padding="lg" className="lq-transcript">
           <div className="lq-transcript__head">
@@ -152,7 +144,18 @@ export const ListeningQuizPage: React.FC = () => {
   const { t } = useI18n();
   const [item, setItem] = useState<ContentItem<ListeningQuiz> | null>(null);
 
-  if (item) return <ListeningSession key={item.id} item={item} onBack={() => setItem(null)} />;
+  if (item) {
+    return (
+      <QuizSession<ListeningQuiz>
+        key={item.id}
+        first={item}
+        tone="listening"
+        entriesOf={(quiz, answers, { label }) => quizEntries(quiz.questions, answers, label)}
+        Round={ListeningRound}
+        onBack={() => setItem(null)}
+      />
+    );
+  }
 
   return (
     <ContentLibrary<ListeningQuiz>

@@ -32,10 +32,16 @@ export function buildGenerationPrompt(
   kind: ContentKind,
   level: CefrLevel | JlptLevel,
   topic: string | undefined,
-  writingTask: WritingTask | undefined
+  writingTask: WritingTask | undefined,
+  avoidTitles: string[] = []
 ): { system: string; user: string; target: GenerationTarget } {
-  if (kind.startsWith('ja-')) return japanesePrompt(kind, level as JlptLevel, topic);
-  return englishPrompt(kind, level as CefrLevel, topic, writingTask);
+  const prompt = kind.startsWith('ja-')
+    ? japanesePrompt(kind, level as JlptLevel, topic)
+    : englishPrompt(kind, level as CefrLevel, topic, writingTask);
+  if (avoidTitles.length === 0) return prompt;
+  // Same topic and level, but not a repeat of what the learner just did
+  const list = avoidTitles.map((title) => `"${title.replace(/"/g, "'")}"`).join(', ');
+  return { ...prompt, user: `${prompt.user}\n\nThe learner already did: ${list}. Write a clearly different scenario, text and questions on the same topic.` };
 }
 
 /**
