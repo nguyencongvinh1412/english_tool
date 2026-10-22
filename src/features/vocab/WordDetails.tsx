@@ -3,11 +3,11 @@
  * An English word with pronunciation, meanings, collocations and example, and a sentence-writing practice
  */
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, Banner, Button, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
-import { speakOnce } from '@/shared/speech';
+import { prefetchText, speakOnce } from '@/shared/speech';
 import { enVocabApi, type EnWord, type SentenceFeedback } from '@/shared/enVocabApi';
 
 /**
@@ -15,6 +15,7 @@ import { enVocabApi, type EnWord, type SentenceFeedback } from '@/shared/enVocab
  */
 export const WordDetails: React.FC<{ word: EnWord }> = ({ word }) => {
   const { t, locale } = useI18n();
+  useEffect(() => prefetchText(word.term), [word.term]);
   return (
     <div className="vocab-back en-word">
       <p className="en-word__head">

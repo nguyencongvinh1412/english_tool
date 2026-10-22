@@ -99,4 +99,38 @@ describe('grammar mistakes', () => {
     const off = await agent.post('/api/grammar/ask').send({ question: 'What is the capital of France?' });
     expect(off.body).toMatchObject({ onTopic: false, points: [] });
   });
+
+  it('chats about the open point and the points the learner mentions', async () => {
+    const agent = await signIn(app, await createUser({ uiLocale: 'vi' }));
+    aiReply.mockResolvedValueOnce('Past simple dùng cho hành động đã kết thúc.');
+    const res = await agent.post('/api/grammar/chat').send({
+      messages: [{ role: 'user', content: 'Khác gì @Past simple?' }],
+      pointId: 'present-perfect',
+      mentions: ['past-simple', 'nope'],
+    });
+    expect(res.body.reply).toMatch(/Past simple/);
+    const prompt = aiReply.mock.calls[0][0].systemPrompt!;
+    expect(prompt).toMatch(/present-perfect/);
+    expect(prompt).toMatch(/past-simple/);
+    expect(prompt).not.toMatch(/nope/);
+    expect(prompt).toMatch(/Vietnamese/);
+
+    const lastIsAssistant = await agent.post('/api/grammar/chat').send({ messages: [{ role: 'assistant', content: 'Hi' }], pointId: 'present-perfect' });
+    expect(lastIsAssistant.status).toBe(400);
+  });
+
+  it('sends an attached picture to the AI and rejects other data', async () => {
+    const agent = await signIn(app, await createUser());
+    const picture = 'data:image/jpeg;base64,/9j/4AAQSkZJRg==';
+    aiReply.mockResolvedValueOnce('Câu này dùng present perfect.');
+    const res = await agent.post('/api/grammar/chat').send({ messages: [{ role: 'user', content: 'Câu này đúng không?', images: [picture] }], pointId: 'present-perfect' });
+    expect(res.status).toBe(200);
+    expect(aiReply.mock.calls[0][0].messages[0].content).toEqual([
+      { type: 'text', text: 'Câu này đúng không?' },
+      { type: 'image_url', image_url: { url: picture } },
+    ]);
+
+    const bad = await agent.post('/api/grammar/chat').send({ messages: [{ role: 'user', content: 'hi', images: ['https://example.com/a.png'] }], pointId: 'present-perfect' });
+    expect(bad.status).toBe(400);
+  });
 });

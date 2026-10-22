@@ -9,7 +9,7 @@ import { Badge, Banner, Button, Card, Icon, ProgressBar, Spinner, TextInput } fr
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
-import { speakOnce } from '@/shared/speech';
+import { prefetchTexts, speakOnce } from '@/shared/speech';
 import { vocabApi, type Grade } from '@/shared/vocabApi';
 import { choiceMeanings, enVocabApi, formInExample, meaningOf, questionMode, sameWord, type EnCard, type QuestionMode } from '@/shared/enVocabApi';
 import { SentencePractice, WordDetails } from './WordDetails';
@@ -160,6 +160,12 @@ export const Session: React.FC<{ deckId: string; title: string; onDone: () => vo
 
   const current = queue?.[0];
   const finished = queue !== null && queue.length === 0;
+
+  // Generate the words of the next few cards ahead of time, so listening starts at once
+  const upcoming = queue?.slice(0, 6).map((card) => card.item.term).join('\n') ?? '';
+  useEffect(() => {
+    if (upcoming) prefetchTexts(upcoming.split('\n'));
+  }, [upcoming]);
   const mode = current ? questionMode(current, Boolean(current.relearning)) : 'recognize';
 
   useEffect(() => {

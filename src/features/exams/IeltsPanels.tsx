@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Banner, Button, Card } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition } from '@/hooks';
-import { prefetchScript, speakOnce, speakScript } from '@/shared/speech';
+import { prefetchScript, prefetchTexts, speakOnce, speakScript } from '@/shared/speech';
 import { speakingQuestions, type IeltsListening, type IeltsReading } from '@/shared/ieltsApi';
 import type { SpeakingIelts, WritingPrompt } from '@/shared/contentApi';
 import { WritingPromptCard } from '@/features/writing/WritingReview';
@@ -189,6 +189,11 @@ export const SpeakingPanel: React.FC<{
     setActiveId(id);
     startListening();
   };
+
+  // Generate the questions' audio in one request, so the speaker buttons play at once
+  useEffect(() => {
+    if (!review) prefetchTexts(questions.filter((q) => q.part !== 2).map((q) => q.text));
+  }, [payload, review]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const parts = [
     { part: 1, title: t.ielts.part1 },

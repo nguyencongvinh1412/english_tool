@@ -8,7 +8,7 @@ import { Badge, Banner, Button, Card, Icon, PageHeader, ProgressBar, Segmented, 
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
-import { speakOnce } from '@/shared/speech';
+import { prefetchTexts, speakOnce } from '@/shared/speech';
 import { JaText } from '@/shared/ja/JaText';
 import { ensureJapaneseFont } from '@/shared/ja/furigana';
 import { JLPT_CONTENT_LEVELS, type JlptLevel } from '@/shared/contentApi';
@@ -112,6 +112,12 @@ const ReviewSession: React.FC<{ kind: VocabKind; level: JlptLevel; onDone: () =>
 
   const current = queue?.[0];
   const finished = queue !== null && queue.length === 0;
+
+  // Generate the readings of the next few cards ahead of time, so revealing a card plays at once
+  const upcoming = queue?.slice(0, 6).map((card) => spokenReading(card.item)).join('\n') ?? '';
+  useEffect(() => {
+    if (upcoming) prefetchTexts(upcoming.split('\n'));
+  }, [upcoming]);
 
   // Record the session once, when the queue empties
   useEffect(() => {

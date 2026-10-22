@@ -7,7 +7,7 @@ import { Badge, Banner, Button, Card, EmptyState, Icon, PageHeader, Segmented, S
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude, useSpeechRecognition } from '@/hooks';
 import { useProgress } from '@/shared/progress';
-import { speakOnce } from '@/shared/speech';
+import { prefetchText, speakOnce } from '@/shared/speech';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { JaText } from '@/shared/ja/JaText';
 import { matchJapanese, normalizeJapanese, plainText, readingText } from '@/shared/ja/text';
@@ -70,6 +70,11 @@ export const JaPronunciationPage: React.FC = () => {
 
   // Scored once recording has stopped and a transcript arrived
   const heard = !isListening ? transcript : '';
+  const phraseText = phrase?.text;
+  useEffect(() => {
+    if (phraseText) prefetchText(phraseText);
+  }, [phraseText]);
+
   const score = useMemo(() => (phrase && heard ? similarity(phrase.text, heard) : null), [phrase, heard]);
   const recorded = useRef<string | null>(null);
 

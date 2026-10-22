@@ -14,6 +14,7 @@ import { HttpError } from '../http/errors.js';
 import { runAIJson, SCORING_MAX_TOKENS } from '../services/ai.js';
 import { GRAMMAR_CLUSTERS, GRAMMAR_POINTS, grammarEdges, type GrammarPointMeta } from '../grammar/map.js';
 import { grammarContent, grammarDraftPrompt, type GrammarContent } from '../grammar/content.js';
+import { chatAboutGrammar } from '../grammar/chat.js';
 import { answerGrammarQuestion, recentMistakes, tagTestMistakes } from '../grammar/mistakes.js';
 
 const STATUSES = ['draft', 'reviewed'] as const;
@@ -27,6 +28,19 @@ const tagSchema = z.object({
   model: z.string().max(100).optional(),
 });
 const askSchema = z.object({ question: z.string().trim().min(3).max(400), model: z.string().max(100).optional() });
+/** Pictures arrive shrunk by the browser as JPEG/PNG/WebP data URLs; the request body is limited to 1 MB in all */
+const MAX_CHAT_IMAGES = 2;
+const chatImage = z.string().max(400_000).regex(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/);
+const chatSchema = z.object({
+  messages: z
+    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(1500), images: z.array(chatImage).max(MAX_CHAT_IMAGES).optional() }))
+    .min(1)
+    .max(20)
+    .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
+  pointId: z.string().max(100).optional(),
+  mentions: z.array(z.string().max(100)).max(8).default([]),
+  model: z.string().max(100).optional(),
+});
 const resultSchema = z.object({
   correct: z.number().int().min(0).max(50),
   total: z.number().int().min(1).max(50),
@@ -117,6 +131,16 @@ export function createGrammarRouter(): Router {
     const body = askSchema.parse(req.body);
     const result = await answerGrammarQuestion(currentUser(req), body.question, body.model);
     res.json({ ...result, points: result.points.map((id) => linkOf(id)).filter((l) => l !== null) });
+  });
+
+  /**
+   * POST /grammar/chat - Discuss the open grammar point (and any "@" mentioned points) with the AI teacher
+   */
+  router.post('/grammar/chat', requireAuth, limitAiRequests, async (req, res) => {
+    const body = chatSchema.parse(req.body);
+    const reply = await chatAboutGrammar(currentUser(req), body);
+    if (!reply) throw new HttpError(502, 'The AI returned no answer. Please try again.', 'ai_unavailable');
+    res.json({ reply });
   });
 
   /**

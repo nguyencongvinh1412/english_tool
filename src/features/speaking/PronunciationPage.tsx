@@ -9,6 +9,7 @@ import { Badge, Banner, Button, Card, EmptyState, Icon, PageHeader, Segmented, S
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude, useSpeechRecognition, useTextToSpeech } from '@/hooks';
 import { useProgress } from '@/shared/progress';
+import { prefetchText } from '@/shared/speech';
 import { DIFFICULTIES, getRandomPhrase, type Difficulty, type Phrase } from '@/constants/phrases';
 import { compareTexts, type ComparisonResult } from '@/utils/textComparison';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
@@ -41,6 +42,10 @@ export const PronunciationPage: React.FC = () => {
     useSpeechRecognition();
   const { messages, isLoading: isAiLoading, error: aiError, sendUserMessage, clearMessages } = useClaude({ context: COACH_CONTEXT });
   const { speak, isSpeaking } = useTextToSpeech();
+  const phraseText = phrase?.text;
+  useEffect(() => {
+    if (phraseText) prefetchText(phraseText);
+  }, [phraseText]);
 
   const aiFeedback = useMemo(() => [...messages].reverse().find((m) => m.role === 'assistant')?.content ?? null, [messages]);
 

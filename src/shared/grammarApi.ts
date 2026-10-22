@@ -132,6 +132,11 @@ export const grammarApi = {
       window.dispatchEvent(new Event(AI_USED_EVENT));
       return r;
     }),
+  chat: (messages: { role: 'user' | 'assistant'; content: string; images?: string[] }[], pointId: string, mentions: string[]) =>
+    apiFetch<{ reply: string }>('/api/grammar/chat', { method: 'POST', json: { messages, pointId, mentions, model: getSelectedModel() ?? undefined } }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
+    }),
   progress: () => apiFetch<{ points: PointProgress[] }>('/api/grammar/progress'),
   practice: (id: string) =>
     apiFetch<{ set: { id: string; items: PracticeItem[] } }>(`/api/grammar/${encodeURIComponent(id)}/practice`, {

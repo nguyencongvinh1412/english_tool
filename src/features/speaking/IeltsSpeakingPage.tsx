@@ -10,7 +10,7 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition } from '@/hooks';
 import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
-import { speakOnce } from '@/shared/speech';
+import { prefetchTexts, speakOnce } from '@/shared/speech';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { contentApi, type ContentItem, type SpeakingFeedback, type SpeakingIelts } from '@/shared/contentApi';
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
@@ -77,6 +77,11 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
     { key: 'p2', part: 2 as const, text: cueCardText },
     ...set.part3.map((text, i) => ({ key: `p3-${i}`, part: 3 as const, text })),
   ];
+
+  // Generate every question's audio in one request, so each one is read out at once
+  useEffect(() => {
+    prefetchTexts([...set.part1, ...set.part3]);
+  }, [set]);
 
   const current: Question | null =
     typeof step === 'object'

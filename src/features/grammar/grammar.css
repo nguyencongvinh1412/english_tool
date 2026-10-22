@@ -1092,3 +1092,283 @@ a.grammar-chip:hover {
   padding-left: 1.25rem;
   line-height: 1.6;
 }
+
+/* ---------- Grammar chat (beside a point) ---------- */
+
+.grammar-layout {
+  display: block;
+}
+
+.gchat-fab {
+  position: fixed;
+  z-index: 25;
+  right: 1rem;
+  bottom: calc(var(--tabbar-height) + 1rem + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.125rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  box-shadow: var(--shadow-lg, 0 8px 24px rgb(0 0 0 / 0.2));
+  cursor: pointer;
+}
+
+/* Narrow screens: the chat is a drawer over the page */
+.gchat {
+  position: fixed;
+  z-index: 40;
+  inset: 0 0 0 auto;
+  width: min(100%, 26rem);
+  display: none;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 32px rgb(0 0 0 / 0.15);
+}
+
+.gchat--open {
+  display: flex;
+}
+
+.gchat__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.gchat__head h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.gchat__log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.gchat__empty {
+  display: grid;
+  gap: 0.75rem;
+  color: var(--text-muted);
+}
+
+.gchat__empty p {
+  margin: 0;
+}
+
+.gchat__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gchat__suggestions .grammar-chip {
+  cursor: pointer;
+  font: inherit;
+}
+
+.gchat__msg {
+  max-width: 92%;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md, 12px);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.gchat__msg--user {
+  align-self: flex-end;
+  background: var(--brand);
+  color: #fff;
+}
+
+.gchat__msg--assistant {
+  align-self: flex-start;
+  background: var(--surface-2, var(--bg-subtle, rgb(127 127 127 / 0.1)));
+  white-space: normal;
+}
+
+.gchat__msg--assistant p,
+.gchat__msg--assistant ul {
+  margin: 0 0 0.5rem;
+}
+
+.gchat__msg--assistant ul {
+  padding-left: 1.125rem;
+}
+
+.gchat__msg--assistant > :last-child > :last-child {
+  margin-bottom: 0;
+}
+
+.gchat-mention {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.gchat__composer {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+}
+
+.gchat__input {
+  width: 100%;
+  resize: none;
+  font: inherit;
+}
+
+/* The "@" list opens above the input, like a file mention in a code editor */
+.gchat-pop {
+  position: absolute;
+  z-index: 2;
+  inset: auto 1rem calc(100% - 0.25rem) 1rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+}
+
+.gchat-pop ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gchat-pop__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gchat-pop__item--active {
+  background: var(--brand-soft, rgb(127 127 127 / 0.15));
+}
+
+.gchat-pop__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gchat-pop__more button {
+  width: 100%;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--brand);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gchat-pop__empty {
+  padding: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Wide screens: the chat sits in the free space beside the lesson */
+@media (min-width: 1280px) {
+  .grammar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 880px) minmax(20rem, 26rem);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .gchat-fab,
+  .gchat__close {
+    display: none;
+  }
+
+  .gchat {
+    position: sticky;
+    top: 1rem;
+    z-index: auto;
+    display: flex;
+    height: calc(100vh - 2rem);
+    width: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: none;
+    overflow: hidden;
+  }
+}
+
+.gchat__pics,
+.gchat__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.gchat__pics {
+  margin-bottom: 0.375rem;
+}
+
+.gchat__pics img {
+  max-width: 100%;
+  max-height: 10rem;
+  border-radius: 8px;
+}
+
+.gchat__thumb {
+  position: relative;
+}
+
+.gchat__thumb img {
+  display: block;
+  height: 3.5rem;
+  max-width: 6rem;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.gchat__thumb button {
+  position: absolute;
+  top: -0.375rem;
+  right: -0.375rem;
+  display: grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--surface);
+  cursor: pointer;
+}
+
+.gchat__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}

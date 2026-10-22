@@ -128,6 +128,24 @@ export function prefetchScript(lines: ScriptLine[], genders: Genders): void {
   });
 }
 
+/**
+ * Warms the server cache for text that "speakOnce" will read, so a click plays at once
+ */
+export function prefetchText(text: string): void {
+  prefetchScript(
+    splitSentences(text).map((sentence) => ({ speaker: 'A' as const, text: sentence })),
+    { A: 'female' }
+  );
+}
+
+/**
+ * Warms the server cache for many texts in one request (a page full of examples), instead of one request each
+ */
+export function prefetchTexts(texts: string[]): void {
+  const lines = texts.flatMap((text) => splitSentences(text)).map((sentence) => ({ speaker: 'A' as const, text: sentence }));
+  prefetchScript(lines.slice(0, MAX_BATCH_LINES), { A: 'female' });
+}
+
 /* ---------- Browser fallback ---------- */
 
 /** Word boundaries matter: "male" must not match "female" */
