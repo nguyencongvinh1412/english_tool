@@ -5,10 +5,10 @@
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Banner, Card, Icon, PageHeader, Segmented, Spinner } from '@/design';
+import { Badge, Banner, Card, Icon, LinkButton, PageHeader, Segmented, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
-import { comparePath, decidePath, grammarApi, grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type GrammarMistake, type Mastery, type PointProgress } from '@/shared/grammarApi';
+import { comparePath, decidePath, drillPath, grammarApi, grammarPath, type GrammarMap as MapData, type GrammarMapPoint, type GrammarMistake, type Mastery, type PointProgress } from '@/shared/grammarApi';
 import { DECISION_TREES } from './decisions';
 import { GrammarAsk } from './GrammarAsk';
 import { GrammarTree } from './tree/GrammarTree';
@@ -112,6 +112,13 @@ export const GrammarPage: React.FC = () => {
         </Card>
       )}
 
+      <Card padding="md" className="grammar-practice-cta">
+        <span>{t.grammar.drill.cta}</span>
+        <LinkButton icon="sparkles" to={drillPath()}>
+          {t.grammar.drill.make}
+        </LinkButton>
+      </Card>
+
       <GrammarAsk />
 
       <section className="grammar-tools">
@@ -177,6 +184,9 @@ export const GrammarPage: React.FC = () => {
                     <PointLink key={p.id} point={p} mastery={mastery.get(p.id)} />
                   ))}
                 </div>
+                <Link to={drillPath({ cluster: cluster.id })} className="grammar-cluster__drill">
+                  <Icon name="sparkles" size={16} /> {t.grammar.drill.clusterLink}
+                </Link>
               </details>
             );
           })}

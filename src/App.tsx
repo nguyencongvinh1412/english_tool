@@ -50,6 +50,7 @@ const MapsPage = lazyPage(() => import('@/features/maps/MapsPage'), 'MapsPage');
 const MapEditorPage = lazyPage(() => import('@/features/maps/MapEditorPage'), 'MapEditorPage');
 const GrammarPage = lazyPage(() => import('@/features/grammar/GrammarPage'), 'GrammarPage');
 const GrammarPointPage = lazyPage(() => import('@/features/grammar/GrammarPointPage'), 'GrammarPointPage');
+const GrammarDrillPage = lazyPage(() => import('@/features/grammar/GrammarDrillPage'), 'GrammarDrillPage');
 const ComparePage = lazyPage(() => import('@/features/grammar/ComparePage'), 'ComparePage');
 const DecisionPage = lazyPage(() => import('@/features/grammar/DecisionPage'), 'DecisionPage');
 const JaDictationPage = lazyPage(() => import('@/features/japanese/JaListeningPages'), 'JaDictationPage');
@@ -111,6 +112,7 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.GRAMMAR} element={<GrammarPage />} />
                           <Route path={ROUTES.PRICING} element={<PricingPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />
+                        <Route path={`${ROUTES.GRAMMAR}/drill`} element={<GrammarDrillPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/compare/:a/:b`} element={<ComparePage />} />
                         <Route path={`${ROUTES.GRAMMAR}/decide/:treeId`} element={<DecisionPage />} />
                         <Route path={ROUTES.JA_DICTATION} element={<JaDictationPage />} />

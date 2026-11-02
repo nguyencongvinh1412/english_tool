@@ -6,7 +6,7 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Badge, Banner, Button, Card, EmptyState, Icon, Modal, PageHeader, Segmented, Select, Spinner, TextInput } from '@/design';
+import { Badge, Banner, Button, Card, Dropdown, EmptyState, Icon, Modal, PageHeader, Segmented, Spinner, TextInput } from '@/design';
 import type { IconName } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
@@ -209,16 +209,15 @@ export function ContentLibrary<P>({
             maxLength={100}
           />
         </label>
-        <label className="library-show">
-          <span>{t.library.show}</span>
-          <Select value={filter} onChange={(event) => setFilter(event.target.value as LibraryFilter)}>
-            {LIBRARY_FILTERS.map((value) => (
-              <option key={value} value={value}>
-                {t.library.filters[value]}
-              </option>
-            ))}
-          </Select>
-        </label>
+        <div className="library-show">
+          <span aria-hidden="true">{t.library.show}</span>
+          <Dropdown<LibraryFilter>
+            label={t.library.show}
+            value={filter}
+            onChange={setFilter}
+            options={LIBRARY_FILTERS.map((value) => ({ value, label: t.library.filters[value] }))}
+          />
+        </div>
       </div>
 
       <Segmented<LevelFilter>

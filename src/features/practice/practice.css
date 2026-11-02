@@ -79,6 +79,13 @@
 
 .library-item {
   position: relative;
+  display: flex;
+}
+
+/* The card fills its grid cell so every card in a row has the same width and height */
+.library-item > .library-btn {
+  flex: 1;
+  min-width: 0;
 }
 
 .library-item__actions {

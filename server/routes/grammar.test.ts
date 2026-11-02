@@ -7,6 +7,7 @@ import { closeDb, runMigrations } from '../db/client.js';
 import { sendChatMessage } from '../services/cliproxy.js';
 import { ensureGrammar } from '../grammar/data.js';
 import { schedulePoint, NEW_POINT } from '../grammar/practice.js';
+import { batchSizes, splitCount } from '../grammar/drill.js';
 import { createUser, resetDb, signIn } from '../test/helpers.js';
 
 vi.mock('../services/cliproxy.js', async (importOriginal) => ({
@@ -126,5 +127,84 @@ describe('grammar map', () => {
     expect(better.intervalDays).toBeCloseTo(7.7, 1);
     expect(better.state).toBe('review');
     expect(schedulePoint(better, 0.3, now)).toMatchObject({ intervalDays: 1, lapses: 1 });
+  });
+});
+
+describe('grammar drill', () => {
+  let counter = 0;
+  /** Writes the asked number of questions (a third fill-in) and solves them as written */
+  const mockDrillAi = () => {
+    counter = 0;
+    aiReply.mockImplementation(async (request) => {
+      const content = String(request.messages[0].content);
+      if (String(request.systemPrompt).includes('expert in English grammar')) {
+        return JSON.stringify({ answers: [...content.matchAll(/^\d+\. \[(choice|fill-in)\]/gm)].map((m) => (m[1] === 'choice' ? 0 : 'x')) });
+      }
+      const size = Number(/EXACTLY (\d+) items/.exec(content)?.[1]);
+      const gaps = Math.ceil(size / 3);
+      return JSON.stringify({
+        items: Array.from({ length: size }, (_, i) =>
+          i < gaps
+            ? { type: 'gap', prompt: `Sentence ${++counter} ____ here.`, answers: ['x'], explanation: bi('why') }
+            : { type: 'choice', prompt: `Sentence ${++counter} ____ there.`, options: ['a', 'b', 'c'], answerIndex: 0, explanation: bi('why') }
+        ),
+      });
+    });
+  };
+
+  it('shares questions over points and splits long lists', () => {
+    expect(splitCount(10, 3)).toEqual([4, 3, 3]);
+    expect(batchSizes(30)).toEqual([15, 15]);
+    expect(batchSizes(16)).toEqual([8, 8]);
+    expect(() => splitCount(10, 4)).toThrow(/at least 3/);
+  });
+
+  it('builds a drill from several points and scores each point on its own', async () => {
+    mockDrillAi();
+    const agent = await signIn(app, await createUser({ role: 'admin' }));
+    const { body, status } = await agent.post('/api/grammar/drill').send({
+      targets: [{ pointId: 'present-perfect', uses: [0] }, { pointId: 'past-simple' }],
+      count: 10,
+    });
+    expect(status).toBe(200);
+    expect(body.drill.items).toHaveLength(10);
+    const ids = body.drill.items.map((i: { pointId: string }) => i.pointId);
+    expect(ids.filter((id: string) => id === 'present-perfect')).toHaveLength(5);
+    expect(ids.filter((id: string) => id === 'past-simple')).toHaveLength(5);
+    // The chosen use is named to the AI
+    expect(String(aiReply.mock.calls.map((c) => c[0].messages[0].content).find((c) => String(c).includes('present perfect') || String(c).includes('Present perfect')))).toContain('Result now');
+
+    // Everything right for the first point, everything wrong for the second
+    const answers = body.drill.items.map((item: { pointId: string }) => ({ correct: item.pointId === 'present-perfect', given: 'b' }));
+    const result = await agent.post(`/api/grammar/drill/${body.drill.id}/result`).send({ answers, durationSec: 120 });
+    expect(result.status).toBe(200);
+    expect(result.body.xpEarned).toBeGreaterThan(0);
+    expect(result.body.points).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ pointId: 'present-perfect', correct: 5, total: 5, lastScore: 1 }),
+        expect.objectContaining({ pointId: 'past-simple', correct: 0, total: 5, lastScore: 0 }),
+      ])
+    );
+    const progress = (await agent.get('/api/grammar/progress')).body.points;
+    expect(progress.find((p: { pointId: string }) => p.pointId === 'past-simple')).toMatchObject({ mastery: 'learning' });
+    const mistakes = (await agent.get('/api/grammar/mistakes')).body.mistakes;
+    expect(mistakes).toEqual([expect.objectContaining({ pointId: 'past-simple', count: 5 })]);
+  });
+
+  it('rejects bad requests and keeps a drill to its owner', async () => {
+    mockDrillAi();
+    const agent = await signIn(app, await createUser({ role: 'admin' }));
+    expect((await agent.post('/api/grammar/drill').send({ targets: [{ pointId: 'nope' }], count: 10 })).status).toBe(404);
+    expect((await agent.post('/api/grammar/drill').send({ targets: [{ pointId: 'present-perfect' }], count: 7 })).status).toBe(400);
+    expect((await agent.post('/api/grammar/drill').send({ targets: [{ pointId: 'present-perfect' }, { pointId: 'present-perfect' }], count: 10 })).status).toBe(400);
+    const four = ['present-perfect', 'past-simple', 'past-perfect', 'present-simple'].map((pointId) => ({ pointId }));
+    expect((await agent.post('/api/grammar/drill').send({ targets: four, count: 10 })).status).toBe(400);
+
+    const { drill } = (await agent.post('/api/grammar/drill').send({ targets: [{ pointId: 'present-perfect' }], count: 10 })).body;
+    // One answer for every question
+    expect((await agent.post(`/api/grammar/drill/${drill.id}/result`).send({ answers: [{ correct: true }] })).status).toBe(400);
+    const other = await signIn(app, await createUser());
+    const answers = drill.items.map(() => ({ correct: true }));
+    expect((await other.post(`/api/grammar/drill/${drill.id}/result`).send({ answers })).status).toBe(404);
   });
 });

@@ -4,7 +4,7 @@
  */
 import { creditsLeft } from '@/shared/billingApi';
 import type React from 'react';
-import { NavLink, Outlet, Link } from 'react-router-dom';
+import { NavLink, Outlet, Link, useLocation } from 'react-router-dom';
 import { Suspense, useEffect, useState } from 'react';
 import { PageFallback } from './PageFallback';
 import { Icon, type IconName } from '@/design';
@@ -109,13 +109,31 @@ export const AppShell: React.FC = () => {
 
   const accountItems: NavItem[] = [
     { to: ROUTES.PRICING, icon: 'ticket', label: t.nav.pricing, tone: 'brand' },
-    { to: ROUTES.PROFILE, icon: 'user', label: t.nav.profile, tone: 'brand', mobile: true },
+    { to: ROUTES.PROFILE, icon: 'user', label: t.nav.profile, tone: 'brand' },
     ...(user.role === 'admin' ? [{ to: ROUTES.ADMIN, icon: 'shield' as IconName, label: t.nav.admin, tone: 'exam' }] : []),
   ];
 
   const [collapsed, toggleCollapsed] = useSidebarCollapsed();
 
-  const renderLink = (item: NavItem, variant: 'side' | 'tab') => (
+  // Phones show the main destinations in the tab bar; everything else sits behind "More"
+  const allItems = [...items, ...accountItems];
+  const tabItems = allItems.filter((item) => item.mobile);
+  const moreItems = allItems.filter((item) => !item.mobile);
+  const { pathname } = useLocation();
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreActive = moreItems.some((item) => pathname === item.to || pathname.startsWith(`${item.to}/`));
+
+  // Esc closes the sheet
+  useEffect(() => {
+    if (!moreOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMoreOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [moreOpen]);
+
+  const renderLink = (item: NavItem, variant: 'side' | 'tab' | 'sheet') => (
     <NavLink
       key={item.to}
       to={item.to}
@@ -124,7 +142,7 @@ export const AppShell: React.FC = () => {
       className={({ isActive }) => `${variant}-link ${isActive ? `${variant}-link--active` : ''}`}
       style={{ ['--nav-tone' as string]: `var(--${item.tone})` }}
     >
-      <Icon name={item.icon} size={variant === 'tab' ? 24 : 22} />
+      <Icon name={item.icon} size={variant === 'side' ? 22 : 24} />
       <span className={`${variant}-link__label`}>{item.label}</span>
     </NavLink>
   );
@@ -223,8 +241,35 @@ export const AppShell: React.FC = () => {
         )}
       </div>
 
+      {moreOpen && (
+        <>
+          <button type="button" className="more-backdrop" aria-label={t.common.close} onClick={() => setMoreOpen(false)} />
+          <div className="more-sheet" id="more-sheet" role="dialog" aria-label={t.nav.more}>
+            <nav className="more-sheet__links" aria-label={t.nav.more} onClick={() => setMoreOpen(false)}>
+              {moreItems.map((item) => renderLink(item, 'sheet'))}
+            </nav>
+            <ModelPicker />
+            <button type="button" className="more-sheet__signout" onClick={logout}>
+              <Icon name="logout" size={20} />
+              {t.nav.signOut}
+            </button>
+          </div>
+        </>
+      )}
+
       <nav className="tabbar" aria-label={t.nav.mainNav}>
-        {[...items, ...accountItems].filter((item) => item.mobile).map((item) => renderLink(item, 'tab'))}
+        {tabItems.map((item) => renderLink(item, 'tab'))}
+        <button
+          type="button"
+          className={`tab-link ${moreOpen || moreActive ? 'tab-link--active' : ''}`}
+          style={{ ['--nav-tone' as string]: 'var(--brand)' }}
+          aria-expanded={moreOpen}
+          aria-controls={moreOpen ? 'more-sheet' : undefined}
+          onClick={() => setMoreOpen((open) => !open)}
+        >
+          <Icon name="menu" size={24} />
+          <span className="tab-link__label">{t.nav.more}</span>
+        </button>
       </nav>
     </div>
   );

@@ -133,4 +133,15 @@ describe('grammar mistakes', () => {
     const bad = await agent.post('/api/grammar/chat').send({ messages: [{ role: 'user', content: 'hi', images: ['https://example.com/a.png'] }], pointId: 'present-perfect' });
     expect(bad.status).toBe(400);
   });
+
+  it('quotes an attached text file in the message', async () => {
+    const agent = await signIn(app, await createUser());
+    aiReply.mockResolvedValueOnce('ok');
+    const res = await agent.post('/api/grammar/chat').send({
+      messages: [{ role: 'user', content: 'Check this', files: [{ name: 'notes.txt', text: 'She go to school.' }] }],
+      pointId: 'present-perfect',
+    });
+    expect(res.status).toBe(200);
+    expect(aiReply.mock.calls[0][0].messages[0].content).toMatch(/\[Attached file "notes.txt"\]\nShe go to school\./);
+  });
 });

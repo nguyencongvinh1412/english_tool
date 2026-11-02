@@ -4,11 +4,12 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems, grammarPoints, grammarProgress } from '../db/schema.js';
 import { recordAttempt } from '../services/progress.js';
-import { NEW_POINT, PRACTICE_KIND, generatePracticeSet, masteryOf, schedulePoint, unseenPracticeSet } from '../grammar/practice.js';
+import { PRACTICE_KIND, applyPointScore, generatePracticeSet, masteryOf, unseenPracticeSet } from '../grammar/practice.js';
+import { DRILL_COUNTS, MAX_DRILL_TARGETS, gradeDrill, generateDrill } from '../grammar/drill.js';
 import { currentUser, limitAiRequests, requireAuth, requireRole } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { runAIJson, SCORING_MAX_TOKENS } from '../services/ai.js';
@@ -31,15 +32,30 @@ const askSchema = z.object({ question: z.string().trim().min(3).max(400), model:
 /** Pictures arrive shrunk by the browser as JPEG/PNG/WebP data URLs; the request body is limited to 1 MB in all */
 const MAX_CHAT_IMAGES = 2;
 const chatImage = z.string().max(400_000).regex(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/);
+/** Text files (notes, exercises) are read by the browser and sent as text */
+const MAX_CHAT_FILES = 2;
+const chatFile = z.object({ name: z.string().trim().min(1).max(100), text: z.string().max(8000) });
 const chatSchema = z.object({
   messages: z
-    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(1500), images: z.array(chatImage).max(MAX_CHAT_IMAGES).optional() }))
+    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(1500), images: z.array(chatImage).max(MAX_CHAT_IMAGES).optional(), files: z.array(chatFile).max(MAX_CHAT_FILES).optional() }))
     .min(1)
     .max(20)
     .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
   pointId: z.string().max(100).optional(),
   mentions: z.array(z.string().max(100)).max(8).default([]),
   model: z.string().max(100).optional(),
+});
+const drillSchema = z.object({
+  targets: z
+    .array(z.object({ pointId: z.string().max(100), uses: z.array(z.number().int().min(0).max(20)).max(20).optional() }))
+    .min(1)
+    .max(MAX_DRILL_TARGETS),
+  count: z.number().refine((n) => (DRILL_COUNTS as readonly number[]).includes(n), 'count must be 10, 20 or 30'),
+  model: z.string().max(100).optional(),
+});
+const drillResultSchema = z.object({
+  answers: z.array(z.object({ correct: z.boolean(), given: z.string().max(300).optional() })).min(1).max(50),
+  durationSec: z.number().int().min(0).max(4 * 60 * 60).optional(),
 });
 const resultSchema = z.object({
   correct: z.number().int().min(0).max(50),
@@ -193,26 +209,8 @@ export function createGrammarRouter(): Router {
       .where(and(eq(contentItems.id, setId), eq(contentItems.kind, PRACTICE_KIND), eq(contentItems.part, meta.id)));
     if (!set) throw new HttpError(404, 'Practice set not found.', 'not_found');
 
-    const [current] = await db.select().from(grammarProgress).where(and(eq(grammarProgress.userId, user.id), eq(grammarProgress.pointId, meta.id)));
     const score = Math.min(1, body.correct / body.total);
-    const next = schedulePoint(current ? { state: current.state as 'learning' | 'review', intervalDays: current.intervalDays, ease: current.ease, reps: current.reps, lapses: current.lapses } : NEW_POINT, score);
-    const values = {
-      state: next.state,
-      dueAt: next.dueAt,
-      intervalDays: next.intervalDays,
-      ease: next.ease,
-      reps: next.reps,
-      lapses: next.lapses,
-      lastScore: score,
-      practicedAt: new Date(),
-    };
-    await db
-      .insert(grammarProgress)
-      .values({ userId: user.id, pointId: meta.id, ...values, seenSets: [setId] })
-      .onConflictDoUpdate({
-        target: [grammarProgress.userId, grammarProgress.pointId],
-        set: { ...values, seenSets: sql`array_append(array_remove(${grammarProgress.seenSets}, ${setId}), ${setId})` },
-      });
+    const next = await applyPointScore(user.id, meta.id, score, setId);
 
     const { xpEarned } = await recordAttempt(user.id, {
       activity: 'grammar',
@@ -223,6 +221,23 @@ export function createGrammarRouter(): Router {
       durationSec: body.durationSec,
     });
     res.json({ progress: { pointId: meta.id, mastery: masteryOf(next.intervalDays), dueAt: next.dueAt, lastScore: score }, xpEarned });
+  });
+
+  /**
+   * POST /grammar/drill - A practice set built from the points the learner picked
+   */
+  router.post('/grammar/drill', requireAuth, limitAiRequests, async (req, res) => {
+    const body = drillSchema.parse(req.body);
+    res.json({ drill: await generateDrill(currentUser(req), body.targets, body.count, body.model) });
+  });
+
+  /**
+   * POST /grammar/drill/:id/result - Scores a finished drill per point and records XP
+   */
+  router.post('/grammar/drill/:id/result', requireAuth, async (req, res) => {
+    const body = drillResultSchema.parse(req.body);
+    const { points, xpEarned } = await gradeDrill(currentUser(req), String(req.params.id), body.answers, body.durationSec);
+    res.json({ points, xpEarned });
   });
 
   /**

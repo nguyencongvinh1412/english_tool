@@ -11,12 +11,14 @@ import { errorMessage } from '@/shared/http';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { grammarApi, type GrammarMap } from '@/shared/grammarApi';
 import { imageToDataUrl } from './resizeImage';
+import { isTextFile, readTextFile, type TextAttachment } from './textFile';
 import { loadGrammarMap, mentionAt, searchPoints, type MentionToken } from './grammarMentions';
 
 /** Points shown per page of the mention list */
 const PAGE_SIZE = 6;
 /** Pictures per message; the request body is limited to 1 MB */
 const MAX_IMAGES = 2;
+const MAX_FILES = 2;
 /** Messages sent to the AI; older ones are dropped */
 const HISTORY = 12;
 
@@ -27,6 +29,8 @@ interface ChatMessage {
   mentioned?: string[];
   /** Pictures attached to a user message (JPEG data URLs) */
   images?: string[];
+  /** Text files attached to a user message */
+  files?: TextAttachment[];
 }
 
 /**
@@ -99,6 +103,8 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
   const [active, setActive] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [files, setFiles] = useState<TextAttachment[]>([]);
+  const [dragging, setDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -150,15 +156,18 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
     });
   };
 
-  /** Adds pictures (chosen, pasted or dropped) after shrinking them */
-  const attach = async (files: Blob[]) => {
-    const pictures = files.filter((file) => file.type.startsWith('image/')).slice(0, MAX_IMAGES - images.length);
-    if (pictures.length === 0) return;
+  /** Adds pictures and text files (chosen, pasted or dropped); pictures are shrunk first */
+  const attach = async (picked: File[]) => {
+    const pictures = picked.filter((file) => file.type.startsWith('image/')).slice(0, MAX_IMAGES - images.length);
+    const texts = picked.filter(isTextFile).slice(0, MAX_FILES - files.length);
+    if (picked.length === 0) return;
     setError(null);
     setImageError(false);
     try {
-      const urls = await Promise.all(pictures.map(imageToDataUrl));
+      if (pictures.length + texts.length === 0) throw new Error('Unsupported');
+      const [urls, read] = await Promise.all([Promise.all(pictures.map(imageToDataUrl)), Promise.all(texts.map(readTextFile))]);
       setImages((current) => [...current, ...urls].slice(0, MAX_IMAGES));
+      setFiles((current) => [...current, ...read].slice(0, MAX_FILES));
     } catch {
       setImageError(true);
     }
@@ -167,21 +176,23 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
   const send = useCallback(
     async (raw: string) => {
       const attached = images;
-      const content = raw.trim() || (attached.length > 0 ? t.grammar.chat.imageOnly : '');
+      const attachedFiles = files;
+      const content = raw.trim() || (attached.length + attachedFiles.length > 0 ? t.grammar.chat.imageOnly : '');
       if (!content || busy) return;
       // Only the points still written in the message count
       const used = Object.entries(mentions).filter(([, title]) => content.includes(`@${title}`));
-      const history: ChatMessage[] = [...messages, { role: 'user', content, mentioned: used.map(([, title]) => title), images: attached }];
+      const history: ChatMessage[] = [...messages, { role: 'user', content, mentioned: used.map(([, title]) => title), images: attached, files: attachedFiles }];
       setMessages(history);
       setDraft('');
       setMentions({});
       setImages([]);
+      setFiles([]);
       setToken(null);
       setError(null);
       setBusy(true);
       try {
         const { reply } = await grammarApi.chat(
-          history.slice(-HISTORY).map(({ role, content: text, images: pictures }) => ({ role, content: text, images: pictures })),
+          history.slice(-HISTORY).map(({ role, content: text, images: pictures, files: texts }) => ({ role, content: text, images: pictures, files: texts })),
           pointId,
           used.map(([id]) => id)
         );
@@ -192,7 +203,7 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
         setBusy(false);
       }
     },
-    [busy, images, mentions, messages, pointId, t]
+    [busy, images, files, mentions, messages, pointId, t]
   );
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -270,6 +281,15 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
                   ))}
                 </div>
               )}
+              {message.files && message.files.length > 0 && (
+                <div className="gchat__pics">
+                  {message.files.map((file, i) => (
+                    <span key={i} className="gchat-file">
+                      <Icon name="file" size={14} /> {file.name}
+                    </span>
+                  ))}
+                </div>
+              )}
               {message.role === 'user' ? <WithMentions text={message.content} titles={message.mentioned ?? []} /> : <Reply text={message.content} />}
             </div>
           ))}
@@ -328,67 +348,104 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
               )}
             </div>
           )}
-          {images.length > 0 && (
-            <div className="gchat__thumbs">
-              {images.map((url, index) => (
-                <div key={index} className="gchat__thumb">
-                  <img src={url} alt="" />
-                  <button type="button" aria-label={t.grammar.chat.removeImage} onClick={() => setImages((current) => current.filter((_, i) => i !== index))}>
-                    <Icon name="x" size={12} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          <textarea
-            ref={inputRef}
-            className="input gchat__input"
-            rows={2}
-            value={draft}
-            maxLength={1200}
-            placeholder={t.grammar.chat.placeholder}
-            aria-label={t.grammar.chat.title}
-            onChange={(event) => {
-              setDraft(event.target.value);
-              syncToken(event.target.value, event.target.selectionStart);
+          <div
+            className={`gchat__box ${dragging ? 'gchat__box--drag' : ''}`}
+            onDragOver={(event) => {
+              if (event.dataTransfer.types.includes('Files')) event.preventDefault();
             }}
-            onClick={(event) => syncToken(draft, event.currentTarget.selectionStart)}
-            onKeyUp={(event) => {
-              if (event.key.startsWith('Arrow') && !token) syncToken(draft, event.currentTarget.selectionStart);
+            onDragEnter={(event) => {
+              if (event.dataTransfer.types.includes('Files')) setDragging(true);
             }}
-            onPaste={(event) => {
-              const pasted = [...event.clipboardData.files];
-              if (pasted.some((file) => file.type.startsWith('image/'))) {
-                event.preventDefault();
-                void attach(pasted);
-              }
+            onDragLeave={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDragging(false);
             }}
-            onBlur={() => setToken(null)}
-            onKeyDown={onKeyDown}
-          />
-          <div className="gchat__actions">
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              multiple
-              hidden
+            onDrop={(event) => {
+              event.preventDefault();
+              setDragging(false);
+              void attach([...event.dataTransfer.files]);
+            }}
+          >
+            {(images.length > 0 || files.length > 0) && (
+              <div className="gchat__thumbs">
+                {images.map((url, index) => (
+                  <div key={`i${index}`} className="gchat__thumb">
+                    <img src={url} alt="" />
+                    <button type="button" aria-label={t.grammar.chat.removeImage} onClick={() => setImages((current) => current.filter((_, i) => i !== index))}>
+                      <Icon name="x" size={12} />
+                    </button>
+                  </div>
+                ))}
+                {files.map((file, index) => (
+                  <div key={`f${index}`} className="gchat__thumb gchat__thumb--file">
+                    <Icon name="file" size={14} />
+                    <span>{file.name}</span>
+                    <button type="button" aria-label={t.grammar.chat.removeImage} onClick={() => setFiles((current) => current.filter((_, i) => i !== index))}>
+                      <Icon name="x" size={12} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <textarea
+              ref={inputRef}
+              className="gchat__input"
+              rows={3}
+              value={draft}
+              maxLength={1200}
+              placeholder={t.grammar.chat.placeholder}
+              aria-label={t.grammar.chat.title}
               onChange={(event) => {
-                void attach([...(event.target.files ?? [])]);
-                event.target.value = '';
+                setDraft(event.target.value);
+                syncToken(event.target.value, event.target.selectionStart);
               }}
+              onClick={(event) => syncToken(draft, event.currentTarget.selectionStart)}
+              onKeyUp={(event) => {
+                if (event.key.startsWith('Arrow') && !token) syncToken(draft, event.currentTarget.selectionStart);
+              }}
+              onPaste={(event) => {
+                const pasted = [...event.clipboardData.files];
+                if (pasted.length > 0) {
+                  event.preventDefault();
+                  void attach(pasted);
+                }
+              }}
+              onBlur={() => setToken(null)}
+              onKeyDown={onKeyDown}
             />
-            <Button
-              variant="ghost"
-              icon="image"
-              aria-label={t.grammar.chat.attach}
-              title={t.grammar.chat.attach}
-              disabled={images.length >= MAX_IMAGES}
-              onClick={() => fileRef.current?.click()}
-            />
-            <Button icon="sparkles" loading={busy} disabled={!draft.trim() && images.length === 0} onClick={() => void send(draft)}>
-              {t.grammar.chat.send}
-            </Button>
+            <div className="gchat__bar">
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*,text/*,.md,.csv,.json,.srt,.vtt"
+                multiple
+                hidden
+                onChange={(event) => {
+                  void attach([...(event.target.files ?? [])]);
+                  event.target.value = '';
+                }}
+              />
+              <button
+                type="button"
+                className="gchat__icon-btn"
+                aria-label={t.grammar.chat.attach}
+                title={t.grammar.chat.attach}
+                disabled={images.length >= MAX_IMAGES && files.length >= MAX_FILES}
+                onClick={() => fileRef.current?.click()}
+              >
+                <Icon name="paperclip" size={18} />
+              </button>
+              <button
+                type="button"
+                className="gchat__send"
+                aria-label={t.grammar.chat.send}
+                title={t.grammar.chat.send}
+                disabled={busy || (!draft.trim() && images.length + files.length === 0)}
+                onClick={() => void send(draft)}
+              >
+                {busy ? <Spinner size={16} /> : <Icon name="arrowUp" size={18} />}
+              </button>
+            </div>
+            {dragging && <div className="gchat__drop">{t.grammar.chat.drop}</div>}
           </div>
         </div>
       </aside>

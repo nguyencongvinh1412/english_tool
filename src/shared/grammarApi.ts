@@ -90,6 +90,24 @@ export type PracticeItem =
   | { type: 'choice'; prompt: string; options: string[]; answerIndex: number; explanation: Bilingual }
   | { type: 'gap'; prompt: string; answers: string[]; hint?: string; explanation: Bilingual };
 
+export type DrillItem = PracticeItem & { pointId: string };
+/** What the learner chose or typed, and whether it was right */
+export interface DrillAnswer {
+  correct: boolean;
+  given?: string;
+}
+export interface DrillPointResult {
+  pointId: string;
+  correct: number;
+  total: number;
+  mastery: Mastery;
+  dueAt: string;
+  lastScore: number;
+}
+export const DRILL_COUNTS = [10, 20, 30] as const;
+export const MAX_DRILL_TARGETS = 6;
+export const MIN_PER_TARGET = 3;
+
 export type Mastery = 'none' | 'learning' | 'good' | 'mastered';
 
 export interface PointProgress {
@@ -132,7 +150,7 @@ export const grammarApi = {
       window.dispatchEvent(new Event(AI_USED_EVENT));
       return r;
     }),
-  chat: (messages: { role: 'user' | 'assistant'; content: string; images?: string[] }[], pointId: string, mentions: string[]) =>
+  chat: (messages: { role: 'user' | 'assistant'; content: string; images?: string[]; files?: { name: string; text: string }[] }[], pointId: string, mentions: string[]) =>
     apiFetch<{ reply: string }>('/api/grammar/chat', { method: 'POST', json: { messages, pointId, mentions, model: getSelectedModel() ?? undefined } }).then((r) => {
       window.dispatchEvent(new Event(AI_USED_EVENT));
       return r;
@@ -151,6 +169,16 @@ export const grammarApi = {
       method: 'POST',
       json: { correct, total, durationSec },
     }),
+  drill: (targets: { pointId: string; uses?: number[] }[], count: number) =>
+    apiFetch<{ drill: { id: string; items: DrillItem[] } }>('/api/grammar/drill', {
+      method: 'POST',
+      json: { targets, count, model: getSelectedModel() ?? undefined },
+    }).then((r) => {
+      window.dispatchEvent(new Event(AI_USED_EVENT));
+      return r;
+    }),
+  drillResult: (id: string, answers: DrillAnswer[], durationSec: number) =>
+    apiFetch<{ points: DrillPointResult[]; xpEarned: number }>(`/api/grammar/drill/${id}/result`, { method: 'POST', json: { answers, durationSec } }),
   adminList: () => apiFetch<{ points: GrammarAdminRow[] }>('/api/admin/grammar'),
   save: (id: string, content: GrammarContent, status: 'draft' | 'reviewed') =>
     apiFetch<{ ok: true }>(`/api/admin/grammar/${encodeURIComponent(id)}`, { method: 'PUT', json: { content, status } }),
@@ -166,6 +194,12 @@ export const grammarApi = {
 
 /** Grammar point page */
 export const grammarPath = (id: string) => `/grammar/${id}`;
+
+/** Drill builder, optionally opened with a point or a topic already chosen */
+export const drillPath = (choice?: { point?: string; cluster?: string }) => {
+  const query = choice?.point ? `?point=${encodeURIComponent(choice.point)}` : choice?.cluster ? `?cluster=${encodeURIComponent(choice.cluster)}` : '';
+  return `/grammar/drill${query}`;
+};
 
 /** Comparison page of two easily confused points */
 export const comparePath = (a: string, b: string) => `/grammar/compare/${a}/${b}`;

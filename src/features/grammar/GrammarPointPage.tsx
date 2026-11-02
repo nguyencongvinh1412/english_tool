@@ -6,11 +6,11 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Badge, Banner, Button, Card, EmptyState, Icon, Spinner } from '@/design';
+import { Badge, Banner, Button, Card, EmptyState, Icon, LinkButton, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { ROUTES } from '@/app/routes';
-import { comparePath, grammarApi, grammarPath, type GrammarLink, type GrammarMistake, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
+import { comparePath, drillPath, grammarApi, grammarPath, type GrammarLink, type GrammarMistake, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
 import { GrammarChat } from './GrammarChat';
 import { GrammarPractice } from './GrammarPractice';
 import { prefetchTexts, speakOnce } from '@/shared/speech';
@@ -164,9 +164,14 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
             ) : (
               <Card padding="md" className="grammar-practice-cta">
                 <span>{t.grammar.practiceIntro}</span>
-                <Button icon="bolt" onClick={() => setPractising(true)}>
-                  {t.grammar.practice}
-                </Button>
+                <span className="grammar-practice-cta__actions">
+                  <Button icon="bolt" onClick={() => setPractising(true)}>
+                    {t.grammar.practice}
+                  </Button>
+                  <LinkButton variant="secondary" icon="sparkles" to={drillPath({ point: point.id })}>
+                    {t.grammar.drill.make}
+                  </LinkButton>
+                </span>
               </Card>
             )}
 

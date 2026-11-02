@@ -1229,12 +1229,6 @@ a.grammar-chip:hover {
   border-top: 1px solid var(--border);
 }
 
-.gchat__input {
-  width: 100%;
-  resize: none;
-  font: inherit;
-}
-
 /* The "@" list opens above the input, like a file mention in a code editor */
 .gchat-pop {
   position: absolute;
@@ -1309,10 +1303,11 @@ a.grammar-chip:hover {
 
   .gchat {
     position: sticky;
-    top: 1rem;
+    /* Below the streak and theme buttons pinned at the top right; the height keeps the input in view before scrolling too */
+    top: 3.5rem;
     z-index: auto;
     display: flex;
-    height: calc(100vh - 2rem);
+    height: calc(100dvh - 8rem);
     width: auto;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg, 16px);
@@ -1367,8 +1362,230 @@ a.grammar-chip:hover {
   cursor: pointer;
 }
 
-.gchat__actions {
+
+/* One rounded box holds the attachments, the text and the buttons */
+.gchat__box {
+  position: relative;
+  display: grid;
+  gap: 0.375rem;
+  padding: 0.625rem 0.625rem 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.gchat__box:focus-within {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft, rgb(127 127 127 / 0.15));
+}
+
+.gchat__box--drag {
+  border-color: var(--brand);
+  border-style: dashed;
+}
+
+.gchat__input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.gchat__bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.gchat__icon-btn,
+.gchat__send {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.gchat__icon-btn {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.gchat__icon-btn:hover:not(:disabled) {
+  background: var(--brand-soft, rgb(127 127 127 / 0.15));
+  color: var(--text);
+}
+
+.gchat__send {
+  background: var(--brand);
+  color: #fff;
+}
+
+.gchat__icon-btn:disabled,
+.gchat__send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.gchat__drop {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--brand);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.gchat__thumb--file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  max-width: 12rem;
+  padding: 0.375rem 1.25rem 0.375rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+}
+
+.gchat__thumb--file span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gchat-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.2);
+  font-size: 0.8125rem;
+}
+
+/* ---------- Practice set builder ---------- */
+
+.grammar-practice-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.grammar-cluster__drill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--reading);
+  text-decoration: none;
+}
+
+.grammar-drill__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+}
+
+.grammar-drill__check {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md, 0.75rem);
+  cursor: pointer;
+}
+
+.grammar-drill__check:hover {
+  background: var(--surface-2);
+}
+
+.grammar-drill__check span {
+  flex: 1;
+  min-width: 0;
+}
+
+.grammar-drill__check small {
+  color: var(--text-muted);
+}
+
+.grammar-drill__check.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.grammar-drill__check--use {
+  padding-left: 0.25rem;
+  font-size: 0.9375rem;
+}
+
+.grammar-drill__uses {
+  margin: 0 0 0.25rem 2.25rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.grammar-drill__uses summary {
+  cursor: pointer;
+  padding: 0.125rem 0;
+}
+
+.grammar-drill__start {
+  position: sticky;
+  bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.grammar-drill__results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+}
+
+.grammar-drill__results li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.grammar-drill__results li a {
+  flex: 1;
+  min-width: 10rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.grammar-drill__results small {
+  flex-basis: 100%;
+  color: var(--text-muted);
+}
+
+.grammar-drill__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }

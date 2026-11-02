@@ -4,9 +4,9 @@
  * point from practice scores
  */
 import { z } from 'zod';
-import { and, eq, notInArray } from 'drizzle-orm';
+import { and, eq, notInArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { contentItems, type ContentItem, type User } from '../db/schema.js';
+import { contentItems, grammarProgress, type ContentItem, type User } from '../db/schema.js';
 import { GENERATE_TIMEOUT_MS, runAIJson } from '../services/ai.js';
 import { HttpError } from '../http/errors.js';
 import { GRAMMAR_POINTS, type GrammarPointMeta } from './map.js';
@@ -37,17 +37,25 @@ const gapItem = z.object({
   explanation: bilingual(400),
 });
 
-export const practiceSet = z
-  // Models sometimes add a seventh question: extras are dropped, too few is retried
-  .object({ items: z.array(z.discriminatedUnion('type', [choiceItem, gapItem])).min(SET_SIZE).transform((list) => list.slice(0, SET_SIZE)) })
-  .superRefine((set, ctx) => {
-    set.items.forEach((item, i) => {
-      if (item.type === 'choice' && item.answerIndex >= item.options.length) ctx.addIssue({ code: 'custom', message: 'answerIndex is out of range', path: ['items', i] });
+/**
+ * A set of `size` questions: models sometimes add extras (dropped); too few is retried. Mostly
+ * fill-in and multiple choice together, never only one kind
+ */
+export const itemsOf = (size: number) =>
+  z
+    .object({ items: z.array(z.discriminatedUnion('type', [choiceItem, gapItem])).min(size).transform((list) => list.slice(0, size)) })
+    .superRefine((set, ctx) => {
+      set.items.forEach((item, i) => {
+        if (item.type === 'choice' && item.answerIndex >= item.options.length) ctx.addIssue({ code: 'custom', message: 'answerIndex is out of range', path: ['items', i] });
+      });
+      const gaps = set.items.filter((i) => i.type === 'gap').length;
+      const min = Math.ceil(size / 3);
+      const max = Math.ceil((size * 2) / 3);
+      if (gaps < min || gaps > max) ctx.addIssue({ code: 'custom', message: `use ${min}-${max} fill-in (gap) items and the rest multiple choice`, path: ['items'] });
     });
-    const gaps = set.items.filter((i) => i.type === 'gap').length;
-    if (gaps < 2 || gaps > 4) ctx.addIssue({ code: 'custom', message: 'use 2-4 fill-in (gap) items and the rest multiple choice', path: ['items'] });
-  });
+export const practiceSet = itemsOf(SET_SIZE);
 export type PracticeSet = z.infer<typeof practiceSet>;
+export type PracticeItem = PracticeSet['items'][number];
 
 /**
  * Typed answer check: case, extra spaces, curly apostrophes and a final full stop do not matter
@@ -55,18 +63,18 @@ export type PracticeSet = z.infer<typeof practiceSet>;
 export const normalizeAnswer = (value: string) =>
   value.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ').replace(/[.!?]$/, '');
 
-function generationPrompt(point: GrammarPointMeta) {
+function generationPrompt(point: GrammarPointMeta, size: number, focus: string[]) {
   const contrasts = (point.contrasts ?? []).map((id) => GRAMMAR_POINTS.find((p) => p.id === id)?.title.en).filter(Boolean);
   return {
     system: `You write English grammar practice for Vietnamese learners. Every question has exactly one correct answer that a
 grammar teacher would accept without argument; avoid questions where two options are possible. Natural, everyday sentences.
 Explanations are short, in English ("en") and Vietnamese ("vi"). Respond with ONLY one JSON object.`,
-    user: `Grammar point: ${point.title.en} (CEFR ${point.cefr}).${contrasts.length ? ` Include distractors that test the difference from: ${contrasts.join(', ')}.` : ''}
-Write EXACTLY ${SET_SIZE} items (count them: ${SET_SIZE}), mixed:
+    user: `Grammar point: ${point.title.en} (CEFR ${point.cefr}).${focus.length ? ` Cover only these uses of it: ${focus.join('; ')}.` : ''}${contrasts.length ? ` Include distractors that test the difference from: ${contrasts.join(', ')}.` : ''}
+Write EXACTLY ${size} items (count them: ${size}), mixed:
 - "choice": a sentence with a gap ____ (or a question like "Which sentence is correct?") and 3-4 options.
 - "gap": a sentence with ONE blank ____ the learner types; "hint" is the base form in brackets when useful (e.g. "(go)");
   "answers" lists every acceptable answer, including contractions (e.g. ["has gone", "'s gone"]).
-Use 2-4 gap items. Spread correct answers over different positions.
+Use ${Math.ceil(size / 3)}-${Math.ceil((size * 2) / 3)} gap items. Spread correct answers over different positions.
 JSON: {"items": [{"type": "choice", "prompt": "...", "options": ["...", "...", "..."], "answerIndex": 0, "explanation": {"en": "...", "vi": "..."}},
  {"type": "gap", "prompt": "She ____ to Paris twice.", "hint": "(be)", "answers": ["has been", "'s been"], "explanation": {"en": "...", "vi": "..."}}]}`,
   };
@@ -112,24 +120,34 @@ Respond with ONLY one JSON object.`,
 }
 
 /**
+ * Generates `size` questions for a point and has a second pass solve them. Questions the solver
+ * disagrees with are dropped; the batch is asked again when more than `maxDropped` are lost
+ * @param focus Titles of the uses to cover; empty covers the whole point
+ * @throws HttpError 502 if no generated batch passes the check
+ */
+export async function generateItems(user: User, point: GrammarPointMeta, size: number, focus: string[], maxDropped: number, model?: string): Promise<PracticeItem[]> {
+  const prompt = generationPrompt(point, size, focus);
+  for (let round = 1; round <= MAX_ROUNDS; round++) {
+    const candidate = await runAIJson(
+      user,
+      { feature: 'grammar-practice', model, timeoutMs: GENERATE_TIMEOUT_MS, system: prompt.system, messages: [{ role: 'user', content: prompt.user }] },
+      itemsOf(size)
+    );
+    const disagreements = await verifySet(user, candidate, 'grammar-practice', model);
+    if (disagreements.length <= maxDropped) return candidate.items.filter((_, i) => !disagreements.includes(i + 1));
+    console.warn(`Grammar practice for ${point.id} rejected (round ${round}): solver disagreed on ${disagreements.join(', ')}`);
+  }
+  throw new HttpError(502, 'Generated questions failed the answer check. Please try again.', 'ai_invalid_output');
+}
+
+/**
  * Generates, checks and stores a practice set for a point
  * @throws HttpError 502 if no generated set passes the check
  */
 export async function generatePracticeSet(user: User, point: GrammarPointMeta, model?: string): Promise<ContentItem> {
-  const prompt = generationPrompt(point);
-  let set: PracticeSet | null = null;
-  for (let round = 1; round <= MAX_ROUNDS && !set; round++) {
-    const candidate = await runAIJson(
-      user,
-      { feature: 'grammar-practice', model, timeoutMs: GENERATE_TIMEOUT_MS, system: prompt.system, messages: [{ role: 'user', content: prompt.user }] },
-      practiceSet
-    );
-    const disagreements = await verifySet(user, candidate, 'grammar-practice', model);
-    // A single doubtful question is dropped by asking again; more means the set is unreliable
-    if (disagreements.length === 0) set = candidate;
-    else console.warn(`Grammar practice for ${point.id} rejected (round ${round}): solver disagreed on ${disagreements.join(', ')}`);
-  }
-  if (!set) throw new HttpError(502, 'Generated questions failed the answer check. Please try again.', 'ai_invalid_output');
+  // A single doubtful question is dropped by asking again; more means the set is unreliable
+  const items = await generateItems(user, point, SET_SIZE, [], 0, model);
+  const set: PracticeSet = { items };
 
   const [item] = await db
     .insert(contentItems)
@@ -200,3 +218,31 @@ export function schedulePoint(current: PointSchedule, score: number, now = new D
 /** none → learning → good (a week) → mastered (three weeks) */
 export const masteryOf = (intervalDays: number | undefined) =>
   intervalDays === undefined ? 'none' : intervalDays >= MASTERED_POINT_DAYS ? 'mastered' : intervalDays >= 7 ? 'good' : 'learning';
+
+/**
+ * Moves a point's review schedule by a practice score and stores it
+ * @param score Share of right answers, 0-1
+ * @param setId A finished practice set, so the next practice is a new one
+ */
+export async function applyPointScore(userId: string, pointId: string, score: number, setId?: string) {
+  const [current] = await db.select().from(grammarProgress).where(and(eq(grammarProgress.userId, userId), eq(grammarProgress.pointId, pointId)));
+  const next = schedulePoint(current ? { state: current.state as 'learning' | 'review', intervalDays: current.intervalDays, ease: current.ease, reps: current.reps, lapses: current.lapses } : NEW_POINT, score);
+  const values = {
+    state: next.state,
+    dueAt: next.dueAt,
+    intervalDays: next.intervalDays,
+    ease: next.ease,
+    reps: next.reps,
+    lapses: next.lapses,
+    lastScore: score,
+    practicedAt: new Date(),
+  };
+  await db
+    .insert(grammarProgress)
+    .values({ userId, pointId, ...values, seenSets: setId ? [setId] : [] })
+    .onConflictDoUpdate({
+      target: [grammarProgress.userId, grammarProgress.pointId],
+      set: setId ? { ...values, seenSets: sql`array_append(array_remove(${grammarProgress.seenSets}, ${setId}), ${setId})` } : values,
+    });
+  return next;
+}

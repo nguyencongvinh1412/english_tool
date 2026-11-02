@@ -14,6 +14,10 @@ export default defineConfig({
     },
   },
   server: {
+    // Listen on all addresses (IPv4 too), so ngrok can reach 127.0.0.1
+    host: true,
+    // Dev server reached through an ngrok or Cloudflare tunnel (the subdomain changes per tunnel, the leading dot allows any)
+    allowedHosts: ['.ngrok-free.dev', '.ngrok-free.app', '.ngrok.app', '.trycloudflare.com'],
     proxy: {
       '/api': 'http://localhost:3002',
     },
