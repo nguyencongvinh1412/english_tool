@@ -5,7 +5,11 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Banner, Button, Segmented } from '@/design';
+import { Link } from 'react-router-dom';
+import { Banner, Button, Segmented, Tag } from '@/design';
+import { useCurrentUser } from '@/app/AuthProvider';
+import { ROUTES } from '@/app/routes';
+import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { contentApi, type ContentItem, type QuizQuestion } from '@/shared/contentApi';
@@ -60,6 +64,9 @@ const AVOID_LIMIT = 12;
 
 export function QuizSession<P>({ first, tone, entriesOf, renderText, lang, Round, onBack }: QuizSessionProps<P>): React.JSX.Element {
   const { t, locale } = useI18n();
+  const user = useCurrentUser();
+  // Writing a new exercise uses AI credits; with none left the button waits and says why
+  const creditsOut = (tasksLeft(user.credits, 'writing') ?? 1) <= 0;
   const [rounds, setRounds] = useState<RoundState<P>[]>([{ item: first, answers: null, durationSec: 0 }]);
   const [stage, setStage] = useState<Stage>('play');
   const [reviewIndex, setReviewIndex] = useState(0);
@@ -152,9 +159,17 @@ export function QuizSession<P>({ first, tone, entriesOf, renderText, lang, Round
 
   const actions = (
     <>
-      <Button icon="plus" onClick={() => void more()} disabled={current.answers === null || generating} loading={generating}>
+      <Button icon="plus" onClick={() => void more()} disabled={current.answers === null || generating || creditsOut} loading={generating}>
         {t.quiz.session.more}
       </Button>
+      {creditsOut ? (
+        <span className="quiz__hint">
+          <Tag tone="notice">{t.today.needsCredits}</Tag>{' '}
+          <Link to={ROUTES.ME_PLAN}>{t.today.seePlan}</Link>
+        </span>
+      ) : (
+        <Tag tone="neutral">{t.quiz.session.cost(CREDIT_COST.generate)}</Tag>
+      )}
       <Button variant="secondary" icon="flag" onClick={() => setStage('summary')} disabled={finished.length === 0 || generating}>
         {t.quiz.session.end}
       </Button>

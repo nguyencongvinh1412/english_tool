@@ -376,7 +376,11 @@
   color: var(--text-muted);
 }
 
-.grammar-item .badge {
+.grammar-item__badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-end;
   grid-row: 1 / span 2;
   grid-column: 2;
 }
@@ -389,31 +393,81 @@
   max-width: 880px;
 }
 
+.grammar-point__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
 .grammar-point__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  width: fit-content;
-  font-weight: 700;
-  color: var(--text-muted);
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
   text-decoration: none;
 }
 
 .grammar-point__head h1 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  line-height: 1.2;
 }
 
-.grammar-point__en {
+.grammar-point__crumb {
   margin: 0.125rem 0 0;
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
 .grammar-point__badges {
   display: flex;
-  gap: 0.375rem;
-  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grammar-point__badges .tag span[aria-hidden] {
+  margin-right: 0.25rem;
+}
+
+.grammar-point__level {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.grammar-toollist {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grammar-toollist li + li {
+  border-top: 1px solid var(--border);
+}
+
+.grammar-toollist a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  font-weight: 600;
+}
+
+.grammar-point__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.grammar-point__cta {
+  display: none;
 }
 
 .grammar-summary p {
@@ -1099,25 +1153,6 @@ a.grammar-chip:hover {
   display: block;
 }
 
-.gchat-fab {
-  position: fixed;
-  z-index: 25;
-  right: 1rem;
-  bottom: calc(var(--tabbar-height) + 1rem + env(safe-area-inset-bottom, 0px));
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.125rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--brand);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  box-shadow: var(--shadow-lg, 0 8px 24px rgb(0 0 0 / 0.2));
-  cursor: pointer;
-}
-
 /* Narrow screens: the chat is a drawer over the page */
 .gchat {
   position: fixed;
@@ -1133,6 +1168,13 @@ a.grammar-chip:hover {
 
 .gchat--open {
   display: flex;
+}
+
+.gchat-scrim {
+  position: fixed;
+  z-index: 39;
+  inset: 0;
+  background: rgb(0 0 0 / 0.4);
 }
 
 .gchat__head {
@@ -1289,15 +1331,14 @@ a.grammar-chip:hover {
 
 /* Wide screens: the chat sits in the free space beside the lesson */
 @media (min-width: 1280px) {
-  .grammar-layout {
+  .grammar-layout--chat {
     display: grid;
     grid-template-columns: minmax(0, 880px) minmax(20rem, 26rem);
     gap: 1.5rem;
     align-items: start;
   }
 
-  .gchat-fab,
-  .gchat__close {
+  .gchat-scrim {
     display: none;
   }
 
@@ -1306,13 +1347,17 @@ a.grammar-chip:hover {
     /* Below the streak and theme buttons pinned at the top right; the height keeps the input in view before scrolling too */
     top: 3.5rem;
     z-index: auto;
-    display: flex;
+    display: none;
     height: calc(100dvh - 8rem);
     width: auto;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg, 16px);
     box-shadow: none;
     overflow: hidden;
+  }
+
+  .gchat--open {
+    display: flex;
   }
 }
 
@@ -1495,9 +1540,25 @@ a.grammar-chip:hover {
 
 .grammar-drill__points {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
   padding-top: 0.5rem;
+}
+
+.grammar-drill__point {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+}
+
+.tool-chip small {
+  color: var(--text-muted);
+}
+
+.tool-chip:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .grammar-drill__check {
@@ -1588,4 +1649,266 @@ a.grammar-chip:hover {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
+}
+
+/* ---------- Grammar page (S11) ---------- */
+
+.grammar-today {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1.5px solid var(--brand);
+}
+
+.grammar-today > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.grammar-today__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.grammar-today__title {
+  font-size: 1.125rem;
+}
+
+.grammar-cluster__count {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.grammar__maps-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.875rem;
+}
+
+.grammar__cta {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  /* One main button, fixed above the tab bar on phones; the one inside the card is for wide screens */
+  .grammar-today__cta {
+    display: none;
+  }
+
+  .grammar__cta {
+    position: fixed;
+    z-index: 25;
+    inset: auto 0 calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px)) var(--shell-left, 0px);
+    display: block;
+    padding: 0.625rem 1rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .grammar {
+    padding-bottom: 5.5rem;
+  }
+}
+
+/* Phones: the chat is a bottom sheet; the point's primary button is fixed above the tab bar */
+@media (max-width: 899px) {
+  .gchat {
+    inset: auto 0 0;
+    width: auto;
+    max-height: 78dvh;
+    min-height: 55dvh;
+    border-left: 0;
+    border-radius: 20px 20px 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .grammar-point__actions {
+    display: none;
+  }
+
+  .grammar-point__cta {
+    position: fixed;
+    z-index: 25;
+    inset: auto 0 calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px)) var(--shell-left, 0px);
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .grammar-point__cta .btn:first-child {
+    flex: 1;
+  }
+
+  .grammar-point {
+    padding-bottom: 4.5rem;
+  }
+}
+
+/* ---------- Grammar tools (S12b) ---------- */
+
+.tool-page {
+  display: grid;
+  gap: 1rem;
+  max-width: 880px;
+  padding-bottom: 6rem;
+}
+
+.tool-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.tool-head h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.tool-head p {
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.tool-footer {
+  position: fixed;
+  z-index: 25;
+  inset: auto 0 calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px)) var(--shell-left, 0px);
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 1rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.tool-footer .btn {
+  width: 100%;
+  max-width: 420px;
+}
+
+@media (min-width: 900px) {
+  .tool-footer {
+    position: sticky;
+    inset: auto 0 0;
+    margin-inline: -2rem;
+  }
+}
+
+.tool-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.tool-facts {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.tool-facts dt {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.tool-facts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.tool-diff {
+  padding: 1rem 1.25rem;
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  border-radius: var(--radius-lg);
+}
+
+.tool-diff p {
+  margin: 0;
+}
+
+.tool-trail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tool-trail button {
+  min-height: 32px;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  background: var(--surface-3);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tool-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 56px;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.tool-option--on {
+  font-weight: 700;
+  background: var(--brand-soft);
+  border: 2px solid var(--brand);
+}
+
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tool-chip {
+  min-height: 44px;
+  padding: 0 0.75rem;
+  font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.tool-chip--on {
+  font-weight: 700;
+  background: var(--brand-soft);
+  border: 2px solid var(--brand);
+}
+
+.tool-timeline__text {
+  margin: 1rem 0 0;
+  line-height: 1.6;
 }

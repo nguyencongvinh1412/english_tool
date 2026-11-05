@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   };
 
   render(): ReactNode {
-    const { hasError, error } = this.state;
+    const { hasError } = this.state;
     const { children, fallback } = this.props;
 
     if (hasError) {
@@ -78,19 +78,20 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         return fallback;
       }
 
-      // Default error UI
+      // Default error UI. This sits outside the language provider, so the browser's language decides the words.
+      const vi = navigator.language.toLowerCase().startsWith('vi');
       return (
         <div className="error-boundary">
-          <h2>Something went wrong</h2>
+          <h2>{vi ? 'Có lỗi xảy ra' : 'Something went wrong'}</h2>
           <p className="error-boundary__message">
-            {error?.message || 'An unexpected error occurred'}
+            {vi ? 'Ứng dụng gặp lỗi. Tải lại trang để tiếp tục; tiến độ đã lưu không bị mất.' : 'The app ran into a problem. Reload to carry on; your saved progress is safe.'}
           </p>
           <button
             onClick={this.handleReload}
             className="error-boundary__reload-btn"
             type="button"
           >
-            Reload Page
+            {vi ? 'Tải lại trang' : 'Reload page'}
           </button>
         </div>
       );

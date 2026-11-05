@@ -6,7 +6,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Banner, Button, Icon, Segmented, Spinner, useToast } from '@/design';
+import { Banner, Button, Icon, LinkButton, Segmented, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { ApiRequestError, errorMessage } from '@/shared/http';
@@ -446,6 +446,9 @@ const Editor: React.FC<{ initial: MindMap; onReload: () => void; onAiUpdated: (p
         <Button size="sm" variant="ghost" icon="copy" onClick={() => void copy()}>
           {copied ? e.copied : e.copy}
         </Button>
+        <LinkButton size="sm" variant="ghost" icon="layers" to={`${ROUTES.MAPS}/${initial.id}/history`}>
+          {t.maps.history.open}
+        </LinkButton>
       </div>
 
       <details className="mmap-ai" open={aiOpen || undefined} onToggle={(ev) => setAiOpen(ev.currentTarget.open)}>

@@ -6,16 +6,20 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Badge, Banner, Button, Card, EmptyState, Icon, LinkButton, Spinner } from '@/design';
+import { Badge, Banner, Button, Card, EmptyState, Icon, Spinner, Tag } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
+import { hasRoadmap, roadmapApi } from '@/shared/roadmapApi';
 import { ROUTES } from '@/app/routes';
-import { comparePath, drillPath, grammarApi, grammarPath, type GrammarLink, type GrammarMistake, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
+import { comparePath, decidePath, drillPath, grammarApi, grammarPath, type GrammarLink, type GrammarMistake, type GrammarPoint, type Mastery } from '@/shared/grammarApi';
 import { GrammarChat } from './GrammarChat';
 import { GrammarPractice } from './GrammarPractice';
 import { prefetchTexts, speakOnce } from '@/shared/speech';
 import { TenseTimeline } from './TenseTimeline';
+import { DECISION_TREES } from './decisions';
 import './grammar.css';
+
+const SYMBOL: Record<Mastery, string> = { none: '○', learning: '◔', good: '◕', mastered: '●' };
 
 const LinkList: React.FC<{ title: string; links: GrammarLink[] }> = ({ title, links }) => {
   const { locale } = useI18n();
@@ -64,6 +68,8 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
   const [mastery, setMastery] = useState<Mastery>('none');
   const [practising, setPractising] = useState(false);
   const [mistake, setMistake] = useState<GrammarMistake | null>(null);
+  const [inRoadmap, setInRoadmap] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     grammarApi
@@ -71,6 +77,14 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
       .then(({ mistakes }) => setMistake(mistakes.find((m) => m.pointId === pointId) ?? null))
       .catch(() => {});
   }, [pointId]);
+
+  useEffect(() => {
+    if (!point) return;
+    roadmapApi
+      .get()
+      .then((data) => setInRoadmap(hasRoadmap(data) && data.roadmap.stages.some((stage) => stage.level === point.cefr)))
+      .catch(() => {});
+  }, [point]);
 
   useEffect(() => {
     grammarApi
@@ -112,28 +126,34 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
   const comparable = point.timeline ? point.contrasts : [];
 
   return (
-    <div className="grammar-layout">
+    <div className={`grammar-layout ${chatOpen ? 'grammar-layout--chat' : ''}`}>
       <article className="grammar-point">
-        <Link to={ROUTES.GRAMMAR} className="grammar-point__back">
-          <Icon name="arrowLeft" size={16} /> {t.grammar.title}
-        </Link>
         <header className="grammar-point__head">
-          <h1>{point.title[locale]}</h1>
-          {locale === 'vi' && <p className="grammar-point__en">{point.title.en}</p>}
-          <div className="grammar-point__badges">
-            <Badge tone="reading">{point.cefr}</Badge>
-            {mastery !== 'none' && (
-              <Badge tone={mastery === 'mastered' ? 'success' : mastery === 'good' ? 'reading' : 'warning'}>{t.grammar.mastery[mastery]}</Badge>
-            )}
-            {point.status === 'reviewed' ? (
-              <Badge tone="success" icon="check">
-                {t.grammar.reviewed}
-              </Badge>
-            ) : (
-              point.status === 'draft' && <Badge tone="neutral">{t.grammar.aiDraft}</Badge>
-            )}
+          <Link to={ROUTES.GRAMMAR} className="grammar-point__back" aria-label={t.grammar.title}>
+            <Icon name="arrowLeft" size={18} />
+          </Link>
+          <div className="grammar-point__titles">
+            <h1>{point.title[locale]}</h1>
+            <p className="grammar-point__crumb">
+              {t.nav.practice} › {t.grammar.title}
+              {locale === 'vi' && <span lang="en"> · {point.title.en}</span>}
+            </p>
           </div>
         </header>
+        <div className="grammar-point__badges">
+          <Tag tone={mastery === 'good' || mastery === 'mastered' ? 'brand' : 'neutral'}>
+            <span aria-hidden="true">{SYMBOL[mastery]}</span> {t.grammar.mastery[mastery]}
+          </Tag>
+          {inRoadmap && <Tag tone="brand">{t.enVocab.fromRoadmap}</Tag>}
+          <span className="grammar-point__level">{point.cefr}</span>
+          {point.status === 'reviewed' ? (
+            <Badge tone="success" icon="check">
+              {t.grammar.reviewed}
+            </Badge>
+          ) : (
+            point.status === 'draft' && <Badge tone="neutral">{t.grammar.aiDraft}</Badge>
+          )}
+        </div>
 
         {!content ? (
           <EmptyState icon="book" title={t.common.comingSoon}>
@@ -153,7 +173,7 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
               </Banner>
             )}
 
-            {practising ? (
+            {practising && (
               <GrammarPractice
                 pointId={point.id}
                 onClose={(next) => {
@@ -161,18 +181,6 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
                   if (next) setMastery(next);
                 }}
               />
-            ) : (
-              <Card padding="md" className="grammar-practice-cta">
-                <span>{t.grammar.practiceIntro}</span>
-                <span className="grammar-practice-cta__actions">
-                  <Button icon="bolt" onClick={() => setPractising(true)}>
-                    {t.grammar.practice}
-                  </Button>
-                  <LinkButton variant="secondary" icon="sparkles" to={drillPath({ point: point.id })}>
-                    {t.grammar.drill.make}
-                  </LinkButton>
-                </span>
-              </Card>
             )}
 
             <Card padding="lg" className="grammar-summary">
@@ -285,6 +293,56 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
           </>
         )}
 
+        {content && (
+          <Card padding="lg" className="grammar-section grammar-tools-card">
+            <h2>{t.grammar.relatedTools}</h2>
+            <ul className="grammar-toollist">
+              {point.contrasts.slice(0, 2).map((link) => (
+                <li key={link.id}>
+                  <Link to={comparePath(point.id, link.id)}>
+                    {t.grammar.compareWithTitle(link.title[locale])} <Icon name="chevronRight" size={16} />
+                  </Link>
+                </li>
+              ))}
+              {point.timeline && DECISION_TREES[0] && (
+                <li>
+                  <Link to={decidePath(DECISION_TREES[0].id)}>
+                    {DECISION_TREES[0].title[locale]} <Icon name="chevronRight" size={16} />
+                  </Link>
+                </li>
+              )}
+              {point.timeline && (
+                <li>
+                  <Link to={`${ROUTES.GRAMMAR}/timeline?t=${point.id}`}>
+                    {t.grammar.timelineTool} <Icon name="chevronRight" size={16} />
+                  </Link>
+                </li>
+              )}
+              <li>
+                <Link to={drillPath({ point: point.id })}>
+                  {t.grammar.drill.make} <Icon name="chevronRight" size={16} />
+                </Link>
+              </li>
+              <li>
+                <Link to={ROUTES.MAPS}>
+                  {t.grammar.openInMaps} <Icon name="chevronRight" size={16} />
+                </Link>
+              </li>
+            </ul>
+          </Card>
+        )}
+
+        {content && (
+          <div className="grammar-point__actions">
+            <Button icon="bolt" onClick={() => setPractising(true)} disabled={practising}>
+              {t.grammar.practice}
+            </Button>
+            <Button variant="secondary" icon="sparkles" onClick={() => setChatOpen(true)}>
+              {t.grammar.chat.title}
+            </Button>
+          </div>
+        )}
+
         <Card padding="lg" className="grammar-links">
           <LinkList title={t.grammar.links.builds} links={point.builds} />
           <LinkList title={t.grammar.links.contrasts} links={point.contrasts} />
@@ -293,7 +351,17 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
         </Card>
         {content && <p className="vocab-attribution">{t.grammar.aiNote}</p>}
       </article>
-      <GrammarChat pointId={point.id} />
+      <GrammarChat pointId={point.id} open={chatOpen} onOpenChange={setChatOpen} />
+      {content && (
+        <div className="grammar-point__cta">
+          <Button icon="bolt" onClick={() => setPractising(true)} disabled={practising}>
+            {t.grammar.practice}
+          </Button>
+          <Button variant="secondary" aria-label={t.grammar.chat.title} onClick={() => setChatOpen(true)}>
+            AI
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

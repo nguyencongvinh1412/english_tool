@@ -3,9 +3,13 @@
  * Results at the end of a practice session: score, time, score by set, and the questions to look at again
  */
 import type React from 'react';
-import { Badge, Banner, Button, Card, PageHeader, ProgressBar, StatTile } from '@/design';
+import { Link } from 'react-router-dom';
+import { Badge, Banner, Button, Card, ProgressBar, StatTile } from '@/design';
+import { ROUTES } from '@/app/routes';
 import { useI18n } from '@/i18n/I18nProvider';
+import { PracticeHeader } from './PracticeHeader';
 import { splitDuration, type SessionSummary } from './session';
+import { useFromToday } from './useFromToday';
 import './practice.css';
 
 interface SessionSummaryViewProps {
@@ -24,10 +28,12 @@ export const SessionSummaryView: React.FC<SessionSummaryViewProps> = ({ tone, to
   const { t } = useI18n();
   const s = t.quiz.session;
   const { minutes, seconds } = splitDuration(summary.durationSec);
+  const { fromToday } = useFromToday();
 
   return (
     <div className="practice session-summary" style={{ ['--skill' as string]: `var(--${tone})`, ['--skill-edge' as string]: `var(--${tone}-edge)` }}>
-      <PageHeader eyebrow={s.eyebrow} title={s.summaryTitle} description={s.topicLine(topic)} />
+      <PracticeHeader title={t.activity.summaryTitle(topic)} level={null} onBack={onBack} />
+      {fromToday && <p className="session-summary__today">{t.activity.xpNote}</p>}
 
       <div className="session-summary__stats">
         <StatTile icon="target" tone={tone} value={`${summary.correct} / ${summary.total}`} label={`${s.score} · ${summary.percent}%`} />
@@ -35,12 +41,18 @@ export const SessionSummaryView: React.FC<SessionSummaryViewProps> = ({ tone, to
         <StatTile icon="chart" tone={tone} value={s.duration(minutes, seconds)} label={s.time} />
       </div>
 
-      <div className="practice__actions">
-        <Button icon="book" onClick={onReview}>
+      <div className="session-summary__cta">
+        {fromToday ? (
+          <Link to={ROUTES.HOME} className="btn btn--primary btn--lg btn--block">
+            <span>{t.activity.backToToday}</span>
+          </Link>
+        ) : (
+          <Button size="lg" block onClick={onBack}>
+            {s.toLibrary}
+          </Button>
+        )}
+        <Button variant="secondary" icon="book" onClick={onReview}>
           {s.review}
-        </Button>
-        <Button variant="secondary" icon="arrowLeft" onClick={onBack}>
-          {s.toLibrary}
         </Button>
       </div>
 

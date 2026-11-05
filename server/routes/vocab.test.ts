@@ -79,6 +79,27 @@ describe('vocabulary flashcards', () => {
     expect(again[0]).toMatchObject({ isNew: false, item: { id: first.item.id } });
   });
 
+  it('schedules a review made offline from the time it was made, and ignores one older than the card\'s last review', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const [first] = (await agent.get('/api/vocab/session?kind=word&level=N5')).body.cards;
+    const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
+    const late = await agent.post('/api/vocab/review').send({ itemId: first.item.id, grade: 'easy', at: twoDaysAgo.toISOString() });
+    expect(late.status).toBe(200);
+    // Scheduled from two days ago, so it is due 2 days sooner than a review made now
+    const [card] = await db.select().from(srsCards).where(eq(srsCards.userId, user.id));
+    expect(card.lastReviewedAt!.getTime()).toBeCloseTo(twoDaysAgo.getTime(), -3);
+    expect(card.dueAt.getTime()).toBeLessThan(Date.now() + 3 * 24 * 60 * 60 * 1000);
+
+    // An older review from another device does not overwrite it
+    const older = new Date(twoDaysAgo.getTime() - 60 * 60 * 1000).toISOString();
+    await agent.post('/api/vocab/review').send({ itemId: first.item.id, grade: 'again', at: older });
+    const [after] = await db.select().from(srsCards).where(eq(srsCards.userId, user.id));
+    expect(after.intervalDays).toBe(card.intervalDays);
+    expect(after.reps).toBe(card.reps);
+  });
+
   it('adds Vietnamese meanings with an allowed Sino-Vietnamese reading, kept across data refreshes', async () => {
     const admin = await signIn(app, await createUser({ role: 'admin' }));
     aiReply.mockResolvedValue(

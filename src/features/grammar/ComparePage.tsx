@@ -5,12 +5,11 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Badge, Banner, Card, Icon, LinkButton, Spinner } from '@/design';
+import { Badge, Banner, Card, LinkButton, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
-import { ROUTES } from '@/app/routes';
-import { grammarApi, grammarPath, type GrammarPoint } from '@/shared/grammarApi';
-import { TenseTimeline } from './TenseTimeline';
+import { drillPath, grammarApi, grammarPath, type GrammarPoint } from '@/shared/grammarApi';
+import { ToolFooter, ToolHeader } from './ToolChrome';
 import './grammar.css';
 
 export const ComparePage: React.FC = () => {
@@ -32,66 +31,76 @@ export const ComparePage: React.FC = () => {
   // What each card says about the other one
   const notes = [left.content?.contrastNotes.find((n) => n.with === right.id), right.content?.contrastNotes.find((n) => n.with === left.id)].filter(Boolean);
 
-  return (
-    <div className="grammar-compare-page">
-      <Link to={ROUTES.GRAMMAR} className="grammar-point__back">
-        <Icon name="arrowLeft" size={16} /> {t.grammar.title}
-      </Link>
-      <h1 className="grammar-compare-page__title">
-        {left.title[locale]} <span>{t.grammar.versus}</span> {right.title[locale]}
-      </h1>
+  const mistake = (left.content?.mistakes[0] ?? right.content?.mistakes[0]) ?? null;
 
-      {notes.length > 0 && (
-        <Card padding="lg" className="grammar-section grammar-section--contrast">
-          <h2>{t.grammar.contrastTitle}</h2>
-          {notes.map((note, i) => (
-            <p key={i}>{note!.note[locale]}</p>
-          ))}
-        </Card>
-      )}
+  return (
+    <div className="tool-page">
+      <ToolHeader title={t.grammar.compareTitle} subtitle={`${left.title[locale]} ${t.grammar.versusAnd} ${right.title[locale]}`} />
 
       <div className="grammar-compare-page__columns">
-        {points.map((point) => (
-          <Card key={point.id} padding="lg" className="grammar-compare-page__column">
+        {points.map((point, i) => (
+          <Card key={point.id} padding="lg" className={`grammar-compare-page__column ${i === 0 ? 'grammar-compare-page__column--first' : ''}`}>
             <h2>
-              {point.title[locale]} <Badge tone="reading">{point.cefr}</Badge>
+              {point.title[locale]} <Badge tone="neutral">{point.cefr}</Badge>
             </h2>
             {point.content ? (
-              <>
-                <p>{point.content.summary[locale]}</p>
-                {point.timeline && <TenseTimeline timeline={point.timeline} label={point.title[locale]} />}
-                <h3>{t.grammar.forms}</h3>
-                {point.content.forms.map((form, i) => (
-                  <div key={i} className="grammar-form">
-                    <span className="grammar-form__label">{form.label[locale]}</span>
-                    <code className="grammar-form__pattern" lang="en">
-                      {form.pattern}
-                    </code>
-                    <span lang="en">{form.example.en}</span>
-                  </div>
-                ))}
+              <dl className="tool-facts">
+                <div>
+                  <dt>{t.grammar.factStructure}</dt>
+                  <dd lang="en">{point.content.forms[0]?.pattern}</dd>
+                </div>
+                <div>
+                  <dt>{t.grammar.factUseWhen}</dt>
+                  <dd>{point.content.summary[locale]}</dd>
+                </div>
                 {point.content.signals.length > 0 && (
-                  <>
-                    <h3>{t.grammar.signals}</h3>
-                    <div className="grammar-links__items">
-                      {point.content.signals.map((signal) => (
-                        <span key={signal} className="grammar-chip grammar-chip--plain" lang="en">
-                          {signal}
-                        </span>
-                      ))}
-                    </div>
-                  </>
+                  <div>
+                    <dt>{t.grammar.signals}</dt>
+                    <dd lang="en">{point.content.signals.slice(0, 5).join(', ')}</dd>
+                  </div>
                 )}
-              </>
+                {point.content.forms[0] && (
+                  <div>
+                    <dd lang="en">{point.content.forms[0].example.en}</dd>
+                  </div>
+                )}
+              </dl>
             ) : (
               <p>{t.grammar.notReady}</p>
             )}
-            <LinkButton to={grammarPath(point.id)} variant="secondary" icon="book">
-              {t.grammar.openPoint}
-            </LinkButton>
           </Card>
         ))}
       </div>
+
+      {notes.length > 0 && (
+        <div className="tool-diff">
+          <p>
+            <strong>{t.grammar.mainDifference}:</strong> {notes[0]!.note[locale]}
+          </p>
+        </div>
+      )}
+
+      {mistake && (
+        <Card padding="lg">
+          <h2 className="grammar__hint">{t.grammar.confusing}</h2>
+          <p lang="en">
+            <span aria-hidden="true">✗</span> {mistake.wrong}
+          </p>
+          <p lang="en">
+            <span aria-hidden="true">✓</span> <strong>{mistake.right}</strong>
+          </p>
+          <p>{mistake.why[locale]}</p>
+        </Card>
+      )}
+
+      <ToolFooter>
+        <LinkButton size="lg" icon="bolt" to={drillPath({ point: `${left.id},${right.id}` })}>
+          {t.grammar.practicePair}
+        </LinkButton>
+        <Link to={grammarPath(right.id)} className="tool-footer__link">
+          {t.grammar.seePoint(right.title[locale])}
+        </Link>
+      </ToolFooter>
     </div>
   );
 };

@@ -56,6 +56,7 @@ function useQuizRecorder(item: ContentItem<unknown>) {
 const PassageRound: React.FC<RoundProps<ReadingPassage>> = ({ item, onBack, onChecked: reportChecked, actions, reviewAnswers }) => {
   const { t } = useI18n();
   const record = useQuizRecorder(item);
+  const [collapsed, setCollapsed] = useState(false);
   const [lookup, setLookup] = useState<{ word: string; context: string; state: WordDefinition | 'loading' | { error: unknown } } | null>(null);
   const cache = useRef(new Map<string, WordDefinition>());
 
@@ -85,10 +86,15 @@ const PassageRound: React.FC<RoundProps<ReadingPassage>> = ({ item, onBack, onCh
 
       <div className="reading-layout">
         <Card padding="lg" className="passage">
-          <p className="passage__hint">
-            <Icon name="sparkles" size={16} /> {t.reading.tapHint}
-          </p>
-          <div className="passage__body" lang="en">
+          <div className="passage__top">
+            <p className="passage__hint">
+              <Icon name="sparkles" size={16} /> {t.reading.tapHint}
+            </p>
+            <button type="button" className="passage__toggle" aria-expanded={!collapsed} onClick={() => setCollapsed((value) => !value)}>
+              {collapsed ? t.reading.expand : t.reading.collapse}
+            </button>
+          </div>
+          <div className="passage__body" lang="en" hidden={collapsed}>
             {item.payload.paragraphs.map((paragraph, pIndex) => (
               <p key={pIndex}>
                 {paragraph.split(/(\s+)/).map((token, wIndex) =>

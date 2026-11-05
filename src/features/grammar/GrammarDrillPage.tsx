@@ -6,9 +6,11 @@
 import type React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Badge, Banner, Button, Card, Icon, PageHeader, Segmented, Spinner } from '@/design';
+import { Badge, Banner, Button, Card, Icon, Segmented, Spinner, Tag } from '@/design';
+import { useCurrentUser } from '@/app/AuthProvider';
+import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
-import { errorMessage } from '@/shared/http';
+import { ApiRequestError, errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
 import {
   DRILL_COUNTS,
@@ -22,6 +24,8 @@ import {
   type GrammarMap,
 } from '@/shared/grammarApi';
 import { GrammarQuestions } from './GrammarQuestions';
+import { ToolFooter, ToolHeader } from './ToolChrome';
+import '@/features/me/notifications.css';
 import './grammar.css';
 
 type Phase = { name: 'choose' } | { name: 'building' } | { name: 'doing'; id: string; items: DrillItem[] } | { name: 'done'; results: DrillPointResult[]; correct: number; total: number };
@@ -41,6 +45,11 @@ export const GrammarDrillPage: React.FC = () => {
   /** Titles of the uses of a point, loaded when its list is opened */
   const [uses, setUses] = useState<Record<string, string[]>>({});
   const [count, setCount] = useState<(typeof DRILL_COUNTS)[number]>(10);
+  const user = useCurrentUser();
+  const creditsOut = (tasksLeft(user.credits, 'generate') ?? 1) < 1;
+  /** Whether new questions are written by the AI (uses credits) or taken from those that already exist */
+  const [useAi, setUseAi] = useState(true);
+  const aiOn = useAi && !creditsOut;
   const startedAt = useRef(0);
   const d = t.grammar.drill;
 
@@ -51,8 +60,9 @@ export const GrammarDrillPage: React.FC = () => {
         setMap(data);
         const point = params.get('point');
         const cluster = params.get('cluster');
+        const wanted = point ? point.split(',') : [];
         const ids = point
-          ? data.points.filter((p) => p.id === point).map((p) => p.id)
+          ? data.points.filter((p) => wanted.includes(p.id)).map((p) => p.id)
           : cluster
             ? data.points.filter((p) => p.cluster === cluster).map((p) => p.id)
             : [];
@@ -103,7 +113,8 @@ export const GrammarDrillPage: React.FC = () => {
     try {
       const { drill } = await grammarApi.drill(
         [...chosen].map(([pointId, picked]) => ({ pointId, uses: picked.length ? picked : undefined })),
-        effectiveCount
+        effectiveCount,
+        aiOn
       );
       startedAt.current = now();
       setPhase({ name: 'doing', id: drill.id, items: drill.items });
@@ -112,6 +123,7 @@ export const GrammarDrillPage: React.FC = () => {
       setPhase({ name: 'choose' });
     }
   };
+  const notEnough = error instanceof ApiRequestError && error.code === 'not_enough_existing';
 
   const finish = async (answers: DrillAnswer[]) => {
     if (phase.name !== 'doing') return;
@@ -173,9 +185,9 @@ export const GrammarDrillPage: React.FC = () => {
   }
 
   return (
-    <div className="grammar grammar-drill">
-      <PageHeader eyebrow="Grammar" title={d.title} description={d.intro} />
-      {error !== null && <Banner tone="danger">{errorMessage(error, t)}</Banner>}
+    <div className="grammar grammar-drill tool-page">
+      <ToolHeader title={d.title} subtitle={d.intro} />
+      {error !== null && <Banner tone={notEnough ? 'warning' : 'danger'}>{notEnough ? d.notEnough : errorMessage(error, t)}</Banner>}
       {!map ? (
         error === null && <Spinner size={30} label={t.common.loading} />
       ) : (
@@ -196,14 +208,10 @@ export const GrammarDrillPage: React.FC = () => {
                       const on = chosen.has(p.id);
                       return (
                         <div key={p.id} className="grammar-drill__point">
-                          <label className={`grammar-drill__check ${!on && full ? 'is-disabled' : ''}`}>
-                            <input type="checkbox" checked={on} disabled={!on && full} onChange={() => toggle(p.id)} />
-                            <span>
-                              {p.title[locale]}
-                              {locale === 'vi' && <small lang="en"> {p.title.en}</small>}
-                            </span>
-                            <Badge tone="reading">{p.cefr}</Badge>
-                          </label>
+                          <button type="button" className={`tool-chip ${on ? 'tool-chip--on' : ''}`} aria-pressed={on} disabled={!on && full} onClick={() => toggle(p.id)}>
+                            {on && <span aria-hidden="true">✓ </span>}
+                            {p.title[locale]} <small>{p.cefr}</small>
+                          </button>
                           {on && p.ready && (
                             <details className="grammar-drill__uses" onToggle={(e) => e.currentTarget.open && loadUses(p.id)}>
                               <summary>{chosen.get(p.id)?.length ? d.usesChosen(chosen.get(p.id)?.length ?? 0) : d.allUses}</summary>
@@ -228,6 +236,18 @@ export const GrammarDrillPage: React.FC = () => {
             })}
           </div>
 
+          <Card padding="md" className="grammar-drill__ai">
+            <label className="notif-toggle">
+              <span>
+                <strong>
+                  {d.aiTitle} <Tag tone={creditsOut ? 'notice' : 'neutral'}>{creditsOut ? t.today.needsCredits : t.grammar.askCost(String(CREDIT_COST.generate))}</Tag>
+                </strong>
+                <small>{creditsOut ? d.aiOut : d.aiNote}</small>
+              </span>
+              <input type="checkbox" role="switch" checked={aiOn} disabled={creditsOut} onChange={(e) => setUseAi(e.target.checked)} />
+            </label>
+          </Card>
+
           <Card padding="lg" className="grammar-drill__start">
             <div>
               <strong>{chosen.size === 0 ? d.pickSome : d.picked(chosen.size, MAX_DRILL_TARGETS)}</strong>
@@ -244,11 +264,13 @@ export const GrammarDrillPage: React.FC = () => {
               onChange={(v) => setCount(Number(v) as (typeof DRILL_COUNTS)[number])}
               options={DRILL_COUNTS.map((n) => ({ value: String(n), label: d.questions(n), tone: 'reading' }))}
             />
-            <Button icon="bolt" disabled={chosen.size === 0} onClick={() => void start()}>
-              {d.start}
-            </Button>
           </Card>
           <p className="grammar__hint">{d.note}</p>
+          <ToolFooter>
+            <Button size="lg" icon="bolt" disabled={chosen.size === 0} onClick={() => void start()}>
+              {d.start}
+            </Button>
+          </ToolFooter>
         </>
       )}
     </div>

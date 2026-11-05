@@ -167,7 +167,7 @@ async function examScores(userId: string, language: StudyLanguage) {
 /**
  * The learner's goal, in the terms of the language they study
  */
-function goalOf(user: User, language: StudyLanguage) {
+export function goalOf(user: User, language: StudyLanguage) {
   if (language === 'ja') {
     return { kind: user.jaTargetLevel ? ('jlpt' as const) : ('none' as const), targetScore: null, targetLevel: user.jaTargetLevel, currentLevel: null };
   }

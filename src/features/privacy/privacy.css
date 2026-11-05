@@ -21,8 +21,33 @@
   padding: 0.5rem 1rem 3rem;
 }
 
-.privacy__main > .btn {
-  justify-self: start;
+.privacy__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.privacy__back {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.privacy__card {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.privacy__section + .privacy__section {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
 }
 
 .privacy__title {
@@ -32,9 +57,9 @@
 }
 
 .privacy__updated {
-  margin: -0.5rem 0 0;
+  margin: 0.125rem 0 0;
   font-size: 0.875rem;
-  color: var(--text-faint);
+  color: var(--text-muted);
 }
 
 .privacy__intro {

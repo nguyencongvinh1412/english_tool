@@ -15,6 +15,21 @@ export interface MapSummary {
   updatedAt: string;
 }
 
+export interface MapVersionRow {
+  version: number;
+  title: string;
+  nodeCount: number;
+  /** What replaced this copy: the learner's edits, an AI update, or a restore */
+  reason: 'edit' | 'ai' | 'restore';
+  at: string;
+}
+
+export interface MapChange {
+  kind: 'added' | 'removed' | 'renamed';
+  text: string;
+  was?: string;
+}
+
 export interface MindMap {
   id: string;
   title: string;
@@ -90,5 +105,7 @@ export const mapsApi = {
   confirmDraft: (id: string, title?: string) => apiFetch<{ map: MindMap; previousVersion: number | null }>(`/api/maps/drafts/${id}/confirm`, { method: 'POST', json: { title } }),
   cancelDraft: (id: string) => apiFetch<void>(`/api/maps/drafts/${id}`, { method: 'DELETE' }),
   restore: (id: string, version: number) => apiFetch<{ map: MindMap; previousVersion: number }>(`/api/maps/${id}/restore`, { method: 'POST', json: { version } }),
+  versions: (id: string) => apiFetch<{ current: { version: number; title: string; nodeCount: number; at: string }; versions: MapVersionRow[] }>(`/api/maps/${id}/versions`),
+  changes: (id: string, version: number) => apiFetch<{ changes: MapChange[] }>(`/api/maps/${id}/versions/${version}/changes`).then((r) => r.changes),
   lookup: (q: string) => apiFetch<LookupResult>(`/api/maps/lookup?q=${encodeURIComponent(q)}`),
 };

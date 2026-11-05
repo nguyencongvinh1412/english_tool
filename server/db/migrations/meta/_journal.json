@@ -148,6 +148,48 @@
       "when": 1792383020029,
       "tag": "0020_gifted_goblin_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1793634726245,
+      "tag": "0021_roadmaps",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1793635603573,
+      "tag": "0022_roadmap_tasks",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1793638464696,
+      "tag": "0023_placement",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1793640667727,
+      "tag": "0024_checkpoints",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793699875403,
+      "tag": "0025_map_version_reason",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1793719900593,
+      "tag": "0026_notifications",
+      "breakpoints": true
     }
   ]
 }

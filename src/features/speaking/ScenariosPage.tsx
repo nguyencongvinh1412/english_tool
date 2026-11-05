@@ -4,10 +4,11 @@
  */
 import type React from 'react';
 import { useMemo, useState } from 'react';
-import { Badge, Button, Card, Icon, PageHeader } from '@/design';
+import { Badge, Card, Icon, PageHeader } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude } from '@/hooks';
 import { SCENARIOS, type Scenario, type ScenarioDifficulty } from '@/constants/scenarios';
+import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { ChatPanel } from './ChatPanel';
 import { useSessionRecorder } from './useSessionRecorder';
 
@@ -35,17 +36,9 @@ const ScenarioSession: React.FC<{ scenario: Scenario; onBack: () => void }> = ({
 
   return (
     <div className="speak">
-      <div>
-        <Button variant="ghost" icon="arrowLeft" onClick={onBack}>
-          {t.scenarios.back}
-        </Button>
-      </div>
+      <PracticeHeader title={scenario.title} level={null} onBack={onBack} extra={<Badge tone={DIFFICULTY_TONES[scenario.difficulty]}>{t.scenarios.difficulty[scenario.difficulty]}</Badge>} />
 
       <Card padding="lg" tone="speaking" className="scene-brief">
-        <div className="scene-brief__head">
-          <h1 className="scene-brief__title">{scenario.title}</h1>
-          <Badge tone={DIFFICULTY_TONES[scenario.difficulty]}>{t.scenarios.difficulty[scenario.difficulty]}</Badge>
-        </div>
         <p className="scene-brief__context" lang="en">
           {scenario.context}
         </p>

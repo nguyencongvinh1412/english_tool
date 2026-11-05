@@ -1,0 +1,1 @@
+ALTER TABLE "mind_map_versions" ADD COLUMN "reason" text DEFAULT 'ai' NOT NULL;

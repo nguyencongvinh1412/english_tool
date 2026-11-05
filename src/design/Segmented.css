@@ -6,7 +6,7 @@
 }
 
 .segmented__option {
-  --seg-tone: var(--success);
+  --seg-tone: var(--brand-text);
 
   min-height: 44px;
   padding: 0.375rem 1.125rem;

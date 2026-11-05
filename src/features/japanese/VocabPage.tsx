@@ -2,6 +2,7 @@
  * VocabPage
  * Japanese kanji and vocabulary decks (N5-N1) with spaced-repetition review and a browsable list
  */
+import { WordStatusBadge } from '@/features/vocab/WordStatusBadge';
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, Banner, Button, Card, Icon, PageHeader, ProgressBar, Segmented, Spinner } from '@/design';
@@ -288,7 +289,7 @@ const DeckList: React.FC<{ kind: VocabKind; level: JlptLevel; onBack: () => void
                 {item.kind === 'word' ? item.reading : item.readingsOn[0]}
               </span>
               <span className="vocab-row__meaning">{locale === 'vi' && item.meaningVi ? item.meaningVi : item.meaningsEn.slice(0, 2).join(', ')}</span>
-              <Badge tone={item.status === 'mastered' ? 'success' : item.status === 'learning' ? 'warning' : 'neutral'}>{t.vocab.status[item.status]}</Badge>
+              <WordStatusBadge status={item.status} />
             </button>
             {open === item.id && <CardDetails item={item} />}
           </li>

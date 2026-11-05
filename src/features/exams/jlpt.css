@@ -75,8 +75,8 @@
 }
 
 .jlpt-verdict--fail {
-  color: var(--danger);
-  background: var(--danger-soft);
+  color: var(--warning);
+  background: var(--warning-soft);
 }
 
 .jlpt-passmark,

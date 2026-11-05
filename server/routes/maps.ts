@@ -5,9 +5,10 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { and, count, desc, eq, inArray, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, notInArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { mindMaps, vocabItems } from '../db/schema.js';
+import { mindMaps, mindMapVersions, vocabItems } from '../db/schema.js';
+import { diffDocs } from '../maps/diff.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
@@ -25,6 +26,11 @@ const createSchema = z.object({
 const updateSchema = z
   .object({ title: titleSchema.optional(), doc: docSchema.optional(), version: z.number().int().min(1) })
   .refine((body) => body.title !== undefined || body.doc !== undefined, { message: 'Nothing to save.' });
+
+/** A copy of the map is kept when it was last copied longer ago than this, so a session of edits leaves a few steps, not hundreds */
+const SNAPSHOT_EVERY_MS = 10 * 60 * 1000;
+/** Copies kept per map */
+const KEEP_VERSIONS = 30;
 
 const lookupSchema = z.object({ q: z.string().trim().min(1).max(60) });
 
@@ -143,6 +149,8 @@ export function createMapsRouter(): Router {
     const user = currentUser(req);
     if (body.doc) await validateDoc(body.doc);
 
+    const [before] = await db.select().from(mindMaps).where(and(eq(mindMaps.id, id), eq(mindMaps.userId, user.id))).limit(1);
+
     // The version check and the write are one statement, so two tabs cannot both win
     const [row] = await db
       .update(mindMaps)
@@ -150,6 +158,15 @@ export function createMapsRouter(): Router {
       .where(and(eq(mindMaps.id, id), eq(mindMaps.userId, user.id), eq(mindMaps.version, body.version)))
       .returning({ version: mindMaps.version, updatedAt: mindMaps.updatedAt });
     if (row) {
+      // Keep what the map looked like before, at most every few minutes
+      if (before && before.version === body.version) {
+        const [latest] = await db.select({ createdAt: mindMapVersions.createdAt }).from(mindMapVersions).where(eq(mindMapVersions.mapId, id)).orderBy(desc(mindMapVersions.createdAt)).limit(1);
+        if (!latest || Date.now() - latest.createdAt.getTime() >= SNAPSHOT_EVERY_MS) {
+          await db.insert(mindMapVersions).values({ mapId: id, version: before.version, title: before.title, doc: before.doc, reason: 'edit' }).onConflictDoNothing();
+          const keep = await db.select({ version: mindMapVersions.version }).from(mindMapVersions).where(eq(mindMapVersions.mapId, id)).orderBy(desc(mindMapVersions.version)).limit(KEEP_VERSIONS);
+          await db.delete(mindMapVersions).where(and(eq(mindMapVersions.mapId, id), notInArray(mindMapVersions.version, keep.map((k) => k.version))));
+        }
+      }
       res.json(row);
       return;
     }
@@ -157,6 +174,33 @@ export function createMapsRouter(): Router {
     const [current] = await db.select({ version: mindMaps.version }).from(mindMaps).where(and(eq(mindMaps.id, id), eq(mindMaps.userId, user.id))).limit(1);
     if (!current) throw new HttpError(404, 'Map not found.', 'not_found');
     res.status(409).json({ error: 'This map was changed somewhere else.', statusCode: 409, code: 'version_conflict', version: current.version });
+  });
+
+  /**
+   * GET /maps/:id/versions - The copies kept of a map, newest first, with the current state on top
+   */
+  router.get('/maps/:id/versions', requireAuth, async (req, res) => {
+    const id = idSchema.parse(req.params.id);
+    const [map] = await db.select().from(mindMaps).where(and(eq(mindMaps.id, id), eq(mindMaps.userId, currentUser(req).id))).limit(1);
+    if (!map) throw new HttpError(404, 'Map not found.', 'not_found');
+    const rows = await db.select().from(mindMapVersions).where(eq(mindMapVersions.mapId, id)).orderBy(desc(mindMapVersions.version));
+    res.json({
+      current: { version: map.version, title: map.title, nodeCount: nodeCount(map.doc), at: map.updatedAt },
+      versions: rows.map((v) => ({ version: v.version, title: v.title, nodeCount: nodeCount(v.doc), reason: v.reason, at: v.createdAt })),
+    });
+  });
+
+  /**
+   * GET /maps/:id/versions/:version/changes - What changed between that copy and the current map
+   */
+  router.get('/maps/:id/versions/:version/changes', requireAuth, async (req, res) => {
+    const id = idSchema.parse(req.params.id);
+    const version = z.coerce.number().int().min(1).parse(req.params.version);
+    const [map] = await db.select().from(mindMaps).where(and(eq(mindMaps.id, id), eq(mindMaps.userId, currentUser(req).id))).limit(1);
+    if (!map) throw new HttpError(404, 'Map not found.', 'not_found');
+    const [old] = await db.select().from(mindMapVersions).where(and(eq(mindMapVersions.mapId, id), eq(mindMapVersions.version, version))).limit(1);
+    if (!old) throw new HttpError(404, 'That version is no longer available.', 'not_found');
+    res.json({ changes: diffDocs(old.doc as MapDoc, map.doc as MapDoc) });
   });
 
   /**

@@ -5,20 +5,20 @@
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Banner, Button, Card, Icon, Modal, ProgressBar, Spinner } from '@/design';
+import { Banner, Button, Card, Modal, ProgressBar, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { apiFetch, errorMessage } from '@/shared/http';
 import { groupQuestionIds, type ExamSession, type ToeicPart } from '@/shared/examApi';
 import { grammarApi, grammarPath } from '@/shared/grammarApi';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { ROUTES } from '@/app/routes';
-import { LocaleToggle } from '@/app/LocaleToggle';
 import { ExamGroupView } from './ExamGroupView';
 import { IeltsSessionScreen } from './IeltsSession';
 import type { IeltsSession } from '@/shared/ieltsApi';
 import type { JlptSession } from '@/shared/jlptApi';
 import { JlptSessionScreen } from './JlptSession';
-import { formatClock, useExamRunner } from './useExamRunner';
+import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows } from './ExamChrome';
+import { useExamRunner } from './useExamRunner';
 import './exams.css';
 
 interface FlatGroup {
@@ -92,33 +92,15 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
     });
   };
 
-  const saveLabel = { idle: '', saving: t.exams.saving, saved: t.exams.saved, error: t.exams.saveFailed }[saveState];
-  const lowTime = secondsLeft < 5 * 60;
 
   return (
     <div className="exam-shell">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>TOEIC · {session.title ?? t.exams.modeLabel[session.mode]}</strong>
-          <span>
-            {t.exams.partName(current.part)} · {t.exams.partTitles[current.part]}
-          </span>
-        </div>
-        <span className={`exam-bar__save exam-bar__save--${saveState}`} aria-live="polite">
-          {saveLabel}
-        </span>
-        <span className={`exam-timer ${lowTime ? 'exam-timer--low' : ''}`} role="timer" aria-label={t.exams.timeLeft}>
-          <Icon name="target" size={18} />
-          {formatClock(secondsLeft)}
-        </span>
-        <LocaleToggle />
-        <Button variant="exam" size="sm" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-          {isSubmitting ? t.exams.submitting : t.exams.submit}
-        </Button>
-      </header>
+      <ExamBar
+        title={`TOEIC · ${session.title ?? t.exams.modeLabel[session.mode]}`}
+        subtitle={`${t.exams.partName(current.part)} · ${t.exams.partTitles[current.part]}`}
+        saveState={saveState}
+        secondsLeft={secondsLeft}
+      />
 
       <div className="exam-body">
         <main className="exam-main">
@@ -142,26 +124,13 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
             />
           </Card>
 
-          <div className="exam-pager">
-            <Button variant="secondary" icon="arrowLeft" onClick={() => goTo(index - 1)} disabled={index === 0}>
-              {t.exams.prev}
-            </Button>
-            <span className="exam-pager__pos">
-              {index + 1} / {groups.length}
-            </span>
-            {index < groups.length - 1 ? (
-              <Button variant="exam" icon="chevronRight" onClick={() => goTo(index + 1)}>
-                {t.exams.next}
-              </Button>
-            ) : (
-              <Button variant="exam" icon="check" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-                {t.exams.submit}
-              </Button>
-            )}
-          </div>
+          <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
+          <Button variant="secondary" block onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
+            {t.exams.submitFromNav}
+          </Button>
           <p className="exam-nav__title">{t.exams.navigator}</p>
           <p className="exam-nav__legend">
             <span className="exam-dot exam-dot--answered" /> {t.exams.answered}
@@ -290,41 +259,27 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
 
   return (
     <div className="exam-shell exam-shell--result">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>TOEIC · {session.title ?? t.exams.modeLabel[session.mode]}</strong>
-          <span>{t.exams.resultTitle}</span>
-        </div>
-        <LocaleToggle />
-      </header>
+      <ResultBar title={`TOEIC · ${session.title ?? t.exams.modeLabel[session.mode]}`} date={session.submittedAt ?? session.startedAt} />
 
       <main className="exam-result">
-        <Card padding="lg" className="exam-score reveal">
+        <Card padding="lg" className="result-score">
+          <span className="result-score__label">{t.exams.estimate}</span>
           {result.totalScaled !== null && (
-            <div className="exam-score__total">
-              <span className="exam-score__label">{t.exams.estimate}</span>
-              <span className="exam-score__value">{result.totalScaled}</span>
-              <span className="exam-score__scale">/ 990</span>
-            </div>
+            <p className="result-score__big">
+              <strong>{result.totalScaled}</strong> <span>/ 990</span>
+            </p>
           )}
-          <div className="exam-score__sections">
-            {(['listening', 'reading'] as const).map((name) => {
-              const section = result.sections[name];
-              if (!section) return null;
-              return (
-                <div key={name} className={`exam-score__section exam-score__section--${name}`}>
-                  <span className="exam-score__label">{name === 'listening' ? t.exams.listening : t.exams.reading}</span>
-                  <span className="exam-score__value exam-score__value--sm">{section.scaled}</span>
-                  <span className="exam-score__raw">{t.exams.raw(section.correct, section.total)}</span>
-                </div>
-              );
-            })}
-          </div>
-          <p className="exam-score__note">{t.exams.estimateNote}</p>
+          <p className="result-score__note">{t.exams.estimateNote}</p>
         </Card>
+
+        <ResultRows
+          rows={(['listening', 'reading'] as const).flatMap((name) => {
+            const section = result.sections[name];
+            return section
+              ? [{ key: name, label: name === 'listening' ? t.exams.listening : t.exams.reading, tone: name, value: `${section.scaled} / 495`, ratio: section.scaled / 495 }]
+              : [];
+          })}
+        />
 
         <Card padding="lg">
           <h2 className="exams__section-title">{t.exams.byPartTitle}</h2>
@@ -345,7 +300,9 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
 
         <GrammarHelp mistakes={grammarMistakes} />
 
-        <h2 className="exams__section-title">{t.exams.review}</h2>
+        <h2 className="exams__section-title" id="exam-review">
+          {t.exams.review}
+        </h2>
         {groups.map((g) => (
           <Card key={g.group.id} padding="lg" className="exam-card">
             <p className="exam-review__part">
@@ -355,11 +312,8 @@ const ExamResultView: React.FC<{ session: ExamSession }> = ({ session }) => {
           </Card>
         ))}
 
-        <Link to={ROUTES.EXAMS} className="btn btn--exam btn--md exam-result__back">
-          <Icon name="arrowLeft" size={20} />
-          <span>{t.exams.backToExams}</span>
-        </Link>
       </main>
+      <ResultFooter reviewId="exam-review" />
     </div>
   );
 };

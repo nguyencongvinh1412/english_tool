@@ -5,7 +5,8 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Banner, Button, Card, Icon } from '@/design';
+import { Banner, Button, Card, Icon, Tag } from '@/design';
+import { CREDIT_COST } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
@@ -49,7 +50,7 @@ export const GrammarAsk: React.FC = () => {
   return (
     <Card padding="lg" className="grammar-ask">
       <h2 className="en-group__title">
-        <Icon name="chat" size={20} /> {t.grammar.askTitle}
+        <Icon name="chat" size={20} /> {t.grammar.askTitle} <Tag tone="neutral">{t.grammar.askCost(String(CREDIT_COST.chat).replace('.', ','))}</Tag>
       </h2>
       <form className="en-type grammar-ask__form" onSubmit={submit}>
         <input
@@ -65,6 +66,9 @@ export const GrammarAsk: React.FC = () => {
         </Button>
       </form>
       <p className="grammar__hint">{t.maps.ai.assistantTip}</p>
+      <Link to={ROUTES.MAPS} className="grammar__maps-link">
+        {t.grammar.mapsLink}
+      </Link>
       {dialog}
       {answer && 'error' in answer && <Banner tone="danger">{errorMessage(answer.error, t)}</Banner>}
       {answer && 'result' in answer && (

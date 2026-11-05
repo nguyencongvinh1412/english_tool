@@ -16,7 +16,7 @@
 .error-boundary h2 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--danger);
+  color: var(--text);
 }
 
 .error-boundary__message {

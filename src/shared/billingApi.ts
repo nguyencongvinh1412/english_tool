@@ -96,3 +96,15 @@ export function creditsLeft(credits: PricingInfo['current']['credits']): number 
   if (credits.day.limit === null || credits.month.limit === null) return null;
   return Math.max(0, Math.floor(Math.min(credits.day.limit - credits.day.used, credits.month.limit - credits.month.used)));
 }
+
+/**
+ * Rough credit cost of common AI tasks, used only to say "about N checks left" (Haiku-class model).
+ * The real cost depends on the model and the length of the text.
+ */
+export const CREDIT_COST = { writing: 3, speaking: 4, chat: 0.2, generate: 2 } as const;
+
+/** How many of a task the credits left cover, or null without limits */
+export function tasksLeft(credits: PricingInfo['current']['credits'], task: keyof typeof CREDIT_COST): number | null {
+  const left = creditsLeft(credits);
+  return left === null ? null : Math.floor(left / CREDIT_COST[task]);
+}

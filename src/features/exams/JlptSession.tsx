@@ -5,16 +5,14 @@
  */
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge, Banner, Button, Card, Icon, Modal, ProgressBar } from '@/design';
+import { Badge, Banner, Button, Card, Modal, ProgressBar } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { ensureJapaneseFont } from '@/shared/ja/furigana';
-import { ROUTES } from '@/app/routes';
-import { LocaleToggle } from '@/app/LocaleToggle';
 import { jlptQuestionCount, type JlptGroup, type JlptSection, type JlptSession, type Mondai } from '@/shared/jlptApi';
 import { JlptGroupView } from './JlptGroupView';
-import { formatClock, useExamRunner } from './useExamRunner';
+import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows } from './ExamChrome';
+import { useExamRunner } from './useExamRunner';
 import './exams.css';
 import './jlpt.css';
 
@@ -78,7 +76,6 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
 
   const current = groups[index];
   const unanswered = allIds.filter((id) => answers[id] === undefined).length;
-  const saveLabel = { idle: '', saving: t.exams.saving, saved: t.exams.saved, error: t.exams.saveFailed }[saveState];
 
   const goTo = (groupIndex: number, questionId?: string) => {
     setIndex(groupIndex);
@@ -95,30 +92,16 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
 
   return (
     <div className="exam-shell jlpt-shell">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>
-            JLPT {session.level} · {session.title ?? t.jlpt.modeLabel[session.mode]}
-          </strong>
-          <span>
+      <ExamBar
+        title={`JLPT ${session.level} · ${session.title ?? t.jlpt.modeLabel[session.mode]}`}
+        subtitle={
+          <>
             {t.jlpt.sections[current.section]} · <span lang="ja">{t.jlpt.mondai[current.mondai].title}</span>
-          </span>
-        </div>
-        <span className={`exam-bar__save exam-bar__save--${saveState}`} aria-live="polite">
-          {saveLabel}
-        </span>
-        <span className={`exam-timer ${secondsLeft < 5 * 60 ? 'exam-timer--low' : ''}`} role="timer" aria-label={t.exams.timeLeft}>
-          <Icon name="target" size={18} />
-          {formatClock(secondsLeft)}
-        </span>
-        <LocaleToggle />
-        <Button variant="exam" size="sm" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-          {isSubmitting ? t.exams.submitting : t.exams.submit}
-        </Button>
-      </header>
+          </>
+        }
+        saveState={saveState}
+        secondsLeft={secondsLeft}
+      />
 
       <div className="exam-body">
         <main className="exam-main">
@@ -145,26 +128,13 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
             />
           </Card>
 
-          <div className="exam-pager">
-            <Button variant="secondary" icon="arrowLeft" onClick={() => goTo(index - 1)} disabled={index === 0}>
-              {t.exams.prev}
-            </Button>
-            <span className="exam-pager__pos">
-              {index + 1} / {groups.length}
-            </span>
-            {index < groups.length - 1 ? (
-              <Button variant="exam" icon="chevronRight" onClick={() => goTo(index + 1)}>
-                {t.exams.next}
-              </Button>
-            ) : (
-              <Button variant="exam" icon="check" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-                {t.exams.submit}
-              </Button>
-            )}
-          </div>
+          <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
+          <Button variant="secondary" block onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
+            {t.exams.submitFromNav}
+          </Button>
           <p className="exam-nav__title">{t.exams.navigator}</p>
           <p className="exam-nav__legend">
             <span className="exam-dot exam-dot--answered" /> {t.exams.answered}
@@ -231,50 +201,36 @@ const Result: React.FC<{ session: JlptSession }> = ({ session }) => {
 
   return (
     <div className="exam-shell exam-shell--result jlpt-shell">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>
-            JLPT {session.level} · {session.title ?? t.jlpt.modeLabel[session.mode]}
-          </strong>
-          <span>{t.exams.resultTitle}</span>
-        </div>
-        <LocaleToggle />
-      </header>
+      <ResultBar title={`${t.exams.resultTitle} · JLPT ${session.level}`} date={session.submittedAt ?? session.startedAt} />
 
       <main className="exam-result">
-        <Card padding="lg" className="exam-score reveal">
+        <Card padding="lg" className="result-score">
+          <span className="result-score__label">{t.exams.estimate}</span>
           {result.total !== null && (
-            <div className="exam-score__total">
-              <span className="exam-score__label">{t.exams.estimate}</span>
-              <span className="exam-score__value">{result.total}</span>
-              <span className="exam-score__scale">/ 180</span>
+            <>
+              <p className="result-score__big">
+                <strong>{result.total}</strong> <span>/ 180 · {t.jlpt.passMark(result.passMark)}</span>
+              </p>
               <span className={`jlpt-verdict jlpt-verdict--${result.passed ? 'pass' : 'fail'}`}>
-                <Icon name={result.passed ? 'check' : 'x'} size={18} />
-                {result.passed ? t.jlpt.passed : t.jlpt.failed}
+                <span aria-hidden="true">{result.passed ? '✓' : '○'}</span> {result.passed ? t.jlpt.passed : t.jlpt.failed}
               </span>
-              <span className="jlpt-passmark">{t.jlpt.passMark(result.passMark)}</span>
-            </div>
+            </>
           )}
-          <div className="exam-score__sections">
-            {result.sections.map((section) => (
-              <div key={section.id} className={`exam-score__section jlpt-score--${section.passedMinimum ? 'ok' : 'low'}`}>
-                <span className="exam-score__label">{t.jlpt.scoreSections[section.id]}</span>
-                <span className="exam-score__value exam-score__value--sm">
-                  {section.scaled}
-                  <small> / {section.max}</small>
-                </span>
-                <span className="exam-score__raw">{t.exams.raw(section.correct, section.total)}</span>
-                <span className="jlpt-minimum">
-                  {section.passedMinimum ? t.jlpt.minimumOk(section.minimum) : t.jlpt.minimumLow(section.minimum)}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="exam-score__note">{result.total === null ? t.jlpt.partialNote : t.jlpt.estimateNote}</p>
+          <p className="result-score__note">{result.total === null ? t.jlpt.partialNote : t.jlpt.estimateNote}</p>
         </Card>
+
+        <ResultRows
+          legend={t.jlpt.tickLegend}
+          rows={result.sections.map((section) => ({
+            key: section.id,
+            label: t.jlpt.scoreSections[section.id],
+            tone: section.id === 'listening' ? ('listening' as const) : section.id === 'reading' ? ('reading' as const) : ('neutral' as const),
+            value: `${section.scaled} / ${section.max}`,
+            ratio: section.scaled / section.max,
+            mark: section.minimum / section.max,
+            status: section.passedMinimum ? ('met' as const) : ('below' as const),
+          }))}
+        />
 
         <Card padding="lg">
           <h2 className="exams__section-title">{t.jlpt.byMondai}</h2>
@@ -293,7 +249,9 @@ const Result: React.FC<{ session: JlptSession }> = ({ session }) => {
           </ul>
         </Card>
 
-        <h2 className="exams__section-title">{t.exams.review}</h2>
+        <h2 className="exams__section-title" id="exam-review">
+          {t.exams.review}
+        </h2>
         {groups.map((g) => (
           <Card key={g.group.id} padding="lg" className="exam-card">
             <p className="jlpt-mondai-title">
@@ -304,11 +262,8 @@ const Result: React.FC<{ session: JlptSession }> = ({ session }) => {
           </Card>
         ))}
 
-        <Link to={ROUTES.EXAMS} className="btn btn--exam btn--md exam-result__back">
-          <Icon name="arrowLeft" size={20} />
-          <span>{t.exams.backToExams}</span>
-        </Link>
       </main>
+      <ResultFooter reviewId="exam-review" />
     </div>
   );
 };

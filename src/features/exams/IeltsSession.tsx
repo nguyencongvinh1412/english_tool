@@ -5,17 +5,16 @@
  */
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Banner, Button, Card, Icon, Modal, ProgressBar, Spinner, useToast } from '@/design';
+import { Banner, Button, Card, Modal, ProgressBar, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
+import { useCurrentUser } from '@/app/AuthProvider';
 import { errorMessage } from '@/shared/http';
 import { essayId, groupAnswerIds, ieltsApi, type IeltsComponent, type IeltsGroup, type IeltsResult, type IeltsSession } from '@/shared/ieltsApi';
-import { ROUTES } from '@/app/routes';
-import { LocaleToggle } from '@/app/LocaleToggle';
 import { BandFeedback } from '@/features/practice/BandFeedback';
 import { WritingPromptCard, WritingReview } from '@/features/writing/WritingReview';
 import { ListeningPanel, ReadingPanel, SpeakingPanel, WritingPanel } from './IeltsPanels';
-import { formatClock, useExamRunner } from './useExamRunner';
+import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows, type ResultRow } from './ExamChrome';
+import { useExamRunner } from './useExamRunner';
 import './ielts.css';
 
 /** Poll interval while the AI examiner grades writing and speaking */
@@ -72,7 +71,9 @@ const GroupPanel: React.FC<{
   onPlayed?: () => void;
   onAnswer?: (id: string, value: number | string) => void;
   onToggleFlag?: (id: string) => void;
-}> = ({ g, answers, flags, review, playOnce = false, played = false, onPlayed, onAnswer, onToggleFlag }) => {
+  onFinish?: () => void;
+  submitting?: boolean;
+}> = ({ g, answers, flags, review, playOnce = false, played = false, onPlayed, onAnswer, onToggleFlag, onFinish, submitting }) => {
   const shared = { groupId: g.group.id, firstNumber: g.firstNumber, answers, flags, review, onAnswer, onToggleFlag };
   switch (g.group.kind) {
     case 'ielts-listening':
@@ -90,7 +91,7 @@ const GroupPanel: React.FC<{
         />
       );
     default:
-      return <SpeakingPanel groupId={g.group.id} payload={g.group.payload} answers={answers} review={review} onAnswer={onAnswer} />;
+      return <SpeakingPanel groupId={g.group.id} payload={g.group.payload} answers={answers} review={review} onAnswer={onAnswer} onFinish={onFinish} submitting={submitting} />;
   }
 };
 
@@ -138,32 +139,15 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
     });
   };
 
-  const saveLabel = { idle: '', saving: t.exams.saving, saved: t.exams.saved, error: t.exams.saveFailed }[saveState];
 
   return (
     <div className="exam-shell">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>IELTS · {t.ielts.modeLabel[session.mode]}</strong>
-          <span>
-            {t.ielts.components[current.component]} · {groupLabel(current)}
-          </span>
-        </div>
-        <span className={`exam-bar__save exam-bar__save--${saveState}`} aria-live="polite">
-          {saveLabel}
-        </span>
-        <span className={`exam-timer ${secondsLeft < 5 * 60 ? 'exam-timer--low' : ''}`} role="timer" aria-label={t.exams.timeLeft}>
-          <Icon name="target" size={18} />
-          {formatClock(secondsLeft)}
-        </span>
-        <LocaleToggle />
-        <Button variant="exam" size="sm" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-          {isSubmitting ? t.exams.submitting : t.exams.submit}
-        </Button>
-      </header>
+      <ExamBar
+        title={`IELTS · ${t.ielts.modeLabel[session.mode]}`}
+        subtitle={`${t.ielts.components[current.component]} · ${groupLabel(current)}`}
+        saveState={saveState}
+        secondsLeft={secondsLeft}
+      />
 
       {components.length > 1 && (
         <nav className="ielts-tabs" aria-label={t.ielts.componentsLabel}>
@@ -209,29 +193,18 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
               onPlayed={() => setPlayed((prev) => new Set(prev).add(current.group.id))}
               onAnswer={answer}
               onToggleFlag={toggleFlag}
+              onFinish={() => setConfirmOpen(true)}
+              submitting={isSubmitting}
             />
           </Card>
 
-          <div className="exam-pager">
-            <Button variant="secondary" icon="arrowLeft" onClick={() => goTo(index - 1)} disabled={index === 0}>
-              {t.exams.prev}
-            </Button>
-            <span className="exam-pager__pos">
-              {index + 1} / {groups.length}
-            </span>
-            {index < groups.length - 1 ? (
-              <Button variant="exam" icon="chevronRight" onClick={() => goTo(index + 1)}>
-                {t.exams.next}
-              </Button>
-            ) : (
-              <Button variant="exam" icon="check" onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
-                {t.exams.submit}
-              </Button>
-            )}
-          </div>
+          {current.component !== 'speaking' && <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />}
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
+          <Button variant="secondary" block onClick={() => setConfirmOpen(true)} disabled={isSubmitting}>
+            {t.exams.submitFromNav}
+          </Button>
           <p className="exam-nav__title">{t.exams.navigator}</p>
           <p className="exam-nav__legend">
             <span className="exam-dot exam-dot--answered" /> {t.exams.answered}
@@ -297,54 +270,51 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
   );
 };
 
-/**
- * Band tile for one component
- */
-const BandTile: React.FC<{
-  component: IeltsComponent;
-  result: IeltsResult;
-  onRetry: () => void;
-  retrying: boolean;
-}> = ({ component, result, onRetry, retrying }) => {
-  const { t } = useI18n();
+
+/** One skill's bar in the result: its band against the learner's target, or the state of the AI grading */
+function ieltsRow(
+  component: IeltsComponent,
+  result: IeltsResult,
+  target: number | null,
+  t: ReturnType<typeof useI18n>['t'],
+  onRetry: () => void,
+  retrying: boolean
+): ResultRow {
   const entry = result[component];
-  if (!entry) return null;
-
-  let body: React.ReactNode;
-  if ('correct' in entry) {
-    body = (
-      <>
-        <strong className="ielts-band__value">{entry.band.toFixed(1)}</strong>
-        <span className="ielts-band__meta">{t.exams.raw(entry.correct, entry.total)}</span>
-      </>
-    );
-  } else if (entry.status === 'pending') {
-    body = (
-      <>
-        <Spinner size={22} />
-        <span className="ielts-band__meta">{t.ielts.grading}</span>
-      </>
-    );
-  } else if (entry.status === 'failed') {
-    body = (
-      <>
-        <span className="ielts-band__meta">{t.ielts.gradingFailed}</span>
-        <Button size="sm" variant="secondary" onClick={onRetry} loading={retrying}>
-          {t.ielts.retryGrading}
-        </Button>
-      </>
-    );
-  } else {
-    body = <strong className="ielts-band__value">{(entry.band ?? 0).toFixed(1)}</strong>;
+  const base = { key: component, label: t.ielts.components[component], tone: component } as const;
+  if (!entry) return { ...base, custom: <span className="result-row__note">—</span> };
+  if ('status' in entry && entry.status === 'pending') {
+    return {
+      ...base,
+      custom: (
+        <span className="result-row__note">
+          <Spinner size={16} /> {t.ielts.grading}
+        </span>
+      ),
+    };
   }
-
-  return (
-    <div className={`ielts-band ielts-band--${component}`}>
-      <span className="ielts-band__name">{t.ielts.components[component]}</span>
-      {body}
-    </div>
-  );
-};
+  if ('status' in entry && entry.status === 'failed') {
+    return {
+      ...base,
+      custom: (
+        <span className="result-row__note">
+          {t.ielts.gradingFailed}{' '}
+          <Button size="sm" variant="secondary" onClick={onRetry} loading={retrying}>
+            {t.ielts.retryGrading}
+          </Button>
+        </span>
+      ),
+    };
+  }
+  const band = entry.band ?? 0;
+  return {
+    ...base,
+    value: band.toFixed(1),
+    ratio: band / 9,
+    mark: target !== null ? target / 9 : undefined,
+    status: target === null ? undefined : band >= target ? 'met' : band >= target - 0.5 ? 'near' : 'below',
+  };
+}
 
 /**
  * Result: bands (writing and speaking arrive when the AI has graded them) and the review
@@ -355,6 +325,8 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
   const groupLabel = useGroupLabel();
   const groups = useMemo(() => flatten(session), [session]);
   const result = session.result!;
+  const user = useCurrentUser();
+  const target = user.targetExam === 'ielts' && user.targetScore ? user.targetScore : null;
   const [retrying, setRetrying] = useState(false);
   const [tab, setTab] = useState<IeltsComponent>(session.sections[0]?.component ?? 'listening');
   const pending = result.writing?.status === 'pending' || result.speaking?.status === 'pending';
@@ -385,36 +357,27 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
 
   return (
     <div className="exam-shell">
-      <header className="exam-bar">
-        <Link to={ROUTES.EXAMS} className="exam-bar__back" aria-label={t.exams.backToExams}>
-          <Icon name="arrowLeft" size={20} />
-        </Link>
-        <div className="exam-bar__title">
-          <strong>IELTS · {t.ielts.modeLabel[session.mode]}</strong>
-          <span>{t.ielts.resultTitle}</span>
-        </div>
-        <LocaleToggle />
-      </header>
+      <ResultBar title={`${t.ielts.resultTitle} · IELTS ${t.ielts.modeLabel[session.mode]}`} date={session.submittedAt ?? session.startedAt} />
 
       <main className="exam-result">
-        <Card padding="lg" className="ielts-result reveal">
-          <div className="ielts-result__overall">
-            <span className="ielts-result__label">{t.ielts.overall}</span>
-            {result.overall !== null ? (
-              <strong className="ielts-result__band">{result.overall.toFixed(1)}</strong>
-            ) : (
-              <span className="ielts-result__pending">{pending ? t.ielts.grading : components.length < 4 ? t.ielts.overallPartial : '—'}</span>
-            )}
-          </div>
-          <div className="ielts-result__grid">
-            {components.map((component) => (
-              <BandTile key={component} component={component} result={result} onRetry={retry} retrying={retrying} />
-            ))}
-          </div>
-          <p className="exam-score__note">{t.ielts.bandNote}</p>
+        <Card padding="lg" className="result-score">
+          <span className="result-score__label">{t.ielts.overall}</span>
+          {result.overall !== null ? (
+            <p className="result-score__big">
+              <strong>{result.overall.toFixed(1)}</strong>
+            </p>
+          ) : (
+            <p className="result-score__note">{pending ? t.ielts.grading : components.length < 4 ? t.ielts.overallPartial : '—'}</p>
+          )}
+          {target !== null && <p className="result-score__target">{t.exams.yourTarget(target.toFixed(1))}</p>}
+          <p className="result-score__note">{t.ielts.bandNote}</p>
         </Card>
 
-        <h2 className="exams__section-title">{t.exams.review}</h2>
+        <ResultRows legend={target !== null ? t.exams.tickLegend : undefined} rows={components.map((component) => ieltsRow(component, result, target, t, retry, retrying))} />
+
+        <h2 className="exams__section-title" id="exam-review">
+          {t.exams.review}
+        </h2>
         {components.length > 1 && (
           <nav className="ielts-tabs ielts-tabs--inline" aria-label={t.ielts.componentsLabel}>
             {components.map((component) => (
@@ -480,11 +443,8 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
             );
           })}
 
-        <Link to={ROUTES.EXAMS} className="btn btn--exam btn--md exam-result__back">
-          <Icon name="arrowLeft" size={20} />
-          <span>{t.exams.backToExams}</span>
-        </Link>
       </main>
+      <ResultFooter reviewId="exam-review" />
     </div>
   );
 };

@@ -5,17 +5,19 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Badge, Banner, Button, Card, EmptyState, Field, Modal, PageHeader, Segmented, Select, Spinner, TextInput, useToast } from '@/design';
+import { Badge, Banner, Button, Card, EmptyState, Field, Modal, Select, Spinner, TextInput, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
 import { errorMessage } from '@/shared/http';
 import { grammarApi, type GrammarCluster } from '@/shared/grammarApi';
 import { mapsApi, type MapSummary } from '@/shared/mapsApi';
+import { ToolFooter, ToolHeader } from '@/features/grammar/ToolChrome';
 import { useMapProposal } from './useMapProposal';
 import './maps.css';
 
 type Template = 'blank' | 'cluster' | 'compare' | 'outline';
+const TEMPLATES: Template[] = ['cluster', 'compare', 'outline', 'blank'];
 
 export const MapsPage: React.FC = () => {
   const { t, locale, formatDate } = useI18n();
@@ -27,12 +29,14 @@ export const MapsPage: React.FC = () => {
   const [error, setError] = useState<unknown>(null);
   const [clusters, setClusters] = useState<GrammarCluster[]>([]);
   const [title, setTitle] = useState('');
-  const [template, setTemplate] = useState<Template>('blank');
+  const [template, setTemplate] = useState<Template>('cluster');
   const [clusterId, setClusterId] = useState('');
   const [creating, setCreating] = useState(false);
   const [removing, setRemoving] = useState<MapSummary | null>(null);
 
   const english = user.studyLanguage === 'en';
+  // The topic template needs the English grammar map
+  const active: Template = !english && template === 'cluster' ? 'blank' : template;
   const [topic, setTopic] = useState('');
   const [focus, setFocus] = useState('');
   const { propose, dialog, asking } = useMapProposal(({ map }) => navigate(`${ROUTES.MAPS}/${map.id}`));
@@ -56,10 +60,10 @@ export const MapsPage: React.FC = () => {
     }
   }, [english]);
 
-  const create = async () => {
+  const create = async (chosen: Template = active) => {
     setCreating(true);
     try {
-      const { map } = await mapsApi.create({ title: title.trim() || undefined, template, clusterId: template === 'cluster' ? clusterId : undefined });
+      const { map } = await mapsApi.create({ title: title.trim() || undefined, template: chosen, clusterId: chosen === 'cluster' ? clusterId : undefined });
       navigate(`${ROUTES.MAPS}/${map.id}`);
     } catch (err) {
       toast(errorMessage(err, t), 'danger');
@@ -81,8 +85,8 @@ export const MapsPage: React.FC = () => {
 
   const m = t.maps;
   return (
-    <div className="maps">
-      <PageHeader eyebrow="Mind maps" title={m.title} description={m.intro} />
+    <div className="maps tool-page">
+      <ToolHeader title={m.title} subtitle={m.intro} back={ROUTES.ME} />
       {error !== null && <Banner tone="danger">{errorMessage(error, t)}</Banner>}
 
       <Card padding="lg" className="maps-new reveal">
@@ -91,19 +95,25 @@ export const MapsPage: React.FC = () => {
           <Field label={m.titlePlaceholder}>{(id) => <TextInput id={id} value={title} maxLength={100} onChange={(e) => setTitle(e.target.value)} />}</Field>
           <div>
             <p className="maps__label">{m.template}</p>
-            <Segmented<Template>
-              label={m.template}
-              value={template}
-              onChange={setTemplate}
-              options={[
-                { value: 'blank', label: m.templates.blank, tone: 'reading' },
-                ...(english ? [{ value: 'cluster' as const, label: m.templates.topic, tone: 'reading' }] : []),
-                { value: 'compare', label: m.templates.compare, tone: 'reading' },
-                { value: 'outline', label: m.templates.outline, tone: 'reading' },
-              ]}
-            />
+            <div className="maps-templates" role="radiogroup" aria-label={m.template}>
+              {TEMPLATES.filter((tpl) => english || tpl !== 'cluster').map((tpl) => (
+                <button key={tpl} type="button" role="radio" aria-checked={active === tpl} className={`maps-template ${active === tpl ? 'maps-template--on' : ''}`} onClick={() => setTemplate(tpl)}>
+                  <span className="maps-template__thumb" aria-hidden="true">
+                    <i />
+                    <b />
+                    <b />
+                    <b />
+                  </span>
+                  <strong>
+                    {active === tpl && <span aria-hidden="true">✓ </span>}
+                    {m.templates[tpl === 'cluster' ? 'topic' : tpl]}
+                  </strong>
+                  <small>{m.templateMeta[tpl]}</small>
+                </button>
+              ))}
+            </div>
           </div>
-          {english && template === 'cluster' && (
+          {english && active === 'cluster' && (
             <Field label={m.topicLabel}>
               {(id) => (
                 <Select id={id} value={clusterId} onChange={(e) => setClusterId(e.target.value)}>
@@ -117,9 +127,6 @@ export const MapsPage: React.FC = () => {
             </Field>
           )}
         </div>
-        <Button onClick={() => void create()} loading={creating} icon="plus" disabled={(maps?.length ?? 0) >= limit}>
-          {m.create}
-        </Button>
         {maps && <p className="grammar__hint">{m.count(maps.length, limit)}</p>}
       </Card>
 
@@ -166,6 +173,17 @@ export const MapsPage: React.FC = () => {
           ))}
         </ul>
       )}
+
+      <ToolFooter>
+        <Button size="lg" onClick={() => void create()} loading={creating} disabled={(maps?.length ?? 0) >= limit}>
+          {m.useTemplate}
+        </Button>
+        {active !== 'blank' && (
+          <button type="button" className="exam-footer__link" disabled={creating || (maps?.length ?? 0) >= limit} onClick={() => void create('blank')}>
+            {m.startBlank}
+          </button>
+        )}
+      </ToolFooter>
 
       <Modal
         open={removing !== null}

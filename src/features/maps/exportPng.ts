@@ -14,14 +14,12 @@ const MAX_SIDE = 12000;
 const INK = '#2b2f36';
 const MUTED = '#6b7280';
 
-const FALLBACK: Record<NodeColor, string> = { listening: '#7c5cf0', reading: '#2f6bff', speaking: '#f08a00', writing: '#e5489a', exam: '#0e9fb5', brand: '#2f6bff' };
+/** The light-theme skill colours (same as tokens.css) */
+const FALLBACK: Record<NodeColor, string> = { listening: '#0068a7', reading: '#855b00', speaking: '#973f6e', writing: '#6f4fa1', exam: '#9d4616', brand: '#006c67' };
 
-/** The app's own colours, so the picture matches what the learner sees */
+/** Always the light-theme colours: the picture is for sharing and printing, whatever theme the learner uses */
 function palette(): Record<NodeColor, string> {
-  const style = getComputedStyle(document.documentElement);
-  const colors = { ...FALLBACK };
-  for (const name of Object.keys(colors) as NodeColor[]) colors[name] = style.getPropertyValue(`--${name}`).trim() || FALLBACK[name];
-  return colors;
+  return { ...FALLBACK };
 }
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number): void {

@@ -5,7 +5,9 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Badge, Banner, Button, Icon, Spinner } from '@/design';
+import { Badge, Banner, Button, Icon, Spinner, Tag } from '@/design';
+import { useCurrentUser } from '@/app/AuthProvider';
+import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
@@ -88,9 +90,10 @@ const Reply: React.FC<{ text: string }> = ({ text }) => (
   </>
 );
 
-export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
+export const GrammarChat: React.FC<{ pointId: string; open: boolean; onOpenChange: (open: boolean) => void }> = ({ pointId, open, onOpenChange: setOpen }) => {
   const { t, locale } = useI18n();
-  const [open, setOpen] = useState(false);
+  const user = useCurrentUser();
+  const creditsOut = (tasksLeft(user.credits, 'chat') ?? 1) < 1;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);
@@ -178,7 +181,7 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
       const attached = images;
       const attachedFiles = files;
       const content = raw.trim() || (attached.length + attachedFiles.length > 0 ? t.grammar.chat.imageOnly : '');
-      if (!content || busy) return;
+      if (!content || busy || creditsOut) return;
       // Only the points still written in the message count
       const used = Object.entries(mentions).filter(([, title]) => content.includes(`@${title}`));
       const history: ChatMessage[] = [...messages, { role: 'user', content, mentioned: used.map(([, title]) => title), images: attached, files: attachedFiles }];
@@ -203,7 +206,7 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
         setBusy(false);
       }
     },
-    [busy, images, files, mentions, messages, pointId, t]
+    [busy, creditsOut, images, files, mentions, messages, pointId, t]
   );
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -234,15 +237,13 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
 
   return (
     <>
-      <button type="button" className="gchat-fab" onClick={() => setOpen(true)} aria-label={t.grammar.chat.open}>
-        <Icon name="chat" size={20} /> <span>{t.grammar.chat.open}</span>
-      </button>
-
+      {open && <div className="gchat-scrim" onClick={() => setOpen(false)} aria-hidden="true" />}
       <aside className={`gchat ${open ? 'gchat--open' : ''}`} aria-label={t.grammar.chat.title}>
         <header className="gchat__head">
           <h2>
             <Icon name="sparkles" size={18} /> {t.grammar.chat.title}
           </h2>
+          <Tag tone={creditsOut ? 'notice' : 'neutral'}>{creditsOut ? t.today.needsCredits : t.grammar.askCost(String(CREDIT_COST.chat).replace('.', ','))}</Tag>
           {messages.length > 0 && (
             <Button
               variant="ghost"
@@ -298,6 +299,7 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
               <Spinner size={18} />
             </div>
           )}
+          {creditsOut && <Banner tone="warning">{t.grammar.chat.noCredits}</Banner>}
           {imageError && <Banner tone="danger">{t.grammar.chat.imageFailed}</Banner>}
           {error !== null && <Banner tone="danger">{errorMessage(error, t)}</Banner>}
         </div>
@@ -392,7 +394,8 @@ export const GrammarChat: React.FC<{ pointId: string }> = ({ pointId }) => {
               rows={3}
               value={draft}
               maxLength={1200}
-              placeholder={t.grammar.chat.placeholder}
+              placeholder={creditsOut ? t.grammar.chat.locked : t.grammar.chat.placeholder}
+              disabled={creditsOut}
               aria-label={t.grammar.chat.title}
               onChange={(event) => {
                 setDraft(event.target.value);

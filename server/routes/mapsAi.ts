@@ -236,7 +236,7 @@ export function createMapsAiRouter(): Router {
       if (!current) throw new HttpError(404, 'Map not found.', 'not_found');
       if (current.version !== draft.baseVersion) throw new HttpError(409, 'The map changed after this proposal was made. Ask again to update the latest version.', 'draft_stale');
 
-      await tx.insert(mindMapVersions).values({ mapId: current.id, version: current.version, title: current.title, doc: current.doc });
+      await tx.insert(mindMapVersions).values({ mapId: current.id, version: current.version, title: current.title, doc: current.doc, reason: 'ai' });
       const [updated] = await tx
         .update(mindMaps)
         .set({ title: finalTitle, doc: draft.doc, version: current.version + 1, updatedAt: new Date() })
@@ -276,7 +276,7 @@ export function createMapsAiRouter(): Router {
       const [old] = await tx.select().from(mindMapVersions).where(and(eq(mindMapVersions.mapId, id), eq(mindMapVersions.version, version))).limit(1);
       if (!old) throw new HttpError(404, 'That version is no longer available.', 'not_found');
       // What is being replaced is kept too, so the restore can be undone
-      await tx.insert(mindMapVersions).values({ mapId: id, version: current.version, title: current.title, doc: current.doc }).onConflictDoNothing();
+      await tx.insert(mindMapVersions).values({ mapId: id, version: current.version, title: current.title, doc: current.doc, reason: 'restore' }).onConflictDoNothing();
       const [restored] = await tx.update(mindMaps).set({ title: old.title, doc: old.doc, version: current.version + 1, updatedAt: new Date() }).where(eq(mindMaps.id, id)).returning();
       return restored;
     });

@@ -70,3 +70,24 @@ export const Banner: React.FC<{ tone?: BannerTone; children: React.ReactNode; ac
     {action}
   </div>
 );
+
+/**
+ * Loading placeholder shaped like the content it stands in for (no blocking spinner)
+ */
+export const Skeleton: React.FC<{ height?: number; label?: string }> = ({ height = 84, label }) => (
+  <div className="skeleton" style={{ height }} aria-busy="true" aria-label={label} role={label ? 'status' : undefined} />
+);
+
+/**
+ * Something failed to load: amber icon, a calm explanation and one way forward (never red, never blaming)
+ */
+export const ErrorState: React.FC<{ title: string; children?: React.ReactNode; action?: React.ReactNode }> = ({ title, children, action }) => (
+  <div className="error-state" role="alert">
+    <span className="error-state__icon">
+      <Icon name="alert" size={24} />
+    </span>
+    <h3 className="error-state__title">{title}</h3>
+    {children && <p className="error-state__body">{children}</p>}
+    {action}
+  </div>
+);

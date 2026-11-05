@@ -4,14 +4,16 @@
  */
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { Banner, Button, Card } from '@/design';
+import { Banner, Button, Card, ProgressBar, Tag } from '@/design';
+import { useCurrentUser } from '@/app/AuthProvider';
+import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition } from '@/hooks';
 import { prefetchScript, prefetchTexts, speakOnce, speakScript } from '@/shared/speech';
 import { speakingQuestions, type IeltsListening, type IeltsReading } from '@/shared/ieltsApi';
 import type { SpeakingIelts, WritingPrompt } from '@/shared/contentApi';
 import { WritingPromptCard } from '@/features/writing/WritingReview';
-import { RecordButton } from '@/features/speaking/RecordButton';
+import { ExamAudio } from './ExamAudio';
 import { IeltsQuestions } from './IeltsQuestions';
 
 type Answers = Record<string, number | string>;
@@ -40,6 +42,7 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
 }) => {
   const { t } = useI18n();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
   const stopRef = useRef<(() => void) | null>(null);
   const genders = { A: payload.speakers.A.gender, B: payload.speakers.B?.gender ?? 'male', C: payload.speakers.C?.gender };
 
@@ -54,7 +57,8 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
     stopRef.current?.();
     setIsPlaying(true);
     onPlayed();
-    stopRef.current = speakScript(payload.script, genders, 1, (index) => index === -1 && setIsPlaying(false));
+    setProgress(0);
+    stopRef.current = speakScript(payload.script, genders, 1, (index) => (index === -1 ? setIsPlaying(false) : setProgress(index / Math.max(1, payload.script.length))));
   };
 
   const stop = () => {
@@ -71,17 +75,8 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
         {payload.context}
       </p>
       {!props.review && <p className="exam-group__instructions">{t.ielts.listeningIntro}</p>}
-      <div className="exam-audio">
-        <Button variant="exam" icon="headphones" onClick={play} disabled={isPlaying || locked}>
-          {isPlaying ? t.exams.playing : locked ? t.exams.played : t.exams.playAudio}
-        </Button>
-        {isPlaying && !playOnce && (
-          <Button variant="ghost" size="sm" onClick={stop}>
-            {t.exams.stopAudio}
-          </Button>
-        )}
-        {playOnce && !props.review && <span className="exam-audio__note">{t.exams.playOnce}</span>}
-      </div>
+      <ExamAudio playing={isPlaying} locked={locked} progress={progress} playOnce={playOnce} onPlay={play} onStop={stop} />
+      {playOnce && !props.review && <p className="exam-audio__note">{t.exams.playOnce}</p>}
 
       {props.review && (
         <details className="exam-transcript">
@@ -167,12 +162,29 @@ export const SpeakingPanel: React.FC<{
   answers: Answers;
   review: boolean;
   onAnswer?: (id: string, value: string) => void;
-}> = ({ groupId, payload, answers, review, onAnswer }) => {
+  /** Submit the test (last part) */
+  onFinish?: () => void;
+  submitting?: boolean;
+}> = ({ groupId, payload, answers, review, onAnswer, onFinish, submitting = false }) => {
   const { t } = useI18n();
-  const { isListening, transcript, interimTranscript, isSupported, error, startListening, stopListening, resetTranscript } = useSpeechRecognition();
+  const { isListening, transcript, interimTranscript, isSupported, error, errorKind, startListening, stopListening, resetTranscript } = useSpeechRecognition();
+  const user = useCurrentUser();
+  const creditsOut = (tasksLeft(user.credits, 'speaking') ?? 1) < 1;
   const [activeId, setActiveId] = useState<string | null>(null);
+  /** Seconds left of the one-minute preparation for the cue card (null: not started) */
+  const [prep, setPrep] = useState<number | null>(null);
+  /** The part shown while taking the test (0-2); the review shows all three */
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (prep === null || prep <= 0) return;
+    const id = setTimeout(() => setPrep((value) => (value === null ? null : value - 1)), 1000);
+    return () => clearTimeout(id);
+  }, [prep]);
   const questions = speakingQuestions(groupId, payload);
   const textOf = (id: string) => String(answers[id] ?? '');
+  /** The question the main button records next: the first one of this part without an answer */
+  const target = questions.find((q) => q.part === step + 1 && !textOf(q.id))?.id ?? null;
 
   // Append each finished recording to the question being answered
   useEffect(() => {
@@ -182,6 +194,12 @@ export const SpeakingPanel: React.FC<{
       resetTranscript();
     }
   }, [isListening, transcript, activeId, answers, onAnswer, resetTranscript]);
+
+  /** Leaving a part ends any recording in progress */
+  const goStep = (next: number) => {
+    if (isListening) stopListening();
+    setStep(next);
+  };
 
   const record = (id: string) => {
     if (isListening) stopListening();
@@ -204,10 +222,21 @@ export const SpeakingPanel: React.FC<{
   return (
     <div className="ielts-speaking">
       {!review && <p className="exam-group__instructions">{t.ielts.speakingIntro}</p>}
+      {!review && creditsOut && <Banner tone="warning">{t.ielts.speakingNoCredits}</Banner>}
       {!review && !isSupported && <Banner tone="warning">{t.ielts.noMic}</Banner>}
-      {error && <Banner tone="danger">{error}</Banner>}
+      {error && <Banner tone="warning">{errorKind === 'denied' ? t.ielts.micDenied : error}</Banner>}
 
-      {parts.map(({ part, title }) => (
+      {!review && (
+        <div className="ielts-steps">
+          <div className="ielts-steps__row">
+            <strong>{t.ielts.partOf(step + 1, parts.length)}</strong>
+            <span>{t.ielts.autoSaved}</span>
+          </div>
+          <ProgressBar value={((step + 1) / parts.length) * 100} tone="exam" size="sm" label={t.ielts.partOf(step + 1, parts.length)} />
+        </div>
+      )}
+
+      {parts.filter(({ part }) => review || part === step + 1).map(({ part, title }) => (
         <section key={part} className="ielts-speaking__part">
           <h3 className="ielts-speaking__title">{title}</h3>
           {questions
@@ -215,7 +244,7 @@ export const SpeakingPanel: React.FC<{
             .map((q) => {
               const live = activeId === q.id && isListening;
               return (
-                <Card key={q.id} padding="md" className={`ielts-sq ${live ? 'ielts-sq--live' : ''}`}>
+                <Card key={q.id} padding="md" className={`ielts-sq ${live ? 'ielts-sq--live' : ''} ${!review && q.id === target ? 'ielts-sq--target' : ''}`}>
                   <div className="ielts-sq__head">
                     <div className="ielts-sq__question" lang="en">
                       <p>{q.text}</p>
@@ -229,6 +258,20 @@ export const SpeakingPanel: React.FC<{
                           </ul>
                           <p>{payload.part2.closing}</p>
                           {!review && <p className="ielts-sq__note">{t.ielts.cueCardNote}</p>}
+                          {!review && (
+                            <div className={`ielts-prep ${prep !== null && prep > 0 ? 'ielts-prep--on' : ''}`}>
+                              <span>{t.ielts.prepTime}</span>
+                              {prep === null ? (
+                                <Button size="sm" variant="secondary" onClick={() => setPrep(60)}>
+                                  {t.ielts.prepStart}
+                                </Button>
+                              ) : (
+                                <strong role="timer">
+                                  {Math.floor(prep / 60)}:{String(prep % 60).padStart(2, '0')}
+                                </strong>
+                              )}
+                            </div>
+                          )}
                         </>
                       )}
                     </div>
@@ -240,16 +283,8 @@ export const SpeakingPanel: React.FC<{
                       onClick={() => speakOnce(part === 2 ? `${q.text} You should say: ${payload.part2.bullets.join('. ')}. ${payload.part2.closing}` : q.text)}
                     />
                   </div>
-                  {!review && isSupported && (
-                    <RecordButton
-                      size="md"
-                      isRecording={live}
-                      onStart={() => record(q.id)}
-                      onStop={stopListening}
-                      startLabel={t.ielts.record}
-                      stopLabel={t.ielts.stopRecord}
-                    />
-                  )}
+                  {(review || !isSupported || live || textOf(q.id)) && (
+                    <>
                   <label className="ielts-sq__label" htmlFor={`sq-${q.id}`}>
                     {t.ielts.transcriptLabel}
                   </label>
@@ -262,11 +297,44 @@ export const SpeakingPanel: React.FC<{
                     value={live ? `${textOf(q.id)} ${transcript} ${interimTranscript}`.trim() : textOf(q.id)}
                     onChange={(e) => onAnswer?.(q.id, e.target.value)}
                   />
+                    </>
+                  )}
                 </Card>
               );
             })}
         </section>
       ))}
+
+      {!review && (
+        <div className="exam-footer">
+          <Tag tone={creditsOut ? 'notice' : 'neutral'}>{creditsOut ? t.today.needsCredits : t.ielts.gradeCost(CREDIT_COST.speaking)}</Tag>
+          {isListening ? (
+            <Button size="lg" onClick={stopListening}>
+              {t.ielts.stopRecord}
+            </Button>
+          ) : isSupported && target ? (
+            <Button size="lg" icon="mic" onClick={() => record(target)}>
+              {t.ielts.startSpeaking}
+            </Button>
+          ) : step < parts.length - 1 ? (
+            <Button size="lg" onClick={() => goStep(step + 1)}>
+              {t.ielts.nextPart}
+            </Button>
+          ) : (
+            <Button size="lg" icon="check" onClick={onFinish} loading={submitting}>
+              {t.exams.submit}
+            </Button>
+          )}
+          {step > 0 && !isListening && (
+            <button type="button" className="exam-footer__link" onClick={() => goStep(step - 1)}>
+              {t.ielts.prevPart}
+            </button>
+          )}
+          {!isListening && isSupported && !target && step < parts.length - 1 && (
+            <span className="exam-footer__pos">{t.ielts.partDone}</span>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -3,12 +3,12 @@
  * with a size of their choice. Questions are generated and checked like a point's practice, stored
  * for the learner alone, and scored per point so each point's review schedule follows its own result.
  */
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, desc, eq, inArray } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems, grammarMistakes, grammarPoints, type User } from '../db/schema.js';
 import { HttpError } from '../http/errors.js';
 import { recordAttempt } from '../services/progress.js';
-import { generateItems, masteryOf, applyPointScore, normalizeAnswer, type PracticeItem } from './practice.js';
+import { generateItems, masteryOf, applyPointScore, normalizeAnswer, PRACTICE_KIND, type PracticeItem } from './practice.js';
 import { GRAMMAR_POINTS } from './map.js';
 import type { GrammarContent } from './content.js';
 
@@ -49,11 +49,40 @@ export function batchSizes(size: number): number[] {
 
 const keyOf = (item: PracticeItem) => normalizeAnswer(item.prompt);
 
+/** Earlier drills looked at when collecting questions that already exist */
+const EARLIER_DRILLS = 80;
+
+/**
+ * Questions that were already written and checked for these points: the practice sets of the points and the questions
+ * of earlier drills, without repeats. No AI, no credits.
+ */
+async function existingItems(pointIds: string[]): Promise<Map<string, DrillItem[]>> {
+  const found = new Map<string, DrillItem[]>(pointIds.map((id) => [id, []]));
+  const seen = new Set<string>();
+  const take = (pointId: string, item: PracticeItem) => {
+    const key = `${pointId}:${keyOf(item)}`;
+    if (!found.has(pointId) || seen.has(key)) return;
+    seen.add(key);
+    found.get(pointId)!.push({ ...item, pointId });
+  };
+  const sets = await db
+    .select({ part: contentItems.part, payload: contentItems.payload })
+    .from(contentItems)
+    .where(and(eq(contentItems.kind, PRACTICE_KIND), inArray(contentItems.part, pointIds)));
+  for (const set of sets) for (const item of (set.payload as { items: PracticeItem[] }).items ?? []) take(set.part!, item);
+  const drills = await db.select({ payload: contentItems.payload }).from(contentItems).where(eq(contentItems.kind, DRILL_KIND)).orderBy(desc(contentItems.createdAt)).limit(EARLIER_DRILLS);
+  for (const drill of drills) for (const item of (drill.payload as { items: DrillItem[] }).items ?? []) take(item.pointId, item);
+  return found;
+}
+
+/** Random order, so the same existing questions are not always the first ones used */
+const shuffled = <T,>(list: T[]): T[] => [...list].sort(() => Math.random() - 0.5);
+
 /**
  * Generates and stores a drill
  * @throws HttpError 400 for unknown or repeated points or a size that does not fit, 502 if questions fail the check
  */
-export async function generateDrill(user: User, targets: DrillTarget[], count: number, model?: string): Promise<{ id: string; items: DrillItem[] }> {
+export async function generateDrill(user: User, targets: DrillTarget[], count: number, model?: string, useAi = true): Promise<{ id: string; items: DrillItem[] }> {
   const ids = targets.map((t) => t.pointId);
   if (new Set(ids).size !== ids.length) throw new HttpError(400, 'Each point can be chosen once.', 'invalid_drill');
   const metas = targets.map((t) => {
@@ -62,6 +91,21 @@ export async function generateDrill(user: User, targets: DrillTarget[], count: n
     return meta;
   });
   const shares = splitCount(count, targets.length);
+
+  // Without the AI, only questions that already exist are used (this works when the learner is out of credits)
+  if (!useAi) {
+    const existing = await existingItems(ids);
+    const short = targets.filter((t) => (existing.get(t.pointId)?.length ?? 0) < MIN_PER_TARGET).map((t) => t.pointId);
+    if (short.length > 0) {
+      throw new HttpError(409, 'There are not enough ready-made questions for some of these points. Turn the AI on or choose other points.', 'not_enough_existing');
+    }
+    const items = targets.flatMap((t, i) => shuffled(existing.get(t.pointId) ?? []).slice(0, shares[i]));
+    const [saved] = await db
+      .insert(contentItems)
+      .values({ kind: DRILL_KIND, skill: 'reading', language: 'en', title: `Grammar drill: ${metas.map((m) => m.title.en).join(', ')}`.slice(0, 200), payload: { items, targets }, source: 'ai', createdBy: user.id })
+      .returning({ id: contentItems.id });
+    return { id: saved.id, items };
+  }
 
   const rows = await db.select({ id: grammarPoints.id, content: grammarPoints.content }).from(grammarPoints).where(inArray(grammarPoints.id, ids));
   const contentOf = new Map(rows.map((r) => [r.id, r.content as GrammarContent | null]));

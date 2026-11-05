@@ -5,8 +5,10 @@ import './design/base.css';
 import './index.css';
 import App from './App';
 import { initTheme } from './shared/theme';
+import { registerServiceWorker } from './shared/pwa';
 
 initTheme();
+registerServiceWorker();
 
 /**
  * Application entry point

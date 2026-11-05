@@ -58,9 +58,9 @@
 }
 
 .banner--info {
-  color: var(--link);
-  background: var(--exam-soft);
-  border-color: color-mix(in srgb, var(--exam) 45%, transparent);
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  border-color: color-mix(in srgb, var(--brand) 35%, transparent);
 }
 
 .banner--success {
@@ -79,4 +79,57 @@
   color: var(--danger);
   background: var(--danger-soft);
   border-color: color-mix(in srgb, var(--danger) 40%, transparent);
+}
+
+.skeleton {
+  background: var(--surface-3);
+  border-radius: var(--radius);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.error-state__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--warning);
+  background: var(--warning-soft);
+  border-radius: var(--radius);
+}
+
+.error-state__title {
+  font-size: 1.125rem;
+}
+
+.error-state__body {
+  color: var(--text-muted);
 }

@@ -4,7 +4,8 @@
  */
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { Button, Icon } from '@/design';
+import { Icon } from '@/design';
+import { ExamAudio } from './ExamAudio';
 import { useI18n } from '@/i18n/I18nProvider';
 import { prefetchScript, speakScript, type Genders, type ScriptLine } from '@/shared/speech';
 import { playSegment } from '@/shared/audioSegment';
@@ -70,6 +71,7 @@ export const GroupAudio: React.FC<{
 }) => {
   const { t } = useI18n();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
   const stopRef = useRef<(() => void) | null>(null);
 
   useEffect(() => () => stopRef.current?.(), []);
@@ -77,12 +79,13 @@ export const GroupAudio: React.FC<{
   const play = () => {
     stopRef.current?.();
     setIsPlaying(true);
+    setProgress(0);
     if (recording) {
       stopRef.current = playSegment(recording, () => setIsPlaying(false), onPlayed);
       return;
     }
     onPlayed();
-    stopRef.current = speakScript(lines, genders, 1, (index) => index === -1 && setIsPlaying(false));
+    stopRef.current = speakScript(lines, genders, 1, (index) => (index === -1 ? setIsPlaying(false) : setProgress(index / Math.max(1, lines.length))));
   };
 
   const stop = () => {
@@ -94,17 +97,10 @@ export const GroupAudio: React.FC<{
   const locked = playOnce && played && !isPlaying;
 
   return (
-    <div className="exam-audio">
-      <Button variant="exam" icon="headphones" onClick={play} disabled={isPlaying || locked}>
-        {isPlaying ? t.exams.playing : locked ? t.exams.played : t.exams.playAudio}
-      </Button>
-      {isPlaying && !playOnce && (
-        <Button variant="ghost" size="sm" onClick={stop}>
-          {t.exams.stopAudio}
-        </Button>
-      )}
-      {playOnce && <span className="exam-audio__note">{t.exams.playOnce}</span>}
-    </div>
+    <>
+      <ExamAudio playing={isPlaying} locked={locked} progress={recording ? null : progress} playOnce={playOnce} onPlay={play} onStop={stop} />
+      {playOnce && <p className="exam-audio__note">{t.exams.playOnce}</p>}
+    </>
   );
 };
 

@@ -149,8 +149,8 @@
 }
 
 .ielts-q--wrong .ielts-gap__input {
-  border-bottom-color: var(--danger);
-  background: var(--danger-soft);
+  border-bottom-color: var(--warning);
+  background: var(--warning-soft);
 }
 
 .ielts-tfng {
@@ -216,7 +216,7 @@
   top: 0;
   font-family: var(--font-body);
   font-weight: 700;
-  color: var(--reading-edge);
+  color: var(--reading-text);
 }
 
 /* Writing */
@@ -265,7 +265,7 @@
   margin: 0;
   font-size: 1.0625rem;
   font-weight: 700;
-  color: var(--speaking-edge);
+  color: var(--speaking-text);
 }
 
 .ielts-sq {
@@ -303,7 +303,7 @@
 .ielts-sq__note {
   font-size: 0.875rem !important;
   font-weight: 600 !important;
-  color: var(--speaking-edge);
+  color: var(--speaking-text);
 }
 
 .ielts-sq__label {
@@ -418,4 +418,67 @@
 
 .ielts-answer__better {
   color: var(--success);
+}
+
+.ielts-speaking__cost {
+  margin: 0;
+}
+
+.ielts-prep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ielts-prep {
+  flex-wrap: wrap;
+}
+
+.ielts-prep > span {
+  flex: 1 1 8rem;
+}
+
+.ielts-prep strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ielts-steps {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.ielts-steps__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.ielts-steps__row strong {
+  color: var(--text);
+}
+
+.ielts-steps__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.ielts-sq--target {
+  border-color: var(--brand);
+  border-width: 2px;
+}
+
+.ielts-speaking .exam-footer {
+  margin: 0.5rem -1.25rem -1.25rem;
 }

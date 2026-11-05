@@ -63,10 +63,14 @@
   background: var(--success-soft);
 }
 
-.badge--exam,
-.badge--reading {
-  color: var(--link);
+.badge--exam {
+  color: var(--exam-text);
   background: var(--exam-soft);
+}
+
+.badge--reading {
+  color: var(--reading-text);
+  background: var(--reading-soft);
 }
 
 .badge--warning {
@@ -80,36 +84,18 @@
 }
 
 .badge--listening {
-  color: var(--listening-edge);
+  color: var(--listening-text);
   background: var(--listening-soft);
 }
 
 .badge--speaking {
-  color: var(--warning);
+  color: var(--speaking-text);
   background: var(--speaking-soft);
 }
 
 .badge--writing {
-  color: var(--writing-edge);
+  color: var(--writing-text);
   background: var(--writing-soft);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .badge--listening {
-    color: #d7b4ff;
-  }
-
-  :root:not([data-theme]) .badge--writing {
-    color: #ff9cc0;
-  }
-}
-
-:root[data-theme='dark'] .badge--listening {
-  color: #d7b4ff;
-}
-
-:root[data-theme='dark'] .badge--writing {
-  color: #ff9cc0;
 }
 
 .stat-tile {

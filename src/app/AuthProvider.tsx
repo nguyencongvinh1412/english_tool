@@ -9,6 +9,8 @@ import { apiFetch } from '@/shared/http';
 import type { CurrentUser, ProfileUpdate } from '@/shared/types';
 import { useI18n, type Locale } from '@/i18n/I18nProvider';
 import { AI_USED_EVENT } from '@/services/api';
+import { clearOfflineData } from '@/shared/offlineCache';
+import { vocabApi } from '@/shared/vocabApi';
 
 interface RegisterInput {
   email: string;
@@ -78,6 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           method: 'POST',
           json: { email, password },
         });
+        clearOfflineData();
         applyUser(me);
       },
       register: async (input) => {
@@ -85,16 +88,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           method: 'POST',
           json: input,
         });
+        clearOfflineData();
         setUser({ ...me, uiLocale: currentLocale });
         // Keep the language picked on the sign-up page
         void apiFetch('/api/me', { method: 'PATCH', json: { uiLocale: currentLocale } }).catch(() => {});
       },
       logout: async () => {
+        // Answers given offline are sent first (if there is a connection); then the offline copies, which belong to the person leaving, go
+        await vocabApi.flushReviews().catch(() => 0);
+        clearOfflineData();
         await apiFetch('/api/auth/logout', { method: 'POST' });
         setUser(null);
       },
       deleteAccount: async (password) => {
         await apiFetch('/api/me', { method: 'DELETE', json: { password } });
+        clearOfflineData();
         setUser(null);
       },
       updateProfile: async (changes) => {

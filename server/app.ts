@@ -14,6 +14,9 @@ import { createMeRouter } from './routes/me.js';
 import { createAdminRouter } from './routes/admin.js';
 import { createChatRouter } from './routes/chat.js';
 import { createProgressRouter } from './routes/progress.js';
+import { createRoadmapRouter } from './routes/roadmap.js';
+import { createNotificationsRouter } from './routes/notifications.js';
+import { createPlacementRouter } from './routes/placement.js';
 import { createContentRouter } from './routes/content.js';
 import { createExamRouter } from './routes/exams.js';
 import { createTtsRouter } from './routes/tts.js';
@@ -98,6 +101,9 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api/admin', createAdminRouter());
   app.use('/api/chat', createChatRouter());
   app.use('/api', createProgressRouter());
+  app.use('/api', createRoadmapRouter());
+  app.use('/api', createNotificationsRouter());
+  app.use('/api', createPlacementRouter());
   app.use('/api', createContentRouter());
   app.use('/api', createExamRouter());
   app.use('/api/tts', createTtsRouter());
@@ -116,7 +122,14 @@ export function createApp(options: { logRequests?: boolean } = {}) {
    */
   if (IS_PRODUCTION) {
     const distPath = path.join(__dirname, '..', 'dist');
-    app.use(express.static(distPath));
+    app.use(
+      express.static(distPath, {
+        // The service worker must always be re-checked, or an old copy would stay for days
+        setHeaders: (res, file) => {
+          if (file.endsWith('sw.js')) res.setHeader('Cache-Control', 'no-cache');
+        },
+      })
+    );
 
     // Express 5 requires named wildcard parameter
     app.get('/{*path}', (_req: Request, res: Response) => {

@@ -5,7 +5,7 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { and, asc, eq, gte, isNull, lte, ne, sql, type SQL } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, isNull, lte, ne, sql, type SQL } from 'drizzle-orm';
 import type { AnyPgColumn } from 'drizzle-orm/pg-core';
 import { db } from '../db/client.js';
 import { srsCards, vocabItems, wordBank, type SrsCard, type VocabItem } from '../db/schema.js';
@@ -29,9 +29,11 @@ const ENRICH_CHUNK = 20;
 
 const deckSchema = z.object({ kind: z.enum(KINDS), level: z.enum(LEVELS) });
 /** Word-list decks, plus the learner's word bank and today's mixed review */
-const enDeckSchema = z.object({ deck: z.string().regex(/^en-(bank|daily|[a-z]+-[A-Za-z0-9]+)$/) });
+const enDeckSchema = z.object({ deck: z.string().regex(/^en-(bank|daily|hard|[a-z]+-[A-Za-z0-9]+)$/) });
 const enBrowseSchema = enDeckSchema.extend({ offset: z.coerce.number().int().min(0).default(0) });
-const reviewSchema = z.object({ itemId: z.string().min(3).max(200), grade: z.enum(GRADES) });
+/** A review made offline carries the time it was made; it may be this old when it reaches the server */
+const MAX_REVIEW_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+const reviewSchema = z.object({ itemId: z.string().min(3).max(200), grade: z.enum(GRADES), at: z.iso.datetime().optional() });
 const browseSchema = deckSchema.extend({ offset: z.coerce.number().int().min(0).default(0) });
 const enrichOptions = { count: z.number().int().min(1).max(60).default(40), model: z.string().max(100).optional() };
 const enrichSchema = z.union([deckSchema.extend(enrichOptions), enDeckSchema.extend(enrichOptions)]);
@@ -39,6 +41,12 @@ const enrichSchema = z.union([deckSchema.extend(enrichOptions), enDeckSchema.ext
 const DISTRACTORS = 3;
 /** Saved words a learner meets per day, and the size of the daily mixed review */
 const NEW_BANK_PER_DAY = 20;
+/** Review gap at which a word counts as known fairly well */
+const GOOD_DAYS = 7;
+/** A word the learner has forgotten this many times is a "hard word" (same rule as the statistics) */
+export const HARD_LAPSES = 3;
+/** Hard words practised in one go */
+const HARD_SESSION_LIMIT = 20;
 const DAILY_REVIEW_LIMIT = 30;
 
 /**
@@ -95,6 +103,18 @@ async function loadSession(userId: string, inDeck: SQL, limits: { due: number; n
   return { items: [...due.map((row) => row.item), ...fresh], cards: new Map(due.map((row) => [row.item.id, row.card])) };
 }
 
+/** The learner's hard words (forgotten often), whether or not they are due, most forgotten first */
+async function loadHardWords(userId: string) {
+  const rows = await db
+    .select({ item: vocabItems, card: srsCards })
+    .from(srsCards)
+    .innerJoin(vocabItems, eq(vocabItems.id, srsCards.itemId))
+    .where(and(eq(srsCards.userId, userId), eq(vocabItems.language, 'en'), gte(srsCards.lapses, HARD_LAPSES)))
+    .orderBy(desc(srsCards.lapses))
+    .limit(HARD_SESSION_LIMIT);
+  return { items: rows.map((row) => row.item), cards: new Map(rows.map((row) => [row.item.id, row.card])) };
+}
+
 /**
  * A page of a deck with the learner's status per card
  */
@@ -113,7 +133,9 @@ async function browseDeck(userId: string, inDeck: SQL, offset: number) {
 /** Words in the learner's word bank */
 export const inWordBank = (userId: string) => sql`exists (select 1 from ${wordBank} where ${wordBank.userId} = ${userId} and ${wordBank.itemId} = ${vocabItems.id})`;
 
-export const statusOf = (card: SrsCard | null) => (!card ? 'new' : card.state === 'review' && card.intervalDays >= MASTERED_DAYS ? 'mastered' : 'learning');
+/** new -> learning -> good (reviewed a week apart) -> mastered (three weeks apart) */
+export const statusOf = (card: SrsCard | null) =>
+  !card ? 'new' : card.state === 'review' && card.intervalDays >= MASTERED_DAYS ? 'mastered' : card.state === 'review' && card.intervalDays >= GOOD_DAYS ? 'good' : 'learning';
 
 /** What a learner sees as the meaning of an English card */
 const enMeaning = (item: VocabItem) => item.meaningVi ?? item.meaningsEn[0] ?? '';
@@ -129,6 +151,8 @@ async function deckProgress(userId: string, keys: AnyPgColumn[], where: SQL) {
       seen: sql<number>`count(*)::int`,
       due: sql<number>`count(*) filter (where ${srsCards.dueAt} <= ${now.toISOString()}::timestamptz)::int`,
       mastered: sql<number>`count(*) filter (where ${srsCards.state} = 'review' and ${srsCards.intervalDays} >= ${MASTERED_DAYS})::int`,
+      /** Reviewed at a gap of a week or more but not yet mastered (the "fairly well" level, as for grammar points) */
+      good: sql<number>`count(*) filter (where ${srsCards.state} = 'review' and ${srsCards.intervalDays} >= ${GOOD_DAYS} and ${srsCards.intervalDays} < ${MASTERED_DAYS})::int`,
       newToday: sql<number>`count(*) filter (where ${srsCards.introducedAt} >= ${startOfDay().toISOString()}::timestamptz)::int`,
     })
     .from(srsCards)
@@ -330,7 +354,14 @@ export function createVocabRouter(): Router {
       .from(srsCards)
       .where(and(eq(srsCards.userId, user.id), eq(srsCards.itemId, item.id)))
       .limit(1);
-    const now = new Date();
+    // A review made offline is scheduled from when it was made, not from when it reached the server
+    const made = body.at ? new Date(body.at).getTime() : Date.now();
+    const now = new Date(Math.min(Date.now(), Math.max(made, Date.now() - MAX_REVIEW_AGE_MS)));
+    // A card reviewed after this one (on another device) is not overwritten by an older review
+    if (existing?.lastReviewedAt && existing.lastReviewedAt > now) {
+      res.json({ dueAt: existing.dueAt, state: existing.state, intervalDays: existing.intervalDays, previews: previews(cardState(existing), new Date()) });
+      return;
+    }
     const next = schedule(cardState(existing), body.grade, now);
     const values = {
       state: next.state,
@@ -379,7 +410,7 @@ export function createVocabRouter(): Router {
       const total = totals.find((t) => t.deck === deck.id)?.total ?? 0;
       const p = progress.find((r) => r.key === deck.id);
       const newAvailable = Math.min(Math.max(0, NEW_PER_DECK_PER_DAY - (p?.newToday ?? 0)), total - (p?.seen ?? 0));
-      return { ...deck, total, seen: p?.seen ?? 0, due: p?.due ?? 0, mastered: p?.mastered ?? 0, newAvailable };
+      return { ...deck, total, seen: p?.seen ?? 0, due: p?.due ?? 0, mastered: p?.mastered ?? 0, good: p?.good ?? 0, newAvailable };
     });
     // Every due English card, including saved words outside the decks (what today's review shows)
     const [{ dueTotal }] = await db
@@ -398,7 +429,9 @@ export function createVocabRouter(): Router {
     const user = currentUser(req);
     const isEn = eq(vocabItems.language, 'en');
     const { items, cards } =
-      deck === 'en-daily'
+      deck === 'en-hard'
+        ? await loadHardWords(user.id)
+        : deck === 'en-daily'
         ? await loadSession(user.id, isEn, { due: DAILY_REVIEW_LIMIT, newPerDay: 0 })
         : deck === 'en-bank'
           ? await loadSession(user.id, inWordBank(user.id), { due: SESSION_DUE_LIMIT, newPerDay: NEW_BANK_PER_DAY })
@@ -407,7 +440,7 @@ export function createVocabRouter(): Router {
     const pool = await db
       .select()
       .from(vocabItems)
-      .where(and(deck === 'en-daily' || deck === 'en-bank' ? isEn : eq(vocabItems.deck, deck), ne(vocabItems.meaningsEn, sql`'{}'`)))
+      .where(and(deck === 'en-daily' || deck === 'en-bank' || deck === 'en-hard' ? isEn : eq(vocabItems.deck, deck), ne(vocabItems.meaningsEn, sql`'{}'`)))
       .orderBy(sql`random()`)
       .limit(60);
     const now = new Date();

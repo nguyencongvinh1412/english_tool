@@ -121,7 +121,7 @@ function stepLink(step: PathStep, language: 'en' | 'ja'): string {
   }
 }
 
-export const JourneyPage: React.FC = () => {
+export const JourneyPage: React.FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const { t, locale } = useI18n();
   const user = useCurrentUser();
   const [journey, setJourney] = useState<Journey | null>(null);
@@ -168,7 +168,7 @@ export const JourneyPage: React.FC = () => {
 
   return (
     <div className="journey">
-      <PageHeader eyebrow="Progress" title={j.title} description={j.intro} />
+      {!embedded && <PageHeader eyebrow="Progress" title={j.title} description={j.intro} />}
 
       <Card padding="lg" className="journey-goal reveal">
         <div className="journey-goal__head">

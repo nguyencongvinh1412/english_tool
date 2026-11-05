@@ -941,3 +941,84 @@
   cursor: default;
   transform: none;
 }
+
+/* ---------- Vocabulary page (S10) ---------- */
+
+.vocab-today {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1.5px solid var(--brand);
+}
+
+.vocab-today__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.vocab-today__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.vocab-today__title {
+  font-size: 1.125rem;
+}
+
+.vocab-today__note {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.vocab-match {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vocab__cta {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  /* One main button, fixed above the tab bar on phones; the one inside the card is for wide screens */
+  .vocab-today__cta {
+    display: none;
+  }
+
+  .vocab__cta {
+    position: fixed;
+    z-index: 25;
+    inset: auto 0 calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px)) var(--shell-left, 0px);
+    display: block;
+    padding: 0.625rem 1rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .vocab {
+    padding-bottom: 5.5rem;
+  }
+}
+
+.en-row__ipa {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.vocab-stats {
+  display: grid;
+  gap: 1rem;
+}
+
+.vocab-stats__leeches {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}

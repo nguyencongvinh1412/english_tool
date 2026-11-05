@@ -17,8 +17,7 @@ import { ROUTES } from '@/app/routes';
 import { LoginPage } from '@/features/auth/LoginPage';
 import { RegisterPage } from '@/features/auth/RegisterPage';
 import { OnboardingPage } from '@/features/onboarding/OnboardingPage';
-import { DashboardPage } from '@/features/dashboard/DashboardPage';
-import { SkillHubPage } from '@/features/skills/SkillHubPage';
+import { TodayPage } from '@/features/today/TodayPage';
 import { ProgressProvider } from '@/shared/progress';
 import { EXAM_SESSION_ROUTE } from '@/features/exams/examRoutes';
 import { lazyPage } from '@/app/lazyPage';
@@ -39,17 +38,28 @@ const ReadingPassagePage = lazyPage(() => import('@/features/reading/ReadingPage
 const WritingPage = lazyPage(() => import('@/features/writing/WritingPage'), 'WritingPage');
 const ExamsPage = lazyPage(() => import('@/features/exams/ExamsPage'), 'ExamsPage');
 const ExamSessionPage = lazyPage(() => import('@/features/exams/ExamSessionPage'), 'ExamSessionPage');
+const RoadmapPage = lazyPage(() => import('@/features/roadmap/RoadmapPage'), 'RoadmapPage');
+const CreateRoadmapPage = lazyPage(() => import('@/features/roadmap/CreateRoadmapPage'), 'CreateRoadmapPage');
+const StageDetailPage = lazyPage(() => import('@/features/roadmap/StageDetailPage'), 'StageDetailPage');
+const PlacementPage = lazyPage(() => import('@/features/placement/PlacementPage'), 'PlacementPage');
+const CheckpointPage = lazyPage(() => import('@/features/roadmap/CheckpointPage'), 'CheckpointPage');
+const PracticeHub = lazyPage(() => import('@/features/practice/PracticeHub'), 'PracticeHub');
+const MePage = lazyPage(() => import('@/features/me/MePage'), 'MePage');
+const PlanPage = lazyPage(() => import('@/features/me/PlanPage'), 'PlanPage');
 const ProfilePage = lazyPage(() => import('@/features/profile/ProfilePage'), 'ProfilePage');
 const AdminPage = lazyPage(() => import('@/features/admin/AdminPage'), 'AdminPage');
 const KanaPage = lazyPage(() => import('@/features/japanese/KanaPage'), 'KanaPage');
 const VocabPage = lazyPage(() => import('@/features/japanese/VocabPage'), 'VocabPage');
 const EnVocabPage = lazyPage(() => import('@/features/vocab/EnVocabPage'), 'EnVocabPage');
-const PricingPage = lazyPage(() => import('@/features/billing/PricingPage'), 'PricingPage');
-const JourneyPage = lazyPage(() => import('@/features/progress/JourneyPage'), 'JourneyPage');
 const MapsPage = lazyPage(() => import('@/features/maps/MapsPage'), 'MapsPage');
+const InstallGuidePage = lazyPage(() => import('@/features/me/InstallGuidePage'), 'InstallGuidePage');
+const NotificationsPage = lazyPage(() => import('@/features/me/NotificationsPage'), 'NotificationsPage');
+const NotificationSettingsPage = lazyPage(() => import('@/features/me/NotificationsPage'), 'NotificationSettingsPage');
+const MapHistoryPage = lazyPage(() => import('@/features/maps/MapHistoryPage'), 'MapHistoryPage');
 const MapEditorPage = lazyPage(() => import('@/features/maps/MapEditorPage'), 'MapEditorPage');
 const GrammarPage = lazyPage(() => import('@/features/grammar/GrammarPage'), 'GrammarPage');
 const GrammarPointPage = lazyPage(() => import('@/features/grammar/GrammarPointPage'), 'GrammarPointPage');
+const TimelinePage = lazyPage(() => import('@/features/grammar/TimelinePage'), 'TimelinePage');
 const GrammarDrillPage = lazyPage(() => import('@/features/grammar/GrammarDrillPage'), 'GrammarDrillPage');
 const ComparePage = lazyPage(() => import('@/features/grammar/ComparePage'), 'ComparePage');
 const DecisionPage = lazyPage(() => import('@/features/grammar/DecisionPage'), 'DecisionPage');
@@ -89,15 +99,27 @@ export default function App(): React.JSX.Element {
                       <Route path={ROUTES.ONBOARDING} element={<OnboardingPage />} />
                     {/* Focus mode: the test runs outside the app shell */}
                     <Route path={EXAM_SESSION_ROUTE} element={<ExamSessionPage />} />
+                    <Route path={ROUTES.PLACEMENT} element={<PlacementPage />} />
 
                       <Route element={<AppShell />}>
-                        <Route path={ROUTES.HOME} element={<DashboardPage />} />
-                        <Route path={ROUTES.LISTENING} element={<SkillHubPage skill="listening" />} />
-                        <Route path={ROUTES.READING} element={<SkillHubPage skill="reading" />} />
-                        <Route path={ROUTES.SPEAKING} element={<SkillHubPage skill="speaking" />} />
-                        <Route path={ROUTES.WRITING} element={<SkillHubPage skill="writing" />} />
+                        <Route path={ROUTES.HOME} element={<TodayPage />} />
+                        <Route path={ROUTES.ROADMAP} element={<RoadmapPage />} />
+                        <Route path={ROUTES.ROADMAP_NEW} element={<CreateRoadmapPage />} />
+                        <Route path={`${ROUTES.ROADMAP_STAGE}/:index`} element={<StageDetailPage />} />
+                        <Route path={`${ROUTES.CHECKPOINT}/:stage`} element={<CheckpointPage />} />
+                        <Route path={`${ROUTES.PROGRESS}`} element={<RoadmapPage />} />
+                        <Route path={ROUTES.PRACTICE} element={<PracticeHub />} />
+                        <Route path={ROUTES.ME} element={<MePage />} />
+                        <Route path={ROUTES.ME_PLAN} element={<PlanPage />} />
+                        <Route path={ROUTES.ME_INSTALL} element={<InstallGuidePage />} />
+                        <Route path={ROUTES.ME_NOTIFICATIONS} element={<NotificationsPage />} />
+                        <Route path={ROUTES.ME_NOTIFICATION_SETTINGS} element={<NotificationSettingsPage />} />
+                        <Route path={ROUTES.LISTENING} element={<Navigate to={ROUTES.PRACTICE} replace />} />
+                        <Route path={ROUTES.READING} element={<Navigate to={ROUTES.PRACTICE} replace />} />
+                        <Route path={ROUTES.SPEAKING} element={<Navigate to={ROUTES.PRACTICE} replace />} />
+                        <Route path={ROUTES.WRITING} element={<Navigate to={ROUTES.PRACTICE} replace />} />
                         <Route path={ROUTES.EXAMS} element={<ExamsPage />} />
-                        <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+                        <Route path={ROUTES.ME_ACCOUNT} element={<ProfilePage />} />
 
                         <Route path={ROUTES.DICTATION} element={<DictationPage />} />
                         <Route path={ROUTES.PRONUNCIATION} element={<PronunciationPage />} />
@@ -106,12 +128,12 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.KANA} element={<KanaPage />} />
                         <Route path={ROUTES.JA_VOCAB} element={<VocabPage />} />
                         <Route path={ROUTES.VOCABULARY} element={<EnVocabPage />} />
-                        <Route path={ROUTES.PROGRESS} element={<JourneyPage />} />
-                        <Route path={ROUTES.MAPS} element={<MapsPage />} />
+                                                <Route path={ROUTES.MAPS} element={<MapsPage />} />
+                        <Route path={`${ROUTES.MAPS}/:mapId/history`} element={<MapHistoryPage />} />
                         <Route path={`${ROUTES.MAPS}/:mapId`} element={<MapEditorPage />} />
                         <Route path={ROUTES.GRAMMAR} element={<GrammarPage />} />
-                          <Route path={ROUTES.PRICING} element={<PricingPage />} />
-                        <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />
+                                                  <Route path={`${ROUTES.GRAMMAR}/:pointId`} element={<GrammarPointPage />} />
+                        <Route path={`${ROUTES.GRAMMAR}/timeline`} element={<TimelinePage />} />
                         <Route path={`${ROUTES.GRAMMAR}/drill`} element={<GrammarDrillPage />} />
                         <Route path={`${ROUTES.GRAMMAR}/compare/:a/:b`} element={<ComparePage />} />
                         <Route path={`${ROUTES.GRAMMAR}/decide/:treeId`} element={<DecisionPage />} />
@@ -135,6 +157,12 @@ export default function App(): React.JSX.Element {
                         </Route>
                       </Route>
                     </Route>
+
+                    {/* URLs from before the five-section layout */}
+                    <Route path="/progress" element={<Navigate to={ROUTES.PROGRESS} replace />} />
+                    <Route path="/profile" element={<Navigate to={ROUTES.ME_ACCOUNT} replace />} />
+                    <Route path="/pricing" element={<Navigate to={ROUTES.ME_PLAN} replace />} />
+                    <Route path="/exams" element={<Navigate to={ROUTES.EXAMS} replace />} />
 
                     {/* Pre-v2 URLs */}
                     <Route path="/dictation" element={<Navigate to={ROUTES.DICTATION} replace />} />

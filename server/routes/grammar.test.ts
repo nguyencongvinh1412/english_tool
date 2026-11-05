@@ -191,6 +191,35 @@ describe('grammar drill', () => {
     expect(mistakes).toEqual([expect.objectContaining({ pointId: 'past-simple', count: 5 })]);
   });
 
+  it('can use questions that already exist, with no AI, and says so when there are too few', async () => {
+    mockDrillAi();
+    const agent = await signIn(app, await createUser({ role: 'admin' }));
+    const targets = [{ pointId: 'present-perfect' }, { pointId: 'past-simple' }];
+
+    // Nothing exists yet: no AI call and a clear refusal
+    aiReply.mockClear();
+    const none = await agent.post('/api/grammar/drill').send({ targets, count: 10, ai: false });
+    expect(none.status).toBe(409);
+    expect(none.body.code).toBe('not_enough_existing');
+    expect(aiReply).not.toHaveBeenCalled();
+
+    // After a drill written by the AI, the same questions can be used again without it
+    const first = await agent.post('/api/grammar/drill').send({ targets, count: 10 });
+    expect(first.status).toBe(200);
+    aiReply.mockClear();
+    const again = await agent.post('/api/grammar/drill').send({ targets, count: 10, ai: false });
+    expect(again.status).toBe(200);
+    expect(aiReply).not.toHaveBeenCalled();
+    expect(again.body.drill.id).not.toBe(first.body.drill.id);
+    expect(again.body.drill.items).toHaveLength(10);
+    const prompts = new Set(first.body.drill.items.map((i: { prompt: string }) => i.prompt));
+    expect(again.body.drill.items.every((i: { prompt: string }) => prompts.has(i.prompt))).toBe(true);
+
+    // It can be scored like any drill
+    const answers = again.body.drill.items.map(() => ({ correct: true }));
+    expect((await agent.post(`/api/grammar/drill/${again.body.drill.id}/result`).send({ answers })).status).toBe(200);
+  });
+
   it('rejects bad requests and keeps a drill to its owner', async () => {
     mockDrillAi();
     const agent = await signIn(app, await createUser({ role: 'admin' }));

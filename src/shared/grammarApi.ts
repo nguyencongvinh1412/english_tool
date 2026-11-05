@@ -169,12 +169,13 @@ export const grammarApi = {
       method: 'POST',
       json: { correct, total, durationSec },
     }),
-  drill: (targets: { pointId: string; uses?: number[] }[], count: number) =>
+  /** `ai: false` builds the drill from questions that already exist: no AI, no credits */
+  drill: (targets: { pointId: string; uses?: number[] }[], count: number, ai = true) =>
     apiFetch<{ drill: { id: string; items: DrillItem[] } }>('/api/grammar/drill', {
       method: 'POST',
-      json: { targets, count, model: getSelectedModel() ?? undefined },
+      json: { targets, count, ai, model: getSelectedModel() ?? undefined },
     }).then((r) => {
-      window.dispatchEvent(new Event(AI_USED_EVENT));
+      if (ai) window.dispatchEvent(new Event(AI_USED_EVENT));
       return r;
     }),
   drillResult: (id: string, answers: DrillAnswer[], durationSec: number) =>
@@ -197,7 +198,7 @@ export const grammarPath = (id: string) => `/grammar/${id}`;
 
 /** Drill builder, optionally opened with a point or a topic already chosen */
 export const drillPath = (choice?: { point?: string; cluster?: string }) => {
-  const query = choice?.point ? `?point=${encodeURIComponent(choice.point)}` : choice?.cluster ? `?cluster=${encodeURIComponent(choice.cluster)}` : '';
+  const query = choice?.point ? `?point=${choice.point.split(',').map(encodeURIComponent).join(',')}` : choice?.cluster ? `?cluster=${encodeURIComponent(choice.cluster)}` : '';
   return `/grammar/drill${query}`;
 };
 

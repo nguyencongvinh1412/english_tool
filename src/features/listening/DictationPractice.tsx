@@ -5,20 +5,22 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Badge, Banner, Button, Card, Icon, ProgressBar } from '@/design';
+import { Banner, Button, Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useTextToSpeech } from '@/hooks';
 import { useProgress } from '@/shared/progress';
 import { prefetchScript } from '@/shared/speech';
+import { PracticeHeader } from '@/features/practice/PracticeHeader';
+import { ActivityProgress } from '@/features/practice/ActivityProgress';
 import type { DictationLesson } from '@/constants/dictations';
 import { checkDictation, maskWord, revealNextWord, type DictationCheckResult } from '@/utils/dictation';
 import { isImeComposing } from '@/shared/ime';
 
 /** Playback speed options */
 const SPEEDS = [
-  { label: '0.6×', rate: 0.6 },
-  { label: '0.8×', rate: 0.8 },
+  { label: '0.75×', rate: 0.75 },
   { label: '1×', rate: 1 },
+  { label: '1.25×', rate: 1.25 },
 ] as const;
 
 const DEFAULT_SPEED_INDEX = 1;
@@ -178,17 +180,7 @@ export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, is
     return <Banner tone="danger">{t.dictation.ttsUnsupported}</Banner>;
   }
 
-  const header = (
-    <div className="dict-head">
-      <Button variant="ghost" icon="arrowLeft" onClick={onExit}>
-        {t.dictation.lessons}
-      </Button>
-      <h2 className="dict-head__title">{lesson.title}</h2>
-      <Badge tone={lesson.difficulty === 'easy' ? 'success' : lesson.difficulty === 'medium' ? 'warning' : 'danger'}>
-        {t.dictation.levels[lesson.difficulty]}
-      </Badge>
-    </div>
-  );
+  const header = <PracticeHeader title={lesson.title} level={t.dictation.levels[lesson.difficulty]} onBack={onExit} />;
 
   if (isFinished) {
     const perfect = outcomes.filter((o) => !o.revealed && o.hints === 0).length;
@@ -230,10 +222,7 @@ export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, is
     <div className="dict">
       {header}
 
-      <div className="dict-progress">
-        <ProgressBar value={(sentenceIndex / totalSentences) * 100} tone="listening" label={t.dictation.sentenceOf(sentenceIndex + 1, totalSentences)} />
-        <span className="dict-progress__label">{t.dictation.sentenceOf(sentenceIndex + 1, totalSentences)}</span>
-      </div>
+      <ActivityProgress label={t.dictation.sentenceOf(sentenceIndex + 1, totalSentences)} index={sentenceIndex} total={totalSentences} />
 
       <Card padding="lg" className="dict-card">
         <div className="dict-player">

@@ -3,9 +3,12 @@
  * One review session of English words: new words are introduced, then each card is asked with a
  * question that gets harder as the word is remembered; the answer grades the card
  */
+import { PracticeHeader } from '@/features/practice/PracticeHeader';
+import { ActivityProgress } from '@/features/practice/ActivityProgress';
+import { useFocusMode } from '@/features/practice/useFocusMode';
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Badge, Banner, Button, Card, Icon, ProgressBar, Spinner, TextInput } from '@/design';
+import { Badge, Banner, Button, Card, Icon, Spinner, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
@@ -135,6 +138,7 @@ const Question: React.FC<{ card: QueuedCard; mode: QuestionMode; onAnswer: (corr
  * One session: new words are introduced, then every card is asked; answers grade the card
  */
 export const Session: React.FC<{ deckId: string; title: string; onDone: () => void }> = ({ deckId, title, onDone }) => {
+  useFocusMode();
   const { t } = useI18n();
   const { record } = useProgress();
   const [queue, setQueue] = useState<QueuedCard[] | null>(null);
@@ -247,14 +251,10 @@ export const Session: React.FC<{ deckId: string; title: string; onDone: () => vo
   }
 
   const card = current!;
-  const left = phase === 'feedback' ? nextQueue.current.length : queue.length;
   return (
     <div className="vocab-session">
-      <div className="vocab-session__top">
-        <Button variant="ghost" size="sm" icon="x" onClick={onDone} aria-label={t.vocab.backToDecks} />
-        <ProgressBar value={stats.total ? (Math.min(stats.answered, stats.total) / stats.total) * 100 : 0} tone="reading" size="sm" label={t.vocab.progress} />
-        <span className="vocab-session__left">{t.vocab.left(left)}</span>
-      </div>
+      <PracticeHeader title={t.enVocab.sessionTitle} level={null} onBack={onDone} />
+      <ActivityProgress label={t.enVocab.cardOf(Math.min(stats.answered + 1, stats.total || 1), stats.total || 1)} index={Math.min(stats.answered, stats.total)} total={stats.total || 1} />
 
       <Card padding="lg" className="vocab-card en-card" key={`${card.item.id}-${stats.answered}-${phase}`}>
         <div className="vocab-card__badges">

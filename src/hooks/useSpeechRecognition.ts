@@ -7,6 +7,8 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 /** Speech recognition hook state */
+export type SpeechErrorKind = 'denied' | 'no-mic' | 'no-speech' | 'network' | 'other';
+
 interface UseSpeechRecognitionState {
   /** Whether speech recognition is currently listening */
   isListening: boolean;
@@ -16,6 +18,8 @@ interface UseSpeechRecognitionState {
   interimTranscript: string;
   /** Error message if recognition failed */
   error: string | null;
+  /** What kind of failure it was, so screens can word it in the learner's language */
+  errorKind: SpeechErrorKind | null;
   /** Whether browser supports speech recognition */
   isSupported: boolean;
 }
@@ -87,6 +91,7 @@ export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 
   const [transcript, setTranscript] = useState('');
   const [interimTranscript, setInterimTranscript] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [errorKind, setErrorKind] = useState<SpeechErrorKind | null>(null);
 
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
@@ -140,21 +145,26 @@ export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 
 
       switch (event.error) {
         case 'no-speech':
+          setErrorKind('no-speech');
           setError('No speech detected. Please try speaking again.');
           break;
         case 'audio-capture':
+          setErrorKind('no-mic');
           setError('No microphone found. Please check your microphone.');
           break;
         case 'not-allowed':
+          setErrorKind('denied');
           setError('Microphone permission denied. Please allow microphone access.');
           break;
         case 'network':
+          setErrorKind('network');
           setError('Speech recognition unavailable. Please check your internet connection or try typing instead.');
           break;
         case 'aborted':
           // User aborted - no error message needed
           break;
         default:
+          setErrorKind('other');
           setError('Speech recognition error. Please try again or type your message.');
       }
     };
@@ -182,6 +192,7 @@ export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 
 
     // Clear error when starting new session
     setError(null);
+    setErrorKind(null);
 
     try {
       recognitionRef.current.start();
@@ -215,6 +226,7 @@ export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 
     setTranscript('');
     setInterimTranscript('');
     setError(null);
+    setErrorKind(null);
   }, []);
 
   return {
@@ -222,6 +234,7 @@ export function useSpeechRecognition(language: keyof typeof RECOGNITION_LANGS = 
     transcript,
     interimTranscript,
     error,
+    errorKind,
     isSupported,
     startListening,
     stopListening,

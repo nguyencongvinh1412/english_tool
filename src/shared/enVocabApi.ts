@@ -1,9 +1,10 @@
 /**
  * English vocabulary decks and cards (mirrors the /vocab/en routes in server/routes/vocab.ts)
  */
-import { apiFetch } from './http';
+import { ApiRequestError, apiFetch } from './http';
+import { loadOffline, saveOffline } from './offlineCache';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
-import type { Grade } from './vocabApi';
+import type { Grade, WordStatus } from './vocabApi';
 import type { WordDefinition } from './contentApi';
 
 export type EnDeckGroup = 'core' | 'toeic' | 'ielts';
@@ -31,6 +32,8 @@ export interface EnDeck {
   seen: number;
   due: number;
   mastered: number;
+  /** Known fairly well: reviewed at a gap of a week or more, not yet mastered */
+  good: number;
   newAvailable: number;
 }
 
@@ -45,7 +48,7 @@ export interface EnCard {
 }
 
 export interface SavedWord extends EnWord {
-  status: 'new' | 'learning' | 'mastered';
+  status: WordStatus;
   source: 'reading' | 'listening' | 'manual';
   context: string | null;
   savedAt: string;
@@ -70,11 +73,27 @@ const aiUsed = <T,>(r: T) => {
   return r;
 };
 
+/** A GET whose last answer is kept on the device, to fall back on when there is no connection */
+async function cachedGet<T>(path: string, key: string): Promise<T> {
+  try {
+    const data = await apiFetch<T>(path);
+    saveOffline(key, data);
+    return data;
+  } catch (error) {
+    if (error instanceof ApiRequestError && error.code === 'network') {
+      const copy = loadOffline<T>(key);
+      if (copy) return copy.value;
+    }
+    throw error;
+  }
+}
+
 export const enVocabApi = {
-  decks: () => apiFetch<{ decks: EnDeck[]; dueTotal: number; source: { built: string } | null }>('/api/vocab/en/decks'),
-  session: (deck: string) => apiFetch<{ cards: EnCard[] }>(`/api/vocab/en/session?deck=${encodeURIComponent(deck)}`),
+  decks: () => cachedGet<{ decks: EnDeck[]; dueTotal: number; source: { built: string } | null }>('/api/vocab/en/decks', 'en-decks'),
+  /** The cards of a session; without a connection, the ones fetched last time for this deck */
+  session: (deck: string) => cachedGet<{ cards: EnCard[] }>(`/api/vocab/en/session?deck=${encodeURIComponent(deck)}`, `en-session:${deck}`),
   items: (deck: string, offset = 0) =>
-    apiFetch<{ items: (EnWord & { status: 'new' | 'learning' | 'mastered' })[]; nextOffset: number | null }>(
+    apiFetch<{ items: (EnWord & { status: WordStatus })[]; nextOffset: number | null }>(
       `/api/vocab/en/items?deck=${encodeURIComponent(deck)}&offset=${offset}`
     ),
   bank: () => apiFetch<{ words: SavedWord[]; due: number }>('/api/vocab/en/bank'),

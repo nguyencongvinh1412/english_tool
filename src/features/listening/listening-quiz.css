@@ -106,11 +106,11 @@
 
 .lq-line__speaker {
   font-weight: 700;
-  color: var(--listening-edge);
+  color: var(--listening-text);
 }
 
 .lq-line--B .lq-line__speaker {
-  color: var(--speaking-edge);
+  color: var(--speaking-text);
 }
 
 @media (prefers-color-scheme: dark) {

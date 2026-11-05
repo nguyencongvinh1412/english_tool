@@ -1,19 +1,20 @@
 /**
  * AppShell
- * Sidebar on desktop, top bar + bottom tab bar on mobile
+ * Five sections everywhere: Today, Roadmap, Practice, Tests, Me. Sidebar on desktop, tab bar on phones.
+ * The study language, streak and AI credits sit in the header; they are settings and status, not navigation.
  */
-import { creditsLeft } from '@/shared/billingApi';
 import type React from 'react';
-import { NavLink, Outlet, Link, useLocation } from 'react-router-dom';
 import { Suspense, useEffect, useState } from 'react';
+import { NavLink, Outlet, Link, useLocation } from 'react-router-dom';
 import { PageFallback } from './PageFallback';
 import { Icon, type IconName } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useAuth, useCurrentUser } from './AuthProvider';
-import { LocaleToggle } from './LocaleToggle';
-import { ThemeMenu } from './ThemeMenu';
-import { ModelPicker } from './ModelPicker';
-import { StudyLanguageSwitch } from './StudyLanguageSwitch';
+import { useCurrentUser } from './AuthProvider';
+import { AppStatus } from './AppStatus';
+import { PageErrorBoundary } from './PageErrorBoundary';
+import { NotificationChip } from './NotificationChip';
+import { CreditChip } from './CreditChip';
+import { StudyLanguageMenu } from './StudyLanguageMenu';
 import { ROUTES } from './routes';
 import { useProgress } from '@/shared/progress';
 import { warmVoices } from '@/shared/speech';
@@ -23,11 +24,9 @@ interface NavItem {
   to: string;
   icon: IconName;
   label: string;
-  /** Color token for the active state */
-  tone: string;
-  /** Shown in the mobile tab bar */
-  mobile?: boolean;
   end?: boolean;
+  /** Other paths that belong to this section (activities, tools) */
+  also?: string[];
 }
 
 /**
@@ -84,10 +83,12 @@ function useSidebarCollapsed(): [boolean, () => void] {
   return [collapsed, toggle];
 }
 
+const startsWith = (pathname: string, prefix: string) => pathname === prefix || pathname.startsWith(`${prefix}/`);
+
 export const AppShell: React.FC = () => {
   const { t } = useI18n();
-  const { logout } = useAuth();
   const user = useCurrentUser();
+  const { pathname } = useLocation();
 
   // The voice server may be asleep; start it now so natural voices are ready when a lesson needs them
   useEffect(() => {
@@ -95,65 +96,38 @@ export const AppShell: React.FC = () => {
   }, []);
 
   const items: NavItem[] = [
-    { to: ROUTES.HOME, icon: 'home', label: t.nav.home, tone: 'brand', mobile: true, end: true },
-    { to: ROUTES.LISTENING, icon: 'headphones', label: t.nav.listening, tone: 'listening', mobile: true },
-    { to: ROUTES.READING, icon: 'book', label: t.nav.reading, tone: 'reading' },
-    { to: ROUTES.SPEAKING, icon: 'mic', label: t.nav.speaking, tone: 'speaking', mobile: true },
-    { to: ROUTES.WRITING, icon: 'pen', label: t.nav.writing, tone: 'writing' },
-    // The grammar map covers English only
-    ...(user.studyLanguage === 'en' ? [{ to: ROUTES.GRAMMAR, icon: 'graph' as IconName, label: t.nav.grammar, tone: 'reading' }] : []),
-    { to: ROUTES.EXAMS, icon: 'exam', label: t.nav.exams, tone: 'exam', mobile: true },
-    { to: ROUTES.PROGRESS, icon: 'chart', label: t.nav.journey, tone: 'brand' },
-    { to: ROUTES.MAPS, icon: 'layers', label: t.nav.maps, tone: 'writing' },
-  ];
-
-  const accountItems: NavItem[] = [
-    { to: ROUTES.PRICING, icon: 'ticket', label: t.nav.pricing, tone: 'brand' },
-    { to: ROUTES.PROFILE, icon: 'user', label: t.nav.profile, tone: 'brand' },
-    ...(user.role === 'admin' ? [{ to: ROUTES.ADMIN, icon: 'shield' as IconName, label: t.nav.admin, tone: 'exam' }] : []),
+    { to: ROUTES.HOME, icon: 'today', label: t.nav.today, end: true },
+    { to: ROUTES.ROADMAP, icon: 'roadmap', label: t.nav.roadmap },
+    {
+      to: ROUTES.PRACTICE,
+      icon: 'practice',
+      label: t.nav.practice,
+      also: [ROUTES.LISTENING, ROUTES.READING, ROUTES.SPEAKING, ROUTES.WRITING, ROUTES.VOCABULARY, ROUTES.GRAMMAR, '/japanese'],
+    },
+    { to: ROUTES.EXAMS, icon: 'tests', label: t.nav.tests },
+    { to: ROUTES.ME, icon: 'user', label: t.nav.me, also: [ROUTES.MAPS, ROUTES.ADMIN, ROUTES.PRIVACY] },
   ];
 
   const [collapsed, toggleCollapsed] = useSidebarCollapsed();
-
-  // Phones show the main destinations in the tab bar; everything else sits behind "More"
-  const allItems = [...items, ...accountItems];
-  const tabItems = allItems.filter((item) => item.mobile);
-  const moreItems = allItems.filter((item) => !item.mobile);
-  const { pathname } = useLocation();
-  const [moreOpen, setMoreOpen] = useState(false);
-  const moreActive = moreItems.some((item) => pathname === item.to || pathname.startsWith(`${item.to}/`));
-
-  // Esc closes the sheet
-  useEffect(() => {
-    if (!moreOpen) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMoreOpen(false);
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [moreOpen]);
-
-  const renderLink = (item: NavItem, variant: 'side' | 'tab' | 'sheet') => (
-    <NavLink
-      key={item.to}
-      to={item.to}
-      end={item.end}
-      title={variant === 'side' && collapsed ? item.label : undefined}
-      className={({ isActive }) => `${variant}-link ${isActive ? `${variant}-link--active` : ''}`}
-      style={{ ['--nav-tone' as string]: `var(--${item.tone})` }}
-    >
-      <Icon name={item.icon} size={variant === 'side' ? 22 : 24} />
-      <span className={`${variant}-link__label`}>{item.label}</span>
-    </NavLink>
-  );
-
   const { summary, lastGain } = useProgress();
   const streak = summary?.streak;
-  // With plans enforced the pill shows the credits left; otherwise the old daily request count
-  const left = creditsLeft(user.credits);
-  const quota = user.aiQuota;
-  const quotaRatio = left !== null ? 1 - left / Math.max(1, Math.min(user.credits.day.limit ?? 1, user.credits.month.limit ?? 1)) : quota.limit ? quota.used / quota.limit : 0;
-  const quotaText = left !== null ? t.billing.creditsLeft(left) : t.shell.aiQuota(quota.used, quota.limit);
+
+  const renderLink = (item: NavItem, variant: 'side' | 'tab') => {
+    const active = item.end ? pathname === item.to : startsWith(pathname, item.to) || (item.also ?? []).some((prefix) => startsWith(pathname, prefix));
+    return (
+      <NavLink
+        key={item.to}
+        to={item.to}
+        end={item.end}
+        title={variant === 'side' && collapsed ? item.label : undefined}
+        aria-current={active ? 'page' : undefined}
+        className={`${variant}-link ${active ? `${variant}-link--active` : ''}`}
+      >
+        <Icon name={item.icon} size={variant === 'side' ? 22 : 24} />
+        <span className={`${variant}-link__label`}>{item.label}</span>
+      </NavLink>
+    );
+  };
 
   return (
     <div className={`shell ${collapsed ? 'shell--collapsed' : ''}`}>
@@ -171,29 +145,9 @@ export const AppShell: React.FC = () => {
             <Icon name={collapsed ? 'chevronRight' : 'chevronLeft'} size={20} />
           </button>
         </div>
-        <div className="sidebar__study">
-          <StudyLanguageSwitch compact={collapsed} />
-        </div>
-
         <nav className="sidebar__nav" aria-label={t.nav.mainNav}>
           {items.map((item) => renderLink(item, 'side'))}
-          <hr className="sidebar__divider" />
-          {accountItems.map((item) => renderLink(item, 'side'))}
         </nav>
-
-        <div className="sidebar__footer">
-          <ModelPicker />
-          <div className="sidebar__user">
-            <Avatar name={user.displayName} />
-            <div className="sidebar__user-text">
-              <span className="sidebar__user-name">{user.displayName}</span>
-              <span className="sidebar__user-email">{user.email}</span>
-            </div>
-            <button type="button" className="icon-button" onClick={logout} aria-label={t.nav.signOut} title={t.nav.signOut}>
-              <Icon name="logout" size={20} />
-            </button>
-          </div>
-        </div>
       </aside>
 
       <div className="shell__main">
@@ -201,36 +155,29 @@ export const AppShell: React.FC = () => {
           <div className="topbar__brand">
             <Logo compact />
           </div>
-          <div className="topbar__study">
-            <StudyLanguageSwitch compact />
-          </div>
           <div className="topbar__spacer" />
           {streak && (
-            <span
-              className={`streak-pill ${streak.activeToday ? 'streak-pill--lit' : ''}`}
-              title={streak.activeToday ? t.progress.keepStreak : streak.current > 0 ? t.progress.saveStreak : t.progress.startStreak}
-            >
-              <Icon name="flame" size={18} />
-              <span className="streak-pill__value">{streak.current}</span>
+            <span className={`chip ${streak.activeToday ? 'chip--streak' : 'chip--plain'}`} title={streak.activeToday ? t.progress.keepStreak : streak.current > 0 ? t.progress.saveStreak : t.progress.startStreak}>
+              <Icon name="flame" size={16} />
+              <span className="chip__text">{streak.current}</span>
               <span className="visually-hidden">{t.progress.streak(streak.current)}</span>
             </span>
           )}
-          <Link to={ROUTES.PRICING} className={`quota-pill ${quotaRatio >= 0.9 ? 'quota-pill--low' : ''}`} title={quotaText}>
-            <Icon name="bolt" size={16} />
-            <span className="quota-pill__value">{left !== null ? left : quota.limit === null ? '∞' : Math.max(0, quota.limit - quota.used)}</span>
-            <span className="visually-hidden">{quotaText}</span>
-          </Link>
-          <ThemeMenu />
-          <LocaleToggle />
-          <Link to={ROUTES.PROFILE} className="topbar__avatar" aria-label={t.nav.profile}>
+          <NotificationChip />
+          <CreditChip />
+          <StudyLanguageMenu />
+          <Link to={ROUTES.ME} className="topbar__avatar" aria-label={t.nav.me}>
             <Avatar name={user.displayName} />
           </Link>
         </header>
 
         <main className="content" id="main">
-          <Suspense fallback={<PageFallback />}>
-            <Outlet />
-          </Suspense>
+          <AppStatus />
+          <PageErrorBoundary>
+            <Suspense fallback={<PageFallback />}>
+              <Outlet />
+            </Suspense>
+          </PageErrorBoundary>
         </main>
 
         {lastGain && (
@@ -241,35 +188,8 @@ export const AppShell: React.FC = () => {
         )}
       </div>
 
-      {moreOpen && (
-        <>
-          <button type="button" className="more-backdrop" aria-label={t.common.close} onClick={() => setMoreOpen(false)} />
-          <div className="more-sheet" id="more-sheet" role="dialog" aria-label={t.nav.more}>
-            <nav className="more-sheet__links" aria-label={t.nav.more} onClick={() => setMoreOpen(false)}>
-              {moreItems.map((item) => renderLink(item, 'sheet'))}
-            </nav>
-            <ModelPicker />
-            <button type="button" className="more-sheet__signout" onClick={logout}>
-              <Icon name="logout" size={20} />
-              {t.nav.signOut}
-            </button>
-          </div>
-        </>
-      )}
-
       <nav className="tabbar" aria-label={t.nav.mainNav}>
-        {tabItems.map((item) => renderLink(item, 'tab'))}
-        <button
-          type="button"
-          className={`tab-link ${moreOpen || moreActive ? 'tab-link--active' : ''}`}
-          style={{ ['--nav-tone' as string]: 'var(--brand)' }}
-          aria-expanded={moreOpen}
-          aria-controls={moreOpen ? 'more-sheet' : undefined}
-          onClick={() => setMoreOpen((open) => !open)}
-        >
-          <Icon name="menu" size={24} />
-          <span className="tab-link__label">{t.nav.more}</span>
-        </button>
+        {items.map((item) => renderLink(item, 'tab'))}
       </nav>
     </div>
   );

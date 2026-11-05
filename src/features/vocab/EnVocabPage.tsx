@@ -3,9 +3,14 @@
  * English vocabulary: decks (core CEFR, TOEIC, IELTS academic) with spaced repetition, today's mixed
  * review, the match game, the learner's saved words and statistics
  */
+import { useStageName } from '@/features/roadmap/useStageName';
+import { WordStatusBadge } from './WordStatusBadge';
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Badge, Banner, Button, Card, Icon, PageHeader, ProgressBar, Spinner, Tabs } from '@/design';
+import { Link } from 'react-router-dom';
+import { Badge, Banner, Button, Card, Icon, MasteryBar, Skeleton, Tabs, Tag } from '@/design';
+import { ROUTES } from '@/app/routes';
+import { hasRoadmap, roadmapApi, type Stage } from '@/shared/roadmapApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { enVocabApi, meaningOf, type EnDeck, type EnDeckGroup } from '@/shared/enVocabApi';
@@ -59,8 +64,9 @@ const DeckList: React.FC<{ deck: EnDeck; onBack: () => void }> = ({ deck, onBack
               <span className="en-row__term" lang="en">
                 {item.term}
               </span>
+              {item.ipa && <span className="en-row__ipa">/{item.ipa}/</span>}
               <span className="vocab-row__meaning">{meaningOf(item)}</span>
-              <Badge tone={item.status === 'mastered' ? 'success' : item.status === 'learning' ? 'warning' : 'neutral'}>{t.vocab.status[item.status]}</Badge>
+              <WordStatusBadge status={item.status} />
             </button>
             {open === item.id && <WordDetails word={item} />}
           </li>
@@ -83,6 +89,12 @@ export const EnVocabPage: React.FC = () => {
   const [view, setView] = useState<{ type: 'review'; deckId: string; title: string } | { type: 'list'; deck: EnDeck } | { type: 'match' } | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [reload, setReload] = useState(0);
+  /** Levels of the roadmap's stages, to mark the decks it asks for */
+  const [roadmapLevels, setRoadmapLevels] = useState<string[]>([]);
+  /** The stage the learner is in now: its level and name */
+  const [currentStage, setCurrentStage] = useState<Stage | null>(null);
+  const stageName = useStageName();
+  const stage = currentStage ? { level: currentStage.level, name: stageName(currentStage) } : null;
 
   useEffect(() => {
     enVocabApi
@@ -94,44 +106,40 @@ export const EnVocabPage: React.FC = () => {
       .catch(setError);
   }, [reload]);
 
+  useEffect(() => {
+    roadmapApi
+      .get()
+      .then((data) => {
+        setRoadmapLevels(hasRoadmap(data) ? [...new Set(data.roadmap.stages.map((s) => s.level))] : []);
+        const current = hasRoadmap(data) ? data.roadmap.stages[data.progress.current] : null;
+        setCurrentStage(current && current.kind === 'level' ? current : null);
+      })
+      .catch(() => {});
+  }, []);
+
   const back = useCallback(() => {
     setView(null);
     setReload((n) => n + 1);
   }, []);
 
   const deckTitle = (deck: EnDeck) => `${t.enVocab.groups[deck.group]} ${deck.label}`;
+  const reviewDaily = () => setView({ type: 'review', deckId: 'en-daily', title: t.wordBank.dailyTitle });
+  const minutes = Math.min(10, Math.max(3, Math.ceil(dueTotal / 4)));
+  /** New words still available today in the deck of the stage's level */
+  const roadmapNew = stage ? (decks?.find((d) => d.group === 'core' && d.label === stage.level)?.newAvailable ?? null) : null;
 
   if (view?.type === 'review') return <Session deckId={view.deckId} title={view.title} onDone={back} />;
   if (view?.type === 'list') return <DeckList deck={view.deck} onBack={back} />;
 
   return (
     <div className="vocab">
-      <PageHeader eyebrow="Vocabulary" title={t.skills.activities.enVocab.title} description={t.enVocab.intro} />
-      {error !== null && <Banner tone="danger">{errorMessage(error, t)}</Banner>}
-
-      <div className="en-actions">
-        <Card padding="lg" className="en-action en-action--daily">
-          <Icon name="bolt" size={26} />
-          <div>
-            <h2 className="en-action__title">{t.wordBank.dailyTitle}</h2>
-            <p className="en-action__body">{t.wordBank.dailyBody(dueTotal)}</p>
-          </div>
-          <Button onClick={() => setView({ type: 'review', deckId: 'en-daily', title: t.wordBank.dailyTitle })} disabled={dueTotal === 0}>
-            {t.wordBank.dailyStart}
-          </Button>
-        </Card>
-        <Card padding="lg" className="en-action">
-          <Icon name="sparkles" size={26} />
-          <div>
-            <h2 className="en-action__title">{t.wordBank.matchTitle}</h2>
-            <p className="en-action__body">{t.wordBank.matchBody}</p>
-          </div>
-          <Button variant="secondary" onClick={() => setView({ type: 'match' })}>
-            {t.wordBank.matchStart}
-          </Button>
-        </Card>
-      </div>
-      {view?.type === 'match' && <MatchGame onClose={back} />}
+      <header className="plan__head">
+        <Link to={ROUTES.PRACTICE} className="plan__back" aria-label={t.nav.practice}>
+          <Icon name="arrowLeft" size={20} />
+        </Link>
+        <h1>{t.enVocab.pageTitle}</h1>
+      </header>
+      {error !== null && <Banner tone="warning">{errorMessage(error, t)}</Banner>}
 
       <Tabs<Tab>
         label={t.skills.activities.enVocab.title}
@@ -144,53 +152,91 @@ export const EnVocabPage: React.FC = () => {
         ]}
       />
 
-      <div role="tabpanel" aria-labelledby={`tab-${tab}`}>
+      <div role="tabpanel" aria-labelledby={`tab-${tab}`} className="vocab__panel">
         {tab === 'bank' && <WordBankTab onReview={() => setView({ type: 'review', deckId: 'en-bank', title: t.wordBank.tabs.bank })} />}
-        {tab === 'stats' && <VocabStatsTab />}
-        {tab === 'decks' &&
-          (!decks ? (
-            <Spinner size={30} label={t.common.loading} />
-          ) : (
-            GROUPS.map((group) => (
-              <section key={group} className="en-group">
-                <h2 className="en-group__title">{t.enVocab.groups[group]}</h2>
-                <p className="en-group__intro">{t.enVocab.groupIntros[group]}</p>
-                <div className="vocab-decks">
-                  {decks
-                    .filter((deck) => deck.group === group)
-                    .map((deck) => (
-                      <Card key={deck.id} padding="lg" className="vocab-deck reveal">
-                        <div className="vocab-deck__head">
-                          <span className="vocab-deck__glyph en-deck__glyph">{deck.label}</span>
-                          <div>
-                            <h3 className="vocab-deck__title">{deckTitle(deck)}</h3>
-                            <p className="vocab-deck__meta">{t.vocab.deckMeta(deck.total, deck.seen, deck.mastered)}</p>
+        {tab === 'stats' && <VocabStatsTab onReviewHard={() => setView({ type: 'review', deckId: 'en-hard', title: t.wordBank.statsHard })} />}
+        {tab === 'decks' && (
+          <>
+            <Card padding="md" className="vocab-today">
+              <div className="vocab-today__text">
+                <span className="vocab-today__label">{t.enVocab.todayLabel}</span>
+                <strong className="vocab-today__title">{dueTotal > 0 ? t.enVocab.todayLine(dueTotal, minutes) : t.enVocab.todayNone}</strong>
+                {dueTotal === 0 && <span className="vocab-today__note">{t.enVocab.todayNoneBody}</span>}
+                {roadmapNew !== null && stage && <span className="vocab-today__note">{t.enVocab.fromRoadmapLine(roadmapNew, stage.name)}</span>}
+              </div>
+              {dueTotal > 0 && (
+                <Button size="lg" onClick={reviewDaily} className="vocab-today__cta">
+                  {t.enVocab.reviewToday(dueTotal)}
+                </Button>
+              )}
+            </Card>
+
+            {!decks ? (
+              <Skeleton height={120} label={t.common.loading} />
+            ) : (
+              GROUPS.map((group) => (
+                <section key={group} className="en-group">
+                  <h2 className="en-group__title">{t.enVocab.groups[group]}</h2>
+                  <p className="en-group__intro">{t.enVocab.groupIntros[group]}</p>
+                  <div className="vocab-decks">
+                    {decks
+                      .filter((deck) => deck.group === group)
+                      .map((deck) => (
+                        <Card key={deck.id} padding="md" className="vocab-deck">
+                          <div className="vocab-deck__head">
+                            <div>
+                              <h3 className="vocab-deck__title">{deckTitle(deck)}</h3>
+                              <p className="vocab-deck__meta">{deck.total === 0 ? t.enVocab.deckEmpty : deck.seen === 0 ? t.enVocab.deckNew(deck.total) : t.enVocab.deckLine(deck.mastered, deck.total)}</p>
+                            </div>
+                            {deck.group === 'core' && roadmapLevels.includes(deck.label) && <Tag tone="brand">{t.enVocab.fromRoadmap}</Tag>}
                           </div>
-                        </div>
-                        <ProgressBar value={deck.total ? (deck.seen / deck.total) * 100 : 0} tone="reading" size="sm" label={t.vocab.progress} />
-                        <div className="vocab-deck__counts">
-                          <Badge tone={deck.due > 0 ? 'warning' : 'neutral'}>{t.vocab.due(deck.due)}</Badge>
-                          <Badge tone="brand">{t.vocab.newToday(deck.newAvailable)}</Badge>
-                        </div>
-                        <div className="vocab-deck__actions">
-                          <Button
-                            icon="bolt"
-                            onClick={() => setView({ type: 'review', deckId: deck.id, title: deckTitle(deck) })}
-                            disabled={deck.due + deck.newAvailable === 0}
-                          >
-                            {deck.due > 0 ? t.vocab.review : t.vocab.learn}
-                          </Button>
-                          <Button variant="ghost" onClick={() => setView({ type: 'list', deck })}>
-                            {t.vocab.browse}
-                          </Button>
-                        </div>
-                      </Card>
-                    ))}
-                </div>
-              </section>
-            ))
-          ))}
+                          <MasteryBar
+                            mastered={deck.mastered}
+                            good={deck.good}
+                            learning={Math.max(0, deck.seen - deck.mastered - deck.good)}
+                            fresh={Math.max(0, deck.total - deck.seen)}
+                            labels={t.enVocab.mastery}
+                          />
+                          <div className="vocab-deck__counts">
+                            <Badge tone={deck.due > 0 ? 'warning' : 'neutral'}>{t.vocab.due(deck.due)}</Badge>
+                            <Badge tone="brand">{t.vocab.newToday(deck.newAvailable)}</Badge>
+                          </div>
+                          <div className="vocab-deck__actions">
+                            <Button variant="secondary" icon="bolt" onClick={() => setView({ type: 'review', deckId: deck.id, title: deckTitle(deck) })} disabled={deck.due + deck.newAvailable === 0}>
+                              {deck.due > 0 ? t.vocab.review : t.vocab.learn}
+                            </Button>
+                            <Button variant="ghost" onClick={() => setView({ type: 'list', deck })}>
+                              {t.vocab.browse}
+                            </Button>
+                          </div>
+                        </Card>
+                      ))}
+                  </div>
+                </section>
+              ))
+            )}
+
+            <Card padding="md" className="vocab-match">
+              <div>
+                <h2 className="en-action__title">{t.wordBank.matchTitle}</h2>
+                <p className="en-action__body">{t.wordBank.matchBody}</p>
+              </div>
+              <Button variant="secondary" onClick={() => setView({ type: 'match' })}>
+                {t.wordBank.matchStart}
+              </Button>
+            </Card>
+            {view?.type === 'match' && <MatchGame onClose={back} />}
+          </>
+        )}
       </div>
+
+      {tab === 'decks' && dueTotal > 0 && (
+        <div className="vocab__cta">
+          <Button size="lg" block onClick={reviewDaily}>
+            {t.enVocab.reviewToday(dueTotal)}
+          </Button>
+        </div>
+      )}
 
       <p className="vocab-attribution">
         {t.vocab.sources} NGSL, TSL &amp; NAWL (Browne, Culligan &amp; Phillips,{' '}

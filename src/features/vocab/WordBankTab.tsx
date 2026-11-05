@@ -2,9 +2,10 @@
  * WordBankTab
  * The learner's saved English words: add a word by looking it up, review them, practise and remove
  */
+import { WordStatusBadge } from './WordStatusBadge';
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Badge, Banner, Button, Card, EmptyState, Spinner } from '@/design';
+import { Banner, Button, Card, EmptyState, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { contentApi, type WordDefinition } from '@/shared/contentApi';
@@ -95,8 +96,9 @@ export const WordBankTab: React.FC<{ onReview: () => void }> = ({ onReview }) =>
                   <span className="en-row__term" lang="en">
                     {word.term}
                   </span>
+                  {word.ipa && <span className="en-row__ipa">/{word.ipa}/</span>}
                   <span className="vocab-row__meaning">{meaningOf(word)}</span>
-                  <Badge tone={word.status === 'mastered' ? 'success' : word.status === 'learning' ? 'warning' : 'neutral'}>{t.vocab.status[word.status]}</Badge>
+                  <WordStatusBadge status={word.status} />
                 </button>
                 {open === word.id && (
                   <div className="word-bank__detail">

@@ -9,6 +9,7 @@ import { db } from '../db/client.js';
 import { attempts } from '../db/schema.js';
 import { currentUser, requireAuth } from '../auth/middleware.js';
 import { buildJourney } from '../progress/journey.js';
+import { buildToday, TODAY_BUDGETS } from '../progress/today.js';
 import { ACTIVITY_SKILLS, getProgressSummary, recordAttempt, toPublicAttempt, type Activity } from '../services/progress.js';
 
 const ACTIVITIES = Object.keys(ACTIVITY_SKILLS) as [Activity, ...Activity[]];
@@ -57,6 +58,10 @@ const historyQuerySchema = z.object({
 });
 
 const summaryQuerySchema = z.object({ language: z.enum(['en', 'ja']).optional() });
+const todayQuerySchema = z.object({
+  minutes: z.coerce.number().pipe(z.union(TODAY_BUDGETS.map((n) => z.literal(n)) as unknown as [z.ZodLiteral<10>, z.ZodLiteral<20>, z.ZodLiteral<45>])).default(45),
+  language: z.enum(['en', 'ja']).optional(),
+});
 
 const bestQuerySchema = z.object({ activity: z.enum(ACTIVITIES) });
 
@@ -148,6 +153,15 @@ export function createProgressRouter(): Router {
     const { language } = summaryQuerySchema.parse(req.query);
     const user = currentUser(req);
     res.json(await buildJourney(user, language ?? user.studyLanguage));
+  });
+
+  /**
+   * GET /today - What to do now, fitted to the minutes the learner has (10, 20 or 45)
+   */
+  router.get('/today', requireAuth, async (req, res) => {
+    const { minutes, language } = todayQuerySchema.parse(req.query);
+    const user = currentUser(req);
+    res.json(await buildToday(user, minutes, language ?? user.studyLanguage));
   });
 
   return router;

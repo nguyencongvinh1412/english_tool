@@ -4,7 +4,10 @@
  */
 import type React from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import { Button, PageHeader, Select } from '@/design';
+import { useNavigate } from 'react-router-dom';
+import { Button, Select } from '@/design';
+import { ROUTES } from '@/app/routes';
+import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude } from '@/hooks';
 import { DEFAULT_TOPIC, TOPICS, type ConversationTopic } from '@/constants/prompts';
@@ -13,6 +16,7 @@ import { useSessionRecorder } from './useSessionRecorder';
 
 export const ConversationPage: React.FC = () => {
   const { t } = useI18n();
+  const navigate = useNavigate();
   const [topic, setTopic] = useState<ConversationTopic>(DEFAULT_TOPIC);
   const [sessionId, setSessionId] = useState(0);
   const context = useMemo(() => ({ mode: 'conversation' as const, topic }), [topic]);
@@ -36,30 +40,24 @@ export const ConversationPage: React.FC = () => {
 
   return (
     <div className="speak">
-      <PageHeader
-        eyebrow={t.nav.speaking}
-        title={t.conversation.title}
-        description={t.conversation.description}
-        actions={
-          <>
-            <label className="topic-picker">
-              <span className="visually-hidden">{t.chat.topic}</span>
-              <Select value={topic} onChange={(event) => restart(event.target.value as ConversationTopic)} disabled={isLoading}>
-                {TOPICS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </Select>
-            </label>
-            {messages.length > 0 && (
-              <Button variant="secondary" icon="plus" onClick={() => restart()} disabled={isLoading}>
-                {t.chat.newConversation}
-              </Button>
-            )}
-          </>
-        }
-      />
+      <PracticeHeader title={t.conversation.title} level={null} onBack={() => navigate(ROUTES.PRACTICE)} />
+      <div className="speak-toolbar">
+        <label className="topic-picker">
+          <span className="visually-hidden">{t.chat.topic}</span>
+          <Select value={topic} onChange={(event) => restart(event.target.value as ConversationTopic)} disabled={isLoading}>
+            {TOPICS.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </Select>
+        </label>
+        {messages.length > 0 && (
+          <Button variant="secondary" icon="plus" onClick={() => restart()} disabled={isLoading}>
+            {t.chat.newConversation}
+          </Button>
+        )}
+      </div>
 
       <ChatPanel messages={messages} isLoading={isLoading} error={error} onSend={sendUserMessage} />
     </div>

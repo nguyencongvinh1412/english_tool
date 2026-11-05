@@ -2,6 +2,9 @@
  * WordDetails
  * An English word with pronunciation, meanings, collocations and example, and a sentence-writing practice
  */
+import { Tag } from '@/design';
+import { useCurrentUser } from '@/app/AuthProvider';
+import { tasksLeft } from '@/shared/billingApi';
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Badge, Banner, Button, Icon } from '@/design';
@@ -59,6 +62,8 @@ export const WordDetails: React.FC<{ word: EnWord }> = ({ word }) => {
  */
 export const SentencePractice: React.FC<{ word: EnWord }> = ({ word }) => {
   const { t } = useI18n();
+  const user = useCurrentUser();
+  const creditsOut = (tasksLeft(user.credits, 'writing') ?? 1) <= 0;
   const [sentence, setSentence] = useState('');
   const [result, setResult] = useState<SentenceFeedback | null>(null);
   const [busy, setBusy] = useState(false);
@@ -77,6 +82,16 @@ export const SentencePractice: React.FC<{ word: EnWord }> = ({ word }) => {
       setBusy(false);
     }
   };
+
+  if (creditsOut)
+    return (
+      <div className="en-sentence">
+        <span className="en-sentence__label">{t.wordBank.sentenceTitle}</span>
+        <p>
+          <Tag tone="notice">{t.today.needsCredits}</Tag> {t.wordBank.sentenceNoCredits}
+        </p>
+      </div>
+    );
 
   return (
     <form className="en-sentence" onSubmit={check}>

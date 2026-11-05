@@ -57,6 +57,48 @@ beforeEach(async () => {
 afterAll(closeDb);
 
 describe('English vocabulary', () => {
+  it('offers the words a learner keeps forgetting as their own session, due or not', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const day = 24 * 60 * 60 * 1000;
+    const ids = (await db.select({ id: vocabItems.id }).from(vocabItems).where(eq(vocabItems.deck, 'en-core-A2'))).map((r) => r.id);
+    const card = (itemId: string, lapses: number) => ({ userId: user.id, itemId, state: 'review', dueAt: new Date(Date.now() + 5 * day), intervalDays: 5, reps: 4, lapses });
+    await db.insert(srsCards).values([card(ids[0], 5), card(ids[1], 3), card(ids[2], 2)]);
+    const cards = (await agent.get('/api/vocab/en/session?deck=en-hard')).body.cards;
+    // Only the two that were forgotten three times or more, the most forgotten first; none is due yet
+    expect(cards.map((c: { item: { id: string } }) => c.item.id)).toEqual([ids[0], ids[1]]);
+    expect(cards[0].lapses).toBe(5);
+  });
+
+  it('shows a word reviewed a week apart as "good", between learning and mastered', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const day = 24 * 60 * 60 * 1000;
+    const ids = (await db.select({ id: vocabItems.id }).from(vocabItems).where(eq(vocabItems.deck, 'en-core-A2'))).map((r) => r.id);
+    const card = (itemId: string, interval: number) => ({ userId: user.id, itemId, state: 'review', dueAt: new Date(Date.now() + day), intervalDays: interval, reps: 3 });
+    await db.insert(srsCards).values([card(ids[0], 30), card(ids[1], 10), card(ids[2], 2)]);
+    const { items } = (await agent.get('/api/vocab/en/items?deck=en-core-A2')).body;
+    const status = (id: string) => items.find((i: { id: string }) => i.id === id).status;
+    expect([status(ids[0]), status(ids[1]), status(ids[2]), status(ids[3])]).toEqual(['mastered', 'good', 'learning', 'new']);
+  });
+
+  it('splits the words a learner has met into mastered, fairly well known and still learning', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const day = 24 * 60 * 60 * 1000;
+    const card = (term: string, interval: number) => ({ userId: user.id, itemId: `en:${term}`, state: 'review', dueAt: new Date(Date.now() + day), intervalDays: interval, reps: 3 });
+    const ids = (await db.select({ id: vocabItems.id, term: vocabItems.term }).from(vocabItems).where(eq(vocabItems.deck, 'en-core-A2'))).map((r) => r.id);
+    await db.insert(srsCards).values([
+      { ...card('x', 30), itemId: ids[0] },
+      { ...card('x', 10), itemId: ids[1] },
+      { ...card('x', 6), itemId: ids[2] },
+      { ...card('x', 1), itemId: ids[3] },
+    ]);
+    const deck = (await agent.get('/api/vocab/en/decks')).body.decks.find((d: { id: string }) => d.id === 'en-core-A2');
+    // 4 met: one at 30 days (mastered), one at 10 (good), two still being learned
+    expect(deck).toMatchObject({ seen: 4, mastered: 1, good: 1 });
+  });
+
   it('lists decks and serves cards with IPA and wrong choices from the deck', async () => {
     const agent = await signIn(app, await createUser());
     const decks = (await agent.get('/api/vocab/en/decks')).body.decks;

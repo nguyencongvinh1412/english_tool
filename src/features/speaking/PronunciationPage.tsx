@@ -5,7 +5,10 @@
  */
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Badge, Banner, Button, Card, EmptyState, Icon, PageHeader, Segmented, Spinner } from '@/design';
+import { useNavigate } from 'react-router-dom';
+import { Badge, Banner, Button, Card, EmptyState, Icon, Segmented, Spinner } from '@/design';
+import { ROUTES } from '@/app/routes';
+import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude, useSpeechRecognition, useTextToSpeech } from '@/hooks';
 import { useProgress } from '@/shared/progress';
@@ -31,6 +34,7 @@ const COACH_CONTEXT = { mode: 'pronunciation' } as const;
 
 export const PronunciationPage: React.FC = () => {
   const { t } = useI18n();
+  const navigate = useNavigate();
   const { record } = useProgress();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [phrase, setPhrase] = useState<Phrase | null>(null);
@@ -38,7 +42,7 @@ export const PronunciationPage: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const awaitingResult = useRef(false);
 
-  const { isListening, transcript, interimTranscript, error: speechError, isSupported, startListening, stopListening, resetTranscript } =
+  const { isListening, transcript, interimTranscript, error: speechError, errorKind, isSupported, startListening, stopListening, resetTranscript } =
     useSpeechRecognition();
   const { messages, isLoading: isAiLoading, error: aiError, sendUserMessage, clearMessages } = useClaude({ context: COACH_CONTEXT });
   const { speak, isSpeaking } = useTextToSpeech();
@@ -106,9 +110,9 @@ export const PronunciationPage: React.FC = () => {
 
   return (
     <div className="speak">
-      <PageHeader eyebrow={t.nav.speaking} title={t.pronunciation.title} description={t.pronunciation.description} />
+      <PracticeHeader title={t.pronunciation.title} level={null} onBack={() => navigate(ROUTES.PRACTICE)} />
 
-      {!isSupported && <Banner tone="danger">{t.pronunciation.unsupported}</Banner>}
+      {!isSupported && <Banner tone="warning">{t.pronunciation.unsupported}</Banner>}
 
       <div className="speak-toolbar">
         <Segmented<Difficulty>
@@ -168,7 +172,20 @@ export const PronunciationPage: React.FC = () => {
             </div>
           )}
 
-          {speechError && <Banner tone="danger">{speechError}</Banner>}
+          {!speechError && !isListening && !transcript && <p className="speak-note">{t.pronunciation.mic.note}</p>}
+          {speechError && (
+            <Banner tone="warning">
+              {errorKind === 'denied' ? (
+                <>
+                  <strong>{t.pronunciation.mic.denied}</strong>
+                  <br />
+                  {t.pronunciation.mic.deniedBody}
+                </>
+              ) : (
+                t.pronunciation.mic[errorKind === 'no-mic' ? 'noMic' : errorKind === 'no-speech' ? 'noSpeech' : errorKind === 'network' ? 'network' : 'other']
+              )}
+            </Banner>
+          )}
 
           {comparison && !isListening && (
             <Card padding="lg" className="score-card reveal">

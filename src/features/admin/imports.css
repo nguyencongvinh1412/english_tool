@@ -472,7 +472,7 @@
   padding: 0.25rem 0.625rem;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--listening-edge);
+  color: var(--listening-text);
   background: var(--listening-soft);
   border-radius: 999px;
   overflow-wrap: anywhere;

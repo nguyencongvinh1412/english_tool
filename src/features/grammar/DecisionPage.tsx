@@ -11,6 +11,7 @@ import '@/features/vocab/vocab.css';
 import { ROUTES } from '@/app/routes';
 import { grammarApi, grammarPath, type Bilingual } from '@/shared/grammarApi';
 import { DECISION_TREES, type DecisionOption } from './decisions';
+import { ToolFooter, ToolHeader } from './ToolChrome';
 import './grammar.css';
 
 export const DecisionPage: React.FC = () => {
@@ -34,6 +35,8 @@ const Walk: React.FC<{ treeId: string }> = ({ treeId }) => {
   const tree = DECISION_TREES.find((d) => d.id === treeId)!;
   // Questions answered so far, with the chosen option
   const [path, setPath] = useState<{ node: string; option: DecisionOption }[]>([]);
+  /** The option picked on the current question, confirmed with Continue */
+  const [picked, setPicked] = useState<number | null>(null);
   const [titles, setTitles] = useState<Map<string, Bilingual>>(new Map());
 
   useEffect(() => {
@@ -47,21 +50,14 @@ const Walk: React.FC<{ treeId: string }> = ({ treeId }) => {
   const result = last?.option.result;
 
   return (
-    <div className="grammar-decide">
-      <Link to={ROUTES.GRAMMAR} className="grammar-point__back">
-        <Icon name="arrowLeft" size={16} /> {t.grammar.title}
-      </Link>
-      <header>
-        <h1>{tree.title[locale]}</h1>
-        <p>{tree.intro[locale]}</p>
-      </header>
+    <div className="tool-page">
+      <ToolHeader title={t.grammar.decideTitle} subtitle={tree.title[locale]} />
 
       {path.length > 0 && (
-        <ol className="grammar-decide__trail">
+        <ol className="tool-trail">
           {path.map((step, i) => (
             <li key={i}>
-              <span>{tree.nodes[step.node].question[locale]}</span>
-              <button type="button" onClick={() => setPath(path.slice(0, i))}>
+              <button type="button" onClick={() => setPath(path.slice(0, i))} aria-label={`${tree.nodes[step.node].question[locale]}: ${step.option.label[locale]}`}>
                 {step.option.label[locale]} <Icon name="pen" size={12} />
               </button>
             </li>
@@ -70,33 +66,51 @@ const Walk: React.FC<{ treeId: string }> = ({ treeId }) => {
       )}
 
       {current && (
-        <Card padding="lg" className="grammar-decide__question" key={current}>
-          <h2>{tree.nodes[current].question[locale]}</h2>
+        <>
+          <Card padding="lg" key={current}>
+            <p className="grammar__hint">{t.grammar.questionN(path.length + 1)}</p>
+            <h2 className="grammar-decide__q">{tree.nodes[current].question[locale]}</h2>
+          </Card>
           <div className="en-choices">
             {tree.nodes[current].options.map((option, i) => (
-              <button key={i} type="button" className="en-choice" onClick={() => setPath([...path, { node: current, option }])}>
-                <Icon name="chevronRight" size={16} />
+              <button key={i} type="button" className={`tool-option ${picked === i ? 'tool-option--on' : ''}`} aria-pressed={picked === i} onClick={() => setPicked(i)}>
+                {picked === i && <span aria-hidden="true">✓</span>}
                 <span>{option.label[locale]}</span>
               </button>
             ))}
           </div>
-        </Card>
+          <ToolFooter>
+            <Button
+              size="lg"
+              disabled={picked === null}
+              onClick={() => {
+                if (picked === null) return;
+                setPath([...path, { node: current, option: tree.nodes[current].options[picked] }]);
+                setPicked(null);
+              }}
+            >
+              {t.grammar.continue}
+            </Button>
+          </ToolFooter>
+        </>
       )}
 
       {result && (
-        <Card padding="lg" className="grammar-decide__result reveal">
-          <p className="grammar-decide__eyebrow">{t.grammar.decideResult}</p>
-          <h2>{titles.get(result.point)?.[locale] ?? result.point}</h2>
-          <p lang={locale}>{result.note[locale]}</p>
-          <div className="grammar-decide__actions">
-            <LinkButton to={grammarPath(result.point)} icon="book">
+        <>
+          <Card padding="lg" className="reveal">
+            <p className="grammar-decide__eyebrow">{t.grammar.decideResult}</p>
+            <h2>{titles.get(result.point)?.[locale] ?? result.point}</h2>
+            <p lang={locale}>{result.note[locale]}</p>
+          </Card>
+          <ToolFooter>
+            <LinkButton size="lg" to={grammarPath(result.point)} icon="book">
               {t.grammar.openPoint}
             </LinkButton>
-            <Button variant="ghost" icon="arrowLeft" onClick={() => setPath([])}>
+            <button type="button" className="exam-footer__link" onClick={() => setPath([])}>
               {t.grammar.startOver}
-            </Button>
-          </div>
-        </Card>
+            </button>
+          </ToolFooter>
+        </>
       )}
     </div>
   );

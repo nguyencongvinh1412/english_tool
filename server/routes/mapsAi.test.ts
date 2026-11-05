@@ -126,7 +126,7 @@ describe('AI mind map proposals', () => {
     expect(confirmed.status).toBe(200);
     expect(confirmed.body).toMatchObject({ previousVersion: 2, map: { version: 3, title: 'My map' } });
     expect(confirmed.body.map.doc.nodes.b).toBeUndefined();
-    expect((await db.select().from(mindMapVersions).where(eq(mindMapVersions.mapId, id))).map((v) => v.version)).toEqual([2]);
+    expect((await db.select().from(mindMapVersions).where(eq(mindMapVersions.mapId, id))).map((v) => v.version)).toEqual([1, 2]);
 
     // Undo
     const restored = await agent.post(`/api/maps/${id}/restore`).send({ version: confirmed.body.previousVersion });

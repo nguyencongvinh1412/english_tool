@@ -13,11 +13,11 @@ import { HttpError } from '../http/errors.js';
 import { runAIJson } from '../services/ai.js';
 import { enWordId, toPublicItem } from '../vocab/data.js';
 import { MASTERED_DAYS } from '../vocab/srs.js';
-import { statusOf } from './vocab.js';
+import { HARD_LAPSES, statusOf } from './vocab.js';
 
 const MATCH_PAIRS = 6;
 /** Cards forgotten this often count as hard words */
-const LEECH_LAPSES = 3;
+const LEECH_LAPSES = HARD_LAPSES;
 const FORECAST_DAYS = 7;
 
 const saveSchema = z.object({

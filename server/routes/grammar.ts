@@ -52,6 +52,8 @@ const drillSchema = z.object({
     .max(MAX_DRILL_TARGETS),
   count: z.number().refine((n) => (DRILL_COUNTS as readonly number[]).includes(n), 'count must be 10, 20 or 30'),
   model: z.string().max(100).optional(),
+  /** false: only questions that already exist, no AI and no credits */
+  ai: z.boolean().default(true),
 });
 const drillResultSchema = z.object({
   answers: z.array(z.object({ correct: z.boolean(), given: z.string().max(300).optional() })).min(1).max(50),
@@ -228,7 +230,7 @@ export function createGrammarRouter(): Router {
    */
   router.post('/grammar/drill', requireAuth, limitAiRequests, async (req, res) => {
     const body = drillSchema.parse(req.body);
-    res.json({ drill: await generateDrill(currentUser(req), body.targets, body.count, body.model) });
+    res.json({ drill: await generateDrill(currentUser(req), body.targets, body.count, body.model, body.ai) });
   });
 
   /**
