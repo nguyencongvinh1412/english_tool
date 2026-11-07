@@ -9,6 +9,7 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import type { WordDefinition } from '@/shared/contentApi';
 import { enVocabApi, type SavedWord } from '@/shared/enVocabApi';
+import { deepWordApi } from '@/shared/deepWordApi';
 import './define.css';
 
 interface DefinitionSheetProps {
@@ -23,6 +24,21 @@ interface DefinitionSheetProps {
 export const DefinitionSheet: React.FC<DefinitionSheetProps> = ({ word, state, context, source, onClose }) => {
   const { t, locale } = useI18n();
   const [saving, setSaving] = useState<'idle' | 'saving' | 'saved' | { error: unknown }>('idle');
+
+  const [deep, setDeep] = useState<'idle' | 'adding' | 'added' | { error: unknown }>('idle');
+
+  /** Saves the word if needed, then puts it in the Deep words queue */
+  const studyDeep = async (definition: WordDefinition) => {
+    setDeep('adding');
+    try {
+      const { word: saved } = await enVocabApi.save(definition, context, source);
+      await deepWordApi.queueAdd(saved.id);
+      setSaving('saved');
+      setDeep('added');
+    } catch (error) {
+      setDeep({ error });
+    }
+  };
 
   const save = async (definition: WordDefinition) => {
     setSaving('saving');
@@ -70,7 +86,11 @@ export const DefinitionSheet: React.FC<DefinitionSheetProps> = ({ word, state, c
             >
               {saving === 'saved' ? t.wordBank.saved : t.wordBank.save}
             </Button>
+            <Button size="sm" variant="secondary" icon={deep === 'added' ? 'check' : 'sparkles'} onClick={() => void studyDeep(state)} loading={deep === 'adding'} disabled={deep === 'added' || deep === 'adding'}>
+              {deep === 'added' ? t.deepWord.touch.added : t.deepWord.touch.button}
+            </Button>
           </div>
+          {typeof deep === 'object' && <Banner tone="danger">{t.deepWord.touch.failed}</Banner>}
           {typeof saving === 'object' && <Banner tone="danger">{errorMessage(saving.error, t)}</Banner>}
         </>
       )}

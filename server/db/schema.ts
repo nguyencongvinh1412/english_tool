@@ -16,6 +16,7 @@ import {
   index,
   uniqueIndex,
   jsonb,
+  smallint,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -825,3 +826,167 @@ export const notifications = pgTable(
   },
   (table) => [uniqueIndex('notifications_user_key_idx').on(table.userId, table.dedupeKey), index('notifications_user_created_idx').on(table.userId, table.createdAt)]
 );
+
+
+/**
+ * Deep Word Learning: what is known about a word beyond its dictionary entry. Shared by every learner, written by the
+ * AI when the word first enters someone's queue, and editable by an admin.
+ */
+export const deepWordContent = pgTable('deep_word_content', {
+  itemId: text('item_id')
+    .primaryKey()
+    .references(() => vocabItems.id, { onDelete: 'cascade' }),
+  /** The meaning in plain English */
+  simpleDefinition: text('simple_definition').notNull(),
+  synonyms: text('synonyms').array().notNull().default(sql`'{}'::text[]`),
+  antonyms: text('antonyms').array().notNull().default(sql`'{}'::text[]`),
+  /** [{ word, difference }]: close words and how this one differs */
+  contrast: jsonb('contrast').notNull().default([]),
+  wordFamily: text('word_family').array().notNull().default(sql`'{}'::text[]`),
+  /** [{ phrase, example }] */
+  collocations: jsonb('collocations').notNull().default([]),
+  /** Formality and where the word is used */
+  register: text('register').notNull().default(''),
+  /** [{ text, vi }]: example sentences written by the AI */
+  examples: jsonb('examples').notNull().default([]),
+  /** Short note on how a beginner should use the word */
+  coreUse: text('core_use').notNull().default(''),
+  /** ai (not reviewed) | approved (an admin checked it) */
+  status: text('status').notNull().default('ai'),
+  generatedAt: timestamp('generated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * A learner's depth of knowledge of one word: three aspects (form, meaning, use), each known by recognising it
+ * (r) and by producing it (p). Each cell is 0 (not yet), 1 (in progress) or 2 (done).
+ */
+export const deepWordProgress = pgTable(
+  'deep_word_progress',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    formR: smallint('form_r').notNull().default(0),
+    formP: smallint('form_p').notNull().default(0),
+    meaningR: smallint('meaning_r').notNull().default(0),
+    meaningP: smallint('meaning_p').notNull().default(0),
+    useR: smallint('use_r').notNull().default(0),
+    useP: smallint('use_p').notNull().default(0),
+    /** Overall level, 1 (met) to 5 (used without help) */
+    stage: smallint('stage').notNull().default(1),
+    /** Stage of the session the learner was in, 1 to 5 (resume point) */
+    sessionStage: smallint('session_stage').notNull().default(1),
+    /** Answers kept while the session is open, so leaving does not lose them */
+    sessionData: jsonb('session_data').notNull().default({}),
+    /** Day the session was started (quota day), for the words-per-day limit */
+    startedDay: date('started_day').notNull(),
+    startedAt: timestamp('started_at', { withTimezone: true }).notNull().defaultNow(),
+    completedAt: timestamp('completed_at', { withTimezone: true }),
+    /** How many times the learner chose "later" for the production stage */
+    deferredCount: integer('deferred_count').notNull().default(0),
+    note: text('note'),
+    nextReviewAt: timestamp('next_review_at', { withTimezone: true }),
+    /** Position in the 1, 3, 7, 14, 30 day ladder */
+    reviewStep: smallint('review_step').notNull().default(0),
+    /** Kind of the last review, so the next one differs */
+    lastKind: text('last_kind'),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId, table.itemId] }),
+    index('deep_word_progress_user_day_idx').on(table.userId, table.startedDay),
+    index('deep_word_progress_user_review_idx').on(table.userId, table.nextReviewAt),
+  ]
+);
+
+/**
+ * Words waiting to be studied in depth
+ */
+export const deepWordQueue = pgTable(
+  'deep_word_queue',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    /** bank | suggest | manual | lookup | roadmap */
+    source: text('source').notNull(),
+    addedAt: timestamp('added_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.itemId] }), index('deep_word_queue_user_added_idx').on(table.userId, table.addedAt)]
+);
+
+/**
+ * One try at an exercise on a word: what the learner wrote or answered and how it went
+ */
+export const deepWordAttempts = pgTable(
+  'deep_word_attempts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    /** guess | recall | sentence | self-check */
+    kind: text('kind').notNull(),
+    /** form | meaning | use */
+    aspect: text('aspect').notNull(),
+    /** pass | partial | fail */
+    result: text('result').notNull(),
+    /** True when the learner was shown the answer or checked it themselves */
+    assisted: boolean('assisted').notNull().default(false),
+    /** What the learner wrote (a sentence), when the exercise has text */
+    userText: text('user_text'),
+    feedback: jsonb('feedback'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('deep_word_attempts_user_item_idx').on(table.userId, table.itemId, table.createdAt)]
+);
+
+/**
+ * Deep Word settings and the context profile the AI uses to write examples about the learner's life
+ */
+export const deepWordPrefs = pgTable('deep_word_prefs', {
+  userId: uuid('user_id')
+    .primaryKey()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  enabled: boolean('enabled').notNull().default(false),
+  /** New words a day: 1 or 2 */
+  perDay: smallint('per_day').notNull().default(1),
+  /** { work, interests[], situations[] } */
+  profile: jsonb('profile').notNull().default({}),
+  /** The learner chose to skip the profile */
+  profileSkipped: boolean('profile_skipped').notNull().default(false),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * Words a learner connected to a word they studied (family, similar, used together)
+ */
+export const deepWordLinks = pgTable(
+  'deep_word_links',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    fromItem: text('from_item')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    toItem: text('to_item')
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: 'cascade' }),
+    /** family | synonym | collocate | related */
+    kind: text('kind').notNull().default('related'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.fromItem, table.toItem] })]
+);
+
+export type DeepWordProgress = typeof deepWordProgress.$inferSelect;

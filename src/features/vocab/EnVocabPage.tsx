@@ -7,7 +7,7 @@ import { useStageName } from '@/features/roadmap/useStageName';
 import { WordStatusBadge } from './WordStatusBadge';
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Badge, Banner, Button, Card, Icon, MasteryBar, Skeleton, Tabs, Tag } from '@/design';
 import { ROUTES } from '@/app/routes';
 import { hasRoadmap, roadmapApi, type Stage } from '@/shared/roadmapApi';
@@ -19,10 +19,14 @@ import { MatchGame } from './MatchGame';
 import { WordBankTab } from './WordBankTab';
 import { VocabStatsTab } from './VocabStatsTab';
 import { WordDetails } from './WordDetails';
+import { DeepTab, type DeepView } from '@/features/deepword/DeepTab';
+import { DeepSession } from '@/features/deepword/DeepSession';
+import { WordPage } from '@/features/deepword/WordPage';
+import { Notebook } from '@/features/deepword/Notebook';
 import './vocab.css';
 
 const GROUPS: EnDeckGroup[] = ['core', 'toeic', 'ielts'];
-type Tab = 'decks' | 'bank' | 'stats';
+type Tab = 'decks' | 'bank' | 'stats' | 'deep';
 
 /**
  * Words of a deck with their status
@@ -83,7 +87,9 @@ const DeckList: React.FC<{ deck: EnDeck; onBack: () => void }> = ({ deck, onBack
 
 export const EnVocabPage: React.FC = () => {
   const { t } = useI18n();
-  const [tab, setTab] = useState<Tab>('decks');
+  const [params] = useSearchParams();
+  const [tab, setTab] = useState<Tab>(params.get('tab') === 'deep' ? 'deep' : 'decks');
+  const [deepView, setDeepView] = useState<DeepView>(params.get('tab') === 'deep' && params.get('start') === '1' ? { type: 'session' } : { type: 'overview' });
   const [decks, setDecks] = useState<EnDeck[] | null>(null);
   const [dueTotal, setDueTotal] = useState(0);
   const [view, setView] = useState<{ type: 'review'; deckId: string; title: string } | { type: 'list'; deck: EnDeck } | { type: 'match' } | null>(null);
@@ -130,6 +136,9 @@ export const EnVocabPage: React.FC = () => {
 
   if (view?.type === 'review') return <Session deckId={view.deckId} title={view.title} onDone={back} />;
   if (view?.type === 'list') return <DeckList deck={view.deck} onBack={back} />;
+  if (tab === 'deep' && deepView.type === 'session') {
+    return <DeepSession itemId={deepView.itemId} onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
+  }
 
   return (
     <div className="vocab">
@@ -149,11 +158,17 @@ export const EnVocabPage: React.FC = () => {
           { id: 'decks', label: t.wordBank.tabs.decks },
           { id: 'bank', label: t.wordBank.tabs.bank },
           { id: 'stats', label: t.wordBank.tabs.stats },
+          { id: 'deep', label: t.deepWord.tab },
         ]}
       />
 
       <div role="tabpanel" aria-labelledby={`tab-${tab}`} className="vocab__panel">
         {tab === 'bank' && <WordBankTab onReview={() => setView({ type: 'review', deckId: 'en-bank', title: t.wordBank.tabs.bank })} />}
+        {tab === 'deep' && deepView.type === 'word' && (
+          <WordPage key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'overview' })} onStudy={(itemId) => setDeepView({ type: 'session', itemId })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />
+        )}
+        {tab === 'deep' && deepView.type === 'notebook' && <Notebook onBack={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />}
+        {tab === 'deep' && (deepView.type === 'overview' || deepView.type === 'setup') && <DeepTab view={deepView} onView={setDeepView} />}
         {tab === 'stats' && <VocabStatsTab onReviewHard={() => setView({ type: 'review', deckId: 'en-hard', title: t.wordBank.statsHard })} />}
         {tab === 'decks' && (
           <>

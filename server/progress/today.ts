@@ -14,6 +14,7 @@ import { GRAMMAR_POINTS } from '../grammar/map.js';
 import { recentMistakes } from '../grammar/mistakes.js';
 import { CEFR_ORDER, JLPT_ORDER, levelsUpTo } from './levels.js';
 import { goalOf, grammarState, vocabByLevel, type StudyLanguage } from './journey.js';
+import { completedToday, prefsOf, todaysWord } from '../deepword/service.js';
 
 export const TODAY_BUDGETS = [10, 20, 45] as const;
 export type TodayBudget = (typeof TODAY_BUDGETS)[number];
@@ -24,6 +25,7 @@ const SKILLS: Skill[] = ['listening', 'reading', 'writing', 'speaking'];
 const AI_SKILLS = new Set<Skill>(['speaking', 'writing']);
 const SKILL_MINUTES: Record<Skill, number> = { listening: 15, reading: 12, writing: 15, speaking: 8 };
 const MIN_SHORT = 5;
+const DEEP_WORD_MINUTES = 10;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 export type TodayTask = {
@@ -42,6 +44,7 @@ export type TodayTask = {
   | { type: 'learn-grammar'; pointId: string; level: string }
   | { type: 'practice-skill'; skill: Skill }
   | { type: 'learn-words'; level: string; remaining: number }
+  | { type: 'learn-deep-word'; itemId: string; term: string; resume?: boolean }
 );
 
 /**
@@ -132,9 +135,25 @@ export async function buildToday(user: User, budget: TodayBudget, language: Stud
     .find((l) => l.total > 0 && l.seen < l.total);
   if (gap) drafts.push({ id: `words-${gap.level}`, type: 'learn-words', level: gap.level, remaining: gap.total - gap.seen, minutes: 6, done: vocabToday });
 
+  // Deep Word: today's word (when the learner turned it on), or the one they finished
+  const finishedDeep = language === 'en' ? await completedToday(user.id) : new Map<string, string>();
+  if (language === 'en') {
+    const prefs = await prefsOf(user.id);
+    if (prefs.enabled) {
+      const pick = await todaysWord(user, prefs);
+      if (pick.word) drafts.push({ id: `deep-${pick.word.id}`, type: 'learn-deep-word', itemId: pick.word.id, term: pick.word.term, resume: pick.state === 'resume' || undefined, minutes: DEEP_WORD_MINUTES, done: false });
+      else if (finishedDeep.size > 0) {
+        const [itemId, term] = [...finishedDeep][0];
+        drafts.push({ id: `deep-${itemId}`, type: 'learn-deep-word', itemId, term, minutes: DEEP_WORD_MINUTES, done: true });
+      }
+    }
+  }
+
   // With a roadmap the day's tasks are stored, so an unfinished learning task can move to tomorrow
   const isDone = (task: TodayTask) => {
     switch (task.type) {
+      case 'learn-deep-word':
+        return finishedDeep.size > 0;
       case 'review-words':
       case 'learn-words':
         return vocabToday;

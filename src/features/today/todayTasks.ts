@@ -26,6 +26,8 @@ export function taskLink(task: TodayTask, language: Language): string {
     case 'review-words':
     case 'learn-words':
       return vocab;
+    case 'learn-deep-word':
+      return `${vocab}?tab=deep&start=1`;
     case 'review-grammar':
       return ROUTES.GRAMMAR;
     case 'fix-mistakes':
@@ -45,6 +47,7 @@ export function taskKind(task: TodayTask): { tone: TagTone; kind: 'vocab' | 'gra
   switch (task.type) {
     case 'review-words':
     case 'learn-words':
+    case 'learn-deep-word':
       return { tone: 'neutral', kind: 'vocab' };
     case 'review-grammar':
     case 'learn-grammar':
@@ -70,6 +73,8 @@ export function taskText(task: TodayTask, t: Messages, pointTitle: (id: string) 
       return { title: k.fixMistakes.title(pointTitle(task.pointId)), meta: t.today.minutes(task.minutes), why: k.fixMistakes.why(task.count) };
     case 'learn-grammar':
       return { title: pointTitle(task.pointId), meta: t.today.minutes(task.minutes), why: k.learnGrammar.why(task.level) };
+    case 'learn-deep-word':
+      return { title: task.resume ? k.learnDeepWord.resumeTitle(task.term) : k.learnDeepWord.title(task.term), meta: t.today.minutes(task.minutes), why: k.learnDeepWord.why };
     case 'learn-words':
       return { title: k.learnWords.title(task.level), meta: t.today.minutes(task.minutes), why: k.learnWords.why(task.remaining, task.level) };
     case 'practice-skill':
