@@ -9,7 +9,7 @@ import { toPublicItem } from '../vocab/data.js';
 import { computeStage, type Cells, type Evidence } from './stage.js';
 
 /** Exercises where the learner produces the word; correct, unaided ones on separate days make a production cell "done" */
-const PRODUCTION_KINDS = ['sentence', 'review-fix', 'review-cloze', 'review-recall'];
+const PRODUCTION_KINDS = ['sentence', 'speak', 'paragraph', 'scenario', 'review-fix', 'review-cloze', 'review-recall'];
 
 export const MAX_PER_DAY = 2;
 /** Words in one review session; a longer backlog is split into short sessions */
@@ -235,4 +235,33 @@ export async function reviewedToday(userId: string): Promise<number> {
     .from(deepWordProgress)
     .where(and(eq(deepWordProgress.userId, userId), sql`(${deepWordProgress.lastReviewedAt} at time zone 'Asia/Ho_Chi_Minh')::date = ${quotaDay()}::date`));
   return row?.n ?? 0;
+}
+
+/** Failed reviews at which a word counts as one the learner keeps forgetting */
+export const LAPSE_LIMIT = 3;
+
+/** Failed reviews per word */
+export async function lapsesOf(userId: string, ids: string[]): Promise<Map<string, number>> {
+  if (ids.length === 0) return new Map();
+  const rows = await db
+    .select({ id: deepWordAttempts.itemId, n: sql<number>`count(*)::int` })
+    .from(deepWordAttempts)
+    .where(and(eq(deepWordAttempts.userId, userId), inArray(deepWordAttempts.itemId, ids), sql`${deepWordAttempts.kind} like 'review-%'`, eq(deepWordAttempts.result, 'fail')))
+    .groupBy(deepWordAttempts.itemId);
+  return new Map(rows.map((r) => [r.id, r.n]));
+}
+
+/** Words the learner keeps failing in reviews, worst first (at most `limit`) */
+export async function forgetfulWords(userId: string, limit = 3) {
+  const rows = await db
+    .select({ item: vocabItems, lapses: sql<number>`count(*)::int` })
+    .from(deepWordAttempts)
+    .innerJoin(vocabItems, eq(vocabItems.id, deepWordAttempts.itemId))
+    .innerJoin(deepWordProgress, and(eq(deepWordProgress.userId, deepWordAttempts.userId), eq(deepWordProgress.itemId, deepWordAttempts.itemId)))
+    .where(and(eq(deepWordAttempts.userId, userId), sql`${deepWordAttempts.kind} like 'review-%'`, eq(deepWordAttempts.result, 'fail'), sql`${deepWordProgress.completedAt} is not null`))
+    .groupBy(vocabItems.id)
+    .having(sql`count(*) >= ${LAPSE_LIMIT}`)
+    .orderBy(desc(sql`count(*)`))
+    .limit(limit);
+  return rows.map((r) => ({ ...publicWord(r.item), lapses: r.lapses }));
 }

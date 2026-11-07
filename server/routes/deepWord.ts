@@ -14,9 +14,9 @@ import { quotaDay } from '../services/aiAccess.js';
 import { enWordId } from '../vocab/data.js';
 import { ensureContent, findContent, prepareContent } from '../deepword/content.js';
 import { firstSchedule } from '../deepword/schedule.js';
-import { checkSentence, resultsOf, verdictOf } from '../deepword/sentence.js';
+import { checkProduction, resultsOf, verdictOf } from '../deepword/sentence.js';
 import { applyResult, type Aspect, type Cells, type Level, type Result } from '../deepword/stage.js';
-import { awayFromReviews, cellsOf, dueWords, evidenceOf, fillQueue, MAX_DEFERRALS, MAX_PER_DAY, prefsOf, progressDto, publicWord, queueWords, REVIEW_SESSION, reviewMinutes, stageCounts, stageOf, startedToday, todaysWord } from '../deepword/service.js';
+import { awayFromReviews, cellsOf, dueWords, forgetfulWords, lapsesOf, evidenceOf, fillQueue, MAX_DEFERRALS, MAX_PER_DAY, prefsOf, progressDto, publicWord, queueWords, REVIEW_SESSION, reviewMinutes, stageCounts, stageOf, startedToday, todaysWord } from '../deepword/service.js';
 
 const itemId = z.string().min(4).max(200).startsWith('en:');
 const modelField = z.string().max(100).optional();
@@ -34,7 +34,7 @@ const prefsSchema = z.object({
   profileSkipped: z.boolean().optional(),
 });
 
-const startSchema = z.object({ itemId: itemId.optional(), model: modelField });
+const startSchema = z.object({ itemId: itemId.optional(), relearn: z.boolean().optional(), model: modelField });
 const saveSchema = z.object({ itemId, stage: z.number().int().min(1).max(5), data: z.record(z.string(), z.unknown()).optional() });
 const attemptSchema = z.object({
   itemId,
@@ -44,7 +44,17 @@ const attemptSchema = z.object({
   result: z.enum(['pass', 'partial', 'fail']),
   assisted: z.boolean().default(false),
 });
-const produceSchema = z.object({ itemId, text: z.string().trim().min(3).max(400), model: modelField });
+const produceSchema = z
+  .object({
+    itemId,
+    kind: z.enum(['sentence', 'speak', 'paragraph', 'scenario']).default('sentence'),
+    text: z.string().trim().min(3).max(800),
+    situation: z.string().trim().max(500).optional(),
+    alsoUse: z.array(z.string().trim().min(1).max(40)).max(2).optional(),
+    model: modelField,
+  })
+  .refine((b) => b.kind === 'paragraph' || b.text.length <= 400, { message: 'Too long for one sentence.', path: ['text'] })
+  .refine((b) => b.kind !== 'scenario' || Boolean(b.situation), { message: 'The situation is missing.', path: ['situation'] });
 const selfCheckSchema = z.object({ itemId, ticked: z.number().int().min(0).max(6), total: z.number().int().min(1).max(6) });
 const completeSchema = z.object({ itemId, link: z.array(itemId).max(6).default([]), note: z.string().trim().max(500).optional() });
 
@@ -100,6 +110,7 @@ export function createDeepWordRouter(): Router {
     const [queue, counts, doneToday, due] = await Promise.all([prefs.enabled ? queueWords(user.id) : Promise.resolve([]), stageCounts(user.id), startedToday(user.id), dueWords(user.id)]);
     const session = Math.min(due.length, REVIEW_SESSION);
     res.json({
+      forgetful: await forgetfulWords(user.id),
       review: { due: due.length, session, minutes: session ? reviewMinutes(session) : 0, welcomeBack: await awayFromReviews(user.id, due.length) },
       prefs: { enabled: prefs.enabled, perDay: prefs.perDay, profile: prefs.profile, profileSkipped: prefs.profileSkipped },
       today,
@@ -182,7 +193,7 @@ export function createDeepWordRouter(): Router {
       // Studying a finished word again opens a new session; the depth reached so far is kept
       [row] = await db
         .update(deepWordProgress)
-        .set({ completedAt: null, sessionStage: 1, sessionData: { startCells: cellsOf(row) }, updatedAt: new Date() })
+        .set({ completedAt: null, sessionStage: body.relearn ? 2 : 1, sessionData: { startCells: cellsOf(row) }, updatedAt: new Date() })
         .where(and(eq(deepWordProgress.userId, user.id), eq(deepWordProgress.itemId, id)))
         .returning();
     }
@@ -232,7 +243,7 @@ export function createDeepWordRouter(): Router {
     const row = await loadProgress(user.id, body.itemId);
     const item = await loadWord(body.itemId);
 
-    const check = await checkSentence(user, item, body.text, body.model);
+    const check = await checkProduction(user, item, { kind: body.kind, text: body.text, situation: body.situation, alsoUse: body.alsoUse }, body.model);
     const verdict = verdictOf(check);
     const unaided = verdict === 'good';
     const evidence = await evidenceOf(user.id, body.itemId, unaided);
@@ -244,7 +255,7 @@ export function createDeepWordRouter(): Router {
     await db.insert(deepWordAttempts).values({
       userId: user.id,
       itemId: body.itemId,
-      kind: 'sentence',
+      kind: body.kind,
       aspect: 'use',
       result: verdict === 'good' ? 'pass' : verdict === 'almost' ? 'partial' : 'fail',
       assisted: false,
@@ -353,6 +364,7 @@ export function createDeepWordRouter(): Router {
       sentences: sentences.map((s) => ({ id: s.id, text: s.userText, result: s.result, improved: (s.feedback as { improved?: string } | null)?.improved ?? null, at: s.createdAt })),
       links: links.map((l) => publicWord(l.item)),
       queued: queued.length > 0,
+      lapses: (await lapsesOf(user.id, [id])).get(id) ?? 0,
     });
   });
 

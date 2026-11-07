@@ -26,6 +26,7 @@ import { createVocabRouter } from './routes/vocab.js';
 import { createWordBankRouter } from './routes/wordBank.js';
 import { createDeepWordRouter } from './routes/deepWord.js';
 import { createDeepReviewRouter } from './routes/deepReview.js';
+import { createDeepExtrasRouter } from './routes/deepExtras.js';
 import { createGrammarRouter } from './routes/grammar.js';
 import { createBillingRouter } from './routes/billing.js';
 import { createMapsRouter } from './routes/maps.js';
@@ -114,6 +115,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api', createWordBankRouter());
   app.use('/api', createDeepWordRouter());
   app.use('/api', createDeepReviewRouter());
+  app.use('/api', createDeepExtrasRouter());
   app.use('/api', createGrammarRouter());
 
   // Unknown API routes return JSON 404 instead of the SPA

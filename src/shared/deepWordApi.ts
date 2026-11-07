@@ -68,6 +68,8 @@ export interface DeepPrefs {
 export type QueuedWord = EnWord & { source: string };
 
 export interface DeepOverview {
+  /** Words failed three times or more in reviews */
+  forgetful: (EnWord & { lapses: number })[];
   review: { due: number; session: number; minutes: number; welcomeBack: boolean };
   prefs: DeepPrefs;
   today: { state: 'off' | 'ready' | 'resume' | 'done' | 'empty'; word: EnWord | null; sessionStage?: number };
@@ -105,6 +107,7 @@ export interface WordPageData {
   sentences: { id: string; text: string | null; result: 'pass' | 'partial' | 'fail'; improved: string | null; at: string }[];
   links: EnWord[];
   queued: boolean;
+  lapses: number;
 }
 
 export type ReviewKind = 'recall' | 'cloze' | 'fix' | 'sentence';
@@ -140,6 +143,14 @@ export interface DeepStats {
   recognisedOnly: number;
 }
 
+export type ProduceKind = 'sentence' | 'speak' | 'paragraph' | 'scenario';
+export const PRODUCE_KINDS: ProduceKind[] = ['sentence', 'speak', 'paragraph', 'scenario'];
+
+export interface ProduceCosts {
+  model: string;
+  credits: Record<ProduceKind, number>;
+}
+
 const aiUsed = <T,>(r: T) => {
   window.dispatchEvent(new Event(AI_USED_EVENT));
   return r;
@@ -151,12 +162,15 @@ export const deepWordApi = {
   setPrefs: (prefs: Partial<DeepPrefs>) => apiFetch<{ prefs: DeepPrefs }>('/api/deep/prefs', { method: 'PUT', json: prefs }),
   queueAdd: (itemId: string) => apiFetch<{ queued: boolean }>('/api/deep/queue', { method: 'POST', json: { itemId } }),
   queueRemove: (itemId: string) => apiFetch<void>(`/api/deep/queue/${encodeURIComponent(itemId)}`, { method: 'DELETE' }),
-  start: (itemId?: string) => apiFetch<SessionStart>('/api/deep/session/start', { method: 'POST', json: { itemId, model: model() } }).then(aiUsed),
+  start: (itemId?: string, relearn?: boolean) => apiFetch<SessionStart>('/api/deep/session/start', { method: 'POST', json: { itemId, relearn, model: model() } }).then(aiUsed),
   save: (itemId: string, stage: number, data?: Record<string, unknown>) => apiFetch<void>('/api/deep/session/save', { method: 'POST', json: { itemId, stage, data } }),
   attempt: (body: { itemId: string; kind: 'guess' | 'recall' | 'listen'; aspect: Aspect; level?: Level; result: 'pass' | 'partial' | 'fail'; assisted?: boolean }) =>
     apiFetch<{ progress: DeepProgress }>('/api/deep/attempt', { method: 'POST', json: body }),
-  produce: (itemId: string, text: string) =>
-    apiFetch<{ check: SentenceCheck; verdict: Verdict; progress: DeepProgress }>('/api/deep/produce', { method: 'POST', json: { itemId, text, model: model() } }).then(aiUsed),
+  produce: (itemId: string, text: string, extra: { kind?: ProduceKind; situation?: string; alsoUse?: string[] } = {}) =>
+    apiFetch<{ check: SentenceCheck; verdict: Verdict; progress: DeepProgress }>('/api/deep/produce', { method: 'POST', json: { itemId, text, ...extra, model: model() } }).then(aiUsed),
+  scenario: (itemId: string) => apiFetch<{ situation: string; situationVi: string }>('/api/deep/scenario', { method: 'POST', json: { itemId, model: model() } }).then(aiUsed),
+  personalExamples: (itemId: string) => apiFetch<{ examples: { text: string; vi: string }[] }>('/api/deep/personal-examples', { method: 'POST', json: { itemId, model: model() } }).then(aiUsed),
+  costs: () => apiFetch<ProduceCosts>(`/api/deep/costs${model() ? `?model=${encodeURIComponent(model()!)}` : ''}`),
   selfCheck: (itemId: string, ticked: number, total: number) => apiFetch<{ progress: DeepProgress }>('/api/deep/self-check', { method: 'POST', json: { itemId, ticked, total } }),
   defer: (itemId: string) => apiFetch<{ progress: DeepProgress }>('/api/deep/defer', { method: 'POST', json: { itemId } }),
   related: (itemId: string) => apiFetch<{ words: EnWord[] }>(`/api/deep/related/${encodeURIComponent(itemId)}`),

@@ -207,7 +207,7 @@ export function createDeepReviewRouter(): Router {
       select count(*) filter (where result = 'pass' and not assisted)::int as ok, count(*)::int as total
       from (
         select distinct on (item_id) result, assisted from deep_word_attempts
-        where user_id = ${user.id} and kind in ('sentence', 'review-fix', 'review-cloze', 'review-recall')
+        where user_id = ${user.id} and kind in ('sentence', 'speak', 'paragraph', 'scenario', 'review-fix', 'review-cloze', 'review-recall')
         order by item_id, created_at desc
       ) t`);
     const list = (Array.isArray(latest) ? latest : (latest as unknown as { rows: unknown[] }).rows) as { ok: number; total: number }[];

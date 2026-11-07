@@ -13,7 +13,7 @@ import { deepWordApi, type WordPageData } from '@/shared/deepWordApi';
 import { DepthBars, StageLadder } from './DepthMeter';
 import './deepword.css';
 
-export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (itemId: string) => void; onOpenWord: (itemId: string) => void }> = ({ itemId, onBack, onStudy, onOpenWord }) => {
+export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (itemId: string, relearn?: boolean) => void; onOpenWord: (itemId: string) => void }> = ({ itemId, onBack, onStudy, onOpenWord }) => {
   const { t, locale } = useI18n();
   const w = t.deepWord.word;
   const [data, setData] = useState<WordPageData | null>(null);
@@ -50,6 +50,14 @@ export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (
           <>
             <StageLadder stage={progress.stage} />
             {progress.nextReviewAt && <p className="dw__muted">{w.nextReview(date(progress.nextReviewAt))}</p>}
+            {data.lapses >= 3 && progress.completed && (
+              <div className="dw__row">
+                <span className="dw__muted">{t.deepWord.forgetful.lapses(data.lapses)}</span>
+                <Button size="sm" variant="secondary" onClick={() => onStudy(word.id, true)}>
+                  {t.deepWord.forgetful.relearn}
+                </Button>
+              </div>
+            )}
           </>
         ) : (
           <div className="dw__row">

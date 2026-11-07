@@ -141,7 +141,7 @@ export const EnVocabPage: React.FC = () => {
     return <DeepReview onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
   }
   if (tab === 'deep' && deepView.type === 'session') {
-    return <DeepSession itemId={deepView.itemId} onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
+    return <DeepSession itemId={deepView.itemId} relearn={deepView.relearn} onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
   }
 
   return (
@@ -169,7 +169,7 @@ export const EnVocabPage: React.FC = () => {
       <div role="tabpanel" aria-labelledby={`tab-${tab}`} className="vocab__panel">
         {tab === 'bank' && <WordBankTab onReview={() => setView({ type: 'review', deckId: 'en-bank', title: t.wordBank.tabs.bank })} />}
         {tab === 'deep' && deepView.type === 'word' && (
-          <WordPage key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'overview' })} onStudy={(itemId) => setDeepView({ type: 'session', itemId })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />
+          <WordPage key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'overview' })} onStudy={(itemId, relearn) => setDeepView({ type: 'session', itemId, relearn })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />
         )}
         {tab === 'deep' && deepView.type === 'notebook' && <Notebook onBack={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />}
         {tab === 'deep' && (deepView.type === 'overview' || deepView.type === 'setup') && <DeepTab view={deepView} onView={setDeepView} />}

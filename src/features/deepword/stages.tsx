@@ -5,13 +5,15 @@
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Badge, Banner, Button, Tag } from '@/design';
+import { useSpeechRecognition } from '@/hooks';
+import { RecordButton } from '@/features/speaking/RecordButton';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { useI18n } from '@/i18n/I18nProvider';
 import { tasksLeft } from '@/shared/billingApi';
 import { ApiRequestError, errorMessage, PLAN_CODES } from '@/shared/http';
 import { speakOnce } from '@/shared/speech';
 import { formInExample, meaningOf, type EnWord } from '@/shared/enVocabApi';
-import { deepWordApi, markIssues, type DeepProgress, type SentenceCheck, type SessionStart, type Verdict } from '@/shared/deepWordApi';
+import { deepWordApi, markIssues, PRODUCE_KINDS, type DeepProgress, type ProduceCosts, type ProduceKind, type SentenceCheck, type SessionStart, type Verdict } from '@/shared/deepWordApi';
 
 type Result = 'pass' | 'partial' | 'fail';
 type Report = (kind: 'guess' | 'recall' | 'listen', aspect: 'form' | 'meaning' | 'use', result: Result, assisted?: boolean) => void;
@@ -203,10 +205,27 @@ export const StageContext: React.FC<{ data: SessionStart; report: Report; saved:
     report('recall', 'use', 'partial', true);
   };
 
+  // Examples about the learner's own life arrive a moment after the stage opens
+  const [personal, setPersonal] = useState<{ text: string; vi: string }[]>((saved.personal as { text: string; vi: string }[] | undefined) ?? []);
+  useEffect(() => {
+    if (personal.length > 0 || !(data.profile.work || data.profile.interests?.length || data.profile.situations?.length)) return;
+    let live = true;
+    deepWordApi
+      .personalExamples(word.id)
+      .then((r) => live && setPersonal(r.examples))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+    // Asked once per opening of the stage
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [word.id]);
+
   const examples = [
-    ...(word.example ? [{ text: word.example, vi: word.exampleVi ?? '', real: true }] : []),
-    ...content.examples.map((e) => ({ ...e, real: false })),
-  ].slice(0, beginner ? 3 : 5);
+    ...(word.example ? [{ text: word.example, vi: word.exampleVi ?? '', kind: 'real' as const }] : []),
+    ...personal.map((e) => ({ ...e, kind: 'personal' as const })),
+    ...content.examples.map((e) => ({ ...e, kind: 'ai' as const })),
+  ].slice(0, beginner ? 3 : 6);
 
   return (
     <div className="dw__card">
@@ -221,7 +240,7 @@ export const StageContext: React.FC<{ data: SessionStart; report: Report; saved:
                 </p>
                 {locale === 'vi' && e.vi && <span className="dw__muted">{e.vi}</span>}
               </div>
-              <Tag tone={e.real ? 'reading' : 'neutral'}>{e.real ? s.real : s.ai}</Tag>
+              <Tag tone={e.kind === 'real' ? 'reading' : e.kind === 'personal' ? 'brand' : 'neutral'}>{e.kind === 'real' ? s.real : e.kind === 'personal' ? t.deepWord.personalLabel(data.profile.work ?? '') : s.ai}</Tag>
             </li>
           ))}
         </ul>
@@ -290,6 +309,7 @@ export const StageContext: React.FC<{ data: SessionStart; report: Report; saved:
 /* ---------- 4. Produce ---------- */
 
 const PLAN_OR_QUOTA = [...PLAN_CODES, 'quota_exceeded'];
+const MIN_CHARS: Record<ProduceKind, number> = { sentence: 3, speak: 3, paragraph: 20, scenario: 3 };
 
 export const StageProduce: React.FC<{
   data: SessionStart;
@@ -298,32 +318,77 @@ export const StageProduce: React.FC<{
   onNext: () => void;
   onDeferred: (progress: DeepProgress) => void;
 }> = ({ data, progress, onProgress, onNext, onDeferred }) => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const user = useCurrentUser();
   const s = t.deepWord.session.s4;
   const word = data.word;
   const creditsOut = (tasksLeft(user.credits, 'writing') ?? 1) <= 0;
+  const [kind, setKind] = useState<ProduceKind>('sentence');
   const [text, setText] = useState('');
+  const [situation, setSituation] = useState<{ situation: string; situationVi: string } | null>(null);
+  const [alsoUse, setAlsoUse] = useState<string[]>([]);
   const [phase, setPhase] = useState<'write' | 'checking' | 'result' | 'self'>(creditsOut ? 'self' : 'write');
-  const [result, setResult] = useState<{ check: SentenceCheck; verdict: Verdict; sentence: string } | null>(null);
+  const [result, setResult] = useState<{ check: SentenceCheck; verdict: Verdict; text: string } | null>(null);
   const [ticks, setTicks] = useState<boolean[]>(() => s.selfItems.map(() => false));
   const [error, setError] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
+  const [gettingSituation, setGettingSituation] = useState(false);
+  const [costs, setCosts] = useState<ProduceCosts | null>(null);
+  const speech = useSpeechRecognition();
+
+  useEffect(() => {
+    deepWordApi.costs().then(setCosts).catch(() => undefined);
+  }, []);
+
+  // A finished recording is added to the text
+  const { isListening, transcript, resetTranscript } = speech;
+  useEffect(() => {
+    if (!isListening && transcript) {
+      setText((before) => `${before} ${transcript}`.trim());
+      resetTranscript();
+    }
+  }, [isListening, transcript, resetTranscript]);
 
   const topic = data.profile.work ? s.topic(data.profile.work) : s.topicDefault;
   const done = progress.cells.useP >= 1;
+  const family = data.content.wordFamily.filter((w) => w.toLowerCase() !== word.term.toLowerCase()).slice(0, 3);
+
+  const choose = (next: ProduceKind) => {
+    if (next === kind) return;
+    setKind(next);
+    setText('');
+    setSituation(null);
+    setAlsoUse([]);
+    setResult(null);
+    setError(null);
+    setPhase(creditsOut && next === 'sentence' ? 'self' : 'write');
+  };
+
+  const getSituation = async () => {
+    setGettingSituation(true);
+    setError(null);
+    try {
+      setSituation(await deepWordApi.scenario(word.id));
+      setText('');
+    } catch (err) {
+      setError(err);
+    } finally {
+      setGettingSituation(false);
+    }
+  };
 
   const check = async () => {
     setBusy(true);
     setError(null);
     setPhase('checking');
     try {
-      const reply = await deepWordApi.produce(word.id, text.trim());
-      setResult({ check: reply.check, verdict: reply.verdict, sentence: text.trim() });
+      const reply = await deepWordApi.produce(word.id, text.trim(), { kind, situation: situation?.situation, alsoUse: alsoUse.length ? alsoUse : undefined });
+      setResult({ check: reply.check, verdict: reply.verdict, text: text.trim() });
       onProgress(reply.progress);
       setPhase('result');
     } catch (err) {
-      if (err instanceof ApiRequestError && err.code && PLAN_OR_QUOTA.includes(err.code)) setPhase('self');
+      const outOfCredits = err instanceof ApiRequestError && err.code !== undefined && PLAN_OR_QUOTA.includes(err.code);
+      if (outOfCredits && kind === 'sentence') setPhase('self');
       else {
         setError(err);
         setPhase('write');
@@ -357,6 +422,10 @@ export const StageProduce: React.FC<{
     }
   };
 
+  const canCheck = text.trim().length >= MIN_CHARS[kind] && (kind !== 'scenario' || situation !== null);
+  const textShown = isListening ? `${text} ${transcript} ${speech.interimTranscript}`.trim() : text;
+  const placeholder = kind === 'scenario' ? s.scenarioAnswer : s.placeholder;
+
   return (
     <div className="dw__card">
       <div className="dw__section">
@@ -365,24 +434,74 @@ export const StageProduce: React.FC<{
       </div>
 
       <div className="dw__kinds" role="radiogroup" aria-label={s.title}>
-        {(['sentence', 'speak', 'paragraph', 'scenario'] as const).map((kind) => (
-          <button key={kind} type="button" role="radio" aria-checked={kind === 'sentence'} disabled={kind !== 'sentence'} className="dw__kind">
-            <span className="dw__row">
-              <strong>{s.kinds[kind]}</strong>
-              {kind === 'sentence' ? <Tag tone="brand">{s.free}</Tag> : <Tag tone="neutral">{s.soon}</Tag>}
-            </span>
-            <span className="dw__muted">{s.kindBodies[kind]}</span>
-          </button>
-        ))}
+        {PRODUCE_KINDS.map((k) => {
+          const locked = creditsOut && k !== 'sentence';
+          return (
+            <button key={k} type="button" role="radio" aria-checked={kind === k} disabled={locked || phase === 'checking'} className="dw__kind" onClick={() => choose(k)}>
+              <span className="dw__row">
+                <strong>{s.kinds[k]}</strong>
+                {k === 'sentence' && <Tag tone="brand">{s.free}</Tag>}
+                {locked ? <Tag tone="notice">{s.needCreditsKind}</Tag> : costs && <Tag tone="neutral">{s.cost(costs.credits[k])}</Tag>}
+              </span>
+              <span className="dw__muted">{s.kindBodies[k]}</span>
+            </button>
+          );
+        })}
       </div>
 
       {(phase === 'write' || phase === 'checking') && (
         <div className="dw__section">
-          <p className="dw__note">{topic}</p>
-          <textarea className="dw__textarea" value={text} onChange={(e) => setText(e.target.value)} placeholder={s.placeholder} aria-label={s.kinds.sentence} rows={3} maxLength={400} lang="en" />
-          <Button onClick={() => void check()} loading={busy} disabled={text.trim().length < 3 || busy}>
-            {phase === 'checking' ? s.checking : s.check}
-          </Button>
+          {kind === 'sentence' && <p className="dw__note">{topic}</p>}
+          {kind === 'speak' && (
+            <>
+              <p className="dw__note">{s.speakHint}</p>
+              {speech.errorKind === 'denied' && <Banner tone="warning">{s.speakDenied}</Banner>}
+              {speech.isSupported ? (
+                <RecordButton size="md" isRecording={isListening} onStart={speech.startListening} onStop={speech.stopListening} startLabel={s.speakRecord} stopLabel={s.speakStop} />
+              ) : (
+                <Banner tone="info">{s.speakNoSupport}</Banner>
+              )}
+            </>
+          )}
+          {kind === 'paragraph' && (
+            <>
+              <p className="dw__note">{s.paragraphHint}</p>
+              {family.length > 0 && (
+                <div className="dw__filters" role="group" aria-label={s.alsoUse}>
+                  <span className="dw__muted">{s.alsoUse}:</span>
+                  {family.map((w) => (
+                    <button key={w} type="button" className="dw__chip" aria-pressed={alsoUse.includes(w)} lang="en" onClick={() => setAlsoUse((cur) => (cur.includes(w) ? cur.filter((x) => x !== w) : cur.length < 2 ? [...cur, w] : cur))}>
+                      {w}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+          {kind === 'scenario' && (
+            <>
+              {situation ? (
+                <div className="dw__core">
+                  <p className="dw__kicker">{s.scenarioLabel}</p>
+                  <span lang="en">{situation.situation}</span>
+                  {locale === 'vi' && <span className="dw__muted">{situation.situationVi}</span>}
+                </div>
+              ) : null}
+              <div>
+                <Button variant={situation ? 'ghost' : 'primary'} icon="sparkles" onClick={() => void getSituation()} loading={gettingSituation} disabled={gettingSituation || busy}>
+                  {gettingSituation ? s.scenarioGetting : situation ? s.scenarioAnother : s.scenarioGet}
+                </Button>
+              </div>
+            </>
+          )}
+          {(kind !== 'scenario' || situation) && (
+            <>
+              <textarea className="dw__textarea" value={textShown} onChange={(e) => setText(e.target.value)} placeholder={placeholder} aria-label={s.kinds[kind]} rows={kind === 'paragraph' ? 6 : 3} maxLength={kind === 'paragraph' ? 800 : 400} lang="en" />
+              <Button onClick={() => void check()} loading={busy} disabled={!canCheck || busy || isListening}>
+                {phase === 'checking' ? s.checking : s.check}
+              </Button>
+            </>
+          )}
         </div>
       )}
 
@@ -393,7 +512,7 @@ export const StageProduce: React.FC<{
           </p>
           <p className="dw__kicker">{s.yourSentence}</p>
           <p className="dw__fb-sentence" lang="en">
-            {markIssues(result.sentence, result.check.issues).map((part, i) =>
+            {markIssues(result.text, result.check.issues).map((part, i) =>
               part.issue ? (
                 <span key={i} className="dw__flag">
                   {part.text}
@@ -425,21 +544,28 @@ export const StageProduce: React.FC<{
               ))}
             </ol>
           )}
-          {result.check.improved && result.check.improved !== result.sentence && (
+          {result.check.improved && result.check.improved !== result.text && (
             <div className="dw__core">
               <p className="dw__kicker">{s.better}</p>
               <span lang="en">{result.check.improved}</span>
             </div>
           )}
           <div className="dw__row">
-            <Button variant="secondary" onClick={() => { setText(''); setPhase('write'); }}>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setText('');
+                if (kind === 'scenario') setSituation(null);
+                setPhase('write');
+              }}
+            >
               {s.another}
             </Button>
           </div>
         </div>
       )}
 
-      {phase === 'self' && !done && (
+      {phase === 'self' && !done && kind === 'sentence' && (
         <div className="dw__section">
           <Banner tone="info">
             <strong>{s.noCreditsTitle}</strong> <Tag tone="notice">{s.needCredits}</Tag> {s.noCredits}

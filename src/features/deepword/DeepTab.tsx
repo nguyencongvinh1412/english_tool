@@ -11,7 +11,7 @@ import { deepWordApi, type DeepOverview, type Profile } from '@/shared/deepWordA
 import { meaningOf } from '@/shared/enVocabApi';
 import './deepword.css';
 
-export type DeepView = { type: 'overview' } | { type: 'review' } | { type: 'session'; itemId?: string } | { type: 'word'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
+export type DeepView = { type: 'overview' } | { type: 'review' } | { type: 'session'; itemId?: string; relearn?: boolean } | { type: 'word'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
 
 const splitList = (value: string) => value.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 5);
 
@@ -172,6 +172,25 @@ export const DeepTab: React.FC<{ view: DeepView; onView: (view: DeepView) => voi
           </>
         )}
       </Card>
+
+      {overview.forgetful.length > 0 && (
+        <Card padding="md" className="dw__card">
+          <h2 className="dw__h">{d.forgetful.title}</h2>
+          <p className="dw__muted">{d.forgetful.body}</p>
+          <ul className="dw__list">
+            {overview.forgetful.map((w) => (
+              <li key={w.id} className="dw__item">
+                <div className="dw__item-main">
+                  <strong lang="en">{w.term}</strong> <span className="dw__muted">{d.forgetful.lapses(w.lapses)}</span>
+                </div>
+                <Button size="sm" variant="secondary" onClick={() => onView({ type: 'session', itemId: w.id, relearn: true })}>
+                  {d.forgetful.relearn}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       <Card padding="md" className="dw__card">
         <h2 className="dw__h">{d.review.cardTitle}</h2>

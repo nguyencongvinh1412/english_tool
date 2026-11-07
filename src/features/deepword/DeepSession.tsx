@@ -17,7 +17,7 @@ import './deepword.css';
 
 type Summary = { progress: DeepProgress; startCells: Cells | null; schedule: string[]; deferred: boolean };
 
-export const DeepSession: React.FC<{ itemId?: string; onExit: () => void; onOpenWord: (itemId: string) => void }> = ({ itemId, onExit, onOpenWord }) => {
+export const DeepSession: React.FC<{ itemId?: string; relearn?: boolean; onExit: () => void; onOpenWord: (itemId: string) => void }> = ({ itemId, relearn, onExit, onOpenWord }) => {
   const { t, locale } = useI18n();
   const d = t.deepWord.session;
   const [data, setData] = useState<SessionStart | null>(null);
@@ -34,7 +34,7 @@ export const DeepSession: React.FC<{ itemId?: string; onExit: () => void; onOpen
     setData(null);
     setError(null);
     deepWordApi
-      .start(itemId)
+      .start(itemId, relearn)
       .then((start) => {
         if (!live) return;
         setData(start);
@@ -46,7 +46,7 @@ export const DeepSession: React.FC<{ itemId?: string; onExit: () => void; onOpen
     return () => {
       live = false;
     };
-  }, [itemId, attempt]);
+  }, [itemId, relearn, attempt]);
 
   const save = useCallback(
     (next: number, extra?: Record<string, unknown>) => {
@@ -142,6 +142,7 @@ export const DeepSession: React.FC<{ itemId?: string; onExit: () => void; onOpen
     <div className="dw">
       <PracticeHeader title={d.title} level={null} onBack={onExit} />
       <ActivityProgress label={d.stageLabel(stage, d.steps[stage - 1])} index={stage - 1} total={5} />
+      {relearn && stage <= 3 && <Banner tone="info">{d.relearnNote}</Banner>}
       {data.beginner && stage >= 2 && stage <= 3 && <Banner tone="info">{d.beginnerNote}</Banner>}
       <Card padding="lg" key={stage}>
         {stage === 1 && <StageMeet data={data} report={report} onNext={() => go(2)} />}
