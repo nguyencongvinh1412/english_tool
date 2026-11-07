@@ -43,7 +43,7 @@ export function pickCarryOver<T extends { task: TodayTask }>(previous: T[], toda
   return picked;
 }
 
-const RANK: Record<TodayTask['type'], number> = { 'review-words': 0, 'review-grammar': 1, 'fix-mistakes': 2, 'learn-grammar': 4, 'practice-skill': 5, 'learn-deep-word': 5, 'learn-words': 6 };
+const RANK: Record<TodayTask['type'], number> = { 'review-words': 0, 'review-deep': 1, 'review-grammar': 1, 'fix-mistakes': 2, 'learn-grammar': 4, 'practice-skill': 5, 'learn-deep-word': 5, 'learn-words': 6 };
 
 /** Review first, then what was carried over, then the rest (BR-08) */
 export const byPriority = (a: TodayTask, b: TodayTask): number => {

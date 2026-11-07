@@ -25,6 +25,7 @@ export type TodayTask = {
   | { type: 'practice-skill'; skill: TodaySkill }
   | { type: 'learn-words'; level: string; remaining: number }
   | { type: 'learn-deep-word'; itemId: string; term: string; resume?: boolean }
+  | { type: 'review-deep'; count: number }
 );
 
 export interface Today {

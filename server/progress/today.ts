@@ -14,7 +14,7 @@ import { GRAMMAR_POINTS } from '../grammar/map.js';
 import { recentMistakes } from '../grammar/mistakes.js';
 import { CEFR_ORDER, JLPT_ORDER, levelsUpTo } from './levels.js';
 import { goalOf, grammarState, vocabByLevel, type StudyLanguage } from './journey.js';
-import { completedToday, prefsOf, todaysWord } from '../deepword/service.js';
+import { completedToday, dueWords as dueDeepWords, prefsOf, REVIEW_SESSION, reviewedToday, reviewMinutes, todaysWord } from '../deepword/service.js';
 
 export const TODAY_BUDGETS = [10, 20, 45] as const;
 export type TodayBudget = (typeof TODAY_BUDGETS)[number];
@@ -45,6 +45,7 @@ export type TodayTask = {
   | { type: 'practice-skill'; skill: Skill }
   | { type: 'learn-words'; level: string; remaining: number }
   | { type: 'learn-deep-word'; itemId: string; term: string; resume?: boolean }
+  | { type: 'review-deep'; count: number }
 );
 
 /**
@@ -137,9 +138,15 @@ export async function buildToday(user: User, budget: TodayBudget, language: Stud
 
   // Deep Word: today's word (when the learner turned it on), or the one they finished
   const finishedDeep = language === 'en' ? await completedToday(user.id) : new Map<string, string>();
+  const deepReviewed = language === 'en' && (await reviewedToday(user.id)) > 0;
   if (language === 'en') {
     const prefs = await prefsOf(user.id);
     if (prefs.enabled) {
+      const [due, reviewed] = await Promise.all([dueDeepWords(user.id), reviewedToday(user.id)]);
+      if (due.length > 0 || reviewed > 0) {
+        const count = Math.min(Math.max(due.length, 1), REVIEW_SESSION);
+        drafts.push({ id: 'review-deep', type: 'review-deep', count, minutes: reviewMinutes(count), done: due.length === 0 });
+      }
       const pick = await todaysWord(user, prefs);
       if (pick.word) drafts.push({ id: `deep-${pick.word.id}`, type: 'learn-deep-word', itemId: pick.word.id, term: pick.word.term, resume: pick.state === 'resume' || undefined, minutes: DEEP_WORD_MINUTES, done: false });
       else if (finishedDeep.size > 0) {
@@ -154,6 +161,8 @@ export async function buildToday(user: User, budget: TodayBudget, language: Stud
     switch (task.type) {
       case 'learn-deep-word':
         return finishedDeep.size > 0;
+      case 'review-deep':
+        return deepReviewed;
       case 'review-words':
       case 'learn-words':
         return vocabToday;

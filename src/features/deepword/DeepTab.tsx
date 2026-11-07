@@ -11,7 +11,7 @@ import { deepWordApi, type DeepOverview, type Profile } from '@/shared/deepWordA
 import { meaningOf } from '@/shared/enVocabApi';
 import './deepword.css';
 
-export type DeepView = { type: 'overview' } | { type: 'session'; itemId?: string } | { type: 'word'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
+export type DeepView = { type: 'overview' } | { type: 'review' } | { type: 'session'; itemId?: string } | { type: 'word'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
 
 const splitList = (value: string) => value.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 5);
 
@@ -137,6 +137,8 @@ export const DeepTab: React.FC<{ view: DeepView; onView: (view: DeepView) => voi
     <div className="dw">
       <p className="dw__muted">{d.intro}</p>
 
+      {overview.review.welcomeBack && <Banner tone="info">{d.review.welcomeBack}</Banner>}
+
       <Card padding="lg" className="dw__card">
         <p className="dw__kicker">{d.today.title}</p>
         {today.word && (today.state === 'ready' || today.state === 'resume') ? (
@@ -167,6 +169,26 @@ export const DeepTab: React.FC<{ view: DeepView; onView: (view: DeepView) => voi
           <>
             <h2 className="dw__h">{d.today.emptyTitle}</h2>
             <p className="dw__muted">{d.today.emptyBody}</p>
+          </>
+        )}
+      </Card>
+
+      <Card padding="md" className="dw__card">
+        <h2 className="dw__h">{d.review.cardTitle}</h2>
+        {overview.review.session > 0 ? (
+          <>
+            <p>{d.review.cardBody(overview.review.session, overview.review.minutes)}</p>
+            {overview.review.due > overview.review.session && <p className="dw__muted">{d.review.cardMore(overview.review.due - overview.review.session)}</p>}
+            <div>
+              <Button icon="bolt" onClick={() => onView({ type: 'review' })}>
+                {d.review.start}
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p>{d.review.none}</p>
+            <p className="dw__muted">{d.review.noneBody}</p>
           </>
         )}
       </Card>

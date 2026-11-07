@@ -21,3 +21,8 @@ export function nextReview(step: number, good: boolean, now: Date): { step: numb
 
 /** The days a first completion schedules, shown at the end of a session */
 export const firstSchedule = (from: Date): Date[] => LADDER_DAYS.slice(0, 4).map((days) => new Date(from.getTime() + days * DAY_MS));
+
+/** A review that was neither good nor poor (the learner was helped): the same interval again */
+export function repeatReview(step: number, now: Date): { step: number; dueAt: Date } {
+  return { step, dueAt: new Date(now.getTime() + LADDER_DAYS[Math.min(step, LADDER_DAYS.length - 1)] * DAY_MS) };
+}

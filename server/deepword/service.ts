@@ -1,14 +1,19 @@
 /**
  * Deep Word service: settings, the words a learner studies today, the queue and progress shapes sent to the client.
  */
-import { and, asc, desc, eq, isNull, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, isNull, lte, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { deepWordAttempts, deepWordPrefs, deepWordProgress, deepWordQueue, srsCards, vocabItems, wordBank, type DeepWordProgress, type User, type VocabItem } from '../db/schema.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { toPublicItem } from '../vocab/data.js';
 import { computeStage, type Cells, type Evidence } from './stage.js';
 
+/** Exercises where the learner produces the word; correct, unaided ones on separate days make a production cell "done" */
+const PRODUCTION_KINDS = ['sentence', 'review-fix', 'review-cloze', 'review-recall'];
+
 export const MAX_PER_DAY = 2;
+/** Words in one review session; a longer backlog is split into short sessions */
+export const REVIEW_SESSION = 5;
 /** The queue is topped up to this many words */
 export const QUEUE_TARGET = 4;
 /** "Later" on the production stage is offered this many times; after that the word waits at "understood" */
@@ -70,7 +75,7 @@ export async function evidenceOf(userId: string, itemId: string, extraPass = fal
       days: sql<number>`count(distinct (${deepWordAttempts.createdAt} at time zone 'Asia/Ho_Chi_Minh')::date)::int`,
     })
     .from(deepWordAttempts)
-    .where(and(eq(deepWordAttempts.userId, userId), eq(deepWordAttempts.itemId, itemId), eq(deepWordAttempts.kind, 'sentence'), eq(deepWordAttempts.result, 'pass'), eq(deepWordAttempts.assisted, false)));
+    .where(and(eq(deepWordAttempts.userId, userId), eq(deepWordAttempts.itemId, itemId), inArray(deepWordAttempts.kind, PRODUCTION_KINDS), eq(deepWordAttempts.result, 'pass'), eq(deepWordAttempts.assisted, false)));
   const today = extraPass
     ? await db
         .select({ n: sql<number>`count(*)::int` })
@@ -79,7 +84,7 @@ export async function evidenceOf(userId: string, itemId: string, extraPass = fal
           and(
             eq(deepWordAttempts.userId, userId),
             eq(deepWordAttempts.itemId, itemId),
-            eq(deepWordAttempts.kind, 'sentence'),
+            inArray(deepWordAttempts.kind, PRODUCTION_KINDS),
             eq(deepWordAttempts.result, 'pass'),
             eq(deepWordAttempts.assisted, false),
             sql`(${deepWordAttempts.createdAt} at time zone 'Asia/Ho_Chi_Minh')::date = ${quotaDay()}::date`
@@ -197,4 +202,37 @@ export async function completedToday(userId: string): Promise<Map<string, string
     .innerJoin(vocabItems, eq(vocabItems.id, deepWordProgress.itemId))
     .where(and(eq(deepWordProgress.userId, userId), sql`(${deepWordProgress.completedAt} at time zone 'Asia/Ho_Chi_Minh')::date = ${quotaDay()}::date`));
   return new Map(rows.map((r) => [r.id, r.term]));
+}
+
+/** Studied words that are due for review, oldest first */
+export async function dueWords(userId: string, now = new Date()) {
+  return db
+    .select({ item: vocabItems, progress: deepWordProgress })
+    .from(deepWordProgress)
+    .innerJoin(vocabItems, eq(vocabItems.id, deepWordProgress.itemId))
+    .where(and(eq(deepWordProgress.userId, userId), lte(deepWordProgress.nextReviewAt, now), sql`${deepWordProgress.completedAt} is not null`))
+    .orderBy(asc(deepWordProgress.nextReviewAt));
+}
+
+/** Minutes a review of this many words takes (about two each, at most ten) */
+export const reviewMinutes = (count: number) => Math.min(10, Math.max(3, count * 2));
+
+/** True when the learner has not reviewed for a week or more while words wait: the overview offers a gentler return */
+export async function awayFromReviews(userId: string, due: number): Promise<boolean> {
+  if (due === 0) return false;
+  const [row] = await db
+    .select({ last: sql<Date | null>`max(${deepWordProgress.lastReviewedAt})` })
+    .from(deepWordProgress)
+    .where(eq(deepWordProgress.userId, userId));
+  const last = row?.last ? new Date(row.last).getTime() : null;
+  return last !== null && Date.now() - last >= 7 * 86_400_000;
+}
+
+/** Words reviewed today (quota day) */
+export async function reviewedToday(userId: string): Promise<number> {
+  const [row] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(deepWordProgress)
+    .where(and(eq(deepWordProgress.userId, userId), sql`(${deepWordProgress.lastReviewedAt} at time zone 'Asia/Ho_Chi_Minh')::date = ${quotaDay()}::date`));
+  return row?.n ?? 0;
 }

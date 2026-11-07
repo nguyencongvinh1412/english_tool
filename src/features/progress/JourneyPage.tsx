@@ -3,6 +3,7 @@
  * "My progress": the goal and how much of it is covered, what to do next, vocabulary by level, grammar by topic,
  * repeated mistakes, this week, trends over time and mock test scores
  */
+import { DepthProgressBlock } from '@/features/deepword/DepthProgressBlock';
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -232,6 +233,8 @@ export const JourneyPage: React.FC<{ embedded?: boolean }> = ({ embedded = false
         </ul>
         <Legend />
       </Card>
+
+      {journey.language === 'en' && <DepthProgressBlock />}
 
       {grammar && (
         <Card padding="lg" className="reveal">

@@ -8,13 +8,14 @@ import { Banner, Button, EmptyState, Skeleton, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { meaningOf, type EnWord } from '@/shared/enVocabApi';
-import { deepWordApi, type DeepProgress } from '@/shared/deepWordApi';
+import { ASPECTS, deepWordApi, type Aspect, type DeepProgress } from '@/shared/deepWordApi';
 import './deepword.css';
 
 export const Notebook: React.FC<{ onBack: () => void; onOpenWord: (itemId: string) => void }> = ({ onBack, onOpenWord }) => {
   const { t } = useI18n();
   const n = t.deepWord.notebook;
   const [stage, setStage] = useState<number | undefined>();
+  const [weak, setWeak] = useState<Aspect | undefined>();
   const [query, setQuery] = useState('');
   const [words, setWords] = useState<(EnWord & { progress: DeepProgress })[] | null>(null);
   const [error, setError] = useState<unknown>(null);
@@ -22,12 +23,12 @@ export const Notebook: React.FC<{ onBack: () => void; onOpenWord: (itemId: strin
   useEffect(() => {
     const handle = setTimeout(() => {
       deepWordApi
-        .notebook(stage, query.trim() || undefined)
+        .notebook(stage, query.trim() || undefined, weak)
         .then((r) => setWords(r.words))
         .catch(setError);
     }, 200);
     return () => clearTimeout(handle);
-  }, [stage, query]);
+  }, [stage, query, weak]);
 
   return (
     <div className="dw">
@@ -45,6 +46,17 @@ export const Notebook: React.FC<{ onBack: () => void; onOpenWord: (itemId: strin
         {t.deepWord.stageNames.map((name, i) => (
           <button key={name} type="button" className="dw__chip" aria-pressed={stage === i + 1} onClick={() => setStage(i + 1)}>
             {name}
+          </button>
+        ))}
+      </div>
+      <div className="dw__filters" role="group" aria-label={n.weakTitle}>
+        <span className="dw__muted">{n.weakTitle}:</span>
+        <button type="button" className="dw__chip" aria-pressed={weak === undefined} onClick={() => setWeak(undefined)}>
+          {n.weakAny}
+        </button>
+        {ASPECTS.map((aspect) => (
+          <button key={aspect} type="button" className="dw__chip" aria-pressed={weak === aspect} onClick={() => setWeak(aspect)}>
+            {t.deepWord.aspects[aspect]}
           </button>
         ))}
       </div>

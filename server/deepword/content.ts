@@ -11,6 +11,9 @@ import { GENERATE_TIMEOUT_MS, runAIJson } from '../services/ai.js';
 
 const text = (max: number) => z.string().trim().min(1).max(max);
 
+/** A sentence with a typical mistake with the word, the corrected sentence and why */
+export const fixSchema = z.object({ wrong: text(240), right: text(240), note: z.string().trim().max(300).default('') });
+
 export const deepContentSchema = z.object({
   simpleDefinition: text(300),
   coreUse: text(300),
@@ -25,6 +28,7 @@ export const deepContentSchema = z.object({
     .max(8),
   register: text(160),
   examples: z.array(z.object({ text: text(240), vi: text(300) })).min(2).max(5),
+  fixes: z.array(fixSchema).max(4).default([]),
 });
 export type DeepContent = z.infer<typeof deepContentSchema>;
 
@@ -47,8 +51,9 @@ Fields:
 - "collocations": 3 to 6 common word combinations with a short example sentence each.
 - "register": formality and where it is used, in English (e.g. "semi-formal; common in business and technical writing").
 - "examples": 3 or 4 example sentences from everyday work or study life, each with a natural Vietnamese translation in "vi".
+- "fixes": 2 sentences where a learner makes a typical mistake with this word (wrong collocation, wrong part of speech, wrong preposition); "wrong" has exactly one mistake, "right" is the corrected sentence, "note" explains it briefly in English.
 Respond with ONLY one JSON object with exactly these fields and this shape (objects, not plain strings, inside "contrast", "collocations" and "examples"):
-{"simpleDefinition": "...", "coreUse": "...", "synonyms": ["..."], "antonyms": [], "contrast": [{"word": "...", "difference": "...", "differenceVi": "..."}], "wordFamily": ["..."], "collocations": [{"phrase": "cost optimization", "example": "..."}], "register": "...", "examples": [{"text": "...", "vi": "..."}]}`,
+{"simpleDefinition": "...", "coreUse": "...", "synonyms": ["..."], "antonyms": [], "contrast": [{"word": "...", "difference": "...", "differenceVi": "..."}], "wordFamily": ["..."], "collocations": [{"phrase": "cost optimization", "example": "..."}], "register": "...", "examples": [{"text": "...", "vi": "..."}], "fixes": [{"wrong": "...", "right": "...", "note": "..."}]}`,
     user: `Word: ${item.term}\nPart of speech: ${item.pos ?? 'unknown'}\nMeaning: ${item.meaningsEn[0] ?? item.meaningVi ?? ''}`,
   };
 }
@@ -91,4 +96,35 @@ export async function ensureContent(user: User, itemId: string, model?: string):
  */
 export function prepareContent(user: User, itemId: string): void {
   void ensureContent(user, itemId).catch(() => undefined);
+}
+
+const fixesOnly = z.object({ fixes: z.array(fixSchema).min(1).max(4) });
+
+/** Fix-the-sentence exercises of one word, written when its content has none (older content) */
+export async function ensureFixes(user: User, itemId: string, model?: string): Promise<z.infer<typeof fixSchema>[]> {
+  const content = await findContent(itemId);
+  if (!content) return [];
+  const existing = content.fixes as z.infer<typeof fixSchema>[];
+  if (existing.length > 0) return existing;
+  const [item] = await db.select().from(vocabItems).where(eq(vocabItems.id, itemId)).limit(1);
+  if (!item) return [];
+  const { fixes } = await runAIJson(
+    user,
+    {
+      feature: 'deep-word-content',
+      model,
+      system: `You write exercises for Vietnamese learners of English. Write 2 sentences in which a learner makes a typical mistake with ONE word (wrong collocation, wrong part of speech, wrong preposition).
+"wrong" has exactly one mistake; "right" is the corrected sentence; "note" explains the mistake briefly in English.
+Respond with ONLY one JSON object: {"fixes": [{"wrong": "...", "right": "...", "note": "..."}]}`,
+      messages: [{ role: 'user', content: `Word: ${item.term} (${item.pos ?? 'word'}: ${item.meaningsEn[0] ?? ''})` }],
+    },
+    fixesOnly
+  );
+  await db.update(deepWordContent).set({ fixes }).where(eq(deepWordContent.itemId, itemId));
+  return fixes;
+}
+
+/** Starts writing the missing fix exercises in the background; a failure is not an error */
+export function prepareFixes(user: User, itemId: string): void {
+  void ensureFixes(user, itemId).catch(() => undefined);
 }

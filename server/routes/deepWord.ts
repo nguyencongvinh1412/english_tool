@@ -16,7 +16,7 @@ import { ensureContent, findContent, prepareContent } from '../deepword/content.
 import { firstSchedule } from '../deepword/schedule.js';
 import { checkSentence, resultsOf, verdictOf } from '../deepword/sentence.js';
 import { applyResult, type Aspect, type Cells, type Level, type Result } from '../deepword/stage.js';
-import { cellsOf, evidenceOf, fillQueue, MAX_DEFERRALS, MAX_PER_DAY, prefsOf, progressDto, publicWord, queueWords, stageCounts, stageOf, startedToday, todaysWord } from '../deepword/service.js';
+import { awayFromReviews, cellsOf, dueWords, evidenceOf, fillQueue, MAX_DEFERRALS, MAX_PER_DAY, prefsOf, progressDto, publicWord, queueWords, REVIEW_SESSION, reviewMinutes, stageCounts, stageOf, startedToday, todaysWord } from '../deepword/service.js';
 
 const itemId = z.string().min(4).max(200).startsWith('en:');
 const modelField = z.string().max(100).optional();
@@ -97,8 +97,10 @@ export function createDeepWordRouter(): Router {
     const user = currentUser(req);
     const prefs = await prefsOf(user.id);
     const today = await todaysWord(user, prefs);
-    const [queue, counts, doneToday] = await Promise.all([prefs.enabled ? queueWords(user.id) : Promise.resolve([]), stageCounts(user.id), startedToday(user.id)]);
+    const [queue, counts, doneToday, due] = await Promise.all([prefs.enabled ? queueWords(user.id) : Promise.resolve([]), stageCounts(user.id), startedToday(user.id), dueWords(user.id)]);
+    const session = Math.min(due.length, REVIEW_SESSION);
     res.json({
+      review: { due: due.length, session, minutes: session ? reviewMinutes(session) : 0, welcomeBack: await awayFromReviews(user.id, due.length) },
       prefs: { enabled: prefs.enabled, perDay: prefs.perDay, profile: prefs.profile, profileSkipped: prefs.profileSkipped },
       today,
       doneToday,
@@ -187,7 +189,7 @@ export function createDeepWordRouter(): Router {
 
     res.json({
       word: publicWord(item),
-      content: { ...content, generatedAt: undefined },
+      content: { ...content, generatedAt: undefined, fixes: undefined },
       progress: progressDto(row),
       beginner: ['A1', 'A2'].includes(user.cefrLevel ?? ''),
       profile: prefs.profile,
@@ -346,7 +348,7 @@ export function createDeepWordRouter(): Router {
     ]);
     res.json({
       word: publicWord(item),
-      content: content ? { ...content, generatedAt: undefined } : null,
+      content: content ? { ...content, generatedAt: undefined, fixes: undefined } : null,
       progress: progress[0] ? progressDto(progress[0]) : null,
       sentences: sentences.map((s) => ({ id: s.id, text: s.userText, result: s.result, improved: (s.feedback as { improved?: string } | null)?.improved ?? null, at: s.createdAt })),
       links: links.map((l) => publicWord(l.item)),
@@ -359,11 +361,13 @@ export function createDeepWordRouter(): Router {
     const user = currentUser(req);
     const stage = z.coerce.number().int().min(1).max(5).optional().parse(req.query.stage);
     const q = z.string().trim().max(60).optional().parse(req.query.q);
+    const weak = z.enum(['form', 'meaning', 'use']).optional().parse(req.query.weak);
+    const weakCell = weak ? { form: deepWordProgress.formP, meaning: deepWordProgress.meaningP, use: deepWordProgress.useP }[weak] : null;
     const rows = await db
       .select({ item: vocabItems, progress: deepWordProgress })
       .from(deepWordProgress)
       .innerJoin(vocabItems, eq(vocabItems.id, deepWordProgress.itemId))
-      .where(and(eq(deepWordProgress.userId, user.id), stage ? eq(deepWordProgress.stage, stage) : undefined, q ? sql`${vocabItems.term} ilike ${`%${q.replace(/[%_]/g, '')}%`}` : undefined))
+      .where(and(eq(deepWordProgress.userId, user.id), stage ? eq(deepWordProgress.stage, stage) : undefined, weakCell ? sql`${weakCell} < 2 and ${deepWordProgress.completedAt} is not null` : undefined, q ? sql`${vocabItems.term} ilike ${`%${q.replace(/[%_]/g, '')}%`}` : undefined))
       .orderBy(asc(deepWordProgress.stage), desc(deepWordProgress.updatedAt));
     res.json({ words: rows.map(({ item, progress }) => ({ ...publicWord(item), progress: progressDto(progress) })) });
   });

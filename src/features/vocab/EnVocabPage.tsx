@@ -21,6 +21,7 @@ import { VocabStatsTab } from './VocabStatsTab';
 import { WordDetails } from './WordDetails';
 import { DeepTab, type DeepView } from '@/features/deepword/DeepTab';
 import { DeepSession } from '@/features/deepword/DeepSession';
+import { DeepReview } from '@/features/deepword/DeepReview';
 import { WordPage } from '@/features/deepword/WordPage';
 import { Notebook } from '@/features/deepword/Notebook';
 import './vocab.css';
@@ -89,7 +90,7 @@ export const EnVocabPage: React.FC = () => {
   const { t } = useI18n();
   const [params] = useSearchParams();
   const [tab, setTab] = useState<Tab>(params.get('tab') === 'deep' ? 'deep' : 'decks');
-  const [deepView, setDeepView] = useState<DeepView>(params.get('tab') === 'deep' && params.get('start') === '1' ? { type: 'session' } : { type: 'overview' });
+  const [deepView, setDeepView] = useState<DeepView>(params.get('tab') !== 'deep' ? { type: 'overview' } : params.get('start') === '1' ? { type: 'session' } : params.get('review') === '1' ? { type: 'review' } : { type: 'overview' });
   const [decks, setDecks] = useState<EnDeck[] | null>(null);
   const [dueTotal, setDueTotal] = useState(0);
   const [view, setView] = useState<{ type: 'review'; deckId: string; title: string } | { type: 'list'; deck: EnDeck } | { type: 'match' } | null>(null);
@@ -136,6 +137,9 @@ export const EnVocabPage: React.FC = () => {
 
   if (view?.type === 'review') return <Session deckId={view.deckId} title={view.title} onDone={back} />;
   if (view?.type === 'list') return <DeckList deck={view.deck} onBack={back} />;
+  if (tab === 'deep' && deepView.type === 'review') {
+    return <DeepReview onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
+  }
   if (tab === 'deep' && deepView.type === 'session') {
     return <DeepSession itemId={deepView.itemId} onExit={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />;
   }

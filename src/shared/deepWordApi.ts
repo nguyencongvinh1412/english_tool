@@ -68,6 +68,7 @@ export interface DeepPrefs {
 export type QueuedWord = EnWord & { source: string };
 
 export interface DeepOverview {
+  review: { due: number; session: number; minutes: number; welcomeBack: boolean };
   prefs: DeepPrefs;
   today: { state: 'off' | 'ready' | 'resume' | 'done' | 'empty'; word: EnWord | null; sessionStage?: number };
   doneToday: number;
@@ -106,6 +107,39 @@ export interface WordPageData {
   queued: boolean;
 }
 
+export type ReviewKind = 'recall' | 'cloze' | 'fix' | 'sentence';
+
+export type ReviewExercise =
+  | { kind: 'recall'; definition: string; pos: string | null; first: string; length: number }
+  | { kind: 'cloze'; ref: number; text: string; vi: string | null; first: string; length: number }
+  | { kind: 'fix'; ref: number; wrong: string }
+  | { kind: 'sentence'; topic: string | null; firstSentence: boolean };
+
+export interface ReviewItem {
+  word: EnWord;
+  stage: DeepStage;
+  cells: Cells;
+  exercise: ReviewExercise;
+}
+
+export interface ReviewAnswer {
+  result: 'pass' | 'partial' | 'fail';
+  outcome: 'good' | 'same' | 'bad';
+  assisted: boolean;
+  explanation: { answer?: string; sentence?: string; right?: string; note?: string; improved?: string };
+  check: SentenceCheck | null;
+  cellsBefore: Cells;
+  progress: DeepProgress;
+}
+
+export interface DeepStats {
+  total: number;
+  stages: number[];
+  weak: { form: number; meaning: number; use: number };
+  unaided: { ok: number; of: number };
+  recognisedOnly: number;
+}
+
 const aiUsed = <T,>(r: T) => {
   window.dispatchEvent(new Event(AI_USED_EVENT));
   return r;
@@ -129,8 +163,16 @@ export const deepWordApi = {
   complete: (itemId: string, link: string[]) =>
     apiFetch<{ progress: DeepProgress; startCells: Cells | null; schedule: string[]; deferred: boolean }>('/api/deep/session/complete', { method: 'POST', json: { itemId, link } }),
   word: (itemId: string) => apiFetch<WordPageData>(`/api/deep/word/${encodeURIComponent(itemId)}`),
-  notebook: (stage?: number, q?: string) =>
-    apiFetch<{ words: (EnWord & { progress: DeepProgress })[] }>(`/api/deep/notebook?${new URLSearchParams({ ...(stage ? { stage: String(stage) } : {}), ...(q ? { q } : {}) })}`),
+  notebook: (stage?: number, q?: string, weak?: Aspect) =>
+    apiFetch<{ words: (EnWord & { progress: DeepProgress })[] }>(`/api/deep/notebook?${new URLSearchParams({ ...(stage ? { stage: String(stage) } : {}), ...(q ? { q } : {}), ...(weak ? { weak } : {}) })}`),
+  review: (ai: boolean) => apiFetch<{ due: number; minutes: number; items: ReviewItem[]; welcomeBack: boolean }>(`/api/deep/review?ai=${ai ? 1 : 0}`),
+  answer: (body: { itemId: string; kind: ReviewKind; ref?: number; answer?: string; selfCheck?: { ticked: number; total: number } }) =>
+    apiFetch<ReviewAnswer>('/api/deep/review/answer', { method: 'POST', json: { ...body, model: model() } }).then(aiUsed),
+  stats: () => apiFetch<DeepStats>('/api/deep/stats'),
+  adminList: (q?: string) => apiFetch<{ words: { id: string; term: string; status: 'ai' | 'approved'; generatedAt: string }[] }>(`/api/admin/deep-words${q ? `?q=${encodeURIComponent(q)}` : ''}`),
+  adminGet: (id: string) => apiFetch<{ content: Omit<DeepContent, 'status'> & { fixes: { wrong: string; right: string; note: string }[] }; status: 'ai' | 'approved' }>(`/api/admin/deep-words/${encodeURIComponent(id)}`),
+  adminSave: (id: string, content: unknown, status: 'ai' | 'approved') => apiFetch<void>(`/api/admin/deep-words/${encodeURIComponent(id)}`, { method: 'PUT', json: { content, status } }),
+  adminRegenerate: (id: string) => apiFetch<{ content: unknown }>(`/api/admin/deep-words/${encodeURIComponent(id)}/regenerate`, { method: 'POST' }).then(aiUsed),
 };
 
 /** The stage labels use these keys in the messages (t.deepWord.stages) */

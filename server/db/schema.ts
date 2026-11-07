@@ -851,6 +851,8 @@ export const deepWordContent = pgTable('deep_word_content', {
   examples: jsonb('examples').notNull().default([]),
   /** Short note on how a beginner should use the word */
   coreUse: text('core_use').notNull().default(''),
+  /** [{ wrong, right, note }]: a sentence with a typical mistake, for the "fix the sentence" review */
+  fixes: jsonb('fixes').notNull().default([]),
   /** ai (not reviewed) | approved (an admin checked it) */
   status: text('status').notNull().default('ai'),
   generatedAt: timestamp('generated_at', { withTimezone: true }).notNull().defaultNow(),
@@ -893,6 +895,9 @@ export const deepWordProgress = pgTable(
     reviewStep: smallint('review_step').notNull().default(0),
     /** Kind of the last review, so the next one differs */
     lastKind: text('last_kind'),
+    /** Whether the last review went well; after a poor one the next review is an easier kind */
+    lastGood: boolean('last_good'),
+    lastReviewedAt: timestamp('last_reviewed_at', { withTimezone: true }),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
