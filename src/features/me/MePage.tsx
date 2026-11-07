@@ -10,6 +10,8 @@ import { Button, Card, Icon, Segmented, Tag } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useAuth, useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
+import { hasRoadmap, roadmapApi } from '@/shared/roadmapApi';
+import { placementApi } from '@/shared/placementApi';
 import { billingApi, tasksLeft } from '@/shared/billingApi';
 import { useFuriganaPreference, type FuriganaMode } from '@/shared/ja/furigana';
 import { ACCENTS, THEME_MODES, useAccent, useTheme, type Accent } from '@/shared/theme';
@@ -56,11 +58,24 @@ export const MePage: React.FC = () => {
   const [accent, setAccent] = useAccent();
   const [furigana, setFurigana] = useFuriganaPreference();
   const [planName, setPlanName] = useState<string | null>(null);
+  const [roadmapPct, setRoadmapPct] = useState<number | null | undefined>(undefined);
+  const [placementLevel, setPlacementLevel] = useState<string | null | undefined>(undefined);
 
   useEffect(() => {
     billingApi
       .plans()
       .then((info) => setPlanName(info.plans.find((p) => p.id === info.current.planId)?.name ?? null))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    roadmapApi
+      .get()
+      .then((d) => setRoadmapPct(hasRoadmap(d) ? Math.round(d.progress.overall * 100) : null))
+      .catch(() => {});
+    placementApi
+      .get()
+      .then((d) => setPlacementLevel(d.latest?.overall ?? null))
       .catch(() => {});
   }, []);
 
@@ -84,8 +99,12 @@ export const MePage: React.FC = () => {
       <div className="me__cols">
         <Group title={t.me.groups.goal}>
           <Row label={t.me.rows.goal} value={goalText} to={ROUTES.ME_ACCOUNT} />
-          <Row label={t.me.rows.roadmap} value={t.me.values.soon} />
-          <Row label={t.me.rows.placement} value={t.me.values.soon} />
+          <Row
+            label={t.me.rows.roadmap}
+            value={roadmapPct === undefined ? '…' : roadmapPct === null ? t.me.values.noRoadmap : t.me.values.roadmapProgress(roadmapPct)}
+            to={roadmapPct === null ? ROUTES.ROADMAP_NEW : ROUTES.ROADMAP}
+          />
+          <Row label={t.me.rows.placement} value={placementLevel === undefined ? '…' : (placementLevel ?? t.me.values.noPlacement)} to={ROUTES.PLACEMENT} />
         </Group>
 
         <Group title={t.me.groups.plan}>

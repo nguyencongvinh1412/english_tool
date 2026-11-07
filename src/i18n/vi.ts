@@ -2326,7 +2326,9 @@ export const vi: Messages = {
     },
     values: {
       noGoal: 'Chưa đặt',
-      soon: 'Sắp có',
+      noRoadmap: 'Chưa tạo',
+      noPlacement: 'Chưa làm',
+      roadmapProgress: (n: number) => `${n}%`,
       creditsOut: 'Đã hết',
       creditsLeft: (n: number) => `Còn ${n}`,
       unlimited: 'Không giới hạn',

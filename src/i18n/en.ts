@@ -2326,7 +2326,9 @@ export const en = {
     },
     values: {
       noGoal: 'Not set',
-      soon: 'Coming soon',
+      noRoadmap: 'Not created',
+      noPlacement: 'Not taken',
+      roadmapProgress: (n: number) => `${n}%`,
       creditsOut: 'None left',
       creditsLeft: (n: number) => `${n} left`,
       unlimited: 'Unlimited',
