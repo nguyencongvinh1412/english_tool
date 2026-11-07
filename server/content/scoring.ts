@@ -85,7 +85,8 @@ Return:
  "improvedVersion": "a rewritten version of the learner's response at about one band higher, keeping their ideas"}
 List up to 10 of the most important corrections; "original" must be copied exactly from the response.
 For a correction that is a GRAMMAR mistake add "grammarPoint": ONE id from this list (leave it out for spelling, vocabulary or style):
-${pointCatalog()}.`,
+${pointCatalog()}.
+For a correction that is a VOCABULARY mistake (a wrong or unnatural word choice), add "word": the single correct English word (base form, lower case) the learner should study; leave it out otherwise.`,
   };
 }
 

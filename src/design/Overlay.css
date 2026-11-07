@@ -176,3 +176,9 @@
   background: var(--surface-3);
   border-radius: 999px;
 }
+
+/* Four tabs (Vocabulary) must fit one row on a phone: tighter padding, no wrap needed */
+@media (max-width: 480px) {
+  .tabs { display: flex; }
+  .tabs__tab { flex: 1 1 auto; justify-content: center; padding-inline: 0.5rem; font-size: 0.9375rem; }
+}

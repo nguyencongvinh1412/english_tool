@@ -13,15 +13,27 @@ import { deepWordApi, type WordPageData } from '@/shared/deepWordApi';
 import { DepthBars, StageLadder } from './DepthMeter';
 import './deepword.css';
 
-export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (itemId: string, relearn?: boolean) => void; onOpenWord: (itemId: string) => void }> = ({ itemId, onBack, onStudy, onOpenWord }) => {
+export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (itemId: string, relearn?: boolean) => void; onOpenWord: (itemId: string) => void; onNetwork: (itemId: string) => void }> = ({ itemId, onBack, onStudy, onOpenWord, onNetwork }) => {
   const { t, locale } = useI18n();
   const w = t.deepWord.word;
   const [data, setData] = useState<WordPageData | null>(null);
   const [error, setError] = useState<unknown>(null);
+  const [note, setNote] = useState<string | null>(null);
+  const [noteState, setNoteState] = useState<'idle' | 'saving' | 'saved' | { error: unknown }>('idle');
 
   useEffect(() => {
     deepWordApi.word(itemId).then(setData).catch(setError);
   }, [itemId]);
+
+  const saveNote = async () => {
+    setNoteState('saving');
+    try {
+      await deepWordApi.saveNote(itemId, note ?? data?.progress?.note ?? '');
+      setNoteState('saved');
+    } catch (err) {
+      setNoteState({ error: err });
+    }
+  };
 
   const date = (iso: string) => new Date(iso).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' });
 
@@ -133,8 +145,39 @@ export const WordPage: React.FC<{ itemId: string; onBack: () => void; onStudy: (
         )}
       </Card>
 
+      {progress && (
+        <Card padding="lg" className="dw__card">
+          <h2 className="dw__h">{t.deepWord.note.title}</h2>
+          <p className="dw__muted">{t.deepWord.note.hint}</p>
+          <textarea
+            className="dw__textarea"
+            rows={3}
+            maxLength={500}
+            value={note ?? progress.note ?? ''}
+            placeholder={t.deepWord.note.placeholder}
+            aria-label={t.deepWord.note.title}
+            onChange={(e) => {
+              setNote(e.target.value);
+              setNoteState('idle');
+            }}
+          />
+          <div className="dw__row">
+            <Button size="sm" variant="secondary" onClick={() => void saveNote()} loading={noteState === 'saving'} disabled={note === null || noteState === 'saving'}>
+              {t.deepWord.note.save}
+            </Button>
+            {noteState === 'saved' && <span className="dw__muted">{t.deepWord.note.saved}</span>}
+          </div>
+          {typeof noteState === 'object' && <Banner tone="danger">{errorMessage(noteState.error, t)}</Banner>}
+        </Card>
+      )}
+
       <Card padding="lg" className="dw__card">
-        <h2 className="dw__h">{w.related}</h2>
+        <div className="dw__row dw__row--between">
+          <h2 className="dw__h">{w.related}</h2>
+          <Button size="sm" variant="secondary" icon="graph" onClick={() => onNetwork(word.id)}>
+            {t.deepWord.network.open}
+          </Button>
+        </div>
         {data.links.length === 0 ? (
           <p className="dw__muted">{w.noRelated}</p>
         ) : (

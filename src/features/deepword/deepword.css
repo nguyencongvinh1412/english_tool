@@ -91,3 +91,21 @@
 .dw__chip[aria-pressed='true'] { color: var(--brand-ink); background: var(--brand-soft); border-color: var(--brand); font-weight: 700; }
 .dw__chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .dw * { animation: none !important; transition: none !important; } }
+
+/* Word network */
+.dw-net { width: 100%; height: auto; max-height: 460px; }
+.dw-net__line { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+.dw-net__node { cursor: pointer; outline: none; }
+.dw-net__node rect { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 2; stroke-dasharray: 4 3; }
+.dw-net__node text { fill: var(--text); font-size: 14px; font-weight: 600; pointer-events: none; }
+.dw-net__node.is-studied rect { fill: var(--brand-soft); stroke: var(--brand); stroke-dasharray: none; }
+.dw-net__node.is-center rect { stroke-width: 3; }
+.dw-net__node.is-on rect, .dw-net__node:focus-visible rect { stroke: var(--focus); stroke-width: 4; stroke-dasharray: none; }
+.dw-net__legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); }
+.dw-net__group { padding: 0.5rem 0; }
+.dw-net__group summary { cursor: pointer; font-weight: 700; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.dw-net__svg { display: none; }
+@media (min-width: 700px) {
+  .dw-net__svg { display: block; }
+  .dw-net__tree { display: none; }
+}

@@ -34,9 +34,14 @@ export const Notebook: React.FC<{ onBack: () => void; onOpenWord: (itemId: strin
     <div className="dw">
       <div className="dw__row dw__row--between">
         <h2 className="dw__title">{n.title}</h2>
-        <Button variant="ghost" icon="arrowLeft" onClick={onBack}>
-          {n.back}
-        </Button>
+        <div className="dw__row">
+          <a className="btn btn--ghost btn--md" href={deepWordApi.exportUrl} download>
+            <span>{n.exportCsv}</span>
+          </a>
+          <Button variant="ghost" icon="arrowLeft" onClick={onBack}>
+            {n.back}
+          </Button>
+        </div>
       </div>
       <TextInput type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={n.search} aria-label={n.search} />
       <div className="dw__filters" role="group" aria-label={n.title}>

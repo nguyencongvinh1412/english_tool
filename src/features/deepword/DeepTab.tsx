@@ -11,7 +11,7 @@ import { deepWordApi, type DeepOverview, type Profile } from '@/shared/deepWordA
 import { meaningOf } from '@/shared/enVocabApi';
 import './deepword.css';
 
-export type DeepView = { type: 'overview' } | { type: 'review' } | { type: 'session'; itemId?: string; relearn?: boolean } | { type: 'word'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
+export type DeepView = { type: 'overview' } | { type: 'review' } | { type: 'session'; itemId?: string; relearn?: boolean } | { type: 'word'; itemId: string } | { type: 'network'; itemId: string } | { type: 'notebook' } | { type: 'setup' };
 
 const splitList = (value: string) => value.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 5);
 

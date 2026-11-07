@@ -19,7 +19,7 @@ const app = createApp();
 const aiReply = vi.mocked(sendChatMessage);
 
 const word = (w: string) => ({ w, pos: 'noun', def: `meaning of ${w}`, ipa: 'ˈtɛst', cefr: 'B1', deck: 'en-core-B1', ex: `We talked about the ${w}.`, exVi: 'câu ví dụ' });
-const DATA = { version: { built: '2026-11-08' }, decks: [{ id: 'en-core-B1', group: 'core', label: 'B1' }], words: ['budget', 'deadline'].map(word) };
+const DATA = { version: { built: '2026-11-08' }, decks: [{ id: 'en-core-B1', group: 'core', label: 'B1' }], words: ['budget', 'deadline', 'budgets', 'costing'].map(word) };
 let dataFile = '';
 
 const CONTENT = {
@@ -28,7 +28,7 @@ const CONTENT = {
   synonyms: [],
   antonyms: [],
   contrast: [],
-  wordFamily: [],
+  wordFamily: ['budgets', 'budgetary'],
   collocations: [{ phrase: 'tight budget', example: 'We work with a tight budget.' }],
   register: 'neutral',
   examples: [{ text: 'The budget is ready.', vi: 'x' }, { text: 'Check the budget.', vi: 'y' }],
@@ -147,5 +147,49 @@ describe('Deep Word words that are forgotten', () => {
     expect(relearn.body.progress).toMatchObject({ sessionStage: 2, completed: false });
     const row = (await db.select().from(deepWordProgress).where(and(eq(deepWordProgress.userId, user.id), eq(deepWordProgress.itemId, 'en:budget'))))[0];
     expect(row.completedAt).toBeNull();
+  });
+});
+
+describe('Deep Word notes, network and export', () => {
+  it('keeps the learner’s own note on a word and refuses one for a word not studied', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    await agent.put('/api/deep/note').send({ itemId: 'en:budget', note: 'Like my phone bill' }).expect(404);
+    await started(user, 'budget');
+    await agent.put('/api/deep/note').send({ itemId: 'en:budget', note: 'Like my phone bill' }).expect(204);
+    expect((await agent.get('/api/deep/word/en:budget')).body.progress.note).toBe('Like my phone bill');
+    await agent.put('/api/deep/note').send({ itemId: 'en:budget', note: '' }).expect(204);
+    expect((await agent.get('/api/deep/word/en:budget')).body.progress.note).toBeNull();
+  });
+
+  it('shows a word with its family, similar words and the words the learner connected, and how deep each is known', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    await started(user, 'budget');
+    await started(user, 'budgets', { stage: 3 });
+    await db.update(deepWordContent).set({ synonyms: ['costing'], contrast: [{ word: 'deadline', difference: 'a', differenceVi: 'b' }] }).where(eq(deepWordContent.itemId, 'en:budget'));
+    await agent.put('/api/deep/prefs').send({ enabled: true });
+    await db.insert((await import('../db/schema.js')).deepWordLinks).values({ userId: user.id, fromItem: 'en:budget', toItem: 'en:deadline', kind: 'related' });
+
+    const { body } = await agent.get('/api/deep/network/en:budget').expect(200);
+    expect(body.center).toMatchObject({ id: 'en:budget', studied: true, stage: 1 });
+    const by = Object.fromEntries(body.nodes.map((n: { term: string }) => [n.term, n]));
+    // The connected word keeps the closest relation, even though the content also lists it as a contrast
+    expect(by.deadline).toMatchObject({ kind: 'related', exists: true, studied: false });
+    expect(by.budgets).toMatchObject({ kind: 'family', studied: true, stage: 3 });
+    expect(by.costing.kind).toBe('synonym');
+    expect(by.budgetary).toMatchObject({ kind: 'family', exists: false });
+  });
+
+  it('exports the notebook as CSV and keeps spreadsheet formulas from running', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    await started(user, 'budget', { note: '=SUM(1,2)' });
+    const res = await agent.get('/api/deep/export').expect(200);
+    expect(res.headers['content-type']).toContain('text/csv');
+    expect(res.headers['content-disposition']).toContain('deep-words.csv');
+    expect(res.text).toContain('"budget"');
+    expect(res.text).toContain("\"'=SUM(1,2)\"");
+    expect(res.text).not.toContain(',"=SUM');
   });
 });

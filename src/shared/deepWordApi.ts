@@ -151,6 +151,22 @@ export interface ProduceCosts {
   credits: Record<ProduceKind, number>;
 }
 
+export type NetworkKind = 'family' | 'synonym' | 'contrast' | 'related';
+
+export interface NetworkNode {
+  id: string;
+  term: string;
+  /** The word is in the word list, so it can be studied and opened */
+  exists: boolean;
+  studied: boolean;
+  stage: DeepStage | null;
+}
+
+export interface WordNetwork {
+  center: NetworkNode;
+  nodes: (NetworkNode & { kind: NetworkKind })[];
+}
+
 const aiUsed = <T,>(r: T) => {
   window.dispatchEvent(new Event(AI_USED_EVENT));
   return r;
@@ -170,6 +186,9 @@ export const deepWordApi = {
     apiFetch<{ check: SentenceCheck; verdict: Verdict; progress: DeepProgress }>('/api/deep/produce', { method: 'POST', json: { itemId, text, ...extra, model: model() } }).then(aiUsed),
   scenario: (itemId: string) => apiFetch<{ situation: string; situationVi: string }>('/api/deep/scenario', { method: 'POST', json: { itemId, model: model() } }).then(aiUsed),
   personalExamples: (itemId: string) => apiFetch<{ examples: { text: string; vi: string }[] }>('/api/deep/personal-examples', { method: 'POST', json: { itemId, model: model() } }).then(aiUsed),
+  network: (itemId: string) => apiFetch<WordNetwork>(`/api/deep/network/${encodeURIComponent(itemId)}`),
+  saveNote: (itemId: string, note: string) => apiFetch<void>('/api/deep/note', { method: 'PUT', json: { itemId, note } }),
+  exportUrl: '/api/deep/export',
   costs: () => apiFetch<ProduceCosts>(`/api/deep/costs${model() ? `?model=${encodeURIComponent(model()!)}` : ''}`),
   selfCheck: (itemId: string, ticked: number, total: number) => apiFetch<{ progress: DeepProgress }>('/api/deep/self-check', { method: 'POST', json: { itemId, ticked, total } }),
   defer: (itemId: string) => apiFetch<{ progress: DeepProgress }>('/api/deep/defer', { method: 'POST', json: { itemId } }),

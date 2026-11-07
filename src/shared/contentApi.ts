@@ -193,7 +193,7 @@ export interface BandFeedback {
 }
 
 export interface WritingFeedback extends BandFeedback {
-  corrections: { original: string; corrected: string; explanation: string; /** Grammar point id on the grammar map */ grammarPoint?: string }[];
+  corrections: { original: string; corrected: string; explanation: string; /** Grammar point id on the grammar map */ grammarPoint?: string; /** For a vocabulary mistake: the correct word to study */ word?: string }[];
   improvedVersion: string;
 }
 

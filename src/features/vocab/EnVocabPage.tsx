@@ -24,6 +24,7 @@ import { DeepSession } from '@/features/deepword/DeepSession';
 import { DeepReview } from '@/features/deepword/DeepReview';
 import { WordPage } from '@/features/deepword/WordPage';
 import { Notebook } from '@/features/deepword/Notebook';
+import { NetworkGraph } from '@/features/deepword/NetworkGraph';
 import './vocab.css';
 
 const GROUPS: EnDeckGroup[] = ['core', 'toeic', 'ielts'];
@@ -169,7 +170,10 @@ export const EnVocabPage: React.FC = () => {
       <div role="tabpanel" aria-labelledby={`tab-${tab}`} className="vocab__panel">
         {tab === 'bank' && <WordBankTab onReview={() => setView({ type: 'review', deckId: 'en-bank', title: t.wordBank.tabs.bank })} />}
         {tab === 'deep' && deepView.type === 'word' && (
-          <WordPage key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'overview' })} onStudy={(itemId, relearn) => setDeepView({ type: 'session', itemId, relearn })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />
+          <WordPage key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'overview' })} onStudy={(itemId, relearn) => setDeepView({ type: 'session', itemId, relearn })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} onNetwork={(itemId) => setDeepView({ type: 'network', itemId })} />
+        )}
+        {tab === 'deep' && deepView.type === 'network' && (
+          <NetworkGraph key={deepView.itemId} itemId={deepView.itemId} onBack={() => setDeepView({ type: 'word', itemId: deepView.itemId })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} onRecenter={(itemId) => setDeepView({ type: 'network', itemId })} />
         )}
         {tab === 'deep' && deepView.type === 'notebook' && <Notebook onBack={() => setDeepView({ type: 'overview' })} onOpenWord={(itemId) => setDeepView({ type: 'word', itemId })} />}
         {tab === 'deep' && (deepView.type === 'overview' || deepView.type === 'setup') && <DeepTab view={deepView} onView={setDeepView} />}

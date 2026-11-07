@@ -2,6 +2,7 @@
  * WritingReview
  * Writing task card and the corrected response with an improved version, shared by practice and IELTS tests
  */
+import { StudyDeepButton } from '@/features/deepword/StudyDeepButton';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -108,6 +109,7 @@ export const WritingReview: React.FC<{ response: string; feedback: WritingFeedba
                   <p className="corrections__why">
                     <InlineMarkdown text={c.explanation} />
                   </p>
+                  {c.word && <StudyDeepButton word={c.word} context={c.corrected} />}
                   {c.grammarPoint && (
                     <Link to={grammarPath(c.grammarPoint)} className="corrections__grammar">
                       <Icon name="graph" size={14} /> {t.grammar.revise}: {titles.get(c.grammarPoint)?.[locale] ?? c.grammarPoint}
