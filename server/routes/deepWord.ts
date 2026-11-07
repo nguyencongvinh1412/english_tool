@@ -184,10 +184,13 @@ export function createDeepWordRouter(): Router {
 
     let row = existing;
     if (!row) {
-      [row] = await db
+      // A second request for this word can get here during the wait for its content; it opens the same session
+      const [created] = await db
         .insert(deepWordProgress)
         .values({ userId: user.id, itemId: id, startedDay: quotaDay(), sessionData: { startCells: cellsOf({ formR: 0, formP: 0, meaningR: 0, meaningP: 0, useR: 0, useP: 0 }) } })
+        .onConflictDoNothing()
         .returning();
+      row = created ?? (await loadProgress(user.id, id));
       await db.delete(deepWordQueue).where(and(eq(deepWordQueue.userId, user.id), eq(deepWordQueue.itemId, id)));
     } else if (row.completedAt) {
       // Studying a finished word again opens a new session; the depth reached so far is kept

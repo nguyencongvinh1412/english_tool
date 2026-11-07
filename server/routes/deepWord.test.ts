@@ -91,6 +91,18 @@ describe('Deep Word', () => {
     expect(await db.select().from(deepWordContent)).toHaveLength(1);
   });
 
+  it('opens one session when the same word is started twice at once', async () => {
+    aiReply.mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(JSON.stringify(CONTENT)), 50)));
+    const agent = await signIn(app, await createUser());
+    await agent.put('/api/deep/prefs').send({ enabled: true });
+
+    const [first, second] = await Promise.all([agent.post('/api/deep/session/start').send({ itemId: ID }), agent.post('/api/deep/session/start').send({ itemId: ID })]);
+    expect([first.status, second.status]).toEqual([200, 200]);
+    expect(second.body.progress).toMatchObject({ stage: 1, sessionStage: 1, completed: false });
+    expect(aiReply).toHaveBeenCalledTimes(1);
+    expect(await db.select().from(deepWordProgress)).toHaveLength(1);
+  });
+
   it('stops a second new word on the same day, but lets the learner resume the open one', async () => {
     await db.insert(deepWordContent).values([{ itemId: ID, ...CONTENT }, { itemId: 'en:budget', ...CONTENT }]);
     const agent = await signIn(app, await createUser());
