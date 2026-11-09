@@ -1,0 +1,97 @@
+{
+  "objectives": [
+    { "en": "You can open an application by naming the position and where you found it.", "vi": "Bạn mở đầu thư ứng tuyển bằng việc nêu vị trí và nơi bạn thấy tin." },
+    { "en": "You can match two or three strengths to the requirements, with evidence.", "vi": "Bạn gắn được hai, ba điểm mạnh với yêu cầu công việc, kèm bằng chứng." },
+    { "en": "You can close confidently and ask for an interview.", "vi": "Bạn kết thư tự tin và đề nghị được phỏng vấn." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The opening: which job, and where you saw it", "vi": "Mở đầu: vị trí nào, thấy ở đâu" },
+      "body": {
+        "en": "The first paragraph is short: **I am writing to apply for the position of** Marketing Assistant, **as advertised on** LinkedIn. Add one line about who you are: I recently graduated in Business Administration from…\nDo not start with \"My name is…\". Your name is already in the signature and the email address.",
+        "vi": "Đoạn đầu ngắn: **I am writing to apply for the position of** Marketing Assistant, **as advertised on** LinkedIn. Thêm một câu bạn là ai: I recently graduated in Business Administration from…\nĐừng mở đầu bằng \"My name is…\". Tên bạn đã có trong chữ ký và địa chỉ email."
+      }
+    },
+    {
+      "heading": { "en": "Match, don't list", "vi": "Gắn với yêu cầu, đừng liệt kê" },
+      "body": {
+        "en": "Read the job advert and pick **two or three requirements**. For each one, give **evidence**: a result, a number, a project.\n- Weak: I am hard-working and creative.\n- Strong: **In my internship at ABC, I managed** the company's Facebook page and **increased** followers by 40% in six months.\nLink your points: **In addition, Furthermore, As a result, This experience has given me…**\nDo not copy your whole CV into the email.",
+        "vi": "Đọc tin tuyển dụng và chọn **hai, ba yêu cầu**. Với mỗi yêu cầu, đưa **bằng chứng**: kết quả, con số, dự án.\n- Yếu: I am hard-working and creative.\n- Mạnh: **In my internship at ABC, I managed** the company's Facebook page and **increased** followers by 40% in six months.\nNối các ý: **In addition, Furthermore, As a result, This experience has given me…**\nĐừng chép cả CV vào email."
+      }
+    },
+    {
+      "heading": { "en": "Tone: confident, not boastful or too humble", "vi": "Giọng văn: tự tin, không khoe khoang hay quá khiêm tốn" },
+      "body": {
+        "en": "Vietnamese learners often sound too humble: \"Although I have little experience, I hope you will give me a chance.\" This makes the reader doubt you. Others sound boastful: \"I am the best candidate.\"\nAim for calm confidence: **I am confident that my experience in… would allow me to contribute to your team.**\nEnd with the attachment and a clear next step: **Please find my CV attached. I would welcome the opportunity to discuss my application in an interview.**",
+        "vi": "Người Việt hay viết quá khiêm tốn: \"Although I have little experience, I hope you will give me a chance.\" Điều này khiến người đọc nghi ngờ bạn. Số khác lại khoe khoang: \"I am the best candidate.\"\nHãy tự tin điềm tĩnh: **I am confident that my experience in… would allow me to contribute to your team.**\nKết bằng tệp đính kèm và bước tiếp theo rõ ràng: **Please find my CV attached. I would welcome the opportunity to discuss my application in an interview.**"
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Ngoc applies for a Customer Service Executive job at an airline.", "vi": "Ngọc ứng tuyển vị trí Chuyên viên chăm sóc khách hàng ở một hãng bay." },
+    "subject": "Application for Customer Service Executive – Nguyen Bao Ngoc",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Dear Ms Pham,", "note": { "en": "The advert gave the recruiter's name, so she uses it.", "vi": "Tin tuyển dụng có tên người tuyển, nên Ngọc dùng tên đó." } },
+      { "label": { "en": "Opening", "vi": "Mở đầu" }, "text": "I am writing to apply for the position of Customer Service Executive, as advertised on your company website. I have two years of experience in hotel reception and speak fluent English and Korean.", "note": { "en": "Position, source, and a one-line summary of who she is.", "vi": "Vị trí, nguồn tin và một câu tóm tắt bản thân." } },
+      { "label": { "en": "Strength 1 with evidence", "vi": "Điểm mạnh 1 kèm bằng chứng" }, "text": "In my current role at Lotus Hotel, I deal with around 60 guests a day, many of them international. Last year I received the hotel's Employee of the Quarter award for guest satisfaction.", "note": { "en": "Matches 'experience with customers' and proves it with numbers and an award.", "vi": "Khớp yêu cầu 'kinh nghiệm với khách hàng' và chứng minh bằng số liệu, giải thưởng." } },
+      { "label": { "en": "Strength 2 with evidence", "vi": "Điểm mạnh 2 kèm bằng chứng" }, "text": "In addition, I have learned to stay calm under pressure. When our booking system failed during a holiday weekend, I helped rebook over 30 guests by phone without a single complaint.", "note": { "en": "A short real story shows the skill instead of just naming it.", "vi": "Một câu chuyện ngắn có thật cho thấy kỹ năng thay vì chỉ kể tên." } },
+      { "label": { "en": "Why this company", "vi": "Vì sao chọn công ty" }, "text": "I am particularly interested in your airline because of its focus on friendly, personal service, and I am confident that my experience would allow me to contribute to your team.", "note": { "en": "Shows interest in this company and calm confidence.", "vi": "Thể hiện sự quan tâm tới công ty này và sự tự tin điềm tĩnh." } },
+      { "label": { "en": "Closing", "vi": "Câu kết" }, "text": "Please find my CV attached. I would welcome the opportunity to discuss my application in an interview.\nYours sincerely,\nNguyen Bao Ngoc", "note": { "en": "Attachment, next step, and Yours sincerely (she used a name in the greeting).", "vi": "Tệp đính kèm, bước tiếp theo, và Yours sincerely (vì lời chào có tên)." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Opening an application", "vi": "Mở đầu thư ứng tuyển" }, "items": ["I am writing to apply for the position of…", "…as advertised on…", "I recently graduated in… from…"] },
+    { "use": { "en": "Showing experience", "vi": "Thể hiện kinh nghiệm" }, "items": ["In my current role at…, I…", "During my internship at…, I was responsible for…", "I have … years of experience in…"] },
+    { "use": { "en": "Linking points", "vi": "Nối các ý" }, "items": ["In addition, …", "Furthermore, …", "As a result, …", "This experience has given me…"] },
+    { "use": { "en": "Confident closing", "vi": "Kết thư tự tin" }, "items": ["I am confident that… would allow me to…", "Please find my CV attached.", "I would welcome the opportunity to discuss my application.", "Yours sincerely,"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is the best first sentence?", "vi": "Câu mở đầu nào tốt nhất?" },
+      "options": ["My name is Lan and I am 24 years old.", "I am writing to apply for the position of Sales Assistant, as advertised on VietnamWorks.", "Hello, I need a job."],
+      "answerIndex": 1,
+      "explanation": { "en": "It names the job and the source straight away.", "vi": "Nêu ngay vị trí và nguồn tin." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence gives evidence?", "vi": "Câu nào có bằng chứng?" },
+      "options": ["I am very hard-working.", "I am a good team player.", "I led a team of five that finished the project two weeks early."],
+      "answerIndex": 2,
+      "explanation": { "en": "Numbers and results prove the skill.", "vi": "Con số và kết quả chứng minh kỹ năng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence has the right tone?", "vi": "Câu nào có giọng văn phù hợp?" },
+      "options": ["Although I am not very good, I hope you will give me a chance.", "I am confident that my skills in data analysis would help your team.", "I am obviously the best person for this job."],
+      "answerIndex": 1,
+      "explanation": { "en": "Confident, not too humble and not boastful.", "vi": "Tự tin, không quá khiêm tốn cũng không khoe khoang." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Put the application email in order.", "vi": "Sắp xếp thư ứng tuyển." },
+      "parts": ["Dear Mr Lee,", "I am writing to apply for the position of Junior Accountant, as advertised on your website.", "During my internship at KPMG, I prepared monthly reports for three clients.", "I am confident that this experience would allow me to contribute to your team.", "Please find my CV attached. Yours sincerely, Hoang Nam"],
+      "explanation": { "en": "Greeting → position → evidence → confidence → attachment and sign-off.", "vi": "Chào → vị trí → bằng chứng → sự tự tin → đính kèm và ký tên." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You wrote Dear Mr Lee. Which sign-off matches?", "vi": "Bạn viết Dear Mr Lee. Ký tên thế nào cho khớp?" },
+      "options": ["Yours faithfully,", "Yours sincerely,", "Cheers,"],
+      "answerIndex": 1,
+      "explanation": { "en": "With a name → Yours sincerely.", "vi": "Có tên → Yours sincerely." }
+    }
+  ],
+  "task": {
+    "title": "Apply for a position",
+    "instructions": "Write an email applying for the job. Name the position and where you saw it. Match two of your strengths to the requirements, with evidence. Mention your CV and ask for an interview.",
+    "prompt": "Green Leaf Travel is looking for a Tour Coordinator. Requirements: good English, experience working with customers, and strong organisation skills. Apply to the HR manager, Mr Tran.",
+    "minWords": 150,
+    "timeMinutes": 25
+  },
+  "checklist": [
+    { "id": "opening", "label": { "en": "Opens by naming the position and where it was advertised", "vi": "Mở đầu bằng vị trí ứng tuyển và nơi đăng tin" } },
+    { "id": "evidence", "label": { "en": "Matches at least two requirements with specific evidence (results, numbers, examples)", "vi": "Gắn ít nhất hai yêu cầu với bằng chứng cụ thể (kết quả, số liệu, ví dụ)" } },
+    { "id": "tone", "label": { "en": "Sounds confident, neither too humble nor boastful", "vi": "Giọng tự tin, không quá khiêm tốn cũng không khoe khoang" } },
+    { "id": "close", "label": { "en": "Mentions the CV, asks for an interview, and uses a matching formal sign-off", "vi": "Nhắc CV, đề nghị phỏng vấn, ký tên trang trọng tương ứng" } }
+  ]
+}

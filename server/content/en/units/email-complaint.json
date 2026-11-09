@@ -1,0 +1,105 @@
+{
+  "objectives": [
+    { "en": "You can write a formal complaint with the right greeting and sign-off.", "vi": "Bạn viết được email phàn nàn trang trọng với lời chào và ký tên đúng chuẩn." },
+    { "en": "You can describe a problem with facts: what, when, order number, effect.", "vi": "Bạn mô tả được vấn đề bằng dữ kiện: cái gì, khi nào, mã đơn, hậu quả." },
+    { "en": "You can ask for a clear action while staying firm and polite.", "vi": "Bạn yêu cầu được một hành động cụ thể mà vẫn cứng rắn và lịch sự." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Formal greetings and sign-offs", "vi": "Lời chào và ký tên trang trọng" },
+      "body": {
+        "en": "To a company or a person you do not know:\n- **Dear Sir or Madam,** … **Yours faithfully,**\n- If you know the name: **Dear Mr Smith,** … **Yours sincerely,**\n**Best regards** is also accepted in modern business email. Avoid contractions (write **I am**, not I'm) and avoid **Hi** in a complaint.",
+        "vi": "Viết cho công ty hoặc người bạn không quen:\n- **Dear Sir or Madam,** … **Yours faithfully,**\n- Nếu biết tên: **Dear Mr Smith,** … **Yours sincerely,**\n**Best regards** cũng được chấp nhận trong email công việc hiện đại. Tránh viết rút gọn (viết **I am**, không viết I'm) và tránh **Hi** trong thư phàn nàn."
+      }
+    },
+    {
+      "heading": { "en": "Facts, not feelings", "vi": "Dữ kiện, không phải cảm xúc" },
+      "body": {
+        "en": "A complaint works when the reader can check it quickly. Give:\n- **What** you bought or used, and **when** (On 3 May I ordered…)\n- A **reference**: order number, booking code\n- **What went wrong**, exactly (the screen was cracked; it arrived nine days late)\n- **The effect** on you (I had to buy another one for the meeting)\nAvoid emotional words like terrible, disgusting, I am so angry!!! They make you sound less serious, not more.",
+        "vi": "Thư phàn nàn hiệu quả khi người đọc kiểm tra được ngay. Hãy nêu:\n- Bạn đã mua/dùng **cái gì**, **khi nào** (On 3 May I ordered…)\n- **Mã tham chiếu**: mã đơn, mã đặt chỗ\n- **Sai ở đâu**, cụ thể (màn hình bị nứt; giao trễ chín ngày)\n- **Ảnh hưởng** tới bạn (I had to buy another one for the meeting)\nTránh từ cảm xúc như terrible, disgusting, I am so angry!!! Chúng làm bạn kém nghiêm túc hơn, không phải ngược lại."
+      }
+    },
+    {
+      "heading": { "en": "Ask for one clear action", "vi": "Yêu cầu một hành động rõ ràng" },
+      "body": {
+        "en": "End with what you want: a **refund**, a **replacement**, a **repair**, or an **explanation**. Be firm but polite:\n- **I would like a full refund.**\n- **I would be grateful if you could** send a replacement **by** 20 May.\n- **I look forward to your prompt reply.**\nVietnamese learners sometimes end with \"I hope you will solve it\". That is too weak: say exactly what should happen.",
+        "vi": "Kết thúc bằng điều bạn muốn: **hoàn tiền**, **đổi hàng**, **sửa chữa**, hoặc **giải thích**. Cứng rắn nhưng lịch sự:\n- **I would like a full refund.**\n- **I would be grateful if you could** send a replacement **by** 20 May.\n- **I look forward to your prompt reply.**\nNgười Việt đôi khi kết bằng \"I hope you will solve it\". Quá yếu: hãy nói rõ cần làm gì."
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Duc ordered a desk lamp online. It arrived late and broken.", "vi": "Đức đặt mua một chiếc đèn bàn online. Đèn giao trễ và bị hỏng." },
+    "subject": "Damaged item – order no. 48213",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Dear Sir or Madam,", "note": { "en": "He does not know who will read it.", "vi": "Anh không biết ai sẽ đọc thư." } },
+      { "label": { "en": "Purpose and facts", "vi": "Mục đích và dữ kiện" }, "text": "I am writing to complain about a desk lamp I ordered from your website on 2 May (order number 48213).", "note": { "en": "Purpose, product, date and order number in one sentence.", "vi": "Mục đích, sản phẩm, ngày và mã đơn trong một câu." } },
+      { "label": { "en": "The problem", "vi": "Vấn đề" }, "text": "The delivery was promised within three days, but the lamp only arrived on 11 May. In addition, the glass shade was cracked and the lamp does not switch on.", "note": { "en": "Two exact problems, linked with In addition.", "vi": "Hai vấn đề cụ thể, nối bằng In addition." } },
+      { "label": { "en": "The effect", "vi": "Ảnh hưởng" }, "text": "As I needed it for my home office, I had to buy another lamp from a local shop.", "note": { "en": "Shows why it matters, without emotional words.", "vi": "Cho thấy vì sao quan trọng, không dùng từ cảm xúc." } },
+      { "label": { "en": "Action requested", "vi": "Yêu cầu hành động" }, "text": "I would therefore like a full refund, including the delivery charge. I have attached two photos of the damage.", "note": { "en": "One clear action, plus evidence.", "vi": "Một yêu cầu rõ, kèm bằng chứng." } },
+      { "label": { "en": "Closing", "vi": "Câu kết" }, "text": "I look forward to your prompt reply.\nYours faithfully,\nTran Minh Duc", "note": { "en": "Yours faithfully matches Dear Sir or Madam.", "vi": "Yours faithfully đi cùng Dear Sir or Madam." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Stating the purpose", "vi": "Nêu mục đích" }, "items": ["I am writing to complain about…", "I am writing regarding my order no. …", "I wish to draw your attention to…"] },
+    { "use": { "en": "Describing the problem", "vi": "Mô tả vấn đề" }, "items": ["Unfortunately, when the item arrived, …", "I was told that…, but…", "In addition, …", "To make matters worse, …"] },
+    { "use": { "en": "Saying the effect", "vi": "Nêu ảnh hưởng" }, "items": ["As a result, I had to…", "This caused me considerable inconvenience.", "Because of this, I missed…"] },
+    { "use": { "en": "Asking for action", "vi": "Yêu cầu hành động" }, "items": ["I would like a full refund.", "I would be grateful if you could…", "Please could you replace… by…?"] },
+    { "use": { "en": "Formal closing", "vi": "Kết thư trang trọng" }, "items": ["I look forward to your prompt reply.", "Yours faithfully,", "Yours sincerely,"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "You start with Dear Sir or Madam. How do you finish?", "vi": "Bạn mở đầu bằng Dear Sir or Madam. Kết thư thế nào?" },
+      "options": ["Yours faithfully,", "Love,", "See you,", "Cheers,"],
+      "answerIndex": 0,
+      "explanation": { "en": "Dear Sir or Madam → Yours faithfully. Dear Mr X → Yours sincerely.", "vi": "Dear Sir or Madam → Yours faithfully. Dear Mr X → Yours sincerely." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence is best for a complaint?", "vi": "Câu nào tốt nhất cho thư phàn nàn?" },
+      "options": ["Your service is terrible and I am so angry!!!", "The jacket I received on 4 June has a broken zip.", "I don't like your shop."],
+      "answerIndex": 1,
+      "explanation": { "en": "Facts (what, when, what is wrong) are stronger than feelings.", "vi": "Dữ kiện (cái gì, khi nào, lỗi gì) mạnh hơn cảm xúc." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which ending asks for a clear action?", "vi": "Câu kết nào yêu cầu hành động rõ ràng?" },
+      "options": ["I hope you will solve it.", "Please do something.", "I would be grateful if you could send a replacement by 15 June."],
+      "answerIndex": 2,
+      "explanation": { "en": "It says what to do and by when.", "vi": "Nói rõ làm gì và trước khi nào." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Put the complaint in order.", "vi": "Sắp xếp thư phàn nàn." },
+      "parts": ["Dear Sir or Madam,", "I am writing to complain about my stay at your hotel on 12–14 March (booking ref. HX52).", "The air conditioning in my room did not work, and nobody came to fix it.", "I would like a partial refund for the two nights.", "Yours faithfully, Le Thi Mai"],
+      "explanation": { "en": "Greeting → purpose with facts → problem → action → formal sign-off.", "vi": "Chào → mục đích kèm dữ kiện → vấn đề → yêu cầu → ký tên trang trọng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is better in a formal email?", "vi": "Câu nào phù hợp hơn trong email trang trọng?" },
+      "options": ["I'm writing 'cause the TV doesn't work.", "I am writing because the television does not work."],
+      "answerIndex": 1,
+      "explanation": { "en": "Formal emails avoid contractions and slang ('cause).", "vi": "Email trang trọng tránh rút gọn và tiếng lóng ('cause)." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which detail is most useful to the company?", "vi": "Chi tiết nào hữu ích nhất cho công ty?" },
+      "options": ["The order number", "Your favourite colour", "How you feel about the weather"],
+      "answerIndex": 0,
+      "explanation": { "en": "A reference lets them find your order at once.", "vi": "Mã tham chiếu giúp họ tìm đơn của bạn ngay." }
+    }
+  ],
+  "task": {
+    "title": "Complain about a delivery",
+    "instructions": "Write a formal email to the company. Say what you ordered and when, with the order number. Describe what went wrong and how it affected you. Say what you want the company to do.",
+    "prompt": "You ordered a pair of running shoes (order no. 77104) from an online shop on 1 October for a race on 10 October. They arrived on 12 October, in the wrong size.",
+    "minWords": 130,
+    "timeMinutes": 20
+  },
+  "checklist": [
+    { "id": "formal", "label": { "en": "Formal greeting and matching sign-off, no contractions or slang", "vi": "Lời chào trang trọng và ký tên tương ứng, không rút gọn hay tiếng lóng" } },
+    { "id": "facts", "label": { "en": "Gives facts: product, date, order number and what exactly went wrong", "vi": "Nêu dữ kiện: sản phẩm, ngày, mã đơn và lỗi cụ thể" } },
+    { "id": "effect", "label": { "en": "Explains the effect on them without emotional language", "vi": "Nêu ảnh hưởng tới mình mà không dùng ngôn ngữ cảm xúc" } },
+    { "id": "action", "label": { "en": "Asks for one clear action (refund, replacement…) politely", "vi": "Yêu cầu một hành động rõ ràng (hoàn tiền, đổi hàng…) một cách lịch sự" } }
+  ]
+}

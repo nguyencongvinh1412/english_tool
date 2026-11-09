@@ -53,6 +53,7 @@ export const SKILLS: SkillDefinition[] = [
     icon: 'pen',
     route: ROUTES.WRITING,
     activities: [
+      { id: 'writingCourse', icon: 'roadmap', route: ROUTES.WRITING_COURSE },
       { id: 'writingEmail', icon: 'chat', route: ROUTES.WRITING_EMAIL },
       { id: 'writingTask1', icon: 'chart', route: ROUTES.WRITING_TASK1 },
       { id: 'writingTask2', icon: 'pen', route: ROUTES.WRITING_TASK2 },

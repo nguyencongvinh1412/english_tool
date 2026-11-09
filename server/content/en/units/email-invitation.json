@@ -1,0 +1,98 @@
+{
+  "objectives": [
+    { "en": "You can write a friendly, informal email to a friend.", "vi": "Bạn viết được email thân mật, tự nhiên cho bạn bè." },
+    { "en": "You can invite someone and give the time and place clearly.", "vi": "Bạn mời được người khác và nói rõ thời gian, địa điểm." },
+    { "en": "You can accept or politely decline an invitation with a reason.", "vi": "Bạn nhận lời hoặc từ chối khéo kèm lý do." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Informal is not the same as careless", "vi": "Thân mật không có nghĩa là cẩu thả" },
+      "body": {
+        "en": "With friends you can use **Hi Nam,** or **Hey Mai,**, contractions (**I'm, it's, can't**) and friendly closings (**See you soon, Love, Cheers,**). But the email still needs a clear order: greeting → why you are writing → details → a friendly ending.\nDo not use Dear Sir or Madam or Yours faithfully with a friend. It sounds cold, like a letter from a bank.",
+        "vi": "Với bạn bè, bạn có thể dùng **Hi Nam,** hoặc **Hey Mai,**, dạng rút gọn (**I'm, it's, can't**) và câu chào cuối thân mật (**See you soon, Love, Cheers,**). Nhưng email vẫn cần thứ tự rõ: chào → lý do viết → chi tiết → câu kết thân thiện.\nĐừng dùng Dear Sir or Madam hay Yours faithfully với bạn bè. Nghe rất xa cách, như thư của ngân hàng."
+      }
+    },
+    {
+      "heading": { "en": "Inviting", "vi": "Cách mời" },
+      "body": {
+        "en": "Common ways to invite:\n- **Would you like to** come to my birthday party? (+ verb)\n- **How about** going to the beach on Sunday? (+ verb-ing)\n- **Do you fancy** a coffee after work? (British, informal)\nThen give the **details**: day, time, place, what to bring. A friend cannot answer if they do not know when and where.",
+        "vi": "Các cách mời thường gặp:\n- **Would you like to** come to my birthday party? (+ động từ nguyên mẫu)\n- **How about** going to the beach on Sunday? (+ V-ing)\n- **Do you fancy** a coffee after work? (kiểu Anh, thân mật)\nSau đó đưa **chi tiết**: ngày, giờ, địa điểm, cần mang gì. Bạn của bạn không thể trả lời nếu không biết khi nào và ở đâu."
+      }
+    },
+    {
+      "heading": { "en": "Saying yes and saying no", "vi": "Nhận lời và từ chối" },
+      "body": {
+        "en": "Yes: **I'd love to!** / **Sounds great, count me in.**\nNo: never just write \"No, I can't.\" Soften it: **I'm really sorry, but** I can't make it **because** I have to work. Then offer something: **How about next weekend instead?**\nA reason plus a new idea keeps the friendship warm.",
+        "vi": "Nhận lời: **I'd love to!** / **Sounds great, count me in.**\nTừ chối: đừng chỉ viết \"No, I can't.\" Hãy làm mềm: **I'm really sorry, but** I can't make it **because** I have to work. Rồi đề xuất: **How about next weekend instead?**\nLý do cộng một gợi ý mới giúp giữ thiện cảm."
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Huy invites his friend Anna to a picnic on Saturday.", "vi": "Huy mời bạn là Anna đi picnic vào thứ Bảy." },
+    "subject": "Picnic on Saturday?",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Hi Anna,", "note": { "en": "Hi + first name is normal between friends.", "vi": "Hi + tên là bình thường giữa bạn bè." } },
+      { "label": { "en": "Friendly opening", "vi": "Mở đầu thân thiện" }, "text": "How are you? I hope your new job is going well.", "note": { "en": "A short personal line before the main point is natural with friends.", "vi": "Một câu hỏi thăm ngắn trước khi vào việc là tự nhiên với bạn bè." } },
+      { "label": { "en": "Invitation", "vi": "Lời mời" }, "text": "Would you like to come on a picnic with me and some friends this Saturday? We're going to the lake in Thong Nhat Park.", "note": { "en": "Would you like to + verb, then where.", "vi": "Would you like to + động từ, rồi nói địa điểm." } },
+      { "label": { "en": "Details", "vi": "Chi tiết" }, "text": "We're meeting at the main gate at 10 a.m. Could you bring some fruit or drinks? I'll bring sandwiches.", "note": { "en": "Time, place and what to bring: everything Anna needs to answer.", "vi": "Giờ, chỗ hẹn và cần mang gì: đủ để Anna trả lời." } },
+      { "label": { "en": "Ending", "vi": "Kết thư" }, "text": "Let me know if you can come. Hope to see you there!\nCheers,\nHuy", "note": { "en": "Asks for an answer, then a friendly sign-off.", "vi": "Nhờ trả lời, rồi chào cuối thân mật." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Opening with a friend", "vi": "Mở đầu với bạn bè" }, "items": ["Hi Anna,", "How are you?", "It was great to see you last week.", "Sorry I haven't written for a while."] },
+    { "use": { "en": "Inviting", "vi": "Mời" }, "items": ["Would you like to…?", "How about…ing?", "Do you fancy…?", "Are you free on…?"] },
+    { "use": { "en": "Accepting", "vi": "Nhận lời" }, "items": ["I'd love to!", "Sounds great, count me in.", "Thanks for inviting me."] },
+    { "use": { "en": "Declining politely", "vi": "Từ chối khéo" }, "items": ["I'm really sorry, but I can't make it.", "Unfortunately, I've got…", "How about … instead?"] },
+    { "use": { "en": "Friendly ending", "vi": "Kết thân mật" }, "items": ["Let me know if you can come.", "See you soon,", "Cheers,", "Take care,"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sign-off is right for an email to a close friend?", "vi": "Lời chào cuối nào hợp với email gửi bạn thân?" },
+      "options": ["Yours faithfully,", "See you soon,", "Respectfully yours,"],
+      "answerIndex": 1,
+      "explanation": { "en": "See you soon is friendly. The others are for formal letters.", "vi": "See you soon thân mật. Hai cách còn lại dành cho thư trang trọng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Complete the invitation.", "vi": "Hoàn thành lời mời." },
+      "sentence": "How about ___ to the cinema on Friday?",
+      "options": ["go", "to go", "going", "went"],
+      "answerIndex": 2,
+      "explanation": { "en": "How about is followed by verb-ing.", "vi": "Sau How about dùng V-ing." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is the best way to say no?", "vi": "Cách từ chối nào tốt nhất?" },
+      "options": ["No. I'm busy.", "I'm really sorry, but I can't make it because I'm visiting my parents. How about next Saturday?", "I don't want to come."],
+      "answerIndex": 1,
+      "explanation": { "en": "Apology + reason + a new idea sounds kind.", "vi": "Xin lỗi + lý do + gợi ý khác nghe tử tế." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Put the email in order.", "vi": "Sắp xếp email theo thứ tự." },
+      "parts": ["Hi Tom,", "Hope you're well!", "Would you like to come to my house for dinner on Friday?", "Come at about seven. I'm cooking pho.", "See you soon, Lan"],
+      "explanation": { "en": "Greeting → friendly line → invitation → details → sign-off.", "vi": "Chào → hỏi thăm → lời mời → chi tiết → ký tên." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What is missing from this invitation? \"Would you like to come to my party? See you!\"", "vi": "Lời mời này thiếu gì? \"Would you like to come to my party? See you!\"" },
+      "options": ["A greeting only", "The day, time and place", "Nothing, it is perfect"],
+      "answerIndex": 1,
+      "explanation": { "en": "Without when and where, the friend cannot plan to come.", "vi": "Không có khi nào và ở đâu thì bạn không thể sắp xếp đến." }
+    }
+  ],
+  "task": {
+    "title": "Invite a friend for the weekend",
+    "instructions": "Write an email to your friend. Invite them to the event. Give the day, time and place. Ask them to bring something or to reply. Use a friendly greeting and sign-off.",
+    "prompt": "You are organising a small birthday dinner for your sister at a restaurant next Sunday evening. Invite your friend Sam.",
+    "minWords": 70,
+    "timeMinutes": 15
+  },
+  "checklist": [
+    { "id": "informal-tone", "label": { "en": "Uses an informal greeting, contractions and a friendly sign-off", "vi": "Dùng lời chào thân mật, dạng rút gọn và lời chào cuối thân thiện" } },
+    { "id": "invitation", "label": { "en": "Invites with a correct form (Would you like to…, How about…ing)", "vi": "Mời bằng mẫu câu đúng (Would you like to…, How about…ing)" } },
+    { "id": "details", "label": { "en": "Gives the day, time and place clearly", "vi": "Nói rõ ngày, giờ và địa điểm" } },
+    { "id": "ask-reply", "label": { "en": "Asks the friend to reply or bring something", "vi": "Nhờ bạn trả lời hoặc mang theo thứ gì đó" } }
+  ]
+}

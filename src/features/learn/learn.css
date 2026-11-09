@@ -1,0 +1,524 @@
+/* ---------- Course path ---------- */
+
+.course {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.course__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.course__level-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.course__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-unit {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+a.course-unit:hover {
+  border-color: var(--skill);
+}
+
+.course-unit--current {
+  border-color: var(--skill);
+  box-shadow: 0 3px 0 var(--skill);
+}
+
+.course-unit--locked,
+.course-unit--soon {
+  color: var(--text-muted);
+}
+
+.course-unit__dot {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.course-unit__dot--done {
+  color: var(--surface);
+  background: var(--success);
+}
+
+.course-unit__dot--current {
+  color: var(--surface);
+  background: var(--skill);
+}
+
+.course-unit__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.course-unit__title {
+  font-weight: 700;
+}
+
+.course-unit__sub {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.course-unit__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .course-unit {
+    grid-template-columns: auto 1fr;
+  }
+
+  .course-unit__action {
+    grid-column: 2;
+  }
+}
+
+/* ---------- Lesson ---------- */
+
+.unit__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.unit__count {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.unit__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit__step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.625rem 0.5rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.unit__step:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.unit__step--past {
+  color: var(--text);
+}
+
+.unit__step--on {
+  color: var(--text);
+  border-color: var(--skill);
+  box-shadow: 0 3px 0 var(--skill);
+}
+
+.unit__step-num {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.8125rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.unit__step--on .unit__step-num {
+  color: var(--surface);
+  background: var(--skill);
+}
+
+@media (max-width: 560px) {
+  .unit__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.unit__objectives ul,
+.unit__checks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit__objectives li,
+.unit__checks li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.unit__objectives svg,
+.unit__checks svg {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.unit__intro,
+.unit__situation {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.unit__task {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.unit__nav {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  line-height: 1.6;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+/* Model email */
+
+.model-email {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+}
+
+.model-email__subject {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.model-email__subject span {
+  color: var(--text-muted);
+}
+
+.model-email__part {
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.model-email__part:last-child {
+  border-bottom: 0;
+}
+
+.model-email__label {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--surface);
+  background: var(--skill);
+  border-radius: 999px;
+}
+
+.model-email__text {
+  margin: 0.25rem 0;
+  white-space: pre-line;
+  font-size: 1.0625rem;
+}
+
+.model-email__note {
+  display: flex;
+  gap: 0.375rem;
+  align-items: flex-start;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.model-email__note svg {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.phrase-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.phrase-group h3 {
+  margin: 0 0 0.375rem;
+  font-size: 0.9375rem;
+}
+
+.phrase-group ul {
+  margin: 0;
+  padding-left: 1.125rem;
+}
+
+/* Drills */
+
+.drill__prompt {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0 0 0.75rem;
+  font-weight: 700;
+}
+
+.drill__num {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--surface);
+  background: var(--skill);
+  border-radius: 999px;
+}
+
+.drill__sentence {
+  margin: 0 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-style: italic;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.drill__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drill__option {
+  padding: 0.625rem 0.875rem;
+  font: inherit;
+  text-align: left;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.drill__option:hover:not(:disabled) {
+  border-color: var(--skill);
+}
+
+.drill__option:disabled {
+  cursor: default;
+}
+
+.drill__option--right {
+  background: var(--success-soft);
+  border-color: var(--success);
+}
+
+.drill__option--wrong {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+}
+
+.drill__hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.drill__order {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.drill__order li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.drill__order li.drill__order--right {
+  border-color: var(--success);
+}
+
+.drill__order li.drill__order--wrong {
+  border-color: var(--danger);
+}
+
+.drill__arrows {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.25rem;
+}
+
+.drill__arrows button {
+  display: inline-flex;
+  padding: 0.375rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.drill__arrows button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.drill__down {
+  display: inline-flex;
+  transform: rotate(180deg);
+}
+
+.drill__verdict {
+  margin: 0.75rem 0 0;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.drill__verdict--right {
+  background: var(--success-soft);
+}
+
+.drill__verdict--wrong {
+  background: var(--danger-soft);
+}
+
+.drill__answer {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.drill__answer p {
+  margin: 0 0 0.25rem -1.25rem;
+  font-weight: 700;
+}
+
+/* Checklist result */
+
+.unit-checklist__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit-checklist__item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.unit-checklist__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-self: start;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  border-radius: 999px;
+}
+
+.unit-checklist__item--yes .unit-checklist__mark {
+  color: var(--success-text);
+  background: var(--success-soft);
+}
+
+.unit-checklist__item--partly .unit-checklist__mark {
+  color: var(--warning-text, var(--text));
+  background: var(--warning-soft, var(--surface-2));
+}
+
+.unit-checklist__item--no .unit-checklist__mark {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+@media (max-width: 480px) {
+  .unit-checklist__item {
+    grid-template-columns: 1fr;
+  }
+}

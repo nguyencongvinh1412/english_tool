@@ -1,0 +1,105 @@
+{
+  "objectives": [
+    { "en": "You can choose a semi-formal tone for a teacher, manager or landlord.", "vi": "Bạn chọn được giọng văn bán trang trọng khi viết cho giáo viên, quản lý hay chủ nhà." },
+    { "en": "You can soften a request so it does not sound like an order.", "vi": "Bạn làm mềm được lời đề nghị để không nghe như ra lệnh." },
+    { "en": "You can give a reason and say clearly what you want and by when.", "vi": "Bạn đưa được lý do và nói rõ mình muốn gì, trước khi nào." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Who are you writing to?", "vi": "Bạn đang viết cho ai?" },
+      "body": {
+        "en": "Before you write, decide the **tone**:\n- Friend → informal (Hi Mai, Cheers)\n- Manager, teacher, landlord you know → **semi-formal**: Dear Mr Hung, / Hi Ms Clark, … Best regards,\n- Company you do not know → formal (Dear Sir or Madam, Yours faithfully)\nSemi-formal means: full sentences, polite forms, few contractions, no slang, but still warm.",
+        "vi": "Trước khi viết, chọn **giọng văn**:\n- Bạn bè → thân mật (Hi Mai, Cheers)\n- Quản lý, giáo viên, chủ nhà bạn quen → **bán trang trọng**: Dear Mr Hung, / Hi Ms Clark, … Best regards,\n- Công ty bạn không quen → trang trọng (Dear Sir or Madam, Yours faithfully)\nBán trang trọng nghĩa là: câu đầy đủ, mẫu câu lịch sự, ít rút gọn, không tiếng lóng, nhưng vẫn thân thiện."
+      }
+    },
+    {
+      "heading": { "en": "Softening a request", "vi": "Làm mềm lời đề nghị" },
+      "body": {
+        "en": "A direct request can sound like an order: \"Change my shift to Friday.\"\nMake it softer, from polite to very polite:\n- **Could you** change my shift?\n- **Would it be possible to** change my shift?\n- **I was wondering if you could** change my shift.\nVietnamese learners often translate \"làm ơn\" as **please** + order (Please change my shift). That is still an order. Use a question form instead.",
+        "vi": "Đề nghị trực tiếp dễ nghe như ra lệnh: \"Change my shift to Friday.\"\nLàm mềm dần từ lịch sự đến rất lịch sự:\n- **Could you** change my shift?\n- **Would it be possible to** change my shift?\n- **I was wondering if you could** change my shift.\nNgười Việt hay dịch \"làm ơn\" thành **please** + câu mệnh lệnh (Please change my shift). Vẫn là ra lệnh. Hãy dùng dạng câu hỏi."
+      }
+    },
+    {
+      "heading": { "en": "Reason, request, deadline, thanks", "vi": "Lý do, đề nghị, hạn, cảm ơn" },
+      "body": {
+        "en": "A good request email answers four questions:\n1. **Why** are you asking? (I have a medical appointment on Thursday afternoon.)\n2. **What** exactly do you want? (to swap my Thursday shift for Friday)\n3. **When** do you need an answer? (Could you let me know by Monday?)\n4. Show you are **thankful** and flexible (I am happy to work an extra hour if needed. Thank you for considering this.)",
+        "vi": "Email đề nghị tốt trả lời bốn câu:\n1. **Tại sao** bạn đề nghị? (I have a medical appointment on Thursday afternoon.)\n2. Bạn muốn **chính xác điều gì**? (đổi ca thứ Năm sang thứ Sáu)\n3. **Khi nào** bạn cần câu trả lời? (Could you let me know by Monday?)\n4. Thể hiện sự **biết ơn** và linh hoạt (I am happy to work an extra hour if needed. Thank you for considering this.)"
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Trang asks her teacher for more time to finish an assignment.", "vi": "Trang xin cô giáo thêm thời gian để hoàn thành bài tập." },
+    "subject": "Request for an extension on the history essay",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Dear Ms Walker,", "note": { "en": "Dear + title + family name: polite and normal for a teacher.", "vi": "Dear + danh xưng + họ: lịch sự và bình thường với giáo viên." } },
+      { "label": { "en": "Reason for writing", "vi": "Lý do viết" }, "text": "I am writing to ask if I could have a little more time for the history essay, which is due this Friday.", "note": { "en": "Purpose first, already softened (ask if I could).", "vi": "Nêu mục đích trước, đã được làm mềm (ask if I could)." } },
+      { "label": { "en": "Explanation", "vi": "Giải thích" }, "text": "Unfortunately, I was ill for most of last week and missed two classes, so I have not been able to finish my research.", "note": { "en": "A short, honest reason. No long story.", "vi": "Lý do ngắn, trung thực. Không kể lể dài." } },
+      { "label": { "en": "Request", "vi": "Đề nghị" }, "text": "Would it be possible to hand it in next Wednesday instead? I have already written the introduction and the first section.", "note": { "en": "A specific new date, plus a sign of effort.", "vi": "Một ngày cụ thể, kèm dấu hiệu bạn đã cố gắng." } },
+      { "label": { "en": "Closing", "vi": "Câu kết" }, "text": "I would be very grateful for your understanding. Thank you for considering my request.\nBest regards,\nPham Thu Trang", "note": { "en": "Thanks and a semi-formal sign-off.", "vi": "Cảm ơn và lời chào cuối bán trang trọng." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Opening the request", "vi": "Mở đầu đề nghị" }, "items": ["I am writing to ask if…", "I am writing to request…", "I hope you are well."] },
+    { "use": { "en": "Softening", "vi": "Làm mềm" }, "items": ["Would it be possible to…?", "I was wondering if you could…", "Could you possibly…?", "Would you mind …ing?"] },
+    { "use": { "en": "Giving a reason", "vi": "Đưa lý do" }, "items": ["Unfortunately, …", "This is because…", "The reason is that…"] },
+    { "use": { "en": "Deadline and flexibility", "vi": "Hạn và sự linh hoạt" }, "items": ["Could you let me know by…?", "I am happy to… if that helps.", "Please let me know if this is not possible."] },
+    { "use": { "en": "Thanking", "vi": "Cảm ơn" }, "items": ["Thank you for considering my request.", "I would be very grateful for your help.", "Best regards,"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which request is the most polite for a manager?", "vi": "Đề nghị nào lịch sự nhất với quản lý?" },
+      "options": ["Please give me Friday off.", "I want Friday off.", "I was wondering if I could take Friday off.", "Give me Friday off, thanks."],
+      "answerIndex": 2,
+      "explanation": { "en": "I was wondering if… is very polite. Please + order is still an order.", "vi": "I was wondering if… rất lịch sự. Please + mệnh lệnh vẫn là ra lệnh." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Complete the sentence.", "vi": "Hoàn thành câu." },
+      "sentence": "Would you mind ___ the meeting to 3 p.m.?",
+      "options": ["move", "to move", "moving", "moved"],
+      "answerIndex": 2,
+      "explanation": { "en": "Would you mind is followed by verb-ing.", "vi": "Sau Would you mind dùng V-ing." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You write to your landlord, Mr Davis, whom you know. Which greeting fits?", "vi": "Bạn viết cho chủ nhà quen là ông Davis. Lời chào nào phù hợp?" },
+      "options": ["Hey Davis!", "Dear Mr Davis,", "Dear Sir or Madam,", "Yo,"],
+      "answerIndex": 1,
+      "explanation": { "en": "You know his name and the relationship is semi-formal.", "vi": "Bạn biết tên và quan hệ ở mức bán trang trọng." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Put the request email in order.", "vi": "Sắp xếp email đề nghị." },
+      "parts": ["Dear Mr Davis,", "I am writing about the kitchen tap in my flat.", "It has been leaking for a week and water is getting on the floor.", "Would it be possible for someone to repair it this week?", "Thank you for your help. Best regards, Quang"],
+      "explanation": { "en": "Greeting → topic → reason/problem → request → thanks.", "vi": "Chào → chủ đề → lý do/vấn đề → đề nghị → cảm ơn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence gives a clear deadline?", "vi": "Câu nào nêu hạn rõ ràng?" },
+      "options": ["Please answer soon.", "Could you let me know by Thursday?", "Answer when you want."],
+      "answerIndex": 1,
+      "explanation": { "en": "A day helps the reader plan. Soon is vague.", "vi": "Có ngày cụ thể giúp người đọc sắp xếp. Soon thì mơ hồ." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the problem with this reason? \"Because I am busy.\"", "vi": "Lý do này có vấn đề gì? \"Because I am busy.\"" },
+      "options": ["It is too long.", "It is too vague and sounds careless.", "Nothing."],
+      "answerIndex": 1,
+      "explanation": { "en": "Give a real, specific reason: I have a family event that day.", "vi": "Hãy nêu lý do cụ thể: I have a family event that day." }
+    }
+  ],
+  "task": {
+    "title": "Ask your manager to change your schedule",
+    "instructions": "Write an email to your manager. Explain why you need the change. Make a polite, specific request. Say when you need an answer and offer something in return. Close politely.",
+    "prompt": "You work at a café. Next month you start an evening English course on Tuesdays and Thursdays from 6 to 8 p.m., but you usually work until 9 p.m. on those days. Write to your manager, Ms Hoa.",
+    "minWords": 100,
+    "timeMinutes": 20
+  },
+  "checklist": [
+    { "id": "semi-formal", "label": { "en": "Uses a semi-formal tone: Dear + name, full sentences, a suitable sign-off", "vi": "Giọng bán trang trọng: Dear + tên, câu đầy đủ, lời chào cuối phù hợp" } },
+    { "id": "softened", "label": { "en": "Softens the request (Would it be possible…, I was wondering if…), not an order", "vi": "Làm mềm đề nghị (Would it be possible…, I was wondering if…), không ra lệnh" } },
+    { "id": "reason", "label": { "en": "Gives a clear, specific reason", "vi": "Đưa lý do rõ ràng, cụ thể" } },
+    { "id": "specific-ask", "label": { "en": "Says exactly what they want and by when, and offers something in return", "vi": "Nói rõ muốn gì, trước khi nào, và đề xuất bù lại" } }
+  ]
+}

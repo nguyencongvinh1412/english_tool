@@ -11,6 +11,7 @@ import { recoverInterruptedImports } from './imports/jobs.js';
 import { recoverInterruptedGrading } from './exams/ielts.js';
 import { ensureEnVocab, ensureJaVocab } from './vocab/data.js';
 import { ensureGrammar } from './grammar/data.js';
+import { ensureSkillUnits } from './curriculum/data.js';
 import { ensurePlans } from './billing/plans.js';
 
 /**
@@ -26,6 +27,7 @@ async function main(): Promise<void> {
   await ensureJaVocab();
   await ensureEnVocab();
   await ensureGrammar();
+  await ensureSkillUnits();
 
   const app = createApp({ logRequests: true });
 

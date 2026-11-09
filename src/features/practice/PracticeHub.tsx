@@ -20,7 +20,7 @@ type CardId = 'vocabulary' | 'grammar' | 'listening' | 'reading' | 'speaking' | 
 type Activity = { id: ActivityId; route: string };
 
 /** Activities that need the AI to score or reply */
-const AI_ACTIVITIES = new Set<ActivityId>(['pronunciation', 'conversation', 'scenarios', 'ieltsSpeaking', 'writingEmail', 'writingTask1', 'writingTask2', 'jaPronunciation', 'jaConversation', 'jaScenarios', 'jaWriting']);
+const AI_ACTIVITIES = new Set<ActivityId>(['pronunciation', 'conversation', 'scenarios', 'ieltsSpeaking', 'writingCourse', 'writingEmail', 'writingTask1', 'writingTask2', 'jaPronunciation', 'jaConversation', 'jaScenarios', 'jaWriting']);
 const VOCAB_GRAMMAR = new Set<ActivityId>(['enVocab', 'grammar', 'vocab', 'kana']);
 const TONES: Record<CardId, TagTone> = { vocabulary: 'neutral', grammar: 'neutral', listening: 'listening', reading: 'reading', speaking: 'speaking', writing: 'writing' };
 

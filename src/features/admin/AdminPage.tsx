@@ -15,13 +15,14 @@ import { UsageTab } from './UsageTab';
 import { ExamBankTab } from './ExamBankTab';
 import { ImportsTab } from './ImportsTab';
 import { GrammarAdminTab } from './GrammarAdminTab';
+import { UnitsAdminTab } from './UnitsAdminTab';
 import { BillingTab } from './BillingTab';
 import { PlacementBankTab } from './PlacementBankTab';
 import { RoadmapSettingsTab } from './RoadmapSettingsTab';
 import { DeepWordAdminTab } from './DeepWordAdminTab';
 import './admin.css';
 
-type AdminTab = 'users' | 'invites' | 'usage' | 'bank' | 'imports' | 'grammar' | 'billing' | 'placement' | 'roadmap' | 'deepWords';
+type AdminTab = 'users' | 'invites' | 'usage' | 'bank' | 'imports' | 'grammar' | 'units' | 'billing' | 'placement' | 'roadmap' | 'deepWords';
 
 export const AdminPage: React.FC = () => {
   const { t } = useI18n();
@@ -35,6 +36,7 @@ export const AdminPage: React.FC = () => {
     { id: 'bank', label: t.examBank.tab },
     { id: 'imports', label: t.imports.tab },
     { id: 'grammar', label: t.nav.grammar },
+    { id: 'units', label: t.course.admin.tab, fresh: true },
     { id: 'deepWords', label: t.deepWordAdmin.tab, fresh: true },
     { id: 'billing', label: t.billing.adminTab },
     { id: 'roadmap', label: t.roadmapAdmin.tab, fresh: true },
@@ -72,6 +74,7 @@ export const AdminPage: React.FC = () => {
           {tab === 'bank' && <ExamBankTab />}
           {tab === 'imports' && <ImportsTab />}
           {tab === 'grammar' && <GrammarAdminTab />}
+          {tab === 'units' && <UnitsAdminTab />}
           {tab === 'deepWords' && <DeepWordAdminTab />}
           {tab === 'billing' && <BillingTab />}
           {tab === 'placement' && <PlacementBankTab />}

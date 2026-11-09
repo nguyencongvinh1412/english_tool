@@ -28,7 +28,8 @@
     "storage:copy-to-s3": "tsx server/scripts/copyUploadsToS3.ts",
     "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts",
     "en:vocab-data": "tsx server/scripts/buildEnVocab.ts",
-    "grammar:draft": "tsx server/scripts/draftGrammar.ts"
+    "grammar:draft": "tsx server/scripts/draftGrammar.ts",
+    "units:draft": "tsx server/scripts/draftUnits.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

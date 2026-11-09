@@ -41,6 +41,8 @@ export const ROUTES = {
   MAPS: '/maps',
   SPEAKING_IELTS: '/speaking/ielts',
   WRITING_EMAIL: '/writing/email',
+  /** Lesson course of a skill; one lesson is at /writing/course/:unitId */
+  WRITING_COURSE: '/writing/course',
   WRITING_TASK1: '/writing/ielts-task1',
   WRITING_TASK2: '/writing/ielts-task2',
   PRONUNCIATION: '/speaking/pronunciation',

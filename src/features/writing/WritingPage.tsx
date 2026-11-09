@@ -4,7 +4,8 @@
  */
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { Banner, Button, Card, Icon } from '@/design';
+import { Banner, Button, Card, Icon, LinkButton } from '@/design';
+import { ROUTES } from '@/app/routes';
 import { useI18n } from '@/i18n/I18nProvider';
 import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
@@ -168,6 +169,13 @@ export const WritingPage: React.FC<{ task: WritingTask }> = ({ task }) => {
       description={copy.description}
       defaultLevel={task === 'email' ? 'B1' : 'B2'}
       bandScores
+      notice={
+        task === 'email' && (
+          <Banner tone="info" action={<LinkButton to={ROUTES.WRITING_COURSE} size="sm" icon="roadmap">{t.course.emailNoticeAction}</LinkButton>}>
+            {t.course.emailNotice}
+          </Banner>
+        )
+      }
       onOpen={setItem}
     />
   );

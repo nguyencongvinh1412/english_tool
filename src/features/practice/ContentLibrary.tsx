@@ -47,6 +47,8 @@ interface ContentLibraryProps<P> {
   levels?: readonly ContentLevel[];
   /** Scores are band scores (0-9) instead of percentages */
   bandScores?: boolean;
+  /** Shown under the page header, e.g. a pointer to the lesson course */
+  notice?: React.ReactNode;
   onOpen: (item: ContentItem<P>) => void;
 }
 
@@ -67,6 +69,7 @@ export function ContentLibrary<P>({
   defaultLevel = 'B1',
   levels = CONTENT_LEVELS,
   bandScores = false,
+  notice,
   onOpen,
 }: ContentLibraryProps<P>): React.JSX.Element {
   const { t } = useI18n();
@@ -196,6 +199,7 @@ export function ContentLibrary<P>({
   return (
     <div className="practice" style={{ ['--skill' as string]: `var(--${tone})`, ['--skill-edge' as string]: `var(--${tone}-edge)` }}>
       <PageHeader eyebrow={eyebrow} title={title} description={description} />
+      {notice}
 
       <div className="library-tools">
         <label className="library-search">

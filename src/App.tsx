@@ -36,6 +36,8 @@ const ListeningQuizPage = lazyPage(() => import('@/features/listening/ListeningQ
 const GapfillPage = lazyPage(() => import('@/features/reading/ReadingPages'), 'GapfillPage');
 const ReadingPassagePage = lazyPage(() => import('@/features/reading/ReadingPages'), 'ReadingPassagePage');
 const WritingPage = lazyPage(() => import('@/features/writing/WritingPage'), 'WritingPage');
+const CoursePage = lazyPage(() => import('@/features/learn/CoursePage'), 'CoursePage');
+const UnitPage = lazyPage(() => import('@/features/learn/UnitPage'), 'UnitPage');
 const ExamsPage = lazyPage(() => import('@/features/exams/ExamsPage'), 'ExamsPage');
 const ExamSessionPage = lazyPage(() => import('@/features/exams/ExamSessionPage'), 'ExamSessionPage');
 const RoadmapPage = lazyPage(() => import('@/features/roadmap/RoadmapPage'), 'RoadmapPage');
@@ -148,6 +150,8 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.LISTENING_QUIZ} element={<ListeningQuizPage />} />
                         <Route path={ROUTES.READING_PASSAGE} element={<ReadingPassagePage />} />
                         <Route path={ROUTES.READING_GAPFILL} element={<GapfillPage />} />
+                        <Route path={ROUTES.WRITING_COURSE} element={<CoursePage skill="writing" />} />
+                        <Route path={`${ROUTES.WRITING_COURSE}/:unitId`} element={<UnitPage />} />
                         <Route path={ROUTES.WRITING_EMAIL} element={<WritingPage task="email" />} />
                         <Route path={ROUTES.WRITING_TASK1} element={<WritingPage task="ielts-task1" />} />
                         <Route path={ROUTES.WRITING_TASK2} element={<WritingPage task="ielts-task2" />} />

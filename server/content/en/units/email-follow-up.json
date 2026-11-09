@@ -1,0 +1,103 @@
+{
+  "objectives": [
+    { "en": "You can reply to an unhappy customer: thank, apologise and explain.", "vi": "Bạn trả lời được khách hàng không hài lòng: cảm ơn, xin lỗi và giải thích." },
+    { "en": "You can say what will happen next, with dates, and offer something.", "vi": "Bạn nói rõ bước tiếp theo, có mốc thời gian, và đưa ra đề xuất bù đắp." },
+    { "en": "You can follow up politely when someone has not replied.", "vi": "Bạn viết được email nhắc lại lịch sự khi chưa nhận được phản hồi." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Thank, apologise, explain", "vi": "Cảm ơn, xin lỗi, giải thích" },
+      "body": {
+        "en": "Start by **thanking** the customer for writing: **Thank you for your email regarding…** It shows you value their message.\nThen **apologise** for the specific problem, not in general: **We sincerely apologise for the delay in delivering your order.**\nGive a short, honest **reason** without blaming others: **This was caused by a problem with our warehouse system.** Do not write \"It is not our fault\".",
+        "vi": "Mở đầu bằng **cảm ơn** khách đã viết: **Thank you for your email regarding…** Thể hiện bạn trân trọng thư của họ.\nSau đó **xin lỗi** về đúng vấn đề, không chung chung: **We sincerely apologise for the delay in delivering your order.**\nĐưa **lý do** ngắn, trung thực, không đổ lỗi: **This was caused by a problem with our warehouse system.** Đừng viết \"It is not our fault\"."
+      }
+    },
+    {
+      "heading": { "en": "Next steps and an offer", "vi": "Bước tiếp theo và đề xuất bù đắp" },
+      "body": {
+        "en": "Customers want to know **what happens now**. Be specific: **Your order was sent today and will arrive by Thursday 14 November.**\nAdd a goodwill **offer** if it fits: **As an apology, we have refunded the delivery charge / attached a 15% discount code.**\nClose by inviting contact: **If you have any further questions, please do not hesitate to contact me.**\nUse **we** for the company and **I** for what you personally will do.",
+        "vi": "Khách muốn biết **giờ sẽ thế nào**. Hãy cụ thể: **Your order was sent today and will arrive by Thursday 14 November.**\nThêm **đề xuất** thiện chí nếu phù hợp: **As an apology, we have refunded the delivery charge / attached a 15% discount code.**\nKết bằng lời mời liên hệ: **If you have any further questions, please do not hesitate to contact me.**\nDùng **we** cho công ty và **I** cho việc chính bạn sẽ làm."
+      }
+    },
+    {
+      "heading": { "en": "Following up without sounding rude", "vi": "Nhắc lại mà không bất lịch sự" },
+      "body": {
+        "en": "When someone has not replied, remind them **politely** and make it easy to answer:\n- **I am writing to follow up on** my email of 3 November about…\n- **I understand you are very busy, but** I would appreciate an update **by** Friday.\n- Repeat the key question in one line.\nAvoid \"Why haven't you answered?\" or \"As I already told you…\". They sound angry.",
+        "vi": "Khi chưa có phản hồi, hãy nhắc **lịch sự** và giúp người kia dễ trả lời:\n- **I am writing to follow up on** my email of 3 November about…\n- **I understand you are very busy, but** I would appreciate an update **by** Friday.\n- Nhắc lại câu hỏi chính trong một dòng.\nTránh \"Why haven't you answered?\" hoặc \"As I already told you…\". Nghe như đang bực."
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Khanh works at an online bookshop. A customer, Mr Brown, complained that his order arrived late and one book was missing.", "vi": "Khánh làm ở một hiệu sách online. Khách hàng Mr Brown phàn nàn đơn hàng giao trễ và thiếu một cuốn." },
+    "subject": "RE: Late and incomplete order no. 30551",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Dear Mr Brown,", "note": { "en": "Use the customer's name: it feels personal.", "vi": "Dùng tên khách: tạo cảm giác được quan tâm riêng." } },
+      { "label": { "en": "Thanks", "vi": "Cảm ơn" }, "text": "Thank you for your email regarding order no. 30551.", "note": { "en": "Thank first, and mention the order so he knows you checked.", "vi": "Cảm ơn trước, và nhắc mã đơn để khách biết bạn đã kiểm tra." } },
+      { "label": { "en": "Apology and reason", "vi": "Xin lỗi và lý do" }, "text": "We sincerely apologise that your parcel arrived four days late and without the book 'The Silent Sea'. This was caused by a stock error in our warehouse.", "note": { "en": "A specific apology and an honest reason, with no blame on others.", "vi": "Xin lỗi cụ thể và lý do trung thực, không đổ lỗi." } },
+      { "label": { "en": "Next steps", "vi": "Bước tiếp theo" }, "text": "I have sent the missing book by express delivery today, and it will arrive by Wednesday 13 November. You will receive a tracking number by email this afternoon.", "note": { "en": "What I have done, a date, and how he can check.", "vi": "Việc tôi đã làm, mốc thời gian, và cách khách kiểm tra." } },
+      { "label": { "en": "Offer", "vi": "Đề xuất bù đắp" }, "text": "As an apology, we have refunded your delivery charge of $5.", "note": { "en": "A small, concrete goodwill gesture.", "vi": "Một cử chỉ thiện chí nhỏ, cụ thể." } },
+      { "label": { "en": "Closing", "vi": "Câu kết" }, "text": "If you have any further questions, please do not hesitate to contact me.\nKind regards,\nDang Quoc Khanh\nCustomer Service, PageTurn Books", "note": { "en": "Invites contact; signs with name, role and company.", "vi": "Mời liên hệ; ký tên kèm chức vụ và công ty." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Thanking", "vi": "Cảm ơn" }, "items": ["Thank you for your email regarding…", "Thank you for bringing this to our attention.", "Thank you for your patience."] },
+    { "use": { "en": "Apologising", "vi": "Xin lỗi" }, "items": ["We sincerely apologise for…", "I am sorry to hear that…", "Please accept our apologies for…"] },
+    { "use": { "en": "Explaining and next steps", "vi": "Giải thích và bước tiếp theo" }, "items": ["This was caused by…", "I have already…", "…will arrive by…", "We will contact you as soon as…"] },
+    { "use": { "en": "Offering", "vi": "Đề xuất" }, "items": ["As an apology, we have…", "We would like to offer you…", "I have attached a discount code for your next order."] },
+    { "use": { "en": "Following up", "vi": "Nhắc lại" }, "items": ["I am writing to follow up on…", "I would appreciate an update by…", "I understand you are busy, but…", "Just a quick reminder about…"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is the best first line in a reply to a complaint?", "vi": "Câu đầu nào tốt nhất khi trả lời thư phàn nàn?" },
+      "options": ["We received your complaint.", "Thank you for your email regarding your recent order.", "It is not our fault."],
+      "answerIndex": 1,
+      "explanation": { "en": "Thanking first shows you value the customer.", "vi": "Cảm ơn trước cho thấy bạn trân trọng khách." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which apology is best?", "vi": "Lời xin lỗi nào tốt nhất?" },
+      "options": ["Sorry for everything.", "We sincerely apologise for the delay in delivering your order.", "Sorry, but the courier was slow, not us."],
+      "answerIndex": 1,
+      "explanation": { "en": "Specific and takes responsibility, without blaming others.", "vi": "Cụ thể và nhận trách nhiệm, không đổ lỗi." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence gives a clear next step?", "vi": "Câu nào nêu rõ bước tiếp theo?" },
+      "options": ["We will look into it.", "Your replacement will arrive by Friday 15 November.", "Maybe we can do something later."],
+      "answerIndex": 1,
+      "explanation": { "en": "It says what will happen and when.", "vi": "Nói rõ chuyện gì sẽ xảy ra và khi nào." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which follow-up sentence is polite?", "vi": "Câu nhắc lại nào lịch sự?" },
+      "options": ["Why haven't you answered my email?", "As I already told you, I need this now.", "I am writing to follow up on my email of 5 November. I would appreciate an update by Friday."],
+      "answerIndex": 2,
+      "explanation": { "en": "Refers to the earlier email and gives a polite deadline.", "vi": "Nhắc tới email trước và nêu hạn một cách lịch sự." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Put the reply to the customer in order.", "vi": "Sắp xếp thư trả lời khách hàng." },
+      "parts": ["Dear Ms Nguyen,", "Thank you for your email about your hotel booking.", "We sincerely apologise that your room was not ready on arrival.", "As an apology, we have refunded the first night of your stay.", "Kind regards, Reception Manager"],
+      "explanation": { "en": "Greeting → thanks → apology → offer → sign-off.", "vi": "Chào → cảm ơn → xin lỗi → đề xuất → ký tên." }
+    }
+  ],
+  "task": {
+    "title": "Reply to an unhappy customer",
+    "instructions": "Reply to the customer. Thank them and apologise for the specific problem. Briefly explain the cause. Say what you will do next, with a date, and offer something as an apology. Close professionally.",
+    "prompt": "You work in customer service for FitPro, a company that sells fitness equipment. Reply to the email below.",
+    "minWords": 150,
+    "timeMinutes": 25,
+    "email": {
+      "from": "Laura Chen",
+      "subject": "Treadmill still not delivered",
+      "body": "Hello,\n\nI ordered a treadmill (order no. FP-2291) three weeks ago and paid for delivery within 7 days. It still has not arrived, and nobody has answered my two phone calls. I am very disappointed. Please tell me when I will receive it.\n\nLaura Chen"
+    }
+  },
+  "checklist": [
+    { "id": "thank-apologise", "label": { "en": "Thanks the customer and apologises for the specific problem", "vi": "Cảm ơn khách và xin lỗi đúng vấn đề cụ thể" } },
+    { "id": "explain", "label": { "en": "Gives a brief, honest reason without blaming others", "vi": "Đưa lý do ngắn, trung thực, không đổ lỗi" } },
+    { "id": "next-steps", "label": { "en": "Says clearly what will happen next, with a date", "vi": "Nói rõ bước tiếp theo, có mốc thời gian" } },
+    { "id": "offer-close", "label": { "en": "Offers something as an apology and closes professionally", "vi": "Đưa ra đề xuất bù đắp và kết thư chuyên nghiệp" } }
+  ]
+}

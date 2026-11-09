@@ -20,7 +20,7 @@ let passwordHashPromise: Promise<string> | null = null;
  */
 export async function resetDb(): Promise<void> {
   clearSettingsCache();
-  await db.execute(sql`TRUNCATE app_meta, app_settings, subscriptions, plans, grammar_points, grammar_progress, grammar_mistakes, word_bank, users, sessions, password_resets, srs_cards, vocab_items, invite_codes, ai_usage, attempts, content_items, exam_sessions, import_jobs, media_assets RESTART IDENTITY CASCADE`);
+  await db.execute(sql`TRUNCATE app_meta, app_settings, subscriptions, plans, grammar_points, grammar_progress, skill_units, grammar_mistakes, word_bank, users, sessions, password_resets, srs_cards, vocab_items, invite_codes, ai_usage, attempts, content_items, exam_sessions, import_jobs, media_assets RESTART IDENTITY CASCADE`);
 }
 
 /**

@@ -1,0 +1,95 @@
+{
+  "objectives": [
+    { "en": "You can name the four parts of an email and put them in the right order.", "vi": "Bạn gọi tên được bốn phần của một email và sắp xếp đúng thứ tự." },
+    { "en": "You can write a clear subject line and say why you are writing in the first sentence.", "vi": "Bạn viết được dòng tiêu đề rõ ràng và nêu lý do viết ngay câu đầu." },
+    { "en": "You can ask for information politely with Could you…? and I would like to know…", "vi": "Bạn hỏi thông tin lịch sự với Could you…? và I would like to know…" }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Every email has four parts", "vi": "Email nào cũng có bốn phần" },
+      "body": {
+        "en": "1. **Greeting**: Dear Ms Lee, / Hello, / Hi Tom,\n2. **Reason for writing**: one sentence that says why you are writing.\n3. **Details or questions**: what you need, in short paragraphs.\n4. **Closing and sign-off**: a polite last line (I look forward to hearing from you.), then Best regards, and your name.\nIf one part is missing, the email feels rude or unclear.",
+        "vi": "1. **Lời chào**: Dear Ms Lee, / Hello, / Hi Tom,\n2. **Lý do viết**: một câu nói rõ bạn viết để làm gì.\n3. **Chi tiết hoặc câu hỏi**: điều bạn cần, chia đoạn ngắn.\n4. **Câu kết và ký tên**: một câu kết lịch sự (I look forward to hearing from you.), rồi Best regards, và tên bạn.\nThiếu một phần là email dễ bị xem là cộc lốc hoặc khó hiểu."
+      }
+    },
+    {
+      "heading": { "en": "Subject line and first sentence", "vi": "Tiêu đề và câu mở đầu" },
+      "body": {
+        "en": "The **subject line** is a short label, not a sentence: Question about the evening English course. Then go straight to the point: I am writing to ask about… / I would like some information about…\nDo not start with a long story about yourself. The reader should know your purpose after one sentence.",
+        "vi": "**Tiêu đề** là một nhãn ngắn, không phải câu: Question about the evening English course. Sau đó vào thẳng vấn đề: I am writing to ask about… / I would like some information about…\nĐừng mở đầu bằng cả đoạn kể về bản thân. Người đọc phải biết mục đích của bạn ngay sau câu đầu tiên."
+      }
+    },
+    {
+      "heading": { "en": "Asking politely", "vi": "Cách hỏi lịch sự" },
+      "body": {
+        "en": "In English, direct questions to a stranger can sound too strong. Compare:\n- What is the price? (too direct)\n- **Could you tell me** how much the course costs? (polite)\nAfter Could you tell me / I would like to know, use normal word order: how much the course **costs**, not how much **does the course cost**.\nVietnamese learners often write \"Please tell me the price\" or \"I want to know\". It is not wrong, but **would like** is softer than **want**.",
+        "vi": "Trong tiếng Anh, hỏi thẳng người lạ dễ nghe hơi gắt. So sánh:\n- What is the price? (quá thẳng)\n- **Could you tell me** how much the course costs? (lịch sự)\nSau Could you tell me / I would like to know, dùng trật tự câu bình thường: how much the course **costs**, không phải how much **does the course cost**.\nNgười Việt hay viết \"Please tell me the price\" hoặc \"I want to know\". Không sai, nhưng **would like** mềm hơn **want**."
+      }
+    }
+  ],
+  "model": {
+    "situation": { "en": "Linh wants to join an evening English course at a language school and writes to ask for information.", "vi": "Linh muốn học lớp tiếng Anh buổi tối ở một trung tâm và viết email hỏi thông tin." },
+    "subject": "Question about the evening English course",
+    "parts": [
+      { "label": { "en": "Greeting", "vi": "Lời chào" }, "text": "Dear Sir or Madam,", "note": { "en": "She does not know the name of the person, so she uses Dear Sir or Madam.", "vi": "Linh không biết tên người nhận nên dùng Dear Sir or Madam." } },
+      { "label": { "en": "Reason for writing", "vi": "Lý do viết" }, "text": "I am writing to ask about your evening English course for adults.", "note": { "en": "One clear sentence. The reader knows the purpose at once.", "vi": "Một câu rõ ràng. Người đọc biết ngay mục đích." } },
+      { "label": { "en": "Questions", "vi": "Câu hỏi" }, "text": "Could you tell me when the next course starts and how much it costs? I would also like to know if there is a level test before the course.", "note": { "en": "Two polite question forms, and normal word order after them (when the next course starts).", "vi": "Hai cách hỏi lịch sự, và trật tự câu bình thường phía sau (when the next course starts)." } },
+      { "label": { "en": "Closing", "vi": "Câu kết" }, "text": "Thank you for your help. I look forward to hearing from you.", "note": { "en": "Thanks plus a standard closing line.", "vi": "Cảm ơn kèm một câu kết quen thuộc." } },
+      { "label": { "en": "Sign-off", "vi": "Ký tên" }, "text": "Best regards,\nNguyen Thuy Linh", "note": { "en": "Best regards is safe for almost any email. Write your full name.", "vi": "Best regards dùng được cho hầu hết email. Ghi đầy đủ họ tên." } }
+    ]
+  },
+  "phrases": [
+    { "use": { "en": "Greeting", "vi": "Chào" }, "items": ["Dear Sir or Madam,", "Dear Mr Brown,", "Hello,"] },
+    { "use": { "en": "Saying why you are writing", "vi": "Nêu lý do viết" }, "items": ["I am writing to ask about…", "I would like some information about…", "I saw your advertisement for… and I have a few questions."] },
+    { "use": { "en": "Asking for information", "vi": "Hỏi thông tin" }, "items": ["Could you tell me…?", "I would like to know…", "Could you let me know if…?", "Is it possible to…?"] },
+    { "use": { "en": "Closing and sign-off", "vi": "Kết thư và ký tên" }, "items": ["Thank you for your help.", "I look forward to hearing from you.", "Best regards,", "Kind regards,"] }
+  ],
+  "drills": [
+    {
+      "type": "order",
+      "prompt": { "en": "Put the parts of this email in the right order.", "vi": "Sắp xếp các phần của email theo đúng thứ tự." },
+      "parts": ["Dear Ms Taylor,", "I am writing to ask about the swimming class for children.", "Could you tell me what time the class finishes?", "Thank you for your help.", "Best regards, Minh"],
+      "explanation": { "en": "Greeting → reason → question → thanks → sign-off.", "vi": "Lời chào → lý do → câu hỏi → cảm ơn → ký tên." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is the best subject line?", "vi": "Dòng tiêu đề nào tốt nhất?" },
+      "options": ["Hello", "Question about the weekend yoga class", "I am Minh and I want to ask you some questions please", "URGENT!!!"],
+      "answerIndex": 1,
+      "explanation": { "en": "A subject line is short and says the topic. Hello and URGENT say nothing about the topic.", "vi": "Tiêu đề ngắn và nói rõ chủ đề. Hello hay URGENT không cho biết email về việc gì." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which question is the most polite?", "vi": "Câu hỏi nào lịch sự nhất?" },
+      "options": ["Tell me the price.", "What is the price?", "Could you tell me how much it costs?", "I want the price."],
+      "answerIndex": 2,
+      "explanation": { "en": "Could you tell me… is a polite way to ask a stranger.", "vi": "Could you tell me… là cách hỏi lịch sự với người lạ." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Choose the correct word order.", "vi": "Chọn câu có trật tự từ đúng." },
+      "options": ["Could you tell me when does the course start?", "Could you tell me when the course starts?", "Could you tell me when start the course?"],
+      "answerIndex": 1,
+      "explanation": { "en": "After Could you tell me, use normal word order: subject + verb (the course starts).", "vi": "Sau Could you tell me, dùng trật tự bình thường: chủ ngữ + động từ (the course starts)." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You do not know the reader's name. How do you start?", "vi": "Bạn không biết tên người nhận. Mở đầu thế nào?" },
+      "options": ["Dear Sir or Madam,", "Hey!", "Dear friend,", "To you,"],
+      "answerIndex": 0,
+      "explanation": { "en": "Dear Sir or Madam is the standard greeting when you do not know the name.", "vi": "Dear Sir or Madam là lời chào chuẩn khi không biết tên người nhận." }
+    }
+  ],
+  "task": {
+    "title": "Ask a language school about a course",
+    "instructions": "Write an email to the school. Say why you are writing. Ask two or three polite questions (for example about the start date, the price and the class size). Close the email politely.",
+    "prompt": "You saw an advertisement for a weekend English conversation class at Sunrise Language Centre. You want to join but need more information.",
+    "minWords": 60,
+    "timeMinutes": 15
+  },
+  "checklist": [
+    { "id": "four-parts", "label": { "en": "Has a greeting, a reason for writing, questions, and a closing with sign-off", "vi": "Có lời chào, lý do viết, câu hỏi, và câu kết kèm ký tên" } },
+    { "id": "purpose-first", "label": { "en": "Says why they are writing in the first sentence", "vi": "Nêu lý do viết ngay câu đầu" } },
+    { "id": "polite-questions", "label": { "en": "Asks with polite forms (Could you tell me…, I would like to know…) and correct word order", "vi": "Hỏi bằng mẫu lịch sự (Could you tell me…, I would like to know…) với trật tự từ đúng" } }
+  ]
+}

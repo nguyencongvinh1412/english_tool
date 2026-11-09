@@ -995,3 +995,41 @@ export const deepWordLinks = pgTable(
 );
 
 export type DeepWordProgress = typeof deepWordProgress.$inferSelect;
+
+/**
+ * Lessons of the skill curriculum (order and topic live in server/curriculum/units.ts). AI drafts are loaded from
+ * server/content/en/units; an admin reviews them, and edited lessons are no longer overwritten by draft files.
+ */
+export const skillUnits = pgTable('skill_units', {
+  id: text('id').primaryKey(),
+  content: jsonb('content').notNull(),
+  /** draft | reviewed */
+  status: text('status').notNull().default('draft'),
+  edited: boolean('edited').notNull().default(false),
+  seedHash: text('seed_hash'),
+  reviewedBy: uuid('reviewed_by').references(() => users.id, { onDelete: 'set null' }),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * A learner's progress through one lesson: mini-drill result and the best score of its writing task
+ */
+export const skillUnitProgress = pgTable(
+  'skill_unit_progress',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    unitId: text('unit_id').notNull(),
+    /** Mini-drill result in percent, latest try */
+    drillScore: real('drill_score'),
+    /** Best band (0-9) of the lesson's task */
+    bestBand: real('best_band'),
+    /** Scored tries of the lesson's task */
+    attempts: integer('attempts').notNull().default(0),
+    /** Set when the task is first scored: the next lesson opens */
+    completedAt: timestamp('completed_at', { withTimezone: true }),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.unitId] })]
+);
