@@ -55,6 +55,38 @@ describe('chat prompts stay on the server', () => {
   });
 });
 
+describe('sample answers in tutor replies', () => {
+  it('asks for them and returns them apart from the reply', async () => {
+    vi.mocked(sendChatMessage).mockResolvedValueOnce(
+      'Great! Where would you like to go?\n\nFeedback: Well done.\n\n**Suggestions:**\n- I want to visit Japan.\n2. "I would love to go to Japan because I like the food."\n* I have always wanted to see Kyoto in spring.\n- An extra fourth line'
+    );
+    const learner = await signIn(app, await createUser());
+    const response = await learner.post('/api/chat').send(message).expect(200);
+
+    expect(vi.mocked(sendChatMessage).mock.calls[0][0].systemPrompt).toContain('Suggestions:');
+    expect(response.body.message).toBe('Great! Where would you like to go?\n\nFeedback: Well done.');
+    expect(response.body.suggestions).toEqual([
+      'I want to visit Japan.',
+      'I would love to go to Japan because I like the food.',
+      'I have always wanted to see Kyoto in spring.',
+    ]);
+  });
+
+  it('returns an empty list when the model leaves them out', async () => {
+    const learner = await signIn(app, await createUser());
+    const response = await learner.post('/api/chat').send(message).expect(200);
+    expect(response.body).toEqual({ message: 'Mock reply', suggestions: [] });
+  });
+
+  it('leaves other activities untouched', async () => {
+    vi.mocked(sendChatMessage).mockResolvedValueOnce('Say it slowly.\nSuggestions:\n- not a list here');
+    const learner = await signIn(app, await createUser());
+    const response = await learner.post('/api/chat').send({ messages: message.messages, context: { mode: 'pronunciation' } }).expect(200);
+    expect(vi.mocked(sendChatMessage).mock.calls[0][0].systemPrompt).not.toContain('Suggestions:');
+    expect(response.body).toEqual({ message: 'Say it slowly.\nSuggestions:\n- not a list here' });
+  });
+});
+
 describe('POST /api/chat', () => {
   it('requires sign-in', async () => {
     expect((await request(app).post('/api/chat').send(message)).status).toBe(401);

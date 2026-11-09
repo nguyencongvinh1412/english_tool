@@ -13,7 +13,7 @@ import { HttpError } from '../http/errors.js';
 import { assertQuota, effectiveModels, recordUsage, resolveModel } from '../services/aiAccess.js';
 import { getAiMode, keyFor, providerOf } from '../services/aiProvider.js';
 import { config } from '../config.js';
-import { chatContextSchema, chatSystemPrompt } from '../content/chatPrompts.js';
+import { chatContextSchema, chatSystemPrompt, splitSuggestions, wantsSuggestions } from '../content/chatPrompts.js';
 import { inputTokens } from '../billing/pricing.js';
 
 /** Usage feature key for free-form chat requests */
@@ -97,7 +97,8 @@ export function createChatRouter(): Router {
    * @body {Array} request.messages - Recent chat messages (the last one from the user)
    * @body {Object} request.context - Activity: conversation (topic), scenario (roles), pronunciation or dictation
    * @body {string} [request.model] - Optional CLIProxyAPI model ID
-   * @returns {Object} { message: string } - Claude's response
+   * @returns {Object} { message: string, suggestions?: string[] } - Claude's response; conversation and scenario
+   *   replies also carry up to three sample answers to the tutor's question
    * @throws {400} If request validation fails
    * @throws {408} If request times out
    * @throws {500} If internal error occurs
@@ -120,6 +121,11 @@ export function createChatRouter(): Router {
       });
 
       await recordUsage(user, CHAT_FEATURE, { model, inputTokens: inputTokens(systemPrompt, messages), reply: response });
+      // Sample answers come back separately so they are neither shown in the bubble nor read aloud
+      if (wantsSuggestions(body.context)) {
+        res.json(splitSuggestions(response));
+        return;
+      }
       res.json({ message: response });
     } catch (error) {
       // Our own errors (no key for the model, plan limits) carry their status and code

@@ -32,6 +32,48 @@ Then, in a separate section labeled "Feedback:", provide brief, constructive fee
 
 If the student's English is already correct, simply acknowledge it positively in the feedback section.`;
 
+/** Heading the model puts before its sample answers; the server cuts that section off the reply */
+const SUGGESTIONS_HEADING = 'Suggestions';
+const MAX_SUGGESTIONS = 3;
+const MAX_SUGGESTION_CHARS = 200;
+
+/** Asks for sample answers to the tutor's own question, so a stuck learner has something to build on */
+function suggestionsRule(level: string): string {
+  return `
+Sample answers (always, as the very last part of your response):
+End with a line "${SUGGESTIONS_HEADING}:" followed by exactly ${MAX_SUGGESTIONS} lines starting with "- ". Each line is something the
+student could say next, in the first person, as a reply to the question you just asked. Line 1: short and simple. Line 2: a fuller
+answer with a reason or detail. Line 3: more natural, with a useful phrase. ${level} Under 25 words each, English only, no translation,
+no quotation marks. Never mention these sample answers in your reply or feedback.`;
+}
+
+/** Modes whose replies carry sample answers */
+const SUGGESTION_MODES = new Set<ChatContext['mode']>(['conversation', 'scenario']);
+
+/**
+ * Splits the sample answers off a tutor reply
+ * @returns The reply without the section, and up to three cleaned answers (empty when the model left them out)
+ */
+export function splitSuggestions(reply: string): { message: string; suggestions: string[] } {
+  const heading = new RegExp(`\\n[\\s>#*_]*${SUGGESTIONS_HEADING}[*_]*\\s*:[*_]*[ \\t]*(?=\\n|$)`, 'gi');
+  const matches = [...reply.matchAll(heading)];
+  const last = matches.at(-1);
+  if (!last || last.index === undefined) return { message: reply, suggestions: [] };
+
+  const suggestions = reply
+    .slice(last.index + last[0].length)
+    .split('\n')
+    .map((line) => line.replace(/^\s*(?:[-*•]|\d+[.)])\s*/, '').replace(/^["“'*]+|["”'*]+$/g, '').trim())
+    .filter((line) => line.length > 0 && line.length <= MAX_SUGGESTION_CHARS)
+    .slice(0, MAX_SUGGESTIONS);
+  return { message: reply.slice(0, last.index).trimEnd(), suggestions };
+}
+
+/** Whether replies in this activity end with sample answers */
+export function wantsSuggestions(context: ChatContext): boolean {
+  return SUGGESTION_MODES.has(context.mode);
+}
+
 const DICTATION = `You write short English listening passages for dictation practice for Vietnamese learners.
 Rules:
 - The passage must be coherent, natural, and factually reasonable.
@@ -110,7 +152,7 @@ export function chatSystemPrompt(context: ChatContext, locale: 'en' | 'vi'): str
         context.topic && context.topic !== 'Free Conversation'
           ? `\n\nThe current conversation topic is: ${context.topic}. Guide the conversation naturally around this topic while remaining flexible to the student's interests.`
           : ''
-      }\n${GUARDRAIL}`;
+      }\n${suggestionsRule("Match the student's level as shown by their messages.")}\n${GUARDRAIL}`;
 
     case 'scenario': {
       const { aiRole, userRole, context: setting, difficulty } = context.scenario;
@@ -127,6 +169,7 @@ Guidelines:
 5. Use vocabulary appropriate for ${difficulty} level learners
 6. If the user makes grammar or vocabulary mistakes, gently correct them in context
 7. Respond naturally to the conversation while helping the user practice
+${suggestionsRule(`Use vocabulary for ${difficulty} learners, said by the ${userRole}.`)}
 ${GUARDRAIL}`;
     }
 

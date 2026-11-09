@@ -140,6 +140,13 @@ function getStatusErrorMessage(statusCode: number): string {
  * ```
  */
 export async function sendMessage(messages: ChatMessage[], context: ChatContext): Promise<string> {
+  return (await sendChat(messages, context)).message;
+}
+
+/**
+ * Like sendMessage, but keeps the sample answers that tutor replies carry
+ */
+export async function sendChat(messages: ChatMessage[], context: ChatContext): Promise<ChatResponse> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
@@ -147,7 +154,7 @@ export async function sendMessage(messages: ChatMessage[], context: ChatContext)
     const model = getSelectedModel();
     const requestBody: ChatRequest = {
       // The server accepts the most recent turns only
-      messages: messages.slice(-MAX_CHAT_MESSAGES),
+      messages: messages.slice(-MAX_CHAT_MESSAGES).map(({ role, content }) => ({ role, content })),
       context,
       ...(model && { model }),
     };
@@ -171,7 +178,7 @@ export async function sendMessage(messages: ChatMessage[], context: ChatContext)
     const data: ChatResponse = await response.json();
     // Lets the app shell refresh the remaining AI quota
     window.dispatchEvent(new Event(AI_USED_EVENT));
-    return data.message;
+    return data;
   } catch (error) {
     // Re-throw ApiError as-is
     if (error instanceof ApiError) {

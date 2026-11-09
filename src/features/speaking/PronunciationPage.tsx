@@ -6,14 +6,14 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Badge, Banner, Button, Card, EmptyState, Icon, Segmented, Spinner } from '@/design';
+import { Badge, Banner, Button, Card, EmptyState, Icon, Segmented, Select, Spinner } from '@/design';
 import { ROUTES } from '@/app/routes';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useClaude, useSpeechRecognition, useTextToSpeech } from '@/hooks';
 import { useProgress } from '@/shared/progress';
 import { prefetchText } from '@/shared/speech';
-import { DIFFICULTIES, getRandomPhrase, type Difficulty, type Phrase } from '@/constants/phrases';
+import { DIFFICULTIES, SOUND_FOCUSES, getPhrases, pickPhrase, type Difficulty, type Phrase, type SoundFocus } from '@/constants/phrases';
 import { compareTexts, type ComparisonResult } from '@/utils/textComparison';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { RecordButton } from './RecordButton';
@@ -32,12 +32,36 @@ const MODEL_SPEECH_RATE = 0.75;
 /** Feedback language follows the learner's profile on the server */
 const COACH_CONTEXT = { mode: 'pronunciation' } as const;
 
+/** Phrases already shown, kept across visits so coming back does not repeat them */
+const SEEN_KEY = 'pronunciation-seen';
+const MAX_SEEN = 200;
+
+function loadSeen(): string[] {
+  try {
+    const value: unknown = JSON.parse(localStorage.getItem(SEEN_KEY) ?? '[]');
+    return Array.isArray(value) ? value.filter((id): id is string => typeof id === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveSeen(seen: string[]): void {
+  try {
+    localStorage.setItem(SEEN_KEY, JSON.stringify(seen.slice(-MAX_SEEN)));
+  } catch {
+    // Private mode or blocked storage: phrases still rotate within this visit
+  }
+}
+
 export const PronunciationPage: React.FC = () => {
   const { t } = useI18n();
   const navigate = useNavigate();
   const { record } = useProgress();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+  const [focus, setFocus] = useState<SoundFocus | 'all'>('all');
   const [phrase, setPhrase] = useState<Phrase | null>(null);
+  const [roundDone, setRoundDone] = useState(false);
+  const seen = useRef<string[]>(loadSeen());
   const [comparison, setComparison] = useState<ComparisonResult | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const awaitingResult = useRef(false);
@@ -61,9 +85,13 @@ export const PronunciationPage: React.FC = () => {
   }, [resetTranscript, clearMessages]);
 
   const nextPhrase = useCallback(() => {
-    setPhrase(getRandomPhrase(difficulty));
+    const result = pickPhrase(getPhrases(difficulty, focus), seen.current, phrase?.id ?? null);
+    setRoundDone(result.restarted);
+    seen.current = result.seen;
+    saveSeen(result.seen);
+    setPhrase(result.phrase);
     resetAttempt();
-  }, [difficulty, resetAttempt]);
+  }, [difficulty, focus, phrase, resetAttempt]);
 
   const start = useCallback(() => {
     resetAttempt();
@@ -121,10 +149,31 @@ export const PronunciationPage: React.FC = () => {
           onChange={(level) => {
             setDifficulty(level);
             setPhrase(null);
+            setRoundDone(false);
             resetAttempt();
           }}
           options={DIFFICULTIES.map((level) => ({ value: level, label: t.dictation.levels[level], tone: LEVEL_TONES[level] }))}
         />
+        <label className="topic-picker">
+          <span className="visually-hidden">{t.pronunciation.focusLabel}</span>
+          <Select
+            value={focus}
+            disabled={isListening}
+            onChange={(event) => {
+              setFocus(event.target.value as SoundFocus | 'all');
+              setPhrase(null);
+              setRoundDone(false);
+              resetAttempt();
+            }}
+          >
+            <option value="all">{t.pronunciation.focusAll}</option>
+            {SOUND_FOCUSES.map((option) => (
+              <option key={option} value={option}>
+                {t.pronunciation.focus[option].label}
+              </option>
+            ))}
+          </Select>
+        </label>
         <Button icon={phrase ? 'chevronRight' : 'sparkles'} onClick={nextPhrase} disabled={isListening}>
           {phrase ? t.pronunciation.nextPhrase : t.pronunciation.getPhrase}
         </Button>
@@ -141,7 +190,7 @@ export const PronunciationPage: React.FC = () => {
               <Badge tone={difficulty === 'easy' ? 'success' : difficulty === 'medium' ? 'warning' : 'danger'}>
                 {t.dictation.levels[phrase.difficulty]}
               </Badge>
-              <span className="phrase-card__category">{phrase.category}</span>
+              <span className="phrase-card__category">{t.pronunciation.focus[phrase.category].label}</span>
             </div>
             <p className="phrase-card__text" lang="en">
               {phrase.text}
@@ -149,7 +198,11 @@ export const PronunciationPage: React.FC = () => {
             <Button variant="secondary" size="sm" icon="headphones" onClick={() => speak(phrase.text, MODEL_SPEECH_RATE)} disabled={isSpeaking}>
               {t.pronunciation.listen}
             </Button>
+            <p className="phrase-card__tip">
+              <Icon name="target" size={16} /> {t.pronunciation.focus[phrase.category].tip}
+            </p>
           </Card>
+          {roundDone && <Banner tone="info">{t.pronunciation.roundDone}</Banner>}
 
           {isSupported && (
             <div className="speak-recorder">

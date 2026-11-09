@@ -18,6 +18,8 @@ export interface ChatMessage {
   role: MessageRole;
   /** Content of the message */
   content: string;
+  /** Tutor replies only: sample answers to the tutor's question (never sent back to the server) */
+  suggestions?: string[];
 }
 
 /**
@@ -60,6 +62,8 @@ export interface ModelsResponse {
 export interface ChatResponse {
   /** Response message content from Claude */
   message: string;
+  /** Conversation and scenario only: up to three sample answers to the tutor's question */
+  suggestions?: string[];
 }
 
 /**

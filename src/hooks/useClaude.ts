@@ -5,7 +5,7 @@
 
 import { useState, useCallback } from 'react';
 import type { ChatContext, ChatMessage } from '@/types/api';
-import { sendMessage } from '@/services/api';
+import { sendChat } from '@/services/api';
 
 /** State returned by useClaude hook */
 interface UseClaudeState {
@@ -76,12 +76,13 @@ export function useClaude(options: UseClaudeOptions): UseClaudeState & UseClaude
       try {
         // Send all messages including the new one
         const allMessages = [...messages, userMessage];
-        const response = await sendMessage(allMessages, context);
+        const response = await sendChat(allMessages, context);
 
         // Add assistant response to state
         const assistantMessage: ChatMessage = {
           role: 'assistant',
-          content: response,
+          content: response.message,
+          ...(response.suggestions?.length ? { suggestions: response.suggestions } : {}),
         };
         setMessages((prev) => [...prev, assistantMessage]);
       } catch (err) {

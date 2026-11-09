@@ -35,7 +35,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
   const [draft, setDraft] = useState('');
   const [spoken, setSpoken] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const spokenCount = useRef(messages.length);
+  // Sample answers stay hidden until asked for, so the learner tries first; each new reply hides them again
+  const [hintsFor, setHintsFor] = useState<number | null>(null);
+  const lastMessage = messages.at(-1);
+  const sampleAnswers = lastMessage?.role === 'assistant' && !isLoading ? (lastMessage.suggestions ?? []) : [];
+  const hintsOpen = hintsFor === messages.length;
 
   const { isListening, transcript, interimTranscript, error: speechError, isSupported, startListening, stopListening, resetTranscript } =
     useSpeechRecognition(language);
@@ -116,7 +122,49 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
         )}
       </div>
 
-      {suggestions && suggestions.length > 0 && (
+      {sampleAnswers.length > 0 && (
+        <div className="chat-hints">
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="sparkles"
+            aria-expanded={hintsOpen}
+            onClick={() => setHintsFor(hintsOpen ? null : messages.length)}
+          >
+            {hintsOpen ? t.chat.hints.hide : t.chat.hints.show}
+          </Button>
+          {hintsOpen && (
+            <div className="chat-hints__panel reveal">
+              <p className="chat-hints__note">{t.chat.hints.note}</p>
+              <ul className="chat-hints__list">
+                {sampleAnswers.map((answer, index) => (
+                  <li key={`${index}-${answer}`} className="chat-hint">
+                    <span className="chat-hint__level">{t.chat.hints.levels[index] ?? ''}</span>
+                    <button
+                      type="button"
+                      className="chat-hint__text"
+                      lang="en"
+                      title={t.chat.hints.use}
+                      disabled={isLoading}
+                      onClick={() => {
+                        setDraft(answer);
+                        inputRef.current?.focus();
+                      }}
+                    >
+                      {answer}
+                    </button>
+                    <button type="button" className="chat-hint__listen" onClick={() => speak(answer)} aria-label={t.chat.hints.listen} title={t.chat.hints.listen}>
+                      <Icon name="headphones" size={16} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {sampleAnswers.length === 0 && suggestions && suggestions.length > 0 && (
         <div className="chat__suggestions">
           <span className="chat__suggestions-label">{suggestionsLabel}</span>
           {suggestions.map((suggestion) => (
@@ -183,6 +231,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
 
         <form className="chat__form" onSubmit={submitDraft}>
           <TextInput
+            ref={inputRef}
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             placeholder={t.chat.typePlaceholder}
