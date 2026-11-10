@@ -94,7 +94,7 @@ For a correction that is a VOCABULARY mistake (a wrong or unnatural word choice)
  * Prompt for scoring a spoken IELTS set from speech-recognition transcripts
  */
 export function speakingScoringPrompt(
-  set: z.infer<typeof speakingIelts>,
+  set: Pick<z.infer<typeof speakingIelts>, 'topic'>,
   answers: { question: string; transcript: string }[],
   locale: Locale
 ): { system: string; user: string } {

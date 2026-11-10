@@ -1,0 +1,152 @@
+{
+  "objectives": [
+    {
+      "en": "You can write a full Task 1 report with introduction, overview and details.",
+      "vi": "Bạn viết được một bài Task 1 đầy đủ với mở bài, tổng quan và chi tiết."
+    },
+    {
+      "en": "You can write an overview without copying numbers.",
+      "vi": "Bạn viết được phần tổng quan mà không lặp lại số liệu."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Three parts, 120 to 150 words",
+        "vi": "Ba phần, 120 đến 150 từ"
+      },
+      "body": {
+        "en": "1. **Introduction** (1–2 sentences): say what the chart shows in **your own words**.\n2. **Overview** (1–2 sentences): the **biggest trends or differences**, no numbers.\n3. **Details** (2 short paragraphs): the main numbers, with comparisons.\n\nThe overview is the part many learners forget. Without it Task Achievement stays low.",
+        "vi": "1. **Mở bài** (1–2 câu): nói biểu đồ cho thấy gì bằng **lời của bạn**.\n2. **Tổng quan** (1–2 câu): **xu hướng hoặc khác biệt lớn nhất**, không có số.\n3. **Chi tiết** (2 đoạn ngắn): các số liệu chính, có so sánh.\n\nTổng quan là phần nhiều người quên. Thiếu nó điểm Task Achievement sẽ thấp."
+      }
+    },
+    {
+      "heading": {
+        "en": "Paraphrase the introduction",
+        "vi": "Paraphrase mở bài"
+      },
+      "body": {
+        "en": "Change the words of the question: *The chart shows the number of students* → *The bar chart illustrates how many students were enrolled*. Change the **verb**, the **noun** and use **different words** for the years.",
+        "vi": "Đổi từ của đề bài: *The chart shows the number of students* → *The bar chart illustrates how many students were enrolled*. Đổi **động từ**, **danh từ** và dùng **từ khác** cho năm."
+      }
+    },
+    {
+      "heading": {
+        "en": "Select, do not list",
+        "vi": "Chọn lọc, đừng liệt kê"
+      },
+      "body": {
+        "en": "Do not write every number. Choose the **highest, the lowest, the biggest change** and compare. A short, selected report is better than a long list.",
+        "vi": "Đừng viết mọi con số. Chọn **số cao nhất, thấp nhất, thay đổi lớn nhất** và so sánh. Bài ngắn có chọn lọc tốt hơn một danh sách dài."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A short report (about 120 words)",
+        "vi": "Một bài ngắn (khoảng 120 từ)"
+      },
+      "text": "The bar chart illustrates how many students studied in three faculties at a university in 2000, 2010 and 2020.\n\nOverall, Business grew fastest and became the largest faculty, while Arts was the only faculty with falling numbers.\n\nIn 2000, Arts was the biggest faculty with 20 thousand students, compared with 12 thousand in Science and just 8 thousand in Business. By 2020, however, Business had risen to 22 thousand, the highest figure.\n\nScience increased steadily from 12 to 18 thousand. In contrast, Arts fell from 20 to 14 thousand.",
+      "note": {
+        "en": "Introduction in new words, an overview with no numbers, then two detail paragraphs that compare. The words however and in contrast link ideas.",
+        "vi": "Mở bài bằng từ mới, tổng quan không có số, rồi hai đoạn chi tiết có so sánh. However và in contrast nối các ý."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Overview",
+        "vi": "Tổng quan"
+      },
+      "items": [
+        "Overall, ... was the highest.",
+        "It is clear that ...",
+        "The most noticeable change was ...",
+        "While A ..., B ..."
+      ]
+    },
+    {
+      "use": {
+        "en": "Linking",
+        "vi": "Từ nối"
+      },
+      "items": [
+        "however",
+        "in contrast",
+        "compared with",
+        "by 2020"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What goes in the overview?",
+        "vi": "Điều gì nằm trong phần tổng quan?"
+      },
+      "options": [
+        "Every number in the chart",
+        "The main trends, without detailed numbers",
+        "Your opinion about the data"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The overview gives the big picture.",
+        "vi": "Tổng quan cho bức tranh chung."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is a paraphrase of \"The chart shows the number of visitors\"?",
+        "vi": "Câu nào là paraphrase của \"The chart shows the number of visitors\"?"
+      },
+      "options": [
+        "The chart shows the number of visitors.",
+        "The bar chart illustrates how many people visited."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Different verb and different words for the same meaning.",
+        "vi": "Động từ khác và từ khác cho cùng nghĩa."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence should NOT be in a Task 1 report?",
+        "vi": "Câu nào KHÔNG nên có trong bài Task 1?"
+      },
+      "options": [
+        "Business rose from 8 to 22 thousand.",
+        "This happened because business is exciting.",
+        "Arts fell in contrast."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Do not give reasons that are not in the data.",
+        "vi": "Không đưa ra lý do không có trong số liệu."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the parts of the report.",
+        "vi": "Sắp xếp các phần của bài viết."
+      },
+      "parts": [
+        "Introduction",
+        "Overview",
+        "Detail paragraph 1",
+        "Detail paragraph 2"
+      ],
+      "explanation": {
+        "en": "The overview comes before the details.",
+        "vi": "Tổng quan đứng trước chi tiết."
+      }
+    }
+  ]
+}

@@ -128,6 +128,7 @@ function solverView(slot: IeltsSlot, payload: { script?: { speaker: string; text
   const questions = payload.questions.map((q, i) => {
     if (q.type === 'mcq') return `${i + 1}. [choice] ${q.prompt}\n${q.options.map((o, j) => `${j}. ${o}`).join('\n')}`;
     if (q.type === 'tfng') return `${i + 1}. [true/false/not_given] ${q.prompt}`;
+    if (q.type === 'match') return `${i + 1}. [match: choose the best item] ${q.prompt}\n${q.options.map((o, j) => `${j}. ${o}`).join('\n')}`;
     return `${i + 1}. [gap, max ${q.wordLimit} word(s)] ${q.prompt}`;
   });
   return `${slot === 'reading' ? 'Passage' : 'Transcript'}:\n${source}\n\nQuestions:\n${questions.join('\n\n')}`;
@@ -137,7 +138,7 @@ function solverView(slot: IeltsSlot, payload: { script?: { speaker: string; text
  * Solves the group without the key
  * @returns 1-based numbers of questions where the solver disagrees with the key
  */
-async function verifyIelts(user: User, slot: IeltsSlot, payload: { questions: IeltsQuestion[] }, feature: string, model?: string): Promise<number[]> {
+export async function verifyIelts(user: User, slot: IeltsSlot, payload: { questions: IeltsQuestion[] }, feature: string, model?: string): Promise<number[]> {
   const count = payload.questions.length;
   const solved = await runAIJson(
     user,
@@ -146,7 +147,7 @@ async function verifyIelts(user: User, slot: IeltsSlot, payload: { questions: Ie
       model,
       timeoutMs: IELTS_GENERATE_TIMEOUT_MS,
       system: `You are an expert IELTS candidate. Answer every question from the text only.
-[choice]: the 0-based option index. [true/false/not_given]: "true", "false" or "not_given".
+[choice] and [match]: the 0-based option index. [true/false/not_given]: "true", "false" or "not_given".
 [gap]: the missing words copied from the text, within the word limit.
 Respond with ONLY one JSON object.`,
       messages: [{ role: 'user', content: `${solverView(slot, payload as never)}\n\nJSON: {"answers": [one answer per question, in order]}` }],
@@ -162,7 +163,7 @@ Respond with ONLY one JSON object.`,
  */
 function solverAnswer(question: IeltsQuestion, raw: unknown): number | string | undefined {
   const value = Array.isArray(raw) ? raw.join(' ') : typeof raw === 'boolean' ? String(raw) : raw;
-  if (question.type === 'mcq') {
+  if (question.type === 'mcq' || question.type === 'match') {
     if (typeof value === 'number') return value;
     if (typeof value === 'string' && /^[A-D]$/i.test(value.trim())) return 'ABCD'.indexOf(value.trim().toUpperCase());
     return typeof value === 'string' && /^\d$/.test(value.trim()) ? Number(value) : undefined;

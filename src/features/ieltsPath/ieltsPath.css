@@ -149,3 +149,46 @@
     align-items: start;
   }
 }
+
+.pathtoday {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pathtoday__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.pathtoday__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pathtoday__pos {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.pathtoday__ahead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  align-items: flex-start;
+}
+
+.ipath__example {
+  white-space: pre-line;
+}
+
+.ipath__launch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 3rem 0;
+  text-align: center;
+}

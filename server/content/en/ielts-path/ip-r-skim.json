@@ -1,0 +1,140 @@
+{
+  "objectives": [
+    {
+      "en": "You can get the main idea of a short text in about a minute.",
+      "vi": "Bạn nắm được ý chính của một đoạn văn ngắn trong khoảng một phút."
+    },
+    {
+      "en": "You can write a two-sentence summary in your own words.",
+      "vi": "Bạn viết được bản tóm tắt hai câu bằng lời của mình."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Do not read every word",
+        "vi": "Đừng đọc từng từ"
+      },
+      "body": {
+        "en": "Many learners read slowly because they stop at every new word. In IELTS you have about **20 minutes per passage**, so you need two ways of reading.\n\n**Skimming** = reading fast to get the **main idea**. **Scanning** = looking for one **specific detail** (a name, a number). Today is skimming.",
+        "vi": "Nhiều người đọc chậm vì dừng lại ở mỗi từ mới. Trong IELTS bạn chỉ có khoảng **20 phút cho mỗi bài**, nên cần hai cách đọc.\n\n**Skimming** = đọc nhanh để nắm **ý chính**. **Scanning** = tìm một **chi tiết cụ thể** (tên, số). Hôm nay là skimming."
+      }
+    },
+    {
+      "heading": {
+        "en": "How to skim",
+        "vi": "Cách skim"
+      },
+      "body": {
+        "en": "1. Read the **title** and any headings. Guess the topic.\n2. Read the **first sentence of each paragraph**. It usually gives the paragraph's idea.\n3. Read the **last sentence** of the text.\n4. Do not stop for new words. If a word is important, it will come back.\n\nAfter one minute ask: *What is this text about? What does the writer think?*",
+        "vi": "1. Đọc **tiêu đề** và các đề mục. Đoán chủ đề.\n2. Đọc **câu đầu của mỗi đoạn**. Câu này thường cho ý của đoạn.\n3. Đọc **câu cuối** của bài.\n4. Đừng dừng lại vì từ mới. Nếu từ quan trọng, nó sẽ xuất hiện lại.\n\nSau một phút hãy tự hỏi: *Bài nói về điều gì? Tác giả nghĩ gì?*"
+      }
+    },
+    {
+      "heading": {
+        "en": "Summarise in two sentences",
+        "vi": "Tóm tắt trong hai câu"
+      },
+      "body": {
+        "en": "A good summary has the **topic** and the **main point**, in **your own words**. Do not copy sentences from the text: changing the words trains paraphrasing, which IELTS tests all the time.",
+        "vi": "Một bản tóm tắt tốt có **chủ đề** và **ý chính**, bằng **lời của bạn**. Đừng chép lại câu trong bài: đổi từ giúp luyện paraphrase, thứ mà IELTS kiểm tra liên tục."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Skim and summarise",
+        "vi": "Skim và tóm tắt"
+      },
+      "text": "Text (short): \"More people now cycle to work in Millbrook. The town started a bicycle library in 2019 and lends bicycles for free. Volunteers repair them on Saturdays. However, some bicycles are never returned.\"\n\nSummary: Millbrook lends free bicycles to encourage cycling. There is one problem: a few bicycles are lost.",
+      "note": {
+        "en": "The summary has the topic (free bicycles) and a main point (it encourages cycling, with one problem). It does not copy the text.",
+        "vi": "Bản tóm tắt có chủ đề (xe đạp miễn phí) và ý chính (khuyến khích đạp xe, có một vấn đề). Nó không chép lại bài."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Starting a summary",
+        "vi": "Mở đầu bản tóm tắt"
+      },
+      "items": [
+        "The text is about...",
+        "The writer explains that...",
+        "The main problem is...",
+        "The writer thinks that..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "When you skim, which parts do you read first?",
+        "vi": "Khi skim, bạn đọc phần nào trước?"
+      },
+      "options": [
+        "Every word of paragraph 1",
+        "The title and the first sentence of each paragraph",
+        "Only the numbers"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Titles and first sentences give the structure of the text.",
+        "vi": "Tiêu đề và câu đầu cho thấy cấu trúc của bài."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You find a new word while skimming. What do you do?",
+        "vi": "Bạn gặp một từ mới khi đang skim. Bạn làm gì?"
+      },
+      "options": [
+        "Stop and use a dictionary",
+        "Keep reading; come back only if it matters",
+        "Stop reading the text"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Skimming is about the whole idea, not single words.",
+        "vi": "Skim là nắm ý chung, không phải từng từ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is a better summary of \"The town started a bicycle library to help students travel to school\"?",
+        "vi": "Đâu là bản tóm tắt tốt hơn của \"The town started a bicycle library to help students travel to school\"?"
+      },
+      "options": [
+        "The town started a bicycle library to help students travel to school.",
+        "A free bicycle scheme helps young people get to school."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The second says the same in new words.",
+        "vi": "Câu thứ hai nói cùng ý bằng từ mới."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps of skimming.",
+        "vi": "Sắp xếp các bước skim."
+      },
+      "parts": [
+        "Read the title",
+        "Read the first sentence of each paragraph",
+        "Read the last sentence",
+        "Say the main idea in one sentence"
+      ],
+      "explanation": {
+        "en": "Title, openings, ending, idea.",
+        "vi": "Tiêu đề, câu mở, câu kết, ý chính."
+      }
+    }
+  ]
+}

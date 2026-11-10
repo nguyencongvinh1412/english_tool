@@ -16,6 +16,9 @@ import { formatDay, formatRange, hasRoadmap, roadmapApi, type RoadmapView } from
 import { useStageName } from '@/features/roadmap/useStageName';
 import { dismissInstallHint, shouldSuggestInstall } from '@/shared/installHint';
 import { todayApi, TODAY_BUDGETS, type Today, type TodayBudget, type TodayTask } from '@/shared/todayApi';
+import { ieltsPathApi, type PathToday as PathTodayData } from '@/shared/ieltsPathApi';
+import { PathToday } from '@/features/ieltsPath/PathToday';
+import { stepLink } from '@/features/ieltsPath/pathSteps';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { WeeklyReviewDialog } from './WeeklyReviewDialog';
 import { fromToday, taskAlternative, taskKind, taskLink, taskText } from './todayTasks';
@@ -48,6 +51,7 @@ export const TodayPage: React.FC = () => {
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
   const [testDismissed, setTestDismissed] = useState(false);
   const [installHint, setInstallHint] = useState(shouldSuggestInstall);
+  const [pathToday, setPathToday] = useState<PathTodayData | null>(null);
   const stageName = useStageName();
 
   const load = useCallback(() => {
@@ -65,6 +69,13 @@ export const TodayPage: React.FC = () => {
   };
 
   useEffect(load, [load]);
+  useEffect(() => {
+    if (user.studyLanguage !== 'en') return;
+    ieltsPathApi
+      .today()
+      .then(({ today: data }) => setPathToday(data))
+      .catch(() => {});
+  }, [user.studyLanguage]);
   useEffect(() => {
     journeyApi.get().then(setJourney).catch(() => {});
     roadmapApi
@@ -92,9 +103,14 @@ export const TodayPage: React.FC = () => {
   const next = tasks.find((task) => !task.done);
   const allDone = tasks.length > 0 && !next;
 
+  // With an IELTS syllabus running, its steps come first
+  const pathMode = pathToday?.mode === 'syllabus' || pathToday?.mode === 'complete';
+  const nextStep = pathToday?.mode === 'syllabus' ? pathToday.steps.find((step) => !step.done) : undefined;
+
   const start = () => {
     if (failed) return retry();
-    if (next) navigate(fromToday(taskLink(next, language), next.minutes));
+    if (nextStep) navigate(fromToday(stepLink(nextStep), nextStep.minutes));
+    else if (next) navigate(fromToday(taskLink(next, language), next.minutes));
     else navigate(ROUTES.PRACTICE);
   };
 
@@ -114,19 +130,19 @@ export const TodayPage: React.FC = () => {
           ? t.journey.goal.jlpt(goal.targetLevel ?? '')
           : t.journey.goal.cefr(goal.targetLevel ?? '');
 
-  const ctaLabel = failed ? t.today.retry : allDone ? t.today.ctaMore : budget === 10 && next ? t.today.ctaStartShort(10) : t.today.cta;
+  const ctaLabel = failed ? t.today.retry : allDone && !nextStep ? t.today.ctaMore : budget === 10 && next ? t.today.ctaStartShort(10) : t.today.cta;
 
   return (
     <div className="today">
       {roadmap && <WeeklyReviewDialog />}
       <header className="today__head">
         <h1>{t.today.greeting(user.displayName)}</h1>
-        <p className="today__sub">{today ? (allDone ? t.today.summaryDone(today.totalMinutes, tasks.length) : t.today.summary(today.totalMinutes, tasks.length)) : failed ? '' : t.today.loading}</p>
+        {!pathMode && <p className="today__sub">{today ? (allDone ? t.today.summaryDone(today.totalMinutes, tasks.length) : t.today.summary(today.totalMinutes, tasks.length)) : failed ? '' : t.today.loading}</p>}
       </header>
 
       <div className="today__grid">
         <div className="today__main">
-          {!roadmap && (
+          {!roadmap && !pathMode && (
             <p className="today__notice">
               {t.today.roadmapSoon}{' '}
               <Link to={ROUTES.ROADMAP_NEW} className="today__link">
@@ -211,6 +227,10 @@ export const TodayPage: React.FC = () => {
             </Banner>
           )}
 
+          {pathToday && <PathToday today={pathToday} onChange={setPathToday} />}
+          {pathMode && tasks.length > 0 && <h2 className="today__also">{t.ieltsPath.study.also}</h2>}
+
+          {!pathMode && (
           <div className="today__time" role="radiogroup" aria-label={t.today.howLong}>
             <span className="today__time-label">{t.today.howLong}</span>
             <div className="today__radios">
@@ -222,8 +242,9 @@ export const TodayPage: React.FC = () => {
               ))}
             </div>
           </div>
+          )}
 
-          {today && tasks.length > 0 && (
+          {today && tasks.length > 0 && !pathMode && (
             <TimeBar
               label={t.today.summary(today.totalMinutes, tasks.length)}
               segments={tasks.map((task) => ({ id: task.id, minutes: task.minutes, tone: taskKind(task).tone }))}
@@ -291,7 +312,17 @@ export const TodayPage: React.FC = () => {
         </div>
 
         <aside className="today__rail">
-          {roadmap ? (
+          {pathToday && pathMode ? (
+            <Card className="today__goal">
+              <span className="today__label">{t.today.goalLabel}</span>
+              <strong className="today__goal-title">{t.ieltsPath.goalLine(pathToday.overallTarget.toFixed(1))}</strong>
+              <ProgressBar value={percent(pathToday.progress.done, pathToday.progress.total)} label={t.ieltsPath.study.progress(pathToday.progress.done, pathToday.progress.total)} />
+              <span className="today__goal-line">{t.ieltsPath.study.progress(pathToday.progress.done, pathToday.progress.total)}</span>
+              <Link to={ROUTES.IELTS_PATH} className="today__link">
+                {t.ieltsPath.title}
+              </Link>
+            </Card>
+          ) : roadmap ? (
             <Card className="today__goal">
               {(() => {
                 const { roadmap: rm, progress } = roadmap;

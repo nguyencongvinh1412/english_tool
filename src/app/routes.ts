@@ -16,6 +16,9 @@ export const ROUTES = {
   /** IELTS path: overview with Gate 0; /ielts/start sets it up */
   IELTS_PATH: '/ielts',
   IELTS_PATH_START: '/ielts/start',
+  /** One lesson step at /ielts/lesson/:stepId; /ielts/practice/:stepId opens (and prepares) an exercise */
+  IELTS_LESSON: '/ielts/lesson',
+  IELTS_PRACTICE: '/ielts/practice',
   CHECKPOINT: '/roadmap/checkpoint',
   PRACTICE: '/practice',
   ME: '/me',

@@ -1,0 +1,139 @@
+{
+  "objectives": [
+    {
+      "en": "You know what Part 1 is and how long your answers should be.",
+      "vi": "Bạn biết Part 1 là gì và câu trả lời nên dài bao nhiêu."
+    },
+    {
+      "en": "You can answer directly and add one extra detail.",
+      "vi": "Bạn trả lời trực tiếp và thêm một chi tiết."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Part 1 is",
+        "vi": "Part 1 là gì"
+      },
+      "body": {
+        "en": "Part 1 lasts **4–5 minutes**. The examiner asks short questions about familiar topics: your home, work or study, hometown, hobbies. There are no right or wrong ideas; the examiner listens to your **English**.",
+        "vi": "Part 1 kéo dài **4–5 phút**. Giám khảo hỏi những câu ngắn về chủ đề quen thuộc: nhà, công việc hoặc học tập, quê hương, sở thích. Không có ý đúng hay sai; giám khảo nghe **tiếng Anh** của bạn."
+      }
+    },
+    {
+      "heading": {
+        "en": "Answer, then add a little",
+        "vi": "Trả lời, rồi nói thêm một chút"
+      },
+      "body": {
+        "en": "**Answer the question first** with a full sentence, then add **one more detail**. Two or three sentences are enough.\n\nExaminer: *Do you work or study?*\nWeak: *Study.*\nBetter: *I study economics at university. I am in my second year.*\n\nDo not learn long answers by heart: examiners notice and the answer may not fit the question.",
+        "vi": "**Trả lời câu hỏi trước** bằng một câu đầy đủ, rồi thêm **một chi tiết**. Hai hoặc ba câu là đủ.\n\nExaminer: *Do you work or study?*\nYếu: *Study.*\nTốt hơn: *I study economics at university. I am in my second year.*\n\nKhông học thuộc câu trả lời dài: giám khảo nhận ra và câu trả lời có thể không khớp với câu hỏi."
+      }
+    },
+    {
+      "heading": {
+        "en": "If you do not know a word",
+        "vi": "Khi bạn không biết một từ"
+      },
+      "body": {
+        "en": "Do not stop. Use another way to say it: *a place where you can buy things* (a shop). Keep speaking and sound calm. Self-corrections are normal.",
+        "vi": "Đừng dừng lại. Dùng cách nói khác: *a place where you can buy things* (a shop). Cứ tiếp tục nói và giữ bình tĩnh. Tự sửa lỗi là chuyện bình thường."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Three Part 1 answers",
+        "vi": "Ba câu trả lời Part 1"
+      },
+      "text": "Q: Where do you live?\nA: I live in Da Nang, in an apartment near the beach. It is quite a quiet area.\n\nQ: What do you do in your free time?\nA: I usually play badminton with my friends. We meet twice a week.\n\nQ: Do you like your hometown?\nA: Yes, I do. It is small, but the people are friendly.",
+      "note": {
+        "en": "Each answer is a full sentence plus one detail, and answers the question directly.",
+        "vi": "Mỗi câu trả lời là một câu đầy đủ cộng một chi tiết và trả lời trực tiếp câu hỏi."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Starting an answer",
+        "vi": "Mở đầu câu trả lời"
+      },
+      "items": [
+        "I live in ...",
+        "I usually ...",
+        "Yes, I do. / No, not really.",
+        "It depends, but ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long should a Part 1 answer be?",
+        "vi": "Một câu trả lời Part 1 nên dài bao nhiêu?"
+      },
+      "options": [
+        "One word",
+        "Two or three sentences",
+        "Two minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Short but developed.",
+        "vi": "Ngắn nhưng có phát triển."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is the better answer to \"Do you like cooking?\"",
+        "vi": "Đâu là câu trả lời tốt hơn cho \"Do you like cooking?\""
+      },
+      "options": [
+        "Yes.",
+        "Yes, I do. I often cook for my family at weekends."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A full sentence and an extra detail.",
+        "vi": "Một câu đầy đủ và chi tiết thêm."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You forget a word. What do you do?",
+        "vi": "Bạn quên một từ. Bạn làm gì?"
+      },
+      "options": [
+        "Stop and say nothing",
+        "Explain it with other words and continue",
+        "Switch to Vietnamese"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Keep speaking: explaining shows vocabulary skill.",
+        "vi": "Cứ nói tiếp: giải thích bằng từ khác cho thấy kỹ năng từ vựng."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order a good answer.",
+        "vi": "Sắp xếp một câu trả lời tốt."
+      },
+      "parts": [
+        "Answer the question directly",
+        "Add one detail",
+        "Stop at a natural end"
+      ],
+      "explanation": {
+        "en": "Answer, detail, stop.",
+        "vi": "Trả lời, chi tiết, dừng lại."
+      }
+    }
+  ]
+}

@@ -55,7 +55,9 @@ function useGroupLabel() {
     if (g.group.kind === 'ielts-listening') return t.ielts.sectionName(g.group.payload.section);
     if (g.group.kind === 'ielts-reading') return t.ielts.passageName(g.position + 1);
     if (g.group.kind === 'writing-prompt') return t.ielts.taskName(g.group.payload.taskType === 'ielts-task1' ? 1 : 2);
-    return t.ielts.speakingParts;
+    // A path exercise may be Part 1 alone, or Parts 1 and 2
+    const set = g.group.payload as { part2?: unknown; part3: unknown[] };
+    return set.part3.length > 0 ? t.ielts.speakingParts : set.part2 ? t.ielts.speakingParts12 : t.ielts.speakingPart1;
   };
 }
 
@@ -189,7 +191,8 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
               answers={answers}
               flags={flags}
               review={false}
-              playOnce={session.mode !== 'part'}
+              // Tests play the audio once; practice (and the exercises of the IELTS path) can be replayed
+              playOnce={session.mode !== 'part' && session.mode !== 'lesson'}
               played={played.has(current.group.id)}
               onPlayed={() => setPlayed((prev) => new Set(prev).add(current.group.id))}
               onAnswer={answer}
@@ -361,6 +364,11 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
       <ResultBar title={`${t.ielts.resultTitle} · IELTS ${t.ielts.modeLabel[session.mode]}`} date={session.submittedAt ?? session.startedAt} />
 
       <main className="exam-result">
+        {session.mode === 'lesson' && (
+          <Banner tone="info" action={<LinkButton to={ROUTES.HOME} size="sm">{t.ieltsPath.study.backToToday}</LinkButton>}>
+            {t.ieltsPath.study.lessonNote}
+          </Banner>
+        )}
         {session.mode === 'gate' && (
           <Banner tone="info" action={<LinkButton to={ROUTES.IELTS_PATH} size="sm">{t.ieltsPath.backToPath}</LinkButton>}>
             {t.ieltsPath.gateModeNote}

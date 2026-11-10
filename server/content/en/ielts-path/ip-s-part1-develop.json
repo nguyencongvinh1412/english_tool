@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can build a longer answer with an idea, a reason and an example.",
+      "vi": "Bạn xây dựng được câu trả lời dài hơn gồm ý, lý do và ví dụ."
+    },
+    {
+      "en": "You can talk about habits and the past correctly.",
+      "vi": "Bạn nói về thói quen và quá khứ đúng thì."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Idea, reason, example",
+        "vi": "Ý, lý do, ví dụ"
+      },
+      "body": {
+        "en": "To move from band 4 to 5 and 6 you need **longer answers with links**. Use three steps:\n1. **Idea**: *I like cooking.*\n2. **Reason**: *because it helps me relax.*\n3. **Example**: *For example, last Sunday I made a big family dinner.*\n\nThis gives about 20–30 seconds.",
+        "vi": "Để từ band 4 lên 5 và 6 bạn cần **câu trả lời dài hơn và có nối ý**. Dùng ba bước:\n1. **Ý**: *I like cooking.*\n2. **Lý do**: *because it helps me relax.*\n3. **Ví dụ**: *For example, last Sunday I made a big family dinner.*\n\nCách này cho khoảng 20–30 giây."
+      }
+    },
+    {
+      "heading": {
+        "en": "Choose the tense",
+        "vi": "Chọn thì"
+      },
+      "body": {
+        "en": "Habits and facts: **present simple** (*I usually walk to school*). Past events: **past simple** (*I played football when I was a child*). Mixing them up is the most common grammar mistake in Part 1. Listen to the **question**: *Did you...?* → past; *Do you...?* → present.",
+        "vi": "Thói quen và sự thật: **hiện tại đơn** (*I usually walk to school*). Sự việc quá khứ: **quá khứ đơn** (*I played football when I was a child*). Nhầm hai thì này là lỗi ngữ pháp phổ biến nhất ở Part 1. Hãy nghe **câu hỏi**: *Did you...?* → quá khứ; *Do you...?* → hiện tại."
+      }
+    },
+    {
+      "heading": {
+        "en": "Sound natural, not memorised",
+        "vi": "Nói tự nhiên, không học thuộc"
+      },
+      "body": {
+        "en": "Use small fillers sometimes: *Well, ...*, *Actually, ...*, *To be honest, ...*. Do not overuse them. Real fluency is a **steady pace** with few long stops.",
+        "vi": "Thỉnh thoảng dùng từ đệm: *Well, ...*, *Actually, ...*, *To be honest, ...*. Đừng lạm dụng. Trôi chảy thật sự là **tốc độ đều** với ít lần dừng lâu."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "An answer with idea, reason and example",
+        "vi": "Một câu trả lời có ý, lý do và ví dụ"
+      },
+      "text": "Q: Do you enjoy using public transport?\nA: Yes, I do, mostly. I think buses are cheap and convenient. For example, I take the bus to university every day and it only costs me about fifty cents. The only problem is that it can be crowded in the morning.",
+      "note": {
+        "en": "Idea (I enjoy it), reason (cheap and convenient), example (every day, fifty cents), and a small balance (crowded).",
+        "vi": "Ý (tôi thích), lý do (rẻ và tiện), ví dụ (mỗi ngày, năm mươi xu), và một chút cân bằng (đông vào buổi sáng)."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Linking your answer",
+        "vi": "Nối câu trả lời"
+      },
+      "items": [
+        "because ...",
+        "for example, ...",
+        "the only problem is ...",
+        "Well, ...",
+        "To be honest, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which question needs the past simple in the answer?",
+        "vi": "Câu hỏi nào cần thì quá khứ đơn trong câu trả lời?"
+      },
+      "options": [
+        "Do you like sport?",
+        "Did you play sport as a child?",
+        "Where do you live?"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Did you...? asks about the past.",
+        "vi": "Did you...? hỏi về quá khứ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which part is the example? \"I like tea because it is relaxing. For example, I drink it every evening.\"",
+        "vi": "Phần nào là ví dụ? \"I like tea because it is relaxing. For example, I drink it every evening.\""
+      },
+      "options": [
+        "I like tea",
+        "because it is relaxing",
+        "For example, I drink it every evening"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "en": "For example introduces the specific case.",
+        "vi": "For example mở đầu trường hợp cụ thể."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is the best opening for \"Do you cook?\"",
+        "vi": "Cách mở nào tốt nhất cho \"Do you cook?\""
+      },
+      "options": [
+        "Cook.",
+        "Yes, I cook a little, mainly simple dishes.",
+        "I think cooking is the most important activity in the world."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Direct, true and easy to extend.",
+        "vi": "Trực tiếp, thật và dễ mở rộng."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the answer.",
+        "vi": "Sắp xếp câu trả lời."
+      },
+      "parts": [
+        "I enjoy walking in the evening.",
+        "It helps me relax after work.",
+        "For example, last night I walked along the river for an hour."
+      ],
+      "explanation": {
+        "en": "Idea, reason, example.",
+        "vi": "Ý, lý do, ví dụ."
+      }
+    }
+  ]
+}

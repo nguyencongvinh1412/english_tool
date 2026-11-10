@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can scan a text for a number or a name quickly.",
+      "vi": "Bạn scan nhanh một bài để tìm số hoặc tên."
+    },
+    {
+      "en": "You can match a heading to a paragraph.",
+      "vi": "Bạn nối được tiêu đề với đoạn văn."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Scanning",
+        "vi": "Scanning"
+      },
+      "body": {
+        "en": "Scanning means your eyes move fast over the text looking for **one thing**. Numbers, capital letters (names) and dates stand out, so they are easy to scan for.\n\nKnow the answer type first: a number? a name? a place? Then look only for that.",
+        "vi": "Scanning là mắt lướt nhanh trên bài để tìm **một thứ**. Số, chữ in hoa (tên) và ngày tháng nổi bật nên dễ scan.\n\nHãy biết loại đáp án trước: một số? một tên? một nơi? Rồi chỉ tìm thứ đó."
+      }
+    },
+    {
+      "heading": {
+        "en": "Matching headings",
+        "vi": "Nối tiêu đề"
+      },
+      "body": {
+        "en": "You get a list of headings (i, ii, iii…) and must choose one for each paragraph. There are **more headings than paragraphs**.\n\n1. Read the **first and last sentence** of the paragraph: the main idea is there.\n2. Choose the heading that covers the **whole** paragraph, not one detail.\n3. Be careful with a heading that uses the same words as the paragraph but a different idea.",
+        "vi": "Bạn có danh sách tiêu đề (i, ii, iii…) và phải chọn một tiêu đề cho mỗi đoạn. Có **nhiều tiêu đề hơn số đoạn**.\n\n1. Đọc **câu đầu và câu cuối** của đoạn: ý chính nằm ở đó.\n2. Chọn tiêu đề bao quát **cả** đoạn, không phải một chi tiết.\n3. Cẩn thận với tiêu đề dùng cùng từ với đoạn nhưng khác ý."
+      }
+    },
+    {
+      "heading": {
+        "en": "Paraphrase again",
+        "vi": "Lại là paraphrase"
+      },
+      "body": {
+        "en": "The question or heading will not copy the text. *\"Rising prices\"* in a heading may be *\"costs have gone up\"* in the paragraph. Learn to see the same idea in new words.",
+        "vi": "Câu hỏi hay tiêu đề sẽ không chép lại bài. *\"Rising prices\"* trong tiêu đề có thể là *\"costs have gone up\"* trong đoạn. Hãy tập thấy cùng một ý bằng từ mới."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Choosing a heading",
+        "vi": "Chọn một tiêu đề"
+      },
+      "text": "Paragraph: \"Many people now work from home. This saves travel time and money. However, some feel lonely and miss their colleagues.\"\n\nHeadings: i) The cost of offices  ii) Good and bad sides of working at home  iii) A history of work\n\nAnswer: ii",
+      "note": {
+        "en": "The paragraph has two sides (saves time/money, feels lonely). Only heading ii covers both.",
+        "vi": "Đoạn có hai mặt (tiết kiệm thời gian/tiền, cảm thấy cô đơn). Chỉ tiêu đề ii bao quát cả hai."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You scan for \"How many students...?\". What do you look for?",
+        "vi": "Bạn scan câu \"How many students...?\". Bạn tìm gì?"
+      },
+      "options": [
+        "A number",
+        "A name",
+        "A feeling"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "How many asks for a number.",
+        "vi": "How many hỏi về một con số."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Paragraph: \"Rents in the city have risen by 20 per cent. Many young people cannot afford to live near work.\" Best heading:",
+        "vi": "Đoạn: \"Rents in the city have risen by 20 per cent. Many young people cannot afford to live near work.\" Tiêu đề tốt nhất:"
+      },
+      "options": [
+        "The high cost of housing",
+        "Young people and sport",
+        "How to find a job"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Both sentences are about the cost of housing.",
+        "vi": "Cả hai câu đều nói về chi phí nhà ở."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "There are 5 paragraphs and 7 headings. This means:",
+        "vi": "Có 5 đoạn và 7 tiêu đề. Điều này có nghĩa là:"
+      },
+      "options": [
+        "You use every heading",
+        "Two headings are not used",
+        "Two paragraphs have no heading"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "There are always extra headings that you do not use.",
+        "vi": "Luôn có tiêu đề thừa mà bạn không dùng."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps for a heading.",
+        "vi": "Sắp xếp các bước chọn tiêu đề."
+      },
+      "parts": [
+        "Read the first and last sentence of the paragraph",
+        "Think of the main idea",
+        "Look at the headings and choose the one that covers it all",
+        "Cross out the heading you used"
+      ],
+      "explanation": {
+        "en": "Idea first, then heading.",
+        "vi": "Ý chính trước, rồi mới đến tiêu đề."
+      }
+    }
+  ]
+}

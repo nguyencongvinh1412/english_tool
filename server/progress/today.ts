@@ -8,6 +8,7 @@ import { and, eq, gte, lte, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { attempts, grammarProgress, srsCards, vocabItems, type User } from '../db/schema.js';
 import { activeRoadmap } from '../roadmap/service.js';
+import { hasSyllabus } from '../ieltsPath/today.js';
 import { syncTodayTasks } from '../roadmap/tasks.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
@@ -172,7 +173,10 @@ export async function buildToday(user: User, budget: TodayBudget, language: Stud
         return grammarDone;
     }
   };
-  const planned = roadmap ? await syncTodayTasks(roadmap.id, user.id, day, drafts, isDone) : drafts;
+  // With an IELTS syllabus running, its steps replace the generic skill, words and grammar tasks; reviews, mistakes and Deep Word stay
+  const pathMode = language === 'en' && (await hasSyllabus(user.id));
+  const wanted = pathMode ? drafts.filter((d) => d.type !== 'practice-skill' && d.type !== 'learn-words' && d.type !== 'learn-grammar') : drafts;
+  const planned = roadmap ? await syncTodayTasks(roadmap.id, user.id, day, wanted, isDone) : wanted;
 
   const { tasks, carried } = fitToBudget(planned, budget);
 

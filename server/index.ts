@@ -13,6 +13,8 @@ import { ensureEnVocab, ensureJaVocab } from './vocab/data.js';
 import { ensureGrammar } from './grammar/data.js';
 import { ensureSkillUnits } from './curriculum/data.js';
 import { ensureGateContent } from './ieltsPath/gateContent.js';
+import { ensurePathLessons } from './ieltsPath/lessons.js';
+import { ensurePracticeContent } from './ieltsPath/practiceContent.js';
 import { ensurePlans } from './billing/plans.js';
 
 /**
@@ -30,6 +32,8 @@ async function main(): Promise<void> {
   await ensureGrammar();
   await ensureSkillUnits();
   await ensureGateContent();
+  await ensurePracticeContent();
+  await ensurePathLessons();
 
   const app = createApp({ logRequests: true });
 

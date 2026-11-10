@@ -9,7 +9,7 @@ import { Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { questionId, TFNG_VALUES, type IeltsQuestion } from '@/shared/ieltsApi';
 
-const LETTERS = ['A', 'B', 'C', 'D'];
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
 interface IeltsQuestionsProps {
   groupId: string;
@@ -38,11 +38,22 @@ function blocksOf(questions: IeltsQuestion[]): { type: IeltsQuestion['type']; st
 }
 
 /**
+ * The list a block of matching questions shares, when every question of the block carries the same list
+ */
+function sharedOptionsOf(questions: IeltsQuestion[], block: { type: IeltsQuestion['type']; start: number; end: number }): string[] | null {
+  if (block.type !== 'match') return null;
+  const first = questions[block.start];
+  if (first.type !== 'match') return null;
+  const same = questions.slice(block.start, block.end + 1).every((q) => q.type === 'match' && q.options.join('|') === first.options.join('|'));
+  return same ? first.options : null;
+}
+
+/**
  * Whether a reviewed answer is right (mirrors the server's check)
  */
 function isRight(q: IeltsQuestion, answer: number | string | undefined): boolean {
   if (answer === undefined) return false;
-  if (q.type === 'mcq') return answer === q.answerIndex;
+  if (q.type === 'mcq' || q.type === 'match') return answer === q.answerIndex;
   if (q.type === 'tfng') return typeof answer === 'number' && TFNG_VALUES[answer] === q.answer;
   const norm = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
   return typeof answer === 'string' && (q.answers ?? []).some((a) => norm(a) === norm(answer));
@@ -59,9 +70,17 @@ export const IeltsQuestions: React.FC<IeltsQuestionsProps> = ({ groupId, questio
           <header className="ielts-block__head">
             <p className="ielts-block__range">{t.ielts.questionsRange(firstNumber + block.start, firstNumber + block.end)}</p>
             <p className="ielts-block__how">
-              {block.type === 'mcq' ? t.ielts.howMcq : block.type === 'tfng' ? t.ielts.howTfng : t.ielts.howGap(block.wordLimit ?? 1)}
+              {block.type === 'mcq' ? t.ielts.howMcq : block.type === 'match' ? t.ielts.howMatch : block.type === 'tfng' ? t.ielts.howTfng : t.ielts.howGap(block.wordLimit ?? 1)}
             </p>
           </header>
+
+          {sharedOptionsOf(questions, block) && (
+            <ol className="ielts-match__list" lang="en" type="A">
+              {sharedOptionsOf(questions, block)!.map((option) => (
+                <li key={option}>{option}</li>
+              ))}
+            </ol>
+          )}
 
           <ol className="ielts-block__list" start={firstNumber + block.start}>
             {questions.slice(block.start, block.end + 1).map((q, offset) => {
@@ -114,8 +133,46 @@ export const IeltsQuestions: React.FC<IeltsQuestionsProps> = ({ groupId, questio
                 );
               }
 
-              const options = q.type === 'mcq' ? q.options : tfngLabels;
-              const correct = q.type === 'mcq' ? q.answerIndex : q.answer ? TFNG_VALUES.indexOf(q.answer) : undefined;
+              // Matching against one shared list: pick a letter for each item
+              if (q.type === 'match' && sharedOptionsOf(questions, block)) {
+                return (
+                  <li key={id} id={`q-${id}`} className={`ielts-q ielts-q--match ${review ? (right ? 'ielts-q--right' : 'ielts-q--wrong') : ''}`}>
+                    <div className="exam-q__head">
+                      <span className="exam-q__number">{number}</span>
+                      <span className="exam-q__prompt" lang="en">
+                        {q.prompt}
+                      </span>
+                      <select
+                        className="input ielts-match__select"
+                        aria-label={t.exams.question(number)}
+                        value={typeof chosen === 'number' ? chosen : ''}
+                        disabled={review}
+                        onChange={(e) => e.target.value !== '' && onAnswer?.(id, Number(e.target.value))}
+                      >
+                        <option value="">–</option>
+                        {q.options.map((_, optionIndex) => (
+                          <option key={optionIndex} value={optionIndex}>
+                            {LETTERS[optionIndex]}
+                          </option>
+                        ))}
+                      </select>
+                      {flag}
+                    </div>
+                    {review && (
+                      <p className="exam-q__explain">
+                        {chosen === undefined ? t.exams.noAnswer : right ? '✓' : `${t.exams.yourAnswer}: ${LETTERS[chosen as number]}`}
+                        {' · '}
+                        {t.exams.correctAnswer}: {LETTERS[q.answerIndex ?? 0]}
+                        {q.explanation && <span lang="en"> · {q.explanation}</span>}
+                      </p>
+                    )}
+                  </li>
+                );
+              }
+
+              const lettered = q.type === 'mcq' || q.type === 'match';
+              const options = lettered ? q.options : tfngLabels;
+              const correct = lettered ? q.answerIndex : q.answer ? TFNG_VALUES.indexOf(q.answer) : undefined;
               return (
                 <li key={id} id={`q-${id}`} className="ielts-q">
                   <div className="exam-q__head">
@@ -144,17 +201,17 @@ export const IeltsQuestions: React.FC<IeltsQuestionsProps> = ({ groupId, questio
                             disabled={review}
                             onChange={() => onAnswer?.(id, optionIndex)}
                           />
-                          {q.type === 'mcq' && <span className="exam-opt__letter">{LETTERS[optionIndex]}</span>}
-                          <span lang={q.type === 'mcq' ? 'en' : undefined}>{option}</span>
+                          {lettered && <span className="exam-opt__letter">{LETTERS[optionIndex]}</span>}
+                          <span lang={lettered ? 'en' : undefined}>{option}</span>
                         </label>
                       );
                     })}
                   </div>
                   {review && (
                     <p className="exam-q__explain">
-                      {chosen === undefined ? t.exams.noAnswer : right ? '✓' : `${t.exams.yourAnswer}: ${q.type === 'mcq' ? LETTERS[chosen as number] : tfngLabels[chosen as number]}`}
+                      {chosen === undefined ? t.exams.noAnswer : right ? '✓' : `${t.exams.yourAnswer}: ${lettered ? LETTERS[chosen as number] : tfngLabels[chosen as number]}`}
                       {' · '}
-                      {t.exams.correctAnswer}: {q.type === 'mcq' ? LETTERS[correct ?? 0] : tfngLabels[correct ?? 0]}
+                      {t.exams.correctAnswer}: {lettered ? LETTERS[correct ?? 0] : tfngLabels[correct ?? 0]}
                       {q.explanation && (
                         <Fragment>
                           {' · '}

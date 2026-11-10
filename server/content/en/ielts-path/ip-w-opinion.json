@@ -1,0 +1,153 @@
+{
+  "objectives": [
+    {
+      "en": "You can write an opinion paragraph with a clear view, a reason and an example.",
+      "vi": "Bạn viết được đoạn nêu quan điểm có ý kiến rõ ràng, lý do và ví dụ."
+    },
+    {
+      "en": "You know the difference between a reason and an example.",
+      "vi": "Bạn phân biệt được lý do và ví dụ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Task 2 and the opinion question",
+        "vi": "Task 2 và câu hỏi nêu quan điểm"
+      },
+      "body": {
+        "en": "Task 2 asks for an essay (at least 250 words, 40 minutes). A common question is **\"Do you agree or disagree?\"** You must say clearly what you think and support it. Today you write only one **body paragraph**.",
+        "vi": "Task 2 yêu cầu viết bài luận (ít nhất 250 từ, 40 phút). Một dạng câu hỏi phổ biến là **\"Do you agree or disagree?\"** Bạn phải nói rõ mình nghĩ gì và chứng minh. Hôm nay bạn chỉ viết một **đoạn thân bài**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Idea, explanation, example",
+        "vi": "Ý chính, giải thích, ví dụ"
+      },
+      "body": {
+        "en": "A strong body paragraph has three steps:\n1. **Idea**: *One reason why I agree is that ...*\n2. **Explanation**: *This is because ...* (why the idea is true)\n3. **Example**: *For example, ...* (a real or likely case)\n\nThe example is **specific**: a person, a place, a number. *\"Many people\"* is not an example.",
+        "vi": "Một đoạn thân bài mạnh có ba bước:\n1. **Ý chính**: *One reason why I agree is that ...*\n2. **Giải thích**: *This is because ...* (vì sao ý đó đúng)\n3. **Ví dụ**: *For example, ...* (một trường hợp thật hoặc có thể xảy ra)\n\nVí dụ phải **cụ thể**: một người, một nơi, một con số. *\"Many people\"* không phải ví dụ."
+      }
+    },
+    {
+      "heading": {
+        "en": "Common mistakes",
+        "vi": "Lỗi thường gặp"
+      },
+      "body": {
+        "en": "• Writing a **list of ideas** without explaining them.\n• Changing your opinion in the middle.\n• Copying the question word for word.\n• Learning an essay by heart: examiners see this and it lowers the score.",
+        "vi": "• Viết **một danh sách ý** mà không giải thích.\n• Đổi quan điểm giữa chừng.\n• Chép nguyên văn câu hỏi.\n• Học thuộc một bài mẫu: giám khảo nhận ra điều này và điểm sẽ thấp."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Question: Children should learn English at primary school. Do you agree?",
+        "vi": "Câu hỏi: Trẻ em nên học tiếng Anh ở tiểu học. Bạn có đồng ý không?"
+      },
+      "text": "One reason why I agree is that young children learn languages easily. This is because their brains are still developing and they are not afraid of making mistakes. For example, my cousin started English classes at the age of six, and now she speaks with a much better accent than her older brother. Therefore, starting early gives children a strong base for later study.",
+      "note": {
+        "en": "Idea (young children learn easily), explanation (brains, no fear), specific example (my cousin), and a short ending sentence with Therefore.",
+        "vi": "Ý chính (trẻ nhỏ học dễ), giải thích (não bộ, không sợ sai), ví dụ cụ thể (em họ của tôi), và câu kết ngắn với Therefore."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Giving an opinion",
+        "vi": "Nêu quan điểm"
+      },
+      "items": [
+        "In my opinion, ...",
+        "I strongly agree that ...",
+        "I partly agree because ...",
+        "I disagree with this view."
+      ]
+    },
+    {
+      "use": {
+        "en": "Reason, explanation, example",
+        "vi": "Lý do, giải thích, ví dụ"
+      },
+      "items": [
+        "One reason is that ...",
+        "This is because ...",
+        "For example, ...",
+        "As a result, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence is an example?",
+        "vi": "Câu nào là ví dụ?"
+      },
+      "options": [
+        "Many people enjoy sport.",
+        "For example, my neighbour runs five kilometres every morning.",
+        "Sport is good."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "An example is specific.",
+        "vi": "Ví dụ phải cụ thể."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What comes after the idea in a body paragraph?",
+        "vi": "Sau ý chính trong đoạn thân bài là gì?"
+      },
+      "options": [
+        "An explanation",
+        "A new idea",
+        "A conclusion for the whole essay"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Explain why the idea is true before the example.",
+        "vi": "Giải thích vì sao ý đúng trước khi nêu ví dụ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which opening shows a clear opinion?",
+        "vi": "Câu mở nào thể hiện quan điểm rõ ràng?"
+      },
+      "options": [
+        "Some people say yes and some say no.",
+        "I strongly agree that children should learn English early.",
+        "English is a language."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The task asks for your view.",
+        "vi": "Đề yêu cầu quan điểm của bạn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the body paragraph.",
+        "vi": "Sắp xếp đoạn thân bài."
+      },
+      "parts": [
+        "One reason why I agree is that exercise improves health.",
+        "This is because it makes the heart stronger.",
+        "For example, my uncle walks daily and has not been ill for years.",
+        "Therefore, exercise is important for everyone."
+      ],
+      "explanation": {
+        "en": "Idea, explanation, example, ending.",
+        "vi": "Ý chính, giải thích, ví dụ, câu kết."
+      }
+    }
+  ]
+}

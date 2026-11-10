@@ -218,6 +218,13 @@
       "when": 1794245978779,
       "tag": "0030_ielts_path",
       "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1794290200795,
+      "tag": "0031_path_lessons",
+      "breakpoints": true
     }
   ]
 }

@@ -1061,6 +1061,9 @@ export const ieltsPaths = pgTable(
     endPhase: integer('end_phase').notNull(),
     /** Day the syllabus starts (the day Gate 0 was finished) */
     startDate: date('start_date'),
+    /** Learn ahead: extra minutes the learner asked for on this day (only counts on that day) */
+    aheadDay: date('ahead_day'),
+    aheadMinutes: integer('ahead_minutes').notNull().default(0),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -1105,3 +1108,44 @@ export const gateAttempts = pgTable(
 
 export type IeltsPath = typeof ieltsPaths.$inferSelect;
 export type GateAttempt = typeof gateAttempts.$inferSelect;
+
+/**
+ * One step of a learner's IELTS syllabus, in the order it is meant to be done. The queue is what Today draws from:
+ * the first undone steps that fit the day's minutes. A step left undone simply stays first in line (catch-up).
+ */
+export const pathLessons = pgTable(
+  'path_lessons',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    pathId: uuid('path_id')
+      .notNull()
+      .references(() => ieltsPaths.id, { onDelete: 'cascade' }),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    seq: integer('seq').notNull(),
+    phase: integer('phase').notNull(),
+    week: integer('week').notNull(),
+    /** Day of the syllabus week, 1-7 (7 is review) */
+    studyDay: integer('study_day').notNull(),
+    /** vocab-grammar | listening | reading | writing | speaking */
+    block: text('block').notNull(),
+    /** lesson | practice | grammar | words | dictation */
+    kind: text('kind').notNull(),
+    /** What to open: { lessonId } | { type, sessionId? } | { pointId } | { level, count, topic } */
+    ref: jsonb('ref').notNull(),
+    /** Core steps are never dropped automatically; the others may be suggested for skipping when behind */
+    core: boolean('core').notNull().default(true),
+    minutes: integer('minutes').notNull(),
+    /** Day this step was due on the original schedule */
+    plannedDay: date('planned_day').notNull(),
+    /** todo | done */
+    status: text('status').notNull().default('todo'),
+    doneAt: timestamp('done_at', { withTimezone: true }),
+    /** Score or band of the step, when it has one */
+    result: jsonb('result'),
+  },
+  (table) => [uniqueIndex('path_lessons_path_seq_idx').on(table.pathId, table.seq), index('path_lessons_user_status_idx').on(table.userId, table.status)]
+);
+
+export type PathLesson = typeof pathLessons.$inferSelect;

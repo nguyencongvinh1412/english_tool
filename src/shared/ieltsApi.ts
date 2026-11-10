@@ -4,11 +4,14 @@
 import { apiFetch } from './http';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
 import type { SpeakingFeedback, SpeakingIelts, Speaker, WritingFeedback, WritingPrompt } from './contentApi';
+
+/** A speaking set of a test, gate or path exercise: Part 2 and Part 3 may be left out */
+export type SpeakingSet = Omit<SpeakingIelts, 'part2' | 'part3'> & { part2?: SpeakingIelts['part2']; part3: string[] };
 import type { ScriptLine } from './examApi';
 
 export type IeltsComponent = 'listening' | 'reading' | 'writing' | 'speaking';
 export type IeltsPart = 'listening' | 'reading' | 'writing-task1' | 'writing-task2' | 'speaking';
-export type IeltsMode = 'mini' | 'part' | 'full' | 'gate';
+export type IeltsMode = 'mini' | 'part' | 'full' | 'gate' | 'lesson';
 export type IeltsSlot = 'listening-1' | 'listening-2' | 'listening-3' | 'listening-4' | 'reading' | 'writing-task1' | 'writing-task2' | 'speaking';
 
 export const IELTS_COMPONENTS: IeltsComponent[] = ['listening', 'reading', 'writing', 'speaking'];
@@ -21,7 +24,8 @@ export const TFNG_VALUES = ['true', 'false', 'not_given'] as const;
 export type IeltsQuestion =
   | { type: 'mcq'; prompt: string; options: string[]; answerIndex?: number; explanation?: string }
   | { type: 'tfng'; prompt: string; answer?: (typeof TFNG_VALUES)[number]; explanation?: string }
-  | { type: 'gap'; prompt: string; wordLimit: number; answers?: string[]; explanation?: string };
+  | { type: 'gap'; prompt: string; wordLimit: number; answers?: string[]; explanation?: string }
+  | { type: 'match'; prompt: string; options: string[]; answerIndex?: number; explanation?: string };
 
 export interface IeltsListening {
   section: 1 | 2 | 3 | 4;
@@ -42,7 +46,7 @@ export type IeltsGroup =
   | { id: string; kind: 'ielts-listening'; payload: IeltsListening }
   | { id: string; kind: 'ielts-reading'; payload: IeltsReading }
   | { id: string; kind: 'writing-prompt'; payload: WritingPrompt }
-  | { id: string; kind: 'speaking-ielts'; payload: SpeakingIelts };
+  | { id: string; kind: 'speaking-ielts'; payload: SpeakingSet };
 
 type GradeStatus = 'pending' | 'done' | 'failed';
 
@@ -103,10 +107,10 @@ export const essayId = (groupId: string) => `${groupId}:essay`;
 /**
  * Speaking questions in order with their answer ids (matches the server)
  */
-export function speakingQuestions(groupId: string, set: SpeakingIelts): { id: string; part: 1 | 2 | 3; text: string }[] {
+export function speakingQuestions(groupId: string, set: SpeakingSet): { id: string; part: 1 | 2 | 3; text: string }[] {
   return [
     ...set.part1.map((text, i) => ({ id: `${groupId}:p1-${i}`, part: 1 as const, text })),
-    { id: `${groupId}:p2`, part: 2 as const, text: set.part2.cueCard },
+    ...(set.part2 ? [{ id: `${groupId}:p2`, part: 2 as const, text: set.part2.cueCard }] : []),
     ...set.part3.map((text, i) => ({ id: `${groupId}:p3-${i}`, part: 3 as const, text })),
   ];
 }

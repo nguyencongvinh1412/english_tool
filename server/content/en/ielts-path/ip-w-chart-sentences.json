@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can describe a bar chart with five simple sentence patterns.",
+      "vi": "Bạn mô tả được biểu đồ cột bằng năm mẫu câu đơn giản."
+    },
+    {
+      "en": "You can compare numbers correctly.",
+      "vi": "Bạn so sánh số liệu đúng cách."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Task 1 asks",
+        "vi": "Task 1 yêu cầu gì"
+      },
+      "body": {
+        "en": "In Task 1 you **describe information** from a chart, table or diagram in at least 150 words (20 minutes). You do **not** give opinions or reasons. You report the main facts and compare.\n\nToday we use five patterns for a bar chart.",
+        "vi": "Ở Task 1 bạn **mô tả thông tin** từ biểu đồ, bảng hoặc sơ đồ trong ít nhất 150 từ (20 phút). Bạn **không** nêu ý kiến hay lý do. Bạn tường thuật số liệu chính và so sánh.\n\nHôm nay dùng năm mẫu câu cho biểu đồ cột."
+      }
+    },
+    {
+      "heading": {
+        "en": "Five patterns",
+        "vi": "Năm mẫu câu"
+      },
+      "body": {
+        "en": "1. **The chart shows** the number of students in three faculties.\n2. **X was the highest / lowest**, at 22 thousand.\n3. **X was higher than Y** (comparison).\n4. **X rose from 8 to 22** (change over time).\n5. **X and Y were about the same** / **similar**.\n\nAlways include the **unit** (thousand, per cent) and the **year**.",
+        "vi": "1. **The chart shows** the number of students in three faculties.\n2. **X was the highest / lowest**, at 22 thousand.\n3. **X was higher than Y** (so sánh).\n4. **X rose from 8 to 22** (thay đổi theo thời gian).\n5. **X and Y were about the same** / **similar**.\n\nLuôn ghi **đơn vị** (nghìn, phần trăm) và **năm**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Tense and accuracy",
+        "vi": "Thì và độ chính xác"
+      },
+      "body": {
+        "en": "If the years are in the **past** (2000, 2010, 2020) use the **past simple**: *rose, fell, was*. Check numbers carefully: a wrong number is a mistake in accuracy. Use *approximately* or *about* only when you round.",
+        "vi": "Nếu năm ở **quá khứ** (2000, 2010, 2020) dùng **quá khứ đơn**: *rose, fell, was*. Kiểm tra kỹ số liệu: sai số liệu là lỗi chính xác. Chỉ dùng *approximately* hoặc *about* khi bạn làm tròn."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Five sentences about a chart (students in thousands: Science 12, 15, 18; Business 8, 14, 22 in 2000, 2010, 2020)",
+        "vi": "Năm câu về một biểu đồ (sinh viên, nghìn: Science 12, 15, 18; Business 8, 14, 22 vào 2000, 2010, 2020)"
+      },
+      "text": "The chart shows the number of students in two faculties in 2000, 2010 and 2020.\nIn 2020, Business had the most students, at 22 thousand.\nScience was higher than Business in 2000 and 2010.\nThe number of Business students rose from 8 thousand to 22 thousand.\nScience grew more slowly, from 12 thousand to 18 thousand.",
+      "note": {
+        "en": "Pattern 1 introduces the chart, 2 gives the highest value, 3 compares, 4 and 5 describe change. Past tense and units everywhere.",
+        "vi": "Mẫu 1 giới thiệu biểu đồ, 2 nêu giá trị cao nhất, 3 so sánh, 4 và 5 mô tả thay đổi. Quá khứ và đơn vị ở mọi câu."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Showing the main facts",
+        "vi": "Nêu các số liệu chính"
+      },
+      "items": [
+        "The chart shows ...",
+        "... was the highest / lowest.",
+        "... was higher / lower than ...",
+        "... rose / fell from ... to ...",
+        "... was about the same as ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence belongs in Task 1?",
+        "vi": "Câu nào thuộc Task 1?"
+      },
+      "options": [
+        "I think students should study business.",
+        "Business had the most students in 2020.",
+        "Business is more interesting than science."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Task 1 reports facts only, not opinions.",
+        "vi": "Task 1 chỉ tường thuật số liệu, không nêu ý kiến."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Choose the correct sentence for data from 2010.",
+        "vi": "Chọn câu đúng cho số liệu năm 2010."
+      },
+      "options": [
+        "In 2010, Arts has 18 thousand students.",
+        "In 2010, Arts had 18 thousand students.",
+        "In 2010, Arts will have 18 thousand students."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A past year needs the past simple.",
+        "vi": "Năm quá khứ cần quá khứ đơn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Business ___ from 8 to 22 thousand.\" Choose the verb.",
+        "vi": "\"Business ___ from 8 to 22 thousand.\" Chọn động từ."
+      },
+      "options": [
+        "rose",
+        "was high",
+        "is rising"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Rose describes the change between two numbers.",
+        "vi": "Rose mô tả sự thay đổi giữa hai số."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the five sentences of a short description.",
+        "vi": "Sắp xếp năm câu của một bản mô tả ngắn."
+      },
+      "parts": [
+        "The chart shows the number of visitors in 2000 and 2020.",
+        "In 2020 the museum had the most visitors.",
+        "The park was higher than the zoo in 2000.",
+        "The museum rose from 20 to 45 thousand."
+      ],
+      "explanation": {
+        "en": "Start with the chart, then the highest value, then comparisons and change.",
+        "vi": "Bắt đầu bằng biểu đồ, rồi giá trị cao nhất, rồi so sánh và thay đổi."
+      }
+    }
+  ]
+}

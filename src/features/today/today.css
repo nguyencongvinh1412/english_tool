@@ -238,3 +238,8 @@
   border-radius: var(--radius-sm);
   line-height: 1.6;
 }
+
+.today__also {
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+}

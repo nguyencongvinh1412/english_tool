@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can do a full listening section with a clear plan for the time.",
+      "vi": "Bạn làm trọn một section nghe với kế hoạch thời gian rõ ràng."
+    },
+    {
+      "en": "You know what to do when you lose your place.",
+      "vi": "Bạn biết phải làm gì khi bị lạc chỗ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The shape of the test",
+        "vi": "Cấu trúc của bài thi"
+      },
+      "body": {
+        "en": "In the real test the audio plays **once**. You get about 30 seconds to read questions before each part, and 10 minutes at the end to copy your answers (paper test) or check them (computer test).\n\nUse the preview time: read the **first half** of the questions, underline keywords, guess the answer type.",
+        "vi": "Trong bài thi thật audio chỉ phát **một lần**. Bạn có khoảng 30 giây đọc câu hỏi trước mỗi phần, và 10 phút cuối để chép đáp án (thi giấy) hoặc kiểm tra (thi máy).\n\nHãy tận dụng thời gian đọc trước: đọc **nửa đầu** các câu hỏi, gạch từ khoá, đoán loại đáp án."
+      }
+    },
+    {
+      "heading": {
+        "en": "When you lose your place",
+        "vi": "Khi bạn bị lạc chỗ"
+      },
+      "body": {
+        "en": "Everyone misses an answer. The rule is: **let it go**. Write your best guess, leave a mark, and look at the next question immediately. If you stay on the missed one, you will lose the next two.\n\nNever leave an answer blank: there is no penalty for a wrong answer.",
+        "vi": "Ai cũng bỏ lỡ một đáp án. Quy tắc là: **bỏ qua**. Ghi đoán tốt nhất, đánh dấu, và nhìn ngay câu tiếp theo. Nếu bạn cứ nghĩ về câu đã lỡ, bạn sẽ mất thêm hai câu nữa.\n\nKhông bao giờ bỏ trống: trả lời sai không bị trừ điểm."
+      }
+    },
+    {
+      "heading": {
+        "en": "After the test: learn from mistakes",
+        "vi": "Sau bài thi: học từ lỗi sai"
+      },
+      "body": {
+        "en": "Sort every wrong answer: **spelling**, **singular/plural**, **a distractor you fell for**, or **did not hear**. The biggest group is what you practise next week.",
+        "vi": "Phân loại từng câu sai: **chính tả**, **số ít/số nhiều**, **bẫy gây nhiễu**, hoặc **không nghe được**. Nhóm lớn nhất là thứ bạn luyện tuần sau."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A good plan for one section",
+        "vi": "Kế hoạch tốt cho một section"
+      },
+      "text": "30 s before: read questions 1-5, underline keywords.\nWhile listening: write answers, move on if you miss one.\n30 s in the break: read questions 6-10.\nLast minute: check spelling and plurals.",
+      "note": {
+        "en": "Each short pause has one job. You never read and listen at the same time.",
+        "vi": "Mỗi khoảng nghỉ ngắn có một việc. Bạn không bao giờ vừa đọc vừa nghe."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You miss question 4 while the audio goes on. What is best?",
+        "vi": "Bạn bỏ lỡ câu 4 trong khi audio vẫn chạy. Cách tốt nhất là gì?"
+      },
+      "options": [
+        "Keep thinking about question 4.",
+        "Write a guess and move to question 5.",
+        "Stop writing and wait for the audio to repeat."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The audio does not repeat. Move on or you will miss question 5 too.",
+        "vi": "Audio không lặp lại. Hãy đi tiếp nếu không bạn sẽ lỡ cả câu 5."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A wrong answer in IELTS Listening:",
+        "vi": "Một đáp án sai trong IELTS Listening:"
+      },
+      "options": [
+        "loses a point",
+        "loses nothing; a blank also scores zero",
+        "loses half a point"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "There is no negative marking: always write something.",
+        "vi": "Không bị trừ điểm: luôn viết một đáp án."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You wrote \"book\" but the answer is \"books\". This is a:",
+        "vi": "Bạn viết \"book\" nhưng đáp án là \"books\". Đây là lỗi:"
+      },
+      "options": [
+        "spelling mistake",
+        "singular/plural mistake",
+        "distractor"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Listen for the final -s.",
+        "vi": "Hãy nghe âm -s cuối."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps of a section.",
+        "vi": "Sắp xếp các bước của một section."
+      },
+      "parts": [
+        "Read half of the questions and underline keywords",
+        "Listen once and write answers",
+        "Read the other half in the break",
+        "Check spelling and plurals"
+      ],
+      "explanation": {
+        "en": "Use each pause for one task.",
+        "vi": "Dùng mỗi khoảng nghỉ cho một việc."
+      }
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "objectives": [
+    {
+      "en": "You can write a paragraph with one main idea, support and an ending.",
+      "vi": "Bạn viết được một đoạn văn có ý chính, ý hỗ trợ và câu kết."
+    },
+    {
+      "en": "You can link sentences with simple connectors.",
+      "vi": "Bạn nối các câu bằng từ nối đơn giản."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "One paragraph, one idea",
+        "vi": "Một đoạn, một ý"
+      },
+      "body": {
+        "en": "A clear paragraph has three parts:\n1. **Topic sentence**: the main idea.\n2. **Support**: two or three sentences with reasons or examples.\n3. **Ending sentence**: closes the idea.\n\nIf you want to write about a second idea, start a new paragraph.",
+        "vi": "Một đoạn văn rõ ràng có ba phần:\n1. **Câu chủ đề**: ý chính.\n2. **Phần hỗ trợ**: hai hoặc ba câu có lý do hoặc ví dụ.\n3. **Câu kết**: khép lại ý.\n\nNếu muốn viết ý thứ hai, hãy bắt đầu đoạn mới."
+      }
+    },
+    {
+      "heading": {
+        "en": "Simple connectors",
+        "vi": "Từ nối đơn giản"
+      },
+      "body": {
+        "en": "Use connectors to show how sentences relate: **and** (add), **but** (contrast), **because** (reason), **so** (result), **for example** (example), **first / then / after that / finally** (order).\n\nDo not use only *and* and *then*: change them to show the real relation.",
+        "vi": "Dùng từ nối để chỉ mối quan hệ giữa các câu: **and** (thêm), **but** (tương phản), **because** (lý do), **so** (kết quả), **for example** (ví dụ), **first / then / after that / finally** (thứ tự).\n\nĐừng chỉ dùng *and* và *then*: hãy đổi để thể hiện đúng mối quan hệ."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check your paragraph",
+        "vi": "Kiểm tra đoạn văn"
+      },
+      "body": {
+        "en": "After writing, check three things: (1) every sentence has a **subject and a verb**; (2) the **tense** matches (habits → present simple, last weekend → past simple); (3) **spelling** and capital letters. Fix one type of mistake at a time.",
+        "vi": "Sau khi viết, kiểm tra ba thứ: (1) mỗi câu có **chủ ngữ và động từ**; (2) **thì** đúng (thói quen → hiện tại đơn, cuối tuần trước → quá khứ đơn); (3) **chính tả** và chữ hoa. Mỗi lần sửa một loại lỗi."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A paragraph about a daily routine (about 80 words)",
+        "vi": "Một đoạn về thói quen hằng ngày (khoảng 80 từ)"
+      },
+      "text": "I have a simple routine on weekdays. First, I get up at six o'clock and have breakfast with my family. Then I go to work by bus because it is cheap. I work from eight to five, and at lunchtime I usually eat rice with my colleagues. After work, I cook dinner and watch TV. Finally, I go to bed at ten. I like this routine because it helps me feel calm and healthy.",
+      "note": {
+        "en": "Topic sentence first, then the order of the day with first, then, after work, finally, and an ending sentence that gives a reason. All verbs are present simple for habits.",
+        "vi": "Câu chủ đề trước, sau đó là thứ tự trong ngày với first, then, after work, finally, và câu kết đưa lý do. Mọi động từ ở hiện tại đơn vì là thói quen."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Order of events",
+        "vi": "Thứ tự sự việc"
+      },
+      "items": [
+        "First, ...",
+        "Then ...",
+        "After that, ...",
+        "Finally, ..."
+      ]
+    },
+    {
+      "use": {
+        "en": "Reasons and examples",
+        "vi": "Lý do và ví dụ"
+      },
+      "items": [
+        "because ...",
+        "so ...",
+        "for example, ...",
+        "I like it because ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence is the best topic sentence?",
+        "vi": "Câu nào là câu chủ đề tốt nhất?"
+      },
+      "options": [
+        "I get up at six.",
+        "I have a simple routine on weekdays.",
+        "Then I go to work."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A topic sentence names the whole idea of the paragraph.",
+        "vi": "Câu chủ đề nêu ý của cả đoạn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Choose the best connector: \"I take the bus ___ it is cheap.\"",
+        "vi": "Chọn từ nối tốt nhất: \"I take the bus ___ it is cheap.\""
+      },
+      "options": [
+        "but",
+        "because",
+        "then"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Because gives the reason.",
+        "vi": "Because đưa ra lý do."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence has the right tense for a habit?",
+        "vi": "Câu nào có thì đúng cho thói quen?"
+      },
+      "options": [
+        "I am going to work every day.",
+        "I go to work every day.",
+        "I went to work every day."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Habits use the present simple.",
+        "vi": "Thói quen dùng hiện tại đơn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the paragraph in order.",
+        "vi": "Sắp xếp đoạn văn theo thứ tự."
+      },
+      "parts": [
+        "I have a busy Saturday.",
+        "First, I clean the house in the morning.",
+        "Then I meet my friends for lunch.",
+        "I like Saturdays because I feel relaxed."
+      ],
+      "explanation": {
+        "en": "Topic sentence, support in time order, ending.",
+        "vi": "Câu chủ đề, ý hỗ trợ theo thời gian, câu kết."
+      }
+    }
+  ]
+}

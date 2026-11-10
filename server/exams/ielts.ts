@@ -18,7 +18,7 @@ export type IeltsComponent = (typeof IELTS_COMPONENTS)[number];
 /** What part mode can practise on its own */
 export const IELTS_PARTS = ['listening', 'reading', 'writing-task1', 'writing-task2', 'speaking'] as const;
 export type IeltsPart = (typeof IELTS_PARTS)[number];
-export type IeltsMode = 'mini' | 'part' | 'full';
+export type IeltsMode = 'mini' | 'part' | 'full' | 'gate' | 'lesson';
 
 /**
  * Bank slots: one kind of group the blueprint asks for.
@@ -222,7 +222,7 @@ export function ieltsSessionView(session: ExamSession, groups: Map<string, Conte
  */
 export function isCorrect(question: IeltsQuestion, answer: number | string | undefined): boolean {
   if (answer === undefined) return false;
-  if (question.type === 'mcq') return answer === question.answerIndex;
+  if (question.type === 'mcq' || question.type === 'match') return answer === question.answerIndex;
   if (question.type === 'tfng') return typeof answer === 'number' && TFNG_VALUES[answer] === question.answer;
   if (typeof answer !== 'string' || !answer.trim()) return false;
   const given = normalizeAnswer(answer);
@@ -297,10 +297,9 @@ export function speakingQuestions(item: ContentItem): { id: string; question: st
   const set = speakingIeltsGate.parse(item.payload);
   return [
     ...set.part1.map((question, i) => ({ id: `${item.id}:p1-${i}`, question })),
-    {
-      id: `${item.id}:p2`,
-      question: `${set.part2.cueCard} You should say: ${set.part2.bullets.join('; ')}; ${set.part2.closing}`,
-    },
+    ...(set.part2
+      ? [{ id: `${item.id}:p2`, question: `${set.part2.cueCard} You should say: ${set.part2.bullets.join('; ')}; ${set.part2.closing}` }]
+      : []),
     ...set.part3.map((question, i) => ({ id: `${item.id}:p3-${i}`, question })),
   ];
 }

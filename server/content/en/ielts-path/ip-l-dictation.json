@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can hear small words (a, the, of, to) and endings (-s, -ed) in fast speech.",
+      "vi": "Bạn nghe được các từ nhỏ (a, the, of, to) và âm cuối (-s, -ed) khi người nói nói nhanh."
+    },
+    {
+      "en": "You know a simple way to practise dictation every day.",
+      "vi": "Bạn biết cách luyện nghe chép đơn giản mỗi ngày."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Why dictation works",
+        "vi": "Vì sao nghe chép hiệu quả"
+      },
+      "body": {
+        "en": "When you write what you hear, you cannot guess: you must hear **every** word. That shows you exactly which sounds you miss.\n\nMost mistakes are not hard words. They are **small words** (a, the, of, to, can) and **endings** (-s, -ed, -ing). Speakers do not stress them, so they sound short and quiet.",
+        "vi": "Khi chép lại những gì nghe được, bạn không thể đoán: bạn phải nghe **từng** từ. Nhờ vậy bạn thấy chính xác mình bỏ sót âm nào.\n\nPhần lớn lỗi không nằm ở từ khó mà ở **từ nhỏ** (a, the, of, to, can) và **âm cuối** (-s, -ed, -ing). Người nói không nhấn vào chúng nên chúng nghe ngắn và nhỏ."
+      }
+    },
+    {
+      "heading": {
+        "en": "The three-listen method",
+        "vi": "Cách nghe ba lượt"
+      },
+      "body": {
+        "en": "1. **Listen once** without writing. Get the topic.\n2. **Listen in short chunks** (one sentence). Pause, write, listen again. Do not write more than you can remember.\n3. **Check with the transcript.** Underline every mistake and name it: small word, ending, or a word you did not know.\n\nKeep a list of your mistakes. After a week you will see a pattern, for example you always miss the -s of plural nouns.",
+        "vi": "1. **Nghe một lần** không viết. Nắm chủ đề.\n2. **Nghe từng đoạn ngắn** (một câu). Dừng, viết, nghe lại. Không viết nhiều hơn mức bạn nhớ được.\n3. **Đối chiếu với bản chép.** Gạch chân từng lỗi và gọi tên: từ nhỏ, âm cuối, hay từ chưa biết.\n\nHãy ghi lại danh sách lỗi. Sau một tuần bạn sẽ thấy quy luật, ví dụ luôn bỏ sót -s của danh từ số nhiều."
+      }
+    },
+    {
+      "heading": {
+        "en": "Sounds that join",
+        "vi": "Những âm nối với nhau"
+      },
+      "body": {
+        "en": "In natural speech words join together: **want to** sounds like *wanna*, **a lot of** like *a lotta*, **can't** is very short. A final consonant moves to the next word: *pick it up* sounds like *pi-ki-tup*.\n\nIf you cannot find a word, ask: is it two words that joined?",
+        "vi": "Trong lời nói tự nhiên các từ nối vào nhau: **want to** nghe như *wanna*, **a lot of** nghe như *a lotta*, **can't** rất ngắn. Phụ âm cuối chuyển sang từ sau: *pick it up* nghe như *pi-ki-tup*.\n\nNếu không tìm ra một từ, hãy tự hỏi: có phải hai từ đã nối vào nhau không?"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "What you hear and what is written",
+        "vi": "Điều bạn nghe và điều được viết"
+      },
+      "text": "Heard: \"I'm gonna visit me parents on Sundays.\"\nWritten: I'm going to visit my parents on Sundays.\n\nHeard: \"She wash' the car yesterday.\"\nWritten: She washed the car yesterday.",
+      "note": {
+        "en": "The -ed ending of washed is very quiet, and \"going to\" can sound like \"gonna\". Always write the full forms in the exam.",
+        "vi": "Âm -ed của washed rất nhỏ và \"going to\" có thể nghe như \"gonna\". Trong bài thi luôn viết dạng đầy đủ."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Words that are often missed",
+        "vi": "Những từ hay bị bỏ sót"
+      },
+      "items": [
+        "a / an / the",
+        "of, to, for, at",
+        "can / can't",
+        "-s endings (plural, he/she/it)",
+        "-ed endings (past)"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which written form is correct for what you hear: \"She walk' to work yesterday\"?",
+        "vi": "Dạng viết nào đúng với câu nghe được: \"She walk' to work yesterday\"?"
+      },
+      "options": [
+        "She walk to work yesterday.",
+        "She walked to work yesterday.",
+        "She walking to work yesterday."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Yesterday shows the past, so the quiet -ed ending must be written.",
+        "vi": "Yesterday chỉ quá khứ nên phải viết âm -ed dù nghe rất nhỏ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"I wanna go home\" is written as:",
+        "vi": "\"I wanna go home\" được viết là:"
+      },
+      "options": [
+        "I wanna go home.",
+        "I want to go home.",
+        "I want go home."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Wanna is spoken only; write want to.",
+        "vi": "Wanna chỉ dùng khi nói; khi viết là want to."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is the BEST order for dictation practice?",
+        "vi": "Thứ tự nào tốt nhất khi luyện nghe chép?"
+      },
+      "options": [
+        "Read the transcript first, then listen.",
+        "Listen once, write in short chunks, then check the transcript.",
+        "Write everything while the audio plays without stopping."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Listening first and checking last shows what you really cannot hear.",
+        "vi": "Nghe trước và đối chiếu sau cho thấy bạn thật sự không nghe được gì."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the three-listen method in order.",
+        "vi": "Sắp xếp cách nghe ba lượt theo thứ tự."
+      },
+      "parts": [
+        "Listen once to get the topic",
+        "Listen sentence by sentence and write",
+        "Check with the transcript and name each mistake"
+      ],
+      "explanation": {
+        "en": "First the topic, then the details, then the check.",
+        "vi": "Đầu tiên chủ đề, sau đó chi tiết, cuối cùng là đối chiếu."
+      }
+    }
+  ]
+}

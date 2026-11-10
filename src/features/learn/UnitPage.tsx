@@ -46,7 +46,7 @@ function writeDraft(id: string, text: string): void {
 /**
  * Lesson text: lines starting with "- " or "1. " become lists, other lines paragraphs; **bold** is kept
  */
-const Prose: React.FC<{ text: string }> = ({ text }) => {
+export const Prose: React.FC<{ text: string }> = ({ text }) => {
   const blocks: { kind: 'p' | 'ul' | 'ol'; lines: string[] }[] = [];
   for (const raw of text.split('\n')) {
     const line = raw.trim();
@@ -78,7 +78,7 @@ const Prose: React.FC<{ text: string }> = ({ text }) => {
 
 /* ---------- Drills ---------- */
 
-const ChoiceDrill: React.FC<{ drill: Extract<UnitDrill, { type: 'choice' }>; lang: Lang; onAnswer: (correct: boolean) => void }> = ({ drill, lang, onAnswer }) => {
+export const ChoiceDrill: React.FC<{ drill: Extract<UnitDrill, { type: 'choice' }>; lang: Lang; onAnswer: (correct: boolean) => void }> = ({ drill, lang, onAnswer }) => {
   const { t } = useI18n();
   const [picked, setPicked] = useState<number | null>(null);
   const answered = picked !== null;
@@ -130,7 +130,7 @@ function shuffledOrder(length: number, seed: string): number[] {
   return order.every((value, index) => value === index) ? [...order.slice(1), order[0]] : order;
 }
 
-const OrderDrill: React.FC<{ drill: Extract<UnitDrill, { type: 'order' }>; lang: Lang; onAnswer: (correct: boolean) => void }> = ({ drill, lang, onAnswer }) => {
+export const OrderDrill: React.FC<{ drill: Extract<UnitDrill, { type: 'order' }>; lang: Lang; onAnswer: (correct: boolean) => void }> = ({ drill, lang, onAnswer }) => {
   const { t } = useI18n();
   const [order, setOrder] = useState(() => shuffledOrder(drill.parts.length, drill.parts.join('|')));
   const [result, setResult] = useState<boolean | null>(null);

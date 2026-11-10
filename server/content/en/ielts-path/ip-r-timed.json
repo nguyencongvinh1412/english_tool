@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can finish a passage in about 20 minutes.",
+      "vi": "Bạn làm xong một bài đọc trong khoảng 20 phút."
+    },
+    {
+      "en": "You know when to skip a question.",
+      "vi": "Bạn biết khi nào nên bỏ qua một câu hỏi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Time is the real difficulty",
+        "vi": "Thời gian mới là khó khăn thật sự"
+      },
+      "body": {
+        "en": "The IELTS Reading test has 3 passages and **60 minutes**, with no extra time to copy answers. That is about **20 minutes per passage**. Many candidates lose points because they spend 30 minutes on the first passage.\n\nTrain with a timer from now on.",
+        "vi": "Bài IELTS Reading có 3 bài đọc và **60 phút**, không có thời gian thêm để chép đáp án. Tức là khoảng **20 phút mỗi bài**. Nhiều thí sinh mất điểm vì dành 30 phút cho bài đầu.\n\nTừ giờ hãy luyện với đồng hồ bấm giờ."
+      }
+    },
+    {
+      "heading": {
+        "en": "A plan for 20 minutes",
+        "vi": "Kế hoạch cho 20 phút"
+      },
+      "body": {
+        "en": "**2 minutes** skim the text. **15 minutes** answer the questions in order. **3 minutes** go back to the hard ones and check.\n\nThe **one-minute rule**: if a question takes more than a minute, mark it and move on. Easy points are waiting later.",
+        "vi": "**2 phút** skim bài. **15 phút** trả lời câu hỏi theo thứ tự. **3 phút** quay lại các câu khó và kiểm tra.\n\n**Quy tắc một phút**: nếu một câu mất hơn một phút, đánh dấu và đi tiếp. Những điểm dễ đang chờ ở phía sau."
+      }
+    },
+    {
+      "heading": {
+        "en": "After you check: find the evidence",
+        "vi": "Sau khi đối chiếu: tìm bằng chứng"
+      },
+      "body": {
+        "en": "For each wrong answer, find the sentence in the text that gives the right answer and write how the question was **paraphrased**. This is the most useful 10 minutes of the lesson.",
+        "vi": "Với mỗi câu sai, tìm câu trong bài cho đáp án đúng và ghi lại câu hỏi đã được **paraphrase** như thế nào. Đây là 10 phút hữu ích nhất của bài học."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A time plan",
+        "vi": "Một kế hoạch thời gian"
+      },
+      "text": "0:00–2:00   Skim (title, first sentences)\n2:00–17:00  Questions 1 to 13 in order\n17:00–20:00 Hard questions + check spelling of gap answers",
+      "note": {
+        "en": "Gap-fill answers must be spelled exactly as in the text, so keep a minute for checking.",
+        "vi": "Đáp án điền từ phải viết đúng như trong bài nên hãy dành một phút để kiểm tra."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long should you spend on one IELTS Reading passage?",
+        "vi": "Bạn nên dành bao lâu cho một bài đọc IELTS?"
+      },
+      "options": [
+        "10 minutes",
+        "About 20 minutes",
+        "30 minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "60 minutes divided by 3 passages.",
+        "vi": "60 phút chia cho 3 bài."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A question takes you 2 minutes and you are still unsure. What do you do?",
+        "vi": "Một câu đã mất 2 phút mà bạn vẫn chưa chắc. Bạn làm gì?"
+      },
+      "options": [
+        "Keep trying until you find it",
+        "Mark it, guess, and move on",
+        "Skip the whole passage"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Easy points later are worth more than one hard point now.",
+        "vi": "Điểm dễ ở phía sau đáng giá hơn một điểm khó bây giờ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Gap-fill answers must be:",
+        "vi": "Đáp án điền từ phải:"
+      },
+      "options": [
+        "in your own words",
+        "copied from the text with correct spelling",
+        "as long as possible"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The answer is a word or words from the passage.",
+        "vi": "Đáp án là từ trong bài."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order a 20-minute plan.",
+        "vi": "Sắp xếp kế hoạch 20 phút."
+      },
+      "parts": [
+        "Skim the text for 2 minutes",
+        "Answer the questions in order",
+        "Mark any question that takes more than a minute",
+        "Go back to the marked questions and check spelling"
+      ],
+      "explanation": {
+        "en": "Skim, answer, mark, return.",
+        "vi": "Skim, trả lời, đánh dấu, quay lại."
+      }
+    }
+  ]
+}

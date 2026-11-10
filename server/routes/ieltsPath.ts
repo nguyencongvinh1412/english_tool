@@ -3,11 +3,12 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { currentUser, requireAuth } from '../auth/middleware.js';
+import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { MAX_DAILY_MINUTES, MAX_OVERALL_TARGET, MIN_DAILY_MINUTES, MIN_OVERALL_TARGET, overallOf, PATH_SKILLS, type PathSkill } from '../ieltsPath/bands.js';
 import { activePath, archivePath, createPath, gateView, pathView, setSkillSkipped, startGateSkill, updatePath } from '../ieltsPath/service.js';
+import { completeLesson, learnAhead, lessonOf, pathToday, startPractice, stepOf } from '../ieltsPath/today.js';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a date like 2027-05-10');
 const band = z.number().min(3).max(9).refine((b) => Number.isInteger(b * 2), 'Bands go in steps of 0.5');
@@ -88,6 +89,42 @@ export function createIeltsPathRouter(): Router {
     const gate = gateParam.parse(req.params.gate);
     await setSkillSkipped(path, gate, skillParam.parse(req.params.skill) as PathSkill, skipped);
     res.json({ gate: await gateView(path, gate) });
+  });
+
+  /** GET /ielts-path/today - The steps to do today, how far behind or ahead the learner is, and the expected end */
+  router.get('/ielts-path/today', requireAuth, async (req, res) => {
+    const path = await activePath(currentUser(req).id);
+    res.json({ today: path ? await pathToday(path) : null });
+  });
+
+  /** POST /ielts-path/ahead - Learn ahead: one more day's minutes for today */
+  router.post('/ielts-path/ahead', requireAuth, async (req, res) => {
+    const path = await requirePath(currentUser(req).id);
+    await learnAhead(path);
+    res.json({ today: await pathToday((await activePath(path.userId)) ?? path) });
+  });
+
+  /** GET /ielts-path/steps/:id - A lesson step with its teaching content */
+  router.get('/ielts-path/steps/:id', requireAuth, async (req, res) => {
+    const step = await stepOf(currentUser(req).id, String(req.params.id));
+    const lesson = await lessonOf(step);
+    res.json({ step: { id: step.id, phase: step.phase, week: step.week, day: step.studyDay, block: step.block, minutes: step.minutes, done: step.status === 'done' }, ...lesson });
+  });
+
+  /** POST /ielts-path/steps/:id/complete - Finish a lesson, with its drill result */
+  router.post('/ielts-path/steps/:id/complete', requireAuth, async (req, res) => {
+    const body = z.object({ correct: z.number().int().min(0).max(20), total: z.number().int().min(1).max(20) }).nullable().default(null).parse(req.body?.drills ?? null);
+    const step = await stepOf(currentUser(req).id, String(req.params.id));
+    await completeLesson(step, body);
+    res.json({ ok: true });
+  });
+
+  /** POST /ielts-path/steps/:id/practice - Open the exercise of a practice step as a test session */
+  router.post('/ielts-path/steps/:id/practice', requireAuth, limitAiRequests, async (req, res) => {
+    const { model } = z.object({ model: z.string().max(100).optional() }).parse(req.body ?? {});
+    const user = currentUser(req);
+    const step = await stepOf(user.id, String(req.params.id));
+    res.status(201).json({ sessionId: await startPractice(user, step, model) });
   });
 
   return router;

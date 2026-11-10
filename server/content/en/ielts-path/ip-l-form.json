@@ -1,0 +1,175 @@
+{
+  "objectives": [
+    {
+      "en": "You can write spelled names, phone numbers and dates correctly.",
+      "vi": "Bạn viết đúng tên được đánh vần, số điện thoại và ngày tháng."
+    },
+    {
+      "en": "You know how to avoid the common traps in Section 1.",
+      "vi": "Bạn biết tránh các bẫy thường gặp ở Section 1."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Section 1 is",
+        "vi": "Section 1 là gì"
+      },
+      "body": {
+        "en": "Section 1 is a conversation between two people (a booking, an enquiry). You fill in a **form or notes**. It is the easiest section, so you must not lose points here.\n\nThe form follows the **order of the conversation**. Read the headings before the audio starts and guess what kind of answer fits each gap: a name, a number, a day, a place?",
+        "vi": "Section 1 là một cuộc hội thoại giữa hai người (đặt chỗ, hỏi thông tin). Bạn điền vào **biểu mẫu hoặc ghi chú**. Đây là phần dễ nhất nên bạn không được mất điểm ở đây.\n\nBiểu mẫu đi theo **thứ tự cuộc hội thoại**. Hãy đọc các tiêu đề trước khi audio bắt đầu và đoán loại đáp án mỗi chỗ trống cần: tên, số, thứ, địa điểm?"
+      }
+    },
+    {
+      "heading": {
+        "en": "Spelling, numbers and dates",
+        "vi": "Đánh vần, số và ngày tháng"
+      },
+      "body": {
+        "en": "**Names** are spelled letter by letter: *H-A-R-R-I-S*. Learn the English letter names. Often confused: **A** (ay) / **E** (ee) / **I** (eye), **G** (jee) / **J** (jay), **B** / **P** / **V**.\n\n**Numbers:** *thirteen* (stress at the end) vs *thirty* (stress at the start). Phone numbers: *double five* = 55, *oh* = 0.\n\n**Dates:** *the fourteenth of March* = 14 March. Write the answer in the form the question asks for.",
+        "vi": "**Tên** được đánh vần từng chữ cái: *H-A-R-R-I-S*. Hãy học tên các chữ cái tiếng Anh. Hay nhầm: **A** (ây) / **E** (i) / **I** (ai), **G** (gi) / **J** (giây), **B** / **P** / **V**.\n\n**Số:** *thirteen* (nhấn cuối) khác *thirty* (nhấn đầu). Số điện thoại: *double five* = 55, *oh* = 0.\n\n**Ngày:** *the fourteenth of March* = 14 tháng 3. Viết đáp án đúng dạng mà câu hỏi yêu cầu."
+      }
+    },
+    {
+      "heading": {
+        "en": "Traps",
+        "vi": "Các bẫy"
+      },
+      "body": {
+        "en": "The speaker often **changes** an answer: \"Tuesday… no, sorry, Wednesday is better.\" The first thing you hear is not always the answer. Wait for the final one.\n\nAlso check the **word limit** (ONE WORD AND/OR A NUMBER) and spell correctly: a wrong spelling is a wrong answer.",
+        "vi": "Người nói thường **đổi** đáp án: \"Tuesday… no, sorry, Wednesday is better.\" Thứ nghe đầu tiên không phải lúc nào cũng là đáp án. Hãy chờ đáp án cuối cùng.\n\nCũng nhớ kiểm tra **giới hạn từ** (ONE WORD AND/OR A NUMBER) và viết đúng chính tả: sai chính tả là sai đáp án."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A correction in the audio",
+        "vi": "Một lần đổi ý trong audio"
+      },
+      "text": "Agent: Would Tuesday at five suit you?\nCustomer: Tuesday's difficult, actually. Could we do Thursday?\nAgent: Thursday at five. That's fine.\n\nForm: Day of visit: ______   Answer: Thursday",
+      "note": {
+        "en": "Tuesday is mentioned first but rejected. The answer is the last one agreed.",
+        "vi": "Tuesday được nhắc trước nhưng bị từ chối. Đáp án là thứ cuối cùng hai bên đồng ý."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "How people spell and say numbers",
+        "vi": "Cách người ta đánh vần và đọc số"
+      },
+      "items": [
+        "Could you spell that, please?",
+        "That's double-L, E, Y.",
+        "It's oh-seven-double-five...",
+        "the twenty-first of June",
+        "That's fifteen, one-five, not fifty."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You hear: \"My surname is Nguyen, N-G-U-Y-E-N.\" What do you write?",
+        "vi": "Bạn nghe: \"My surname is Nguyen, N-G-U-Y-E-N.\" Bạn viết gì?"
+      },
+      "options": [
+        "Nguyen",
+        "Nuyen",
+        "Ngyuen"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Follow the letters one by one: N-G-U-Y-E-N.",
+        "vi": "Làm theo từng chữ cái: N-G-U-Y-E-N."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which number do you hear: \"fifteen\" or \"fifty\"? You hear 'fif-TEEN'.",
+        "vi": "Bạn nghe số nào: \"fifteen\" hay \"fifty\"? Bạn nghe 'fif-TEEN'."
+      },
+      "options": [
+        "15",
+        "50"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "-teen is stressed at the end (15); -ty is stressed at the start (50).",
+        "vi": "-teen nhấn ở cuối (15); -ty nhấn ở đầu (50)."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Shall we meet on Monday? Oh, I forgot, I work on Mondays. What about Friday?\" The answer is:",
+        "vi": "\"Shall we meet on Monday? Oh, I forgot, I work on Mondays. What about Friday?\" Đáp án là:"
+      },
+      "options": [
+        "Monday",
+        "Friday",
+        "Both"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Monday was rejected. The final agreed day is Friday.",
+        "vi": "Monday bị loại. Ngày cuối cùng được đồng ý là Friday."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The gap says ONE WORD AND/OR A NUMBER. Which answer is allowed?",
+        "vi": "Chỗ trống yêu cầu ONE WORD AND/OR A NUMBER. Đáp án nào được phép?"
+      },
+      "options": [
+        "the library",
+        "library",
+        "the city library"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Only one word: library.",
+        "vi": "Chỉ một từ: library."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You hear: \"It's oh-seven, double-five, three-two.\" The number is:",
+        "vi": "Bạn nghe: \"It's oh-seven, double-five, three-two.\" Số đó là:"
+      },
+      "options": [
+        "07 55 32",
+        "0755 32",
+        "70 55 32"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Oh = 0, double-five = 55.",
+        "vi": "Oh = 0, double-five = 55."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the Section 1 steps in order.",
+        "vi": "Sắp xếp các bước làm Section 1."
+      },
+      "parts": [
+        "Read the form headings before the audio",
+        "Guess the type of each answer (name, number, day)",
+        "Listen and wait for the final answer if the speaker changes it",
+        "Check spelling and the word limit"
+      ],
+      "explanation": {
+        "en": "Prepare, predict, listen for the last version, check.",
+        "vi": "Chuẩn bị, đoán, nghe bản cuối cùng, kiểm tra."
+      }
+    }
+  ]
+}

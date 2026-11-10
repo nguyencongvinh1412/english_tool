@@ -80,8 +80,8 @@ export const speakingIelts = z.object({
   part3: z.array(text(250)).min(2).max(4),
 });
 
-/** Gate speaking tests may leave out Part 3 (Gate 0 and Gate 1 are Part 1 and Part 2 only) */
-export const speakingIeltsGate = speakingIelts.extend({ part3: z.array(text(250)).max(4) });
+/** Gate and path speaking tests may leave out Part 2 and Part 3 (a Part 1 practice, or Gate 0 and Gate 1 with Parts 1 and 2 only) */
+export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(4) });
 
 const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite()) });
 
@@ -230,7 +230,19 @@ export const gapQuestion = z.object({
   explanation: text(600),
 });
 
-export const ieltsQuestion = z.discriminatedUnion('type', [mcqQuestion, tfngQuestion, gapQuestion]);
+/**
+ * Matching (headings, information, places): choose one item from a shared list. Every question carries the list so
+ * a question stands alone; the learner sees letters A, B, C...
+ */
+export const matchQuestion = z.object({
+  type: z.literal('match'),
+  prompt: text(400),
+  options: z.array(text(200)).min(3).max(8),
+  answerIndex: z.number().int().min(0).max(7),
+  explanation: text(600),
+});
+
+export const ieltsQuestion = z.discriminatedUnion('type', [mcqQuestion, tfngQuestion, gapQuestion, matchQuestion]);
 export type IeltsQuestion = z.infer<typeof ieltsQuestion>;
 
 /**
@@ -249,7 +261,7 @@ const wordCount = (value: string) => value.trim().split(/\s+/).filter(Boolean).l
 /**
  * Gap answers must respect the word limit and appear in the source text, so they are checkable
  */
-function gapsMatchSource(questions: IeltsQuestion[], source: string): string | null {
+export function gapsMatchSource(questions: IeltsQuestion[], source: string): string | null {
   const haystack = ` ${normalizeAnswer(source)} `;
   // Spelled-out names ("S-M-I-T-H") only match once spaces are ignored
   const compact = haystack.replace(/\s+/g, '');
@@ -262,12 +274,12 @@ function gapsMatchSource(questions: IeltsQuestion[], source: string): string | n
   return null;
 }
 
-const ieltsSpeakers = z.object({ A: speaker, B: speaker.optional(), C: speaker.optional() });
+export const ieltsSpeakers = z.object({ A: speaker, B: speaker.optional(), C: speaker.optional() });
 
 /**
  * Raises a gap's word limit to fit its answers (up to three words), a common slip in generated questions
  */
-function fitWordLimits(questions: unknown): unknown {
+export function fitWordLimits(questions: unknown): unknown {
   if (!Array.isArray(questions)) return questions;
   return questions.map((q) => {
     if (!q || typeof q !== 'object' || q.type !== 'gap' || !Array.isArray(q.answers) || typeof q.wordLimit !== 'number') return q;
@@ -282,7 +294,7 @@ const SCRIPT_LINE_CHARS = 400;
 /**
  * Splits long script lines into sentence groups so monologues read naturally line by line
  */
-function splitLongLines(script: unknown): unknown {
+export function splitLongLines(script: unknown): unknown {
   if (!Array.isArray(script)) return script;
   return script.flatMap((line) => {
     if (!line || typeof line !== 'object' || typeof line.text !== 'string' || line.text.length <= SCRIPT_LINE_CHARS) return [line];

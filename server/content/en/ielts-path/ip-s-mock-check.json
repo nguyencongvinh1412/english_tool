@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can listen to your recording and find one problem to fix.",
+      "vi": "Bạn nghe lại bản ghi âm và tìm ra một vấn đề để sửa."
+    },
+    {
+      "en": "You know what the four speaking criteria mean.",
+      "vi": "Bạn hiểu bốn tiêu chí chấm Speaking nghĩa là gì."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The four criteria",
+        "vi": "Bốn tiêu chí"
+      },
+      "body": {
+        "en": "• **Fluency and Coherence**: speaking without long stops, and linking ideas.\n• **Lexical Resource**: the words you use and how well.\n• **Grammatical Range and Accuracy**: sentence types and mistakes.\n• **Pronunciation**: sounds, stress and rhythm.\n\nEach counts a quarter of the band.",
+        "vi": "• **Fluency and Coherence**: nói không dừng lâu và nối ý.\n• **Lexical Resource**: từ bạn dùng và dùng tốt đến đâu.\n• **Grammatical Range and Accuracy**: loại câu và lỗi.\n• **Pronunciation**: âm, trọng âm và nhịp điệu.\n\nMỗi tiêu chí chiếm một phần tư điểm."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check yourself in four counts",
+        "vi": "Tự kiểm tra bằng bốn phép đếm"
+      },
+      "body": {
+        "en": "Listen again and count: (1) pauses longer than **3 seconds**; (2) the **same word** repeated; (3) **tense mistakes**; (4) words you could not pronounce clearly. Self-marks are usually **half a band too high**, so take 0.5 off.",
+        "vi": "Nghe lại và đếm: (1) số lần dừng hơn **3 giây**; (2) **cùng một từ** lặp lại; (3) **lỗi chia thì**; (4) các từ bạn phát âm chưa rõ. Tự chấm thường **cao hơn nửa band**, nên hãy trừ 0.5."
+      }
+    },
+    {
+      "heading": {
+        "en": "Fix only one thing",
+        "vi": "Chỉ sửa một thứ"
+      },
+      "body": {
+        "en": "Choose the biggest problem and speak again, fixing **only that**. Trying to fix everything makes you stop more. Next time, check another one.",
+        "vi": "Chọn vấn đề lớn nhất và nói lại, chỉ sửa **đúng điều đó**. Cố sửa mọi thứ làm bạn dừng nhiều hơn. Lần sau kiểm tra thứ khác."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A self-check note",
+        "vi": "Một ghi chú tự kiểm tra"
+      },
+      "text": "Recording 1 (Part 1, 4 answers)\nPauses over 3 s: 5\nRepeated word: \"very\" x 6\nTense mistakes: \"yesterday I go\" x 2\nProblem to fix next time: past simple.",
+      "note": {
+        "en": "One clear problem and one action for the next recording.",
+        "vi": "Một vấn đề rõ ràng và một việc cần làm cho lần ghi âm tiếp theo."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Self-marks are usually:",
+        "vi": "Điểm tự chấm thường:"
+      },
+      "options": [
+        "Lower than the real band",
+        "About half a band too high",
+        "Exactly correct"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Learners are kinder to themselves than examiners.",
+        "vi": "Người học thường dễ tính với bản thân hơn giám khảo."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What should you fix in one recording?",
+        "vi": "Bạn nên sửa gì trong một lần ghi âm?"
+      },
+      "options": [
+        "Everything",
+        "One main problem",
+        "Nothing"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "One problem at a time.",
+        "vi": "Mỗi lần một vấn đề."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which criterion is about stops and linking ideas?",
+        "vi": "Tiêu chí nào nói về việc dừng và nối ý?"
+      },
+      "options": [
+        "Pronunciation",
+        "Fluency and Coherence",
+        "Lexical Resource"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Fluency and Coherence.",
+        "vi": "Fluency and Coherence."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the self-check.",
+        "vi": "Sắp xếp việc tự kiểm tra."
+      },
+      "parts": [
+        "Record your answers",
+        "Listen again and count pauses, repeated words and mistakes",
+        "Choose one problem",
+        "Record again and fix it"
+      ],
+      "explanation": {
+        "en": "Record, count, choose, repeat.",
+        "vi": "Ghi âm, đếm, chọn, ghi lại."
+      }
+    }
+  ]
+}

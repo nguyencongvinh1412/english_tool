@@ -97,7 +97,67 @@ export function overallOf(bands: Bands): number {
 /** "6.5", "7.0": bands are always shown with one decimal */
 export const formatBand = (band: number): string => band.toFixed(1);
 
+export type StepBlock = 'vocab-grammar' | 'listening' | 'reading' | 'writing' | 'speaking';
+export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation';
+
+export interface PathStep {
+  id: string;
+  seq: number;
+  phase: number;
+  week: number;
+  day: number;
+  block: StepBlock;
+  kind: StepKind;
+  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string };
+  minutes: number;
+  core: boolean;
+  done: boolean;
+  behind: boolean;
+  title: { en: string; vi: string } | null;
+  sessionId: string | null;
+}
+
+export interface PathToday {
+  mode: 'syllabus' | 'unwritten' | 'complete';
+  overallTarget: number;
+  position: { phase: number; week: number; day: number } | null;
+  restDay: boolean;
+  dailyMinutes: number;
+  capacityMinutes: number;
+  plannedMinutes: number;
+  doneMinutes: number;
+  steps: PathStep[];
+  behind: { steps: number; minutes: number; days: number; alert: boolean };
+  canAhead: boolean;
+  progress: { done: number; total: number; remainingMinutes: number };
+  eta: { from: string; to: string } | null;
+  paceMinutes: number;
+}
+
+type Bi = { en: string; vi: string };
+export interface LessonContent {
+  objectives: Bi[];
+  learn: { heading: Bi; body: Bi }[];
+  examples: { title: Bi; text: string; note: Bi }[];
+  phrases: { use: Bi; items: string[] }[];
+  drills: (
+    | { type: 'choice'; prompt: Bi; sentence?: string; options: string[]; answerIndex: number; explanation: Bi }
+    | { type: 'order'; prompt: Bi; parts: string[]; explanation: Bi }
+  )[];
+}
+
+export interface LessonView {
+  step: { id: string; phase: number; week: number; day: number; block: StepBlock; minutes: number; done: boolean };
+  title: Bi;
+  content: LessonContent;
+}
+
 export const ieltsPathApi = {
+  today: () => apiFetch<{ today: PathToday | null }>('/api/ielts-path/today'),
+  ahead: () => apiFetch<{ today: PathToday }>('/api/ielts-path/ahead', { method: 'POST', json: {} }),
+  lesson: (id: string) => apiFetch<LessonView>(`/api/ielts-path/steps/${id}`),
+  completeLesson: (id: string, drills: { correct: number; total: number } | null) => apiFetch<{ ok: true }>(`/api/ielts-path/steps/${id}/complete`, { method: 'POST', json: { drills } }),
+  startPractice: (id: string) => apiFetch<{ sessionId: string }>(`/api/ielts-path/steps/${id}/practice`, { method: 'POST', json: {} }),
   get: () => apiFetch<{ path: PathView | null }>('/api/ielts-path'),
   create: (input: PathInput) => apiFetch<{ path: PathView }>('/api/ielts-path', { method: 'POST', json: input }),
   update: (change: Partial<Omit<PathInput, 'bandTargets'>>) => apiFetch<{ path: PathView }>('/api/ielts-path', { method: 'PATCH', json: change }),

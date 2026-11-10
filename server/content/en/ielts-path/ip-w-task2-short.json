@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can plan and write a four-paragraph Task 2 essay of about 150 words.",
+      "vi": "Bạn lập dàn ý và viết được bài Task 2 bốn đoạn khoảng 150 từ."
+    },
+    {
+      "en": "You can plan in five minutes.",
+      "vi": "Bạn lập dàn ý trong năm phút."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Four paragraphs",
+        "vi": "Bốn đoạn"
+      },
+      "body": {
+        "en": "1. **Introduction**: restate the question + your opinion.\n2. **Body 1**: first reason (idea, explanation, example).\n3. **Body 2**: second reason.\n4. **Conclusion**: repeat your opinion in new words.\n\nFor 150 words: about 25 + 50 + 50 + 25.",
+        "vi": "1. **Mở bài**: nhắc lại đề + quan điểm của bạn.\n2. **Thân bài 1**: lý do thứ nhất (ý, giải thích, ví dụ).\n3. **Thân bài 2**: lý do thứ hai.\n4. **Kết bài**: nhắc lại quan điểm bằng từ khác.\n\nVới 150 từ: khoảng 25 + 50 + 50 + 25."
+      }
+    },
+    {
+      "heading": {
+        "en": "Plan in five minutes",
+        "vi": "Lập dàn ý trong năm phút"
+      },
+      "body": {
+        "en": "Before writing: (1) decide your **opinion**; (2) choose **two reasons**; (3) for each reason think of **one example**. Write the plan as short notes. Planning saves time because you do not stop to think while writing.",
+        "vi": "Trước khi viết: (1) quyết định **quan điểm**; (2) chọn **hai lý do**; (3) mỗi lý do nghĩ ra **một ví dụ**. Viết dàn ý thành các ghi chú ngắn. Lập dàn ý tiết kiệm thời gian vì bạn không phải dừng lại suy nghĩ khi viết."
+      }
+    },
+    {
+      "heading": {
+        "en": "The introduction",
+        "vi": "Mở bài"
+      },
+      "body": {
+        "en": "Two sentences are enough: **paraphrase the question** and **give your opinion**. *Some people think children should start English at primary school. I strongly agree with this view.*",
+        "vi": "Hai câu là đủ: **paraphrase đề bài** và **nêu quan điểm**. *Some people think children should start English at primary school. I strongly agree with this view.*"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "An essay plan and the introduction",
+        "vi": "Dàn ý và mở bài"
+      },
+      "text": "Question: Some people think children should start learning English at primary school. Do you agree or disagree?\n\nPlan: Opinion: agree. Reason 1: children learn easily (example: my cousin). Reason 2: more time to practise (example: students who start at 6 vs 12).\n\nIntroduction: It is argued that English lessons should begin in primary school. I completely agree with this view for two reasons.",
+      "note": {
+        "en": "The plan has an opinion, two reasons and an example for each. The introduction uses different words from the question.",
+        "vi": "Dàn ý có quan điểm, hai lý do và ví dụ cho mỗi lý do. Mở bài dùng từ khác với đề bài."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Introduction and conclusion",
+        "vi": "Mở bài và kết bài"
+      },
+      "items": [
+        "It is argued that ...",
+        "I completely agree / disagree with this view.",
+        "In conclusion, ...",
+        "For these reasons, I believe that ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many body paragraphs does the short essay have?",
+        "vi": "Bài luận ngắn có bao nhiêu đoạn thân bài?"
+      },
+      "options": [
+        "One",
+        "Two",
+        "Four"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Two body paragraphs, one reason each.",
+        "vi": "Hai đoạn thân bài, mỗi đoạn một lý do."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you do first?",
+        "vi": "Bạn làm gì trước tiên?"
+      },
+      "options": [
+        "Start writing the introduction",
+        "Plan: opinion, two reasons, examples",
+        "Count the words"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A five-minute plan saves time later.",
+        "vi": "Năm phút lập dàn ý giúp tiết kiệm thời gian sau."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which conclusion starts correctly?",
+        "vi": "Kết bài nào bắt đầu đúng?"
+      },
+      "options": [
+        "In conclusion, I believe that learning English early is useful.",
+        "Another reason is that ...",
+        "Firstly, ..."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The conclusion closes the essay with your opinion.",
+        "vi": "Kết bài khép lại bài luận bằng quan điểm của bạn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the essay.",
+        "vi": "Sắp xếp bài luận."
+      },
+      "parts": [
+        "Introduction with opinion",
+        "Body paragraph 1",
+        "Body paragraph 2",
+        "Conclusion"
+      ],
+      "explanation": {
+        "en": "Opinion, two reasons, closing.",
+        "vi": "Quan điểm, hai lý do, kết luận."
+      }
+    }
+  ]
+}

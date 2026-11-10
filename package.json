@@ -29,7 +29,8 @@
     "ja:vocab-data": "tsx server/scripts/buildJaVocab.ts",
     "en:vocab-data": "tsx server/scripts/buildEnVocab.ts",
     "grammar:draft": "tsx server/scripts/draftGrammar.ts",
-    "units:draft": "tsx server/scripts/draftUnits.ts"
+    "units:draft": "tsx server/scripts/draftUnits.ts",
+    "ielts:fill": "tsx server/scripts/fillIeltsPractice.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

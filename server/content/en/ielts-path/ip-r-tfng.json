@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You can tell False from Not Given.",
+      "vi": "Bạn phân biệt được False và Not Given."
+    },
+    {
+      "en": "You have a three-step method for every statement.",
+      "vi": "Bạn có phương pháp ba bước cho mọi nhận định."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The three answers",
+        "vi": "Ba đáp án"
+      },
+      "body": {
+        "en": "**True** = the text says the same thing (in other words).\n**False** = the text says the **opposite**.\n**Not Given** = the text **does not say** anything about this: you cannot decide.\n\nThe common mistake: choosing False when the text just does not mention it. If you cannot point to a sentence that **contradicts** the statement, it is not False.",
+        "vi": "**True** = bài nói cùng ý (bằng từ khác).\n**False** = bài nói **ngược lại**.\n**Not Given** = bài **không nói** gì về điều này: bạn không thể kết luận.\n\nLỗi hay gặp: chọn False khi bài chỉ đơn giản không nhắc đến. Nếu bạn không chỉ ra được câu nào **mâu thuẫn** với nhận định thì nó không phải False."
+      }
+    },
+    {
+      "heading": {
+        "en": "The method",
+        "vi": "Phương pháp"
+      },
+      "body": {
+        "en": "1. Underline the **keywords** of the statement.\n2. **Scan** the text for those keywords (or synonyms) and find the right sentence.\n3. Compare: same meaning → True; opposite → False; the idea is not there → Not Given.\n\nStatements follow the **order** of the text. If statement 3 was in paragraph 2, statement 4 is after it.",
+        "vi": "1. Gạch chân **từ khoá** của nhận định.\n2. **Scan** bài tìm từ khoá (hoặc từ đồng nghĩa) và tìm câu phù hợp.\n3. So sánh: cùng nghĩa → True; ngược nghĩa → False; ý đó không có → Not Given.\n\nCác nhận định đi theo **thứ tự** của bài. Nếu nhận định 3 ở đoạn 2 thì nhận định 4 nằm sau đó."
+      }
+    },
+    {
+      "heading": {
+        "en": "Watch the small words",
+        "vi": "Chú ý các từ nhỏ"
+      },
+      "body": {
+        "en": "Words like **all, only, always, never, most, some, first** change the meaning. *\"Some students walk\"* and *\"All students walk\"* are different. If the text says *some*, then *all* is **False**.",
+        "vi": "Những từ như **all, only, always, never, most, some, first** làm đổi nghĩa. *\"Some students walk\"* và *\"All students walk\"* khác nhau. Nếu bài nói *some* thì *all* là **False**."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "True, False, Not Given from one text",
+        "vi": "True, False, Not Given từ cùng một bài"
+      },
+      "text": "Text: \"The library opened in 2019. Borrowers must show proof of address. Volunteers repair the bicycles on Saturdays.\"\n\n1. The library opened in 2019. → TRUE (same).\n2. Borrowers must pay a fee. → NOT GIVEN (fee is not mentioned).\n3. Volunteers repair bicycles on Sundays. → FALSE (Saturdays, not Sundays).",
+      "note": {
+        "en": "Statement 2 is Not Given: the text does not say fee or no fee. Statement 3 is False because the text gives a different day.",
+        "vi": "Nhận định 2 là Not Given: bài không nói có hay không có phí. Nhận định 3 là False vì bài nêu ngày khác."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The text: \"Anna teaches maths.\" Statement: \"Anna teaches English.\"",
+        "vi": "Bài: \"Anna teaches maths.\" Nhận định: \"Anna teaches English.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The text says maths, so English is the opposite: False.",
+        "vi": "Bài nói maths nên English là ngược lại: False."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The text: \"Anna teaches maths.\" Statement: \"Anna is a good teacher.\"",
+        "vi": "Bài: \"Anna teaches maths.\" Nhận định: \"Anna is a good teacher.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "en": "The text does not say if she is good: Not Given.",
+        "vi": "Bài không nói cô ấy có giỏi không: Not Given."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The text: \"Most buses are late.\" Statement: \"All buses are late.\"",
+        "vi": "Bài: \"Most buses are late.\" Nhận định: \"All buses are late.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Most is not all, so the statement is False.",
+        "vi": "Most không phải all nên nhận định là False."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The text: \"The shop opens at nine.\" Statement: \"The shop starts work in the morning.\"",
+        "vi": "Bài: \"The shop opens at nine.\" Nhận định: \"The shop starts work in the morning.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Nine is morning and starts work = opens: True.",
+        "vi": "Nine giờ là buổi sáng và starts work = opens: True."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the method for one statement.",
+        "vi": "Sắp xếp phương pháp cho một nhận định."
+      },
+      "parts": [
+        "Underline the keywords",
+        "Scan the text for the keywords",
+        "Compare the meaning with the statement",
+        "Choose True, False or Not Given"
+      ],
+      "explanation": {
+        "en": "Find the sentence before you decide.",
+        "vi": "Hãy tìm câu trước khi quyết định."
+      }
+    }
+  ]
+}

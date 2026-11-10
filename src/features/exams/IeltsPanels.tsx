@@ -10,8 +10,8 @@ import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition } from '@/hooks';
 import { prefetchScript, prefetchTexts, speakOnce, speakScript } from '@/shared/speech';
-import { speakingQuestions, type IeltsListening, type IeltsReading } from '@/shared/ieltsApi';
-import type { SpeakingIelts, WritingPrompt } from '@/shared/contentApi';
+import { speakingQuestions, type IeltsListening, type IeltsReading, type SpeakingSet } from '@/shared/ieltsApi';
+import type { WritingPrompt } from '@/shared/contentApi';
 import { WritingPromptCard } from '@/features/writing/WritingReview';
 import { ExamAudio } from './ExamAudio';
 import { IeltsQuestions } from './IeltsQuestions';
@@ -158,7 +158,7 @@ export const WritingPanel: React.FC<{
  */
 export const SpeakingPanel: React.FC<{
   groupId: string;
-  payload: SpeakingIelts;
+  payload: SpeakingSet;
   answers: Answers;
   review: boolean;
   onAnswer?: (id: string, value: string) => void;
@@ -182,9 +182,16 @@ export const SpeakingPanel: React.FC<{
     return () => clearTimeout(id);
   }, [prep]);
   const questions = speakingQuestions(groupId, payload);
+  // Only the parts the set has: a path exercise may be Part 1 alone
+  const parts = ([
+    { part: 1, title: t.ielts.part1 },
+    { part: 2, title: t.ielts.part2 },
+    { part: 3, title: t.ielts.part3 },
+  ] as const).filter(({ part }) => questions.some((q) => q.part === part));
+  const currentPart = parts[Math.min(step, parts.length - 1)]?.part ?? 1;
   const textOf = (id: string) => String(answers[id] ?? '');
   /** The question the main button records next: the first one of this part without an answer */
-  const target = questions.find((q) => q.part === step + 1 && !textOf(q.id))?.id ?? null;
+  const target = questions.find((q) => q.part === currentPart && !textOf(q.id))?.id ?? null;
 
   // Append each finished recording to the question being answered
   useEffect(() => {
@@ -213,11 +220,6 @@ export const SpeakingPanel: React.FC<{
     if (!review) prefetchTexts(questions.filter((q) => q.part !== 2).map((q) => q.text));
   }, [payload, review]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const parts = [
-    { part: 1, title: t.ielts.part1 },
-    { part: 2, title: t.ielts.part2 },
-    { part: 3, title: t.ielts.part3 },
-  ] as const;
 
   return (
     <div className="ielts-speaking">
@@ -236,7 +238,7 @@ export const SpeakingPanel: React.FC<{
         </div>
       )}
 
-      {parts.filter(({ part }) => review || part === step + 1).map(({ part, title }) => (
+      {parts.filter(({ part }) => review || part === currentPart).map(({ part, title }) => (
         <section key={part} className="ielts-speaking__part">
           <h3 className="ielts-speaking__title">{title}</h3>
           {questions
@@ -252,11 +254,11 @@ export const SpeakingPanel: React.FC<{
                         <>
                           <p className="ielts-sq__say">{t.ielts.youShouldSay}</p>
                           <ul>
-                            {payload.part2.bullets.map((bullet) => (
+                            {payload.part2?.bullets.map((bullet) => (
                               <li key={bullet}>{bullet}</li>
                             ))}
                           </ul>
-                          <p>{payload.part2.closing}</p>
+                          <p>{payload.part2?.closing}</p>
                           {!review && <p className="ielts-sq__note">{t.ielts.cueCardNote}</p>}
                           {!review && (
                             <div className={`ielts-prep ${prep !== null && prep > 0 ? 'ielts-prep--on' : ''}`}>
@@ -280,7 +282,7 @@ export const SpeakingPanel: React.FC<{
                       variant="ghost"
                       icon="headphones"
                       aria-label={t.ielts.listen}
-                      onClick={() => speakOnce(part === 2 ? `${q.text} You should say: ${payload.part2.bullets.join('. ')}. ${payload.part2.closing}` : q.text)}
+                      onClick={() => speakOnce(part === 2 && payload.part2 ? `${q.text} You should say: ${payload.part2.bullets.join('. ')}. ${payload.part2.closing}` : q.text)}
                     />
                   </div>
                   {(review || !isSupported || live || textOf(q.id)) && (

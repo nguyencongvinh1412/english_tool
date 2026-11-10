@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can use the one-minute preparation to make a clear plan.",
+      "vi": "Bạn dùng một phút chuẩn bị để lập kế hoạch rõ ràng."
+    },
+    {
+      "en": "You can speak for about one minute without stopping.",
+      "vi": "Bạn nói được khoảng một phút không dừng."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Part 2 is",
+        "vi": "Part 2 là gì"
+      },
+      "body": {
+        "en": "You get a **cue card** (a topic and four points), **one minute** to prepare and a pencil, then you speak for **1–2 minutes**. At this stage aim for **one minute**; later you extend to two.\n\nExample card: *Describe a person in your family. You should say: who this person is, what he or she looks like, what you do together, and explain why you like spending time with this person.*",
+        "vi": "Bạn nhận một **cue card** (một chủ đề và bốn gợi ý), **một phút** chuẩn bị và một cây bút, rồi bạn nói **1–2 phút**. Ở giai đoạn này hãy đặt mục tiêu **một phút**; sau đó kéo dài thành hai.\n\nVí dụ: *Describe a person in your family. You should say: who this person is, what he or she looks like, what you do together, and explain why you like spending time with this person.*"
+      }
+    },
+    {
+      "heading": {
+        "en": "Plan in one minute",
+        "vi": "Lập kế hoạch trong một phút"
+      },
+      "body": {
+        "en": "Write **keywords only**, one for each point:\n• who → *my sister, Lan*\n• look → *tall, long hair*\n• together → *cook, cinema*\n• why → *funny, listens to me*\n\nDo not write full sentences. Use the points **in order**: they are your structure.",
+        "vi": "Chỉ ghi **từ khoá**, mỗi gợi ý một từ:\n• who → *my sister, Lan*\n• look → *tall, long hair*\n• together → *cook, cinema*\n• why → *funny, listens to me*\n\nKhông viết cả câu. Dùng các gợi ý **theo thứ tự**: đó là cấu trúc của bạn."
+      }
+    },
+    {
+      "heading": {
+        "en": "Keep going",
+        "vi": "Cứ nói tiếp"
+      },
+      "body": {
+        "en": "If you finish early, add an **example** or a **feeling**: *Last month we...*; *I feel happy because...*. Do not stop at 30 seconds. If you lose an idea, say *Let me think... Well,* and go on with the next point.",
+        "vi": "Nếu xong sớm, thêm một **ví dụ** hoặc một **cảm xúc**: *Last month we...*; *I feel happy because...*. Đừng dừng ở 30 giây. Nếu quên ý, nói *Let me think... Well,* rồi nói tiếp ý kế."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Notes and the start of the answer",
+        "vi": "Ghi chú và phần mở đầu câu trả lời"
+      },
+      "text": "Notes: sister Lan | tall, long hair | cook, cinema | funny, listens\n\nI'd like to talk about my younger sister, Lan. She is twenty and she is tall with long black hair. We often cook together at weekends, and sometimes we go to the cinema. I like spending time with her because she is very funny and she always listens to me.",
+      "note": {
+        "en": "The answer follows the four notes in order, with simple linking words.",
+        "vi": "Câu trả lời đi theo bốn ghi chú theo thứ tự, với từ nối đơn giản."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Starting and moving on",
+        "vi": "Bắt đầu và chuyển ý"
+      },
+      "items": [
+        "I'd like to talk about ...",
+        "As for ...",
+        "We often ...",
+        "The reason I like ... is that ...",
+        "Let me think ... Well, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long do you prepare in Part 2?",
+        "vi": "Bạn chuẩn bị bao lâu ở Part 2?"
+      },
+      "options": [
+        "30 seconds",
+        "One minute",
+        "Five minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "You have one minute and a pencil.",
+        "vi": "Bạn có một phút và một cây bút."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What should you write in your notes?",
+        "vi": "Bạn nên viết gì vào ghi chú?"
+      },
+      "options": [
+        "Full sentences",
+        "Keywords for each point",
+        "Nothing"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Keywords are quick and keep the order.",
+        "vi": "Từ khoá nhanh và giữ đúng thứ tự."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You finish after 30 seconds. What can you add?",
+        "vi": "Bạn xong sau 30 giây. Bạn có thể thêm gì?"
+      },
+      "options": [
+        "Say thank you",
+        "An example or a feeling",
+        "Repeat the first sentence"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "More detail makes a longer, better answer.",
+        "vi": "Thêm chi tiết giúp câu trả lời dài hơn và tốt hơn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order Part 2.",
+        "vi": "Sắp xếp Part 2."
+      },
+      "parts": [
+        "Read the cue card",
+        "Write keywords for one minute",
+        "Speak, following the points in order",
+        "Add an example if you finish early"
+      ],
+      "explanation": {
+        "en": "Plan first, speak second.",
+        "vi": "Lập kế hoạch trước, nói sau."
+      }
+    }
+  ]
+}

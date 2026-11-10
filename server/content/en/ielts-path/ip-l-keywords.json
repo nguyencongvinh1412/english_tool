@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can pick out keywords and notice when the speaker uses a different word with the same meaning.",
+      "vi": "Bạn chọn được từ khoá và nhận ra khi người nói dùng từ khác cùng nghĩa."
+    },
+    {
+      "en": "You can follow simple directions and match information.",
+      "vi": "Bạn theo dõi được chỉ đường đơn giản và nối thông tin."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Section 2 and keywords",
+        "vi": "Section 2 và từ khoá"
+      },
+      "body": {
+        "en": "Section 2 is **one person talking** (a guide, an announcement). Questions are often multiple choice, **matching**, or labelling a plan.\n\nBefore the audio: underline **keywords** in each question (usually nouns, numbers, names). You will not hear the same words. The speaker **paraphrases**: *cheap* → *inexpensive*, *begins* → *starts*, *free* → *no charge*.",
+        "vi": "Section 2 là **một người nói** (hướng dẫn viên, thông báo). Câu hỏi thường là trắc nghiệm, **nối thông tin**, hoặc gắn nhãn trên sơ đồ.\n\nTrước khi nghe: gạch chân **từ khoá** trong mỗi câu hỏi (thường là danh từ, số, tên). Bạn sẽ không nghe đúng những từ đó. Người nói **diễn đạt lại**: *cheap* → *inexpensive*, *begins* → *starts*, *free* → *no charge*."
+      }
+    },
+    {
+      "heading": {
+        "en": "Matching and the order of the audio",
+        "vi": "Nối thông tin và thứ tự trong audio"
+      },
+      "body": {
+        "en": "In a matching task you choose from a list of options (A–E). The questions follow the **order of the audio**, the options often do not. Cross out an option once you have used it only if the instructions say each option is used once.\n\nWatch for the distractor: the speaker says an option and then rejects it. *\"We thought of the park, but in the end the museum was better.\"*",
+        "vi": "Trong bài nối thông tin, bạn chọn từ một danh sách phương án (A–E). Các câu hỏi đi theo **thứ tự audio**, còn các phương án thường thì không. Chỉ gạch bỏ phương án đã dùng khi đề nói mỗi phương án chỉ dùng một lần.\n\nCẩn thận bẫy: người nói nhắc một phương án rồi bác bỏ. *\"We thought of the park, but in the end the museum was better.\"*"
+      }
+    },
+    {
+      "heading": {
+        "en": "Directions",
+        "vi": "Chỉ đường"
+      },
+      "body": {
+        "en": "Learn the language of place: **opposite**, **next to**, **between**, **behind**, **in front of**, **on the corner of**. For routes: *go straight on*, *turn left/right*, *take the second turning*, *you will see it on your left*.",
+        "vi": "Học ngôn ngữ chỉ vị trí: **opposite** (đối diện), **next to** (bên cạnh), **between** (giữa), **behind** (phía sau), **in front of** (phía trước), **on the corner of** (ở góc). Chỉ đường: *go straight on*, *turn left/right*, *take the second turning*, *you will see it on your left*."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Keyword and paraphrase",
+        "vi": "Từ khoá và cách diễn đạt lại"
+      },
+      "text": "Question: The museum shop sells ______ at a low price.\nAudio: \"In the shop you'll find postcards, which are very inexpensive.\"\nAnswer: postcards",
+      "note": {
+        "en": "The question says low price; the speaker says very inexpensive. The keyword shop leads you to the answer.",
+        "vi": "Câu hỏi nói low price; người nói nói very inexpensive. Từ khoá shop dẫn bạn tới đáp án."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Place and direction",
+        "vi": "Vị trí và hướng đi"
+      },
+      "items": [
+        "It's opposite the library.",
+        "Go straight on until you reach the roundabout.",
+        "Take the second turning on the left.",
+        "It's between the bank and the café.",
+        "You can't miss it."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The question says: \"The tour starts at ______.\" You hear: \"We begin at half past nine.\" The keyword that matches \"starts\" is:",
+        "vi": "Câu hỏi: \"The tour starts at ______.\" Bạn nghe: \"We begin at half past nine.\" Từ khớp với \"starts\" là:"
+      },
+      "options": [
+        "begin",
+        "half",
+        "nine"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Begin is a paraphrase of start.",
+        "vi": "Begin là cách nói khác của start."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The café is next to the bank.\" Which is the same place?",
+        "vi": "\"The café is next to the bank.\" Đâu là cùng một vị trí?"
+      },
+      "options": [
+        "The café is beside the bank.",
+        "The café is opposite the bank.",
+        "The café is behind the bank."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Next to = beside.",
+        "vi": "Next to = beside."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You hear: \"I considered the red option, but the blue one was cheaper, so I took that.\" Which did the speaker choose?",
+        "vi": "Bạn nghe: \"I considered the red option, but the blue one was cheaper, so I took that.\" Người nói chọn cái nào?"
+      },
+      "options": [
+        "red",
+        "blue"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Red was only considered. Blue was chosen.",
+        "vi": "Red chỉ được cân nhắc. Blue mới là cái được chọn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the steps for Section 2 in order.",
+        "vi": "Sắp xếp các bước làm Section 2."
+      },
+      "parts": [
+        "Read the questions and underline keywords",
+        "Listen and follow the order of the questions",
+        "Write each answer as you hear it",
+        "Check spelling in the last minute"
+      ],
+      "explanation": {
+        "en": "Prepare, listen, write, check.",
+        "vi": "Chuẩn bị, nghe, viết, kiểm tra."
+      }
+    }
+  ]
+}
