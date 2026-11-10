@@ -4,15 +4,18 @@
  */
 import { and, asc, eq, gte, inArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { attempts, examSessions, grammarProgress, ieltsPaths, pathLessons, type IeltsPath, type PathLesson, type User } from '../db/schema.js';
+import { attempts, examSessions, grammarProgress, ieltsPaths, pathLessons, skillLevels, type IeltsPath, type PathLesson, type User } from '../db/schema.js';
 import type { IeltsBlueprint } from '../exams/ielts.js';
 import { HttpError } from '../http/errors.js';
 import { quotaDay } from '../services/aiAccess.js';
-import { addDays, overallOf, type Bands } from './bands.js';
+import { addDays, overallOf, PATH_SKILLS, type Bands, type PathSkill } from './bands.js';
 import { loadLesson, type PathLessonContent } from './lessons.js';
 import { practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
+import { adaptSteps } from './adapt.js';
 import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
+import { buildErrorBook, recentPracticeBands } from './errors.js';
+import type { CriterionBand } from './errorRules.js';
 import { LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
 
 const PACE_WINDOW_DAYS = 14;
@@ -83,8 +86,8 @@ async function syncDone(path: IeltsPath): Promise<void> {
     }
   }
 
-  // Words and dictation: one session of each counts for the next such step, in order
-  for (const [kind, activities] of [['words', ['en-vocab', 'vocab']], ['dictation', ['dictation']]] as const) {
+  // Words, dictation and pronunciation: one session of each counts for the next such step, in order
+  for (const [kind, activities] of [['words', ['en-vocab', 'vocab']], ['dictation', ['dictation']], ['pronunciation', ['pronunciation']]] as const) {
     const rows = todo.filter((r) => r.kind === kind);
     if (rows.length === 0) continue;
     const [last] = await db
@@ -185,6 +188,10 @@ export interface PathTodayView {
   paceMinutes: number;
   gate: TodayGate | null;
   retest: TodayRetest | null;
+  /** What to work on in writing and speaking: the criterion with the lowest recent band */
+  focus: { writing: CriterionBand | null; speaking: CriterionBand | null };
+  /** Per skill: the band of the last gate and the mean of the last practice sessions */
+  bands: Record<PathSkill, { target: number; gate: number | null; practice: number | null; n: number }>;
 }
 
 /**
@@ -193,14 +200,19 @@ export interface PathTodayView {
 export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<PathTodayView> {
   const dailyMinutes = path.dailyMinutes;
   const overallTarget = overallOf(path.bandTargets as Bands);
+  const targets = path.bandTargets as Bands;
+  const emptyBands = Object.fromEntries(PATH_SKILLS.map((skill) => [skill, { target: targets[skill], gate: null, practice: null, n: 0 }])) as PathTodayView['bands'];
   const empty = (mode: PathTodayMode): PathTodayView => ({
     mode, overallTarget, position: null, restDay: false, dailyMinutes, capacityMinutes: dailyMinutes, plannedMinutes: 0, doneMinutes: 0, steps: [], behind: { steps: 0, minutes: 0, days: 0, alert: false }, canAhead: false,
     progress: { done: 0, total: 0, remainingMinutes: 0 }, eta: null, paceMinutes: dailyMinutes, gate: null, retest: null,
+    focus: { writing: null, speaking: null }, bands: emptyBands,
   });
   if (path.startPhase === null || !path.startDate) return empty('unwritten');
 
   await ensureSteps(path);
   await syncDone(path);
+  // Lessons that follow the learner: never let a failure here stop Today
+  await adaptSteps(path, today).catch((error) => console.error('adaptSteps failed:', error));
   const rows = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
   const queue = rows.map((r) => ({ row: r, id: r.id, minutes: r.minutes, status: r.status as 'todo' | 'done', plannedDay: r.plannedDay, doneDay: dayOf(r.doneAt) }));
 
@@ -233,12 +245,21 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
     const earlier = await gateView(path, cleared);
     if (earlier.retest && earlier.retest.status !== 'done') retest = { ...earlier.retest, gate: cleared };
   }
+  const [book, practice, levels] = await Promise.all([
+    buildErrorBook(path.userId),
+    recentPracticeBands(path.userId),
+    db.select({ skill: skillLevels.skill, band: skillLevels.band }).from(skillLevels).where(and(eq(skillLevels.userId, path.userId), eq(skillLevels.language, 'en'), eq(skillLevels.source, 'gate'))),
+  ]);
+  const gateBands = new Map(levels.map((l) => [l.skill, l.band]));
+  const bands = Object.fromEntries(PATH_SKILLS.map((skill) => [skill, { target: targets[skill], gate: gateBands.get(skill) ?? null, practice: practice[skill]?.band ?? null, n: practice[skill]?.n ?? 0 }])) as PathTodayView['bands'];
   const mode: PathTodayMode = todo.length > 0 ? 'syllabus' : !open ? 'complete' : phaseSteps(next).length === 0 ? 'unwritten' : 'gate';
 
   return {
     mode,
     gate: gateInfo ? { gate: next, status: gateInfo.status, version: gateInfo.version, startBlock: gateInfo.startBlock, stopped: gateInfo.stopped, stepsLeft: gateInfo.startBlock === 'steps-left' } : null,
     retest,
+    focus: { writing: book.writing.lowest, speaking: book.speaking.lowest },
+    bands,
     overallTarget,
     position: first ? { phase: first.phase, week: first.week, day: first.studyDay } : null,
     restDay,

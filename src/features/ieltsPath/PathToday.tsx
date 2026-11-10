@@ -8,6 +8,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Banner, Button, Card, LinkButton, ProgressBar, TaskCard } from '@/design';
+import { formatBand } from '@/shared/ieltsPathApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
@@ -15,7 +16,7 @@ import { examPath } from '@/features/exams/examRoutes';
 import { formatRange } from '@/shared/roadmapApi';
 import { ieltsPathApi, type PathToday as PathTodayData } from '@/shared/ieltsPathApi';
 import { fromToday } from '@/features/today/todayTasks';
-import { stepKindKey, stepLink, stepTitle, stepTone } from './pathSteps';
+import { adaptiveReason, stepKindKey, stepLink, stepTitle, stepTone } from './pathSteps';
 import './ieltsPath.css';
 
 const percent = (part: number, whole: number) => (whole > 0 ? Math.min(100, Math.round((part / whole) * 100)) : 0);
@@ -65,8 +66,42 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
         )}
         <span className="create__muted">{s.progress(today.progress.done, today.progress.total)}</span>
         {today.eta && <span className="create__muted">{s.eta(formatRange(today.eta.from, today.eta.to))}</span>}
+        <table className="ipath__table pathtoday__bands" aria-label={s.bandsTitle}>
+          <thead>
+            <tr>
+              <th>{s.bandsTitle}</th>
+              <th>{s.bandGate}</th>
+              <th>{s.bandPractice}</th>
+              <th>{s.bandGoal}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(['listening', 'reading', 'writing', 'speaking'] as const).map((skill) => {
+              const row = today.bands[skill];
+              return (
+                <tr key={skill}>
+                  <th scope="row">{t.ielts.components[skill]}</th>
+                  <td>{row.gate !== null ? formatBand(row.gate) : '–'}</td>
+                  <td>{row.practice !== null ? formatBand(row.practice) : '–'}</td>
+                  <td>{formatBand(row.target)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <span className="create__muted">{s.bandNote}</span>
       </Card>
 
+      {(today.focus.writing || today.focus.speaking) && (
+        <Card padding="md" className="pathtoday__focus">
+          <strong>{s.focusTitle}</strong>
+          {today.focus.writing && <span>{s.focusWriting(today.focus.writing.name, formatBand(today.focus.writing.band))}</span>}
+          {today.focus.speaking && <span>{s.focusSpeaking(today.focus.speaking.name, formatBand(today.focus.speaking.band))}</span>}
+          <Link to={ROUTES.IELTS_ERRORS} className="stage__more">
+            {s.focusLink}
+          </Link>
+        </Card>
+      )}
       {today.mode === 'complete' && <Banner tone="success">{s.complete}</Banner>}
       {today.mode === 'unwritten' && !gate && <Banner tone="info">{s.unwritten}</Banner>}
       {today.retest && today.retest.status !== 'locked' && today.retest.status !== 'done' && (
@@ -110,7 +145,7 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
             kind={`${s.blocks[step.block]} · ${s.kinds[stepKindKey(step)]}`}
             meta={t.today.minutes(step.minutes)}
             title={stepTitle(step, t, locale, pointTitle)}
-            why={s.whys[stepKindKey(step)]}
+            why={step.ref.adaptive ? (s.adaptiveWhy[adaptiveReason(step)] ?? s.whys.adaptive) : s.whys[stepKindKey(step)]}
             done={step.done}
             doneLabel={t.today.doneTitle}
             todoLabel={t.today.minutes(step.minutes)}

@@ -19,6 +19,8 @@ export function stepLink(step: PathStep): string {
       return ROUTES.VOCABULARY;
     case 'dictation':
       return ROUTES.DICTATION;
+    case 'pronunciation':
+      return ROUTES.PRONUNCIATION;
   }
 }
 
@@ -38,8 +40,13 @@ export function stepTitle(step: PathStep, t: Messages, locale: 'en' | 'vi', poin
       return s.wordsTitle(step.ref.count ?? 15, s.topics[step.ref.topic ?? ''] ?? step.ref.topic ?? '');
     case 'dictation':
       return s.dictationTitle;
+    case 'pronunciation':
+      return s.pronunciationTitle;
   }
 }
 
 /** Extra steps added after a gate carry their own label and reason */
-export const stepKindKey = (step: PathStep): string => (step.ref.remedial ? 'remedial' : step.ref.buffer ? 'buffer' : step.kind);
+export const stepKindKey = (step: PathStep): string => (step.ref.remedial ? 'remedial' : step.ref.buffer ? 'buffer' : step.ref.adaptive ? 'adaptive' : step.kind);
+
+/** The reason an adaptive step was added: its key without the id that lesson reviews carry */
+export const adaptiveReason = (step: PathStep): string => (step.ref.adaptive ?? '').split(':')[0];

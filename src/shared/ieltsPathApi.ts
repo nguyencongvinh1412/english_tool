@@ -145,7 +145,7 @@ export function overallOf(bands: Bands): number {
 export const formatBand = (band: number): string => band.toFixed(1);
 
 export type StepBlock = 'vocab-grammar' | 'listening' | 'reading' | 'writing' | 'speaking';
-export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation';
+export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation' | 'pronunciation';
 
 export interface PathStep {
   id: string;
@@ -155,7 +155,7 @@ export interface PathStep {
   day: number;
   block: StepBlock;
   kind: StepKind;
-  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string; remedial?: number; buffer?: number };
+  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string; remedial?: number; buffer?: number; adaptive?: string; reviewOf?: string };
   minutes: number;
   core: boolean;
   done: boolean;
@@ -190,6 +190,24 @@ export interface PathToday {
   paceMinutes: number;
   gate: TodayGate | null;
   retest: (RetestView & { gate: number }) | null;
+  focus: { writing: CriterionBand | null; speaking: CriterionBand | null };
+  bands: Record<PathSkill, { target: number; gate: number | null; practice: number | null; n: number }>;
+}
+
+export interface CriterionBand {
+  key: string;
+  name: string;
+  band: number;
+}
+
+export type ListeningCategory = 'spelling' | 'plural' | 'distractor' | 'misheard' | 'missed';
+
+export interface ErrorBook {
+  sessions: number;
+  listening: { questions: number; wrong: number; byCategory: Record<ListeningCategory, number>; examples: { prompt: string; answered: string; expected: string; category: ListeningCategory }[] };
+  reading: { questions: number; byType: { type: 'mcq' | 'tfng' | 'gap' | 'match'; correct: number; total: number }[] };
+  writing: { graded: number; criteria: CriterionBand[]; lowest: CriterionBand | null };
+  speaking: { graded: number; criteria: CriterionBand[]; lowest: CriterionBand | null };
 }
 
 type Bi = { en: string; vi: string };
@@ -211,6 +229,7 @@ export interface LessonView {
 }
 
 export const ieltsPathApi = {
+  errors: () => apiFetch<{ book: ErrorBook }>('/api/ielts-path/errors'),
   today: () => apiFetch<{ today: PathToday | null }>('/api/ielts-path/today'),
   ahead: () => apiFetch<{ today: PathToday }>('/api/ielts-path/ahead', { method: 'POST', json: {} }),
   lesson: (id: string) => apiFetch<LessonView>(`/api/ielts-path/steps/${id}`),

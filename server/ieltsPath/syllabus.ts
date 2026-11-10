@@ -9,11 +9,12 @@
  *   grammar   an existing grammar point
  *   words     new words at a level (the vocabulary screen)
  *   dictation the dictation screen
+ *   pronunciation the pronunciation screen (added when speaking practice shows weak pronunciation)
  */
 
 export const BLOCKS = ['vocab-grammar', 'listening', 'reading', 'writing', 'speaking'] as const;
 export type Block = (typeof BLOCKS)[number];
-export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation';
+export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation' | 'pronunciation';
 
 /** Kinds of practice exercise (see practice.ts for what each one makes) */
 export const PRACTICE_TYPES = [
