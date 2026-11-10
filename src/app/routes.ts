@@ -13,6 +13,9 @@ export const ROUTES = {
   ROADMAP_NEW: '/roadmap/new',
   ROADMAP_STAGE: '/roadmap/stage',
   PLACEMENT: '/placement',
+  /** IELTS path: overview with Gate 0; /ielts/start sets it up */
+  IELTS_PATH: '/ielts',
+  IELTS_PATH_START: '/ielts/start',
   CHECKPOINT: '/roadmap/checkpoint',
   PRACTICE: '/practice',
   ME: '/me',

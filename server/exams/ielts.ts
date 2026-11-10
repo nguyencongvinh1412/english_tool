@@ -7,7 +7,7 @@ import { recordWritingMistakes, sanitizeCorrections } from '../grammar/mistakes.
 import { and, eq, inArray, ne, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems, examSessions, users, type ContentItem, type ExamSession } from '../db/schema.js';
-import { normalizeAnswer, speakingFeedback, speakingIelts, writingFeedback, writingPrompt, type IeltsQuestion } from '../content/schemas.js';
+import { normalizeAnswer, speakingFeedback, speakingIeltsGate, writingFeedback, writingPrompt, type IeltsQuestion } from '../content/schemas.js';
 import { speakingScoringPrompt, writingScoringPrompt } from '../content/scoring.js';
 import { runAIJson, SCORING_MAX_TOKENS, SCORING_TIMEOUT_MS } from '../services/ai.js';
 import { recordAttempt } from '../services/progress.js';
@@ -294,7 +294,7 @@ export const essayId = (groupId: string) => `${groupId}:essay`;
  * Speaking questions in order with their answer ids
  */
 export function speakingQuestions(item: ContentItem): { id: string; question: string }[] {
-  const set = speakingIelts.parse(item.payload);
+  const set = speakingIeltsGate.parse(item.payload);
   return [
     ...set.part1.map((question, i) => ({ id: `${item.id}:p1-${i}`, question })),
     {
@@ -420,7 +420,7 @@ export async function gradeIeltsSession(sessionId: string, model?: string): Prom
         await save({ speaking: { ...speaking, status: 'done', band: 0, feedback: null } });
         return;
       }
-      const prompt = speakingScoringPrompt(speakingIelts.parse(item.payload), spoken, locale);
+      const prompt = speakingScoringPrompt(speakingIeltsGate.parse(item.payload), spoken, locale);
       const feedback = await runAIJson(
         user,
         { feature: 'score-speaking', model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: SCORING_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS },

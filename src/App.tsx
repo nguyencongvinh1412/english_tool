@@ -44,6 +44,8 @@ const RoadmapPage = lazyPage(() => import('@/features/roadmap/RoadmapPage'), 'Ro
 const CreateRoadmapPage = lazyPage(() => import('@/features/roadmap/CreateRoadmapPage'), 'CreateRoadmapPage');
 const StageDetailPage = lazyPage(() => import('@/features/roadmap/StageDetailPage'), 'StageDetailPage');
 const PlacementPage = lazyPage(() => import('@/features/placement/PlacementPage'), 'PlacementPage');
+const IeltsPathPage = lazyPage(() => import('@/features/ieltsPath/IeltsPathPage'), 'IeltsPathPage');
+const IeltsPathStartPage = lazyPage(() => import('@/features/ieltsPath/IeltsPathStartPage'), 'IeltsPathStartPage');
 const CheckpointPage = lazyPage(() => import('@/features/roadmap/CheckpointPage'), 'CheckpointPage');
 const PracticeHub = lazyPage(() => import('@/features/practice/PracticeHub'), 'PracticeHub');
 const MePage = lazyPage(() => import('@/features/me/MePage'), 'MePage');
@@ -109,6 +111,8 @@ export default function App(): React.JSX.Element {
                         <Route path={ROUTES.ROADMAP_NEW} element={<CreateRoadmapPage />} />
                         <Route path={`${ROUTES.ROADMAP_STAGE}/:index`} element={<StageDetailPage />} />
                         <Route path={`${ROUTES.CHECKPOINT}/:stage`} element={<CheckpointPage />} />
+                        <Route path={ROUTES.IELTS_PATH} element={<IeltsPathPage />} />
+                        <Route path={ROUTES.IELTS_PATH_START} element={<IeltsPathStartPage />} />
                         <Route path={`${ROUTES.PROGRESS}`} element={<RoadmapPage />} />
                         <Route path={ROUTES.PRACTICE} element={<PracticeHub />} />
                         <Route path={ROUTES.ME} element={<MePage />} />

@@ -5,9 +5,10 @@
  */
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { Banner, Button, Card, Modal, ProgressBar, Spinner, useToast } from '@/design';
+import { Banner, Button, Card, LinkButton, Modal, ProgressBar, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useCurrentUser } from '@/app/AuthProvider';
+import { ROUTES } from '@/app/routes';
 import { errorMessage } from '@/shared/http';
 import { essayId, groupAnswerIds, ieltsApi, type IeltsComponent, type IeltsGroup, type IeltsResult, type IeltsSession } from '@/shared/ieltsApi';
 import { BandFeedback } from '@/features/practice/BandFeedback';
@@ -360,6 +361,11 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
       <ResultBar title={`${t.ielts.resultTitle} · IELTS ${t.ielts.modeLabel[session.mode]}`} date={session.submittedAt ?? session.startedAt} />
 
       <main className="exam-result">
+        {session.mode === 'gate' && (
+          <Banner tone="info" action={<LinkButton to={ROUTES.IELTS_PATH} size="sm">{t.ieltsPath.backToPath}</LinkButton>}>
+            {t.ieltsPath.gateModeNote}
+          </Banner>
+        )}
         <Card padding="lg" className="result-score">
           <span className="result-score__label">{t.ielts.overall}</span>
           {result.overall !== null ? (

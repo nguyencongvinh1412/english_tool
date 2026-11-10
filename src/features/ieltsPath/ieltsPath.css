@@ -1,0 +1,151 @@
+.ipath {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ipath__head h1 {
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.ipath__goal {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.ipath__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.ipath__col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.ipath__skills {
+  display: flex;
+  flex-direction: column;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ipath__skill {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.ipath__skill:first-child {
+  border-top: 0;
+}
+
+.ipath__skill-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.ipath__skill-state {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ipath__skill-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ipath__band {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+}
+
+.ipath__table {
+  width: 100%;
+  margin: 0.75rem 0;
+  border-collapse: collapse;
+}
+
+.ipath__table th,
+.ipath__table td {
+  padding: 0.5rem 0.25rem;
+  text-align: left;
+  border-top: 1px solid var(--border);
+}
+
+.ipath__table thead th {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  border-top: 0;
+}
+
+.ipath__plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ipath__plan > .tag {
+  align-self: flex-start;
+}
+
+.ipath__phase {
+  font-weight: 700;
+}
+
+.ipath__phases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ipath__phases li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-2, var(--surface-3));
+  border-radius: var(--radius);
+}
+
+.ipath__overall {
+  font-weight: 700;
+  color: var(--brand-text);
+}
+
+.ipath__overall--bad {
+  color: var(--text);
+}
+
+.ipath__form select,
+.ipath__form input[type='date'] {
+  max-width: 16rem;
+}
+
+@media (min-width: 640px) {
+  .ipath__skill {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .ipath__head h1 {
+    font-size: 1.75rem;
+  }
+
+  .ipath__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}

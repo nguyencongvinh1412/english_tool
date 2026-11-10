@@ -132,6 +132,11 @@ export const CreateRoadmapPage: React.FC = () => {
                   </button>
                 ))}
               </div>
+              {goalType === 'ielts' && (
+                <Banner tone="info" action={<Link to={ROUTES.IELTS_PATH_START} className="stage__more">{t.ieltsPath.emptyAction}</Link>}>
+                  {t.ieltsPath.emptyBody}
+                </Banner>
+              )}
               {usesScore ? (
                 <Field label={t.roadmapNew.scoreLabel[goalType as 'toeic' | 'ielts']} error={score !== '' && !scoreOk ? t.roadmapNew.needScore : undefined}>
                   {(id, describedBy) => <TextInput id={id} aria-describedby={describedBy} inputMode="decimal" value={score} onChange={(e) => setScore(e.target.value)} />}

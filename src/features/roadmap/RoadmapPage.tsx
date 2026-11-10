@@ -98,9 +98,17 @@ const RoadmapTab: React.FC = () => {
   if (!data) return <Skeleton height={160} label={t.common.loading} />;
   if (!hasRoadmap(data))
     return (
-      <EmptyState icon="roadmap" title={r.emptyTitle} action={<LinkButton to={ROUTES.ROADMAP_NEW}>{r.emptyAction}</LinkButton>}>
-        {r.emptyBody}
-      </EmptyState>
+      <>
+        <EmptyState icon="roadmap" title={r.emptyTitle} action={<LinkButton to={ROUTES.ROADMAP_NEW}>{r.emptyAction}</LinkButton>}>
+          {r.emptyBody}
+        </EmptyState>
+        {user.studyLanguage === 'en' && (
+          <Link to={ROUTES.IELTS_PATH} className="goal-done__next">
+            <strong>{t.ieltsPath.title}</strong>
+            <span>{t.ieltsPath.emptyBody}</span>
+          </Link>
+        )}
+      </>
     );
 
   const { roadmap, progress, checkpoint } = data;

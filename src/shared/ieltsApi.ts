@@ -8,7 +8,7 @@ import type { ScriptLine } from './examApi';
 
 export type IeltsComponent = 'listening' | 'reading' | 'writing' | 'speaking';
 export type IeltsPart = 'listening' | 'reading' | 'writing-task1' | 'writing-task2' | 'speaking';
-export type IeltsMode = 'mini' | 'part' | 'full';
+export type IeltsMode = 'mini' | 'part' | 'full' | 'gate';
 export type IeltsSlot = 'listening-1' | 'listening-2' | 'listening-3' | 'listening-4' | 'reading' | 'writing-task1' | 'writing-task2' | 'speaking';
 
 export const IELTS_COMPONENTS: IeltsComponent[] = ['listening', 'reading', 'writing', 'speaking'];

@@ -80,6 +80,9 @@ export const speakingIelts = z.object({
   part3: z.array(text(250)).min(2).max(4),
 });
 
+/** Gate speaking tests may leave out Part 3 (Gate 0 and Gate 1 are Part 1 and Part 2 only) */
+export const speakingIeltsGate = speakingIelts.extend({ part3: z.array(text(250)).max(4) });
+
 const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite()) });
 
 export const writingChart = z

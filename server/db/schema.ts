@@ -732,8 +732,10 @@ export const skillLevels = pgTable(
     level: text('level').notNull(),
     /** low | medium | high */
     confidence: text('confidence').notNull(),
-    /** placement | manual */
+    /** placement | manual | gate */
     source: text('source').notNull(),
+    /** IELTS band (0-9) when the level comes from an IELTS gate; null for CEFR-only measures */
+    band: real('band'),
     measuredAt: timestamp('measured_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [primaryKey({ columns: [table.userId, table.language, table.skill] })]
@@ -1033,3 +1035,73 @@ export const skillUnitProgress = pgTable(
   },
   (table) => [primaryKey({ columns: [table.userId, table.unitId] })]
 );
+
+/**
+ * A learner's IELTS Path: band targets per skill, exam date and daily time. The syllabus position and the
+ * phases come from the gates (Gate 0 sets the starting phase). One active path per learner.
+ */
+export const ieltsPaths = pgTable(
+  'ielts_paths',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** active | archived */
+    status: text('status').notNull().default('active'),
+    /** { listening, reading, writing, speaking } bands */
+    bandTargets: jsonb('band_targets').notNull(),
+    examDate: date('exam_date'),
+    dailyMinutes: integer('daily_minutes').notNull(),
+    /** Weekdays with no study, 0 = Sunday */
+    restDays: jsonb('rest_days').notNull().default([]),
+    /** Phase (1-6) the learner starts in, set when Gate 0 is finished; 7 = already past the last gate */
+    startPhase: integer('start_phase'),
+    /** Last phase the target needs (1-6) */
+    endPhase: integer('end_phase').notNull(),
+    /** Day the syllabus starts (the day Gate 0 was finished) */
+    startDate: date('start_date'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('ielts_paths_user_idx').on(table.userId, table.status)]
+);
+
+/**
+ * One try at an IELTS Path gate. Each skill is its own IELTS exam session (so the usual test screens and AI grading
+ * are reused); the gate is finished once every required skill is submitted and graded.
+ */
+export const gateAttempts = pgTable(
+  'gate_attempts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    pathId: uuid('path_id')
+      .notNull()
+      .references(() => ieltsPaths.id, { onDelete: 'cascade' }),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** 0-6 */
+    gate: integer('gate').notNull(),
+    /** A (first try) or B (retake) */
+    version: text('version').notNull().default('A'),
+    /** Exam session id per skill: { listening?: id, ... } */
+    sessions: jsonb('sessions').notNull().default({}),
+    /** Optional skills the learner chose to skip (Gate 0 writing / speaking) */
+    skipped: jsonb('skipped').notNull().default([]),
+    /** Final band per skill (null = not measured) */
+    bands: jsonb('bands'),
+    /** Bands entered by a teacher, overriding the AI's */
+    manualBands: jsonb('manual_bands').notNull().default({}),
+    /** pass | conditional | fail (null for Gate 0, which only measures) */
+    outcome: text('outcome'),
+    /** in_progress | finished */
+    status: text('status').notNull().default('in_progress'),
+    startedAt: timestamp('started_at', { withTimezone: true }).notNull().defaultNow(),
+    finishedAt: timestamp('finished_at', { withTimezone: true }),
+  },
+  (table) => [index('gate_attempts_path_idx').on(table.pathId, table.gate)]
+);
+
+export type IeltsPath = typeof ieltsPaths.$inferSelect;
+export type GateAttempt = typeof gateAttempts.$inferSelect;
