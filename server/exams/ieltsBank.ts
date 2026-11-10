@@ -8,7 +8,7 @@ import { db } from '../db/client.js';
 import { contentItems, type ContentItem, type User } from '../db/schema.js';
 import { buildGenerationPrompt } from '../content/generators.js';
 import { CONTENT_KINDS, contentTitle, ieltsListening, ieltsReading, type CefrLevel, type IeltsQuestion } from '../content/schemas.js';
-import { runAIJson } from '../services/ai.js';
+import { runAIJson, SCORING_MAX_TOKENS } from '../services/ai.js';
 import { HttpError } from '../http/errors.js';
 import { isCorrect, TFNG_VALUES, type IeltsSlot } from './ielts.js';
 
@@ -212,7 +212,7 @@ export async function generateIeltsGroup(user: User, slot: IeltsSlot, level: Cef
     for (let round = 1; round <= MAX_GENERATION_ROUNDS && payload === null; round++) {
       const candidate = await runAIJson(
         user,
-        { feature, model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: IELTS_GENERATE_TIMEOUT_MS },
+        { feature, model, system: prompt.system, messages: [{ role: 'user', content: prompt.user }], timeoutMs: IELTS_GENERATE_TIMEOUT_MS, maxTokens: SCORING_MAX_TOKENS },
         schema
       );
       if (kind === 'ielts-listening' && (candidate as { section: number }).section !== Number(slot.slice(-1))) continue;

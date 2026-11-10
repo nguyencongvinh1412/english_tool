@@ -107,8 +107,11 @@ const MAX_TEXT_ANSWER = 8000;
 /** IELTS groups are long to generate, so only a couple are made on the spot */
 const IELTS_ON_DEMAND_LIMIT = 2;
 
+/** Highest option index an answer can hold: matching questions have up to eight options (A-H) */
+const MAX_OPTION_INDEX = 7;
+
 const saveSchema = z.object({
-  answers: z.record(z.string().max(120), z.union([z.number().int().min(0).max(3), z.string().max(MAX_TEXT_ANSWER)]).nullable()).optional(),
+  answers: z.record(z.string().max(120), z.union([z.number().int().min(0).max(MAX_OPTION_INDEX), z.string().max(MAX_TEXT_ANSWER)]).nullable()).optional(),
   flags: z.array(z.string().max(120)).max(250).optional(),
 });
 

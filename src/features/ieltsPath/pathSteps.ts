@@ -40,3 +40,6 @@ export function stepTitle(step: PathStep, t: Messages, locale: 'en' | 'vi', poin
       return s.dictationTitle;
   }
 }
+
+/** Extra steps added after a gate carry their own label and reason */
+export const stepKindKey = (step: PathStep): string => (step.ref.remedial ? 'remedial' : step.ref.buffer ? 'buffer' : step.kind);

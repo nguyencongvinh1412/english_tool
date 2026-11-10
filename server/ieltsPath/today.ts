@@ -12,21 +12,36 @@ import { addDays, overallOf, type Bands } from './bands.js';
 import { loadLesson, type PathLessonContent } from './lessons.js';
 import { practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
+import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
 import { LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
 
 const PACE_WINDOW_DAYS = 14;
 const dayOf = (date: Date | null) => (date ? quotaDay(date) : null);
 
-/** The syllabus the path starts with is stored once, in order, with the day each step is due */
+/**
+ * The syllabus of each written phase from the starting phase to the one the learner works on is stored once, in order,
+ * with the day each step is due. A phase is added when the gate before it is cleared.
+ */
 export async function ensureSteps(path: IeltsPath): Promise<number> {
-  if (path.startPhase === null || !path.startDate || !WRITTEN_PHASES.includes(path.startPhase)) return 0;
-  const [existing] = await db.select({ n: sql<number>`count(*)::int` }).from(pathLessons).where(eq(pathLessons.pathId, path.id));
-  if (existing.n > 0) return 0;
-  const steps = phaseSteps(path.startPhase);
-  const days = assignDays(steps.map((s) => s.minutes), path.startDate, path.dailyMinutes, path.restDays as number[]);
-  const rows = steps.map((s, i) => ({ pathId: path.id, userId: path.userId, seq: i, phase: s.phase, week: s.week, studyDay: s.day, block: s.block, kind: s.kind, ref: s.ref, core: s.core, minutes: s.minutes, plannedDay: days[i] }));
-  for (let i = 0; i < rows.length; i += 100) await db.insert(pathLessons).values(rows.slice(i, i + 100)).onConflictDoNothing();
-  return rows.length;
+  if (path.startPhase === null || !path.startDate) return 0;
+  const upTo = await nextGate(path);
+  let added = 0;
+  for (let phase = path.startPhase; phase <= upTo; phase++) {
+    if (!WRITTEN_PHASES.includes(phase)) continue;
+    const [seeded] = await db
+      .select({ n: sql<number>`count(*)::int` })
+      .from(pathLessons)
+      .where(and(eq(pathLessons.pathId, path.id), eq(pathLessons.phase, phase), sql`${pathLessons.ref}->>'remedial' is null`, sql`${pathLessons.ref}->>'buffer' is null`));
+    if (seeded.n > 0) continue;
+    const [last] = await db.select({ seq: sql<number | null>`max(${pathLessons.seq})` }).from(pathLessons).where(eq(pathLessons.pathId, path.id));
+    const first = (last?.seq ?? -1) + 1;
+    const steps = phaseSteps(phase);
+    const days = assignDays(steps.map((s) => s.minutes), phase === path.startPhase ? path.startDate : quotaDay(), path.dailyMinutes, path.restDays as number[]);
+    const rows = steps.map((s, i) => ({ pathId: path.id, userId: path.userId, seq: first + i, phase: s.phase, week: s.week, studyDay: s.day, block: s.block, kind: s.kind, ref: s.ref, core: s.core, minutes: s.minutes, plannedDay: days[i] }));
+    for (let k = 0; k < rows.length; k += 100) await db.insert(pathLessons).values(rows.slice(k, k + 100)).onConflictDoNothing();
+    added += rows.length;
+  }
+  return added;
 }
 
 /** Whether the learner has a syllabus running (Today then leaves the generic skill tasks to it) */
@@ -131,7 +146,23 @@ const viewOf = (row: PathLesson, today: string): StepView => {
   };
 };
 
-export type PathTodayMode = 'syllabus' | 'unwritten' | 'complete';
+/** syllabus: steps to do; gate: the phase's steps are done and its gate is next; unwritten: no lessons for the phase yet; complete: every gate is cleared */
+export type PathTodayMode = 'syllabus' | 'gate' | 'unwritten' | 'complete';
+
+/** The gate the learner works towards, and the retest of an earlier one when it is waiting */
+export interface TodayGate {
+  gate: number;
+  status: GateView['status'];
+  version: GateView['version'];
+  /** Why the gate cannot be started now (null: it can) */
+  startBlock: GateView['startBlock'];
+  stopped: boolean;
+  /** Steps of the phase still to do before the gate opens */
+  stepsLeft: boolean;
+}
+export interface TodayRetest extends RetestView {
+  gate: number;
+}
 
 export interface PathTodayView {
   mode: PathTodayMode;
@@ -152,6 +183,8 @@ export interface PathTodayView {
   /** Expected end of the written part of the syllabus at the learner's real pace */
   eta: { from: string; to: string } | null;
   paceMinutes: number;
+  gate: TodayGate | null;
+  retest: TodayRetest | null;
 }
 
 /**
@@ -162,10 +195,9 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
   const overallTarget = overallOf(path.bandTargets as Bands);
   const empty = (mode: PathTodayMode): PathTodayView => ({
     mode, overallTarget, position: null, restDay: false, dailyMinutes, capacityMinutes: dailyMinutes, plannedMinutes: 0, doneMinutes: 0, steps: [], behind: { steps: 0, minutes: 0, days: 0, alert: false }, canAhead: false,
-    progress: { done: 0, total: 0, remainingMinutes: 0 }, eta: null, paceMinutes: dailyMinutes,
+    progress: { done: 0, total: 0, remainingMinutes: 0 }, eta: null, paceMinutes: dailyMinutes, gate: null, retest: null,
   });
   if (path.startPhase === null || !path.startDate) return empty('unwritten');
-  if (!WRITTEN_PHASES.includes(path.startPhase)) return empty('unwritten');
 
   await ensureSteps(path);
   await syncDone(path);
@@ -191,8 +223,22 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
   const pace = paceOf(byDay, dailyMinutes);
   const remainingMinutes = todo.reduce((n, q) => n + q.minutes, 0);
 
+  // The gate the learner works towards, and a retest of the gate before it when one is waiting
+  const next = await nextGate(path);
+  const open = next >= 1 && next <= 6 && next <= path.endPhase;
+  const gateInfo = open ? await gateView(path, next) : null;
+  let retest: TodayRetest | null = null;
+  const cleared = await clearedGate(path);
+  if (cleared >= 1 && cleared >= path.startPhase) {
+    const earlier = await gateView(path, cleared);
+    if (earlier.retest && earlier.retest.status !== 'done') retest = { ...earlier.retest, gate: cleared };
+  }
+  const mode: PathTodayMode = todo.length > 0 ? 'syllabus' : !open ? 'complete' : phaseSteps(next).length === 0 ? 'unwritten' : 'gate';
+
   return {
-    mode: todo.length === 0 ? 'complete' : 'syllabus',
+    mode,
+    gate: gateInfo ? { gate: next, status: gateInfo.status, version: gateInfo.version, startBlock: gateInfo.startBlock, stopped: gateInfo.stopped, stepsLeft: gateInfo.startBlock === 'steps-left' } : null,
+    retest,
     overallTarget,
     position: first ? { phase: first.phase, week: first.week, day: first.studyDay } : null,
     restDay,

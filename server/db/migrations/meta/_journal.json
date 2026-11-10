@@ -225,6 +225,13 @@
       "when": 1794290200795,
       "tag": "0031_path_lessons",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1794296428631,
+      "tag": "0032_gate_rules",
+      "breakpoints": true
     }
   ]
 }

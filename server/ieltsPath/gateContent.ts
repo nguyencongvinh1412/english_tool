@@ -8,7 +8,9 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { contentItems } from '../db/schema.js';
-import { contentTitle, ieltsListening, ieltsReading, speakingIeltsGate, writingPrompt } from '../content/schemas.js';
+import { contentTitle, speakingIeltsGate, writingPrompt } from '../content/schemas.js';
+import { pathListening, pathReading, type PoolType } from './practice.js';
+import { GATE_LR_GROUPS, GATE_WS_GROUPS } from './gateData.js';
 import type { PathSkill } from './bands.js';
 
 export interface GateGroup {
@@ -17,16 +19,6 @@ export interface GateGroup {
   skill: PathSkill;
   level: string;
   payload: unknown;
-}
-
-export interface GateDefinition {
-  gate: number;
-  /** Skills the learner may skip */
-  optional: PathSkill[];
-  /** Group ids per skill, in test order */
-  groups: Record<PathSkill, string[]>;
-  /** Minutes per skill */
-  minutes: Record<PathSkill, number>;
 }
 
 const gap = (prompt: string, answers: string[], explanation: string, wordLimit = 1) => ({ type: 'gap' as const, prompt, answers, wordLimit, explanation });
@@ -251,23 +243,68 @@ const GATE0_GROUPS: GateGroup[] = [
   },
 ];
 
+
+/** Where the groups of one skill of a gate come from: fixed groups, or unseen groups drawn from the generated pool */
+export type GroupSource = string[] | { pool: PoolType[] };
+
+export interface GateDefinition {
+  gate: number;
+  /** Skills the learner may skip */
+  optional: PathSkill[];
+  /** Version A is the first try, version B every retake */
+  versions: Record<'A' | 'B', Record<PathSkill, GroupSource>>;
+  /** Minutes per skill */
+  minutes: Record<PathSkill, number>;
+}
+
+const written = (gate: number, version: 'A' | 'B') => ({
+  writing: [`gate-${gate}-${version}-writing-1`, `gate-${gate}-${version}-writing-2`],
+  speaking: [`gate-${gate}-${version}-speaking`],
+});
+
+const gate0Groups: Record<PathSkill, string[]> = {
+  listening: ['gate-0-listening-1', 'gate-0-listening-2'],
+  reading: ['gate-0-reading-1', 'gate-0-reading-2'],
+  writing: ['gate-0-writing-1', 'gate-0-writing-2'],
+  speaking: ['gate-0-speaking'],
+};
+
+/** Retake (version B) of listening and reading in Gates 1-4: the same kind of exercise, newly made */
+const RETAKE_POOLS: Record<number, { listening: PoolType[]; reading: PoolType[] }> = {
+  1: { listening: ['l-form'], reading: ['r-tfng'] },
+  2: { listening: ['l-mono'], reading: ['r-scan'] },
+  3: { listening: ['l-sec3'], reading: ['r-passage'] },
+  4: { listening: ['l-sec4'], reading: ['r-passage'] },
+};
+const FULL_TEST: { listening: PoolType[]; reading: PoolType[] } = { listening: ['g-l1', 'g-l2', 'g-l3', 'g-l4'], reading: ['g-r', 'g-r', 'g-r'] };
+
+const defineGate = (gate: number): GateDefinition => {
+  const full = gate >= 5;
+  const shortWriting = gate <= 1 ? 50 : 60;
+  return {
+    gate,
+    optional: [],
+    versions: {
+      A: { listening: full ? { pool: FULL_TEST.listening } : [`gate-${gate}-listening`], reading: full ? { pool: FULL_TEST.reading } : [`gate-${gate}-reading`], ...written(gate, 'A') },
+      B: { listening: { pool: full ? FULL_TEST.listening : RETAKE_POOLS[gate].listening }, reading: { pool: full ? FULL_TEST.reading : RETAKE_POOLS[gate].reading }, ...written(gate, 'B') },
+    },
+    minutes: { listening: full ? 40 : 20, reading: full ? 60 : 25, writing: full ? 60 : shortWriting, speaking: gate <= 1 ? 10 : 15 },
+  };
+};
+
 export const GATES: Record<number, GateDefinition> = {
   0: {
     gate: 0,
     optional: ['writing', 'speaking'],
-    groups: {
-      listening: ['gate-0-listening-1', 'gate-0-listening-2'],
-      reading: ['gate-0-reading-1', 'gate-0-reading-2'],
-      writing: ['gate-0-writing-1', 'gate-0-writing-2'],
-      speaking: ['gate-0-speaking'],
-    },
+    versions: { A: gate0Groups, B: gate0Groups },
     minutes: { listening: 30, reading: 45, writing: 50, speaking: 10 },
   },
+  ...Object.fromEntries([1, 2, 3, 4, 5, 6].map((gate) => [gate, defineGate(gate)])),
 };
 
-export const GATE_GROUPS: GateGroup[] = [...GATE0_GROUPS];
+export const GATE_GROUPS: GateGroup[] = [...GATE0_GROUPS, ...GATE_LR_GROUPS, ...GATE_WS_GROUPS];
 
-const SCHEMAS = { 'ielts-listening': ieltsListening, 'ielts-reading': ieltsReading, 'writing-prompt': writingPrompt, 'speaking-ielts': speakingIeltsGate } as const;
+const SCHEMAS = { 'ielts-listening': pathListening, 'ielts-reading': pathReading, 'writing-prompt': writingPrompt, 'speaking-ielts': speakingIeltsGate } as const;
 
 /** Validates a gate group against the schema of its kind */
 export const parseGateGroup = (group: GateGroup) => SCHEMAS[group.kind].parse(group.payload);

@@ -6,15 +6,16 @@
  */
 import type React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Banner, Button, Card, ProgressBar, TaskCard } from '@/design';
+import { Link, useNavigate } from 'react-router-dom';
+import { Banner, Button, Card, LinkButton, ProgressBar, TaskCard } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
+import { examPath } from '@/features/exams/examRoutes';
 import { formatRange } from '@/shared/roadmapApi';
 import { ieltsPathApi, type PathToday as PathTodayData } from '@/shared/ieltsPathApi';
 import { fromToday } from '@/features/today/todayTasks';
-import { stepLink, stepTitle, stepTone } from './pathSteps';
+import { stepKindKey, stepLink, stepTitle, stepTone } from './pathSteps';
 import './ieltsPath.css';
 
 const percent = (part: number, whole: number) => (whole > 0 ? Math.min(100, Math.round((part / whole) * 100)) : 0);
@@ -22,11 +23,11 @@ const percent = (part: number, whole: number) => (whole > 0 ? Math.min(100, Math
 export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathTodayData) => void }> = ({ today, onChange }) => {
   const { t, locale } = useI18n();
   const titles = useGrammarTitles();
+  const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const s = t.ieltsPath.study;
   const pointTitle = (id: string) => titles.get(id)?.[locale] ?? id;
 
-  if (today.mode === 'unwritten') return <Banner tone="info">{s.unwritten}</Banner>;
 
   const ahead = async () => {
     setBusy(true);
@@ -37,6 +38,18 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
     }
   };
 
+  const openRetest = async () => {
+    if (!today.retest) return;
+    setBusy(true);
+    try {
+      const { sessionId } = await ieltsPathApi.startRetest(today.retest.gate);
+      navigate(examPath(sessionId));
+    } finally {
+      setBusy(false);
+    }
+  };
+  const gate = today.gate;
+  const showGate = gate !== null && (today.mode === 'gate' || today.mode === 'unwritten') && gate.startBlock !== 'earlier-gate';
   const allDone = today.steps.length > 0 && today.steps.every((step) => step.done);
 
   return (
@@ -55,6 +68,24 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
       </Card>
 
       {today.mode === 'complete' && <Banner tone="success">{s.complete}</Banner>}
+      {today.mode === 'unwritten' && !gate && <Banner tone="info">{s.unwritten}</Banner>}
+      {today.retest && today.retest.status !== 'locked' && today.retest.status !== 'done' && (
+        <Card padding="lg" className="pathtoday__gate">
+          <strong>{s.gate.retestTitle(t.ielts.components[today.retest.skill])}</strong>
+          <span className="create__muted">{s.gate.retestDue}</span>
+          <Button onClick={() => void openRetest()} loading={busy} disabled={busy}>
+            {s.gate.retestOpen}
+          </Button>
+        </Card>
+      )}
+      {showGate && gate && (
+        <Card padding="lg" className="pathtoday__gate">
+          <strong>{gate.status === 'finished' ? s.gate.retakeTitle(gate.gate) : s.gate.title(gate.gate)}</strong>
+          <span className="create__muted">{today.mode === 'unwritten' ? s.gate.unwritten : s.gate.ready}</span>
+          {gate.stopped ? <Banner tone="warning">{s.gate.stopped}</Banner> : null}
+          <LinkButton to={ROUTES.IELTS_PATH}>{gate.status === 'in_progress' ? s.gate.resume : s.gate.open}</LinkButton>
+        </Card>
+      )}
       {today.restDay && today.mode === 'syllabus' && <Banner tone="info">{s.restDay}</Banner>}
       {today.behind.alert && (
         <Banner
@@ -76,10 +107,10 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
             key={step.id}
             to={fromToday(stepLink(step), step.minutes)}
             tone={stepTone(step)}
-            kind={`${s.blocks[step.block]} · ${s.kinds[step.kind]}`}
+            kind={`${s.blocks[step.block]} · ${s.kinds[stepKindKey(step)]}`}
             meta={t.today.minutes(step.minutes)}
             title={stepTitle(step, t, locale, pointTitle)}
-            why={s.whys[step.kind]}
+            why={s.whys[stepKindKey(step)]}
             done={step.done}
             doneLabel={t.today.doneTitle}
             todoLabel={t.today.minutes(step.minutes)}

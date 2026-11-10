@@ -192,3 +192,87 @@
   padding: 3rem 0;
   text-align: center;
 }
+
+.ipath__gate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ipath__gate-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ipath__gate-head h2 {
+  margin-right: 0.25rem;
+}
+
+.ipath__result,
+.ipath__retest,
+.ipath__decision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  background: var(--surface-2, var(--surface-3));
+  border-radius: var(--radius);
+}
+
+.ipath__result .tag {
+  align-self: flex-start;
+}
+
+.ipath__result .ipath__table {
+  width: 100%;
+}
+
+.ipath__decision-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ipath__teacher-box {
+  width: 100%;
+}
+
+.ipath__teacher-box summary {
+  min-height: 44px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ipath__teacher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-end;
+  margin-top: 0.5rem;
+}
+
+.ipath__history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ipath__history li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pathtoday__gate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}

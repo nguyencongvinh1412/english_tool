@@ -24,15 +24,54 @@ export interface GateSkill {
   status: SkillStatus;
   sessionId: string | null;
   band: number | null;
+  /** The band came from a teacher */
+  manual: boolean;
   correct: number | null;
   total: number | null;
 }
 
+export type Outcome = 'pass' | 'conditional' | 'fail';
+export type StartBlock = 'earlier-gate' | 'steps-left' | 'stopped' | 'cleared' | 'in-progress-elsewhere';
+
+export interface Evaluation {
+  outcome: Outcome;
+  skills: { skill: PathSkill; band: number; target: number; short: number }[];
+  weak: PathSkill[];
+}
+
+export interface RetestView {
+  skill: PathSkill;
+  status: 'locked' | 'due' | 'in_progress' | 'grading' | 'failed' | 'done';
+  availableFrom: string;
+  sessionId: string | null;
+  band: number | null;
+}
+
+export type GateDecision =
+  | { kind: 'move-exam'; from: string | null; earliest: string; latest: string; choice: 'accept' | 'decline' | null }
+  | { kind: 'lower-target'; overall: number; choice: 'accept' | 'decline' | null };
+
 export interface GateView {
   gate: number;
   attemptId: string | null;
+  version: 'A' | 'B';
+  tries: number;
   status: 'not_started' | 'in_progress' | 'finished';
   skills: GateSkill[];
+  bands: MeasuredBands | null;
+  finishedAt: string | null;
+  evaluation: Evaluation | null;
+  outcome: Outcome | null;
+  retest: RetestView | null;
+  decision: GateDecision | null;
+  startBlock: StartBlock | null;
+  stopped: boolean;
+}
+
+export interface GateHistoryRow {
+  gate: number;
+  outcome: Outcome | 'open' | null;
+  tries: number;
   bands: MeasuredBands | null;
   finishedAt: string | null;
 }
@@ -61,6 +100,14 @@ export interface PathView {
   startDate: string | null;
   gate0: GateView;
   plan: PathPlan | null;
+  /** The gate worked towards (null before Gate 0 is finished; past the end phase once all are cleared) */
+  nextGate: number | null;
+  cleared: number | null;
+  /** The gate just cleared, while its retest or decision is waiting */
+  previous: GateView | null;
+  /** The open gate (1-6) */
+  gate: GateView | null;
+  history: GateHistoryRow[];
 }
 
 export interface PathInput {
@@ -108,7 +155,7 @@ export interface PathStep {
   day: number;
   block: StepBlock;
   kind: StepKind;
-  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string };
+  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string; remedial?: number; buffer?: number };
   minutes: number;
   core: boolean;
   done: boolean;
@@ -117,8 +164,17 @@ export interface PathStep {
   sessionId: string | null;
 }
 
+export interface TodayGate {
+  gate: number;
+  status: GateView['status'];
+  version: 'A' | 'B';
+  startBlock: StartBlock | null;
+  stopped: boolean;
+  stepsLeft: boolean;
+}
+
 export interface PathToday {
-  mode: 'syllabus' | 'unwritten' | 'complete';
+  mode: 'syllabus' | 'gate' | 'unwritten' | 'complete';
   overallTarget: number;
   position: { phase: number; week: number; day: number } | null;
   restDay: boolean;
@@ -132,6 +188,8 @@ export interface PathToday {
   progress: { done: number; total: number; remainingMinutes: number };
   eta: { from: string; to: string } | null;
   paceMinutes: number;
+  gate: TodayGate | null;
+  retest: (RetestView & { gate: number }) | null;
 }
 
 type Bi = { en: string; vi: string };
@@ -164,5 +222,9 @@ export const ieltsPathApi = {
   remove: () => apiFetch<void>('/api/ielts-path', { method: 'DELETE' }),
   gate: (gate: number) => apiFetch<{ gate: GateView }>(`/api/ielts-path/gates/${gate}`),
   startSkill: (gate: number, skill: PathSkill) => apiFetch<{ sessionId: string }>(`/api/ielts-path/gates/${gate}/skills/${skill}/start`, { method: 'POST', json: {} }),
+  startRetest: (gate: number) => apiFetch<{ sessionId: string }>(`/api/ielts-path/gates/${gate}/retest`, { method: 'POST', json: {} }),
+  setManualBand: (gate: number, skill: 'writing' | 'speaking', band: number | null) => apiFetch<{ gate: GateView }>(`/api/ielts-path/gates/${gate}/manual`, { method: 'POST', json: { skill, band } }),
+  decide: (gate: number, choice: 'accept' | 'decline') => apiFetch<{ path: PathView }>(`/api/ielts-path/gates/${gate}/decision`, { method: 'POST', json: { choice } }),
+  replan: (change: Partial<Omit<PathInput, 'bandTargets'>> = {}) => apiFetch<{ path: PathView }>('/api/ielts-path/replan', { method: 'POST', json: change }),
   skipSkill: (gate: number, skill: PathSkill, skipped: boolean) => apiFetch<{ gate: GateView }>(`/api/ielts-path/gates/${gate}/skills/${skill}/skip`, { method: 'POST', json: { skipped } }),
 };

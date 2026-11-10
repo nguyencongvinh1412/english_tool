@@ -45,7 +45,8 @@ function sharedOptionsOf(questions: IeltsQuestion[], block: { type: IeltsQuestio
   const first = questions[block.start];
   if (first.type !== 'match') return null;
   const same = questions.slice(block.start, block.end + 1).every((q) => q.type === 'match' && q.options.join('|') === first.options.join('|'));
-  return same ? first.options : null;
+  // A short list (Yes / No / Not Given, A-B-C) reads better as the usual radio buttons
+  return same && first.options.length >= 4 ? first.options : null;
 }
 
 /**

@@ -1064,6 +1064,8 @@ export const ieltsPaths = pgTable(
     /** Learn ahead: extra minutes the learner asked for on this day (only counts on that day) */
     aheadDay: date('ahead_day'),
     aheadMinutes: integer('ahead_minutes').notNull().default(0),
+    /** The learner made a new plan after failing a gate twice: earlier fails no longer count */
+    replannedAt: timestamp('replanned_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -1098,6 +1100,10 @@ export const gateAttempts = pgTable(
     manualBands: jsonb('manual_bands').notNull().default({}),
     /** pass | conditional | fail (null for Gate 0, which only measures) */
     outcome: text('outcome'),
+    /** Set on a retest: the one skill retaken (version B) after a conditional pass */
+    retestSkill: text('retest_skill'),
+    /** What the learner chose after Gate 3 or 4: { kind, choice } */
+    decision: jsonb('decision'),
     /** in_progress | finished */
     status: text('status').notNull().default('in_progress'),
     startedAt: timestamp('started_at', { withTimezone: true }).notNull().defaultNow(),

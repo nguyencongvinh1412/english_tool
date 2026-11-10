@@ -30,7 +30,8 @@
     "en:vocab-data": "tsx server/scripts/buildEnVocab.ts",
     "grammar:draft": "tsx server/scripts/draftGrammar.ts",
     "units:draft": "tsx server/scripts/draftUnits.ts",
-    "ielts:fill": "tsx server/scripts/fillIeltsPractice.ts"
+    "ielts:fill": "tsx server/scripts/fillIeltsPractice.ts",
+    "ielts:fill-gates": "tsx server/scripts/fillIeltsPractice.ts --gates"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

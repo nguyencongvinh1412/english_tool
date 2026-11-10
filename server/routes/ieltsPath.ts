@@ -7,7 +7,8 @@ import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js
 import { HttpError } from '../http/errors.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { MAX_DAILY_MINUTES, MAX_OVERALL_TARGET, MIN_DAILY_MINUTES, MIN_OVERALL_TARGET, overallOf, PATH_SKILLS, type PathSkill } from '../ieltsPath/bands.js';
-import { activePath, archivePath, createPath, gateView, pathView, setSkillSkipped, startGateSkill, updatePath } from '../ieltsPath/service.js';
+import { activePath, archivePath, createPath, pathView, updatePath } from '../ieltsPath/service.js';
+import { applyDecision, gateView, replan, setManualBand, setSkillSkipped, startGateSkill, startRetest } from '../ieltsPath/gates.js';
 import { completeLesson, learnAhead, lessonOf, pathToday, startPractice, stepOf } from '../ieltsPath/today.js';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a date like 2027-05-10');
@@ -89,6 +90,40 @@ export function createIeltsPathRouter(): Router {
     const gate = gateParam.parse(req.params.gate);
     await setSkillSkipped(path, gate, skillParam.parse(req.params.skill) as PathSkill, skipped);
     res.json({ gate: await gateView(path, gate) });
+  });
+
+  /** POST /ielts-path/gates/:gate/retest - Open the retest (version B) of the one skill that was half a band short */
+  router.post('/ielts-path/gates/:gate/retest', requireAuth, async (req, res) => {
+    const user = currentUser(req);
+    const path = await requirePath(user.id);
+    res.status(201).json({ sessionId: await startRetest(user, path, gateParam.parse(req.params.gate)) });
+  });
+
+  /** POST /ielts-path/gates/:gate/manual - A teacher's band for writing or speaking ({ band: null } takes it back) */
+  router.post('/ielts-path/gates/:gate/manual', requireAuth, async (req, res) => {
+    const body = z.object({ skill: z.enum(['writing', 'speaking']), band: band.nullable() }).parse(req.body);
+    const path = await requirePath(currentUser(req).id);
+    const gate = gateParam.parse(req.params.gate);
+    await setManualBand(path, gate, body.skill, body.band);
+    res.json({ gate: await gateView(path, gate) });
+  });
+
+  /** POST /ielts-path/gates/:gate/decision - What to do after Gate 3 or 4 (move the exam, lower the target) */
+  router.post('/ielts-path/gates/:gate/decision', requireAuth, async (req, res) => {
+    const { choice } = z.object({ choice: z.enum(['accept', 'decline']) }).parse(req.body);
+    const path = await requirePath(currentUser(req).id);
+    const gate = gateParam.parse(req.params.gate);
+    await applyDecision(path, gate, choice);
+    res.json({ path: await pathView((await activePath(path.userId)) ?? path) });
+  });
+
+  /** POST /ielts-path/replan - A new plan after failing a gate twice: earlier fails stop counting */
+  router.post('/ielts-path/replan', requireAuth, async (req, res) => {
+    const body = z.object(settings).partial().parse(req.body ?? {});
+    const path = await requirePath(currentUser(req).id);
+    await replan(path);
+    const updated = Object.keys(body).length > 0 ? await updatePath(path, body) : ((await activePath(path.userId)) ?? path);
+    res.json({ path: await pathView(updated) });
   });
 
   /** GET /ielts-path/today - The steps to do today, how far behind or ahead the learner is, and the expected end */

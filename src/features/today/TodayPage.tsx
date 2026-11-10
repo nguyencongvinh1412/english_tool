@@ -104,12 +104,15 @@ export const TodayPage: React.FC = () => {
   const allDone = tasks.length > 0 && !next;
 
   // With an IELTS syllabus running, its steps come first
-  const pathMode = pathToday?.mode === 'syllabus' || pathToday?.mode === 'complete';
+  // Path mode: the syllabus (or its gate) leads Today; a phase with no lessons and no gate to take leaves the usual tasks
+  const pathMode = pathToday !== null && (pathToday.mode !== 'unwritten' || pathToday.gate !== null);
   const nextStep = pathToday?.mode === 'syllabus' ? pathToday.steps.find((step) => !step.done) : undefined;
+  const gateNext = pathToday && (pathToday.mode === 'gate' || pathToday.mode === 'unwritten') && pathToday.gate && pathToday.gate.startBlock === null;
 
   const start = () => {
     if (failed) return retry();
     if (nextStep) navigate(fromToday(stepLink(nextStep), nextStep.minutes));
+    else if (gateNext) navigate(ROUTES.IELTS_PATH);
     else if (next) navigate(fromToday(taskLink(next, language), next.minutes));
     else navigate(ROUTES.PRACTICE);
   };
