@@ -33,7 +33,7 @@ export const mcqQuestion = z.object({
   options: z.array(text(200)).length(4),
   answerIndex: z.number().int().min(0).max(3),
   /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
-  anyOf: z.array(z.number().int().min(0).max(7)).min(2).max(4).optional(),
+  anyOf: z.array(z.number().int().min(0).max(9)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
@@ -89,7 +89,7 @@ export const speakingIelts = z.object({
 });
 
 /** Gate and path speaking tests may leave out Part 2 and Part 3 (a Part 1 practice, or Gate 0 and Gate 1 with Parts 1 and 2 only) */
-export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(4) });
+export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(8) });
 
 const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite()) });
 
@@ -274,14 +274,17 @@ export const gapQuestion = z.object({
 export const matchQuestion = z.object({
   type: z.literal('match'),
   prompt: text(400),
-  options: z.array(text(200)).min(3).max(8),
-  answerIndex: z.number().int().min(0).max(7),
+  options: z.array(text(200)).min(3).max(10),
+  answerIndex: z.number().int().min(0).max(9),
   /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
-  anyOf: z.array(z.number().int().min(0).max(7)).min(2).max(4).optional(),
+  anyOf: z.array(z.number().int().min(0).max(9)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
-export const ieltsQuestion = z.discriminatedUnion('type', [mcqQuestion, tfngQuestion, gapQuestion, matchQuestion]);
+/** Multiple choice in a real IELTS test has 3 to 5 options (A-C is common in listening) */
+export const ieltsMcq = mcqQuestion.extend({ options: z.array(text(200)).min(3).max(5), answerIndex: z.number().int().min(0).max(4) });
+
+export const ieltsQuestion = z.discriminatedUnion('type', [ieltsMcq, tfngQuestion, gapQuestion, matchQuestion]);
 export type IeltsQuestion = z.infer<typeof ieltsQuestion>;
 
 /**
@@ -366,7 +369,7 @@ export const ieltsListening = z
     audio: audioRef.optional(),
     /** A plan, map or diagram the questions refer to */
     image: imageRef.optional(),
-    questions: z.preprocess(fitWordLimits, z.array(z.discriminatedUnion('type', [mcqQuestion, gapQuestion, matchQuestion])).length(10)),
+    questions: z.preprocess(fitWordLimits, z.array(z.discriminatedUnion('type', [ieltsMcq, gapQuestion, matchQuestion])).length(10)),
   })
   .superRefine((group, ctx) => {
     // A recorded section may come without its transcript; a voice-read section needs the script to be read

@@ -108,7 +108,7 @@ const MAX_TEXT_ANSWER = 8000;
 const IELTS_ON_DEMAND_LIMIT = 2;
 
 /** Highest option index an answer can hold: matching questions have up to eight options (A-H) */
-const MAX_OPTION_INDEX = 7;
+const MAX_OPTION_INDEX = 9;
 
 const saveSchema = z.object({
   answers: z.record(z.string().max(120), z.union([z.number().int().min(0).max(MAX_OPTION_INDEX), z.string().max(MAX_TEXT_ANSWER)]).nullable()).optional(),

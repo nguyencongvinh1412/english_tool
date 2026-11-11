@@ -319,14 +319,14 @@ describe('IELTS Path gates', () => {
     expect((await agent.get('/api/ielts-path/gates/4')).body.gate.decision.choice).toBe('decline');
   });
 
-  it('saves a matching answer beyond D (headings and paragraphs have five or six options)', async () => {
+  it('saves a matching answer beyond D, up to J (headings, paragraphs and maps have up to ten options)', async () => {
     const agent = await signIn(app, await createUser());
     await pathReadyForGate1(agent);
     const started = await agent.post('/api/ielts-path/gates/1/skills/reading/start').send({});
     expect(started.status).toBe(201);
-    const saved = await agent.patch(`/api/exams/sessions/${started.body.sessionId}`).send({ answers: { 'gate-1-reading:0': 7, 'gate-1-reading:1': 4 } });
+    const saved = await agent.patch(`/api/exams/sessions/${started.body.sessionId}`).send({ answers: { 'gate-1-reading:0': 9, 'gate-1-reading:1': 4 } });
     expect(saved.status).toBe(200);
-    expect((await agent.patch(`/api/exams/sessions/${started.body.sessionId}`).send({ answers: { 'gate-1-reading:0': 8 } })).status).toBe(400);
+    expect((await agent.patch(`/api/exams/sessions/${started.body.sessionId}`).send({ answers: { 'gate-1-reading:0': 10 } })).status).toBe(400);
   });
 
   it('gates ask for the pool when a retake needs exercises that do not exist yet', async () => {

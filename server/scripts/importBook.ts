@@ -22,13 +22,15 @@ import path from 'node:path';
 import { asc, eq } from 'drizzle-orm';
 import { closeDb, db } from '../db/client.js';
 import { contentItems, mediaAssets, users } from '../db/schema.js';
-import { CONTENT_KINDS, contentTitle } from '../content/schemas.js';
+import { CONTENT_KINDS, contentTitle, speakingIeltsGate } from '../content/schemas.js';
 import { saveBuffer } from '../services/storage.js';
 
 interface AssetSpec {
-  file: string;
+  /** One file, or for an image several page images stacked top to bottom (they must be as wide as each other) */
+  file?: string;
+  files?: string[];
   kind: 'image' | 'audio';
-  /** x, y, width, height in pixels of the page image */
+  /** x, y, width, height in pixels of the (stacked) page image */
   crop?: [number, number, number, number];
 }
 
@@ -54,14 +56,19 @@ const run = (command: string, args: string[]): void => {
 
 /** The bytes to store for an asset: a cropped picture as WebP, a recording as it is */
 function prepare(spec: AssetSpec): { data: Buffer; extension: string; mime: string } {
-  if (spec.kind === 'audio') return { data: readFileSync(spec.file), extension: 'mp3', mime: 'audio/mpeg' };
+  if (spec.kind === 'audio') return { data: readFileSync(spec.file!), extension: 'mp3', mime: 'audio/mpeg' };
   const dir = mkdtempSync(path.join(tmpdir(), 'book-import-'));
   try {
-    let source = spec.file;
+    let source = spec.file ?? spec.files![0];
+    if (spec.files && spec.files.length > 1) {
+      source = path.join(dir, 'stack.png');
+      run('ffmpeg', ['-y', '-loglevel', 'error', ...spec.files.flatMap((f) => ['-i', f]), '-filter_complex', `vstack=inputs=${spec.files.length}`, source]);
+    }
     if (spec.crop) {
       const [x, y, w, h] = spec.crop;
+      const whole = source;
       source = path.join(dir, 'crop.png');
-      run('ffmpeg', ['-y', '-loglevel', 'error', '-i', spec.file, '-vf', `crop=${w}:${h}:${x}:${y}`, source]);
+      run('ffmpeg', ['-y', '-loglevel', 'error', '-i', whole, '-vf', `crop=${w}:${h}:${x}:${y}`, source]);
     }
     const out = path.join(dir, 'out.webp');
     run('cwebp', ['-quiet', '-q', '88', source, '-o', out]);
@@ -112,7 +119,9 @@ async function main(): Promise<void> {
   for (const item of manifest.items) {
     const config = CONTENT_KINDS[item.kind];
     if (!config) throw new Error(`Unknown kind ${item.kind}`);
-    const parsed = config.schema.safeParse(resolve(item.payload, ids));
+    // A real speaking test has up to six Part 3 questions, more than the generator's limit
+    const schema = item.kind === 'speaking-ielts' ? speakingIeltsGate : config.schema;
+    const parsed = schema.safeParse(resolve(item.payload, ids));
     if (!parsed.success) throw new Error(`${item.id}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
     const payload = parsed.data as object;
     const title = item.title ?? contentTitle(item.kind, payload);
