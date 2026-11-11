@@ -132,6 +132,33 @@ describe('IELTS Path gates', () => {
     expect((await agent.post('/api/ielts-path/gates/1/skills/listening/start').send({})).body.code).toBe('gate_cleared');
   });
 
+  it('after Gate 1 the syllabus goes on with phase 2 (weeks 5-8), once, and a learner who starts in phase 2 gets it at once', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const path = await pathReadyForGate1(agent);
+    await db.update(pathLessons).set({ doneAt: new Date(Date.now() - 2 * 86_400_000) }).where(eq(pathLessons.pathId, path.id)); // phase 1 was done on earlier days
+    await takeGate(agent, 1, { writing: 4, speaking: 4 });
+    const today = (await agent.get('/api/ielts-path/today')).body.today;
+    expect(today.mode).toBe('syllabus');
+    expect(today.position).toEqual({ phase: 2, week: 5, day: 1, extra: null });
+    const todo = today.steps.filter((s: { done: boolean }) => !s.done);
+    expect(todo.slice(0, 7).map((s: { kind: string; block: string }) => `${s.block}:${s.kind}`)).toEqual(['vocab-grammar:words', 'vocab-grammar:grammar', 'listening:dictation', 'listening:lesson', 'reading:lesson', 'writing:lesson', 'speaking:lesson']);
+    expect(todo.find((s: { kind: string; block: string }) => s.kind === 'lesson' && s.block === 'listening').title.en).toBe('Listen again with the transcript');
+    const count = async (phase: number) => (await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id))).filter((r) => r.phase === phase).length;
+    const phase2 = await count(2);
+    expect(phase2).toBeGreaterThan(100);
+    await agent.get('/api/ielts-path/today'); // read again: not stored twice
+    expect(await count(2)).toBe(phase2);
+
+    // Starting in phase 2 (Gate 0 put the learner there): its steps are there from the first day
+    const other = await signIn(app, await createUser());
+    await other.post('/api/ielts-path').send(body);
+    await db.update(ieltsPaths).set({ startPhase: 2, startDate: quotaDay() }).where(eq(ieltsPaths.userId, (await db.select().from(ieltsPaths).orderBy(ieltsPaths.createdAt)).at(-1)!.userId));
+    const direct = (await other.get('/api/ielts-path/today')).body.today;
+    expect(direct.mode).toBe('syllabus');
+    expect(direct.position).toMatchObject({ phase: 2, week: 5, day: 1 });
+  });
+
   it('conditional: extra practice for the weak skill, then a retest after a week', async () => {
     const user = await createUser();
     const agent = await signIn(app, user);
@@ -183,7 +210,7 @@ describe('IELTS Path gates', () => {
     expect(first.evaluation.weak.length).toBeGreaterThanOrEqual(2);
     const buffer = (await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id))).filter((r) => (r.ref as { buffer?: number }).buffer === 1);
     expect(buffer.length).toBeGreaterThan(0);
-    expect(buffer.every((r) => r.week === 5 && r.phase === 1)).toBe(true);
+    expect(buffer.every((r) => r.week === 0 && r.phase === 1)).toBe(true);
 
     // The retake waits for the buffer week
     expect((await agent.post('/api/ielts-path/gates/1/skills/listening/start').send({})).body.code).toBe('gate_steps_left');

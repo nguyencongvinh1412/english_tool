@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can answer an abstract question in four steps.",
+      "vi": "Bạn trả lời được một câu hỏi trừu tượng trong bốn bước."
+    },
+    {
+      "en": "You can give an answer of four to six sentences.",
+      "vi": "Bạn đưa ra được câu trả lời từ bốn đến sáu câu."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Part 3 is",
+        "vi": "Part 3 là gì"
+      },
+      "body": {
+        "en": "Part 3 is a **discussion** of about 4–5 minutes. The questions are **more abstract** than Part 1 and often about **society**, not about you: *Why do people travel? How has technology changed communication?* A short personal answer is not enough.",
+        "vi": "Part 3 là một **cuộc thảo luận** khoảng 4–5 phút. Câu hỏi **trừu tượng hơn** Part 1 và thường nói về **xã hội** chứ không về bạn: *Why do people travel? How has technology changed communication?* Một câu trả lời cá nhân ngắn là chưa đủ."
+      }
+    },
+    {
+      "heading": {
+        "en": "Four elements",
+        "vi": "Bốn yếu tố"
+      },
+      "body": {
+        "en": "Answer in this order:\n1. **Understand** the question (do not answer a different one).\n2. **Answer directly** with an opinion: *I think...*\n3. **Give an example** (a person, a place, a situation).\n4. **Explain** why: *This is because...*\nOne to two sentences for each gives you a good answer.",
+        "vi": "Trả lời theo thứ tự:\n1. **Hiểu** câu hỏi (đừng trả lời một câu khác).\n2. **Trả lời trực tiếp** bằng ý kiến: *I think...*\n3. **Cho ví dụ** (một người, một nơi, một tình huống).\n4. **Giải thích** vì sao: *This is because...*\nMột đến hai câu cho mỗi phần là có một câu trả lời tốt."
+      }
+    },
+    {
+      "heading": {
+        "en": "Time to think",
+        "vi": "Thời gian suy nghĩ"
+      },
+      "body": {
+        "en": "You may take a **moment** to think: *That's an interesting question... Well, I think...* Use this **sometimes**, not in every answer. If you do not know about the topic, give a **general opinion** with an example you invent: examiners do not check facts.",
+        "vi": "Bạn được phép dành **một chút** để suy nghĩ: *That's an interesting question... Well, I think...* Dùng **thỉnh thoảng**, đừng dùng ở mọi câu. Nếu không biết về chủ đề, hãy đưa ra **ý kiến chung** kèm ví dụ bạn tự nghĩ ra: giám khảo không kiểm tra sự thật."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A Part 3 answer in four steps",
+        "vi": "Một câu trả lời Part 3 trong bốn bước"
+      },
+      "text": "Q: Why do people like travelling?\nA: I think people travel mainly to see something different from their daily life. For example, a friend of mine lives in a big city, and every summer she goes to the mountains to relax. This is because travelling gives people a break from stress and lets them learn about other cultures.",
+      "note": {
+        "en": "Direct answer, example, explanation: about five sentences, all on the question.",
+        "vi": "Trả lời trực tiếp, ví dụ, giải thích: khoảng năm câu, đều đúng câu hỏi."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Starting an answer",
+        "vi": "Mở đầu câu trả lời"
+      },
+      "items": [
+        "That's an interesting question. I think...",
+        "In my opinion...",
+        "For example, ...",
+        "This is because...",
+        "On the other hand, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Part 3 questions are usually about:",
+        "vi": "Câu hỏi Part 3 thường nói về:"
+      },
+      "options": [
+        "you personally",
+        "society and general ideas",
+        "your name"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "More abstract than Part 1.",
+        "vi": "Trừu tượng hơn Part 1."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What comes after your direct answer?",
+        "vi": "Sau câu trả lời trực tiếp là gì?"
+      },
+      "options": [
+        "An example",
+        "Goodbye",
+        "A new question"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Direct answer, example, explanation.",
+        "vi": "Trả lời, ví dụ, giải thích."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You do not know the topic. What do you do?",
+        "vi": "Bạn không biết về chủ đề. Bạn làm gì?"
+      },
+      "options": [
+        "Say nothing",
+        "Give a general opinion with an example",
+        "Ask the examiner to change the question"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Examiners do not check facts.",
+        "vi": "Giám khảo không kiểm tra sự thật."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the four elements.",
+        "vi": "Sắp xếp bốn yếu tố."
+      },
+      "parts": [
+        "Understand the question",
+        "Answer directly",
+        "Give an example",
+        "Explain why"
+      ],
+      "explanation": {
+        "en": "The order you speak in.",
+        "vi": "Thứ tự bạn nói."
+      }
+    }
+  ]
+}

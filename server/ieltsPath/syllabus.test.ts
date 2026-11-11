@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
-import { BLOCKS, LESSONS, phaseSteps, type Step } from './syllabus.js';
+import { BLOCKS, LESSONS, phaseSteps, WRITTEN_PHASES, type Step } from './syllabus.js';
 
+const allSteps = WRITTEN_PHASES.flatMap((phase) => phaseSteps(phase));
 const steps = phaseSteps(1);
 const dayKey = (s: Step) => `${s.week}-${s.day}`;
 
@@ -30,8 +31,6 @@ describe('phase 1 syllabus', () => {
       if (s.kind === 'grammar') expect(points.has((s.ref as { pointId: string }).pointId), JSON.stringify(s.ref)).toBe(true);
       if (s.kind === 'lesson') expect(lessons.has((s.ref as { lessonId: string }).lessonId), JSON.stringify(s.ref)).toBe(true);
     }
-    // Every lesson is used exactly once
-    for (const lesson of lessons) expect(steps.filter((s) => s.kind === 'lesson' && (s.ref as { lessonId: string }).lessonId === lesson), lesson).toHaveLength(1);
   });
 
   it('keeps a study day between 2.3 and 4.5 hours (lighter on the days without a new writing task) and writes at least twice a week', () => {
@@ -49,6 +48,41 @@ describe('phase 1 syllabus', () => {
     for (let week = 1; week <= 4; week++) {
       const day1 = steps.filter((s) => s.week === week && s.day === 1 && ['listening', 'reading', 'writing', 'speaking'].includes(s.block) && s.kind !== 'dictation');
       expect(day1.every((s) => s.kind === 'lesson'), `week ${week}`).toBe(true);
+    }
+  });
+});
+
+describe('every written phase', () => {
+  it('has phases 1 and 2, and no phase after them yet', () => {
+    expect(WRITTEN_PHASES).toEqual([1, 2]);
+    expect(phaseSteps(3)).toEqual([]);
+  });
+
+  it('numbers weeks 1-4 in phase 1 and 5-8 in phase 2, each with six study days and a review day', () => {
+    for (const [phase, weeks] of [[1, [1, 2, 3, 4]], [2, [5, 6, 7, 8]]] as const) {
+      const list = phaseSteps(phase);
+      expect([...new Set(list.map((s) => s.week))]).toEqual(weeks);
+      for (const week of weeks) for (const day of [1, 2, 3, 4, 5, 6, 7]) expect(list.some((s) => s.week === week && s.day === day), `${week}-${day}`).toBe(true);
+    }
+  });
+
+  it('uses every lesson exactly once across the written phases, and only grammar points that exist', () => {
+    const points = new Set(GRAMMAR_POINTS.map((p) => p.id));
+    for (const lesson of LESSONS) expect(allSteps.filter((s) => s.kind === 'lesson' && (s.ref as { lessonId: string }).lessonId === lesson.id), lesson.id).toHaveLength(1);
+    for (const s of allSteps) if (s.kind === 'grammar') expect(points.has((s.ref as { pointId: string }).pointId), JSON.stringify(s.ref)).toBe(true);
+  });
+
+  it('keeps every study day of phase 2 between 2.3 and 4.5 hours, and starts each week with its four lessons', () => {
+    const list = phaseSteps(2);
+    for (let week = 5; week <= 8; week++) {
+      for (let day = 1; day <= 6; day++) {
+        const minutes = list.filter((s) => s.week === week && s.day === day).reduce((n, s) => n + s.minutes, 0);
+        expect(minutes, `week ${week} day ${day}`).toBeGreaterThanOrEqual(140);
+        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(270);
+      }
+      const first = list.filter((s) => s.week === week && s.day === 1 && ['listening', 'reading', 'writing', 'speaking'].includes(s.block) && s.kind !== 'dictation');
+      expect(first.every((s) => s.kind === 'lesson') && first.length === 4, `week ${week}`).toBe(true);
+      expect(list.filter((s) => s.week === week && s.block === 'writing' && s.kind === 'practice').length).toBeGreaterThanOrEqual(2);
     }
   });
 });

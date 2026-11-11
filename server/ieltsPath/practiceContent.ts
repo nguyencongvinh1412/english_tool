@@ -87,6 +87,45 @@ const mock = (n: number, topic: string, questions: string[], cueCard: string, bu
   payload: { topic, part1: questions, part2: { cueCard, bullets, closing }, part3: [] },
 });
 
+
+const line = (n: number, title: string, prompt: string, unit: string, categories: string[], series: { name: string; values: number[] }[]): StaticGroup => ({
+  id: `ip-w-line-${n}`,
+  type: 'w-line',
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: {
+    taskType: 'ielts-task1',
+    title,
+    instructions: 'You should spend about 20 minutes on this task. Write at least 150 words. Describe the main trends and compare the lines: do not give opinions.',
+    prompt: `${prompt} Summarise the information by selecting and reporting the main features, and make comparisons where relevant.`,
+    minWords: 150,
+    timeMinutes: 20,
+    chart: { type: 'line', title, unit, categories, series },
+  },
+});
+
+const essay = (type: 'w-opinion' | 'w-advdis', n: number, title: string, prompt: string): StaticGroup => ({
+  id: `ip-${type}-${n}`,
+  type,
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: { taskType: 'ielts-task2', title, instructions: 'You should spend about 40 minutes on this task. Write at least 220 words in four paragraphs: introduction, two body paragraphs and a conclusion.', prompt, minWords: 220, timeMinutes: 40 },
+});
+
+const full = (n: number, topic: string, part1: string[], cueCard: string, bullets: string[], closing: string, part3: string[]): StaticGroup => ({
+  id: `ip-s-full-${n}`,
+  type: 's-full',
+  kind: 'speaking-ielts',
+  skill: 'speaking',
+  level: 'B1',
+  topic,
+  payload: { topic, part1, part2: { cueCard, bullets, closing }, part3 },
+});
+
 export const STATIC_GROUPS: StaticGroup[] = [
   para(1, 'My daily routine', 'Write about what you usually do on a weekday, from the morning to the evening.'),
   para(2, 'My family', 'Write about the people in your family and what you like doing together.'),
@@ -149,6 +188,34 @@ export const STATIC_GROUPS: StaticGroup[] = [
   mock(4, 'Work and a decision', ['Do you work or study?', 'What do you like about it?', 'Would you like to change it in the future?', 'What do you do after work or class?'], 'Describe a decision that changed your life.', ['what the decision was', 'when you made it', 'what happened after it'], 'and explain why it was important.'),
   mock(5, 'Free time and a skill', ['What do you do in your free time?', 'Did you have the same hobbies as a child?', 'Do you prefer to relax at home or go out?', 'Is there a hobby you would like to try?'], 'Describe a skill you would like to learn.', ['what the skill is', 'why you want to learn it', 'how you would learn it'], 'and explain how it would help you.'),
   mock(6, 'Technology and a gift', ['How often do you use your phone?', 'What do you use it for?', 'Do you think people spend too much time on their phones?', 'Did you use technology a lot as a child?'], 'Describe a gift you gave to someone.', ['who you gave it to', 'what it was', 'why you chose it'], 'and explain how the person felt.'),
+
+  line(1, 'Households with internet', 'The graph below shows the percentage of households with internet in urban and rural areas between 2005 and 2020.', 'per cent of households', ['2005', '2010', '2015', '2020'], [{ name: 'Urban', values: [48, 70, 88, 97] }, { name: 'Rural', values: [22, 45, 68, 85] }]),
+  line(2, 'Cinema visitors', 'The graph below shows the number of visitors to cinemas and to theatres in a city between 2000 and 2020.', 'thousand visitors', ['2000', '2005', '2010', '2015', '2020'], [{ name: 'Cinemas', values: [80, 95, 110, 100, 70] }, { name: 'Theatres', values: [40, 42, 38, 45, 52] }]),
+  line(3, 'Petrol and electric cars sold', 'The graph below shows the number of petrol and electric cars sold in a country between 2010 and 2022.', 'thousand cars', ['2010', '2014', '2018', '2022'], [{ name: 'Petrol', values: [900, 880, 760, 520] }, { name: 'Electric', values: [10, 40, 150, 480] }]),
+  line(4, 'Average temperature', 'The graph below shows the average monthly temperature in two cities during one year.', 'degrees Celsius', ['Jan', 'Apr', 'Jul', 'Oct'], [{ name: 'City A', values: [4, 12, 24, 13] }, { name: 'City B', values: [18, 24, 29, 25] }]),
+  line(5, 'Library members', 'The graph below shows the number of members of two libraries between 1995 and 2020.', 'hundreds of members', ['1995', '2000', '2005', '2010', '2015', '2020'], [{ name: 'Central Library', values: [50, 62, 70, 66, 58, 51] }, { name: 'University Library', values: [20, 28, 36, 47, 60, 72] }]),
+  line(6, 'Online and shop sales', 'The graph below shows the percentage of goods bought online and in shops in a country between 2008 and 2020.', 'per cent of sales', ['2008', '2012', '2016', '2020'], [{ name: 'Online', values: [5, 12, 25, 41] }, { name: 'In shops', values: [95, 88, 75, 59] }]),
+
+  essay('w-opinion', 1, 'English at primary school', 'Some people think children should start learning English at primary school. To what extent do you agree or disagree?'),
+  essay('w-opinion', 2, 'Homework', 'Some people believe that schools should not give homework to students. To what extent do you agree or disagree?'),
+  essay('w-opinion', 3, 'Public libraries', 'Some people think that public libraries are no longer needed because of the internet. To what extent do you agree or disagree?'),
+  essay('w-opinion', 4, 'Cycling to work', 'Some people say that governments should encourage everyone to cycle to work. To what extent do you agree or disagree?'),
+  essay('w-opinion', 5, 'Healthy food', 'Some people believe that unhealthy food should be taxed. To what extent do you agree or disagree?'),
+  essay('w-opinion', 6, 'Learning from mistakes', 'Some people think that people learn more from their mistakes than from their successes. To what extent do you agree or disagree?'),
+
+  essay('w-advdis', 1, 'Working from home', 'More and more people work from home. Do the advantages of this development outweigh the disadvantages?'),
+  essay('w-advdis', 2, 'Studying abroad', 'More students choose to study at a university in another country. What are the advantages and disadvantages of this?'),
+  essay('w-advdis', 3, 'Online shopping', 'Many people now prefer to buy things online. What are the advantages and disadvantages of this trend?'),
+  essay('w-advdis', 4, 'Living in a big city', 'More people are moving to big cities. Do the advantages of this outweigh the disadvantages?'),
+  essay('w-advdis', 5, 'Social media', 'Many young people use social media every day. What are the advantages and disadvantages?'),
+  essay('w-advdis', 6, 'Tourism', 'Tourism is increasing in many countries. Do the benefits of tourism outweigh the problems?'),
+
+  full(1, 'Home and a person', ['Where do you live?', 'What do you like about your home?', 'Do you plan to move in the future?'], 'Describe a person in your family.', ['who this person is', 'what he or she looks like', 'what you do together'], 'and explain why you like spending time with this person.', ['How have family relationships changed in recent years?', 'Why do some young people prefer to live alone?', 'Do you think families will be smaller in the future?']),
+  full(2, 'Travel', ['How do you usually travel to work or school?', 'Do you like travelling by train?', 'What would improve transport in your city?'], 'Describe a place you visited on holiday.', ['where it was', 'when you went', 'what you did there'], 'and explain why you remember it.', ['Why do people like travelling?', 'Is travelling abroad better than travelling in your own country?', 'How might tourism change in the future?']),
+  full(3, 'Technology', ['How often do you use your phone?', 'What do you use it for?', 'Did you use technology a lot as a child?'], 'Describe a useful piece of technology you own.', ['what it is', 'how you got it', 'how you use it'], 'and explain why it is useful.', ['How has technology changed the way people communicate?', 'Do older people find technology harder to use? Why?', 'Is technology making people less sociable?']),
+  full(4, 'Study and helping', ['Do you work or study?', 'Why did you choose that job or subject?', 'Would you like to change it in the future?'], 'Describe a time when you helped someone.', ['who you helped', 'what the problem was', 'how you helped'], 'and explain how you felt afterwards.', ['Why do some people find it hard to ask for help?', 'Should schools teach students to help others?', 'Do people help each other less than in the past?']),
+  full(5, 'Free time and food', ['What do you do in your free time?', 'Do you cook at home?', 'What did you eat yesterday?'], 'Describe a meal you enjoyed recently.', ['where you had it', 'who you had it with', 'what you ate'], 'and explain why you enjoyed it.', ['Why do people eat differently in different countries?', 'Is it better to eat at home or in restaurants?', 'How will food change in the future?']),
+  full(6, 'Environment', ['What is the weather like in your hometown?', 'Do you like your city?', 'Is there a park near your home?'], 'Describe a place in nature that you like.', ['where it is', 'how you got there', 'what you can do there'], 'and explain why you like it.', ['Why is it important to protect nature?', 'Who is responsible for the environment, people or governments?', 'How could cities become greener?']),
 ];
 
 const SCHEMAS = { 'writing-prompt': writingPrompt, 'speaking-ielts': speakingIeltsGate } as const;

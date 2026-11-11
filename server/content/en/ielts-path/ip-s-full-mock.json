@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can do Parts 1, 2 and 3 in one go, in about eleven minutes.",
+      "vi": "Bạn làm được Part 1, 2 và 3 liền nhau trong khoảng mười một phút."
+    },
+    {
+      "en": "You can stay calm when you do not know a word.",
+      "vi": "Bạn giữ được bình tĩnh khi không biết một từ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The whole test",
+        "vi": "Cả bài thi"
+      },
+      "body": {
+        "en": "The Speaking test lasts **11 to 14 minutes**: Part 1 (about 4 minutes, familiar questions), Part 2 (one minute to prepare, up to two minutes to speak) and Part 3 (about 4 minutes of discussion). It is recorded, so **practise by recording** the whole thing without stopping.",
+        "vi": "Bài thi Nói kéo dài **11 đến 14 phút**: Part 1 (khoảng 4 phút, câu hỏi quen thuộc), Part 2 (một phút chuẩn bị, tối đa hai phút nói) và Part 3 (khoảng 4 phút thảo luận). Bài được ghi âm, nên hãy **luyện bằng cách ghi âm** cả bài mà không dừng."
+      }
+    },
+    {
+      "heading": {
+        "en": "When you do not know a word",
+        "vi": "Khi bạn không biết một từ"
+      },
+      "body": {
+        "en": "Do not stop and do not switch to Vietnamese. **Explain it in other words** (*the machine you use to dry your hair*) and continue. This shows **vocabulary skill**, and the examiner understands you.",
+        "vi": "Đừng dừng lại và đừng chuyển sang tiếng Việt. **Giải thích bằng từ khác** (*the machine you use to dry your hair*) rồi nói tiếp. Việc này cho thấy **kỹ năng từ vựng** và giám khảo vẫn hiểu bạn."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check against the four criteria",
+        "vi": "Đối chiếu với bốn tiêu chí"
+      },
+      "body": {
+        "en": "Listen to your recording and score yourself on **Fluency, Vocabulary, Grammar and Pronunciation**. Self-marks run about **half a band high**, so take 0.5 off. Pick **one** problem for the next recording.",
+        "vi": "Nghe lại bản ghi âm và tự chấm theo **Fluency, Vocabulary, Grammar và Pronunciation**. Điểm tự chấm thường **cao hơn nửa band**, nên hãy trừ 0.5. Chọn **một** vấn đề cho lần ghi âm kế tiếp."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A mock in eleven minutes",
+        "vi": "Một bài thi thử trong mười một phút"
+      },
+      "text": "Part 1 (4 min): 8-10 short questions on home, work and free time.\nPart 2 (3-4 min): one minute to plan, then speak for about 1.5-2 minutes.\nPart 3 (4 min): 4-5 discussion questions on the same topic.",
+      "note": {
+        "en": "Part 3 follows the topic of Part 2, so the ideas you used in Part 2 help you.",
+        "vi": "Part 3 đi theo chủ đề của Part 2 nên các ý bạn dùng ở Part 2 sẽ giúp bạn."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "When you do not know a word",
+        "vi": "Khi không biết một từ"
+      },
+      "items": [
+        "It's a kind of...",
+        "It's something you use to...",
+        "I can't remember the word, but it's like...",
+        "What I mean is..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long does the whole Speaking test last?",
+        "vi": "Cả bài thi Nói kéo dài bao lâu?"
+      },
+      "options": [
+        "2 to 3 minutes",
+        "11 to 14 minutes",
+        "30 minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "About eleven to fourteen minutes.",
+        "vi": "Khoảng mười một đến mười bốn phút."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You do not know a word. Best action:",
+        "vi": "Bạn không biết một từ. Việc nên làm:"
+      },
+      "options": [
+        "Stop",
+        "Explain it in other words and continue",
+        "Use Vietnamese"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Explaining shows vocabulary skill.",
+        "vi": "Giải thích cho thấy kỹ năng từ vựng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Self-marks are usually:",
+        "vi": "Điểm tự chấm thường:"
+      },
+      "options": [
+        "lower than real",
+        "about half a band high",
+        "exact"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Take 0.5 off.",
+        "vi": "Hãy trừ 0.5."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the test.",
+        "vi": "Sắp xếp bài thi."
+      },
+      "parts": [
+        "Part 1: familiar questions",
+        "Part 2: one minute to prepare",
+        "Part 2: talk",
+        "Part 3: discussion"
+      ],
+      "explanation": {
+        "en": "As in the real test.",
+        "vi": "Như trong bài thi thật."
+      }
+    }
+  ]
+}

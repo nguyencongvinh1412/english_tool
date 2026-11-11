@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can follow two speakers who disagree and change their minds.",
+      "vi": "Bạn theo dõi được hai người nói bất đồng và đổi ý."
+    },
+    {
+      "en": "You can avoid the wrong choice in multiple-choice questions.",
+      "vi": "Bạn tránh được lựa chọn sai ở câu trắc nghiệm."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Section 3 is",
+        "vi": "Section 3 là gì"
+      },
+      "body": {
+        "en": "Section 3 is a conversation between **two or three students** (sometimes with a tutor) about a piece of work. They share opinions, **disagree**, and often **change their minds**. The questions are usually multiple choice and note completion.",
+        "vi": "Section 3 là cuộc hội thoại giữa **hai hoặc ba sinh viên** (đôi khi có giảng viên) về một bài làm. Họ nêu ý kiến, **bất đồng** và thường **đổi ý**. Câu hỏi thường là trắc nghiệm và điền ghi chú."
+      }
+    },
+    {
+      "heading": {
+        "en": "Multiple choice: all three options are mentioned",
+        "vi": "Trắc nghiệm: cả ba lựa chọn đều được nhắc đến"
+      },
+      "body": {
+        "en": "In multiple choice **every option is mentioned** in the audio, but only one is the answer. Listen for **what the speaker finally decides**, not the first thing they say.\n\nWatch for signal words of a change: **but, however, actually, on second thought, in the end, I'd rather**.",
+        "vi": "Ở câu trắc nghiệm **mọi lựa chọn đều được nhắc đến** trong audio nhưng chỉ một cái là đáp án. Hãy nghe **điều người nói cuối cùng quyết định**, không phải điều họ nói đầu tiên.\n\nChú ý các từ báo hiệu đổi ý: **but, however, actually, on second thought, in the end, I'd rather**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Who thinks what",
+        "vi": "Ai nghĩ gì"
+      },
+      "body": {
+        "en": "Questions often ask about **one speaker's** opinion. Write the speakers' names next to the questions. When both agree, a sentence like *\"That's what I thought too\"* gives you the answer.",
+        "vi": "Câu hỏi thường hỏi ý kiến của **một người**. Hãy ghi tên người nói bên cạnh câu hỏi. Khi cả hai đồng ý, câu như *\"That's what I thought too\"* cho bạn đáp án."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "An opinion that changes",
+        "vi": "Một ý kiến thay đổi"
+      },
+      "text": "Tom: I think we should present on solar power.\nMia: The tutor said too many groups choose it.\nTom: True. Then how about wind power?\nMia: Yes, offshore wind. That's a good compromise.\n\nQuestion: The students finally choose... A solar power  B tidal energy  C offshore wind\nAnswer: C",
+      "note": {
+        "en": "Solar power is mentioned first and rejected. The answer is the final decision.",
+        "vi": "Solar power được nhắc đầu tiên rồi bị bác. Đáp án là quyết định cuối cùng."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Signals of a change of mind",
+        "vi": "Dấu hiệu đổi ý"
+      },
+      "items": [
+        "Actually, I think...",
+        "On second thought...",
+        "That's true, but...",
+        "In the end, we decided...",
+        "I'd rather..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In multiple choice, how many options are mentioned in the audio?",
+        "vi": "Ở câu trắc nghiệm, có bao nhiêu lựa chọn được nhắc đến trong audio?"
+      },
+      "options": [
+        "Only the right one",
+        "Usually all of them",
+        "None of them"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "That is why it is a trap: listen for the final choice.",
+        "vi": "Đó là cái bẫy: hãy nghe lựa chọn cuối cùng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"I wanted the park, but the museum was better in the end.\" What did the speaker choose?",
+        "vi": "\"I wanted the park, but the museum was better in the end.\" Người nói chọn gì?"
+      },
+      "options": [
+        "The park",
+        "The museum"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "But and in the end signal the change.",
+        "vi": "But và in the end báo hiệu sự đổi ý."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which phrase usually shows a change of mind?",
+        "vi": "Cụm nào thường cho thấy đổi ý?"
+      },
+      "options": [
+        "Actually, I think...",
+        "Good morning.",
+        "For example..."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Actually often introduces a different opinion.",
+        "vi": "Actually thường mở đầu một ý kiến khác."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps for a Section 3 question.",
+        "vi": "Sắp xếp các bước cho một câu Section 3."
+      },
+      "parts": [
+        "Read the question and underline who it is about",
+        "Listen to all the options",
+        "Wait for the final decision",
+        "Choose the answer"
+      ],
+      "explanation": {
+        "en": "Do not choose the first option you hear.",
+        "vi": "Đừng chọn lựa chọn đầu tiên bạn nghe."
+      }
+    }
+  ]
+}

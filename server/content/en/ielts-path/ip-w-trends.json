@@ -1,0 +1,153 @@
+{
+  "objectives": [
+    {
+      "en": "You can describe a rise, a fall and a steady line with the right words.",
+      "vi": "Bạn mô tả được sự tăng, giảm và đi ngang bằng đúng từ."
+    },
+    {
+      "en": "You can write about change over time with correct tenses and numbers.",
+      "vi": "Bạn viết được về thay đổi theo thời gian với đúng thì và số liệu."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Words for trends",
+        "vi": "Từ chỉ xu hướng"
+      },
+      "body": {
+        "en": "A line graph shows **change over time**. Use verbs for the movement: **rise / increase / grow** (up), **fall / decrease / decline / drop** (down), **remain stable / stay the same** (flat), **fluctuate** (up and down). Use nouns too: *a rise*, *a fall*, *a peak*.",
+        "vi": "Biểu đồ đường cho thấy **sự thay đổi theo thời gian**. Dùng động từ chỉ chuyển động: **rise / increase / grow** (lên), **fall / decrease / decline / drop** (xuống), **remain stable / stay the same** (đi ngang), **fluctuate** (lên xuống). Cũng dùng danh từ: *a rise*, *a fall*, *a peak*."
+      }
+    },
+    {
+      "heading": {
+        "en": "Speed and size",
+        "vi": "Tốc độ và mức độ"
+      },
+      "body": {
+        "en": "Add an adverb for the speed: **sharply, rapidly, steadily, gradually, slightly**. Always give the **numbers** and the **time**: *\"rose steadily from 20 to 45 per cent between 2000 and 2010\"*. Use **from ... to ...** for the start and end, and **by** for the size of the change (*rose by 25 per cent*).",
+        "vi": "Thêm trạng từ chỉ tốc độ: **sharply, rapidly, steadily, gradually, slightly**. Luôn nêu **số liệu** và **thời gian**: *\"rose steadily from 20 to 45 per cent between 2000 and 2010\"*. Dùng **from ... to ...** cho điểm đầu và cuối, và **by** cho mức thay đổi (*rose by 25 per cent*)."
+      }
+    },
+    {
+      "heading": {
+        "en": "Tables and the overview",
+        "vi": "Bảng số liệu và phần tổng quan"
+      },
+      "body": {
+        "en": "A table is the same task: choose the **highest, lowest and biggest change** and compare. Your **overview** names the main trend (for example, *\"Overall, internet use rose in both areas, but more quickly in cities\"*). Past years need the **past simple**.",
+        "vi": "Bảng số liệu là cùng một dạng bài: chọn **giá trị cao nhất, thấp nhất và thay đổi lớn nhất** rồi so sánh. **Tổng quan** của bạn nêu xu hướng chính (ví dụ *\"Overall, internet use rose in both areas, but more quickly in cities\"*). Năm trong quá khứ cần **quá khứ đơn**."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A line graph in four sentences",
+        "vi": "Biểu đồ đường trong bốn câu"
+      },
+      "text": "The graph shows the percentage of households with internet in urban and rural areas from 2005 to 2020.\nOverall, both areas rose, but urban areas were always higher.\nUrban internet use rose sharply from 48 per cent in 2005 to 88 per cent in 2015, then grew slightly to 97 per cent.\nRural use started lower, at 22 per cent, but rose steadily to 85 per cent in 2020.",
+      "note": {
+        "en": "An introduction, an overview with the main trend, then detail with from...to and an adverb of speed.",
+        "vi": "Mở bài, tổng quan với xu hướng chính, rồi chi tiết với from...to và trạng từ chỉ tốc độ."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Movement",
+        "vi": "Chuyển động"
+      },
+      "items": [
+        "rose / increased / grew",
+        "fell / declined / dropped",
+        "remained stable at...",
+        "fluctuated between... and...",
+        "reached a peak of..."
+      ]
+    },
+    {
+      "use": {
+        "en": "Speed",
+        "vi": "Tốc độ"
+      },
+      "items": [
+        "sharply / rapidly",
+        "steadily / gradually",
+        "slightly / slowly"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which verb means the line went down?",
+        "vi": "Động từ nào nghĩa là đường đi xuống?"
+      },
+      "options": [
+        "rose",
+        "declined",
+        "remained stable"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Declined means fell.",
+        "vi": "Declined nghĩa là giảm."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Sales ___ from 20 to 45 between 2000 and 2010.\" Choose the correct verb form.",
+        "vi": "\"Sales ___ from 20 to 45 between 2000 and 2010.\" Chọn dạng động từ đúng."
+      },
+      "options": [
+        "rise",
+        "rose",
+        "will rise"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Past years need the past simple.",
+        "vi": "Năm trong quá khứ cần quá khứ đơn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which adverb means a small change?",
+        "vi": "Trạng từ nào chỉ thay đổi nhỏ?"
+      },
+      "options": [
+        "sharply",
+        "slightly",
+        "rapidly"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Slightly means a little.",
+        "vi": "Slightly nghĩa là một chút."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the parts of a line graph answer.",
+        "vi": "Sắp xếp các phần của bài tả biểu đồ đường."
+      },
+      "parts": [
+        "Introduction: what the graph shows",
+        "Overview: the main trend",
+        "Detail: the first line with numbers",
+        "Detail: the second line with numbers"
+      ],
+      "explanation": {
+        "en": "The overview comes before the details.",
+        "vi": "Tổng quan đứng trước chi tiết."
+      }
+    }
+  ]
+}

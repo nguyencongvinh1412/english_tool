@@ -18,10 +18,10 @@ export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation'
 
 /** Kinds of practice exercise (see practice.ts for what each one makes) */
 export const PRACTICE_TYPES = [
-  'l-conv', 'l-form', 'l-mono', 'l-full',
-  'r-short', 'r-tfng', 'r-scan', 'r-passage',
-  'w-para', 'w-task1', 'w-task2',
-  's-part1', 's-part2', 's-mock',
+  'l-conv', 'l-form', 'l-mono', 'l-full', 'l-sec3', 'l-test30', 'l-test40',
+  'r-short', 'r-tfng', 'r-scan', 'r-passage', 'r-two', 'r-three',
+  'w-para', 'w-task1', 'w-task2', 'w-line', 'w-opinion', 'w-advdis',
+  's-part1', 's-part2', 's-mock', 's-full',
 ] as const;
 export type PracticeType = (typeof PRACTICE_TYPES)[number];
 
@@ -43,6 +43,8 @@ export interface Step {
   core: boolean;
   minutes: number;
 }
+
+import { PHASE2_LESSONS, PHASE2_WEEKS } from './syllabusPhase2.js';
 
 /** The lessons that exist, with the skill they belong to and where they sit */
 export interface LessonMeta {
@@ -72,9 +74,11 @@ export const LESSONS: LessonMeta[] = [
   { id: 'ip-s-mock-check', block: 'speaking', minutes: 35, title: { en: 'Checking your own recording', vi: 'Tự kiểm tra bản ghi âm của bạn' } },
 ];
 
+LESSONS.push(...PHASE2_LESSONS);
+
 export const lessonMeta = (id: string): LessonMeta | undefined => LESSONS.find((l) => l.id === id);
 
-interface DayPlan {
+export interface DayPlan {
   /** Grammar point and the words topic for each of study days 1-6 */
   grammar: string[];
   words: { topic: string; level: string }[];
@@ -87,12 +91,12 @@ interface DayPlan {
   review: Partial<Record<Block, DayStep[]>>;
 }
 
-type DayStep = { lesson: string } | { practice: PracticeType; minutes?: number };
+export type DayStep = { lesson: string } | { practice: PracticeType; minutes?: number };
 
 const L = (lesson: string): DayStep => ({ lesson });
 const P = (practice: PracticeType, minutes?: number): DayStep => ({ practice, minutes });
 
-const WEEK_PLANS: Record<number, DayPlan> = {
+const PHASE1_WEEKS: Record<number, DayPlan> = {
   // Week 1: present and past simple; family, home, work; dictation; short texts; a daily-routine paragraph; Part 1
   1: {
     grammar: ['present-simple', 'adverbs-frequency', 'past-simple', 'question-forms', 'there-is-are', 'prepositions-time'],
@@ -148,10 +152,10 @@ const WEEK_PLANS: Record<number, DayPlan> = {
 };
 
 const DEFAULT_PRACTICE_MINUTES: Record<PracticeType, number> = {
-  'l-conv': 30, 'l-form': 30, 'l-mono': 30, 'l-full': 45,
-  'r-short': 35, 'r-tfng': 35, 'r-scan': 40, 'r-passage': 45,
-  'w-para': 45, 'w-task1': 45, 'w-task2': 45,
-  's-part1': 35, 's-part2': 40, 's-mock': 45,
+  'l-conv': 30, 'l-form': 30, 'l-mono': 30, 'l-full': 45, 'l-sec3': 35, 'l-test30': 40, 'l-test40': 55,
+  'r-short': 35, 'r-tfng': 35, 'r-scan': 40, 'r-passage': 45, 'r-two': 50, 'r-three': 65,
+  'w-para': 45, 'w-task1': 45, 'w-task2': 45, 'w-line': 45, 'w-opinion': 50, 'w-advdis': 50,
+  's-part1': 35, 's-part2': 40, 's-mock': 45, 's-full': 50,
 };
 
 const DICTATION_MINUTES = 10;
@@ -167,11 +171,14 @@ function toStep(base: Pick<Step, 'phase' | 'week' | 'day' | 'block'>, item: DayS
   return { ...base, kind: 'practice', ref: { type: item.practice }, core: true, minutes: item.minutes ?? DEFAULT_PRACTICE_MINUTES[item.practice] };
 }
 
-/** Steps of phase 1 in order: for each day, vocabulary and grammar, then listening, reading, writing, speaking */
+const WEEK_PLANS: Record<number, DayPlan> = { ...PHASE1_WEEKS, ...PHASE2_WEEKS };
+
+/** Steps of a phase in order: for each day, vocabulary and grammar, then listening, reading, writing, speaking */
 export function phaseSteps(phase: number): Step[] {
-  if (phase !== 1) return [];
+  const weeks = [1, 2, 3, 4].map((n) => (phase - 1) * 4 + n);
+  if (!weeks.every((week) => WEEK_PLANS[week])) return [];
   const steps: Step[] = [];
-  for (const week of [1, 2, 3, 4]) {
+  for (const week of weeks) {
     const plan = WEEK_PLANS[week];
     for (let day = 1; day <= 6; day++) {
       const at = (block: Block) => ({ phase, week, day, block });
@@ -193,7 +200,7 @@ export function phaseSteps(phase: number): Step[] {
 }
 
 /** Phases that have a written syllabus */
-export const WRITTEN_PHASES = [1];
+export const WRITTEN_PHASES = [1, 2];
 
 /** Minutes of a whole phase, for estimating phases that are not written yet */
 export const phaseMinutes = (phase: number): number => phaseSteps(phase).reduce((n, s) => n + s.minutes, 0);

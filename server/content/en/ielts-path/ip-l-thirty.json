@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can do Sections 1 to 3 (30 questions) without stopping.",
+      "vi": "Bạn làm được Section 1 đến 3 (30 câu) mà không dừng."
+    },
+    {
+      "en": "You can use the short breaks between sections.",
+      "vi": "Bạn tận dụng được các khoảng nghỉ ngắn giữa các section."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Staying with the audio",
+        "vi": "Bám theo audio"
+      },
+      "body": {
+        "en": "Thirty questions take about **25 minutes** of listening. The difficulty is **concentration**: after 15 minutes many learners lose focus. Train it on purpose: do the whole block without pausing.",
+        "vi": "Ba mươi câu mất khoảng **25 phút** nghe. Khó khăn là **sự tập trung**: sau 15 phút nhiều người mất tập trung. Hãy rèn có chủ đích: làm cả khối mà không dừng."
+      }
+    },
+    {
+      "heading": {
+        "en": "Use the gaps",
+        "vi": "Tận dụng khoảng nghỉ"
+      },
+      "body": {
+        "en": "Between sections there is a **short pause** (about 30 seconds). Use it for one thing only: **read the first questions of the next section** and underline keywords. Do not think about the section you just finished.",
+        "vi": "Giữa các section có **khoảng nghỉ ngắn** (khoảng 30 giây). Chỉ dùng nó cho một việc: **đọc các câu đầu của section kế tiếp** và gạch từ khoá. Đừng nghĩ về section vừa xong."
+      }
+    },
+    {
+      "heading": {
+        "en": "Let a missed answer go",
+        "vi": "Bỏ qua câu đã lỡ"
+      },
+      "body": {
+        "en": "When you miss an answer, **move on at once**. The audio does not wait. Write a guess, and look at the next question. A missed answer costs one point; staying on it can cost three.",
+        "vi": "Khi lỡ một đáp án, hãy **đi tiếp ngay**. Audio không chờ. Ghi một đáp án đoán và nhìn câu kế. Lỡ một đáp án mất một điểm; cứ ở lại có thể mất ba."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A plan for 30 questions",
+        "vi": "Kế hoạch cho 30 câu"
+      },
+      "text": "Section 1 (10 q): read, listen, write. In the break: read Section 2 questions 11-15.\nSection 2 (10 q): same. In the break: read Section 3 questions 21-25.\nSection 3 (10 q): the hardest, so be ready.\nAfter: mark, then listen again with the transcript.",
+      "note": {
+        "en": "Every pause has one job: prepare the next section.",
+        "vi": "Mỗi khoảng nghỉ có một việc: chuẩn bị cho section kế tiếp."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What should you do in the short pause between two sections?",
+        "vi": "Bạn nên làm gì trong khoảng nghỉ ngắn giữa hai section?"
+      },
+      "options": [
+        "Think about the section you finished",
+        "Read the first questions of the next section",
+        "Close your eyes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Preparation is what the pause is for.",
+        "vi": "Khoảng nghỉ là để chuẩn bị."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You miss answer 14 while the audio goes on. Best action:",
+        "vi": "Bạn lỡ đáp án 14 trong khi audio vẫn chạy. Việc nên làm:"
+      },
+      "options": [
+        "Keep trying to remember it",
+        "Write a guess and go to question 15",
+        "Stop and wait for the audio"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Move on at once.",
+        "vi": "Hãy đi tiếp ngay."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The main difficulty of 30 questions in a row is:",
+        "vi": "Khó khăn chính của 30 câu liên tục là:"
+      },
+      "options": [
+        "vocabulary only",
+        "concentration",
+        "the speed of the speakers only"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Concentration over 25 minutes.",
+        "vi": "Sự tập trung trong 25 phút."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the plan.",
+        "vi": "Sắp xếp kế hoạch."
+      },
+      "parts": [
+        "Read the first questions of Section 1",
+        "Listen and write answers",
+        "In the pause, read the next section's questions",
+        "Mark and listen again with the transcript"
+      ],
+      "explanation": {
+        "en": "Prepare, listen, prepare again, review.",
+        "vi": "Chuẩn bị, nghe, lại chuẩn bị, ôn lại."
+      }
+    }
+  ]
+}

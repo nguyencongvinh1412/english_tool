@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can plan an advantages and disadvantages essay.",
+      "vi": "Bạn lập được dàn ý cho bài luận ưu điểm và nhược điểm."
+    },
+    {
+      "en": "You can give your own view when the question asks for it.",
+      "vi": "Bạn nêu được ý kiến riêng khi đề yêu cầu."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Read what the question asks",
+        "vi": "Đọc kỹ đề hỏi gì"
+      },
+      "body": {
+        "en": "There are two versions. **\"What are the advantages and disadvantages?\"** needs both sides. **\"Do the advantages outweigh the disadvantages?\"** needs both sides **and** your opinion. Check which one you have before you plan.",
+        "vi": "Có hai kiểu. **\"What are the advantages and disadvantages?\"** cần cả hai mặt. **\"Do the advantages outweigh the disadvantages?\"** cần cả hai mặt **và** ý kiến của bạn. Hãy xác định mình gặp kiểu nào trước khi lập dàn ý."
+      }
+    },
+    {
+      "heading": {
+        "en": "The frame",
+        "vi": "Khung bài"
+      },
+      "body": {
+        "en": "1. **Introduction:** paraphrase the topic (and give your view if asked).\n2. **Body 1:** the advantages (one or two, with an explanation and example).\n3. **Body 2:** the disadvantages (same pattern).\n4. **Conclusion:** summarise the balance.\n\nKeep both bodies about **the same length**.",
+        "vi": "1. **Mở bài:** diễn đạt lại chủ đề (và nêu ý kiến nếu đề yêu cầu).\n2. **Thân bài 1:** ưu điểm (một hoặc hai, có giải thích và ví dụ).\n3. **Thân bài 2:** nhược điểm (cùng mẫu).\n4. **Kết bài:** tóm tắt sự cân bằng.\n\nGiữ hai đoạn thân bài **dài bằng nhau**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Useful language",
+        "vi": "Ngôn ngữ hữu ích"
+      },
+      "body": {
+        "en": "Advantages: *One benefit is that..., This allows people to..., A further advantage is...* Disadvantages: *However, there are drawbacks. One problem is that..., This can lead to...* Do not repeat the same word *good* or *bad*: use *beneficial, convenient, harmful, costly*.",
+        "vi": "Ưu điểm: *One benefit is that..., This allows people to..., A further advantage is...* Nhược điểm: *However, there are drawbacks. One problem is that..., This can lead to...* Đừng lặp từ *good* hay *bad*: dùng *beneficial, convenient, harmful, costly*."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Two body paragraphs",
+        "vi": "Hai đoạn thân bài"
+      },
+      "text": "Topic: more people work from home.\n\nOne advantage is that employees save time and money because they do not travel. This allows them to spend more time with their family, and companies can rent smaller offices.\n\nHowever, there are drawbacks. Some workers feel lonely because they rarely meet colleagues, and it is difficult to separate work from private life. For example, many people answer emails late in the evening.",
+      "note": {
+        "en": "Both sides are about the same length, each with a reason and an example.",
+        "vi": "Hai mặt dài gần bằng nhau, mỗi mặt có lý do và ví dụ."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Advantages and drawbacks",
+        "vi": "Ưu điểm và nhược điểm"
+      },
+      "items": [
+        "One benefit is that ...",
+        "A further advantage is ...",
+        "However, there are drawbacks.",
+        "One problem is that ...",
+        "This can lead to ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Do the advantages outweigh the disadvantages?\" You must give:",
+        "vi": "\"Do the advantages outweigh the disadvantages?\" Bạn phải nêu:"
+      },
+      "options": [
+        "only the advantages",
+        "both sides and your opinion",
+        "only the disadvantages"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Both sides and a view.",
+        "vi": "Cả hai mặt và ý kiến."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The two body paragraphs should be:",
+        "vi": "Hai đoạn thân bài nên:"
+      },
+      "options": [
+        "about the same length",
+        "one short and one long",
+        "only one paragraph"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Balance.",
+        "vi": "Cân bằng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which word is better than \"bad\"?",
+        "vi": "Từ nào tốt hơn \"bad\"?"
+      },
+      "options": [
+        "harmful",
+        "good",
+        "nice"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Use precise words.",
+        "vi": "Dùng từ chính xác."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the essay.",
+        "vi": "Sắp xếp bài luận."
+      },
+      "parts": [
+        "Introduction",
+        "Body: advantages",
+        "Body: disadvantages",
+        "Conclusion about the balance"
+      ],
+      "explanation": {
+        "en": "Both sides, then the balance.",
+        "vi": "Cả hai mặt, rồi sự cân bằng."
+      }
+    }
+  ]
+}

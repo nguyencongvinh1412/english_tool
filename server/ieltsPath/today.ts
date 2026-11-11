@@ -172,7 +172,7 @@ export interface PathTodayView {
   /** Overall band the learner is working towards */
   overallTarget: number;
   /** Where the learner is in the syllabus (the first undone step) */
-  position: { phase: number; week: number; day: number } | null;
+  position: { phase: number; week: number; day: number; extra: 'remedial' | 'buffer' | null } | null;
   restDay: boolean;
   dailyMinutes: number;
   capacityMinutes: number;
@@ -261,7 +261,7 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
     focus: { writing: book.writing.lowest, speaking: book.speaking.lowest },
     bands,
     overallTarget,
-    position: first ? { phase: first.phase, week: first.week, day: first.studyDay } : null,
+    position: first ? { phase: first.phase, week: first.week, day: first.studyDay, extra: (first.ref as { remedial?: number }).remedial ? 'remedial' : (first.ref as { buffer?: number }).buffer ? 'buffer' : null } : null,
     restDay,
     dailyMinutes,
     capacityMinutes: capacity,

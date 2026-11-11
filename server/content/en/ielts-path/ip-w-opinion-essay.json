@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can write an opinion essay of about 220 words in four paragraphs.",
+      "vi": "Bạn viết được bài luận nêu quan điểm khoảng 220 từ trong bốn đoạn."
+    },
+    {
+      "en": "You can keep one clear opinion from the introduction to the conclusion.",
+      "vi": "Bạn giữ được một quan điểm rõ ràng từ mở bài đến kết bài."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The frame",
+        "vi": "Khung bài"
+      },
+      "body": {
+        "en": "Four paragraphs, about **220 words**:\n1. **Introduction (35 words):** paraphrase the question, give your opinion.\n2. **Body 1 (75):** first reason: idea, explanation, example.\n3. **Body 2 (75):** second reason, same pattern.\n4. **Conclusion (35):** your opinion again, in new words.",
+        "vi": "Bốn đoạn, khoảng **220 từ**:\n1. **Mở bài (35 từ):** diễn đạt lại đề, nêu quan điểm.\n2. **Thân bài 1 (75):** lý do thứ nhất: ý, giải thích, ví dụ.\n3. **Thân bài 2 (75):** lý do thứ hai, cùng mẫu.\n4. **Kết bài (35):** nhắc lại quan điểm bằng từ khác."
+      }
+    },
+    {
+      "heading": {
+        "en": "Answer the question asked",
+        "vi": "Trả lời đúng câu hỏi"
+      },
+      "body": {
+        "en": "**Task Response** is the first criterion. Read the question twice. If it says *\"To what extent do you agree?\"* your position must be clear (completely, partly or not at all) and **the same all through**. Do not write about the topic in general.",
+        "vi": "**Task Response** là tiêu chí đầu tiên. Đọc đề hai lần. Nếu đề hỏi *\"To what extent do you agree?\"* thì lập trường của bạn phải rõ (hoàn toàn, một phần hay không) và **giữ nguyên từ đầu đến cuối**. Đừng viết về chủ đề nói chung."
+      }
+    },
+    {
+      "heading": {
+        "en": "Plan for five minutes",
+        "vi": "Lập dàn ý năm phút"
+      },
+      "body": {
+        "en": "Write: **opinion**, **reason 1 + example**, **reason 2 + example**. Check that both reasons support the **same** opinion. A plan costs five minutes and saves you from stopping to think halfway through.",
+        "vi": "Ghi: **quan điểm**, **lý do 1 + ví dụ**, **lý do 2 + ví dụ**. Kiểm tra hai lý do đều ủng hộ **cùng một** quan điểm. Dàn ý tốn năm phút và giúp bạn không phải dừng lại suy nghĩ giữa chừng."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "An opinion essay (about 220 words)",
+        "vi": "Một bài luận nêu quan điểm (khoảng 220 từ)"
+      },
+      "text": "Some people think children should start learning English at primary school. I completely agree with this view for two reasons.\n\nFirst, young children learn languages more easily. Their brains are still developing and they are not afraid of mistakes. For example, my cousin started English classes at six, and today she speaks with a much better accent than her older brother.\n\nSecond, an early start gives children more time to practise. A child who begins at six has about ten years of lessons before university, while a child who begins at sixteen has only two. As a result, early learners are usually more confident.\n\nIn conclusion, I believe that English lessons should begin in primary school, because children learn faster and have more time to improve.",
+      "note": {
+        "en": "One opinion, two reasons with an example each, and a conclusion that repeats the opinion in new words.",
+        "vi": "Một quan điểm, hai lý do mỗi lý do có ví dụ, và kết bài nhắc lại quan điểm bằng từ khác."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Opinion and reasons",
+        "vi": "Quan điểm và lý do"
+      },
+      "items": [
+        "I completely agree / disagree with this view.",
+        "First, ... Second, ...",
+        "For example, ...",
+        "As a result, ...",
+        "In conclusion, I believe that ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many body paragraphs does the four-paragraph essay have?",
+        "vi": "Bài luận bốn đoạn có bao nhiêu đoạn thân bài?"
+      },
+      "options": [
+        "One",
+        "Two",
+        "Three"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Two body paragraphs, one reason each.",
+        "vi": "Hai đoạn thân bài, mỗi đoạn một lý do."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What must stay the same all through the essay?",
+        "vi": "Điều gì phải giữ nguyên từ đầu đến cuối bài luận?"
+      },
+      "options": [
+        "Your opinion",
+        "The examples",
+        "The sentence length"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A clear position is what Task Response rewards.",
+        "vi": "Lập trường rõ ràng là điều Task Response đánh giá cao."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence belongs in the conclusion?",
+        "vi": "Câu nào thuộc phần kết bài?"
+      },
+      "options": [
+        "In conclusion, I believe that early English lessons are useful.",
+        "For example, my cousin started at six.",
+        "First, children learn easily."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The conclusion repeats the opinion.",
+        "vi": "Kết bài nhắc lại quan điểm."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the essay.",
+        "vi": "Sắp xếp bài luận."
+      },
+      "parts": [
+        "Introduction with opinion",
+        "Body 1: first reason and example",
+        "Body 2: second reason and example",
+        "Conclusion"
+      ],
+      "explanation": {
+        "en": "Opinion, two reasons, close.",
+        "vi": "Quan điểm, hai lý do, kết."
+      }
+    }
+  ]
+}

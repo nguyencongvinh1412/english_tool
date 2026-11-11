@@ -1,0 +1,143 @@
+{
+  "objectives": [
+    {
+      "en": "You can use however, although and because of correctly.",
+      "vi": "Bạn dùng đúng however, although và because of."
+    },
+    {
+      "en": "You can avoid repeating and and but.",
+      "vi": "Bạn tránh được việc lặp and và but."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Three that learners mix up",
+        "vi": "Ba từ người học hay nhầm"
+      },
+      "body": {
+        "en": "**However** starts a new sentence and shows a **contrast**: *The bus is cheap. However, it is slow.* **Although** joins two clauses in one sentence: *Although the bus is cheap, it is slow.* **Because of** is followed by a **noun**: *Many people stay at home because of the weather.*",
+        "vi": "**However** mở đầu một câu mới và chỉ **sự tương phản**: *The bus is cheap. However, it is slow.* **Although** nối hai mệnh đề trong một câu: *Although the bus is cheap, it is slow.* **Because of** đi với **danh từ**: *Many people stay at home because of the weather.*"
+      }
+    },
+    {
+      "heading": {
+        "en": "Because and because of",
+        "vi": "Because và because of"
+      },
+      "body": {
+        "en": "**Because** is followed by a **clause** (subject + verb): *because it was raining*. **Because of** is followed by a **noun**: *because of the rain*. Never use *although* and *but* together in one sentence.",
+        "vi": "**Because** đi với **mệnh đề** (chủ ngữ + động từ): *because it was raining*. **Because of** đi với **danh từ**: *because of the rain*. Không bao giờ dùng *although* và *but* cùng một câu."
+      }
+    },
+    {
+      "heading": {
+        "en": "Do not overuse linkers",
+        "vi": "Đừng lạm dụng từ nối"
+      },
+      "body": {
+        "en": "Examiners do not count linkers. They check that your ideas **flow**. If every sentence starts with a linker, the text sounds mechanical. Use a linker where there is a real relation: contrast, reason, result or example.",
+        "vi": "Giám khảo không đếm từ nối. Họ xem ý của bạn có **trôi chảy** không. Nếu câu nào cũng bắt đầu bằng từ nối thì bài nghe máy móc. Chỉ dùng từ nối khi có mối quan hệ thật: tương phản, lý do, kết quả hoặc ví dụ."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The same idea three ways",
+        "vi": "Cùng một ý, ba cách viết"
+      },
+      "text": "Cars are convenient. However, they cause pollution.\nAlthough cars are convenient, they cause pollution.\nCars are convenient, but they cause pollution.\n\nMany cities limit cars because of pollution.\nMany cities limit cars because they cause pollution.",
+      "note": {
+        "en": "However starts a sentence; although and but join clauses (never together). Because of + noun, because + clause.",
+        "vi": "However mở đầu câu; although và but nối mệnh đề (không dùng cùng nhau). Because of + danh từ, because + mệnh đề."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Contrast, reason, result",
+        "vi": "Tương phản, lý do, kết quả"
+      },
+      "items": [
+        "However, ...",
+        "Although ..., ...",
+        "because of + noun",
+        "because + clause",
+        "As a result, ...",
+        "Therefore, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Choose the correct sentence.",
+        "vi": "Chọn câu đúng."
+      },
+      "options": [
+        "Although it is cheap, but it is slow.",
+        "Although it is cheap, it is slow.",
+        "However it is cheap, it is slow."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Although and but are not used together.",
+        "vi": "Although và but không dùng cùng nhau."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Many people stay home ___ the weather.\"",
+        "vi": "\"Many people stay home ___ the weather.\""
+      },
+      "options": [
+        "because",
+        "because of",
+        "although"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Because of is followed by a noun.",
+        "vi": "Because of đi với danh từ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The bus is cheap. ___, it is slow.\"",
+        "vi": "\"The bus is cheap. ___, it is slow.\""
+      },
+      "options": [
+        "However",
+        "Although",
+        "Because"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "However starts a new sentence.",
+        "vi": "However mở đầu câu mới."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the sentence in order.",
+        "vi": "Sắp xếp thành câu."
+      },
+      "parts": [
+        "Although",
+        "the film was long,",
+        "we enjoyed",
+        "every minute."
+      ],
+      "explanation": {
+        "en": "Although + clause, + main clause.",
+        "vi": "Although + mệnh đề, + mệnh đề chính."
+      }
+    }
+  ]
+}

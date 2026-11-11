@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can talk for about a minute and a half on a cue card.",
+      "vi": "Bạn nói được khoảng một phút rưỡi về một cue card."
+    },
+    {
+      "en": "You can find and fix tense mistakes in your own recording.",
+      "vi": "Bạn tìm và sửa được lỗi chia thì trong bản ghi âm của mình."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "From one minute to ninety seconds",
+        "vi": "Từ một phút lên chín mươi giây"
+      },
+      "body": {
+        "en": "Last week you spoke for about one minute. Now aim for **ninety seconds**. You do not need more ideas: you need to **develop** each point. After saying what, add **where, when, who with, and how you felt**.",
+        "vi": "Tuần trước bạn nói khoảng một phút. Giờ hãy nhắm tới **chín mươi giây**. Bạn không cần thêm ý mà cần **phát triển** mỗi ý. Sau khi nói điều gì, hãy thêm **ở đâu, khi nào, với ai và cảm xúc của bạn**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Choose the tense first",
+        "vi": "Chọn thì trước tiên"
+      },
+      "body": {
+        "en": "Most cue cards are about **the past** (*Describe a time when...*). Say the first sentence in the **past simple** and keep it. Use the **present** for the end: *I still think about it today* or *I feel it was important*. Mixing tenses is the most frequent error.",
+        "vi": "Phần lớn cue card nói về **quá khứ** (*Describe a time when...*). Nói câu đầu bằng **quá khứ đơn** và giữ nguyên. Dùng **hiện tại** cho phần cuối: *I still think about it today* hoặc *I feel it was important*. Trộn thì là lỗi hay gặp nhất."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check your recording",
+        "vi": "Kiểm tra bản ghi âm"
+      },
+      "body": {
+        "en": "Record, listen again, and write every sentence where the **tense changes by mistake**. Count them. Then record the same card again and try to reduce the number. It is the fastest way to improve accuracy.",
+        "vi": "Ghi âm, nghe lại và ghi ra mọi câu mà **thì bị đổi nhầm**. Đếm chúng. Rồi ghi âm lại cùng cue card và cố giảm số lỗi. Đây là cách nhanh nhất để cải thiện độ chính xác."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A point developed",
+        "vi": "Một ý được phát triển"
+      },
+      "text": "Short: I went to Da Lat.\n\nDeveloped: Last spring I went to Da Lat with two friends. We took the night bus and arrived early in the morning, so the city was quiet and cold. I felt very relaxed, and I still remember the smell of the pine trees.",
+      "note": {
+        "en": "Same point, but with when, who, how and a feeling: that is how a minute becomes ninety seconds.",
+        "vi": "Cùng một ý nhưng có khi nào, với ai, như thế nào và cảm xúc: đó là cách một phút thành chín mươi giây."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Developing a point",
+        "vi": "Phát triển một ý"
+      },
+      "items": [
+        "It was the kind of place where...",
+        "I remember that...",
+        "What I liked most was...",
+        "Looking back, I think...",
+        "I still..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which tense do you use for \"Describe a time when...\"?",
+        "vi": "Bạn dùng thì nào cho \"Describe a time when...\"?"
+      },
+      "options": [
+        "Past simple",
+        "Future",
+        "Present perfect only"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A past event needs the past simple.",
+        "vi": "Sự việc quá khứ cần quá khứ đơn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How do you speak longer without new ideas?",
+        "vi": "Làm sao nói dài hơn mà không cần thêm ý?"
+      },
+      "options": [
+        "Repeat the same sentence",
+        "Develop each point with when, who and how you felt",
+        "Speak faster"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Develop, do not repeat.",
+        "vi": "Phát triển chứ không lặp lại."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What is the most frequent error in Part 2?",
+        "vi": "Lỗi phổ biến nhất ở Part 2 là gì?"
+      },
+      "options": [
+        "Mixing tenses",
+        "Speaking too clearly",
+        "Using long words"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Keep the past simple.",
+        "vi": "Giữ quá khứ đơn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the practice.",
+        "vi": "Sắp xếp việc luyện."
+      },
+      "parts": [
+        "Plan in one minute with keywords",
+        "Speak for ninety seconds and record",
+        "Listen and count the tense mistakes",
+        "Record again and aim for fewer"
+      ],
+      "explanation": {
+        "en": "Count, then reduce.",
+        "vi": "Đếm, rồi giảm."
+      }
+    }
+  ]
+}

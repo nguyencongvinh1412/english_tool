@@ -161,7 +161,13 @@ JSON: {"title": "...", "paragraphs": ["...", "..."], "questions": [${TFNG}, ${MC
 };
 
 /** Exercise types that make up a test (more than one group) */
-const FULL_GROUPS: Partial<Record<PracticeType, GeneratedType[]>> = { 'l-full': ['l-form', 'l-mono'] };
+const FULL_GROUPS: Partial<Record<PracticeType, GeneratedType[]>> = {
+  'l-full': ['l-form', 'l-mono'],
+  'l-test30': ['l-form', 'l-mono', 'l-sec3'],
+  'l-test40': ['l-form', 'l-mono', 'l-sec3', 'l-sec4'],
+  'r-two': ['r-passage', 'r-passage'],
+  'r-three': ['r-passage', 'r-passage', 'r-passage'],
+};
 
 export const componentOf = (type: PracticeType): IeltsComponent =>
   type.startsWith('l-') ? 'listening' : type.startsWith('r-') ? 'reading' : type.startsWith('w-') ? 'writing' : 'speaking';

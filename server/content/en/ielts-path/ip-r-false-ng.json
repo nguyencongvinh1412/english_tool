@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You can tell False from Not Given in difficult cases.",
+      "vi": "Bạn phân biệt được False và Not Given ở các trường hợp khó."
+    },
+    {
+      "en": "You can spot the words that make a statement False.",
+      "vi": "Bạn nhận ra được những từ làm một nhận định thành False."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The hard cases",
+        "vi": "Các trường hợp khó"
+      },
+      "body": {
+        "en": "False and Not Given are the most confused pair in IELTS Reading. The rule: **False means the text says the opposite**. **Not Given means the text says nothing** about this point. If you cannot point at a sentence that contradicts the statement, the answer is Not Given.",
+        "vi": "False và Not Given là cặp dễ nhầm nhất ở IELTS Reading. Quy tắc: **False nghĩa là bài nói ngược lại**. **Not Given nghĩa là bài không nói gì** về ý này. Nếu bạn không chỉ ra được câu nào mâu thuẫn với nhận định thì đáp án là Not Given."
+      }
+    },
+    {
+      "heading": {
+        "en": "Four ways a statement becomes False",
+        "vi": "Bốn cách một nhận định thành False"
+      },
+      "body": {
+        "en": "1. **A different number:** text *two days*, statement *three days*.\n2. **The opposite verb or adjective:** *increase* vs *decrease*.\n3. **A changed quantity word:** text *some*, statement *all*.\n4. **A negative:** text *is allowed*, statement *is not allowed*.\n\nIf the difference is one of these, it is **False**.",
+        "vi": "1. **Số khác:** bài *two days*, nhận định *three days*.\n2. **Động từ hoặc tính từ trái nghĩa:** *increase* và *decrease*.\n3. **Từ chỉ lượng bị đổi:** bài *some*, nhận định *all*.\n4. **Phủ định:** bài *is allowed*, nhận định *is not allowed*.\n\nNếu sự khác biệt thuộc một trong các loại này thì đó là **False**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Two ways a statement is Not Given",
+        "vi": "Hai cách một nhận định là Not Given"
+      },
+      "body": {
+        "en": "1. **A new detail:** the statement adds a reason, a name or a feeling the text never gives.\n2. **A comparison or opinion the writer does not make.**\n\nA useful test: ask *\"Can I find any word in the text about this?\"* If the topic is not there at all, it is Not Given.",
+        "vi": "1. **Chi tiết mới:** nhận định thêm một lý do, một cái tên hoặc cảm xúc mà bài không hề nêu.\n2. **Một so sánh hoặc ý kiến mà tác giả không đưa ra.**\n\nCách thử hữu ích: tự hỏi *\"Mình có tìm thấy từ nào trong bài về điều này không?\"* Nếu chủ đề hoàn toàn không có thì là Not Given."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Same text, three statements",
+        "vi": "Cùng một bài, ba nhận định"
+      },
+      "text": "Text: \"The museum is open on Saturdays and Sundays. Tickets cost five pounds.\"\n\n1. The museum is open every day. → FALSE (only Saturdays and Sundays).\n2. Tickets cost less than ten pounds. → TRUE (five is less than ten).\n3. Children can enter for free. → NOT GIVEN (children are not mentioned).",
+      "note": {
+        "en": "Statement 1 contradicts the text. Statement 3 adds something the text never says.",
+        "vi": "Nhận định 1 mâu thuẫn với bài. Nhận định 3 thêm điều bài không hề nói."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Text: \"Most visitors come by bus.\" Statement: \"All visitors come by bus.\"",
+        "vi": "Bài: \"Most visitors come by bus.\" Nhận định: \"All visitors come by bus.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Most is not all: a changed quantity word makes it False.",
+        "vi": "Most không phải all: đổi từ chỉ lượng làm thành False."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Text: \"The shop sells books.\" Statement: \"The shop sells cheap books.\"",
+        "vi": "Bài: \"The shop sells books.\" Nhận định: \"The shop sells cheap books.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "en": "The price is not mentioned.",
+        "vi": "Giá không được nhắc đến."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Text: \"Prices have risen.\" Statement: \"Prices have fallen.\"",
+        "vi": "Bài: \"Prices have risen.\" Nhận định: \"Prices have fallen.\""
+      },
+      "options": [
+        "True",
+        "False",
+        "Not Given"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Risen and fallen are opposite.",
+        "vi": "Risen và fallen trái nghĩa."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You cannot find a sentence that contradicts the statement. The answer is:",
+        "vi": "Bạn không tìm được câu nào mâu thuẫn với nhận định. Đáp án là:"
+      },
+      "options": [
+        "False",
+        "Not Given",
+        "True"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "No contradiction found means it is not False.",
+        "vi": "Không có mâu thuẫn nghĩa là không phải False."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps.",
+        "vi": "Sắp xếp các bước."
+      },
+      "parts": [
+        "Underline the keywords of the statement",
+        "Find the matching sentence in the text",
+        "Look for a number, an opposite or a changed quantity word",
+        "Choose True, False or Not Given"
+      ],
+      "explanation": {
+        "en": "Evidence first, then decide.",
+        "vi": "Bằng chứng trước, quyết định sau."
+      }
+    }
+  ]
+}

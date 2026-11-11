@@ -57,7 +57,7 @@ export const PathToday: React.FC<{ today: PathTodayData; onChange: (today: PathT
     <section className="pathtoday" aria-label={s.title}>
       <Card padding="lg" className="pathtoday__head">
         <span className="pathtoday__label">{s.title}</span>
-        {today.position && <strong className="pathtoday__pos">{s.position(today.position.phase, today.position.week, today.position.day)}</strong>}
+        {today.position && <strong className="pathtoday__pos">{today.position.extra ? s.extraPosition[today.position.extra] : s.position(today.position.phase, today.position.week, today.position.day)}</strong>}
         {today.mode === 'syllabus' && (
           <>
             <ProgressBar value={percent(today.doneMinutes, today.plannedMinutes)} label={s.minutesOf(today.doneMinutes, today.plannedMinutes)} />

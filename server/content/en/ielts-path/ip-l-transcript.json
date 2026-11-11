@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can use a transcript to find exactly what you missed.",
+      "vi": "Bạn dùng được bản ghi chép để tìm ra chính xác mình đã nghe sót gì."
+    },
+    {
+      "en": "You can turn each mistake into something you practise.",
+      "vi": "Bạn biến được mỗi lỗi thành thứ để luyện tập."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Why listening again matters",
+        "vi": "Vì sao nghe lại quan trọng"
+      },
+      "body": {
+        "en": "In the test you hear the audio once. In practice you can listen **again**, and that second listening is where you learn. The point is not to check your score: it is to find **why** you missed an answer.",
+        "vi": "Trong bài thi bạn chỉ nghe audio một lần. Khi luyện tập bạn có thể nghe **lại**, và lần nghe thứ hai chính là lúc bạn học. Mục đích không phải kiểm tra điểm mà là tìm ra **vì sao** mình bỏ lỡ một đáp án."
+      }
+    },
+    {
+      "heading": {
+        "en": "The method: four steps",
+        "vi": "Cách làm: bốn bước"
+      },
+      "body": {
+        "en": "1. **Do the exercise** as in the test: listen once, write your answers.\n2. **Mark** your answers with the key. Circle every mistake.\n3. **Listen again with the transcript** and find the sentence of each mistake. Underline the words that hold the answer.\n4. **Name the cause:** spelling, plural, a distractor, you did not hear the word, or you did not know the word.",
+        "vi": "1. **Làm bài** như thi thật: nghe một lần, viết đáp án.\n2. **Chấm** bài bằng đáp án. Khoanh từng lỗi.\n3. **Nghe lại cùng bản ghi chép** và tìm câu chứa từng lỗi. Gạch chân những từ chứa đáp án.\n4. **Gọi tên nguyên nhân:** chính tả, số nhiều, bẫy gây nhiễu, không nghe được từ, hoặc không biết từ."
+      }
+    },
+    {
+      "heading": {
+        "en": "Sections 1 and 2 together",
+        "vi": "Section 1 và 2 đi cùng nhau"
+      },
+      "body": {
+        "en": "Section 1 (a conversation) and Section 2 (a talk) are the easiest. Most lost points here are **careless**: spelling, numbers, a changed answer. They are also the points you can win fastest, so treat every mistake in these two sections as a real problem.",
+        "vi": "Section 1 (hội thoại) và Section 2 (bài nói) là hai phần dễ nhất. Phần lớn điểm mất ở đây là do **bất cẩn**: chính tả, số, đáp án bị đổi. Đây cũng là những điểm lấy lại nhanh nhất, nên hãy coi mỗi lỗi ở hai section này là một vấn đề thật."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A mistake found in the transcript",
+        "vi": "Một lỗi tìm ra từ bản ghi chép"
+      },
+      "text": "Answer written: \"Wensday\"\nTranscript: \"The class is on Wednesday evenings.\"\nCause: spelling. Action: add \"Wednesday\" to my spelling list and write the days of the week from memory.",
+      "note": {
+        "en": "The word was heard correctly. The loss is only spelling, so the fix is writing practice, not more listening.",
+        "vi": "Từ đã nghe đúng. Chỉ mất điểm vì chính tả nên cách sửa là luyện viết, không phải nghe thêm."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You wrote \"cost\" and the answer is \"costs\". What is the cause?",
+        "vi": "Bạn viết \"cost\" còn đáp án là \"costs\". Nguyên nhân là gì?"
+      },
+      "options": [
+        "Spelling",
+        "Singular or plural",
+        "A distractor"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The final -s was missed.",
+        "vi": "Bạn đã bỏ sót -s cuối."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What is the main purpose of listening again with the transcript?",
+        "vi": "Mục đích chính của việc nghe lại cùng bản ghi chép là gì?"
+      },
+      "options": [
+        "To get a higher score next time by remembering the answers",
+        "To find out why each answer was missed",
+        "To avoid doing the next exercise"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "You are looking for the cause of each mistake.",
+        "vi": "Bạn đang tìm nguyên nhân của từng lỗi."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Most points lost in Sections 1 and 2 are:",
+        "vi": "Phần lớn điểm mất ở Section 1 và 2 là:"
+      },
+      "options": [
+        "careless mistakes",
+        "words that nobody can know",
+        "questions with no answer"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Spelling, numbers and changed answers: they can be fixed.",
+        "vi": "Chính tả, số và đáp án bị đổi: những lỗi này sửa được."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the four steps in order.",
+        "vi": "Sắp xếp bốn bước theo thứ tự."
+      },
+      "parts": [
+        "Do the exercise as in the test",
+        "Mark it with the key and circle mistakes",
+        "Listen again with the transcript",
+        "Name the cause of each mistake"
+      ],
+      "explanation": {
+        "en": "Test, mark, transcript, cause.",
+        "vi": "Làm bài, chấm, bản ghi chép, nguyên nhân."
+      }
+    }
+  ]
+}

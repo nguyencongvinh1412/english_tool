@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can do all four sections in one sitting.",
+      "vi": "Bạn làm được cả bốn section trong một lần ngồi."
+    },
+    {
+      "en": "You can handle Section 4, the lecture with no pause to rest.",
+      "vi": "Bạn xử lý được Section 4, bài giảng không có khoảng nghỉ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Section 4: a lecture",
+        "vi": "Section 4: bài giảng"
+      },
+      "body": {
+        "en": "Section 4 is **one speaker, one long lecture**, and the questions are almost always **note completion**. The notes follow the **structure** of the lecture. There is no pause in the middle, so you must read ahead while you listen.",
+        "vi": "Section 4 là **một người nói, một bài giảng dài** và câu hỏi hầu như luôn là **điền ghi chú**. Ghi chú đi theo **cấu trúc** bài giảng. Không có khoảng nghỉ ở giữa nên bạn phải vừa nghe vừa đọc trước."
+      }
+    },
+    {
+      "heading": {
+        "en": "Follow the signposts",
+        "vi": "Theo các từ dẫn ý"
+      },
+      "body": {
+        "en": "Lecturers tell you where they are: **first, second, finally, now let's turn to, in contrast, another example**. Match these signposts to the headings of your notes, and you will always know which gap comes next.",
+        "vi": "Người giảng cho bạn biết họ đang ở đâu: **first, second, finally, now let's turn to, in contrast, another example**. Hãy khớp các từ dẫn ý này với tiêu đề trong ghi chú và bạn luôn biết chỗ trống nào sắp tới."
+      }
+    },
+    {
+      "heading": {
+        "en": "Your first full test",
+        "vi": "Bài thi đầy đủ đầu tiên"
+      },
+      "body": {
+        "en": "This week you take full 40-question tests. **A low score is normal and useful**: it shows exactly what to work on. After each test, sort every mistake (spelling, plural, distractor, did not hear) and choose one cause to fix next week.",
+        "vi": "Tuần này bạn làm các bài đầy đủ 40 câu. **Điểm thấp là bình thường và hữu ích**: nó cho thấy chính xác cần luyện gì. Sau mỗi bài, hãy phân loại từng lỗi (chính tả, số nhiều, bẫy, không nghe được) và chọn một nguyên nhân để sửa tuần sau."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Notes that follow a lecture",
+        "vi": "Ghi chú đi theo một bài giảng"
+      },
+      "text": "Heading in the notes: Benefits\n- temperature: lowers heat by up to ____ degrees\n- rain: less risk of ____\nLecturer: \"What are the benefits? First, temperature... Second, rainwater...\"",
+      "note": {
+        "en": "The words First and Second match the two bullets: you know where you are.",
+        "vi": "Từ First và Second khớp với hai gạch đầu dòng: bạn biết mình đang ở đâu."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Lecture signposts",
+        "vi": "Từ dẫn ý trong bài giảng"
+      },
+      "items": [
+        "First, ... Second, ... Finally, ...",
+        "Now let's turn to...",
+        "In contrast, ...",
+        "Another example is...",
+        "To sum up, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Section 4 questions are almost always:",
+        "vi": "Câu hỏi Section 4 hầu như luôn là:"
+      },
+      "options": [
+        "note completion",
+        "multiple choice only",
+        "matching only"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Notes that follow the lecture's structure.",
+        "vi": "Ghi chú theo cấu trúc bài giảng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What helps you know which gap comes next?",
+        "vi": "Điều gì giúp bạn biết chỗ trống nào sắp tới?"
+      },
+      "options": [
+        "The signposts, like first and second",
+        "The speaker's voice",
+        "The length of the audio"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Signposts mark the structure.",
+        "vi": "Từ dẫn ý đánh dấu cấu trúc."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You score low on your first full test. This is:",
+        "vi": "Bạn được điểm thấp ở bài đầy đủ đầu tiên. Điều này:"
+      },
+      "options": [
+        "normal, and shows what to work on",
+        "a sign you should stop",
+        "an error in the test"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The mistakes tell you what to practise.",
+        "vi": "Các lỗi cho bạn biết cần luyện gì."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order what you do after a full test.",
+        "vi": "Sắp xếp việc làm sau một bài đầy đủ."
+      },
+      "parts": [
+        "Mark with the key",
+        "Sort each mistake by cause",
+        "Listen again with the transcript",
+        "Choose one cause to fix next week"
+      ],
+      "explanation": {
+        "en": "One cause at a time.",
+        "vi": "Mỗi lần một nguyên nhân."
+      }
+    }
+  ]
+}

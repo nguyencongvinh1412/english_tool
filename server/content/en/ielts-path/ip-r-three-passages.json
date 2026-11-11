@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can do three passages in 60 minutes.",
+      "vi": "Bạn làm được ba bài đọc trong 60 phút."
+    },
+    {
+      "en": "You can sort your mistakes by question type and by cause.",
+      "vi": "Bạn phân loại được lỗi theo dạng câu và theo nguyên nhân."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The whole Reading test",
+        "vi": "Cả bài thi Reading"
+      },
+      "body": {
+        "en": "The real Reading test has **three passages and 60 minutes**. There is **no extra time** to copy answers, so write them on the answer sheet as you go. The passages get **harder**: do not spend more than 20 minutes on any of them.",
+        "vi": "Bài thi Reading thật có **ba bài đọc và 60 phút**. **Không có thời gian thêm** để chép đáp án nên hãy ghi thẳng vào phiếu trả lời. Các bài **khó dần**: đừng dành hơn 20 phút cho bất kỳ bài nào."
+      }
+    },
+    {
+      "heading": {
+        "en": "Mistakes by question type",
+        "vi": "Lỗi theo dạng câu"
+      },
+      "body": {
+        "en": "After a full set, count your **correct answers per question type** (True/False/Not Given, matching, gap fill, multiple choice). The lowest type is your next target. The app's **error book** shows this for you.",
+        "vi": "Sau một bộ đầy đủ, hãy đếm **số câu đúng theo từng dạng** (True/False/Not Given, nối, điền từ, trắc nghiệm). Dạng thấp nhất là mục tiêu kế tiếp. **Sổ lỗi** của app thống kê giúp bạn việc này."
+      }
+    },
+    {
+      "heading": {
+        "en": "Mistakes by cause",
+        "vi": "Lỗi theo nguyên nhân"
+      },
+      "body": {
+        "en": "Also name the **cause** of each mistake: you could not find the sentence; you found it but misread it; you ran out of time; you spelled the answer wrongly. Each cause has a different fix: scanning practice, careful reading, pace, or spelling.",
+        "vi": "Cũng hãy gọi tên **nguyên nhân** của từng lỗi: không tìm được câu; tìm được nhưng đọc sai; hết giờ; viết sai chính tả. Mỗi nguyên nhân có cách sửa khác: luyện scanning, đọc kỹ, tốc độ hoặc chính tả."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A mistake report for one set",
+        "vi": "Báo cáo lỗi của một bộ"
+      },
+      "text": "Passage 1: 11/13 | Passage 2: 8/13 | Passage 3: 5/14\nTrue/False/Not Given: 7/12 | Gap fill: 9/10 | Headings: 2/5\nCauses: 4 ran out of time on passage 3; 3 could not find the sentence; 2 spelling.\nNext target: headings, and the pace of passage 3.",
+      "note": {
+        "en": "Two numbers (type and cause) give you a clear plan.",
+        "vi": "Hai con số (dạng câu và nguyên nhân) cho bạn một kế hoạch rõ ràng."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many passages and how many minutes are in the real Reading test?",
+        "vi": "Bài thi Reading thật có bao nhiêu bài đọc và bao nhiêu phút?"
+      },
+      "options": [
+        "2 passages, 40 minutes",
+        "3 passages, 60 minutes",
+        "4 passages, 80 minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Three passages in 60 minutes.",
+        "vi": "Ba bài trong 60 phút."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Is there extra time to copy answers in the Reading test?",
+        "vi": "Trong bài thi Reading có thêm thời gian để chép đáp án không?"
+      },
+      "options": [
+        "Yes, 10 minutes",
+        "No",
+        "Yes, 2 minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Write on the answer sheet as you go.",
+        "vi": "Hãy ghi thẳng vào phiếu trả lời."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Where can you see your correct answers per question type?",
+        "vi": "Bạn xem số câu đúng theo dạng câu ở đâu?"
+      },
+      "options": [
+        "In the error book",
+        "Nowhere",
+        "Only on paper"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The error book counts them for you.",
+        "vi": "Sổ lỗi đếm giúp bạn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the review after a full set.",
+        "vi": "Sắp xếp việc ôn sau một bộ đầy đủ."
+      },
+      "parts": [
+        "Mark with the key",
+        "Count correct answers by question type",
+        "Name the cause of each mistake",
+        "Choose one target for next time"
+      ],
+      "explanation": {
+        "en": "Type, cause, target.",
+        "vi": "Dạng câu, nguyên nhân, mục tiêu."
+      }
+    }
+  ]
+}

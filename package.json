@@ -31,7 +31,8 @@
     "grammar:draft": "tsx server/scripts/draftGrammar.ts",
     "units:draft": "tsx server/scripts/draftUnits.ts",
     "ielts:fill": "tsx server/scripts/fillIeltsPractice.ts",
-    "ielts:fill-gates": "tsx server/scripts/fillIeltsPractice.ts --gates"
+    "ielts:fill-gates": "tsx server/scripts/fillIeltsPractice.ts --gates",
+    "ielts:fill-phase2": "tsx server/scripts/fillIeltsPractice.ts --phase2"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

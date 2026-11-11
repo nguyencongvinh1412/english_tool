@@ -188,7 +188,7 @@ const EXTRA_TYPES: Record<PathSkill, string[]> = {
 };
 
 /**
- * Appends steps to the end of the learner's queue:
+ * Appends steps to the end of the learner's queue (week 0 marks them as extra: they belong to no week of the syllabus):
  *  remedial  after a conditional pass: six days of extra practice (about an hour a day) for the weak skill
  *  buffer    after a fail: a week with no new lessons, only practice of the weak skills, before the retake
  */
@@ -199,7 +199,7 @@ export async function seedExtraSteps(path: IeltsPath, gate: number, kind: 'remed
   const days = kind === 'remedial' ? 6 : 5;
   const steps: { phase: number; week: number; day: number; block: PathSkill; type: string; minutes: number }[] = [];
   for (let day = 1; day <= days; day++) {
-    for (const skill of skills) steps.push({ phase: kind === 'remedial' ? gate + 1 : gate, week: kind === 'remedial' ? 1 : 5, day, block: skill, type: EXTRA_TYPES[skill][(day - 1) % 2], minutes: kind === 'remedial' ? 60 : 40 });
+    for (const skill of skills) steps.push({ phase: kind === 'remedial' ? gate + 1 : gate, week: 0, day, block: skill, type: EXTRA_TYPES[skill][(day - 1) % 2], minutes: kind === 'remedial' ? 60 : 40 });
   }
   const planned = assignDays(steps.map((s) => s.minutes), quotaDay(), path.dailyMinutes, path.restDays as number[]);
   await db.insert(pathLessons).values(

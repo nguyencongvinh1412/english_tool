@@ -55,7 +55,7 @@ describe('IELTS Path Today', () => {
     const path = await startedPath(agent);
     const today = await todayOf(agent);
     expect(today.mode).toBe('syllabus');
-    expect(today.position).toEqual({ phase: 1, week: 1, day: 1 });
+    expect(today.position).toEqual({ phase: 1, week: 1, day: 1, extra: null });
     const stored = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id));
     expect(stored.length).toBeGreaterThan(100);
     // Day 1 of week 1: words, grammar, dictation, then the four lessons

@@ -176,7 +176,7 @@ export interface TodayGate {
 export interface PathToday {
   mode: 'syllabus' | 'gate' | 'unwritten' | 'complete';
   overallTarget: number;
-  position: { phase: number; week: number; day: number } | null;
+  position: { phase: number; week: number; day: number; extra: 'remedial' | 'buffer' | null } | null;
   restDay: boolean;
   dailyMinutes: number;
   capacityMinutes: number;

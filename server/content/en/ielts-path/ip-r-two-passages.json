@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can read two passages in 40 minutes.",
+      "vi": "Bạn đọc được hai bài trong 40 phút."
+    },
+    {
+      "en": "You can keep the same pace on the second passage as on the first.",
+      "vi": "Bạn giữ được tốc độ ở bài thứ hai như bài đầu."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Pace over two passages",
+        "vi": "Tốc độ qua hai bài đọc"
+      },
+      "body": {
+        "en": "Two passages in 40 minutes means **20 minutes each**, exactly as in the test. Most learners spend 28 minutes on the first and run out of time on the second. Set a **clock** and write your **start time** on the page.",
+        "vi": "Hai bài trong 40 phút nghĩa là **20 phút mỗi bài**, đúng như trong bài thi. Phần lớn người học dùng 28 phút cho bài đầu và hết giờ ở bài hai. Hãy đặt **đồng hồ** và ghi **giờ bắt đầu** lên giấy."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to do when time is short",
+        "vi": "Khi thiếu thời gian"
+      },
+      "body": {
+        "en": "If time is nearly up, **answer every remaining question** with a guess: there is no penalty. Choose the easy question types first (gap fill with names and numbers) and leave the hardest (headings, summary) for last.",
+        "vi": "Nếu sắp hết giờ, hãy **trả lời mọi câu còn lại** bằng đáp án đoán: không bị trừ điểm. Làm các dạng dễ trước (điền tên và số) và để dạng khó nhất (tiêu đề, tóm tắt) cuối cùng."
+      }
+    },
+    {
+      "heading": {
+        "en": "Review the time, too",
+        "vi": "Cũng nên xem lại thời gian"
+      },
+      "body": {
+        "en": "After the test, write how many **minutes each passage took** and where you lost time. A passage that took 28 minutes means that you must stop earlier on the questions you cannot find.",
+        "vi": "Sau bài thi, hãy ghi mỗi bài đọc mất **bao nhiêu phút** và bạn mất giờ ở đâu. Một bài mất 28 phút nghĩa là bạn phải dừng sớm hơn ở những câu không tìm ra."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A schedule for two passages",
+        "vi": "Lịch cho hai bài đọc"
+      },
+      "text": "0:00-2:00 skim passage 1 | 2:00-17:00 questions | 17:00-20:00 check\n20:00-22:00 skim passage 2 | 22:00-37:00 questions | 37:00-40:00 check and guess the rest",
+      "note": {
+        "en": "The second passage has the same plan as the first.",
+        "vi": "Bài thứ hai có cùng kế hoạch với bài đầu."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long for each passage when you have two in 40 minutes?",
+        "vi": "Mỗi bài bao lâu khi có hai bài trong 40 phút?"
+      },
+      "options": [
+        "15 minutes",
+        "20 minutes",
+        "25 minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "40 divided by 2.",
+        "vi": "40 chia 2."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Time is almost up and some questions are blank. You should:",
+        "vi": "Sắp hết giờ và còn câu bỏ trống. Bạn nên:"
+      },
+      "options": [
+        "leave them blank",
+        "guess every one",
+        "start a new passage"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "No penalty for wrong answers.",
+        "vi": "Không bị trừ điểm khi sai."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which question types are best to do first?",
+        "vi": "Dạng câu nào nên làm trước?"
+      },
+      "options": [
+        "Gap fill with names and numbers",
+        "Summary completion",
+        "Headings"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They are the quickest to find.",
+        "vi": "Chúng tìm nhanh nhất."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the plan for one passage.",
+        "vi": "Sắp xếp kế hoạch cho một bài đọc."
+      },
+      "parts": [
+        "Skim for two minutes",
+        "Answer the easy questions first",
+        "Guess what you cannot find",
+        "Check spelling at the end"
+      ],
+      "explanation": {
+        "en": "Time is a skill.",
+        "vi": "Thời gian cũng là một kỹ năng."
+      }
+    }
+  ]
+}

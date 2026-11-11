@@ -4,12 +4,12 @@ import { matchQuestion } from '../content/schemas.js';
 import { GATE_GROUPS } from './gateContent.js';
 import { pathListening, pathReading } from './practice.js';
 import { STATIC_GROUPS, parseStaticGroup } from './practiceContent.js';
-import { PRACTICE_TYPES, phaseSteps } from './syllabus.js';
+import { PRACTICE_TYPES, phaseSteps, WRITTEN_PHASES } from './syllabus.js';
 
 describe('practice content', () => {
   it('has every static group valid and a pool for each written practice type of phase 1', () => {
     for (const group of STATIC_GROUPS) expect(() => parseStaticGroup(group), group.id).not.toThrow();
-    const used = new Set(phaseSteps(1).filter((s) => s.kind === 'practice').map((s) => (s.ref as { type: string }).type));
+    const used = new Set(WRITTEN_PHASES.flatMap((phase) => phaseSteps(phase)).filter((s) => s.kind === 'practice').map((s) => (s.ref as { type: string }).type));
     for (const type of used) {
       if (type.startsWith('w-') || type.startsWith('s-')) expect(STATIC_GROUPS.filter((g) => g.type === type).length, type).toBeGreaterThanOrEqual(3);
     }
@@ -17,8 +17,8 @@ describe('practice content', () => {
   });
 
   it('writes enough fresh prompts for the weeks that use them', () => {
-    const count = (type: string) => phaseSteps(1).filter((s) => s.kind === 'practice' && (s.ref as { type: string }).type === type).length;
-    for (const type of ['w-para', 'w-task1', 'w-task2', 's-part1', 's-part2', 's-mock'] as const) {
+    const count = (type: string) => WRITTEN_PHASES.flatMap((phase) => phaseSteps(phase)).filter((s) => s.kind === 'practice' && (s.ref as { type: string }).type === type).length;
+    for (const type of ['w-para', 'w-task1', 'w-task2', 'w-line', 'w-opinion', 'w-advdis', 's-part1', 's-part2', 's-mock', 's-full'] as const) {
       expect(STATIC_GROUPS.filter((g) => g.type === type).length, type).toBeGreaterThanOrEqual(Math.min(count(type), 6));
     }
   });

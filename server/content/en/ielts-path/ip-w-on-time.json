@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can write Task 1 in 20 minutes and Task 2 in 40.",
+      "vi": "Bạn viết được Task 1 trong 20 phút và Task 2 trong 40."
+    },
+    {
+      "en": "You can check your work in the last two minutes.",
+      "vi": "Bạn kiểm tra được bài trong hai phút cuối."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The time plan",
+        "vi": "Kế hoạch thời gian"
+      },
+      "body": {
+        "en": "Writing is **60 minutes**: **Task 1 in 20**, **Task 2 in 40**. Task 2 counts **twice** as much in the band, so never take time from Task 2 to finish Task 1. If 20 minutes pass, stop Task 1 and move on.",
+        "vi": "Viết là **60 phút**: **Task 1 trong 20**, **Task 2 trong 40**. Task 2 được tính **gấp đôi** trong band, nên đừng bao giờ lấy thời gian của Task 2 để làm xong Task 1. Hết 20 phút thì dừng Task 1 và chuyển sang."
+      }
+    },
+    {
+      "heading": {
+        "en": "Inside each task",
+        "vi": "Bên trong mỗi bài"
+      },
+      "body": {
+        "en": "Task 1 (20 min): **2 min** read and choose the main features, **15 min** write, **3 min** check numbers. Task 2 (40 min): **5 min** plan, **30 min** write, **5 min** check.",
+        "vi": "Task 1 (20 phút): **2 phút** đọc và chọn nét chính, **15 phút** viết, **3 phút** kiểm tra số liệu. Task 2 (40 phút): **5 phút** lập dàn ý, **30 phút** viết, **5 phút** kiểm tra."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to check",
+        "vi": "Kiểm tra gì"
+      },
+      "body": {
+        "en": "In the last minutes check three things only: **numbers and years** (Task 1), **tense and subject-verb agreement**, and **spelling of common words**. Do not rewrite sentences: you will make new mistakes.",
+        "vi": "Trong vài phút cuối chỉ kiểm tra ba thứ: **số liệu và năm** (Task 1), **thì và sự hòa hợp chủ vị**, và **chính tả các từ thông dụng**. Đừng viết lại câu: bạn sẽ mắc lỗi mới."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A timed writing hour",
+        "vi": "Một giờ viết có tính giờ"
+      },
+      "text": "0:00-0:02  read Task 1, choose main features\n0:02-0:17  write Task 1 (about 150 words)\n0:17-0:20  check numbers and tenses\n0:20-0:25  plan Task 2\n0:25-0:55  write Task 2 (about 250 words)\n0:55-1:00  check",
+      "note": {
+        "en": "The hour is a plan, not a hope: practise it with a clock.",
+        "vi": "Một giờ là một kế hoạch, không phải hy vọng: hãy luyện với đồng hồ."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How much does Task 2 count compared with Task 1?",
+        "vi": "Task 2 được tính so với Task 1 như thế nào?"
+      },
+      "options": [
+        "The same",
+        "Twice as much",
+        "Half as much"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Task 2 counts double.",
+        "vi": "Task 2 được tính gấp đôi."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You have used 20 minutes on Task 1 and are not finished. Do you:",
+        "vi": "Bạn đã dùng 20 phút cho Task 1 mà chưa xong. Bạn:"
+      },
+      "options": [
+        "keep going",
+        "stop and start Task 2",
+        "skip Task 2"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Protect the time of Task 2.",
+        "vi": "Bảo vệ thời gian của Task 2."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In the last minutes, you should:",
+        "vi": "Trong vài phút cuối, bạn nên:"
+      },
+      "options": [
+        "rewrite your sentences",
+        "check numbers, tenses and spelling",
+        "add a new paragraph"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Check, do not rewrite.",
+        "vi": "Kiểm tra, đừng viết lại."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the writing hour.",
+        "vi": "Sắp xếp giờ viết."
+      },
+      "parts": [
+        "Write Task 1",
+        "Check Task 1",
+        "Plan Task 2",
+        "Write and check Task 2"
+      ],
+      "explanation": {
+        "en": "Task 1 first, but only 20 minutes.",
+        "vi": "Task 1 trước, nhưng chỉ 20 phút."
+      }
+    }
+  ]
+}

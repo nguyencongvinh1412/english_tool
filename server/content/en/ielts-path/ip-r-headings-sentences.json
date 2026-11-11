@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can match a heading to a paragraph when the words are different.",
+      "vi": "Bạn nối được tiêu đề với đoạn văn khi từ ngữ khác nhau."
+    },
+    {
+      "en": "You can complete a sentence with the right words from the text.",
+      "vi": "Bạn hoàn thành được câu bằng đúng từ trong bài."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Headings: idea, not words",
+        "vi": "Tiêu đề: ý chính, không phải từ ngữ"
+      },
+      "body": {
+        "en": "A heading must cover the **main idea of the whole paragraph**. The trap is a heading that uses **the same words** as one sentence but is about something else. Read the first and last sentences, say the idea in your own words, then look at the headings.",
+        "vi": "Một tiêu đề phải bao quát **ý chính của cả đoạn**. Cái bẫy là tiêu đề dùng **cùng từ** với một câu nhưng nói về chuyện khác. Hãy đọc câu đầu và câu cuối, nói ý chính bằng lời của mình rồi mới nhìn các tiêu đề."
+      }
+    },
+    {
+      "heading": {
+        "en": "Sentence completion",
+        "vi": "Hoàn thành câu"
+      },
+      "body": {
+        "en": "You complete a sentence with words **from the text** and must keep to the **word limit** (for example NO MORE THAN TWO WORDS). Check the **grammar**: the words you add must fit the sentence. The questions follow the **order** of the text.",
+        "vi": "Bạn hoàn thành câu bằng từ **lấy từ bài** và phải giữ **giới hạn từ** (ví dụ NO MORE THAN TWO WORDS). Kiểm tra **ngữ pháp**: từ bạn thêm phải khớp câu. Các câu hỏi đi theo **thứ tự** của bài."
+      }
+    },
+    {
+      "heading": {
+        "en": "Paraphrase is everywhere",
+        "vi": "Paraphrase có ở khắp nơi"
+      },
+      "body": {
+        "en": "The question says *\"Prices rose sharply\"*; the text says *\"Costs went up quickly\"*. Both tasks test whether you can see the **same idea in new words**. When you check, write next to each answer how the question was paraphrased.",
+        "vi": "Câu hỏi viết *\"Prices rose sharply\"*; bài viết *\"Costs went up quickly\"*. Cả hai dạng đều kiểm tra bạn có thấy **cùng một ý bằng từ khác** không. Khi kiểm tra đáp án, hãy ghi cạnh mỗi câu cách câu hỏi được diễn đạt lại."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A heading trap",
+        "vi": "Một cái bẫy ở tiêu đề"
+      },
+      "text": "Paragraph: \"Cycling to work is cheap and healthy. However, many cities have no safe cycle lanes, so riders worry about traffic.\"\n\nHeadings:  i) The cost of cycling   ii) Why more people do not cycle   iii) Health and sport\n\nBest: ii. The paragraph is about the problem of safety; cheap and healthy are only the starting point.",
+      "note": {
+        "en": "Heading i is built on the first sentence (cheap) and heading iii on the word healthy, but the paragraph's main point is the problem of safety.",
+        "vi": "Tiêu đề i dựa vào câu đầu (cheap) và tiêu đề iii dựa vào từ healthy, nhưng ý chính của đoạn là vấn đề an toàn."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A good heading covers:",
+        "vi": "Một tiêu đề tốt bao quát:"
+      },
+      "options": [
+        "one detail of the paragraph",
+        "the main idea of the whole paragraph",
+        "the first word of the paragraph"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The whole paragraph.",
+        "vi": "Cả đoạn văn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In sentence completion with NO MORE THAN TWO WORDS, which answer is possible?",
+        "vi": "Ở bài hoàn thành câu với NO MORE THAN TWO WORDS, đáp án nào chấp nhận được?"
+      },
+      "options": [
+        "the old railway station",
+        "railway station",
+        "the old station building"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Two words: railway station.",
+        "vi": "Hai từ: railway station."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The answers of sentence completion questions come:",
+        "vi": "Đáp án của câu hoàn thành câu nằm:"
+      },
+      "options": [
+        "in the order of the text",
+        "at random",
+        "all in the last paragraph"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They follow the text.",
+        "vi": "Chúng đi theo thứ tự bài."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps for a heading.",
+        "vi": "Sắp xếp các bước cho một tiêu đề."
+      },
+      "parts": [
+        "Read the first and last sentence",
+        "Say the main idea in your own words",
+        "Compare it with the headings",
+        "Reject a heading that only matches one detail"
+      ],
+      "explanation": {
+        "en": "Idea first.",
+        "vi": "Ý chính trước."
+      }
+    }
+  ]
+}

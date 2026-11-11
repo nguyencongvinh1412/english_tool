@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You know the ten most common Part 1 topics.",
+      "vi": "Bạn biết mười chủ đề Part 1 hay gặp nhất."
+    },
+    {
+      "en": "You can answer on any of them without a memorised script.",
+      "vi": "Bạn trả lời được về bất kỳ chủ đề nào mà không cần bài học thuộc."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Ten common topics",
+        "vi": "Mười chủ đề hay gặp"
+      },
+      "body": {
+        "en": "Part 1 questions come from familiar life: **home, work or study, hometown, free time, food, transport, weather, shopping, family, technology**. You do not need a different answer for every question; you need **ideas and words** for each topic.",
+        "vi": "Câu hỏi Part 1 đến từ đời sống quen thuộc: **nhà, công việc hoặc học tập, quê hương, thời gian rảnh, đồ ăn, giao thông, thời tiết, mua sắm, gia đình, công nghệ**. Bạn không cần một câu trả lời riêng cho mỗi câu hỏi; bạn cần **ý và từ** cho từng chủ đề."
+      }
+    },
+    {
+      "heading": {
+        "en": "Why not to memorise",
+        "vi": "Vì sao không học thuộc"
+      },
+      "body": {
+        "en": "Examiners recognise a **memorised answer**: it sounds flat, does not fit the question, and loses marks for fluency and naturalness. Keep **a list of ideas and five useful words** per topic instead, and speak freely.",
+        "vi": "Giám khảo nhận ra **câu trả lời học thuộc**: nghe đều đều, không khớp câu hỏi và mất điểm về độ trôi chảy và tự nhiên. Thay vào đó hãy giữ **một danh sách ý và năm từ hữu ích** cho mỗi chủ đề và nói tự do."
+      }
+    },
+    {
+      "heading": {
+        "en": "A topic card",
+        "vi": "Thẻ chủ đề"
+      },
+      "body": {
+        "en": "For each topic write: **3 things you can say** (a habit, a past experience, a preference) and **5 words**. Example, *food*: I cook at weekends; I ate ... yesterday; I prefer ... because ...; words: *ingredient, recipe, spicy, fresh, takeaway*.",
+        "vi": "Với mỗi chủ đề hãy ghi: **3 điều bạn có thể nói** (một thói quen, một trải nghiệm quá khứ, một sở thích) và **5 từ**. Ví dụ *food*: I cook at weekends; I ate ... yesterday; I prefer ... because ...; từ: *ingredient, recipe, spicy, fresh, takeaway*."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A topic card for \"transport\"",
+        "vi": "Thẻ chủ đề \"transport\""
+      },
+      "text": "Say: I take the bus to work every day / last year I started cycling / I prefer the metro because it is fast.\nWords: commute, crowded, convenient, traffic jam, public transport\n\nQ: How do you usually travel to work?\nA: I usually take the bus. It is cheap, although it can be crowded in the morning, so sometimes I cycle instead.",
+      "note": {
+        "en": "The answer comes from ideas on the card but is built fresh for the question.",
+        "vi": "Câu trả lời xuất phát từ ý trên thẻ nhưng được tạo mới theo câu hỏi."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Why not memorise Part 1 answers?",
+        "vi": "Vì sao không học thuộc câu trả lời Part 1?"
+      },
+      "options": [
+        "They sound flat and may not fit the question",
+        "It is not allowed",
+        "They are too long"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Examiners recognise them.",
+        "vi": "Giám khảo nhận ra chúng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What should a topic card hold?",
+        "vi": "Một thẻ chủ đề nên có gì?"
+      },
+      "options": [
+        "A full script",
+        "Three things to say and five words",
+        "Only a list of questions"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Ideas and words, not a script.",
+        "vi": "Ý và từ, không phải bài viết sẵn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is a common Part 1 topic?",
+        "vi": "Chủ đề nào hay gặp ở Part 1?"
+      },
+      "options": [
+        "Quantum physics",
+        "Free time",
+        "International law"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Familiar topics.",
+        "vi": "Các chủ đề quen thuộc."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order how to prepare a topic.",
+        "vi": "Sắp xếp cách chuẩn bị một chủ đề."
+      },
+      "parts": [
+        "Choose the topic",
+        "Write three things you can say",
+        "Write five useful words",
+        "Answer questions out loud, not from the card"
+      ],
+      "explanation": {
+        "en": "Prepare ideas, then speak freely.",
+        "vi": "Chuẩn bị ý, rồi nói tự do."
+      }
+    }
+  ]
+}
