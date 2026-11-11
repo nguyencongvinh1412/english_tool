@@ -1,0 +1,143 @@
+{
+  "objectives": [
+    {
+      "en": "You know what to do each day of the exam week, and what to leave alone.",
+      "vi": "Bạn biết làm gì mỗi ngày của tuần thi, và nên để yên gì."
+    },
+    {
+      "en": "You have checked the practical details.",
+      "vi": "Bạn đã kiểm tra các chi tiết thực tế."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What to do",
+        "vi": "Nên làm"
+      },
+      "body": {
+        "en": "**Monday to Wednesday:** light practice (about an hour a day), your one page, sleep. **Thursday:** one section of each skill only if you wish. **The day before:** nothing new; **prepare**: ID, confirmation, pencils and eraser, water, route and time to the centre, clothes. **Go to bed early**, even if you do not sleep at once.",
+        "vi": "**Thứ Hai đến thứ Tư:** luyện nhẹ (khoảng một giờ mỗi ngày), trang một của bạn, ngủ. **Thứ Năm:** chỉ một section mỗi kỹ năng nếu muốn. **Ngày trước:** không gì mới; **chuẩn bị**: giấy tờ tuỳ thân, giấy xác nhận, bút chì và tẩy, nước, lộ trình và thời gian tới điểm thi, quần áo. **Đi ngủ sớm**, kể cả khi chưa ngủ ngay được."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to leave alone",
+        "vi": "Nên để yên"
+      },
+      "body": {
+        "en": "Leave alone: **new words, new structures, new techniques, new books**, and **comparing yourself with other candidates**. Leave alone a bad mock from two days ago: it says little about the day. Leave alone the **last-night cramming**: it costs sleep and gives almost nothing.",
+        "vi": "Để yên: **từ mới, cấu trúc mới, kỹ thuật mới, sách mới**, và **so mình với thí sinh khác**. Để yên một bài thi thử tệ cách hai ngày: nó nói rất ít về ngày thi. Để yên **việc nhồi nhét đêm cuối**: mất giấc ngủ mà gần như không được gì."
+      }
+    },
+    {
+      "heading": {
+        "en": "If you are anxious",
+        "vi": "Nếu bạn lo lắng"
+      },
+      "body": {
+        "en": "Anxiety is normal. Breathe out slowly, **four seconds in, six out**, three times. Tell yourself the **plan** (predict, move on, check), not the result. You have done the whole test several times; the exam is another one.",
+        "vi": "Lo lắng là bình thường. Thở ra chậm, **hít bốn giây, thở sáu giây**, ba lần. Nhắc mình **kế hoạch** (đoán, đi tiếp, kiểm tra), không phải kết quả. Bạn đã làm cả bài thi nhiều lần; kỳ thi chỉ là một lần nữa."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The exam week",
+        "vi": "Tuần thi"
+      },
+      "text": "Mon-Wed  ~1 hour a day, one page, sleep\nThu      one section each if you wish\nFri      prepare: ID, confirmation, pencils, water, route · bed early\nExam     breathe 4-in 6-out, then follow the plan",
+      "note": {
+        "en": "Light, prepared, calm.",
+        "vi": "Nhẹ, chuẩn bị, bình tĩnh."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Check the day before",
+        "vi": "Kiểm tra ngày trước"
+      },
+      "items": [
+        "ID and confirmation",
+        "pencils and eraser",
+        "water",
+        "route and travel time",
+        "clothes",
+        "early night"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you learn in the exam week?",
+        "vi": "Tuần thi bạn học gì?"
+      },
+      "options": [
+        "Nothing new",
+        "Twenty words a day",
+        "A new technique"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Light practice only.",
+        "vi": "Chỉ luyện nhẹ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The night before you...",
+        "vi": "Đêm trước bạn..."
+      },
+      "options": [
+        "prepare and go to bed early",
+        "cram",
+        "do a full test"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Sleep is worth more.",
+        "vi": "Giấc ngủ đáng hơn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A bad mock two days ago says...",
+        "vi": "Một bài thi thử tệ cách hai ngày nói lên..."
+      },
+      "options": [
+        "very little about the day",
+        "everything",
+        "that you must retake"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Leave it alone.",
+        "vi": "Hãy để yên."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the exam week.",
+        "vi": "Sắp xếp tuần thi."
+      },
+      "parts": [
+        "Light practice",
+        "One section each if you wish",
+        "Prepare everything",
+        "Early night and the exam"
+      ],
+      "explanation": {
+        "en": "Taper, prepare, rest, sit.",
+        "vi": "Giảm dần, chuẩn bị, nghỉ, thi."
+      }
+    }
+  ]
+}

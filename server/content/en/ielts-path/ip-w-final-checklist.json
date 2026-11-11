@@ -1,0 +1,132 @@
+{
+  "objectives": [
+    {
+      "en": "You have a one-page Writing checklist for Task 1 and Task 2 that you trust.",
+      "vi": "Bạn có danh sách kiểm tra Viết một trang cho Task 1 và Task 2 mà bạn tin."
+    },
+    {
+      "en": "You know the order of the five minutes.",
+      "vi": "Bạn biết thứ tự của năm phút."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What goes on the page",
+        "vi": "Trang này có gì"
+      },
+      "body": {
+        "en": "The checklist is **short, written by you, and used in every practice**. Task 2: **position in the introduction and the conclusion; one idea and a topic sentence per paragraph; 260 words; two model sentences used**. Task 1: **overview with no numbers; three comparisons; figures that support the overview; tenses that match the years**. Both: **articles, plural -s, agreement, one tense per time frame**.",
+        "vi": "Danh sách kiểm tra **ngắn, do bạn viết và dùng ở mọi bài luyện**. Task 2: **quan điểm ở mở bài và kết bài; mỗi đoạn một ý và câu chủ đề; 260 từ; dùng hai câu mẫu**. Task 1: **tổng quan không số liệu; ba so sánh; số liệu hỗ trợ tổng quan; thì khớp năm**. Cả hai: **mạo từ, -s số nhiều, hoà hợp, một thì cho một khung thời gian**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Five minutes, in order",
+        "vi": "Năm phút, theo thứ tự"
+      },
+      "body": {
+        "en": "Minute 1: **content** (position, overview). Minute 2: **structure** (one idea a paragraph). Minutes 3 and 4: **your two grammar passes** (articles, then plural and agreement). Minute 5: **read the first and last sentences**, then **stop**. Do not rewrite sentences you were sure of.",
+        "vi": "Phút 1: **nội dung** (quan điểm, tổng quan). Phút 2: **cấu trúc** (mỗi đoạn một ý). Phút 3 và 4: **hai lượt ngữ pháp của bạn** (mạo từ, rồi số nhiều và hoà hợp). Phút 5: **đọc câu đầu và câu cuối**, rồi **dừng**. Đừng viết lại những câu bạn đã chắc."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "One page",
+        "vi": "Một trang"
+      },
+      "text": "TASK 2   position in intro + conclusion · one idea + topic sentence per paragraph · 260 words · two model sentences\nTASK 1   overview, no numbers · three comparisons · figures support the overview · tenses match the years\nBOTH     the/a · plural -s · agreement · one tense per time frame\nMINUTES  1 content · 2 structure · 3-4 grammar passes · 5 first/last sentences, stop",
+      "note": {
+        "en": "Fits on one page, so it gets used.",
+        "vi": "Vừa một trang nên được dùng."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Checklist items",
+        "vi": "Mục kiểm tra"
+      },
+      "items": [
+        "position in intro and conclusion",
+        "overview with no numbers",
+        "articles and plural -s",
+        "one tense per time frame",
+        "first and last sentences, then stop"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Where does the checklist belong?",
+        "vi": "Danh sách kiểm tra thuộc về đâu?"
+      },
+      "options": [
+        "In the plan, in the last five minutes of each task",
+        "After the test",
+        "Only for Task 1"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Planned time, not leftover time.",
+        "vi": "Thời gian có kế hoạch, không phải thời gian dư."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In the last minute you...",
+        "vi": "Ở phút cuối bạn..."
+      },
+      "options": [
+        "read the first and last sentences, then stop",
+        "rewrite the introduction",
+        "count the words twice"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Do not change what you were sure of.",
+        "vi": "Đừng đổi điều đã chắc."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which belongs on the Task 1 line?",
+        "vi": "Mục nào thuộc dòng Task 1?"
+      },
+      "options": [
+        "Overview with no numbers",
+        "A personal opinion",
+        "Your own prediction"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The overview is required.",
+        "vi": "Tổng quan là bắt buộc."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the five minutes.",
+        "vi": "Sắp xếp năm phút."
+      },
+      "parts": [
+        "Content",
+        "Structure",
+        "Grammar passes",
+        "First and last sentences"
+      ],
+      "explanation": {
+        "en": "From meaning to detail.",
+        "vi": "Từ ý nghĩa tới chi tiết."
+      }
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "objectives": [
+    {
+      "en": "You know the shape of the Speaking test: three parts, 11 to 14 minutes, one examiner.",
+      "vi": "Bạn biết hình dạng bài Nói: ba phần, 11 đến 14 phút, một giám khảo."
+    },
+    {
+      "en": "You know that it is a separate appointment, and how to be ready for it.",
+      "vi": "Bạn biết nó là buổi hẹn riêng và cách chuẩn bị cho nó."
+    },
+    {
+      "en": "You have a first-minute routine.",
+      "vi": "Bạn có quy trình cho phút đầu tiên."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The real format",
+        "vi": "Định dạng thi thật"
+      },
+      "body": {
+        "en": "Speaking is a **face-to-face conversation with one examiner**, **11 to 14 minutes**, recorded. **Part 1** (4-5 minutes): familiar topics. **Part 2** (3-4 minutes): one minute to prepare, one to two minutes to talk. **Part 3** (4-5 minutes): abstract questions linked to Part 2. It is usually **on the same day or up to seven days apart** from the other three, so you may sit it the day before or after.",
+        "vi": "Bài Nói là **cuộc trò chuyện trực tiếp với một giám khảo**, **11 đến 14 phút**, có ghi âm. **Part 1** (4-5 phút): chủ đề quen thuộc. **Part 2** (3-4 phút): một phút chuẩn bị, nói một đến hai phút. **Part 3** (4-5 phút): câu hỏi trừu tượng nối với Part 2. Thường **cùng ngày hoặc cách tối đa bảy ngày** so với ba kỹ năng kia, nên có thể thi trước hoặc sau đó một ngày."
+      }
+    },
+    {
+      "heading": {
+        "en": "Treat the mock as an appointment",
+        "vi": "Coi bài thi thử là buổi hẹn"
+      },
+      "body": {
+        "en": "Do the Speaking mock **separately from the written ones**, at another time, in a quiet room, and say the whole eleven minutes aloud. Record it; listen the next day with your four questions and your five-word card. A mock you only think through teaches nothing.",
+        "vi": "Làm bài Nói thi thử **tách khỏi các phần viết**, vào giờ khác, trong phòng yên tĩnh, và nói to cả mười một phút. Ghi âm; hôm sau nghe lại với bốn câu hỏi và thẻ năm từ. Bài thi thử chỉ nghĩ trong đầu thì không dạy được gì."
+      }
+    },
+    {
+      "heading": {
+        "en": "The first minute",
+        "vi": "Phút đầu tiên"
+      },
+      "body": {
+        "en": "The first thirty seconds set the rhythm. Greet, say your name when asked, and answer the first Part 1 question with **two full sentences**: an answer and a reason. Smile with your voice. After that, the shapes you practised take over.",
+        "vi": "Ba mươi giây đầu đặt nhịp. Chào, nói tên khi được hỏi, và trả lời câu Part 1 đầu bằng **hai câu đầy đủ**: một câu trả lời và một lý do. Cười bằng giọng nói. Sau đó những khuôn bạn đã luyện sẽ tự chạy."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Two full sentences for the first answer",
+        "vi": "Hai câu đầy đủ cho câu trả lời đầu"
+      },
+      "text": "Examiner: Where are you from?\nMe: I'm from a city in the south of Vietnam, which is quite busy and hot all year. I've lived there all my life, so I know it very well.",
+      "note": {
+        "en": "Short enough to be natural, long enough to start the rhythm.",
+        "vi": "Đủ ngắn để tự nhiên, đủ dài để khởi động nhịp."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Parts of the test",
+        "vi": "Các phần của bài thi"
+      },
+      "items": [
+        "Part 1: familiar topics",
+        "Part 2: one minute to prepare, one to two to talk",
+        "Part 3: abstract questions",
+        "recorded and face to face",
+        "same day or within seven days"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long does the Speaking test last?",
+        "vi": "Bài Nói kéo dài bao lâu?"
+      },
+      "options": [
+        "11 to 14 minutes",
+        "25 minutes",
+        "5 minutes"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Three parts, one examiner.",
+        "vi": "Ba phần, một giám khảo."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In Part 2 you have...",
+        "vi": "Ở Part 2 bạn có..."
+      },
+      "options": [
+        "one minute to prepare and talk for one to two minutes",
+        "five minutes to prepare",
+        "no time to prepare"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Plan on the card.",
+        "vi": "Lập dàn ý trên thẻ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A good first answer in Part 1 is...",
+        "vi": "Câu trả lời đầu tốt ở Part 1 là..."
+      },
+      "options": [
+        "two full sentences: answer and reason",
+        "one word",
+        "a long story"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It sets the rhythm.",
+        "vi": "Nó đặt nhịp."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the mock.",
+        "vi": "Sắp xếp bài thi thử."
+      },
+      "parts": [
+        "Quiet room, timer, record",
+        "Say all three parts aloud",
+        "Listen the next day with the four questions",
+        "Write one thing to keep and one to fix"
+      ],
+      "explanation": {
+        "en": "Record, speak, review, decide.",
+        "vi": "Ghi âm, nói, nghe lại, quyết định."
+      }
+    }
+  ]
+}

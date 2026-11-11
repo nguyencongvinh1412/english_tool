@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You know that Reading gives sixty minutes and no extra time to transfer answers.",
+      "vi": "Bạn biết bài Đọc cho sáu mươi phút và không có thêm giờ chép đáp án."
+    },
+    {
+      "en": "You can pace the three passages and keep five minutes at the end.",
+      "vi": "Bạn chia nhịp ba bài đọc và giữ năm phút cuối."
+    },
+    {
+      "en": "You know what to do when time runs out with questions left.",
+      "vi": "Bạn biết làm gì khi hết giờ mà còn câu chưa làm."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The real format",
+        "vi": "Định dạng thi thật"
+      },
+      "body": {
+        "en": "Reading has **three passages and 40 questions in 60 minutes**, and **no extra time to copy answers**. Write every answer on the answer sheet **as you finish a passage**. The passages get longer and harder; Passage 3 often has a detailed argument. Question types change from one passage to the next, so read the instructions each time.",
+        "vi": "Bài Đọc có **ba bài và 40 câu trong 60 phút**, và **không có thêm giờ chép đáp án**. Ghi từng đáp án lên phiếu **ngay khi xong một bài**. Các bài dài và khó dần; Bài 3 thường có lập luận chi tiết. Dạng câu đổi theo từng bài, nên đọc hướng dẫn mỗi lần."
+      }
+    },
+    {
+      "heading": {
+        "en": "Your pacing from phase 5",
+        "vi": "Nhịp của bạn từ giai đoạn 5"
+      },
+      "body": {
+        "en": "Use the split that worked in your timed sets: about **17, 18 and 20 minutes**, with **five minutes** to check plurals, word limits and Not Given. Write the three finishing times on the paper before you start. At each time, **move on even with blanks**.",
+        "vi": "Dùng cách chia đã hiệu quả ở các bộ bấm giờ: khoảng **17, 18 và 20 phút**, còn **năm phút** để soát số nhiều, giới hạn từ và Not Given. Viết ba mốc kết thúc lên giấy trước khi bắt đầu. Tới mốc là **đi tiếp dù còn trống**."
+      }
+    },
+    {
+      "heading": {
+        "en": "When time is nearly up",
+        "vi": "Khi sắp hết giờ"
+      },
+      "body": {
+        "en": "With two minutes left, **stop reading** and answer every blank: no mark is taken off for a wrong answer. For True / False / Not Given a guess has one chance in three; for a letter question it has one in four or better. A blank is a mark certainly lost.",
+        "vi": "Còn hai phút thì **ngừng đọc** và điền mọi ô trống: sai không bị trừ điểm. Câu True / False / Not Given đoán có một phần ba cơ hội; câu chọn chữ có một phần tư hoặc hơn. Để trống là chắc chắn mất điểm."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Three finishing times on the paper",
+        "vi": "Ba mốc kết thúc trên giấy"
+      },
+      "text": "0:17  Passage 1 done, answers on the sheet\n0:37  Passage 2 done\n0:55  Passage 3 done\n0:55-1:00  check plural / limit / Not Given, guess every blank",
+      "note": {
+        "en": "The routine is written before the passage is opened.",
+        "vi": "Quy trình được viết trước khi mở bài đọc."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Reading routine",
+        "vi": "Quy trình đọc"
+      },
+      "items": [
+        "write the finishing times first",
+        "answers on the sheet after each passage",
+        "move on at the time even with blanks",
+        "guess every blank at the end"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long is the Reading test?",
+        "vi": "Bài Đọc dài bao lâu?"
+      },
+      "options": [
+        "60 minutes, no extra transfer time",
+        "60 minutes plus 10 to transfer",
+        "40 minutes"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "No extra time to transfer.",
+        "vi": "Không có thêm giờ chép."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A blank at the end is...",
+        "vi": "Một ô trống ở cuối là..."
+      },
+      "options": [
+        "a mark lost for certain",
+        "as good as a guess",
+        "neutral"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A wrong answer costs nothing, so always guess.",
+        "vi": "Sai không bị trừ nên luôn đoán."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "When do you write answers on the answer sheet?",
+        "vi": "Khi nào ghi đáp án lên phiếu?"
+      },
+      "options": [
+        "After each passage",
+        "At the very end",
+        "Only for the last passage"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "There is no extra time to copy.",
+        "vi": "Không có thêm giờ chép."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the last five minutes.",
+        "vi": "Sắp xếp năm phút cuối."
+      },
+      "parts": [
+        "Stop reading new text",
+        "Fill every blank",
+        "Check plural, limit, Not Given",
+        "Stop; do not change answers you were sure of"
+      ],
+      "explanation": {
+        "en": "Fill, check, stop.",
+        "vi": "Điền, kiểm tra, dừng."
+      }
+    }
+  ]
+}

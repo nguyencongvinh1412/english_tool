@@ -1,0 +1,146 @@
+{
+  "objectives": [
+    {
+      "en": "You can do Task 2 first and Task 1 second inside sixty minutes.",
+      "vi": "Bạn làm Task 2 trước và Task 1 sau trong sáu mươi phút."
+    },
+    {
+      "en": "You keep your checklist inside the time, not after it.",
+      "vi": "Bạn để danh sách kiểm tra nằm trong thời gian, không ngoài thời gian."
+    },
+    {
+      "en": "You know the one thing to do if a task is running over.",
+      "vi": "Bạn biết điều duy nhất cần làm nếu một bài đang lố giờ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The real format",
+        "vi": "Định dạng thi thật"
+      },
+      "body": {
+        "en": "Writing is **60 minutes in one go** after Listening and Reading, with **no break between the three**. Task 1 is worth one third and Task 2 two thirds. Advice is 20 minutes for Task 1 (150 words) and 40 for Task 2 (250 words), but **the 60 minutes are yours to share**.",
+        "vi": "Bài Viết **60 phút liền** sau Nghe và Đọc, **không nghỉ giữa ba phần**. Task 1 chiếm một phần ba và Task 2 hai phần ba. Gợi ý là 20 phút cho Task 1 (150 từ) và 40 cho Task 2 (250 từ), nhưng **60 phút là của bạn để chia**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Task 2 first",
+        "vi": "Task 2 trước"
+      },
+      "body": {
+        "en": "Write **Task 2 first**: it carries more, and you are fresher. Plan five minutes, write 30, check five (by 0:40). Then Task 1: one minute to find the overview, fifteen to write, four to check (by 1:00). The mock is done **in this order**, with a timer, and with your checklist in the plan.",
+        "vi": "Viết **Task 2 trước**: nó nhiều điểm hơn và bạn còn tỉnh táo. Lập dàn ý năm phút, viết 30, kiểm tra năm (tới 0:40). Rồi Task 1: một phút tìm tổng quan, mười lăm viết, bốn kiểm tra (tới 1:00). Bài thi thử làm **đúng thứ tự này**, có đồng hồ, và danh sách kiểm tra nằm trong kế hoạch."
+      }
+    },
+    {
+      "heading": {
+        "en": "If a task runs over",
+        "vi": "Nếu một bài lố giờ"
+      },
+      "body": {
+        "en": "If Task 2 reaches 0:45, **stop and finish the sentence, then write the conclusion** (two sentences) and move on. A task 1 with an overview and eleven minutes of detail beats a perfect Task 2 and no Task 1. Never leave a task **without a conclusion** or without the overview.",
+        "vi": "Nếu Task 2 tới 0:45, **dừng, kết câu đang viết rồi viết kết bài** (hai câu) và đi tiếp. Task 1 có tổng quan và mười một phút chi tiết hơn một Task 2 hoàn hảo mà không có Task 1. Đừng bao giờ để một bài **không có kết bài** hay thiếu tổng quan."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The 60 minutes on paper",
+        "vi": "Sáu mươi phút trên giấy"
+      },
+      "text": "0:00 plan Task 2 (5)   0:05 write (30)   0:35 checklist (5)   -> 0:40\n0:40 overview in my head (1)   0:41 write Task 1 (15)   0:56 checklist (4)   -> 1:00",
+      "note": {
+        "en": "The checklist is part of the plan in both tasks.",
+        "vi": "Danh sách kiểm tra nằm trong kế hoạch của cả hai bài."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Pacing words",
+        "vi": "Từ chỉ nhịp"
+      },
+      "items": [
+        "Task 2 first",
+        "plan five minutes",
+        "stop at 0:40",
+        "never without a conclusion",
+        "never without an overview"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which task do you write first?",
+        "vi": "Viết bài nào trước?"
+      },
+      "options": [
+        "Task 2",
+        "Task 1",
+        "Either, but not both"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It is worth twice as much.",
+        "vi": "Nó nhiều điểm gấp đôi."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Task 2 reaches 0:45. You...",
+        "vi": "Task 2 tới 0:45. Bạn..."
+      },
+      "options": [
+        "write a two-sentence conclusion and move to Task 1",
+        "keep writing until it is perfect",
+        "skip Task 1"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Both tasks must be finished.",
+        "vi": "Cả hai bài phải hoàn thành."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many breaks are there between Listening, Reading and Writing?",
+        "vi": "Giữa Nghe, Đọc và Viết có mấy lần nghỉ?"
+      },
+      "options": [
+        "None",
+        "One of ten minutes",
+        "Two of five minutes"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They run one after another.",
+        "vi": "Chúng chạy liền nhau."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the sixty minutes.",
+        "vi": "Sắp xếp sáu mươi phút."
+      },
+      "parts": [
+        "Plan Task 2",
+        "Write and check Task 2",
+        "Find the overview of Task 1",
+        "Write and check Task 1"
+      ],
+      "explanation": {
+        "en": "Task 2 first, then Task 1.",
+        "vi": "Task 2 trước, rồi Task 1."
+      }
+    }
+  ]
+}

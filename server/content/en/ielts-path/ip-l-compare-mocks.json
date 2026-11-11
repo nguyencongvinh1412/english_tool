@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You can compare two mock tests skill by skill and say what moved.",
+      "vi": "Bạn so được hai bài thi thử theo từng kỹ năng và nói điều gì đã đổi."
+    },
+    {
+      "en": "You can tell a real change from a normal swing.",
+      "vi": "Bạn phân biệt được thay đổi thật với dao động bình thường."
+    },
+    {
+      "en": "You know what to do in the last week before Gate 6.",
+      "vi": "Bạn biết làm gì trong tuần cuối trước Gate 6."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Side by side",
+        "vi": "Cạnh nhau"
+      },
+      "body": {
+        "en": "Put mock 1 and mock 2 side by side: the four bands, then **the raw scores of Listening and Reading by section and by passage**, then the **four criteria** of Writing and Speaking. The aim is not a higher number; it is to see **where** it moved and **whether the thing you worked on moved**.",
+        "vi": "Đặt thi thử 1 và 2 cạnh nhau: bốn band, rồi **điểm thô Nghe và Đọc theo section và theo bài**, rồi **bốn tiêu chí** của Viết và Nói. Mục đích không phải con số cao hơn; mà là thấy **nó đổi ở đâu** và **thứ bạn đã luyện có đổi không**."
+      }
+    },
+    {
+      "heading": {
+        "en": "A real change and a swing",
+        "vi": "Thay đổi thật và dao động"
+      },
+      "body": {
+        "en": "Listening and Reading can **swing by two or three marks** between two tests with no change in skill. A move of **four or more**, or a move in the **same direction in the section you worked on**, is real. Writing and Speaking move by **half a band** on a different examiner. So read a half-band change as noise and a one-band change as a signal.",
+        "vi": "Nghe và Đọc có thể **dao động hai ba điểm** giữa hai đề dù kỹ năng không đổi. Chênh **từ bốn trở lên**, hoặc chênh **cùng chiều ở section bạn đã luyện** là thật. Viết và Nói đổi **nửa band** khi đổi giám khảo. Nên coi lệch nửa band là nhiễu và lệch một band là tín hiệu."
+      }
+    },
+    {
+      "heading": {
+        "en": "The week before Gate 6",
+        "vi": "Tuần trước Gate 6"
+      },
+      "body": {
+        "en": "Choose **one thing to keep** (what moved up) and **one to fix** (the biggest remaining loss). Do not start anything new. The last week is for your own mistakes list, timed sets at the time of day of the gate, and **sleep**.",
+        "vi": "Chọn **một điều giữ lại** (điều đã tăng) và **một điều sửa** (khoản mất lớn nhất còn lại). Đừng bắt đầu gì mới. Tuần cuối dành cho danh sách lỗi của bạn, các bộ bấm giờ vào đúng giờ của gate, và **giấc ngủ**."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Two mocks",
+        "vi": "Hai bài thi thử"
+      },
+      "text": "            mock 1   mock 2\nListening     27       30   (S3: 4 -> 8)   real: worked on S3\nReading       25       26   noise\nWriting      5.5      6.0   CC 5.5 -> 6.0   real: worked on paragraphs\nSpeaking     6.0      6.0\n\nKeep: one idea per paragraph.   Fix: Reading Passage 3 headings.",
+      "note": {
+        "en": "A move in the thing you worked on is the real one.",
+        "vi": "Thay đổi ở thứ bạn đã luyện mới là thật."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Comparing",
+        "vi": "So sánh"
+      },
+      "items": [
+        "by section and by criterion",
+        "a real move: four or more, or where you worked",
+        "half a band is noise",
+        "one to keep, one to fix"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Reading goes from 25 to 26. This is...",
+        "vi": "Đọc từ 25 lên 26. Đây là..."
+      },
+      "options": [
+        "noise",
+        "a clear improvement",
+        "a decline"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Two or three marks swing is normal.",
+        "vi": "Dao động hai ba điểm là bình thường."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which change is probably real?",
+        "vi": "Thay đổi nào có khả năng là thật?"
+      },
+      "options": [
+        "Section 3 from 4 to 8 after a week on Section 3",
+        "Writing 5.5 to 6.0 with a new examiner and no change",
+        "Reading 25 to 26"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It moved where you worked.",
+        "vi": "Nó đổi đúng chỗ bạn luyện."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you start in the last week before the gate?",
+        "vi": "Bạn bắt đầu gì trong tuần cuối trước gate?"
+      },
+      "options": [
+        "Nothing new",
+        "A new book",
+        "A new technique"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Mistakes list, timed sets, sleep.",
+        "vi": "Danh sách lỗi, bộ bấm giờ, giấc ngủ."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the comparison.",
+        "vi": "Sắp xếp việc so sánh."
+      },
+      "parts": [
+        "Four bands side by side",
+        "Sections, passages and criteria",
+        "Real change or noise",
+        "One to keep, one to fix"
+      ],
+      "explanation": {
+        "en": "Numbers, detail, judge, choose.",
+        "vi": "Số, chi tiết, đánh giá, chọn."
+      }
+    }
+  ]
+}

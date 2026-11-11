@@ -5,7 +5,7 @@
  * (archived content items, one pool per exercise type and level) and each learner gets one they have not seen; a new
  * one is generated only when the pool has none left for them.
  */
-import { and, eq } from 'drizzle-orm';
+import { and, eq, inArray, like, notInArray, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import { db } from '../db/client.js';
 import { contentItems, examSessions, type ContentItem, type User } from '../db/schema.js';
@@ -14,6 +14,7 @@ import { HttpError } from '../http/errors.js';
 import { runAIJson, SCORING_MAX_TOKENS } from '../services/ai.js';
 import { generateIeltsGroup, verifyIelts } from '../exams/ieltsBank.js';
 import type { IeltsBlueprint, IeltsComponent } from '../exams/ielts.js';
+import { RESERVED_TESTS, testGroups, testPart } from './realTests.js';
 import { phaseSteps, type PracticeType } from './syllabus.js';
 
 const GENERATE_TIMEOUT_MS = 150_000;
@@ -234,8 +235,39 @@ async function seenIds(userId: string): Promise<Set<string>> {
   return new Set(rows.flatMap((r) => (r.blueprint as IeltsBlueprint).sections.flatMap((s) => s.groupIds)));
 }
 
-/** Items of a pool, by exercise type and level */
-const poolOf = (type: PoolType, level: PoolLevel) => and(eq(contentItems.part, `path:${type}`), eq(contentItems.level, level), eq(contentItems.status, 'archived'));
+/** Items of a pool, by exercise type and level (the written prompts have no level: they are fixed) */
+const poolOf = (type: PoolType | PracticeType, level?: PoolLevel | null) =>
+  and(eq(contentItems.part, `path:${type}`), level ? eq(contentItems.level, level) : undefined, eq(contentItems.status, 'archived'));
+
+/** Which real groups (see realTests.ts) can stand in for an exercise type */
+const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ielts-reading'; section?: number }>> = {
+  'l-form': { kind: 'ielts-listening', section: 1 },
+  'l-mono': { kind: 'ielts-listening', section: 2 },
+  'l-sec3': { kind: 'ielts-listening', section: 3 },
+  'l-sec4': { kind: 'ielts-listening', section: 4 },
+  'r-passage': { kind: 'ielts-reading' },
+};
+
+/** A real group of the matching kind the learner has not seen, from the tests not kept for a gate or a mock week */
+async function unseenReal(type: PoolType | PracticeType, taken: Set<string>): Promise<string | null> {
+  const source = isGenerated(type) ? REAL_SOURCE[type] : undefined;
+  if (!source) return null;
+  const rows = await db
+    .select({ id: contentItems.id })
+    .from(contentItems)
+    .where(
+      and(
+        eq(contentItems.source, 'imported'),
+        eq(contentItems.status, 'archived'),
+        eq(contentItems.kind, source.kind),
+        like(contentItems.part, 'book:%'),
+        notInArray(contentItems.part, RESERVED_TESTS.map(testPart)),
+        source.section ? sql`${contentItems.payload}->>'section' = ${String(source.section)}` : undefined
+      )
+    );
+  const fresh = rows.filter((r) => !taken.has(r.id));
+  return fresh.length > 0 ? fresh[Math.floor(Math.random() * fresh.length)].id : null;
+}
 
 /** A full-size group from the IELTS bank generator, moved out of the bank into the pool */
 async function generateFull(user: User, type: FullType, model?: string): Promise<ContentItem> {
@@ -268,14 +300,18 @@ async function generate(user: User, type: PoolType, level: PoolLevel, model?: st
   return item;
 }
 
-async function groupFor(user: User, type: PoolType, level: PoolLevel, taken: Set<string>, model?: string, options: { generate?: boolean; repeat?: boolean } = {}): Promise<string> {
+async function groupFor(user: User, type: PoolType | PracticeType, level: PoolLevel | null, taken: Set<string>, model?: string, options: { generate?: boolean; repeat?: boolean; preferReal?: boolean } = {}): Promise<string> {
+  if (options.preferReal) {
+    const real = await unseenReal(type, taken);
+    if (real) return real;
+  }
   const pool = await db.select({ id: contentItems.id }).from(contentItems).where(poolOf(type, level));
   const fresh = pool.filter((p) => !taken.has(p.id));
   if (fresh.length > 0) return fresh[Math.floor(Math.random() * fresh.length)].id;
   if (options.repeat === false && !(options.generate ?? true)) throw new HttpError(503, 'The exercises of this test are still being prepared. Ask the admin to fill them (npm run ielts:fill-gates).', 'gate_not_ready');
   if ((options.generate ?? true) && (isGenerated(type) || isFull(type))) {
     try {
-      return (await generate(user, type, level, model)).id;
+      return (await generate(user, type, level ?? levelFor(type, 1), model)).id;
     } catch (error) {
       // Practice: better a repeat than nothing when the AI cannot help right now. A gate never repeats an exercise.
       if (options.repeat !== false && pool.length > 0) return pool[Math.floor(Math.random() * pool.length)].id;
@@ -304,21 +340,44 @@ export async function gateGroups(user: User, types: PoolType[], gate: number, mo
   return ids;
 }
 
+/** Written exercises stand in for a whole real test of Writing when the test is not in the bank */
+const STATIC_FALLBACK: Partial<Record<PracticeType, PracticeType[]>> = { 'w-full': ['w-line', 'w-discuss'] };
+
+/** The groups of a real test for a whole-test exercise type */
+function realTestIds(type: PracticeType, test: string): string[] | null {
+  const groups = testGroups(test);
+  if (type === 'l-test40') return groups.listening;
+  if (type === 'r-three') return groups.reading;
+  if (type === 'w-full') return groups.writing;
+  if (type === 's-full') return groups.speaking;
+  return null;
+}
+
 /**
- * The blueprint sections for a practice step of a phase, for the learner
+ * The blueprint sections for a practice step of a phase, for the learner. A step that names a real test (a mock week)
+ * runs that whole test; one that does not takes, from phase 4 on, real sections and passages the learner has not seen
+ * before generated ones.
  * @throws HttpError when no exercise can be made (the AI is unavailable and the pool is empty)
  */
-export async function practiceSections(user: User, type: PracticeType, phase: number, model?: string): Promise<IeltsBlueprint['sections']> {
+export async function practiceSections(user: User, type: PracticeType, phase: number, model?: string, test?: string): Promise<IeltsBlueprint['sections']> {
+  const component = componentOf(type);
+  if (test) {
+    const ids = realTestIds(type, test);
+    if (ids) {
+      const found = await db.select({ id: contentItems.id }).from(contentItems).where(inArray(contentItems.id, ids));
+      if (found.length === ids.length) return [{ component, groupIds: ids }];
+    }
+  }
   const taken = await seenIds(user.id);
-  const types = FULL_GROUPS[type] ?? [type];
+  const types: (GeneratedType | PracticeType)[] = FULL_GROUPS[type] ?? STATIC_FALLBACK[type] ?? [type];
   const ids: string[] = [];
   for (const t of types) {
-    if (!isGenerated(t)) throw new HttpError(503, 'This exercise is not available yet.', 'practice_unavailable');
-    const id = await groupFor(user, t, levelFor(t, phase), taken, model);
+    const level = isGenerated(t) ? levelFor(t, phase) : null;
+    const id = await groupFor(user, t, level, taken, model, { preferReal: level === 'B2' });
     taken.add(id);
     ids.push(id);
   }
-  return [{ component: componentOf(type), groupIds: ids }];
+  return [{ component, groupIds: ids }];
 }
 
 /** Pool sizes, as "type@level" (for the fill script) */

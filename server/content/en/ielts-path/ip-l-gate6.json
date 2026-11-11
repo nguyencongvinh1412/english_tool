@@ -1,0 +1,131 @@
+{
+  "objectives": [
+    {
+      "en": "You know how Gate 6 runs and what it needs: Listening and Reading 7.0, Writing and Speaking 6.5.",
+      "vi": "Bạn biết Gate 6 chạy thế nào và cần gì: Nghe và Đọc 7.0, Viết và Nói 6.5."
+    },
+    {
+      "en": "You have a plan for the five days before it.",
+      "vi": "Bạn có kế hoạch cho năm ngày trước nó."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What Gate 6 is",
+        "vi": "Gate 6 là gì"
+      },
+      "body": {
+        "en": "Gate 6 is the last gate: a **full real test** for Listening and Reading (about **30 correct of 40 for 7.0**), and Writing and Speaking marked on the **four criteria** (6.5). It is the exam, in the real format, once. If you pass, the last two weeks are the final sprint; if not, the app proposes a buffer week and a retake with a different test.",
+        "vi": "Gate 6 là gate cuối: một **đề thật đầy đủ** cho Nghe và Đọc (khoảng **30 câu đúng trên 40 cho 7.0**), còn Viết và Nói được chấm theo **bốn tiêu chí** (6.5). Nó là kỳ thi, đúng định dạng, một lần. Nếu đạt, hai tuần cuối là nước rút; nếu chưa, app đề xuất một tuần đệm và thi lại bằng đề khác."
+      }
+    },
+    {
+      "heading": {
+        "en": "The five days before",
+        "vi": "Năm ngày trước"
+      },
+      "body": {
+        "en": "Day -5 and -4: one full timed set each, at the **time of day of the gate**. Day -3: a **light** day, your mistakes list and your cards. Day -2: one Part 2, one Task 1, nothing long. Day -1: **read, do not write or listen at length**, prepare your pencils, ID and clothes, sleep early. A tired candidate loses more marks than an unprepared one.",
+        "vi": "Ngày -5 và -4: mỗi ngày một bộ bấm giờ đầy đủ, vào **đúng giờ của gate**. Ngày -3: ngày **nhẹ**, danh sách lỗi và thẻ của bạn. Ngày -2: một Part 2, một Task 1, không gì dài. Ngày -1: **đọc, không viết hay nghe dài**, chuẩn bị bút chì, giấy tờ, quần áo, ngủ sớm. Thí sinh mệt mất nhiều điểm hơn thí sinh chưa chuẩn bị."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The five days",
+        "vi": "Năm ngày"
+      },
+      "text": "-5  full timed set (time of day = gate)\n-4  full timed set\n-3  light: mistakes list, cards\n-2  one Part 2, one Task 1\n-1  read; prepare; sleep early",
+      "note": {
+        "en": "Taper down to the gate.",
+        "vi": "Giảm dần tới gate."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Gate 6 targets",
+        "vi": "Đích Gate 6"
+      },
+      "items": [
+        "Listening 7.0 (about 30 of 40)",
+        "Reading 7.0 (about 30 of 40)",
+        "Writing 6.5",
+        "Speaking 6.5"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Gate 6 Listening 7.0 is about how many correct?",
+        "vi": "Nghe 7.0 ở Gate 6 là khoảng bao nhiêu câu đúng?"
+      },
+      "options": [
+        "30 of 40",
+        "23 of 40",
+        "36 of 40"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "About 30.",
+        "vi": "Khoảng 30."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you do the day before the gate?",
+        "vi": "Ngày trước gate bạn làm gì?"
+      },
+      "options": [
+        "Read, prepare, sleep early",
+        "Do a full test",
+        "Learn new words"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A tired candidate loses more.",
+        "vi": "Thí sinh mệt mất nhiều hơn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "If you do not pass Gate 6...",
+        "vi": "Nếu chưa đạt Gate 6..."
+      },
+      "options": [
+        "a buffer week, then a retake with another test",
+        "the path ends",
+        "nothing happens"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The retake uses a different test.",
+        "vi": "Thi lại dùng đề khác."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the five days.",
+        "vi": "Sắp xếp năm ngày."
+      },
+      "parts": [
+        "Two full timed sets",
+        "A light day",
+        "One Part 2 and one Task 1",
+        "Read and sleep early"
+      ],
+      "explanation": {
+        "en": "Taper down.",
+        "vi": "Giảm dần."
+      }
+    }
+  ]
+}

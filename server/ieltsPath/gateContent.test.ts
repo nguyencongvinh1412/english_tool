@@ -26,6 +26,7 @@ describe('gate content', () => {
             expect(source.length, `gate ${gate.gate}${version} ${skill}`).toBeGreaterThan(0);
             for (const id of source) expect(byId.get(id)?.skill, id).toBe(skill);
           } else {
+            if ('real' in source) expect(source.real.every((id) => id.startsWith('book-')), `gate ${gate.gate}${version} ${skill}`).toBe(true);
             expect(source.pool.length, `gate ${gate.gate}${version} ${skill}`).toBeGreaterThan(0);
             for (const type of source.pool) expect(pools.has(type), type).toBe(true);
           }
@@ -82,5 +83,16 @@ describe('gate content', () => {
       for (const q of questions) uses.set(q.answerIndex!, (uses.get(q.answerIndex!) ?? 0) + 1);
       expect(Math.max(0, ...uses.values()), group.id).toBeLessThanOrEqual(2);
     }
+  });
+});
+
+describe('Gates 5 and 6 on real tests', () => {
+  it('take the Listening and Reading of Gate 5 from Cambridge 17 tests 1 and 2 and of Gate 6 from Cambridge 13 tests 3 and 4, with a generated test as the fallback', () => {
+    const real = (gate: number, version: 'A' | 'B', skill: 'listening' | 'reading') => (GATES[gate].versions[version][skill] as { real: string[]; pool: string[] });
+    expect(real(5, 'A', 'listening').real).toEqual(['book-c17-t1-l1', 'book-c17-t1-l2', 'book-c17-t1-l3', 'book-c17-t1-l4']);
+    expect(real(5, 'B', 'reading').real).toEqual(['book-c17-t2-r1', 'book-c17-t2-r2', 'book-c17-t2-r3']);
+    expect(real(6, 'A', 'listening').real[0]).toBe('book-c13-t3-l1');
+    expect(real(6, 'B', 'reading').real).toEqual(['book-c13-t4-r1', 'book-c13-t4-r2', 'book-c13-t4-r3']);
+    expect(real(6, 'A', 'reading').pool).toEqual(['g-r', 'g-r', 'g-r']);
   });
 });

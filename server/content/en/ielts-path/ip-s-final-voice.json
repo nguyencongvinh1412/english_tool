@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You know the three things to do for Speaking in the last two weeks: cards, voice, sleep.",
+      "vi": "Bạn biết ba việc cho bài Nói trong hai tuần cuối: thẻ, giọng, giấc ngủ."
+    },
+    {
+      "en": "You do not add new words.",
+      "vi": "Bạn không thêm từ mới."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Your cards",
+        "vi": "Thẻ của bạn"
+      },
+      "body": {
+        "en": "Read **your five-word card**, your **eight feeling words** and your **model sentences** once a day. Do not add. A new word you have not spoken ten times will not come out under pressure, and a wrong rare word costs more than a plain one. The speaking you have is the speaking you take in.",
+        "vi": "Đọc **thẻ năm từ**, **tám từ cảm xúc** và **câu mẫu** mỗi ngày một lần. Đừng thêm. Từ mới chưa nói đủ mười lần sẽ không ra dưới áp lực, và một từ hiếm sai tốn hơn một từ thường. Khả năng nói bạn có là khả năng bạn mang vào phòng thi."
+      }
+    },
+    {
+      "heading": {
+        "en": "Your voice",
+        "vi": "Giọng của bạn"
+      },
+      "body": {
+        "en": "Speak English **aloud ten minutes a day** about anything: the weather, what you did, a news item. Drink **warm water**, avoid very cold drinks, do not shout or whisper. Warm up with a paragraph read aloud **five minutes before** the appointment. The voice is a muscle that tires.",
+        "vi": "Nói tiếng Anh **to mười phút mỗi ngày** về bất cứ gì: thời tiết, việc đã làm, một tin tức. Uống **nước ấm**, tránh đồ rất lạnh, đừng hét hay thì thầm. Khởi động bằng cách đọc to một đoạn **năm phút trước** buổi hẹn. Giọng là cơ bắp biết mệt."
+      }
+    },
+    {
+      "heading": {
+        "en": "Two full mocks at most",
+        "vi": "Tối đa hai bài thi thử"
+      },
+      "body": {
+        "en": "In these two weeks do **at most two full mocks**, each followed by only the three-note review. More than that makes you tired and anxious. Between them use short Part 2 practice with the timer and three Part 3 answers with a concession.",
+        "vi": "Trong hai tuần này làm **tối đa hai bài thi thử đầy đủ**, mỗi bài chỉ kèm phần xem lại ba ghi chú. Nhiều hơn sẽ làm bạn mệt và lo. Giữa chúng dùng bài Part 2 ngắn với đồng hồ và ba câu Part 3 có nhượng bộ."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A daily ten minutes",
+        "vi": "Mười phút mỗi ngày"
+      },
+      "text": "Read: five-word card, eight feelings, model sentences (2 min)\nOne Part 2 with the timer, from an old card (3 min)\nThree Part 3 answers with a concession (3 min)\nWarm water, early night (2 min of care)",
+      "note": {
+        "en": "Short, repeated, nothing new.",
+        "vi": "Ngắn, lặp lại, không gì mới."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Care for the voice",
+        "vi": "Giữ giọng"
+      },
+      "items": [
+        "warm water",
+        "no very cold drinks",
+        "speak aloud ten minutes a day",
+        "warm up before the appointment",
+        "sleep"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you do with new words now?",
+        "vi": "Bạn làm gì với từ mới lúc này?"
+      },
+      "options": [
+        "Do not add them",
+        "Learn fifty",
+        "Learn ten a day"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Use what you have spoken often.",
+        "vi": "Dùng điều bạn đã nói nhiều."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What drink is best for your voice?",
+        "vi": "Đồ uống nào tốt cho giọng?"
+      },
+      "options": [
+        "Warm water",
+        "Ice water",
+        "Fizzy drinks"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Avoid cold.",
+        "vi": "Tránh lạnh."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many full mocks in these two weeks?",
+        "vi": "Hai tuần này làm bao nhiêu bài thi thử đầy đủ?"
+      },
+      "options": [
+        "At most two",
+        "One a day",
+        "None, ever"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "More makes you tired.",
+        "vi": "Nhiều hơn làm bạn mệt."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order a daily ten minutes.",
+        "vi": "Sắp xếp mười phút mỗi ngày."
+      },
+      "parts": [
+        "Read your cards",
+        "One Part 2 with the timer",
+        "Three Part 3 answers",
+        "Warm water and early night"
+      ],
+      "explanation": {
+        "en": "Cards, Part 2, Part 3, care.",
+        "vi": "Thẻ, Part 2, Part 3, giữ giọng."
+      }
+    }
+  ]
+}

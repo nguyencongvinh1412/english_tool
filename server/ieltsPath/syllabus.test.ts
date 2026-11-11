@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
+import { GATE_REAL_TESTS, MOCK_REAL_TESTS, RESERVED_TESTS } from './realTests.js';
 import { BLOCKS, LESSONS, phaseSteps, WRITTEN_PHASES, type Step } from './syllabus.js';
 
 const allSteps = WRITTEN_PHASES.flatMap((phase) => phaseSteps(phase));
@@ -53,13 +54,13 @@ describe('phase 1 syllabus', () => {
 });
 
 describe('every written phase', () => {
-  it('has phases 1 to 5, and no phase after them yet', () => {
-    expect(WRITTEN_PHASES).toEqual([1, 2, 3, 4, 5]);
-    expect(phaseSteps(6)).toEqual([]);
+  it('has phases 1 to 6 and the final sprint (7), and nothing after them', () => {
+    expect(WRITTEN_PHASES).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    expect(phaseSteps(8)).toEqual([]);
   });
 
   it('numbers the weeks of each phase in fours, each with six study days and a review day', () => {
-    for (const [phase, weeks] of [[1, [1, 2, 3, 4]], [2, [5, 6, 7, 8]], [3, [9, 10, 11, 12]], [4, [13, 14, 15, 16]], [5, [17, 18, 19, 20]]] as const) {
+    for (const [phase, weeks] of [[1, [1, 2, 3, 4]], [2, [5, 6, 7, 8]], [3, [9, 10, 11, 12]], [4, [13, 14, 15, 16]], [5, [17, 18, 19, 20]], [6, [21, 22, 23, 24]]] as const) {
       const list = phaseSteps(phase);
       expect([...new Set(list.map((s) => s.week))]).toEqual(weeks);
       for (const week of weeks) for (const day of [1, 2, 3, 4, 5, 6, 7]) expect(list.some((s) => s.week === week && s.day === day), `${week}-${day}`).toBe(true);
@@ -84,5 +85,39 @@ describe('every written phase', () => {
       expect(first.every((s) => s.kind === 'lesson') && first.length === 4, `week ${week}`).toBe(true);
       expect(list.filter((s) => s.week === week && s.block === 'writing' && s.kind === 'practice').length).toBeGreaterThanOrEqual(2);
     }
+  });
+});
+
+describe('phase 6 and the final sprint', () => {
+  const mockSteps = phaseSteps(6).filter((s) => s.kind === 'practice' && (s.ref as { test?: string }).test);
+
+  it('runs a whole real test, all four skills, on day 2 of weeks 21 and 23', () => {
+    for (const [week, test] of [[21, 'c17-t3'], [23, 'c17-t4']] as const) {
+      const steps = mockSteps.filter((s) => s.week === week);
+      expect(steps.map((s) => `${s.day}:${(s.ref as { type: string }).type}:${(s.ref as { test: string }).test}`).sort()).toEqual(['l-test40', 'r-three', 's-full', 'w-full'].map((type) => `2:${type}:${test}`).sort());
+    }
+  });
+
+  it('keeps the tests of the mock weeks apart from those of the gates', () => {
+    const kept = new Set(RESERVED_TESTS);
+    expect(kept.size).toBe(6);
+    for (const test of Object.values(MOCK_REAL_TESTS)) expect(Object.values(GATE_REAL_TESTS).flatMap((t) => [t.A, t.B])).not.toContain(test);
+  });
+
+  it('keeps every study day of phase 6 under 5.5 hours and teaches nothing new in the final sprint', () => {
+    for (let week = 21; week <= 24; week++) {
+      for (let day = 1; day <= 6; day++) {
+        const minutes = phaseSteps(6).filter((s) => s.week === week && s.day === day).reduce((n, s) => n + s.minutes, 0);
+        expect(minutes, `week ${week} day ${day}`).toBeGreaterThanOrEqual(140);
+        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(330);
+      }
+    }
+    const sprint = phaseSteps(7);
+    expect([...new Set(sprint.map((s) => s.week))]).toEqual([25, 26]);
+    // Words are only reviewed in the last two weeks
+    expect(sprint.filter((s) => s.kind === 'words').every((s) => (s.ref as { topic: string }).topic === 'review')).toBe(true);
+    // The exam week is lighter than the week before it
+    const total = (week: number) => sprint.filter((s) => s.week === week).reduce((n, s) => n + s.minutes, 0);
+    expect(total(26)).toBeLessThan(total(25));
   });
 });

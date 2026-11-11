@@ -16,7 +16,7 @@ import { adaptSteps } from './adapt.js';
 import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
 import { buildErrorBook, recentPracticeBands } from './errors.js';
 import type { CriterionBand } from './errorRules.js';
-import { LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
+import { FINAL_PHASE, LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
 
 const PACE_WINDOW_DAYS = 14;
 const dayOf = (date: Date | null) => (date ? quotaDay(date) : null);
@@ -28,8 +28,12 @@ const dayOf = (date: Date | null) => (date ? quotaDay(date) : null);
 export async function ensureSteps(path: IeltsPath): Promise<number> {
   if (path.startPhase === null || !path.startDate) return 0;
   const upTo = await nextGate(path);
+  // The phases the target needs, up to the one whose gate is next; once the last of them is cleared, the final sprint
+  const phases: number[] = [];
+  for (let phase = path.startPhase; phase <= Math.min(upTo, path.endPhase); phase++) phases.push(phase);
+  if (upTo > path.endPhase) phases.push(FINAL_PHASE);
   let added = 0;
-  for (let phase = path.startPhase; phase <= upTo; phase++) {
+  for (const phase of phases) {
     if (!WRITTEN_PHASES.includes(phase)) continue;
     const [seeded] = await db
       .select({ n: sql<number>`count(*)::int` })
@@ -319,12 +323,12 @@ export async function completeLesson(step: PathLesson, drills: { correct: number
  */
 export async function startPractice(user: User, step: PathLesson, model?: string): Promise<string> {
   if (step.kind !== 'practice') throw new HttpError(400, 'This step has no exercise.', 'not_practice');
-  const ref = step.ref as { type: PracticeType; sessionId?: string };
+  const ref = step.ref as { type: PracticeType; test?: string; sessionId?: string };
   if (ref.sessionId) {
     const [session] = await db.select({ id: examSessions.id }).from(examSessions).where(and(eq(examSessions.id, ref.sessionId), eq(examSessions.userId, user.id)));
     if (session) return session.id;
   }
-  const sections = await practiceSections(user, ref.type, step.phase, model);
+  const sections = await practiceSections(user, ref.type, step.phase, model, ref.test);
   const blueprint: IeltsBlueprint = { exam: 'ielts', sections };
   const [session] = await db
     .insert(examSessions)

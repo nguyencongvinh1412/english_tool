@@ -11,7 +11,8 @@ describe('practice content', () => {
     for (const group of STATIC_GROUPS) expect(() => parseStaticGroup(group), group.id).not.toThrow();
     const used = new Set(WRITTEN_PHASES.flatMap((phase) => phaseSteps(phase)).filter((s) => s.kind === 'practice').map((s) => (s.ref as { type: string }).type));
     for (const type of used) {
-      if (type.startsWith('w-') || type.startsWith('s-')) expect(STATIC_GROUPS.filter((g) => g.type === type).length, type).toBeGreaterThanOrEqual(3);
+      // w-full is a real test, or two of the fixed prompts when that test is not in the bank
+      if ((type.startsWith('w-') && type !== 'w-full') || type.startsWith('s-')) expect(STATIC_GROUPS.filter((g) => g.type === type).length, type).toBeGreaterThanOrEqual(3);
     }
     for (const type of used) expect((PRACTICE_TYPES as readonly string[]).includes(type)).toBe(true);
   });
@@ -40,7 +41,7 @@ describe('practice content', () => {
     expect(needs['l-form']).toBe(12);
     expect(needs['l-sec4']).toBeGreaterThan(needs['l-form']!);
     expect(needs['r-passage']).toBeGreaterThanOrEqual(30);
-    expect(poolNeeds(7)).toEqual({});
+    expect(poolNeeds(8)).toEqual({});
   });
 
   it('accepts a short listening group with matching questions and rejects a gap that is not in the script', () => {

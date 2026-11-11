@@ -12,6 +12,7 @@ import { contentTitle, speakingIeltsGate, writingPrompt } from '../content/schem
 import { pathListening, pathReading, type PoolType } from './practice.js';
 import { GATE_LR_GROUPS, GATE_WS_GROUPS } from './gateData.js';
 import type { PathSkill } from './bands.js';
+import { GATE_REAL_TESTS, testGroups } from './realTests.js';
 
 export interface GateGroup {
   id: string;
@@ -244,8 +245,11 @@ const GATE0_GROUPS: GateGroup[] = [
 ];
 
 
-/** Where the groups of one skill of a gate come from: fixed groups, or unseen groups drawn from the generated pool */
-export type GroupSource = string[] | { pool: PoolType[] };
+/**
+ * Where the groups of one skill of a gate come from: fixed groups, unseen groups drawn from the generated pool, or the
+ * groups of a real test (when all of them are in the bank) and, if they are not, that pool
+ */
+export type GroupSource = string[] | { pool: PoolType[] } | { real: string[]; pool: PoolType[] };
 
 export interface GateDefinition {
   gate: number;
@@ -285,8 +289,16 @@ const defineGate = (gate: number): GateDefinition => {
     gate,
     optional: [],
     versions: {
-      A: { listening: full ? { pool: FULL_TEST.listening } : [`gate-${gate}-listening`], reading: full ? { pool: FULL_TEST.reading } : [`gate-${gate}-reading`], ...written(gate, 'A') },
-      B: { listening: { pool: full ? FULL_TEST.listening : RETAKE_POOLS[gate].listening }, reading: { pool: full ? FULL_TEST.reading : RETAKE_POOLS[gate].reading }, ...written(gate, 'B') },
+      A: {
+        listening: full ? { real: testGroups(GATE_REAL_TESTS[gate].A).listening, pool: FULL_TEST.listening } : [`gate-${gate}-listening`],
+        reading: full ? { real: testGroups(GATE_REAL_TESTS[gate].A).reading, pool: FULL_TEST.reading } : [`gate-${gate}-reading`],
+        ...written(gate, 'A'),
+      },
+      B: {
+        listening: full ? { real: testGroups(GATE_REAL_TESTS[gate].B).listening, pool: FULL_TEST.listening } : { pool: RETAKE_POOLS[gate].listening },
+        reading: full ? { real: testGroups(GATE_REAL_TESTS[gate].B).reading, pool: FULL_TEST.reading } : { pool: RETAKE_POOLS[gate].reading },
+        ...written(gate, 'B'),
+      },
     },
     minutes: { listening: full ? 40 : 20, reading: full ? 60 : 25, writing: full ? 60 : shortWriting, speaking: gate <= 1 ? 10 : 15 },
   };

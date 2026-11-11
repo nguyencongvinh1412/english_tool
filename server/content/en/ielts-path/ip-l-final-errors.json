@@ -1,0 +1,131 @@
+{
+  "objectives": [
+    {
+      "en": "You can review your own mistakes list without learning anything new.",
+      "vi": "Bạn ôn được danh sách lỗi của mình mà không học gì mới."
+    },
+    {
+      "en": "You can turn the list into one page you read every day.",
+      "vi": "Bạn biến danh sách thành một trang đọc mỗi ngày."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "No new material",
+        "vi": "Không học gì mới"
+      },
+      "body": {
+        "en": "The last two weeks are for **what you already know**. New words now stay half-learnt and make you nervous; new structures break in the exam. Open the **error book and the Gate 6 result** and sort every mistake: spelling, plural, distractor, article, tense, agreement, question type.",
+        "vi": "Hai tuần cuối dành cho **điều bạn đã biết**. Từ mới lúc này chỉ học dở và làm bạn lo; cấu trúc mới hỏng trong phòng thi. Mở **sổ lỗi và kết quả Gate 6** và phân loại mọi lỗi: chính tả, số nhiều, bẫy gây nhiễu, mạo từ, thì, hoà hợp, dạng câu."
+      }
+    },
+    {
+      "heading": {
+        "en": "One page",
+        "vi": "Một trang"
+      },
+      "body": {
+        "en": "Write **one page**, in your own words, with **your top five mistakes and the fix for each**, and **ten words you spell badly**. Read it **every morning and every evening**. Delete a line when you have not made that mistake in a week. The page is shorter every day, and that is progress.",
+        "vi": "Viết **một trang**, bằng lời của bạn, với **năm lỗi hàng đầu và cách sửa từng lỗi**, và **mười từ bạn hay viết sai**. Đọc nó **mỗi sáng và mỗi tối**. Xoá một dòng khi một tuần bạn không mắc lỗi đó. Trang ngắn lại mỗi ngày, và đó là tiến bộ."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A final page",
+        "vi": "Trang cuối cùng"
+      },
+      "text": "Top five:\n1 'the' before specific nouns   → read for it only, in Task 1 and 2\n2 plural -s after 'many'         → circle every noun\n3 distractors (corrections)      → mark 'actually', 'but', 'no, wait'\n4 past tense in Part 2           → say 'yesterday' first\n5 Reading Not Given vs False     → False contradicts, Not Given is absent\nSpelling: accommodation, government, environment, necessary, behaviour, resources, technique, temperature, separate, definitely.",
+      "note": {
+        "en": "Short, personal and read twice a day.",
+        "vi": "Ngắn, cá nhân và đọc hai lần mỗi ngày."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Review words",
+        "vi": "Từ để ôn"
+      },
+      "items": [
+        "read for one mistake at a time",
+        "one page, twice a day",
+        "delete a line after a mistake-free week",
+        "nothing new"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you learn in the last two weeks?",
+        "vi": "Hai tuần cuối bạn học gì?"
+      },
+      "options": [
+        "Nothing new",
+        "Fifty new words",
+        "A new structure a day"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Review what you know.",
+        "vi": "Ôn điều đã biết."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How often do you read your final page?",
+        "vi": "Đọc trang cuối bao lâu một lần?"
+      },
+      "options": [
+        "Morning and evening",
+        "Once",
+        "Never"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Short and often.",
+        "vi": "Ngắn và thường xuyên."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "When do you delete a line from the page?",
+        "vi": "Khi nào xoá một dòng khỏi trang?"
+      },
+      "options": [
+        "After a mistake-free week",
+        "Never",
+        "When you are bored"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The page shrinks as you improve.",
+        "vi": "Trang ngắn lại khi bạn tiến bộ."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the work.",
+        "vi": "Sắp xếp công việc."
+      },
+      "parts": [
+        "Open the error book and Gate 6 result",
+        "Sort the mistakes",
+        "Write one page",
+        "Read it morning and evening"
+      ],
+      "explanation": {
+        "en": "Sort, write, read.",
+        "vi": "Phân loại, viết, đọc."
+      }
+    }
+  ]
+}

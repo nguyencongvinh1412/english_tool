@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You can send the same essay to two people and read their feedback side by side.",
+      "vi": "Bạn gửi cùng một bài cho hai người và đọc nhận xét của họ cạnh nhau."
+    },
+    {
+      "en": "You know what to do when they disagree.",
+      "vi": "Bạn biết làm gì khi họ không đồng ý."
+    },
+    {
+      "en": "You turn the feedback into three changes.",
+      "vi": "Bạn biến nhận xét thành ba thay đổi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Two readers, one essay",
+        "vi": "Hai người đọc, một bài"
+      },
+      "body": {
+        "en": "This week give **the same Writing and the same Speaking** to **two different people**: the app's grader and a person (a teacher, a friend with good English, a study partner). Ask each for **three things**, as in the speaking week: not a band, not corrections. One reader has one pair of eyes; two readers show what is real.",
+        "vi": "Tuần này đưa **cùng một bài Viết và cùng một bài Nói** cho **hai người khác nhau**: bộ chấm của app và một người (giáo viên, bạn có tiếng Anh tốt, bạn học). Hỏi mỗi người **ba điều**, như tuần luyện Nói: không phải band, không phải sửa lỗi. Một người đọc chỉ có một đôi mắt; hai người cho thấy điều nào là thật."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to do when they disagree",
+        "vi": "Làm gì khi họ không đồng ý"
+      },
+      "body": {
+        "en": "A point **both** make is real: fix it first. A point only **one** makes is worth a look: ask yourself if it is that reader's taste. If they **disagree** (one says the introduction is clear, the other says it is vague), **trust the grader's criteria**: the band descriptors are what the examiner uses. Never change an essay to please both.",
+        "vi": "Điều **cả hai** nêu là thật: sửa trước. Điều chỉ **một** người nêu đáng xem: tự hỏi có phải gu riêng của người đó không. Nếu họ **mâu thuẫn** (một người nói mở bài rõ, người kia nói mơ hồ), **tin tiêu chí của bộ chấm**: bảng mô tả band là thứ giám khảo dùng. Đừng sửa bài để vừa lòng cả hai."
+      }
+    },
+    {
+      "heading": {
+        "en": "Three changes",
+        "vi": "Ba thay đổi"
+      },
+      "body": {
+        "en": "From the notes write **three concrete changes** you can act on, as in phase 4: *\"Add a topic sentence to paragraph 3\"*. Rewrite the essay once. Two readers and one rewrite are worth more than five new essays this week.",
+        "vi": "Từ các ghi chú viết **ba thay đổi cụ thể** làm được, như ở giai đoạn 4: *\"Thêm câu chủ đề cho đoạn 3\"*. Viết lại bài một lần. Hai người đọc và một lần viết lại đáng giá hơn năm bài mới tuần này."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Two sets of notes side by side",
+        "vi": "Hai bộ ghi chú cạnh nhau"
+      },
+      "text": "Grader:   TR 6.0 · CC 5.5 · LR 6.0 · GRA 6.0   \"paragraph 3 has two ideas\"\nTeacher:  \"clear position ✓ · paragraph 3 is long ✗ · 'moreover' used twice ✗\"\n\nBoth: paragraph 3 → fix first (one idea, topic sentence).\nOne only: 'moreover' → check each linker means what I need.",
+      "note": {
+        "en": "What both see is fixed first.",
+        "vi": "Điều cả hai thấy được sửa trước."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Asking for feedback",
+        "vi": "Xin nhận xét"
+      },
+      "items": [
+        "Tell me three things you noticed, good or bad.",
+        "Where did you stop following me?",
+        "What one change would help most?",
+        "Which word did I use too often?"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A point both readers make is...",
+        "vi": "Điều cả hai người đọc nêu là..."
+      },
+      "options": [
+        "real: fix it first",
+        "a coincidence",
+        "taste"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Visible to anyone, so to the examiner.",
+        "vi": "Ai cũng thấy, nên giám khảo cũng thấy."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The two readers disagree. You...",
+        "vi": "Hai người mâu thuẫn. Bạn..."
+      },
+      "options": [
+        "trust the grader's criteria",
+        "do what the nicer one says",
+        "rewrite everything"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The descriptors are what an examiner uses.",
+        "vi": "Bảng mô tả là thứ giám khảo dùng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you ask each reader for?",
+        "vi": "Hỏi mỗi người điều gì?"
+      },
+      "options": [
+        "Three things they noticed",
+        "A band score",
+        "Every grammar error"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It is what an examiner does in the first minute.",
+        "vi": "Đó là điều giám khảo làm trong phút đầu."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the work.",
+        "vi": "Sắp xếp công việc."
+      },
+      "parts": [
+        "Send the same essay to two people",
+        "Read both sets of notes together",
+        "Write three concrete changes",
+        "Rewrite once and submit"
+      ],
+      "explanation": {
+        "en": "Two readers, three changes, one rewrite.",
+        "vi": "Hai người đọc, ba thay đổi, một lần viết lại."
+      }
+    }
+  ]
+}

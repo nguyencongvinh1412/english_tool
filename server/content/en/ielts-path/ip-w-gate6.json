@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You know what 6.5 asks for in Writing and in Speaking.",
+      "vi": "Bạn biết 6.5 đòi hỏi gì ở Viết và Nói."
+    },
+    {
+      "en": "You know the one criterion to protect in each.",
+      "vi": "Bạn biết tiêu chí duy nhất cần bảo vệ ở mỗi kỹ năng."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Writing 6.5",
+        "vi": "Viết 6.5"
+      },
+      "body": {
+        "en": "At 6.5 the essay answers **every part of the question** with a **clear position that stays the same**, **develops its ideas with reasons and examples**, has **clear paragraphs and linking** that is not mechanical, and **a good range of structures with only small errors**. Task 1 has an **overview and selected figures**. The line is usually **Task Response or Grammar**: protect the one that is lowest in your last three graded essays.",
+        "vi": "Ở 6.5 bài viết trả lời **mọi phần của đề** với **quan điểm rõ và nhất quán**, **phát triển ý bằng lý do và ví dụ**, có **đoạn văn và liên kết rõ, không máy móc**, và **nhiều cấu trúc với chỉ vài lỗi nhỏ**. Task 1 có **tổng quan và số liệu chọn lọc**. Ranh giới thường là **Task Response hoặc Grammar**: bảo vệ tiêu chí thấp nhất trong ba bài đã chấm gần nhất."
+      }
+    },
+    {
+      "heading": {
+        "en": "Speaking 6.5",
+        "vi": "Nói 6.5"
+      },
+      "body": {
+        "en": "At 6.5 you **speak at length** with only occasional loss of the thread, use **vocabulary that fits the topic** with some less common words, **mix simple and complex sentences** with errors that rarely block meaning, and **are easy to understand** with some features of natural English. The line is often **Grammar** (tenses in stories) or **Fluency** (stopping in Part 2). Use the tool you already have for that one: the model sentences or the two-minute timer.",
+        "vi": "Ở 6.5 bạn **nói dài** chỉ thỉnh thoảng mất mạch, dùng **từ vựng hợp chủ đề** có vài từ ít phổ biến, **trộn câu đơn và phức** với lỗi hiếm khi cản trở nghĩa, và **dễ hiểu** với một số nét của tiếng Anh tự nhiên. Ranh giới thường là **Grammar** (thì khi kể chuyện) hoặc **Fluency** (dừng ở Part 2). Dùng công cụ bạn đã có cho tiêu chí đó: câu mẫu hoặc đồng hồ hai phút."
+      }
+    },
+    {
+      "heading": {
+        "en": "On the day",
+        "vi": "Vào ngày"
+      },
+      "body": {
+        "en": "In Writing **run the checklist in the planned five minutes** and keep the 260-word target. In Speaking **warm up your voice** before and begin with two full sentences. Do not try a new structure on the day; use the ones you have used in at least three essays or talks.",
+        "vi": "Ở Viết **chạy danh sách kiểm tra trong năm phút đã lên kế hoạch** và giữ mục tiêu 260 từ. Ở Nói **khởi động giọng** trước và bắt đầu bằng hai câu đầy đủ. Đừng thử cấu trúc mới vào ngày thi; dùng những cấu trúc bạn đã dùng ít nhất ba lần trong bài viết hay bài nói."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Finding the line",
+        "vi": "Tìm ranh giới"
+      },
+      "text": "Writing, last three graded Task 2:  TR 6.0  CC 6.5  LR 6.0  GRA 5.5   -> the line is GRA\nSpeaking, last three mocks:           FC 6.5  LR 6.0  GRA 6.0  P 6.5   -> the line is LR / GRA\n\nTools: model sentences (GRA), five-word card (LR), two-minute timer (FC).",
+      "note": {
+        "en": "One criterion each, one tool each.",
+        "vi": "Mỗi kỹ năng một tiêu chí, một công cụ."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "What 6.5 sounds like",
+        "vi": "6.5 nghe thế nào"
+      },
+      "items": [
+        "answers every part of the question",
+        "a clear position that does not change",
+        "ideas developed with reasons and examples",
+        "speaks at length, rarely loses the thread",
+        "mixes simple and complex sentences"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is usually the line in Writing?",
+        "vi": "Ranh giới ở Viết thường là gì?"
+      },
+      "options": [
+        "Task Response or Grammar",
+        "Handwriting",
+        "Word count"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Protect the lowest criterion.",
+        "vi": "Bảo vệ tiêu chí thấp nhất."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A new structure on exam day is...",
+        "vi": "Một cấu trúc mới vào ngày thi là..."
+      },
+      "options": [
+        "a risk: use ones you have used at least three times",
+        "a good idea",
+        "required"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Use what is proven.",
+        "vi": "Dùng cái đã chứng minh."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How does a 6.5 speaker deal with long answers?",
+        "vi": "Người nói 6.5 xử lý câu trả lời dài thế nào?"
+      },
+      "options": [
+        "Speaks at length, only occasionally loses the thread",
+        "Always speaks very fast",
+        "Gives short answers"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "At length, mostly coherent.",
+        "vi": "Nói dài, phần lớn mạch lạc."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the preparation.",
+        "vi": "Sắp xếp việc chuẩn bị."
+      },
+      "parts": [
+        "Find the lowest criterion",
+        "Choose its tool",
+        "Use it in every practice this week",
+        "Use only proven structures on the day"
+      ],
+      "explanation": {
+        "en": "Line, tool, practice, proven.",
+        "vi": "Ranh giới, công cụ, luyện, cái đã chứng minh."
+      }
+    }
+  ]
+}

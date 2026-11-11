@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You know what happens on the day of the Speaking appointment, step by step.",
+      "vi": "Bạn biết điều gì xảy ra vào ngày hẹn thi Nói, từng bước."
+    },
+    {
+      "en": "You have a first-minute routine and a recovery for a bad moment.",
+      "vi": "Bạn có quy trình phút đầu và cách hồi phục khi có khoảnh khắc tệ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The morning and the room",
+        "vi": "Buổi sáng và phòng thi"
+      },
+      "body": {
+        "en": "Eat lightly, drink **warm water**, arrive early. Before going in, **read your cards once** and **warm your voice** with a paragraph aloud, quietly. In the room the examiner checks your ID, asks your name, and starts the **recording**. Look at the examiner as you would at a person, not at the recorder.",
+        "vi": "Ăn nhẹ, uống **nước ấm**, đến sớm. Trước khi vào, **đọc thẻ một lần** và **khởi động giọng** bằng đọc nhỏ một đoạn. Trong phòng giám khảo kiểm tra giấy tờ, hỏi tên, và bắt đầu **ghi âm**. Nhìn giám khảo như nhìn một con người, không nhìn máy ghi âm."
+      }
+    },
+    {
+      "heading": {
+        "en": "The first minute",
+        "vi": "Phút đầu"
+      },
+      "body": {
+        "en": "Answer the first Part 1 question with **two full sentences**: an answer and a reason. Speak **a little slower than you think**; nerves speed you up. If you do not catch a question, say **\"Sorry, could you repeat that?\"** once; that is normal and costs nothing.",
+        "vi": "Trả lời câu Part 1 đầu bằng **hai câu đầy đủ**: một câu trả lời và một lý do. Nói **chậm hơn một chút so với bạn nghĩ**; hồi hộp làm bạn nói nhanh. Nếu không nghe rõ câu hỏi, nói **\"Sorry, could you repeat that?\"** một lần; điều đó bình thường và không mất gì."
+      }
+    },
+    {
+      "heading": {
+        "en": "A bad moment",
+        "vi": "Một khoảnh khắc tệ"
+      },
+      "body": {
+        "en": "A bad answer is **one answer**. Do not stop to think about it. **Breathe out, begin the next sentence**, use a short reaction if you need a second (*That's a tricky one.*) and **keep the Part 3 shape**: answer, reason, example, wider point. Examiners score the whole eleven minutes, not the worst thirty seconds.",
+        "vi": "Một câu trả lời tệ chỉ là **một câu trả lời**. Đừng dừng lại nghĩ về nó. **Thở ra, bắt đầu câu tiếp**, dùng một phản ứng ngắn nếu cần một giây (*That's a tricky one.*) và **giữ khuôn Part 3**: trả lời, lý do, ví dụ, ý rộng hơn. Giám khảo chấm cả mười một phút, không phải ba mươi giây tệ nhất."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The first minute",
+        "vi": "Phút đầu tiên"
+      },
+      "text": "Examiner: Can you tell me your full name, please?\nMe: Yes, my name is Linh Nguyen.\nExaminer: What should I call you?\nMe: Linh, please.\nExaminer: Where are you from?\nMe: I'm from Da Nang, a coastal city in central Vietnam. It's known for its beaches and I've lived there all my life.",
+      "note": {
+        "en": "Slow, clear, two full sentences at the first real question.",
+        "vi": "Chậm, rõ, hai câu đầy đủ ở câu hỏi thật đầu tiên."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Useful in the room",
+        "vi": "Hữu ích trong phòng thi"
+      },
+      "items": [
+        "Sorry, could you repeat that?",
+        "That's a tricky one.",
+        "What I mean is...",
+        "Let me think for a second."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The examiner's question was not clear. You...",
+        "vi": "Câu hỏi của giám khảo chưa rõ. Bạn..."
+      },
+      "options": [
+        "ask once for it to be repeated",
+        "guess and speak",
+        "stay silent"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It is normal.",
+        "vi": "Điều đó bình thường."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "After a bad answer you...",
+        "vi": "Sau một câu trả lời tệ bạn..."
+      },
+      "options": [
+        "breathe out and begin the next sentence",
+        "stop and think about it",
+        "apologise"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "One bad answer is one answer.",
+        "vi": "Một câu tệ chỉ là một câu."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How should you speak when nervous?",
+        "vi": "Khi hồi hộp nên nói thế nào?"
+      },
+      "options": [
+        "A little slower than you think",
+        "As fast as possible",
+        "Very quietly"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Nerves speed you up.",
+        "vi": "Hồi hộp làm bạn nói nhanh."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the day.",
+        "vi": "Sắp xếp ngày thi."
+      },
+      "parts": [
+        "Light food, warm water, arrive early",
+        "Read your cards and warm your voice",
+        "Two full sentences at the first question",
+        "Keep the Part 3 shape to the end"
+      ],
+      "explanation": {
+        "en": "Prepare, warm up, start, continue.",
+        "vi": "Chuẩn bị, khởi động, bắt đầu, tiếp tục."
+      }
+    }
+  ]
+}

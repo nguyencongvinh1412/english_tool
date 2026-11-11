@@ -1,0 +1,146 @@
+{
+  "objectives": [
+    {
+      "en": "You know exactly how the Listening test runs: four sections, one play, no pauses.",
+      "vi": "Bạn biết chính xác bài Nghe chạy thế nào: bốn section, nghe một lần, không dừng."
+    },
+    {
+      "en": "You know when you may write on the question paper and when you must transfer.",
+      "vi": "Bạn biết lúc nào được viết lên đề và lúc nào phải chép đáp án."
+    },
+    {
+      "en": "You have a routine for the first and the last minute of the recording.",
+      "vi": "Bạn có quy trình cho phút đầu và phút cuối của bản ghi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The real format",
+        "vi": "Định dạng thi thật"
+      },
+      "body": {
+        "en": "Listening has **four sections and 40 questions**, about **30 minutes** of recording, played **once**. On paper you then get **10 minutes to copy your answers** to the answer sheet; on a computer you get about two minutes to check. Sections 1 and 2 are everyday situations, Sections 3 and 4 are academic. Each section has a short pause before and one minute at the end to check.",
+        "vi": "Bài Nghe có **bốn section và 40 câu**, khoảng **30 phút** ghi âm, phát **một lần**. Thi giấy thì có **10 phút chép đáp án** sang phiếu; thi máy thì khoảng hai phút để kiểm tra. Section 1 và 2 là tình huống đời thường, Section 3 và 4 mang tính học thuật. Mỗi section có một khoảng đọc câu hỏi trước và một phút kiểm tra cuối."
+      }
+    },
+    {
+      "heading": {
+        "en": "Write on the paper, copy later",
+        "vi": "Viết lên đề, chép sau"
+      },
+      "body": {
+        "en": "On paper you write answers **on the question paper while you listen**, and copy them in the ten minutes. Write them **small and clear**, and spell as you will copy. During the transfer check **every plural, every word limit and every spelling**; those three cost marks at this level.",
+        "vi": "Thi giấy thì bạn ghi đáp án **lên đề trong lúc nghe**, rồi chép trong mười phút. Viết **nhỏ và rõ**, đánh vần đúng như sẽ chép. Khi chép hãy soát **từng số nhiều, từng giới hạn từ và từng chính tả**; ba thứ đó mất điểm nhiều nhất ở trình độ này."
+      }
+    },
+    {
+      "heading": {
+        "en": "The first and the last minute",
+        "vi": "Phút đầu và phút cuối"
+      },
+      "body": {
+        "en": "In the first minute of each section **look only at the first four or five questions**; the speaker starts with them. In the last minute of the section, **do not look back**: turn to the next section's questions at once. The recording will not wait for you.",
+        "vi": "Ở phút đầu mỗi section **chỉ nhìn bốn năm câu đầu**; người nói bắt đầu từ đó. Ở phút cuối section, **đừng nhìn lại**: chuyển ngay sang câu hỏi của section sau. Bản ghi không chờ bạn."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A routine written on the paper",
+        "vi": "Quy trình viết trên giấy"
+      },
+      "text": "Before the recording: read Q1-4, predict the kind of word.\nDuring: pencil the answer next to the question; if one goes, leave it, move on.\nSection ends: turn to the next section.\nAfter Section 4: ten minutes. Copy answers; check plural / spelling / limit; then guess any blank (no minus marks).",
+      "note": {
+        "en": "A short routine you can repeat in every section.",
+        "vi": "Một quy trình ngắn lặp lại ở mọi section."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Timing words",
+        "vi": "Từ chỉ thời gian"
+      },
+      "items": [
+        "one play only",
+        "ten minutes to transfer",
+        "word limit",
+        "check plural and spelling",
+        "guess every blank"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many times is the recording played?",
+        "vi": "Bản ghi được phát mấy lần?"
+      },
+      "options": [
+        "Once",
+        "Twice",
+        "As many as you ask"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Once, in the real test.",
+        "vi": "Một lần trong thi thật."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you do in the last minute of a section?",
+        "vi": "Làm gì trong phút cuối của một section?"
+      },
+      "options": [
+        "Turn to the next section's questions",
+        "Re-read the section",
+        "Rest"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The recording will not wait.",
+        "vi": "Bản ghi không chờ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which three things do you check in the transfer time?",
+        "vi": "Ba thứ cần soát khi chép đáp án?"
+      },
+      "options": [
+        "Plurals, word limits, spelling",
+        "Names, dates, prices",
+        "The question numbers only"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They cost the most marks at this level.",
+        "vi": "Chúng mất điểm nhiều nhất ở trình độ này."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the Listening routine.",
+        "vi": "Sắp xếp quy trình nghe."
+      },
+      "parts": [
+        "Read the first questions and predict",
+        "Listen and note answers",
+        "Move on when a question goes",
+        "Transfer and check at the end"
+      ],
+      "explanation": {
+        "en": "Predict, listen, move on, check.",
+        "vi": "Đoán, nghe, đi tiếp, kiểm tra."
+      }
+    }
+  ]
+}

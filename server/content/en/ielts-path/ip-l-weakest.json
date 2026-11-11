@@ -1,0 +1,145 @@
+{
+  "objectives": [
+    {
+      "en": "You can read your mock result by skill and find the lowest one.",
+      "vi": "Bạn đọc được kết quả thi thử theo kỹ năng và tìm ra kỹ năng thấp nhất."
+    },
+    {
+      "en": "You know what half of your time this week means in practice.",
+      "vi": "Bạn biết một nửa thời gian tuần này nghĩa là gì trên thực tế."
+    },
+    {
+      "en": "You have one plan for the weakest skill.",
+      "vi": "Bạn có một kế hoạch cho kỹ năng yếu nhất."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Four numbers, one lowest",
+        "vi": "Bốn con số, một số thấp nhất"
+      },
+      "body": {
+        "en": "Put the four bands of the mock side by side: **Listening, Reading, Writing, Speaking**. The Overall is the average, so the **lowest skill drags it down the most**, and it is usually the cheapest to raise. Compare each with the Gate 6 target: **7.0 for Listening and Reading, 6.5 for Writing and Speaking**. The skill furthest below its target is the weakest, not the one with the lowest number.",
+        "vi": "Đặt bốn band của bài thi thử cạnh nhau: **Nghe, Đọc, Viết, Nói**. Overall là trung bình, nên **kỹ năng thấp nhất kéo xuống nhiều nhất** và thường là kỹ năng rẻ nhất để nâng. So từng kỹ năng với đích Gate 6: **7.0 cho Nghe và Đọc, 6.5 cho Viết và Nói**. Kỹ năng cách xa đích nhất mới là yếu nhất, không phải kỹ năng có con số thấp nhất."
+      }
+    },
+    {
+      "heading": {
+        "en": "Half of your time",
+        "vi": "Một nửa thời gian"
+      },
+      "body": {
+        "en": "This week **half of the practice time goes to that skill**: do its steps first each day and add the optional steps the app suggests from your error book. The other three skills keep their steps but nothing extra. Then find the **one criterion or question type** that costs most in that skill (the error book shows it) and fix only that.",
+        "vi": "Tuần này **một nửa thời gian luyện dành cho kỹ năng đó**: mỗi ngày làm các bước của nó trước và thêm các bước tự chọn app gợi ý từ sổ lỗi. Ba kỹ năng còn lại giữ các bước nhưng không làm thêm. Rồi tìm **một tiêu chí hay một dạng câu** tốn điểm nhất trong kỹ năng đó (sổ lỗi cho thấy) và chỉ sửa điều đó."
+      }
+    },
+    {
+      "heading": {
+        "en": "A gap of more than one band",
+        "vi": "Khi lệch hơn một band"
+      },
+      "body": {
+        "en": "If a skill is **a whole band under its target**, one week will not close it, and that is honest information, not failure. Raise the others to their target, bring this one as high as you can, and look at the decision after Gate 6: the app will offer a realistic target for this test and a later one.",
+        "vi": "Nếu một kỹ năng **thấp hơn đích cả một band**, một tuần không đủ, và đó là thông tin trung thực, không phải thất bại. Nâng các kỹ năng khác tới đích, đưa kỹ năng này lên cao nhất có thể, và xem quyết định sau Gate 6: app sẽ đề xuất target thực tế cho kỳ thi này và một target cho lần sau."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A mock result read by skill",
+        "vi": "Kết quả thi thử đọc theo kỹ năng"
+      },
+      "text": "        mock   target   gap\nListening  6.5    7.0    -0.5\nReading    7.0    7.0     0\nWriting    5.5    6.5    -1.0   <- weakest\nSpeaking   6.0    6.5    -0.5\n\nWeakest: Writing. Lowest criterion in the error book: Task Response. This week: Task 2 position stated twice, four essays.",
+      "note": {
+        "en": "The weakest skill is the one furthest from its own target.",
+        "vi": "Kỹ năng yếu nhất là kỹ năng cách đích của chính nó xa nhất."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Reading a mock",
+        "vi": "Đọc kết quả thi thử"
+      },
+      "items": [
+        "the skill furthest below its target",
+        "the one criterion or type that costs most",
+        "half of the time this week",
+        "optional steps from the error book first"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The weakest skill is...",
+        "vi": "Kỹ năng yếu nhất là..."
+      },
+      "options": [
+        "the one furthest below its own target",
+        "the one with the lowest number",
+        "the one you like least"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Targets differ by skill.",
+        "vi": "Đích khác nhau theo kỹ năng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What does half of the time mean?",
+        "vi": "Một nửa thời gian nghĩa là gì?"
+      },
+      "options": [
+        "Do the weakest skill's steps first and add its optional steps",
+        "Stop the other skills",
+        "Do nothing else"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The others keep their normal steps.",
+        "vi": "Các kỹ năng khác giữ bước bình thường."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A skill is a whole band below target. You...",
+        "vi": "Một kỹ năng thấp hơn đích cả band. Bạn..."
+      },
+      "options": [
+        "raise it as far as you can and read the decision after Gate 6",
+        "give up that skill",
+        "retake Gate 6 at once"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It is information for the decision.",
+        "vi": "Đó là thông tin cho quyết định."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the week.",
+        "vi": "Sắp xếp tuần."
+      },
+      "parts": [
+        "Compare the four bands with the targets",
+        "Find the weakest skill",
+        "Find its costliest criterion or type",
+        "Fix only that, half of the time"
+      ],
+      "explanation": {
+        "en": "Compare, find, narrow, fix.",
+        "vi": "So, tìm, thu hẹp, sửa."
+      }
+    }
+  ]
+}

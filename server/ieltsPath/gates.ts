@@ -7,7 +7,7 @@
  */
 import { and, asc, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
-import { examSessions, gateAttempts, ieltsPaths, pathLessons, skillLevels, type ExamSession, type GateAttempt, type IeltsPath, type User } from '../db/schema.js';
+import { contentItems, examSessions, gateAttempts, ieltsPaths, pathLessons, skillLevels, type ExamSession, type GateAttempt, type IeltsPath, type User } from '../db/schema.js';
 import type { IeltsBlueprint, IeltsResult } from '../exams/ielts.js';
 import { HttpError } from '../http/errors.js';
 import { cefrOfIelts } from '../progress/levels.js';
@@ -319,7 +319,13 @@ function withRetestMeasured(bands: MeasuredBands, skill: PathSkill, band: number
 /** The groups of one skill of a gate for a version, drawing unseen pool groups where the gate asks for them */
 async function groupsFor(user: User, definition: GateDefinition, version: 'A' | 'B', skill: PathSkill): Promise<string[]> {
   const source: GroupSource = definition.versions[version][skill];
-  return Array.isArray(source) ? source : gateGroups(user, source.pool, definition.gate);
+  if (Array.isArray(source)) return source;
+  if ('real' in source) {
+    // The groups of a real test, when the bank has every one of them; otherwise a generated test of the same size
+    const found = await db.select({ id: contentItems.id }).from(contentItems).where(inArray(contentItems.id, source.real));
+    if (found.length === source.real.length) return source.real;
+  }
+  return gateGroups(user, source.pool, definition.gate);
 }
 
 /** The open attempt of a gate, created when there is none (a new try is version A the first time and B after) */
