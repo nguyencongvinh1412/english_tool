@@ -52,7 +52,7 @@ export const pathReading = z
     if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
   });
 
-export const GENERATED_TYPES = ['l-conv', 'l-form', 'l-mono', 'l-sec3', 'l-sec4', 'r-short', 'r-tfng', 'r-scan', 'r-passage'] as const;
+export const GENERATED_TYPES = ['l-conv', 'l-form', 'l-mono', 'l-sec3', 'l-sec4', 'r-short', 'r-tfng', 'r-scan', 'r-passage', 'r-ynng', 'r-matchinfo', 'r-summary'] as const;
 export type GeneratedType = (typeof GENERATED_TYPES)[number];
 /** Full-size test groups (a whole listening section or reading passage) for Gates 5 and 6 */
 export const FULL_TYPES = ['g-l1', 'g-l2', 'g-l3', 'g-l4', 'g-r'] as const;
@@ -151,6 +151,24 @@ JSON: {"title": "...", "paragraphs": ["...", "..."], "questions": [${TFNG}, ${GA
     prompt: (topic) => `Write one reading text about ${topic} of 250-300 words in exactly 4 paragraphs. Do not number or letter the paragraphs (the reader shows A, B, C, D itself). Include a few numbers and names. Exactly 7 questions: 4 "match" (matching headings: the prompt is "Paragraph A", etc.;
 "options" is the same list of 6 headings in every question, 2 of them wrong; each correct answer index used once) then 3 "gap" (a number, a name or a place from the text).
 JSON: {"title": "...", "paragraphs": ["...", "...", "...", "..."], "questions": [${MATCH}, ${GAP}]}`,
+  },
+  'r-ynng': {
+    component: 'reading', level: 'B1', topics: ['working from home', 'city life', 'learning languages', 'sport at school', 'public transport', 'social media', 'recycling', 'part-time jobs'],
+    prompt: (topic) => `Write one reading text about ${topic} of 300-350 words in 4 paragraphs. It is an opinion piece: the writer gives a clear view and also reports other people's views.
+Exactly 10 questions: 8 "match" (Yes / No / Not Given about the WRITER'S VIEWS or claims; "options" is exactly ["Yes", "No", "Not Given"] in every question; "answerIndex" 0 = Yes (agrees with the writer's view), 1 = No (contradicts it), 2 = Not Given (the writer says nothing about it); include at least two of each) then 2 "gap".
+JSON: {"title": "...", "paragraphs": ["...", "..."], "questions": [{"type": "match", "prompt": "The writer believes that ...", "options": ["Yes", "No", "Not Given"], "explanation": "...", "answerIndex": 0}, ${GAP}]}`,
+  },
+  'r-matchinfo': {
+    component: 'reading', level: 'B1', topics: ['a museum', 'a small business', 'a new bus service', 'a school project', 'a local festival', 'a nature reserve', 'a sports centre'],
+    prompt: (topic) => `Write one reading text about ${topic} of 300-350 words in exactly 5 paragraphs (do not letter them: the reader shows A, B, C, D, E itself). Each paragraph holds one clear piece of information (a reason, a date, an example, a problem, a plan).
+Exactly 9 questions: 6 "match" ("Which paragraph contains ...?": the prompt is the information to find; "options" is exactly ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E"] in every question; "answerIndex" is the right paragraph, 0 = A; a paragraph may be used once or not at all) then 3 "gap" ("NO MORE THAN TWO WORDS").
+JSON: {"title": "...", "paragraphs": ["...", "...", "...", "...", "..."], "questions": [{"type": "match", "prompt": "a reason for a change", "options": ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E"], "explanation": "...", "answerIndex": 2}, ${GAP}]}`,
+  },
+  'r-summary': {
+    component: 'reading', level: 'B1', topics: ['how bees make honey', 'the history of the bicycle', 'a new recycling method', 'how cities grow', 'sleep and learning', 'a wind farm', 'plastic in the sea'],
+    prompt: (topic) => `Write one reading text about ${topic} of 300-350 words in 4-5 paragraphs, clearly structured, in the style of a simple magazine article.
+Exactly 10 "gap" questions in two blocks: (1) six sentences that together form a SUMMARY of the first half, each with one gap; (2) four note-style lines ("Cause: ____", "Result: ____") that form a TABLE of the second half. Answers are copied from the text ("NO MORE THAN TWO WORDS"); the summary sentences follow the order of the text.
+JSON: {"title": "...", "paragraphs": ["...", "..."], "questions": [${GAP}]}`,
   },
   'r-passage': {
     component: 'reading', level: 'B1', topics: READ_TOPICS,

@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can guess the meaning of a new word from the words around it.",
+      "vi": "Bạn đoán được nghĩa của từ mới từ các từ xung quanh."
+    },
+    {
+      "en": "You know when a word is worth looking up and when it is not.",
+      "vi": "Bạn biết khi nào đáng tra một từ và khi nào không."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "In the test there is no dictionary",
+        "vi": "Trong bài thi không có từ điển"
+      },
+      "body": {
+        "en": "Every reading text has words you do not know. The skill is to **keep going**. Most of the time you do not need the exact meaning: you need to know if the word is **positive or negative**, a **thing or an action**, and **what part of speech** it is.",
+        "vi": "Bài đọc nào cũng có từ bạn không biết. Kỹ năng là **cứ đọc tiếp**. Phần lớn thời gian bạn không cần nghĩa chính xác: bạn cần biết từ đó **tích cực hay tiêu cực**, **là vật hay hành động** và **thuộc từ loại nào**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Four clues",
+        "vi": "Bốn manh mối"
+      },
+      "body": {
+        "en": "1. **Part of speech:** after *the* it is a noun; after *to* a verb.\n2. **Contrast words:** *but, however, although* tell you the meaning is **opposite** to the idea next to it.\n3. **Examples:** *such as, for example* explain the word.\n4. **The word's parts:** *un-*, *re-*, *-less*, *-able* give hints.",
+        "vi": "1. **Từ loại:** sau *the* là danh từ; sau *to* là động từ.\n2. **Từ chỉ tương phản:** *but, however, although* cho biết nghĩa **ngược** với ý bên cạnh.\n3. **Ví dụ:** *such as, for example* giải thích từ.\n4. **Thành phần của từ:** *un-*, *re-*, *-less*, *-able* cho gợi ý."
+      }
+    },
+    {
+      "heading": {
+        "en": "Then check, and learn",
+        "vi": "Rồi kiểm tra và học"
+      },
+      "body": {
+        "en": "After the test, **look up** the words that mattered for your answers and put them in your word list. A word that you guessed correctly three times is a word you now know.",
+        "vi": "Sau bài thi, hãy **tra** những từ quan trọng cho đáp án của bạn và đưa vào danh sách từ. Một từ bạn đoán đúng ba lần là một từ bạn đã biết."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Guessing from context",
+        "vi": "Đoán từ ngữ cảnh"
+      },
+      "text": "\"The shop was empty. The owner looked miserable, but his assistant, who was always cheerful, smiled at us.\"\n\nmiserable: after \"looked\" it is an adjective; \"but\" tells you it is the opposite of \"cheerful\" → unhappy.",
+      "note": {
+        "en": "The contrast word but, and the opposite cheerful, give the meaning.",
+        "vi": "Từ tương phản but và từ trái nghĩa cheerful cho nghĩa."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"He was reluctant to go, but she was eager.\" Reluctant means:",
+        "vi": "\"He was reluctant to go, but she was eager.\" Reluctant nghĩa là:"
+      },
+      "options": [
+        "not willing",
+        "very happy",
+        "late"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "But shows the opposite of eager.",
+        "vi": "But cho thấy trái nghĩa với eager."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What is the first thing to check about an unknown word?",
+        "vi": "Điều đầu tiên cần kiểm tra ở một từ lạ là gì?"
+      },
+      "options": [
+        "its part of speech",
+        "its spelling",
+        "how long it is"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Noun, verb or adjective.",
+        "vi": "Danh từ, động từ hay tính từ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "An unknown word is not needed for any answer. You should:",
+        "vi": "Một từ lạ không cần cho đáp án nào. Bạn nên:"
+      },
+      "options": [
+        "keep reading",
+        "stop and think",
+        "skip the passage"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Keep going.",
+        "vi": "Cứ đọc tiếp."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps.",
+        "vi": "Sắp xếp các bước."
+      },
+      "parts": [
+        "Notice the unknown word",
+        "Decide its part of speech",
+        "Look at contrast words and examples",
+        "Guess and read on"
+      ],
+      "explanation": {
+        "en": "Do not stop.",
+        "vi": "Đừng dừng lại."
+      }
+    }
+  ]
+}

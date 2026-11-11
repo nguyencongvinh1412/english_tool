@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can write a discussion essay that covers both views and gives your own opinion.",
+      "vi": "Bạn viết được bài thảo luận bao quát cả hai quan điểm và nêu ý kiến riêng."
+    },
+    {
+      "en": "You can keep a balanced tone.",
+      "vi": "Bạn giữ được giọng văn cân bằng."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What the question asks",
+        "vi": "Đề hỏi gì"
+      },
+      "body": {
+        "en": "*\"Some people think... Others think... Discuss both views and give your own opinion.\"* You must do **three things**: explain view 1, explain view 2, and **say what you think**. Missing one of them lowers Task Response.",
+        "vi": "*\"Some people think... Others think... Discuss both views and give your own opinion.\"* Bạn phải làm **ba việc**: giải thích quan điểm 1, giải thích quan điểm 2 và **nói bạn nghĩ gì**. Thiếu một việc là điểm Task Response thấp."
+      }
+    },
+    {
+      "heading": {
+        "en": "The frame",
+        "vi": "Khung bài"
+      },
+      "body": {
+        "en": "1. **Introduction:** paraphrase the question and say that you will discuss both views (and give your opinion).\n2. **Body 1:** view 1 with a reason and an example.\n3. **Body 2:** view 2 with a reason and an example.\n4. **Conclusion:** your opinion, clearly. Your opinion can also be in the introduction, but it must be the **same** in both places.",
+        "vi": "1. **Mở bài:** diễn đạt lại đề và nói rằng bạn sẽ bàn cả hai quan điểm (và nêu ý kiến).\n2. **Thân bài 1:** quan điểm 1 với lý do và ví dụ.\n3. **Thân bài 2:** quan điểm 2 với lý do và ví dụ.\n4. **Kết bài:** ý kiến của bạn, rõ ràng. Ý kiến cũng có thể có ở mở bài nhưng phải **giống nhau** ở cả hai nơi."
+      }
+    },
+    {
+      "heading": {
+        "en": "Language of balance",
+        "vi": "Ngôn ngữ cân bằng"
+      },
+      "body": {
+        "en": "*Supporters of this view argue that..., On the other hand, others believe that..., While it is true that..., I tend to agree with the first view because...* Use **\"some people\"** for the views, not **\"I\"**, until you give your own.",
+        "vi": "*Supporters of this view argue that..., On the other hand, others believe that..., While it is true that..., I tend to agree with the first view because...* Dùng **\"some people\"** cho các quan điểm, không dùng **\"I\"**, cho tới khi nêu ý kiến của bạn."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The two body paragraphs",
+        "vi": "Hai đoạn thân bài"
+      },
+      "text": "Those who support free university education argue that it gives everyone a fair chance. For example, a talented student from a poor family could study medicine without debt.\n\nOn the other hand, others believe that students should pay, because a degree increases a person's future income. In addition, taxpayers who did not attend university should not pay for it.\n\nIn my opinion, a mixed system is best: fees should be low, and poorer students should receive support.",
+      "note": {
+        "en": "Two views with a reason each, then your own opinion in the last paragraph.",
+        "vi": "Hai quan điểm mỗi quan điểm một lý do, rồi ý kiến của bạn ở đoạn cuối."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Views and opinion",
+        "vi": "Quan điểm và ý kiến"
+      },
+      "items": [
+        "Supporters of this view argue that...",
+        "On the other hand, others believe that...",
+        "While it is true that...",
+        "In my opinion, ...",
+        "I tend to agree with ... because ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many things does \"discuss both views and give your opinion\" ask?",
+        "vi": "\"Discuss both views and give your opinion\" yêu cầu mấy việc?"
+      },
+      "options": [
+        "Two",
+        "Three",
+        "One"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "View 1, view 2, your opinion.",
+        "vi": "Quan điểm 1, quan điểm 2, ý kiến của bạn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which phrase starts the second view?",
+        "vi": "Cụm nào mở đầu quan điểm thứ hai?"
+      },
+      "options": [
+        "On the other hand, others believe that...",
+        "In conclusion, I think...",
+        "For example, my friend..."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "On the other hand.",
+        "vi": "On the other hand."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Your opinion appears in the introduction and the conclusion. It must be:",
+        "vi": "Ý kiến của bạn có ở mở bài và kết bài. Nó phải:"
+      },
+      "options": [
+        "the same",
+        "different",
+        "missing in one"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A clear, steady position.",
+        "vi": "Lập trường rõ ràng và nhất quán."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the essay.",
+        "vi": "Sắp xếp bài luận."
+      },
+      "parts": [
+        "Introduction",
+        "Body: view 1",
+        "Body: view 2",
+        "Conclusion with your opinion"
+      ],
+      "explanation": {
+        "en": "Both views, then your own.",
+        "vi": "Cả hai quan điểm, rồi ý kiến của bạn."
+      }
+    }
+  ]
+}

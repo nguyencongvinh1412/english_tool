@@ -241,3 +241,116 @@
   background: var(--reading-soft);
   border-radius: 999px;
 }
+
+/* ---------- Pie chart and diagrams ---------- */
+
+.chart__pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.chart__pie-svg {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+}
+
+.chart__slice {
+  stroke: var(--surface-2);
+  stroke-width: 2;
+}
+
+.chart__legend--pie {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.diagram__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diagram__step {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.625rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.diagram__step:not(:last-child)::after {
+  position: absolute;
+  bottom: -0.75rem;
+  left: 1.5rem;
+  z-index: 1;
+  font-size: 0.875rem;
+  line-height: 1;
+  color: var(--text-muted);
+  content: '↓';
+}
+
+.diagram__num {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-weight: 700;
+  color: var(--writing-text, var(--text));
+  background: var(--surface-3);
+  border-radius: 50%;
+}
+
+.diagram__detail {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.diagram__maps {
+  display: grid;
+  gap: 1rem;
+}
+
+.diagram__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.diagram__grid {
+  display: grid;
+  gap: 2px;
+}
+
+.diagram__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: break-word;
+  background: var(--surface);
+  border-radius: 4px;
+}
+
+.diagram__cell--on {
+  color: var(--text);
+  background: var(--surface-3);
+  outline: 1px solid var(--border-strong);
+}
+

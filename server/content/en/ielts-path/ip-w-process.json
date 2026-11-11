@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can describe the stages of a process in order.",
+      "vi": "Bạn mô tả được các giai đoạn của một quy trình theo thứ tự."
+    },
+    {
+      "en": "You can use the passive and sequence words correctly.",
+      "vi": "Bạn dùng đúng câu bị động và từ chỉ thứ tự."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What a process task is",
+        "vi": "Bài mô tả quy trình là gì"
+      },
+      "body": {
+        "en": "A process diagram shows **how something is made or how something happens**, in numbered **stages**. You describe **every stage, in order**. There are no trends and no comparisons. The overview says **how many stages** there are and how it **begins and ends**.",
+        "vi": "Sơ đồ quy trình cho thấy **cách một thứ được làm ra hoặc một việc xảy ra**, theo các **giai đoạn** được đánh số. Bạn mô tả **mọi giai đoạn, theo thứ tự**. Không có xu hướng, không so sánh. Tổng quan nói **có bao nhiêu giai đoạn** và nó **bắt đầu và kết thúc** thế nào."
+      }
+    },
+    {
+      "heading": {
+        "en": "The passive",
+        "vi": "Câu bị động"
+      },
+      "body": {
+        "en": "Machines and people are not important: the **action** is. So use the **passive**: *\"The paper is sorted. The pulp is pressed.\"* Form: **is / are + past participle**. For a past process, **was / were + past participle**. Do not write *\"first you...\"* or *\"I\"*.",
+        "vi": "Máy móc và con người không quan trọng: **hành động** mới quan trọng. Vì vậy dùng **câu bị động**: *\"The paper is sorted. The pulp is pressed.\"* Cấu trúc: **is / are + phân từ quá khứ**. Với quy trình quá khứ: **was / were + phân từ quá khứ**. Đừng viết *\"first you...\"* hay *\"I\"*."
+      }
+    },
+    {
+      "heading": {
+        "en": "Sequence words",
+        "vi": "Từ chỉ thứ tự"
+      },
+      "body": {
+        "en": "**First, Next, Then, After that, Following this, Once this is done, Finally.** Do not use the same word at the start of every sentence. You can also **join two stages**: *\"Once the paper has been sorted, it is mixed with water.\"*",
+        "vi": "**First, Next, Then, After that, Following this, Once this is done, Finally.** Đừng dùng cùng một từ ở đầu mọi câu. Bạn cũng có thể **nối hai giai đoạn**: *\"Once the paper has been sorted, it is mixed with water.\"*"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The start of a process answer",
+        "vi": "Phần đầu của bài mô tả quy trình"
+      },
+      "text": "The diagram shows how recycled paper is made.\nOverall, the process has seven stages, from collecting waste paper to packing the finished product.\nFirst, waste paper is collected from homes and offices and sorted by type. Next, it is mixed with water to make a thick pulp, and the ink is removed. Following this, the pulp is pressed into sheets, which are dried and rolled.",
+      "note": {
+        "en": "The overview gives the number of stages, the passive keeps the focus on the action, and the sequence words change.",
+        "vi": "Tổng quan nêu số giai đoạn, câu bị động giữ trọng tâm vào hành động và các từ chỉ thứ tự thay đổi."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Sequence",
+        "vi": "Thứ tự"
+      },
+      "items": [
+        "First, ...",
+        "Next, ... / Then, ...",
+        "After that, ...",
+        "Once ... has been done, ...",
+        "Finally, ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence is correct for a process?",
+        "vi": "Câu nào đúng cho một quy trình?"
+      },
+      "options": [
+        "The paper is sorted.",
+        "First you sort the paper.",
+        "The paper sort."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The passive.",
+        "vi": "Câu bị động."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The overview of a process says:",
+        "vi": "Tổng quan của một quy trình nói:"
+      },
+      "options": [
+        "how many stages there are and how it starts and ends",
+        "which stage you like",
+        "nothing"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The big picture.",
+        "vi": "Bức tranh chung."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which word is NOT a sequence word?",
+        "vi": "Từ nào KHÔNG phải từ chỉ thứ tự?"
+      },
+      "options": [
+        "Next",
+        "Although",
+        "Finally"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Although shows contrast.",
+        "vi": "Although chỉ tương phản."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the answer.",
+        "vi": "Sắp xếp bài viết."
+      },
+      "parts": [
+        "Introduction: what the diagram shows",
+        "Overview: number of stages",
+        "Stages 1 to 4 in the passive",
+        "Stages 5 to the end in the passive"
+      ],
+      "explanation": {
+        "en": "Every stage, in order.",
+        "vi": "Mọi giai đoạn, theo thứ tự."
+      }
+    }
+  ]
+}

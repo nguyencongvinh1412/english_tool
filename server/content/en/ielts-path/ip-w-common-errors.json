@@ -1,0 +1,127 @@
+{
+  "objectives": [
+    {
+      "en": "You can find the three or four mistakes that you repeat most.",
+      "vi": "Bạn tìm ra ba bốn lỗi mình lặp lại nhiều nhất."
+    },
+    {
+      "en": "You can check your writing for them in the last five minutes.",
+      "vi": "Bạn kiểm tra được bài viết theo chúng trong năm phút cuối."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Your own list",
+        "vi": "Danh sách của riêng bạn"
+      },
+      "body": {
+        "en": "Most learners make **the same few mistakes** again and again: **articles** (a / the / nothing), **tenses**, **subject-verb agreement** (*the number of students are*), **plural -s**, and **word form** (*success / succeed / successful*). Look at your **error book and your graded essays** and write your own top four.",
+        "vi": "Phần lớn người học mắc **cùng vài lỗi** lặp đi lặp lại: **mạo từ** (a / the / không có), **thì**, **hòa hợp chủ vị** (*the number of students are*), **-s số nhiều** và **dạng từ** (*success / succeed / successful*). Hãy xem **sổ lỗi và các bài đã chấm** và viết ra bốn lỗi hàng đầu của riêng bạn."
+      }
+    },
+    {
+      "heading": {
+        "en": "A five-minute check",
+        "vi": "Kiểm tra năm phút"
+      },
+      "body": {
+        "en": "In the last five minutes do **one pass for each of your four mistakes**, not one pass for everything. Read only for the first mistake, then only for the second, and so on. This finds far more than reading once.",
+        "vi": "Trong năm phút cuối hãy duyệt **một lượt cho mỗi lỗi trong bốn lỗi của bạn**, không phải một lượt cho tất cả. Chỉ đọc để tìm lỗi thứ nhất, rồi chỉ lỗi thứ hai, v.v. Cách này tìm được nhiều hơn hẳn đọc một lần."
+      }
+    },
+    {
+      "heading": {
+        "en": "Rules that fix a lot",
+        "vi": "Quy tắc sửa được nhiều"
+      },
+      "body": {
+        "en": "**Articles:** use *the* for something both of you know, *a/an* for a single new thing, nothing for general plurals (*Cars cause pollution*).\n**Agreement:** *a number of... are*, *the number of... is*.\n**Tense:** one tense for one time frame; do not mix in the same paragraph without a reason.",
+        "vi": "**Mạo từ:** dùng *the* cho thứ cả hai đều biết, *a/an* cho một thứ mới, không dùng với danh từ số nhiều chung (*Cars cause pollution*).\n**Hòa hợp:** *a number of... are*, *the number of... is*.\n**Thì:** một thì cho một khung thời gian; đừng trộn trong cùng một đoạn nếu không có lý do."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A personal checklist",
+        "vi": "Một danh sách kiểm tra cá nhân"
+      },
+      "text": "My four mistakes:\n1. Missing \"the\" before a specific noun (\"in city centre\" → \"in the city centre\")\n2. Missing plural -s (\"many student\" → \"many students\")\n3. \"The number of ... are\" → \"is\"\n4. Mixing past and present in Task 1\n\nCheck 1: read only for articles. Check 2: only for plural -s. And so on.",
+      "note": {
+        "en": "Four passes of one minute each find more than one slow read.",
+        "vi": "Bốn lượt mỗi lượt một phút tìm được nhiều hơn một lần đọc chậm."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which is correct?",
+        "vi": "Câu nào đúng?"
+      },
+      "options": [
+        "Cars cause pollution.",
+        "The cars cause the pollution.",
+        "A cars cause pollution."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "No article for general plurals.",
+        "vi": "Không dùng mạo từ cho danh từ số nhiều chung."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The number of students ___ increasing.\"",
+        "vi": "\"The number of students ___ increasing.\""
+      },
+      "options": [
+        "is",
+        "are"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The number is singular.",
+        "vi": "The number là số ít."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How should you use the last five minutes?",
+        "vi": "Nên dùng năm phút cuối thế nào?"
+      },
+      "options": [
+        "One pass for each of your usual mistakes",
+        "Rewrite the essay",
+        "Read once quickly"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "One mistake per pass.",
+        "vi": "Mỗi lượt một lỗi."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the work.",
+        "vi": "Sắp xếp công việc."
+      },
+      "parts": [
+        "Look at your graded essays",
+        "Write your top four mistakes",
+        "Check for each one in turn",
+        "Fix and note new mistakes"
+      ],
+      "explanation": {
+        "en": "Your own list first.",
+        "vi": "Danh sách của riêng bạn trước."
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can describe pie charts using fractions and percentages.",
+      "vi": "Bạn mô tả được biểu đồ tròn bằng phân số và phần trăm."
+    },
+    {
+      "en": "You can write about two charts together with one overview.",
+      "vi": "Bạn viết được về hai biểu đồ cùng lúc với một phần tổng quan."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Pie charts show proportions",
+        "vi": "Biểu đồ tròn cho thấy tỉ lệ"
+      },
+      "body": {
+        "en": "A pie chart shows **parts of a whole**, so you talk about **proportions**: *the largest share*, *a quarter*, *just under a third*, *the smallest slice*. Useful language: **make up, account for, represent, be responsible for**. *\"Housing accounted for 38 per cent of spending.\"*",
+        "vi": "Biểu đồ tròn cho thấy **các phần của một tổng**, nên bạn nói về **tỉ lệ**: *phần lớn nhất*, *một phần tư*, *chỉ dưới một phần ba*, *phần nhỏ nhất*. Ngôn ngữ hữu ích: **make up, account for, represent, be responsible for**. *\"Housing accounted for 38 per cent of spending.\"*"
+      }
+    },
+    {
+      "heading": {
+        "en": "Two pies: compare, do not list",
+        "vi": "Hai biểu đồ tròn: so sánh, đừng liệt kê"
+      },
+      "body": {
+        "en": "With two pies (for example **1990 and 2020**) the task is the **change**. Choose the **biggest changes** and the **biggest items**. Your overview says what **rose**, what **fell** and what **stayed similar**. Do not describe each slice of both pies.",
+        "vi": "Với hai biểu đồ tròn (ví dụ **1990 và 2020**) bài tập là **sự thay đổi**. Chọn **những thay đổi lớn nhất** và **những mục lớn nhất**. Tổng quan của bạn nói điều gì **tăng**, điều gì **giảm** và điều gì **giữ gần như cũ**. Đừng tả từng phần của cả hai biểu đồ."
+      }
+    },
+    {
+      "heading": {
+        "en": "A pie and a bar chart together",
+        "vi": "Một biểu đồ tròn và một biểu đồ cột"
+      },
+      "body": {
+        "en": "Sometimes the two charts show different things (what and how much). One **introduction** for both, one **overview** that connects them, then **one paragraph for each chart**. Check that you use each chart's **unit** correctly.",
+        "vi": "Đôi khi hai biểu đồ cho thấy các thứ khác nhau (cái gì và bao nhiêu). Một **mở bài** cho cả hai, một **tổng quan** nối chúng lại, rồi **một đoạn cho mỗi biểu đồ**. Kiểm tra bạn dùng đúng **đơn vị** của từng biểu đồ."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Two pie charts",
+        "vi": "Hai biểu đồ tròn"
+      },
+      "text": "The pie charts compare how households spent their money in 1990 and 2020.\nOverall, spending on food fell sharply, while housing and leisure took larger shares.\nIn 1990, food was the largest item at 35 per cent, but by 2020 it had dropped to 20 per cent. Housing, in contrast, rose from 30 to 38 per cent and became the biggest expense.\nLeisure more than doubled, from 8 to 17 per cent.",
+      "note": {
+        "en": "An introduction, an overview of the main changes, then only the biggest changes with numbers.",
+        "vi": "Mở bài, tổng quan các thay đổi chính, rồi chỉ những thay đổi lớn nhất có số liệu."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Proportions",
+        "vi": "Tỉ lệ"
+      },
+      "items": [
+        "accounted for / made up",
+        "the largest share / the smallest slice",
+        "a quarter / just under a third",
+        "more than doubled",
+        "remained similar"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which phrase is used for a part of a whole?",
+        "vi": "Cụm nào dùng cho một phần của tổng?"
+      },
+      "options": [
+        "accounted for",
+        "rose to",
+        "peaked at"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Account for = make up a part.",
+        "vi": "Account for = chiếm một phần."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "With two pie charts you mainly describe:",
+        "vi": "Với hai biểu đồ tròn bạn chủ yếu mô tả:"
+      },
+      "options": [
+        "every slice of both",
+        "the biggest changes and items",
+        "your opinion"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Select and compare.",
+        "vi": "Chọn lọc và so sánh."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Housing rose from 30 to 38 per cent. Which verb fits?",
+        "vi": "Housing tăng từ 30 lên 38 phần trăm. Động từ nào hợp?"
+      },
+      "options": [
+        "rose",
+        "was fell",
+        "will rise"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Past simple.",
+        "vi": "Quá khứ đơn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the answer.",
+        "vi": "Sắp xếp bài viết."
+      },
+      "parts": [
+        "Introduction",
+        "Overview of the main changes",
+        "Paragraph on the biggest changes",
+        "Paragraph on the other points"
+      ],
+      "explanation": {
+        "en": "Overview before details.",
+        "vi": "Tổng quan trước chi tiết."
+      }
+    }
+  ]
+}

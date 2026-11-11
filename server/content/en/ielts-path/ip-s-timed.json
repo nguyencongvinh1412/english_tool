@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can do Parts 1 to 3 on time and record them.",
+      "vi": "Bạn làm Part 1 đến 3 đúng giờ và ghi âm được."
+    },
+    {
+      "en": "You can score yourself on the four criteria honestly.",
+      "vi": "Bạn tự chấm được theo bốn tiêu chí một cách trung thực."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Test conditions",
+        "vi": "Điều kiện như thi thật"
+      },
+      "body": {
+        "en": "Do the whole test **in one go**: Part 1 (4 minutes), Part 2 (one minute to prepare, up to two minutes to talk) and Part 3 (4 minutes). **Record it**. Do not stop to restart if you make a mistake: in the test there is no restart.",
+        "vi": "Làm cả bài **một mạch**: Part 1 (4 phút), Part 2 (một phút chuẩn bị, tối đa hai phút nói) và Part 3 (4 phút). **Ghi âm lại**. Đừng dừng để làm lại khi nói sai: trong bài thi không có làm lại."
+      }
+    },
+    {
+      "heading": {
+        "en": "Score yourself with the descriptors",
+        "vi": "Tự chấm bằng band descriptors"
+      },
+      "body": {
+        "en": "Listen to the recording and give a band for each criterion: **Fluency and Coherence** (long pauses, repeated words), **Lexical Resource** (variety, precision), **Grammatical Range and Accuracy** (complex sentences, errors) and **Pronunciation**. Be strict: self-marks are about **half a band too high**, so take 0.5 off.",
+        "vi": "Nghe lại bản ghi âm và cho một band mỗi tiêu chí: **Fluency and Coherence** (dừng lâu, lặp từ), **Lexical Resource** (đa dạng, chính xác), **Grammatical Range and Accuracy** (câu phức, lỗi) và **Pronunciation**. Hãy nghiêm khắc: điểm tự chấm thường **cao hơn nửa band**, nên hãy trừ 0.5."
+      }
+    },
+    {
+      "heading": {
+        "en": "One goal for the next recording",
+        "vi": "Một mục tiêu cho lần ghi âm sau"
+      },
+      "body": {
+        "en": "Pick **the lowest criterion** and write one concrete action: *\"Say at least one complex sentence in each Part 3 answer.\"* Record again and check only that. The error book also shows your lowest criterion over several answers.",
+        "vi": "Chọn **tiêu chí thấp nhất** và viết một hành động cụ thể: *\"Nói ít nhất một câu phức trong mỗi câu trả lời Part 3.\"* Ghi âm lại và chỉ kiểm tra điều đó. Sổ lỗi cũng cho bạn thấy tiêu chí thấp nhất qua nhiều bài."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A self-check sheet",
+        "vi": "Phiếu tự kiểm tra"
+      },
+      "text": "Fluency: 5.5 (4 long pauses in Part 3)\nVocabulary: 5.0 (repeated \"good\" 6 times)\nGrammar: 5.0 (few complex sentences)\nPronunciation: 5.5\nTake 0.5 off: about 4.5-5.\nGoal: use three words instead of \"good\" in the next recording.",
+      "note": {
+        "en": "A number for each criterion and one clear action.",
+        "vi": "Một con số cho mỗi tiêu chí và một hành động rõ ràng."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you do when you make a mistake in the recording?",
+        "vi": "Bạn làm gì khi nói sai trong lúc ghi âm?"
+      },
+      "options": [
+        "Keep going",
+        "Stop and start again",
+        "Delete it"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "There is no restart in the test.",
+        "vi": "Trong bài thi không có làm lại."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Self-marks are usually:",
+        "vi": "Điểm tự chấm thường:"
+      },
+      "options": [
+        "about half a band too high",
+        "too low",
+        "exact"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Take 0.5 off.",
+        "vi": "Hãy trừ 0.5."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What goal do you choose for the next recording?",
+        "vi": "Bạn chọn mục tiêu nào cho lần ghi âm kế?"
+      },
+      "options": [
+        "One action for your lowest criterion",
+        "Fix everything",
+        "No goal"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "One thing at a time.",
+        "vi": "Mỗi lần một việc."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the practice.",
+        "vi": "Sắp xếp việc luyện."
+      },
+      "parts": [
+        "Record Parts 1 to 3 in one go",
+        "Score the four criteria",
+        "Take 0.5 off",
+        "Write one goal and record again"
+      ],
+      "explanation": {
+        "en": "Record, score, reduce, goal.",
+        "vi": "Ghi âm, chấm, trừ, mục tiêu."
+      }
+    }
+  ]
+}

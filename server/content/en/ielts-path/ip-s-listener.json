@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can use a real listener to learn what a recording cannot show.",
+      "vi": "Bạn dùng được người nghe thật để biết những điều bản ghi âm không cho thấy."
+    },
+    {
+      "en": "You can ask the listener for useful feedback.",
+      "vi": "Bạn biết xin người nghe nhận xét hữu ích."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Why a real listener",
+        "vi": "Vì sao cần người nghe thật"
+      },
+      "body": {
+        "en": "A recording shows what you said. A **person** shows what it **sounded like**: whether they understood you the first time, where they were bored, which words they could not catch. From phase 3 on, do **one mock a week with a real person** (a teacher, a friend who speaks better, a language exchange partner).",
+        "vi": "Bản ghi âm cho thấy bạn đã nói gì. Một **người thật** cho thấy nó **nghe như thế nào**: họ có hiểu ngay lần đầu không, họ chán ở đâu, họ không nghe được từ nào. Từ giai đoạn 3, hãy làm **một bài thi thử mỗi tuần với một người thật** (giáo viên, bạn nói giỏi hơn, bạn trao đổi ngôn ngữ)."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to ask them",
+        "vi": "Nên hỏi họ điều gì"
+      },
+      "body": {
+        "en": "Give them **three questions** before you start: *\"Which words did you not understand? Where did I stop for too long? Which answer was the clearest?\"* Ask them to **write down** the words they did not catch. Do not ask *\"Was it good?\"*: the answer is always yes.",
+        "vi": "Đưa cho họ **ba câu hỏi** trước khi bắt đầu: *\"Bạn không hiểu những từ nào? Tôi dừng quá lâu ở đâu? Câu trả lời nào rõ nhất?\"* Nhờ họ **ghi lại** những từ họ không nghe được. Đừng hỏi *\"Có tốt không?\"*: câu trả lời luôn là có."
+      }
+    },
+    {
+      "heading": {
+        "en": "Use the feedback",
+        "vi": "Dùng nhận xét"
+      },
+      "body": {
+        "en": "After the mock, add the words they did not catch to your **pronunciation list** and practise them. Add their feedback to your **error book notes**. Gate 3 is this weekend: if a teacher gives you a **band**, you can enter it on the gate page and it replaces the AI's.",
+        "vi": "Sau buổi thi thử, thêm các từ họ không nghe được vào **danh sách phát âm** và luyện chúng. Thêm nhận xét của họ vào **ghi chú sổ lỗi**. Gate 3 là cuối tuần này: nếu giáo viên cho bạn một **band**, bạn có thể nhập ở trang gate và nó thay cho band của AI."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Questions for the listener",
+        "vi": "Câu hỏi cho người nghe"
+      },
+      "text": "Before the mock, give your listener a card:\n1. Which words did you not understand? (write them down)\n2. Where did I stop for more than three seconds?\n3. Which answer was clearest, and why?\n\nAfter: practise the words they wrote down.",
+      "note": {
+        "en": "Specific questions get useful answers; \"was it good?\" does not.",
+        "vi": "Câu hỏi cụ thể cho câu trả lời hữu ích; \"có tốt không?\" thì không."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What does a real listener show that a recording does not?",
+        "vi": "Người nghe thật cho thấy điều gì mà bản ghi âm không cho thấy?"
+      },
+      "options": [
+        "how it sounded to a person",
+        "your grammar",
+        "your score"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Whether they understood you.",
+        "vi": "Họ có hiểu bạn không."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which question is most useful to ask?",
+        "vi": "Câu hỏi nào hữu ích nhất?"
+      },
+      "options": [
+        "Which words did you not understand?",
+        "Was it good?",
+        "Do you like me?"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Specific questions.",
+        "vi": "Câu hỏi cụ thể."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A teacher gives you a band. Where can you enter it?",
+        "vi": "Giáo viên cho bạn một band. Bạn nhập ở đâu?"
+      },
+      "options": [
+        "On the gate page",
+        "Nowhere",
+        "In the lesson"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A teacher's band replaces the AI's.",
+        "vi": "Band của giáo viên thay cho band của AI."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the mock.",
+        "vi": "Sắp xếp buổi thi thử."
+      },
+      "parts": [
+        "Give the listener three questions",
+        "Do Parts 1 to 3",
+        "Ask for the words they missed",
+        "Practise those words"
+      ],
+      "explanation": {
+        "en": "Questions first, practice last.",
+        "vi": "Câu hỏi trước, luyện sau."
+      }
+    }
+  ]
+}

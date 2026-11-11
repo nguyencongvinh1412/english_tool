@@ -87,7 +87,7 @@ const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite
 
 export const writingChart = z
   .object({
-    type: z.enum(['bar', 'line']),
+    type: z.enum(['bar', 'line', 'pie']),
     title: text(160),
     unit: text(30),
     categories: z.array(text(30)).min(3).max(8),
@@ -95,7 +95,28 @@ export const writingChart = z
   })
   .refine((chart) => chart.series.every((s) => s.values.length === chart.categories.length), {
     message: 'every series needs one value per category',
+  }).refine((chart) => chart.type !== 'pie' || (chart.series.length === 1 && chart.series[0].values.every((v) => v >= 0)), {
+    message: 'a pie chart has one series of values that are not negative',
   });
+
+/** A process shown as numbered stages (Task 1 "describe how something is made") */
+const diagramProcess = z.object({
+  kind: z.literal('process'),
+  title: text(120),
+  steps: z.array(z.object({ label: text(60), detail: z.string().trim().max(120).optional() })).min(4).max(9),
+});
+
+/** A place before and after a change, drawn on a grid (Task 1 maps): each cell holds a short label */
+const mapPanel = z.object({
+  label: text(30),
+  cells: z.array(z.object({ col: z.number().int().min(0).max(9), row: z.number().int().min(0).max(7), text: text(20) })).min(2).max(40),
+});
+const diagramMap = z
+  .object({ kind: z.literal('map'), title: text(120), cols: z.number().int().min(3).max(10), rows: z.number().int().min(3).max(8), before: mapPanel, after: mapPanel })
+  .refine((m) => [...m.before.cells, ...m.after.cells].every((c) => c.col < m.cols && c.row < m.rows), { message: 'every cell must sit inside the grid' });
+
+export const writingDiagram = z.discriminatedUnion('kind', [diagramProcess, diagramMap]);
+export type WritingDiagram = z.infer<typeof writingDiagram>;
 
 export const WRITING_TASKS = ['email', 'ielts-task1', 'ielts-task2'] as const;
 export type WritingTask = (typeof WRITING_TASKS)[number];
@@ -109,6 +130,10 @@ export const writingPrompt = z.object({
   minWords: z.number().int().min(50).max(400),
   timeMinutes: z.number().int().min(5).max(60),
   chart: writingChart.optional(),
+  /** A second chart for tasks that show two graphs */
+  extraChart: writingChart.optional(),
+  /** A process or a pair of maps instead of a chart */
+  diagram: writingDiagram.optional(),
   email: z.object({ from: text(80), subject: text(120), body: text(1500) }).optional(),
 });
 

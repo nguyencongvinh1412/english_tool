@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can compare two things in Part 3.",
+      "vi": "Bạn so sánh được hai thứ ở Part 3."
+    },
+    {
+      "en": "You can give a balanced answer with a concession.",
+      "vi": "Bạn đưa ra được câu trả lời cân bằng có nhượng bộ."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Questions that ask you to compare",
+        "vi": "Câu hỏi yêu cầu so sánh"
+      },
+      "body": {
+        "en": "Part 3 often asks you to **compare** (*Compare life in a city and in a village*) or to give **advantages and disadvantages** (*Is it better to study online or in a classroom?*). Do not choose one side only: **both sides**, then **your view**.",
+        "vi": "Part 3 thường yêu cầu **so sánh** (*Compare life in a city and in a village*) hoặc nêu **ưu và nhược điểm** (*Is it better to study online or in a classroom?*). Đừng chỉ chọn một phía: **cả hai phía**, rồi **ý kiến của bạn**."
+      }
+    },
+    {
+      "heading": {
+        "en": "The concession",
+        "vi": "Câu nhượng bộ"
+      },
+      "body": {
+        "en": "A **concession** admits a point for the other side, then gives yours: **\"Although** online lessons are convenient, **I think** classrooms are better because...\" **Even though**, **while**, **it is true that... but...** do the same. It sounds balanced and uses a complex sentence, which helps Grammar and Fluency.",
+        "vi": "**Nhượng bộ** là thừa nhận một ý của phía bên kia rồi nêu ý của bạn: **\"Although** online lessons are convenient, **I think** classrooms are better because...\" **Even though**, **while**, **it is true that... but...** cũng làm việc đó. Nghe cân bằng và dùng câu phức, giúp điểm Grammar và Fluency."
+      }
+    },
+    {
+      "heading": {
+        "en": "Comparing language",
+        "vi": "Ngôn ngữ so sánh"
+      },
+      "body": {
+        "en": "**more ... than, not as ... as, whereas, while, on the one hand ... on the other hand, the main difference is that...**. Add an **example** for each side. Keep each answer to about **four to six sentences**.",
+        "vi": "**more ... than, not as ... as, whereas, while, on the one hand ... on the other hand, the main difference is that...**. Thêm **ví dụ** cho mỗi phía. Giữ mỗi câu trả lời khoảng **bốn đến sáu câu**."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A comparison with a concession",
+        "vi": "Một so sánh có nhượng bộ"
+      },
+      "text": "Q: Compare life in a city and in a village.\nA: The main difference is that cities offer more jobs and entertainment, whereas villages are quieter and cheaper. Although living in a village is more peaceful, I think many young people prefer cities because they offer more opportunities. For example, my cousin moved to Ho Chi Minh City to find a better job.",
+      "note": {
+        "en": "Both sides, a concession with although, then a view and an example.",
+        "vi": "Cả hai phía, một nhượng bộ với although, rồi ý kiến và ví dụ."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Comparing and conceding",
+        "vi": "So sánh và nhượng bộ"
+      },
+      "items": [
+        "The main difference is that...",
+        "..., whereas ...",
+        "Although ..., I think ...",
+        "It is true that ..., but ...",
+        "On the one hand ..., on the other hand ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Compare life in a city and a village.\" You should talk about:",
+        "vi": "\"Compare life in a city and a village.\" Bạn nên nói về:"
+      },
+      "options": [
+        "both, then your view",
+        "only the city",
+        "only the village"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Both sides.",
+        "vi": "Cả hai phía."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence has a concession?",
+        "vi": "Câu nào có nhượng bộ?"
+      },
+      "options": [
+        "Although online lessons are convenient, I think classrooms are better.",
+        "I like classrooms.",
+        "Online lessons are convenient."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Although ..., I think ...",
+        "vi": "Although ..., I think ..."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How long should a Part 3 answer be?",
+        "vi": "Một câu trả lời Part 3 nên dài bao nhiêu?"
+      },
+      "options": [
+        "About four to six sentences",
+        "One word",
+        "Two minutes"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Developed but not too long.",
+        "vi": "Phát triển nhưng không quá dài."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order a comparison answer.",
+        "vi": "Sắp xếp một câu trả lời so sánh."
+      },
+      "parts": [
+        "Name the main difference",
+        "Give the first side with an example",
+        "Concede and give the other side",
+        "State your view"
+      ],
+      "explanation": {
+        "en": "Both sides, then your view.",
+        "vi": "Cả hai phía, rồi ý kiến."
+      }
+    }
+  ]
+}

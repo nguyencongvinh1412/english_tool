@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can complete a summary using words from the text.",
+      "vi": "Bạn hoàn thành được bản tóm tắt bằng từ trong bài."
+    },
+    {
+      "en": "You can fill a table by finding the right row and column in the text.",
+      "vi": "Bạn điền được bảng bằng cách tìm đúng hàng và cột trong bài."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Summary completion",
+        "vi": "Hoàn thành tóm tắt"
+      },
+      "body": {
+        "en": "The summary **retells** one part of the text in **different words**. The gaps are **content words** from the text. First read the whole summary to know its **topic**, then find the part of the text it covers, and look for the word that fits **grammatically and in meaning**.",
+        "vi": "Bản tóm tắt **kể lại** một phần của bài bằng **từ khác**. Chỗ trống là **từ nội dung** lấy từ bài. Trước hết đọc cả bản tóm tắt để biết **chủ đề**, rồi tìm phần của bài mà nó nói tới và tìm từ hợp **cả về ngữ pháp lẫn nghĩa**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Table and notes",
+        "vi": "Bảng và ghi chú"
+      },
+      "body": {
+        "en": "In a table, the **headings** tell you what to look for in each cell (*Cause, Result, Date*). Go **row by row**, find the part of the text for that row, and take the exact words. Keep to the **word limit**.",
+        "vi": "Trong bảng, **tiêu đề** cho bạn biết cần tìm gì ở mỗi ô (*Cause, Result, Date*). Đi **từng hàng**, tìm phần bài ứng với hàng đó và lấy đúng từ. Giữ **giới hạn từ**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check your answer in the sentence",
+        "vi": "Kiểm tra đáp án trong câu"
+      },
+      "body": {
+        "en": "Put your answer in the gap and **read the sentence aloud**. Does the grammar fit (singular or plural, noun or verb)? Does it keep the meaning of the text? Many wrong answers are the right idea in the **wrong form**.",
+        "vi": "Đặt đáp án vào chỗ trống và **đọc to cả câu**. Ngữ pháp có khớp không (số ít hay nhiều, danh từ hay động từ)? Có giữ nghĩa của bài không? Nhiều đáp án sai là đúng ý nhưng **sai dạng từ**."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A summary and its source",
+        "vi": "Một bản tóm tắt và nguồn của nó"
+      },
+      "text": "Text: \"Bees collect nectar from flowers and carry it to the hive, where other bees turn it into honey by removing water.\"\n\nSummary: Bees gather ____ from flowers and take it to the ____. There it becomes honey when ____ is removed.\nAnswers: nectar / hive / water",
+      "note": {
+        "en": "The summary uses different words (gather, take) but the gaps use the words of the text.",
+        "vi": "Bản tóm tắt dùng từ khác (gather, take) nhưng chỗ trống dùng từ của bài."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The words in the gaps of a summary come from:",
+        "vi": "Các từ ở chỗ trống của bản tóm tắt lấy từ:"
+      },
+      "options": [
+        "the text",
+        "your own ideas",
+        "a dictionary"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "From the text, with the word limit.",
+        "vi": "Từ bài, theo giới hạn từ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Where do you start with summary completion?",
+        "vi": "Bạn bắt đầu từ đâu với bài tóm tắt?"
+      },
+      "options": [
+        "With the first gap only",
+        "By reading the whole summary",
+        "By reading the questions after the text"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Know the topic first.",
+        "vi": "Biết chủ đề trước."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Why read the sentence aloud with your answer?",
+        "vi": "Vì sao đọc to câu cùng đáp án?"
+      },
+      "options": [
+        "To check grammar and meaning",
+        "To practise speaking",
+        "To save time"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Right idea, wrong form is a common mistake.",
+        "vi": "Đúng ý nhưng sai dạng từ là lỗi thường gặp."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps.",
+        "vi": "Sắp xếp các bước."
+      },
+      "parts": [
+        "Read the whole summary",
+        "Find the part of the text it covers",
+        "Pick the word that fits the gap",
+        "Read the sentence to check"
+      ],
+      "explanation": {
+        "en": "Topic, source, word, check.",
+        "vi": "Chủ đề, nguồn, từ, kiểm tra."
+      }
+    }
+  ]
+}

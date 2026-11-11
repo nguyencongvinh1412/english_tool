@@ -126,6 +126,65 @@ const full = (n: number, topic: string, part1: string[], cueCard: string, bullet
   payload: { topic, part1, part2: { cueCard, bullets, closing }, part3 },
 });
 
+
+type Series = { name: string; values: number[] };
+const pieChart = (title: string, categories: string[], values: number[]) => ({ type: 'pie' as const, title, unit: 'per cent', categories, series: [{ name: title, values }] as Series[] });
+
+const T1_INSTRUCTIONS = 'You should spend about 20 minutes on this task. Write at least 150 words. Describe the main features and make comparisons: do not give opinions.';
+const T1_ASK = 'Summarise the information by selecting and reporting the main features, and make comparisons where relevant.';
+
+const pie = (n: number, title: string, prompt: string, chart: ReturnType<typeof pieChart>, extraChart: ReturnType<typeof pieChart> | { type: 'bar'; title: string; unit: string; categories: string[]; series: Series[] }): StaticGroup => ({
+  id: `ip-w-pie-${n}`,
+  type: 'w-pie',
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: { taskType: 'ielts-task1', title, instructions: T1_INSTRUCTIONS, prompt: `${prompt} ${T1_ASK}`, minWords: 150, timeMinutes: 20, chart, extraChart },
+});
+
+const process_ = (n: number, title: string, prompt: string, steps: { label: string; detail?: string }[]): StaticGroup => ({
+  id: `ip-w-process-${n}`,
+  type: 'w-process',
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: { taskType: 'ielts-task1', title, instructions: 'You should spend about 20 minutes on this task. Write at least 150 words. Describe the stages in order: do not give opinions.', prompt: `${prompt} Summarise the information by selecting and reporting the main features.`, minWords: 150, timeMinutes: 20, diagram: { kind: 'process' as const, title, steps } },
+});
+
+/** A map from rows of labels: '' is an empty cell */
+const grid = (label: string, rows: string[][]) => ({ label, cells: rows.flatMap((row, r) => row.flatMap((text, c) => (text ? [{ col: c, row: r, text }] : []))) });
+const map = (n: number, title: string, prompt: string, before: ReturnType<typeof grid>, after: ReturnType<typeof grid>): StaticGroup => ({
+  id: `ip-w-map-${n}`,
+  type: 'w-map',
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: { taskType: 'ielts-task1', title, instructions: 'You should spend about 20 minutes on this task. Write at least 150 words. Describe the main changes and compare the two maps: do not give opinions.', prompt: `${prompt} Summarise the information by selecting and reporting the main features, and make comparisons where relevant.`, minWords: 150, timeMinutes: 20, diagram: { kind: 'map' as const, title, cols: before.cells.reduce((m, c) => Math.max(m, c.col + 1), 0) > 7 ? 8 : 7, rows: 4, before, after } },
+});
+
+const task2b = (type: 'w-discuss' | 'w-problem' | 'w-twopart', n: number, title: string, prompt: string): StaticGroup => ({
+  id: `ip-${type}-${n}`,
+  type,
+  kind: 'writing-prompt',
+  skill: 'writing',
+  level: 'B1',
+  topic: title,
+  payload: { taskType: 'ielts-task2', title, instructions: 'You should spend about 40 minutes on this task. Write at least 250 words. Plan for five minutes, then write four paragraphs.', prompt, minWords: 250, timeMinutes: 40 },
+});
+
+const cueCard = (n: number, topic: string, card: string, bullets: string[], closing: string): StaticGroup => ({
+  id: `ip-s-part2-${n}`,
+  type: 's-part2',
+  kind: 'speaking-ielts',
+  skill: 'speaking',
+  level: 'B1',
+  topic,
+  payload: { topic, part1: [`Do you like talking about ${topic.toLowerCase()}?`, 'Why or why not?'], part2: { cueCard: card, bullets, closing }, part3: [] },
+});
+
 export const STATIC_GROUPS: StaticGroup[] = [
   para(1, 'My daily routine', 'Write about what you usually do on a weekday, from the morning to the evening.'),
   para(2, 'My family', 'Write about the people in your family and what you like doing together.'),
@@ -216,6 +275,54 @@ export const STATIC_GROUPS: StaticGroup[] = [
   full(4, 'Study and helping', ['Do you work or study?', 'Why did you choose that job or subject?', 'Would you like to change it in the future?'], 'Describe a time when you helped someone.', ['who you helped', 'what the problem was', 'how you helped'], 'and explain how you felt afterwards.', ['Why do some people find it hard to ask for help?', 'Should schools teach students to help others?', 'Do people help each other less than in the past?']),
   full(5, 'Free time and food', ['What do you do in your free time?', 'Do you cook at home?', 'What did you eat yesterday?'], 'Describe a meal you enjoyed recently.', ['where you had it', 'who you had it with', 'what you ate'], 'and explain why you enjoyed it.', ['Why do people eat differently in different countries?', 'Is it better to eat at home or in restaurants?', 'How will food change in the future?']),
   full(6, 'Environment', ['What is the weather like in your hometown?', 'Do you like your city?', 'Is there a park near your home?'], 'Describe a place in nature that you like.', ['where it is', 'how you got there', 'what you can do there'], 'and explain why you like it.', ['Why is it important to protect nature?', 'Who is responsible for the environment, people or governments?', 'How could cities become greener?']),
+
+  pie(1, 'Household spending', 'The pie charts below show how an average household spent its money in 1990 and in 2020.', pieChart('Household spending, 1990', ['Housing', 'Food', 'Transport', 'Leisure', 'Other'], [30, 35, 12, 8, 15]), pieChart('Household spending, 2020', ['Housing', 'Food', 'Transport', 'Leisure', 'Other'], [38, 20, 15, 17, 10])),
+  pie(2, 'Sources of energy', 'The pie charts below show the sources of energy in one country in 2000 and in 2020.', pieChart('Energy sources, 2000', ['Coal', 'Gas', 'Nuclear', 'Renewables'], [45, 30, 15, 10]), pieChart('Energy sources, 2020', ['Coal', 'Gas', 'Nuclear', 'Renewables'], [20, 30, 12, 38])),
+  pie(3, 'How students travel to school', 'The pie chart shows how students in one city travel to school, and the bar chart shows how far they live from school.', pieChart('Travel to school', ['Bus', 'Walking', 'Car', 'Bicycle', 'Train'], [38, 25, 20, 10, 7]), { type: 'bar', title: 'Distance from school', unit: 'per cent of students', categories: ['Under 1 km', '1-3 km', '3-5 km', 'Over 5 km'], series: [{ name: 'Students', values: [22, 35, 25, 18] }] }),
+  pie(4, 'Where visitors come from', 'The pie charts below show where visitors to a museum came from in 2005 and in 2022.', pieChart('Visitors, 2005', ['Local', 'Other regions', 'Abroad'], [55, 30, 15]), pieChart('Visitors, 2022', ['Local', 'Other regions', 'Abroad'], [32, 28, 40])),
+  pie(5, 'Use of free time', 'The pie charts below show how teenagers and adults in one country spend their free time.', pieChart('Teenagers', ['Online', 'Sport', 'Friends', 'Reading', 'TV'], [40, 20, 20, 5, 15]), pieChart('Adults', ['Online', 'Sport', 'Friends', 'Reading', 'TV'], [22, 15, 18, 15, 30])),
+  pie(6, 'Waste and how it is dealt with', 'The pie chart shows what a city threw away in 2021, and the bar chart shows how the waste was treated.', pieChart('Waste by type', ['Food', 'Paper', 'Plastic', 'Glass', 'Other'], [30, 25, 20, 10, 15]), { type: 'bar', title: 'Waste treatment', unit: 'per cent of waste', categories: ['Recycled', 'Burned', 'Buried'], series: [{ name: '2021', values: [35, 25, 40] }] }),
+
+  process_(1, 'Making recycled paper', 'The diagram below shows how recycled paper is made.', [{ label: 'Waste paper is collected', detail: 'from homes and offices' }, { label: 'The paper is sorted', detail: 'by type and colour' }, { label: 'It is mixed with water', detail: 'to make a thick pulp' }, { label: 'The pulp is cleaned', detail: 'ink and glue are removed' }, { label: 'The pulp is pressed into sheets' }, { label: 'The sheets are dried and rolled' }, { label: 'The paper is cut and packed' }]),
+  process_(2, 'Producing chocolate', 'The diagram below shows how chocolate is produced from cocoa beans.', [{ label: 'Cocoa beans are picked' }, { label: 'The beans are dried in the sun', detail: 'for about a week' }, { label: 'They are sent to a factory' }, { label: 'The beans are roasted' }, { label: 'They are ground into a paste' }, { label: 'Sugar and milk are added' }, { label: 'The mixture is heated and cooled' }, { label: 'It is poured into moulds and wrapped' }]),
+  process_(3, 'Treating drinking water', 'The diagram below shows how water is made safe to drink in a treatment plant.', [{ label: 'Water is taken from a river' }, { label: 'Large objects are removed by a screen' }, { label: 'Chemicals are added', detail: 'so that small particles stick together' }, { label: 'The water rests in a tank', detail: 'and the particles sink' }, { label: 'It passes through sand filters' }, { label: 'Chlorine is added to kill germs' }, { label: 'Clean water is stored and sent to homes' }]),
+  process_(4, 'Making bricks', 'The diagram below shows how bricks are made.', [{ label: 'Clay is dug from the ground' }, { label: 'It is crushed and mixed with water' }, { label: 'The clay is shaped in moulds' }, { label: 'The bricks are dried', detail: 'for 24 hours' }, { label: 'They are baked in a very hot oven' }, { label: 'The bricks are cooled' }, { label: 'They are packed and delivered' }]),
+  process_(5, 'Solar electricity', 'The diagram below shows how electricity is made from sunlight in a home.', [{ label: 'Sunlight hits the solar panels' }, { label: 'The panels make direct current' }, { label: 'An inverter changes it to alternating current' }, { label: 'The electricity goes to the house' }, { label: 'Extra electricity is stored in a battery' }, { label: 'Any surplus is sent to the grid' }]),
+
+  map(1, 'The town centre', 'The maps below show the centre of a town in 2005 and now.', grid('2005', [['Farm', 'Farm', '', 'Road', 'Houses', 'Houses', 'Houses'], ['Farm', 'Farm', '', 'Road', 'School', '', 'Shop'], ['Park', 'Park', '', 'Road', 'Houses', '', 'Cafe'], ['Park', 'Park', '', 'Road', '', 'Station', '']]), grid('Now', [['Offices', 'Offices', '', 'Road', 'Houses', 'Houses', 'Houses'], ['Offices', 'Offices', '', 'Road', 'School', 'Library', 'Shop'], ['Park', 'Park', '', 'Road', 'Houses', '', 'Cafe'], ['Car park', 'Car park', '', 'Road', '', 'Station', 'Bus stop']])),
+  map(2, 'A school', 'The maps below show a school before and after it was rebuilt.', grid('Before', [['Field', 'Field', 'Field', '', 'Gate', '', ''], ['Field', 'Field', 'Field', '', 'Hall', 'Hall', 'Library'], ['Field', 'Field', 'Field', '', 'Classes', 'Classes', 'Classes'], ['Car park', 'Car park', '', '', 'Classes', 'Classes', 'Classes']]), grid('After', [['Field', 'Field', 'Pool', '', 'Gate', '', ''], ['Field', 'Field', 'Pool', '', 'Hall', 'Hall', 'Library'], ['Field', 'Field', 'Gym', '', 'Classes', 'Classes', 'Cafe'], ['Garden', 'Garden', 'Gym', '', 'Classes', 'Classes', 'Classes']])),
+  map(3, 'A village by a river', 'The maps below show a village in 1990 and today.', grid('1990', [['River', 'River', 'River', 'River', 'River', 'River', 'River'], ['Bridge', '', 'Farm', 'Farm', '', 'Houses', 'Houses'], ['Road', 'Road', 'Road', 'Road', 'Road', 'Road', 'Road'], ['Pub', '', 'Shop', '', 'Church', '', 'Houses']]), grid('Today', [['River', 'River', 'River', 'River', 'River', 'River', 'River'], ['Bridge', 'Cafe', 'Houses', 'Houses', 'Houses', 'Houses', 'Houses'], ['Road', 'Road', 'Road', 'Road', 'Road', 'Road', 'Road'], ['Hotel', '', 'Shop', 'Car park', 'Church', '', 'Houses']])),
+  map(4, 'A harbour', 'The maps below show a harbour area in 2000 and in 2022.', grid('2000', [['Sea', 'Sea', 'Sea', 'Sea', 'Sea', 'Sea', 'Sea'], ['Pier', 'Pier', '', 'Boats', 'Boats', '', 'Fish market'], ['Road', 'Road', 'Road', 'Road', 'Road', 'Road', 'Road'], ['Factory', 'Factory', '', 'Houses', 'Houses', '', 'Warehouse']]), grid('2022', [['Sea', 'Sea', 'Sea', 'Sea', 'Sea', 'Sea', 'Sea'], ['Pier', 'Pier', 'Cafes', 'Marina', 'Marina', '', 'Museum'], ['Road', 'Road', 'Road', 'Road', 'Road', 'Road', 'Road'], ['Flats', 'Flats', '', 'Houses', 'Houses', '', 'Car park']])),
+
+  task2b('w-discuss', 1, 'University for everyone', 'Some people think university education should be free for everyone. Others think students should pay for it. Discuss both views and give your own opinion.'),
+  task2b('w-discuss', 2, 'Children and technology', 'Some people believe children should have a phone from a young age. Others think they should wait until they are older. Discuss both views and give your own opinion.'),
+  task2b('w-discuss', 3, 'Travel', 'Some people prefer to travel in a group on an organised tour. Others prefer to travel alone. Discuss both views and give your own opinion.'),
+  task2b('w-discuss', 4, 'Old buildings', 'Some people think old buildings should be kept. Others believe they should be replaced by modern ones. Discuss both views and give your own opinion.'),
+  task2b('w-discuss', 5, 'Sport', 'Some people think professional athletes earn too much money. Others believe they deserve it. Discuss both views and give your own opinion.'),
+  task2b('w-discuss', 6, 'Working hours', 'Some people think a four-day working week would be good for everyone. Others disagree. Discuss both views and give your own opinion.'),
+  task2b('w-problem', 1, 'Traffic', 'Traffic is a serious problem in many cities. What are the causes of this, and what can be done about it?'),
+  task2b('w-problem', 2, 'Obesity', 'More and more people in the world are overweight. What problems does this cause, and what can be done about it?'),
+  task2b('w-problem', 3, 'Plastic waste', 'Plastic waste is polluting the oceans. What are the main causes, and what measures could solve the problem?'),
+  task2b('w-problem', 4, 'Young people and the news', 'Many young people do not follow the news. Why is this, and what could be done to change it?'),
+  task2b('w-problem', 5, 'Loneliness', 'Many people in big cities feel lonely. What are the reasons, and how can cities help?'),
+  task2b('w-problem', 6, 'Noise', 'Noise is a growing problem in modern cities. What problems does it cause, and what can be done to reduce it?'),
+  task2b('w-twopart', 1, 'Fewer young farmers', 'In many countries fewer young people want to work in farming. Why is this happening? Is it a positive or a negative development?'),
+  task2b('w-twopart', 2, 'Learning languages online', 'More people learn languages online than in classrooms. Why is this? Do you think it is a good development?'),
+  task2b('w-twopart', 3, 'Working abroad', 'Many people choose to work in another country. What are the reasons? Does this benefit the country they leave?'),
+  task2b('w-twopart', 4, 'Reading for pleasure', 'People read less for pleasure than in the past. Why is this? Is it a problem?'),
+  task2b('w-twopart', 5, 'Fast food', 'Fast food is more popular than ever. Why is this? Is it a positive or a negative trend?'),
+
+  cueCard(7, 'A book', 'Describe a book you have read and liked.', ['what the book was', 'when you read it', 'what it was about'], 'and explain why you liked it.'),
+  cueCard(8, 'A teacher', 'Describe a teacher who helped you.', ['who this person was', 'what he or she taught you', 'how he or she helped'], 'and explain why this teacher was important to you.'),
+  cueCard(9, 'A celebration', 'Describe a celebration you enjoyed.', ['what the celebration was', 'who you were with', 'what you did'], 'and explain why you enjoyed it.'),
+  cueCard(10, 'A website', 'Describe a website you often use.', ['what it is', 'how you found it', 'what you use it for'], 'and explain why you like it.'),
+
+  full(7, 'Books and reading', ['Do you like reading?', 'What kind of books do you read?', 'Do you prefer paper books or e-books?'], 'Describe a book you have read and liked.', ['what the book was', 'when you read it', 'what it was about'], 'and explain why you liked it.', ['Why do some people read less than they used to?', 'Are paper books better than e-books? Why?', 'How might reading change in the future?']),
+  full(8, 'Teachers and learning', ['Do you work or study?', 'Who helps you most when you study?', 'Do you prefer to study alone or with others?'], 'Describe a teacher who helped you.', ['who this person was', 'what he or she taught you', 'how he or she helped'], 'and explain why this teacher was important to you.', ['What makes a good teacher?', 'Is it better to learn from a teacher or from the internet?', 'How might schools change in the next twenty years?']),
+  full(9, 'Celebrations', ['Do you like celebrations?', 'How do people celebrate in your country?', 'What did you do on your last birthday?'], 'Describe a celebration you enjoyed.', ['what the celebration was', 'who you were with', 'what you did'], 'and explain why you enjoyed it.', ['Why are celebrations important to people?', 'Are traditional celebrations changing? How?', 'Do big celebrations cost too much money?']),
+  full(10, 'Websites', ['How often do you use the internet?', 'What websites do you visit most?', 'Do you shop online?'], 'Describe a website you often use.', ['what it is', 'how you found it', 'what you use it for'], 'and explain why you like it.', ['What are the advantages and disadvantages of getting information online?', 'Do you think the internet is changing the way people think?', 'Should children have limits on internet use?']),
+  full(11, 'Cities', ['Do you live in a city?', 'What do you like about your area?', 'Would you like to live somewhere else?'], 'Describe a city you would like to visit.', ['where it is', 'what you know about it', 'what you would do there'], 'and explain why you want to go.', ['Why do people move to big cities?', 'Compare life in a city and in a village.', 'How will cities be different in the future?']),
+  full(12, 'Health', ['Do you do any exercise?', 'What do you do to stay healthy?', 'Did you play sport as a child?'], 'Describe a time when you were ill.', ['when it was', 'what was wrong', 'what you did'], 'and explain how you felt.', ['Why do some people not take care of their health?', 'Who should be responsible for people’s health, the government or the individual?', 'How could healthcare improve in the future?']),
 ];
 
 const SCHEMAS = { 'writing-prompt': writingPrompt, 'speaking-ielts': speakingIeltsGate } as const;

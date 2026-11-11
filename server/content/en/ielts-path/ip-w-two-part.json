@@ -1,0 +1,141 @@
+{
+  "objectives": [
+    {
+      "en": "You can answer both parts of a two-part question equally well.",
+      "vi": "Bạn trả lời được cả hai phần của câu hỏi hai phần với chất lượng như nhau."
+    },
+    {
+      "en": "You can plan a body paragraph for each question.",
+      "vi": "Bạn lập được dàn ý một đoạn thân bài cho mỗi câu hỏi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Two questions, two bodies",
+        "vi": "Hai câu hỏi, hai thân bài"
+      },
+      "body": {
+        "en": "A two-part question looks like: **\"Why is this happening? Is it a positive or negative development?\"** The two questions are **different**: the first asks for **reasons**, the second for **your opinion**. Give each its own **body paragraph**.",
+        "vi": "Câu hỏi hai phần trông như: **\"Why is this happening? Is it a positive or negative development?\"** Hai câu hỏi **khác nhau**: câu đầu hỏi **lý do**, câu sau hỏi **ý kiến của bạn**. Mỗi câu một **đoạn thân bài** riêng."
+      }
+    },
+    {
+      "heading": {
+        "en": "Plan from the questions",
+        "vi": "Lập dàn ý từ các câu hỏi"
+      },
+      "body": {
+        "en": "Write the two questions at the top of your plan and answer each in **one sentence**. For *\"Is it positive or negative?\"* choose **one answer** (positive, negative or mainly one of them) and keep it in the **introduction and conclusion**.",
+        "vi": "Ghi hai câu hỏi ở đầu dàn ý và trả lời mỗi câu bằng **một câu**. Với *\"Is it positive or negative?\"* chọn **một câu trả lời** (tích cực, tiêu cực hoặc chủ yếu một trong hai) và giữ nó ở **mở bài và kết bài**."
+      }
+    },
+    {
+      "heading": {
+        "en": "A balanced length",
+        "vi": "Độ dài cân bằng"
+      },
+      "body": {
+        "en": "Do not write three paragraphs for the first question and one sentence for the second. Aim for about **the same length**. If you run out of ideas for the first, you can use **one reason in two sentences** rather than two weak reasons.",
+        "vi": "Đừng viết ba đoạn cho câu hỏi đầu và một câu cho câu sau. Hãy nhắm tới **độ dài gần bằng nhau**. Nếu hết ý cho câu đầu, hãy dùng **một lý do viết hai câu** thay vì hai lý do yếu."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A plan for a two-part question",
+        "vi": "Dàn ý cho câu hỏi hai phần"
+      },
+      "text": "Question: Fewer young people want to work in farming. Why? Is it positive or negative?\n\nQ1 (why): hard physical work + low pay; cities offer more jobs.\nQ2 (positive or negative): mainly negative; fewer people producing food; villages become empty.\n\nIntroduction: paraphrase + \"I believe it is mostly a negative trend.\"\nBody 1: reasons. Body 2: why negative. Conclusion: repeat the opinion.",
+      "note": {
+        "en": "Each question has its own paragraph and the opinion stays the same from start to end.",
+        "vi": "Mỗi câu hỏi có đoạn riêng và ý kiến giữ nguyên từ đầu đến cuối."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Reasons and opinion",
+        "vi": "Lý do và ý kiến"
+      },
+      "items": [
+        "The main reason is that...",
+        "This is partly because...",
+        "In my view, this is a negative development because...",
+        "On balance, I believe that..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How many body paragraphs for a two-part question?",
+        "vi": "Bao nhiêu đoạn thân bài cho câu hỏi hai phần?"
+      },
+      "options": [
+        "Two, one for each question",
+        "One",
+        "Three or more"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "One for each question.",
+        "vi": "Mỗi câu hỏi một đoạn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"Is it positive or negative?\" You should:",
+        "vi": "\"Is it positive or negative?\" Bạn nên:"
+      },
+      "options": [
+        "choose one clear answer",
+        "say both equally",
+        "not answer"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "A clear position.",
+        "vi": "Một lập trường rõ ràng."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Where does your opinion appear?",
+        "vi": "Ý kiến của bạn xuất hiện ở đâu?"
+      },
+      "options": [
+        "Introduction and conclusion",
+        "Only the conclusion",
+        "Nowhere"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Same in both.",
+        "vi": "Giống nhau ở cả hai."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the plan.",
+        "vi": "Sắp xếp dàn ý."
+      },
+      "parts": [
+        "Write the two questions",
+        "Answer each in one sentence",
+        "Choose your opinion",
+        "Plan the two body paragraphs"
+      ],
+      "explanation": {
+        "en": "Questions first.",
+        "vi": "Câu hỏi trước."
+      }
+    }
+  ]
+}

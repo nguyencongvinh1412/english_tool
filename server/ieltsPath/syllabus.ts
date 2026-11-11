@@ -18,9 +18,9 @@ export type StepKind = 'lesson' | 'practice' | 'grammar' | 'words' | 'dictation'
 
 /** Kinds of practice exercise (see practice.ts for what each one makes) */
 export const PRACTICE_TYPES = [
-  'l-conv', 'l-form', 'l-mono', 'l-full', 'l-sec3', 'l-test30', 'l-test40',
-  'r-short', 'r-tfng', 'r-scan', 'r-passage', 'r-two', 'r-three',
-  'w-para', 'w-task1', 'w-task2', 'w-line', 'w-opinion', 'w-advdis',
+  'l-conv', 'l-form', 'l-mono', 'l-full', 'l-sec3', 'l-sec4', 'l-test30', 'l-test40',
+  'r-short', 'r-tfng', 'r-scan', 'r-passage', 'r-two', 'r-three', 'r-ynng', 'r-matchinfo', 'r-summary',
+  'w-para', 'w-task1', 'w-task2', 'w-line', 'w-opinion', 'w-advdis', 'w-pie', 'w-process', 'w-map', 'w-discuss', 'w-problem', 'w-twopart',
   's-part1', 's-part2', 's-mock', 's-full',
 ] as const;
 export type PracticeType = (typeof PRACTICE_TYPES)[number];
@@ -45,6 +45,7 @@ export interface Step {
 }
 
 import { PHASE2_LESSONS, PHASE2_WEEKS } from './syllabusPhase2.js';
+import { PHASE3_LESSONS, PHASE3_WEEKS } from './syllabusPhase3.js';
 
 /** The lessons that exist, with the skill they belong to and where they sit */
 export interface LessonMeta {
@@ -74,7 +75,7 @@ export const LESSONS: LessonMeta[] = [
   { id: 'ip-s-mock-check', block: 'speaking', minutes: 35, title: { en: 'Checking your own recording', vi: 'Tự kiểm tra bản ghi âm của bạn' } },
 ];
 
-LESSONS.push(...PHASE2_LESSONS);
+LESSONS.push(...PHASE2_LESSONS, ...PHASE3_LESSONS);
 
 export const lessonMeta = (id: string): LessonMeta | undefined => LESSONS.find((l) => l.id === id);
 
@@ -152,9 +153,9 @@ const PHASE1_WEEKS: Record<number, DayPlan> = {
 };
 
 const DEFAULT_PRACTICE_MINUTES: Record<PracticeType, number> = {
-  'l-conv': 30, 'l-form': 30, 'l-mono': 30, 'l-full': 45, 'l-sec3': 35, 'l-test30': 40, 'l-test40': 55,
-  'r-short': 35, 'r-tfng': 35, 'r-scan': 40, 'r-passage': 45, 'r-two': 50, 'r-three': 65,
-  'w-para': 45, 'w-task1': 45, 'w-task2': 45, 'w-line': 45, 'w-opinion': 50, 'w-advdis': 50,
+  'l-conv': 30, 'l-form': 30, 'l-mono': 30, 'l-full': 45, 'l-sec3': 35, 'l-sec4': 35, 'l-test30': 40, 'l-test40': 55,
+  'r-short': 35, 'r-tfng': 35, 'r-scan': 40, 'r-passage': 45, 'r-two': 50, 'r-three': 65, 'r-ynng': 40, 'r-matchinfo': 40, 'r-summary': 40,
+  'w-para': 45, 'w-task1': 45, 'w-task2': 45, 'w-line': 45, 'w-opinion': 50, 'w-advdis': 50, 'w-pie': 45, 'w-process': 45, 'w-map': 45, 'w-discuss': 55, 'w-problem': 55, 'w-twopart': 55,
   's-part1': 35, 's-part2': 40, 's-mock': 45, 's-full': 50,
 };
 
@@ -171,7 +172,7 @@ function toStep(base: Pick<Step, 'phase' | 'week' | 'day' | 'block'>, item: DayS
   return { ...base, kind: 'practice', ref: { type: item.practice }, core: true, minutes: item.minutes ?? DEFAULT_PRACTICE_MINUTES[item.practice] };
 }
 
-const WEEK_PLANS: Record<number, DayPlan> = { ...PHASE1_WEEKS, ...PHASE2_WEEKS };
+const WEEK_PLANS: Record<number, DayPlan> = { ...PHASE1_WEEKS, ...PHASE2_WEEKS, ...PHASE3_WEEKS };
 
 /** Steps of a phase in order: for each day, vocabulary and grammar, then listening, reading, writing, speaking */
 export function phaseSteps(phase: number): Step[] {
@@ -200,7 +201,7 @@ export function phaseSteps(phase: number): Step[] {
 }
 
 /** Phases that have a written syllabus */
-export const WRITTEN_PHASES = [1, 2];
+export const WRITTEN_PHASES = [1, 2, 3];
 
 /** Minutes of a whole phase, for estimating phases that are not written yet */
 export const phaseMinutes = (phase: number): number => phaseSteps(phase).reduce((n, s) => n + s.minutes, 0);

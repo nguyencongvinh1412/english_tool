@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can begin a Part 2 talk in a way that sounds natural and confident.",
+      "vi": "Bạn mở đầu được bài nói Part 2 nghe tự nhiên và tự tin."
+    },
+    {
+      "en": "You can use the four prompts of the cue card as your structure.",
+      "vi": "Bạn dùng được bốn gợi ý của cue card làm cấu trúc."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "The first sentence",
+        "vi": "Câu đầu tiên"
+      },
+      "body": {
+        "en": "A good opening **names the topic** and **frames it**: *\"I'd like to talk about my uncle, who has been the biggest influence in my life.\"* It tells the examiner what is coming, gives you a second to think and sets the tone. Avoid memorised openings that do not fit the card.",
+        "vi": "Một mở đầu tốt **nêu chủ đề** và **đặt khung**: *\"I'd like to talk about my uncle, who has been the biggest influence in my life.\"* Nó cho giám khảo biết điều sắp tới, cho bạn một giây suy nghĩ và tạo giọng điệu. Tránh mở đầu học thuộc không khớp với cue card."
+      }
+    },
+    {
+      "heading": {
+        "en": "The card is your plan",
+        "vi": "Cue card là dàn ý của bạn"
+      },
+      "body": {
+        "en": "The **four prompts** are the structure: talk about them **in order** and give each about **20-30 seconds**. The last prompt (*explain why...*) is the **richest**: save a reason and an example for it, so that you can speak for the last 30 seconds.",
+        "vi": "**Bốn gợi ý** là cấu trúc: nói về chúng **theo thứ tự** và dành cho mỗi gợi ý khoảng **20-30 giây**. Gợi ý cuối (*explain why...*) là **phong phú nhất**: hãy để dành một lý do và một ví dụ cho nó để bạn nói được 30 giây cuối."
+      }
+    },
+    {
+      "heading": {
+        "en": "Do not memorise",
+        "vi": "Đừng học thuộc"
+      },
+      "body": {
+        "en": "Learn **ideas and phrases**, not whole answers. Examiners hear memorised talks every day and know them. Practise the **same card twice** in different words: the second time will be easier and more natural.",
+        "vi": "Hãy học **ý và cụm từ**, không học cả bài. Giám khảo nghe các bài học thuộc mỗi ngày và nhận ra. Hãy luyện **cùng một cue card hai lần** bằng lời khác nhau: lần thứ hai sẽ dễ và tự nhiên hơn."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "An opening and the four prompts",
+        "vi": "Một mở đầu và bốn gợi ý"
+      },
+      "text": "Card: Describe a teacher who helped you. (who / what he or she taught / how he or she helped / why important)\n\nOpening: \"I'd like to talk about Mr Hung, my maths teacher at high school, who changed how I think about studying.\"\nThen: who he was → what he taught → how he helped (stayed after class) → why he was important (I gained confidence).",
+      "note": {
+        "en": "One sentence names and frames the topic; then the four prompts in order.",
+        "vi": "Một câu nêu và đặt khung chủ đề; rồi bốn gợi ý theo thứ tự."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Openings",
+        "vi": "Mở đầu"
+      },
+      "items": [
+        "I'd like to talk about...",
+        "The ... I'd like to describe is...",
+        "Well, the person I have in mind is...",
+        "As for why..., I'd say that...",
+        "What stands out most is..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A good opening:",
+        "vi": "Một mở đầu tốt:"
+      },
+      "options": [
+        "names the topic and frames it",
+        "is learned by heart",
+        "repeats the card word for word"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Name and frame.",
+        "vi": "Nêu và đặt khung."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which prompt is usually the richest?",
+        "vi": "Gợi ý nào thường phong phú nhất?"
+      },
+      "options": [
+        "the last: explain why",
+        "the first: who",
+        "none"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Save a reason and an example.",
+        "vi": "Để dành lý do và ví dụ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How do you use the four prompts?",
+        "vi": "Bạn dùng bốn gợi ý như thế nào?"
+      },
+      "options": [
+        "In order, about 20-30 seconds each",
+        "Only the first",
+        "In any order"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They are your plan.",
+        "vi": "Chúng là dàn ý của bạn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the talk.",
+        "vi": "Sắp xếp bài nói."
+      },
+      "parts": [
+        "Opening sentence",
+        "Prompts one and two",
+        "Prompt three",
+        "Prompt four: reason and example"
+      ],
+      "explanation": {
+        "en": "Open, develop, finish with why.",
+        "vi": "Mở, phát triển, kết bằng lý do."
+      }
+    }
+  ]
+}

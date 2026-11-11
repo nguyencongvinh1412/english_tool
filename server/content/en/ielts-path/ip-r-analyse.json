@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can analyse a full set of three passages in 25 minutes.",
+      "vi": "Bạn phân tích được một bộ ba bài đầy đủ trong 25 phút."
+    },
+    {
+      "en": "You can find the paraphrase behind every wrong answer.",
+      "vi": "Bạn tìm được cách diễn đạt lại đằng sau mỗi câu sai."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Review is half of the learning",
+        "vi": "Ôn lại là một nửa việc học"
+      },
+      "body": {
+        "en": "Doing a set teaches you **half** of what it can. The other half is the **review**: about 25 minutes after each set. A learner who does three sets and reviews them well improves more than one who does six sets and does not review.",
+        "vi": "Làm một bộ chỉ dạy bạn **một nửa** những gì nó có thể dạy. Nửa còn lại là **ôn lại**: khoảng 25 phút sau mỗi bộ. Người làm ba bộ và ôn kỹ tiến bộ hơn người làm sáu bộ mà không ôn."
+      }
+    },
+    {
+      "heading": {
+        "en": "For every wrong answer",
+        "vi": "Với mỗi câu sai"
+      },
+      "body": {
+        "en": "1. Find the **sentence in the text** that holds the answer.\n2. Write how the question was **paraphrased** (question word → text word).\n3. Name the **cause**: could not find / found and misread / no time / spelling.\n4. If you could not find it, note which **words** you scanned for and which the text really used.",
+        "vi": "1. Tìm **câu trong bài** chứa đáp án.\n2. Ghi cách câu hỏi được **diễn đạt lại** (từ trong câu hỏi → từ trong bài).\n3. Gọi tên **nguyên nhân**: không tìm được / tìm được nhưng đọc sai / hết giờ / chính tả.\n4. Nếu không tìm được, ghi **từ** bạn đã scan và từ bài thật sự dùng."
+      }
+    },
+    {
+      "heading": {
+        "en": "Build your paraphrase list",
+        "vi": "Xây danh sách paraphrase"
+      },
+      "body": {
+        "en": "Each paraphrase you find is a **pair** (*increase / go up*, *cheap / low cost*). Keep the pairs in a list and review it before each set: the same pairs come back in new texts.",
+        "vi": "Mỗi paraphrase bạn tìm được là một **cặp** (*increase / go up*, *cheap / low cost*). Giữ các cặp trong một danh sách và xem lại trước mỗi bộ: những cặp ấy quay lại trong các bài mới."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A review line",
+        "vi": "Một dòng ôn tập"
+      },
+      "text": "Q14 (False): \"Prices rose sharply.\"\nText: \"Costs went up slowly at first.\"\nParaphrase pairs: rose = went up; prices = costs.\nTrap: sharply vs slowly (the opposite adverb).\nCause: misread. Action: check adverbs of speed.",
+      "note": {
+        "en": "One line gives the evidence, the paraphrase, the trap and the action.",
+        "vi": "Một dòng cho bằng chứng, paraphrase, bẫy và việc cần làm."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What is the best use of 25 minutes after a set?",
+        "vi": "Cách tốt nhất dùng 25 phút sau một bộ là gì?"
+      },
+      "options": [
+        "Review every wrong answer",
+        "Start another set",
+        "Look at the score only"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Review is half the learning.",
+        "vi": "Ôn lại là một nửa việc học."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you write for each wrong answer?",
+        "vi": "Bạn ghi gì cho mỗi câu sai?"
+      },
+      "options": [
+        "The sentence in the text and the paraphrase",
+        "Only the right answer",
+        "Nothing"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Evidence and paraphrase.",
+        "vi": "Bằng chứng và paraphrase."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Why keep a list of paraphrase pairs?",
+        "vi": "Vì sao giữ danh sách cặp paraphrase?"
+      },
+      "options": [
+        "The same pairs come back in new texts",
+        "It is required",
+        "To count them"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Pairs repeat.",
+        "vi": "Các cặp lặp lại."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the review of one wrong answer.",
+        "vi": "Sắp xếp việc ôn một câu sai."
+      },
+      "parts": [
+        "Find the sentence in the text",
+        "Write the paraphrase pair",
+        "Name the cause",
+        "Note the action for next time"
+      ],
+      "explanation": {
+        "en": "Evidence to action.",
+        "vi": "Từ bằng chứng đến hành động."
+      }
+    }
+  ]
+}

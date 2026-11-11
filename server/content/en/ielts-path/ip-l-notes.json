@@ -1,0 +1,127 @@
+{
+  "objectives": [
+    {
+      "en": "You can predict the kind of word a gap needs before you hear it.",
+      "vi": "Bạn đoán được loại từ mà chỗ trống cần trước khi nghe."
+    },
+    {
+      "en": "You can take notes from a long lecture without losing the thread.",
+      "vi": "Bạn ghi chú được từ một bài giảng dài mà không mất mạch."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Predict before you listen",
+        "vi": "Đoán trước khi nghe"
+      },
+      "body": {
+        "en": "Look at each gap and ask: **what kind of word fits?** A **noun** (after *a, the, of*), a **number** (after *about, up to*), a **verb in -ing** (after *by, for*), an **adjective** (before a noun). Writing *N*, *No.*, *V-ing* above the gap takes five seconds and cuts your listening effort in half.",
+        "vi": "Nhìn từng chỗ trống và hỏi: **loại từ nào hợp?** Một **danh từ** (sau *a, the, of*), một **số** (sau *about, up to*), **động từ -ing** (sau *by, for*), một **tính từ** (trước danh từ). Ghi *N*, *No.*, *V-ing* phía trên chỗ trống chỉ mất năm giây mà giảm một nửa công sức nghe."
+      }
+    },
+    {
+      "heading": {
+        "en": "Use the structure of the notes",
+        "vi": "Dùng cấu trúc của ghi chú"
+      },
+      "body": {
+        "en": "The notes have **headings** and **bullets** that follow the lecture. Tick each heading as the speaker reaches it. If you lose the thread, **find the next heading** in the audio: the speaker usually says it (*Now let's turn to the costs*).",
+        "vi": "Ghi chú có **tiêu đề** và **gạch đầu dòng** đi theo bài giảng. Đánh dấu từng tiêu đề khi người nói tới đó. Nếu mất mạch, hãy **tìm tiêu đề kế tiếp** trong audio: người nói thường nêu nó ra (*Now let's turn to the costs*)."
+      }
+    },
+    {
+      "heading": {
+        "en": "Check what the answer must look like",
+        "vi": "Kiểm tra đáp án phải trông thế nào"
+      },
+      "body": {
+        "en": "Check the **word limit** and the **grammar of the sentence**. *\"The roof needs to be ____ in dry weather\"* needs a verb form (*watered*), not the noun *water*. A wrong form is a wrong answer.",
+        "vi": "Kiểm tra **giới hạn từ** và **ngữ pháp của câu**. *\"The roof needs to be ____ in dry weather\"* cần dạng động từ (*watered*), không phải danh từ *water*. Sai dạng từ là sai đáp án."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Predicting the word type",
+        "vi": "Đoán loại từ"
+      },
+      "text": "Gap: Plants absorb rain, so there is less risk of ____.   → after \"risk of\": a noun (flooding)\nGap: The installation costs about ____ as much as an ordinary roof.   → after \"about\": a number or a quantity word (twice)\nGap: Roofs need to be ____ in dry weather.   → after \"to be\": a past participle (watered)",
+      "note": {
+        "en": "Each gap tells you its word type before you hear a single word.",
+        "vi": "Mỗi chỗ trống cho bạn biết loại từ trước khi bạn nghe một từ nào."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"There is less risk of ____.\" What kind of word fits?",
+        "vi": "\"There is less risk of ____.\" Loại từ nào hợp?"
+      },
+      "options": [
+        "a noun",
+        "a verb in the past",
+        "an adverb"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "After \"of\" comes a noun.",
+        "vi": "Sau \"of\" là danh từ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The soil is ____ in dry weather.\" You hear \"water\" and \"watered\". Which is right?",
+        "vi": "\"The soil is ____ in dry weather.\" Bạn nghe \"water\" và \"watered\". Cái nào đúng?"
+      },
+      "options": [
+        "water",
+        "watered"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "After \"is\" a past participle is needed.",
+        "vi": "Sau \"is\" cần phân từ quá khứ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You lose the thread of a lecture. What helps most?",
+        "vi": "Bạn mất mạch bài giảng. Điều gì giúp nhất?"
+      },
+      "options": [
+        "Finding the next heading in the notes",
+        "Stopping to think",
+        "Writing everything you hear"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The speaker usually announces the next heading.",
+        "vi": "Người nói thường nêu tiêu đề kế tiếp."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps for a gap.",
+        "vi": "Sắp xếp các bước cho một chỗ trống."
+      },
+      "parts": [
+        "Read the words around the gap",
+        "Decide the word type",
+        "Check the word limit",
+        "Listen and write the answer"
+      ],
+      "explanation": {
+        "en": "Predict first, listen second.",
+        "vi": "Đoán trước, nghe sau."
+      }
+    }
+  ]
+}

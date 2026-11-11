@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { isCorrect } from '../exams/ielts.js';
-import { matchQuestion } from '../content/schemas.js';
+import { matchQuestion, writingDiagram, writingPrompt } from '../content/schemas.js';
 import { GATE_GROUPS } from './gateContent.js';
 import { pathListening, pathReading } from './practice.js';
 import { STATIC_GROUPS, parseStaticGroup } from './practiceContent.js';
@@ -47,3 +47,29 @@ describe('practice content', () => {
     expect(isCorrect(q, undefined)).toBe(false);
   });
 });
+
+describe('Task 1 pie charts, processes and maps', () => {
+  const chart = { type: 'pie', title: 'Spending', unit: 'per cent', categories: ['A', 'B', 'C'], series: [{ name: 'Spending', values: [50, 30, 20] }] };
+  const base = { taskType: 'ielts-task1', title: 'T', instructions: 'Write.', prompt: 'Describe.', minWords: 150, timeMinutes: 20 };
+
+  it('takes a pie chart with one series, and a second chart', () => {
+    expect(writingPrompt.safeParse({ ...base, chart, extraChart: { ...chart, title: 'Later' } }).success).toBe(true);
+  });
+  it('rejects a pie chart with two series or a negative value', () => {
+    expect(writingPrompt.safeParse({ ...base, chart: { ...chart, series: [chart.series[0], chart.series[0]] } }).success).toBe(false);
+    expect(writingPrompt.safeParse({ ...base, chart: { ...chart, series: [{ name: 'x', values: [60, 50, -10] }] } }).success).toBe(false);
+  });
+  it('takes a process of four to nine stages', () => {
+    const steps = (n: number) => Array.from({ length: n }, (_, i) => ({ label: `Stage ${i + 1}` }));
+    expect(writingDiagram.safeParse({ kind: 'process', title: 'P', steps: steps(4) }).success).toBe(true);
+    expect(writingDiagram.safeParse({ kind: 'process', title: 'P', steps: steps(3) }).success).toBe(false);
+    expect(writingDiagram.safeParse({ kind: 'process', title: 'P', steps: steps(10) }).success).toBe(false);
+  });
+  it('takes two maps on a grid, and rejects a cell outside it', () => {
+    const panel = (cells: { col: number; row: number; text: string }[]) => ({ label: 'x', cells });
+    const ok = { kind: 'map', title: 'M', cols: 4, rows: 3, before: panel([{ col: 0, row: 0, text: 'Park' }, { col: 1, row: 1, text: 'Road' }]), after: panel([{ col: 2, row: 2, text: 'Shop' }, { col: 3, row: 0, text: 'Road' }]) };
+    expect(writingDiagram.safeParse(ok).success).toBe(true);
+    expect(writingDiagram.safeParse({ ...ok, after: panel([{ col: 5, row: 0, text: 'Shop' }, { col: 0, row: 0, text: 'Road' }]) }).success).toBe(false);
+  });
+});
+

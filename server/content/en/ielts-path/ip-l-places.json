@@ -1,0 +1,155 @@
+{
+  "objectives": [
+    {
+      "en": "You can follow a description of a place and match it to a plan.",
+      "vi": "Bạn theo dõi được mô tả một nơi và nối nó với sơ đồ."
+    },
+    {
+      "en": "You know the language of position and direction.",
+      "vi": "Bạn biết ngôn ngữ chỉ vị trí và hướng đi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Plans and maps in the test",
+        "vi": "Sơ đồ và bản đồ trong bài thi"
+      },
+      "body": {
+        "en": "In Section 2 you sometimes see **a plan or a map** with letters (A-H) and must say **where** each place is. The speaker never says the letter: you must **follow the description** and decide. Look first at the **starting point** (the entrance, the main road) and the **compass or labels**.",
+        "vi": "Ở Section 2 đôi khi bạn thấy **một sơ đồ hoặc bản đồ** có các chữ cái (A-H) và phải nói mỗi nơi **ở đâu**. Người nói không bao giờ nói chữ cái: bạn phải **theo mô tả** và tự quyết định. Hãy nhìn trước **điểm xuất phát** (lối vào, đường chính) và **la bàn hoặc nhãn**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Language of position",
+        "vi": "Ngôn ngữ chỉ vị trí"
+      },
+      "body": {
+        "en": "**opposite** (đối diện), **next to / beside** (cạnh), **between** (giữa), **behind** (sau), **in front of** (trước), **at the end of** (ở cuối), **on the corner of** (ở góc), **to the left/right of**. For movement: **go straight on, turn left/right, take the second turning, go past, cross, follow**.",
+        "vi": "**opposite** (đối diện), **next to / beside** (cạnh), **between** (giữa), **behind** (sau), **in front of** (trước), **at the end of** (ở cuối), **on the corner of** (ở góc), **to the left/right of**. Chỉ chuyển động: **go straight on, turn left/right, take the second turning, go past, cross, follow**."
+      }
+    },
+    {
+      "heading": {
+        "en": "Listen for change",
+        "vi": "Nghe sự thay đổi"
+      },
+      "body": {
+        "en": "The speaker may say a place is somewhere and then **correct it**: *\"The café is next to the library... sorry, next to the gym.\"* The last version is the answer. In the app, practise the same skill with **talks that describe places**: draw a quick sketch while you listen.",
+        "vi": "Người nói có thể nói một nơi ở đâu đó rồi **sửa lại**: *\"The café is next to the library... sorry, next to the gym.\"* Phiên bản cuối là đáp án. Trong app, hãy luyện kỹ năng này qua **các bài nói mô tả địa điểm**: phác nhanh một sơ đồ khi nghe."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "Following a description",
+        "vi": "Theo một bản mô tả"
+      },
+      "text": "\"Go in through the main entrance. Straight ahead is the reception. The gym is on your left, next to the reception, and the café is opposite the gym. The library is at the end of the corridor, behind the café.\"\n\nSketch: entrance at the bottom; reception ahead; gym left of reception; café on the right, opposite; library at the far end.",
+      "note": {
+        "en": "Each phrase of position places one building relative to another that you already know.",
+        "vi": "Mỗi cụm chỉ vị trí đặt một toà nhà so với một toà bạn đã biết."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Position",
+        "vi": "Vị trí"
+      },
+      "items": [
+        "opposite",
+        "next to / beside",
+        "between ... and ...",
+        "behind / in front of",
+        "at the end of",
+        "on the corner of"
+      ]
+    },
+    {
+      "use": {
+        "en": "Direction",
+        "vi": "Hướng đi"
+      },
+      "items": [
+        "go straight on",
+        "turn left / right",
+        "take the second turning",
+        "go past the ...",
+        "cross the road"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The café is opposite the gym.\" The café is:",
+        "vi": "\"The café is opposite the gym.\" Quán cà phê ở:"
+      },
+      "options": [
+        "on the other side from the gym",
+        "next to the gym",
+        "inside the gym"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Opposite means facing.",
+        "vi": "Opposite nghĩa là đối diện."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "\"The shop is between the bank and the post office.\" Where is the shop?",
+        "vi": "\"The shop is between the bank and the post office.\" Cửa hàng ở đâu?"
+      },
+      "options": [
+        "after both",
+        "in the middle of them",
+        "before both"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Between: in the middle.",
+        "vi": "Between: ở giữa."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The speaker says \"next to the library... sorry, next to the gym.\" The answer is:",
+        "vi": "Người nói: \"next to the library... sorry, next to the gym.\" Đáp án là:"
+      },
+      "options": [
+        "the library",
+        "the gym"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The last version is the answer.",
+        "vi": "Phiên bản cuối là đáp án."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order how to use a plan.",
+        "vi": "Sắp xếp cách dùng sơ đồ."
+      },
+      "parts": [
+        "Find the starting point on the plan",
+        "Read the labels and the compass",
+        "Follow each phrase of position",
+        "Write the letter of the place"
+      ],
+      "explanation": {
+        "en": "Start where the speaker starts.",
+        "vi": "Bắt đầu từ chỗ người nói bắt đầu."
+      }
+    }
+  ]
+}

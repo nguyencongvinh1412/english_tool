@@ -127,11 +127,21 @@ export interface SpeakingIelts {
 }
 
 export interface ChartData {
-  type: 'bar' | 'line';
+  type: 'bar' | 'line' | 'pie';
   title: string;
   unit: string;
   categories: string[];
   series: { name: string; values: number[] }[];
+}
+
+/** A process in numbered stages, or a place before and after a change on a grid */
+export type WritingDiagram =
+  | { kind: 'process'; title: string; steps: { label: string; detail?: string }[] }
+  | { kind: 'map'; title: string; cols: number; rows: number; before: MapPanel; after: MapPanel };
+
+export interface MapPanel {
+  label: string;
+  cells: { col: number; row: number; text: string }[];
 }
 
 export interface WritingPrompt {
@@ -142,6 +152,8 @@ export interface WritingPrompt {
   minWords: number;
   timeMinutes: number;
   chart?: ChartData;
+  extraChart?: ChartData;
+  diagram?: WritingDiagram;
   email?: { from: string; subject: string; body: string };
 }
 

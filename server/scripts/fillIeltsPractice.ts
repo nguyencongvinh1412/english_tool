@@ -5,6 +5,7 @@
  *   npm run ielts:fill -- 6 l-conv r-tfng
  *   npm run ielts:fill -- --gates      # the exercises the gate retakes and Gates 5-6 need (takes a long time)
  *   npm run ielts:fill -- --phase2     # the exercises of phase 2 (weeks 5-8)
+ *   npm run ielts:fill -- --phase3     # the exercises of phase 3 (weeks 9-12)
  * Runs as the first admin account (its AI access); every exercise is solved by a second request and dropped when the
  * answers do not agree. Exercises stay in the shared pool, archived, so they never appear in the practice library.
  */
@@ -23,12 +24,15 @@ async function main(): Promise<void> {
   const types = named.length > 0 ? named : [...GENERATED_TYPES];
   const gates = args.includes('--gates');
   const phase2 = args.includes('--phase2');
+  const phase3 = args.includes('--phase3');
   const [admin] = await db.select().from(users).where(eq(users.role, 'admin')).orderBy(asc(users.createdAt)).limit(1);
   if (!admin) throw new Error('No admin account to generate with.');
 
   console.log('Pool sizes before:', await poolSizes());
   // --gates: what the retakes (version B) of Gates 1-4 and both versions of Gates 5-6 need
-  const plan: [PoolType, number][] = phase2
+  const plan: [PoolType, number][] = phase3
+    ? [['l-sec4', 14], ['l-sec3', 14], ['l-mono', 10], ['l-form', 10], ['r-ynng', 10], ['r-matchinfo', 8], ['r-summary', 10], ['r-scan', 4], ['r-passage', 30]]
+    : phase2
     ? [['l-form', 6], ['l-mono', 6], ['l-sec3', 10], ['l-sec4', 6], ['r-tfng', 6], ['r-scan', 6], ['r-short', 4], ['r-passage', 16]]
     : gates
     ? [['l-form', 3], ['r-tfng', 3], ['l-mono', 3], ['r-scan', 3], ['l-sec3', 3], ['l-sec4', 3], ['r-passage', 6], ['g-l1', 4], ['g-l2', 4], ['g-l3', 4], ['g-l4', 4], ['g-r', 12]]

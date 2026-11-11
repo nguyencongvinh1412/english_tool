@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can dictate a fast passage in short pieces.",
+      "vi": "Bạn nghe chép được đoạn nhanh theo từng đoạn ngắn."
+    },
+    {
+      "en": "You can find the sounds that you cannot hear yet.",
+      "vi": "Bạn tìm ra những âm mình chưa nghe được."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Go back to the hard parts",
+        "vi": "Quay lại những đoạn khó"
+      },
+      "body": {
+        "en": "This week the new work is **old work**: take the listening passages that you got **wrong** and use them for dictation. They hold the exact sounds that you cannot hear yet, so they teach you more than a new passage.",
+        "vi": "Tuần này việc mới là **việc cũ**: lấy các bài nghe bạn làm **sai** và dùng để nghe chép. Chúng chứa chính xác những âm bạn chưa nghe được, nên dạy bạn nhiều hơn một bài mới."
+      }
+    },
+    {
+      "heading": {
+        "en": "Short pieces, three listens",
+        "vi": "Từng đoạn ngắn, ba lần nghe"
+      },
+      "body": {
+        "en": "Play **one sentence** (or half a sentence), pause, write it. Play again to check. A third time only for the part you still miss. Never write more than you can hold in your head: a **short piece** you hear fully is worth more than a long one you guess.",
+        "vi": "Phát **một câu** (hoặc nửa câu), dừng, viết. Phát lại để kiểm tra. Lần thứ ba chỉ cho phần vẫn nghe sót. Đừng viết nhiều hơn mức bạn nhớ được: một **đoạn ngắn** nghe trọn đáng giá hơn một đoạn dài mà bạn đoán."
+      }
+    },
+    {
+      "heading": {
+        "en": "What to look for",
+        "vi": "Cần tìm gì"
+      },
+      "body": {
+        "en": "In each mistake look for: **joined words** (*want to* → *wanna*), **weak small words** (*of, to, a*), **endings** (-s, -ed, -ing) and **numbers**. Keep a list of the sound patterns you miss: the same ones come back.",
+        "vi": "Ở mỗi lỗi hãy tìm: **từ nối vào nhau** (*want to* → *wanna*), **từ nhỏ yếu** (*of, to, a*), **âm cuối** (-s, -ed, -ing) và **số**. Giữ danh sách các mẫu âm bạn nghe sót: chúng sẽ quay lại."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A dictation log",
+        "vi": "Nhật ký nghe chép"
+      },
+      "text": "Heard: \"They've alredy sent the invitations out.\"\nWritten: They already sent the invitation out.\nMissed: \"'ve\" (weak), \"-s\" on invitations, \"already\" order.\nPattern to practise: weak \"have\" and plural endings.",
+      "note": {
+        "en": "The log turns one mistake into a pattern you can practise.",
+        "vi": "Nhật ký biến một lỗi thành một mẫu bạn luyện được."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which passages should you use for dictation this week?",
+        "vi": "Tuần này nên dùng bài nào để nghe chép?"
+      },
+      "options": [
+        "Ones you got wrong",
+        "Brand new ones only",
+        "The easiest ones"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "They hold the sounds you cannot hear yet.",
+        "vi": "Chúng chứa các âm bạn chưa nghe được."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How much do you play at one time?",
+        "vi": "Mỗi lần phát bao nhiêu?"
+      },
+      "options": [
+        "The whole passage",
+        "One sentence or half a sentence",
+        "Five minutes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Short pieces, heard fully.",
+        "vi": "Đoạn ngắn, nghe trọn."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What do you keep in the dictation log?",
+        "vi": "Bạn ghi gì vào nhật ký nghe chép?"
+      },
+      "options": [
+        "The sound patterns you miss",
+        "Your score only",
+        "The audio files"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Patterns repeat.",
+        "vi": "Các mẫu sẽ lặp lại."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order a dictation round.",
+        "vi": "Sắp xếp một vòng nghe chép."
+      },
+      "parts": [
+        "Play one short piece",
+        "Write it",
+        "Play again and check",
+        "Note what you missed"
+      ],
+      "explanation": {
+        "en": "Short, write, check, note.",
+        "vi": "Ngắn, viết, kiểm, ghi."
+      }
+    }
+  ]
+}

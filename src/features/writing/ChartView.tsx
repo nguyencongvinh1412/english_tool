@@ -21,7 +21,59 @@ function niceMax(value: number): { max: number; step: number } {
   return { max: Math.ceil(value / step) * step, step };
 }
 
+const PIE_COLORS = ['var(--reading-edge)', 'var(--speaking)', 'var(--listening)', 'var(--writing)', 'var(--brand)', 'var(--text-muted)', 'var(--border-strong)', 'var(--success, #4caf7d)'];
+
+/** A pie chart: one slice per category, with the values in the legend */
+const PieChart: React.FC<{ chart: ChartData }> = ({ chart }) => {
+  const values = chart.series[0].values;
+  const total = values.reduce((a, b) => a + b, 0) || 1;
+  const cx = 130;
+  const cy = 130;
+  const r = 110;
+  // Where each slice starts, as an angle: the slices follow one another clockwise from the top
+  const starts = values.reduce<number[]>((acc, _value, i) => [...acc, i === 0 ? -Math.PI / 2 : acc[i - 1] + (values[i - 1] / total) * Math.PI * 2], []);
+  const slices = values.map((value, i) => {
+    const sweep = (value / total) * Math.PI * 2;
+    const start = starts[i];
+    const end = start + sweep;
+    const [x1, y1] = [cx + r * Math.cos(start), cy + r * Math.sin(start)];
+    const [x2, y2] = [cx + r * Math.cos(end), cy + r * Math.sin(end)];
+    const large = sweep > Math.PI ? 1 : 0;
+    const d = values.length === 1 || sweep >= Math.PI * 2 - 1e-6 ? `M ${cx - r} ${cy} a ${r} ${r} 0 1 0 ${2 * r} 0 a ${r} ${r} 0 1 0 ${-2 * r} 0` : `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
+    return { d, color: PIE_COLORS[i % PIE_COLORS.length], category: chart.categories[i], value };
+  });
+  return (
+    <figure className="chart chart--pie">
+      <figcaption className="chart__title">
+        {chart.title} <span className="chart__unit">({chart.unit})</span>
+      </figcaption>
+      <div className="chart__pie">
+        <svg viewBox="0 0 260 260" className="chart__pie-svg" role="img" aria-label={chart.title}>
+          {slices.map((slice) => (
+            <path key={slice.category} d={slice.d} fill={slice.color} className="chart__slice">
+              <title>{`${slice.category}: ${slice.value}${chart.unit}`}</title>
+            </path>
+          ))}
+        </svg>
+        <ul className="chart__legend chart__legend--pie">
+          {slices.map((slice) => (
+            <li key={slice.category}>
+              <span className="chart__swatch" style={{ background: slice.color }} />
+              {slice.category}: <strong>{slice.value}</strong>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </figure>
+  );
+};
+
 export const ChartView: React.FC<{ chart: ChartData }> = ({ chart }) => {
+  if (chart.type === 'pie') return <PieChart chart={chart} />;
+  return <BarLineChart chart={chart} />;
+};
+
+const BarLineChart: React.FC<{ chart: ChartData }> = ({ chart }) => {
   const plotW = WIDTH - PAD.left - PAD.right;
   const plotH = HEIGHT - PAD.top - PAD.bottom;
   const { max, step } = niceMax(Math.max(...chart.series.flatMap((s) => s.values)));

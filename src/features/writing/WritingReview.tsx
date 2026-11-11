@@ -13,6 +13,7 @@ import type { WritingFeedback, WritingPrompt } from '@/shared/contentApi';
 import { grammarPath } from '@/shared/grammarApi';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { ChartView } from './ChartView';
+import { DiagramView } from './DiagramView';
 import './writing.css';
 
 /**
@@ -75,6 +76,8 @@ export const WritingPromptCard: React.FC<{ task: WritingPrompt }> = ({ task }) =
         </p>
       )}
       {task.chart && <ChartView chart={task.chart} />}
+      {task.extraChart && <ChartView chart={task.extraChart} />}
+      {task.diagram && <DiagramView diagram={task.diagram} />}
       <p className="w-prompt__instructions" lang="en">
         {task.instructions}
       </p>

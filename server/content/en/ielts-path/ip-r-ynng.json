@@ -1,0 +1,127 @@
+{
+  "objectives": [
+    {
+      "en": "You can tell Yes from No and Not Given when the question is about the writer's view.",
+      "vi": "Bạn phân biệt được Yes, No và Not Given khi câu hỏi nói về quan điểm của tác giả."
+    },
+    {
+      "en": "You can find which paragraph holds a piece of information.",
+      "vi": "Bạn tìm được đoạn nào chứa một thông tin."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Yes / No / Not Given",
+        "vi": "Yes / No / Not Given"
+      },
+      "body": {
+        "en": "This task works like True / False / Not Given, but it asks about **the writer's opinions and claims**, not facts. **Yes** = the writer says or believes it. **No** = the writer says or believes the **opposite**. **Not Given** = **the writer does not give a view** on it.",
+        "vi": "Dạng này giống True / False / Not Given nhưng hỏi về **ý kiến và nhận định của tác giả**, không phải sự thật. **Yes** = tác giả nói hoặc tin điều đó. **No** = tác giả nói hoặc tin **điều ngược lại**. **Not Given** = **tác giả không nêu quan điểm** về điều đó."
+      }
+    },
+    {
+      "heading": {
+        "en": "Opinion words",
+        "vi": "Từ chỉ quan điểm"
+      },
+      "body": {
+        "en": "Look for words that show the writer's view: **believe, argue, claim, suggest, seems, clearly, unfortunately, should**. Be careful: **other people's** views are not the writer's. *\"Critics claim that...\"* is not the writer's opinion unless the writer agrees.",
+        "vi": "Tìm những từ cho thấy quan điểm của tác giả: **believe, argue, claim, suggest, seems, clearly, unfortunately, should**. Cẩn thận: quan điểm của **người khác** không phải của tác giả. *\"Critics claim that...\"* không phải ý kiến của tác giả trừ khi tác giả đồng ý."
+      }
+    },
+    {
+      "heading": {
+        "en": "Matching information",
+        "vi": "Nối thông tin"
+      },
+      "body": {
+        "en": "Here you find **which paragraph** contains a piece of information (*a reason, an example, a comparison*). The paragraphs are **not** in the order of the questions. Skim each paragraph's idea first, then **scan** for the idea (not the same words) in the paragraph that fits.",
+        "vi": "Ở đây bạn tìm **đoạn nào** chứa một thông tin (*một lý do, một ví dụ, một sự so sánh*). Các đoạn **không** theo thứ tự câu hỏi. Skim ý của từng đoạn trước rồi **scan** tìm ý (không phải từ giống hệt) ở đoạn phù hợp."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The writer's view",
+        "vi": "Quan điểm của tác giả"
+      },
+      "text": "Text: \"Some people say remote work lowers productivity. In my experience, the opposite is true: I get more done at home.\"\n\n1. The writer thinks remote work lowers productivity. → NO (the writer says the opposite).\n2. The writer works at home. → YES.\n3. The writer prefers working alone. → NOT GIVEN (no view on this).",
+      "note": {
+        "en": "\"Some people say\" is other people's view; \"in my experience\" is the writer's.",
+        "vi": "\"Some people say\" là quan điểm người khác; \"in my experience\" là của tác giả."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Text: \"Critics claim the plan is too expensive. I disagree: it will save money.\" Statement: \"The writer thinks the plan is too expensive.\"",
+        "vi": "Bài: \"Critics claim the plan is too expensive. I disagree: it will save money.\" Nhận định: \"The writer thinks the plan is too expensive.\""
+      },
+      "options": [
+        "Yes",
+        "No",
+        "Not Given"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "The writer disagrees, so: No.",
+        "vi": "Tác giả không đồng ý nên: No."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Text: \"The town built a library.\" Statement: \"The writer believes the library was a good idea.\"",
+        "vi": "Bài: \"The town built a library.\" Nhận định: \"The writer believes the library was a good idea.\""
+      },
+      "options": [
+        "Yes",
+        "No",
+        "Not Given"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "en": "No opinion is given.",
+        "vi": "Không có ý kiến nào được nêu."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "In matching information, are the paragraphs in the order of the questions?",
+        "vi": "Ở nối thông tin, các đoạn có theo thứ tự câu hỏi không?"
+      },
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "They are not.",
+        "vi": "Không."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the steps for matching information.",
+        "vi": "Sắp xếp các bước nối thông tin."
+      },
+      "parts": [
+        "Skim the idea of each paragraph",
+        "Read the question's idea",
+        "Scan the likely paragraph",
+        "Choose the letter"
+      ],
+      "explanation": {
+        "en": "Idea first, then words.",
+        "vi": "Ý trước, từ sau."
+      }
+    }
+  ]
+}

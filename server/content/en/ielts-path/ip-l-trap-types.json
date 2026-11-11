@@ -1,0 +1,128 @@
+{
+  "objectives": [
+    {
+      "en": "You can name the kind of trap behind each wrong answer.",
+      "vi": "Bạn gọi tên được loại bẫy đằng sau mỗi câu sai."
+    },
+    {
+      "en": "You can choose one trap to practise each week.",
+      "vi": "Bạn chọn được một loại bẫy để luyện mỗi tuần."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Five kinds of trap",
+        "vi": "Năm loại bẫy"
+      },
+      "body": {
+        "en": "1. **Spelling:** you heard it, you wrote it wrongly.\n2. **Singular or plural:** a missing or extra -s.\n3. **Distractor:** you took something that was said, then changed.\n4. **Not heard:** the answer was in the audio but you did not catch it.\n5. **Left blank:** you wrote nothing.\nThe app's **error book** counts these for you.",
+        "vi": "1. **Chính tả:** bạn nghe được nhưng viết sai.\n2. **Số ít hay số nhiều:** thiếu hoặc thừa -s.\n3. **Bẫy gây nhiễu:** bạn lấy điều được nói rồi bị đổi.\n4. **Không nghe được:** đáp án có trong audio nhưng bạn không bắt kịp.\n5. **Bỏ trống:** bạn không viết gì.\n**Sổ lỗi** của app đếm giúp bạn các loại này."
+      }
+    },
+    {
+      "heading": {
+        "en": "One cause at a time",
+        "vi": "Mỗi lần một nguyên nhân"
+      },
+      "body": {
+        "en": "After a full test, look at the **biggest group**. If it is spelling, practise writing the words; if it is distractors, practise waiting for the last version; if it is not heard, do more dictation. Fixing the **biggest** group wins the most points.",
+        "vi": "Sau một bài đầy đủ, hãy nhìn **nhóm lớn nhất**. Nếu là chính tả, luyện viết các từ; nếu là bẫy gây nhiễu, luyện chờ phiên bản cuối; nếu là không nghe được, nghe chép nhiều hơn. Sửa nhóm **lớn nhất** được nhiều điểm nhất."
+      }
+    },
+    {
+      "heading": {
+        "en": "Distractors in detail",
+        "vi": "Bẫy gây nhiễu chi tiết"
+      },
+      "body": {
+        "en": "Typical distractor shapes: **a correction** (*Tuesday... no, Wednesday*), **a rejected option** (*we thought about the park, but...*), **a similar number** (*fifteen / fifty*). Before you write, ask: *\"Did the speaker accept this?\"*",
+        "vi": "Các dạng bẫy điển hình: **một lần sửa** (*Tuesday... no, Wednesday*), **một lựa chọn bị bác** (*we thought about the park, but...*), **số na ná** (*fifteen / fifty*). Trước khi viết, hãy hỏi: *\"Người nói có chấp nhận điều này không?\"*"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A mistake sorted",
+        "vi": "Một lỗi được phân loại"
+      },
+      "text": "Heard: \"We could meet on Monday... actually, Friday suits me better.\"\nWritten: Monday\nKind of trap: distractor (a correction). Next time: wait for the speaker to accept an option.",
+      "note": {
+        "en": "The word was heard correctly: the problem is not listening but waiting for the final version.",
+        "vi": "Từ đã nghe đúng: vấn đề không phải nghe mà là chờ phiên bản cuối."
+      }
+    }
+  ],
+  "phrases": [],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "You wrote \"Monday\" but the speaker corrected it to Friday. The trap is a:",
+        "vi": "Bạn viết \"Monday\" nhưng người nói đã sửa thành Friday. Bẫy là:"
+      },
+      "options": [
+        "spelling mistake",
+        "distractor",
+        "plural"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A correction is a distractor.",
+        "vi": "Một lần sửa là bẫy gây nhiễu."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which group should you work on first?",
+        "vi": "Nên sửa nhóm nào trước?"
+      },
+      "options": [
+        "The biggest group of mistakes",
+        "The smallest",
+        "Any one"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "It wins the most points.",
+        "vi": "Nó giúp được nhiều điểm nhất."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Before writing an answer, ask:",
+        "vi": "Trước khi viết đáp án, hãy hỏi:"
+      },
+      "options": [
+        "Did the speaker accept this?",
+        "Is it long?",
+        "Is it a name?"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Accepted, not just mentioned.",
+        "vi": "Được chấp nhận chứ không chỉ được nhắc."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the review.",
+        "vi": "Sắp xếp việc ôn."
+      },
+      "parts": [
+        "Mark the test",
+        "Sort each mistake by kind of trap",
+        "Find the biggest group",
+        "Practise that one next week"
+      ],
+      "explanation": {
+        "en": "One group at a time.",
+        "vi": "Mỗi lần một nhóm."
+      }
+    }
+  ]
+}

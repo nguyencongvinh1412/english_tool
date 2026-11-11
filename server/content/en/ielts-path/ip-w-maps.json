@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can describe how a place changed between two maps.",
+      "vi": "Bạn mô tả được một nơi đã thay đổi thế nào giữa hai bản đồ."
+    },
+    {
+      "en": "You can use the language of position and change.",
+      "vi": "Bạn dùng được ngôn ngữ chỉ vị trí và sự thay đổi."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "What to look for",
+        "vi": "Cần nhìn gì"
+      },
+      "body": {
+        "en": "Two maps show **the same place at different times**. Compare them and sort what you see into three groups: **what stayed the same**, **what was added** and **what was removed or replaced**. The overview mentions the **biggest change** (for example *\"the farmland was replaced by offices\"*).",
+        "vi": "Hai bản đồ cho thấy **cùng một nơi ở hai thời điểm**. So sánh và phân loại những gì bạn thấy thành ba nhóm: **cái giữ nguyên**, **cái được thêm** và **cái bị bỏ hoặc thay thế**. Tổng quan nêu **thay đổi lớn nhất** (ví dụ *\"the farmland was replaced by offices\"*)."
+      }
+    },
+    {
+      "heading": {
+        "en": "Language of change",
+        "vi": "Ngôn ngữ chỉ thay đổi"
+      },
+      "body": {
+        "en": "**was replaced by, was demolished, was knocked down, was built, was converted into, was extended, remained / stayed the same, was turned into**. These are **passive** (the maps do not say who). Use **position** words as well: *\"in the north-west\", \"next to the road\", \"opposite the station\"*.",
+        "vi": "**was replaced by, was demolished, was knocked down, was built, was converted into, was extended, remained / stayed the same, was turned into**. Đây là **bị động** (bản đồ không nói ai làm). Dùng thêm từ **vị trí**: *\"in the north-west\", \"next to the road\", \"opposite the station\"*."
+      }
+    },
+    {
+      "heading": {
+        "en": "Structure",
+        "vi": "Cấu trúc"
+      },
+      "body": {
+        "en": "1. Introduction.\n2. Overview (the main change).\n3. Paragraph on the **changes in one area** (for example the west).\n4. Paragraph on the **changes in the other area** (the east).\nGroup the changes **by place**, not by the order they appear, so the text reads clearly.",
+        "vi": "1. Mở bài.\n2. Tổng quan (thay đổi chính).\n3. Đoạn về **các thay đổi ở một khu vực** (ví dụ phía tây).\n4. Đoạn về **các thay đổi ở khu vực còn lại** (phía đông).\nNhóm các thay đổi **theo vị trí**, không theo thứ tự xuất hiện, để bài dễ đọc."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A map answer in short",
+        "vi": "Một bài tả bản đồ rút gọn"
+      },
+      "text": "The maps show how the centre of a town changed between 2005 and now.\nOverall, the town became more built-up: farmland was replaced by offices and a car park was added.\nIn the west, the farm was demolished and offices were built in its place, while the park remained the same. In the east, a library and a bus stop were added next to the school and the station.",
+      "note": {
+        "en": "Changes are grouped by place (west, east) and use the passive and position words.",
+        "vi": "Các thay đổi được nhóm theo vị trí (tây, đông) và dùng bị động cùng từ chỉ vị trí."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Change",
+        "vi": "Thay đổi"
+      },
+      "items": [
+        "was replaced by",
+        "was demolished / knocked down",
+        "was built / added",
+        "was converted into",
+        "remained the same"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which sentence is correct?",
+        "vi": "Câu nào đúng?"
+      },
+      "options": [
+        "The farm was demolished.",
+        "The farm demolished.",
+        "They demolish the farm yesterday."
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Passive, past.",
+        "vi": "Bị động, quá khứ."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "How do you group the changes?",
+        "vi": "Bạn nhóm các thay đổi như thế nào?"
+      },
+      "options": [
+        "By place (for example west and east)",
+        "By the order of the sentences",
+        "By length"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Group by place.",
+        "vi": "Nhóm theo vị trí."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "What does the overview of a map task mention?",
+        "vi": "Tổng quan của bài tả bản đồ nhắc đến gì?"
+      },
+      "options": [
+        "The biggest change",
+        "Every small change",
+        "Your opinion"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "The main change.",
+        "vi": "Thay đổi chính."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the answer.",
+        "vi": "Sắp xếp bài viết."
+      },
+      "parts": [
+        "Introduction",
+        "Overview: the biggest change",
+        "Changes in one area",
+        "Changes in the other area"
+      ],
+      "explanation": {
+        "en": "Overview, then places.",
+        "vi": "Tổng quan, rồi theo vị trí."
+      }
+    }
+  ]
+}

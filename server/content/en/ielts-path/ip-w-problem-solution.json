@@ -1,0 +1,142 @@
+{
+  "objectives": [
+    {
+      "en": "You can write about causes, problems and solutions in a clear order.",
+      "vi": "Bạn viết được về nguyên nhân, vấn đề và giải pháp theo thứ tự rõ ràng."
+    },
+    {
+      "en": "You can match each solution to a problem.",
+      "vi": "Bạn nối được mỗi giải pháp với một vấn đề."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Read the question words",
+        "vi": "Đọc các từ khoá của câu hỏi"
+      },
+      "body": {
+        "en": "Questions come in several forms: **\"What are the causes and what can be done?\"**, **\"What problems does this cause and what are the solutions?\"** Answer **exactly the two things asked**: if the question asks for causes, do not write about effects only.",
+        "vi": "Câu hỏi có nhiều dạng: **\"What are the causes and what can be done?\"**, **\"What problems does this cause and what are the solutions?\"** Hãy trả lời **đúng hai việc được hỏi**: nếu đề hỏi nguyên nhân thì đừng chỉ viết về hậu quả."
+      }
+    },
+    {
+      "heading": {
+        "en": "The frame",
+        "vi": "Khung bài"
+      },
+      "body": {
+        "en": "1. **Introduction:** paraphrase the topic and say what you will discuss.\n2. **Body 1:** the problems (or causes): one or two, explained with an example.\n3. **Body 2:** the solutions: each **linked** to a problem from body 1.\n4. **Conclusion:** summary of the main problem and the most useful solution.",
+        "vi": "1. **Mở bài:** diễn đạt lại chủ đề và nói bạn sẽ bàn gì.\n2. **Thân bài 1:** các vấn đề (hoặc nguyên nhân): một hai ý, giải thích kèm ví dụ.\n3. **Thân bài 2:** các giải pháp: mỗi giải pháp **gắn** với một vấn đề ở thân bài 1.\n4. **Kết bài:** tóm tắt vấn đề chính và giải pháp hữu ích nhất."
+      }
+    },
+    {
+      "heading": {
+        "en": "Make a solution believable",
+        "vi": "Làm cho giải pháp đáng tin"
+      },
+      "body": {
+        "en": "A solution has **who** does **what**, and **how it helps**: *\"Governments could build more cycle lanes, which would make cycling safer and reduce the number of cars.\"* Use **could / should / would** and **which** to explain the effect.",
+        "vi": "Một giải pháp có **ai** làm **gì** và **nó giúp thế nào**: *\"Governments could build more cycle lanes, which would make cycling safer and reduce the number of cars.\"* Dùng **could / should / would** và **which** để giải thích tác dụng."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "A problem and its solution",
+        "vi": "Một vấn đề và giải pháp của nó"
+      },
+      "text": "One cause of traffic is that many people drive to work alone. This leads to long queues, especially in the morning.\n\nOne solution is for governments to improve public transport, which would give commuters a cheaper and faster alternative. In addition, companies could allow staff to work from home on some days, so there would be fewer cars at rush hour.",
+      "note": {
+        "en": "Each solution answers the problem of body 1 and says how it helps.",
+        "vi": "Mỗi giải pháp trả lời vấn đề ở thân bài 1 và nói nó giúp thế nào."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Causes, problems, solutions",
+        "vi": "Nguyên nhân, vấn đề, giải pháp"
+      },
+      "items": [
+        "One cause of this is that...",
+        "This leads to / results in...",
+        "One solution is for ... to ...",
+        "..., which would ...",
+        "Governments could / should ..."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The question asks for causes and solutions. You write about:",
+        "vi": "Đề hỏi nguyên nhân và giải pháp. Bạn viết về:"
+      },
+      "options": [
+        "causes and solutions",
+        "effects and solutions",
+        "only solutions"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Answer exactly what is asked.",
+        "vi": "Trả lời đúng điều được hỏi."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "A good solution says:",
+        "vi": "Một giải pháp tốt nói:"
+      },
+      "options": [
+        "who does what and how it helps",
+        "only a general wish",
+        "a long story"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Who, what, how it helps.",
+        "vi": "Ai, làm gì, giúp thế nào."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Which modal verb fits a suggestion?",
+        "vi": "Động từ khuyết thiếu nào hợp một gợi ý?"
+      },
+      "options": [
+        "could",
+        "did",
+        "has"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "en": "Could / should.",
+        "vi": "Could / should."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Order the essay.",
+        "vi": "Sắp xếp bài luận."
+      },
+      "parts": [
+        "Introduction",
+        "Body: problems or causes",
+        "Body: solutions linked to them",
+        "Conclusion"
+      ],
+      "explanation": {
+        "en": "Solutions answer the problems.",
+        "vi": "Giải pháp trả lời các vấn đề."
+      }
+    }
+  ]
+}
