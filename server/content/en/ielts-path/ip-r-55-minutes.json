@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can do three passages in 55 minutes to leave five for checking in the real test.", "vi": "Bạn làm được ba bài đọc trong 55 phút để còn năm phút kiểm tra trong thi thật." },
+    { "en": "You can read a paragraph for its job rather than for every word.", "vi": "Bạn đọc một đoạn theo chức năng của nó thay vì từng từ." },
+    { "en": "You can find the answer location without re-reading the passage from the top.", "vi": "Bạn tìm được vị trí đáp án mà không đọc lại bài từ đầu." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Why 55 and not 60", "vi": "Vì sao 55 chứ không phải 60" },
+      "body": { "en": "In the real test the last five minutes are for blanks, plurals and word limits. If the three passages take all sixty, that check never happens and two or three marks go with it. So this week the split is **17, 18, 20**, and the sets are set to 55 minutes. It feels tight for a week; by week 20 it feels normal.", "vi": "Trong thi thật, năm phút cuối dành cho ô trống, số nhiều và giới hạn từ. Nếu ba bài chiếm hết sáu mươi phút, bước kiểm tra đó không bao giờ xảy ra và hai ba điểm đi theo. Nên tuần này chia **17, 18, 20**, và các bộ đặt ở 55 phút. Một tuần thấy gấp; tới tuần 20 thấy bình thường." }
+    },
+    {
+      "heading": { "en": "Read paragraphs for their job", "vi": "Đọc đoạn theo chức năng" },
+      "body": { "en": "Speed comes from reading less, not faster. Each paragraph in an academic passage has **one job**: introduce, give a cause, give an example, raise a problem, answer it, conclude. Read the **first sentence and the last** of each paragraph and write a two-word label in the margin (*cause*, *example*, *problem*). Two minutes for the whole passage. Then every question tells you which labelled paragraph to go to.", "vi": "Tốc độ đến từ đọc ít đi, không phải nhanh hơn. Mỗi đoạn trong bài học thuật có **một chức năng**: giới thiệu, nêu nguyên nhân, cho ví dụ, nêu vấn đề, trả lời, kết luận. Đọc **câu đầu và câu cuối** mỗi đoạn và ghi nhãn hai từ bên lề (*cause*, *example*, *problem*). Hai phút cho cả bài. Rồi mỗi câu hỏi cho bạn biết tới đoạn nào đã dán nhãn." }
+    },
+    {
+      "heading": { "en": "Never from the top", "vi": "Không bao giờ từ đầu" },
+      "body": { "en": "The slowest habit at this level is **re-reading from the first line** when a question is hard. Questions follow the text: the answer to question 8 is **after** the answer to question 7. Put your finger where you found 7 and read forward only. If you really cannot find it in a minute, mark it and go on; it is one mark.", "vi": "Thói quen chậm nhất ở trình độ này là **đọc lại từ dòng đầu** khi gặp câu khó. Câu hỏi theo thứ tự bài: đáp án câu 8 nằm **sau** đáp án câu 7. Đặt ngón tay chỗ tìm thấy câu 7 và chỉ đọc tiếp. Nếu thật sự không tìm thấy trong một phút, đánh dấu và đi tiếp; chỉ là một điểm." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A passage labelled in two minutes", "vi": "Một bài dán nhãn trong hai phút" },
+      "text": "The Night Shift Inside Your Head\nA  history: sleep once thought passive              (intro)\nB  EEG shows stages; REM discovered                 (method / discovery)\nC  memory: facts replayed during deep sleep         (function 1)\nD  emotions: REM and processing fear                (function 2)\nE  problem: modern life cuts deep sleep             (problem)\nF  what researchers recommend                       (answer / conclusion)\n\nQ: In which paragraph does the writer describe how sleep affects fear?  → D, at once\nQ: What did early researchers believe?               → A",
+      "note": { "en": "Six labels, then every question has an address.", "vi": "Sáu nhãn, rồi mỗi câu hỏi có một địa chỉ." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Labels for a paragraph's job", "vi": "Nhãn chức năng đoạn" }, "items": ["intro / background", "cause / reason", "example / case", "problem", "solution / answer", "comparison", "conclusion / future"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Why do the sets this week run for 55 minutes?", "vi": "Vì sao bộ đọc tuần này là 55 phút?" },
+      "options": ["To leave five minutes for checking in the real test", "Because the passages are shorter", "To make it harder for its own sake"],
+      "answerIndex": 0,
+      "explanation": { "en": "The last five minutes are for blanks and plurals.", "vi": "Năm phút cuối cho ô trống và số nhiều." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you read to label a paragraph?", "vi": "Đọc gì để dán nhãn một đoạn?" },
+      "options": ["Its first and last sentence", "Every word", "The title only"],
+      "answerIndex": 0,
+      "explanation": { "en": "Two minutes for the whole passage.", "vi": "Hai phút cho cả bài." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Question 8 is hard. Where do you look?", "vi": "Câu 8 khó. Bạn tìm ở đâu?" },
+      "options": ["Forward from where you found question 7", "From the first line again", "In the last paragraph"],
+      "answerIndex": 0,
+      "explanation": { "en": "Questions follow the text.", "vi": "Câu hỏi theo thứ tự bài." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the fast approach to a passage.", "vi": "Sắp xếp cách làm nhanh một bài đọc." },
+      "parts": ["Label each paragraph's job", "Read the questions", "Go to the labelled paragraph", "Read forward from the last answer"],
+      "explanation": { "en": "Label, questions, address, forward.", "vi": "Nhãn, câu hỏi, địa chỉ, đọc tiếp." }
+    }
+  ]
+}

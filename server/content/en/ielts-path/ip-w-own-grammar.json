@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can collect the grammar errors from your last six graded essays into one list of patterns.", "vi": "Bạn gom được lỗi ngữ pháp từ sáu bài đã chấm gần nhất thành một danh sách mẫu lỗi." },
+    { "en": "You can write a correct model sentence for each pattern and reuse it.", "vi": "Bạn viết được một câu mẫu đúng cho mỗi mẫu lỗi và dùng lại." },
+    { "en": "You know which errors cost GRA marks and which the examiner forgives.", "vi": "Bạn biết lỗi nào mất điểm GRA và lỗi nào giám khảo bỏ qua." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Your grammar syllabus is your own essays", "vi": "Giáo trình ngữ pháp của bạn là bài viết của chính bạn" },
+      "body": { "en": "By now the grammar points of the course have all been taught once. What raises GRA from here is not a new point but **the four or five errors you still make**. Open your last six graded essays and copy every grammar correction into one list. Then group them: the same error with different words is **one pattern**. Most learners find three to five patterns cover eighty per cent of their corrections.", "vi": "Tới giờ các điểm ngữ pháp của khoá đã được dạy một lượt. Thứ nâng GRA từ đây không phải điểm mới mà là **bốn năm lỗi bạn vẫn mắc**. Mở sáu bài đã chấm gần nhất và chép mọi chỗ sửa ngữ pháp vào một danh sách. Rồi gom nhóm: cùng lỗi với từ khác nhau là **một mẫu**. Phần lớn người học thấy ba đến năm mẫu chiếm tám mươi phần trăm chỗ sửa." }
+    },
+    {
+      "heading": { "en": "One model sentence per pattern", "vi": "Mỗi mẫu lỗi một câu mẫu" },
+      "body": { "en": "For each pattern write **one correct sentence you would actually use in an essay**, on a topic you write about often. *\"The number of people who work from home has increased.\"* fixes agreement and present perfect at once. Read the five model sentences before each essay this week; use at least two of them, adapted. A rule you have read is forgotten; a sentence you have used is kept.", "vi": "Với mỗi mẫu lỗi viết **một câu đúng bạn thực sự sẽ dùng trong bài**, về chủ đề hay viết. *\"The number of people who work from home has increased.\"* sửa hoà hợp và hiện tại hoàn thành cùng lúc. Đọc năm câu mẫu trước mỗi bài tuần này; dùng ít nhất hai câu, có biến đổi. Quy tắc đã đọc thì quên; câu đã dùng thì giữ." }
+    },
+    {
+      "heading": { "en": "Which errors matter", "vi": "Lỗi nào quan trọng" },
+      "body": { "en": "GRA 6 allows \"some errors in grammar and punctuation but they rarely reduce communication\". GRA 7 wants \"frequent error-free sentences\". So the errors that matter most are the ones in **every sentence** (articles, agreement, plural -s) because they stop a sentence being error-free, and the ones that **change meaning** (tense in Task 1, conditionals). A rare slip in a complex structure costs less than *the* missing ten times.", "vi": "GRA 6 cho phép \"vài lỗi ngữ pháp và dấu câu nhưng hiếm khi cản trở giao tiếp\". GRA 7 muốn \"thường xuyên có câu không lỗi\". Nên lỗi quan trọng nhất là lỗi xuất hiện **ở mọi câu** (mạo từ, hoà hợp, -s số nhiều) vì chúng làm câu không còn sạch lỗi, và lỗi **đổi nghĩa** (thì ở Task 1, câu điều kiện). Một lần trượt ở cấu trúc phức mất ít hơn thiếu *the* mười lần." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Six essays, four patterns, four model sentences", "vi": "Sáu bài, bốn mẫu lỗi, bốn câu mẫu" },
+      "text": "Corrections collected (23):\n  missing 'the' before specific nouns ×9       → pattern 1\n  'the number of ... are' ×4, 'people is' ×2   → pattern 2 (agreement)\n  present simple for a finished period ×5      → pattern 3 (tense)\n  'depend of', 'interested on' ×3              → pattern 4 (prepositions)\n\nModel sentences:\n1  Traffic in the city centre has become a serious problem for the local government.\n2  The number of students who study abroad is rising, and many of them return with new skills.\n3  Between 2000 and 2020 the population grew steadily, while car ownership doubled.\n4  Whether people succeed depends on effort, and most are interested in learning.",
+      "note": { "en": "Each sentence is one you could drop into an essay; each one fixes a pattern in use.", "vi": "Mỗi câu đều dùng được trong bài; mỗi câu sửa một mẫu lỗi trong thực hành." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Patterns most learners find", "vi": "Mẫu lỗi hay gặp" }, "items": ["articles before specific nouns", "subject-verb agreement (the number of ... is)", "tense for a finished period (Task 1)", "dependent prepositions (depend on, interested in)", "plural after many / several / a number of", "word form (success / succeed / successful)"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Where does your grammar syllabus come from this week?", "vi": "Tuần này giáo trình ngữ pháp của bạn đến từ đâu?" },
+      "options": ["The corrections in your last six graded essays", "A new grammar book", "The hardest grammar point in the course"],
+      "answerIndex": 0,
+      "explanation": { "en": "Your own patterns.", "vi": "Mẫu lỗi của chính bạn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which error costs more at GRA?", "vi": "Lỗi nào mất nhiều điểm GRA hơn?" },
+      "options": ["\"the\" missing ten times", "one slip in a complex sentence", "a comma in the wrong place"],
+      "answerIndex": 0,
+      "explanation": { "en": "It stops every sentence being error-free.", "vi": "Nó làm mọi câu không còn sạch lỗi." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you write for each pattern?", "vi": "Viết gì cho mỗi mẫu lỗi?" },
+      "options": ["One correct sentence you would use in an essay", "The grammar rule", "Ten examples"],
+      "answerIndex": 0,
+      "explanation": { "en": "A sentence used is kept.", "vi": "Câu đã dùng thì giữ." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the work.", "vi": "Sắp xếp công việc." },
+      "parts": ["Copy every correction from six essays", "Group them into patterns", "Write one model sentence per pattern", "Use two model sentences in each essay this week"],
+      "explanation": { "en": "Collect, group, model, use.", "vi": "Gom, nhóm, mẫu, dùng." }
+    }
+  ]
+}

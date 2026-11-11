@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can speak for the full two minutes of Part 2 without stopping before the examiner does.", "vi": "Bạn nói được trọn hai phút Part 2 mà không dừng trước khi giám khảo ngắt." },
+    { "en": "You can spread the four bullets across the time so the last one is not rushed.", "vi": "Bạn chia bốn gạch đầu dòng đều theo thời gian để ý cuối không bị vội." },
+    { "en": "You can fill a gap in your memory without silence.", "vi": "Bạn lấp được chỗ trống trong trí nhớ mà không im lặng." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Two minutes means two minutes", "vi": "Hai phút nghĩa là hai phút" },
+      "body": { "en": "In the real test the examiner stops you at two minutes. If you stop at 1:20, the examiner may ask a rounding-off question, but the Fluency band notes the **short talk**. From this week every Part 2 is done with the timer and the rule: **you do not stop; the timer does**. If you run out of things to say, the lesson below tells you what to do. Stopping is not one of the options.", "vi": "Trong thi thật giám khảo ngắt bạn ở phút thứ hai. Nếu bạn dừng ở 1:20, giám khảo có thể hỏi một câu khép lại, nhưng band Fluency ghi nhận **bài nói ngắn**. Từ tuần này mọi Part 2 đều làm với đồng hồ và quy tắc: **bạn không dừng; đồng hồ dừng**. Nếu hết chuyện để nói, phần dưới cho biết làm gì. Dừng không phải một lựa chọn." }
+    },
+    {
+      "heading": { "en": "Thirty seconds a bullet", "vi": "Ba mươi giây một gạch đầu dòng" },
+      "body": { "en": "Four bullets, two minutes: about **thirty seconds each**, with the last bullet (*and explain why...*) often deserving forty. Most learners spend a minute on the first bullet and twenty seconds on the last, where the marks for opinion and feeling are. In your one-minute plan write a **number next to each bullet**: 0:00, 0:30, 1:00, 1:25. Glance at the card while you talk; it is allowed.", "vi": "Bốn gạch đầu dòng, hai phút: khoảng **ba mươi giây mỗi ý**, ý cuối (*and explain why...*) thường xứng bốn mươi. Phần lớn người học tốn một phút cho ý đầu và hai mươi giây cho ý cuối, nơi có điểm quan điểm và cảm xúc. Trong phút lập dàn ý hãy ghi **một con số cạnh mỗi gạch đầu dòng**: 0:00, 0:30, 1:00, 1:25. Liếc thẻ khi nói; điều đó được phép." }
+    },
+    {
+      "heading": { "en": "When the memory goes blank", "vi": "Khi trí nhớ trống rỗng" },
+      "body": { "en": "Three ways to keep talking without silence, in order of preference. **Add a detail** to what you just said (what it looked like, who else was there). **Compare**: *\"It was quite different from the one I'd had before, because...\"*. **Return to the card**: *\"Anyway, the other thing the card asks is...\"*. All three are natural; none of them is *\"umm\"* for five seconds. Practise with cue cards you have never seen, because that is when the blank happens.", "vi": "Ba cách nói tiếp không im lặng, theo thứ tự ưu tiên. **Thêm chi tiết** cho điều vừa nói (trông thế nào, còn ai ở đó). **So sánh**: *\"It was quite different from the one I'd had before, because...\"*. **Quay về thẻ**: *\"Anyway, the other thing the card asks is...\"*. Cả ba đều tự nhiên; không cái nào là *\"umm\"* năm giây. Luyện với cue card chưa từng thấy, vì đó là lúc trống rỗng xảy ra." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A plan with times and a blank handled", "vi": "Dàn ý có thời gian và một chỗ trống được xử lý" },
+      "text": "Card: Describe a successful small business you know.\nPlan (1 minute):\n  0:00 what: bakery, corner of my street, 6 years\n  0:30 who runs: couple, she bakes, he does the shop\n  1:00 what sells: bread, cakes, coffee since 2022\n  1:25 why successful: small loaves, knows customers, always full\n\nAt 1:10 the memory went blank after \"coffee\".\n→ detail: \"...which they serve in those small paper cups, and there's a bench outside where people sit with it in the morning.\"\n→ back to the card: \"Anyway, as for why it's successful, ...\"\nTimer stopped at 2:00 mid-sentence. Good.",
+      "note": { "en": "The blank cost two seconds, not a stop; the timer, not the speaker, ended the talk.", "vi": "Chỗ trống mất hai giây, không phải một lần dừng; đồng hồ, không phải người nói, kết thúc bài." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Keeping going", "vi": "Nói tiếp" }, "items": ["What I remember most about it is...", "It was quite different from ..., because...", "Anyway, the other thing the card asks is...", "I should also mention that...", "To give you an idea, ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Who ends a Part 2 talk?", "vi": "Ai kết thúc bài nói Part 2?" },
+      "options": ["The timer, not you", "You, when you have said everything", "The last bullet"],
+      "answerIndex": 0,
+      "explanation": { "en": "You do not stop; the timer does.", "vi": "Bạn không dừng; đồng hồ dừng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you write next to each bullet in the plan?", "vi": "Ghi gì cạnh mỗi gạch đầu dòng trong dàn ý?" },
+      "options": ["A time: 0:00, 0:30, 1:00, 1:25", "A full sentence", "Nothing"],
+      "answerIndex": 0,
+      "explanation": { "en": "Thirty seconds a bullet, more for the last.", "vi": "Ba mươi giây một ý, ý cuối nhiều hơn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Your memory goes blank at 1:10. The best first move is...", "vi": "Trí nhớ trống rỗng ở 1:10. Nước đi tốt nhất đầu tiên là..." },
+      "options": ["add a detail to what you just said", "say 'umm' and think", "stop and wait for a question"],
+      "answerIndex": 0,
+      "explanation": { "en": "Detail, compare, or back to the card.", "vi": "Chi tiết, so sánh, hay quay về thẻ." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the two minutes.", "vi": "Sắp xếp hai phút." },
+      "parts": ["Bullet 1 with a detail", "Bullet 2", "Bullet 3", "Bullet 4: the feeling and the reason, until the timer"],
+      "explanation": { "en": "The last bullet gets the most time.", "vi": "Ý cuối được nhiều thời gian nhất." }
+    }
+  ]
+}

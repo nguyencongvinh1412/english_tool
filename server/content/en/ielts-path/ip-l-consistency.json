@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can get the same score on two timed tests in a week, within two marks.", "vi": "Bạn đạt được cùng một điểm trên hai đề bấm giờ trong tuần, lệch không quá hai câu." },
+    { "en": "You can name what makes a score drop on a bad day and prevent it.", "vi": "Bạn gọi tên được điều làm điểm tụt vào ngày xấu và ngăn nó." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The band is the floor, not the best day", "vi": "Band là mức sàn, không phải ngày tốt nhất" },
+      "body": { "en": "A learner whose tests score 28, 21, 27, 22 does not have band 6.5; they have **an unreliable 6.0**. The exam is one day, and it may be the bad one. This week the aim is not a higher score but **two scores within two marks of each other**. Consistency is what a gate measures and what the real test rewards.", "vi": "Người học có điểm 28, 21, 27, 22 không có band 6.5; họ có **6.0 không ổn định**. Thi thật là một ngày, và có thể là ngày xấu. Tuần này mục tiêu không phải điểm cao hơn mà là **hai điểm lệch nhau không quá hai câu**. Ổn định là thứ gate đo và thi thật thưởng." }
+    },
+    {
+      "heading": { "en": "What a bad day looks like", "vi": "Ngày xấu trông thế nào" },
+      "body": { "en": "Compare your worst and best tests of the last four weeks. The difference is almost never spread evenly; it sits in **one section** (usually 3 or 4) and often starts with **one missed question** followed by three more while you looked for it. The bad day is a lost place, not a bad ear. The fix is the rule from phase 4, now made automatic: **miss one, move to the next heading at once**.", "vi": "So đề tệ nhất và tốt nhất trong bốn tuần qua. Khoảng cách gần như không bao giờ rải đều; nó nằm ở **một section** (thường 3 hoặc 4) và thường bắt đầu từ **một câu bỏ lỡ** kéo theo ba câu nữa trong lúc bạn tìm nó. Ngày xấu là mất vị trí, không phải tai kém. Cách sửa là quy tắc từ giai đoạn 4, giờ thành phản xạ: **lỡ một câu, chuyển ngay sang tiêu đề kế**." }
+    },
+    {
+      "heading": { "en": "The same routine both times", "vi": "Cùng một quy trình cả hai lần" },
+      "body": { "en": "Do both tests of the week **the same way**: same time of day, same prediction in every pause, same transfer check at the end. Write the per-section scores next to each other. If one section differs by three or more, that section gets the extra practice before Gate 5; the rest is already stable.", "vi": "Làm hai đề trong tuần **theo cùng một cách**: cùng giờ trong ngày, cùng cách dự đoán ở mỗi khoảng dừng, cùng kiểm tra lúc chuyển đáp án. Ghi điểm từng section cạnh nhau. Section nào lệch từ ba trở lên thì luyện thêm trước Gate 5; phần còn lại đã ổn." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Two tests, section by section", "vi": "Hai đề, theo từng section" },
+      "text": "            S1   S2   S3   S4   total\nTuesday      9    7    6    5    27\nThursday     9    7    3    6    25\n\nS3 differs by 3 → Thursday: missed Q23 (a changed decision), then 24-26 blank while looking for it.\nRule for Gate 5: in Section 3, if a question goes, read the next one at once.",
+      "note": { "en": "Two marks apart overall; one section explains all of it.", "vi": "Lệch hai câu tổng thể; một section giải thích tất cả." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The same routine", "vi": "Cùng quy trình" }, "items": ["same time of day", "prediction in every pause", "miss one, move on", "transfer check: spelling, plural, word limit"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Tests of 28, 21, 27, 22 show...", "vi": "Điểm 28, 21, 27, 22 cho thấy..." },
+      "options": ["an unreliable 6.0, not a 6.5", "a solid 6.5", "improvement"],
+      "answerIndex": 0,
+      "explanation": { "en": "The band is the floor.", "vi": "Band là mức sàn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Where does the difference between a good and a bad test usually sit?", "vi": "Khoảng cách giữa đề tốt và đề xấu thường nằm ở đâu?" },
+      "options": ["In one section, after one missed question", "Spread evenly", "In Section 1"],
+      "answerIndex": 0,
+      "explanation": { "en": "A lost place, not a bad ear.", "vi": "Mất vị trí, không phải tai kém." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "A section differs by three or more between the two tests. You...", "vi": "Một section lệch từ ba câu giữa hai đề. Bạn..." },
+      "options": ["give that section the extra practice before Gate 5", "redo both tests", "ignore it"],
+      "answerIndex": 0,
+      "explanation": { "en": "The rest is already stable.", "vi": "Phần còn lại đã ổn." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the week.", "vi": "Sắp xếp tuần." },
+      "parts": ["Test 1 with the routine", "Test 2 with the same routine", "Write section scores side by side", "Extra practice for the section that differs"],
+      "explanation": { "en": "Same routine, compare, target.", "vi": "Cùng quy trình, so, nhắm." }
+    }
+  ]
+}

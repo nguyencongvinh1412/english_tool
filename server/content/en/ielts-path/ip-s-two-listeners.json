@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can run two full mocks in a week with two different listeners and collect their notes.", "vi": "Bạn làm được hai lần thi thử đầy đủ trong tuần với hai người nghe khác nhau và gom ghi chú của họ." },
+    { "en": "You can separate what both listeners noticed from what only one did.", "vi": "Bạn tách được điều cả hai người nghe nhận thấy khỏi điều chỉ một người thấy." },
+    { "en": "You can use the app's grading as a third listener.", "vi": "Bạn dùng được phần chấm của app như người nghe thứ ba." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Why two listeners", "vi": "Vì sao hai người nghe" },
+      "body": { "en": "One listener has one ear: a teacher hears grammar, a friend hears whether you were interesting, a classmate hears the words you repeat. The examiner is all three at once. So this week **two mocks, two different people**, each given the same simple brief: *\"Tell me three things you noticed, good or bad.\"* Not a band, not a grammar correction: three things they noticed. That is what an examiner does in the first minute.", "vi": "Một người nghe có một đôi tai: giáo viên nghe ngữ pháp, bạn bè nghe bạn có thú vị không, bạn học nghe từ bạn lặp. Giám khảo là cả ba cùng lúc. Nên tuần này **hai lần thi thử, hai người khác nhau**, mỗi người cùng một yêu cầu đơn giản: *\"Nói cho mình ba điều bạn nhận thấy, tốt hay xấu.\"* Không phải band, không phải sửa ngữ pháp: ba điều họ nhận thấy. Giám khảo làm đúng thế trong phút đầu." }
+    },
+    {
+      "heading": { "en": "What both noticed", "vi": "Điều cả hai nhận thấy" },
+      "body": { "en": "Put the six notes side by side. Anything **both** listeners mentioned is real and visible to anyone, so it is visible to the examiner: fix it first. Anything **one** mentioned is worth a look but may be that listener's taste. Then submit one of the mocks for grading in the app and treat its feedback as a **third listener**: a point raised by two of three is settled.", "vi": "Đặt sáu ghi chú cạnh nhau. Điều **cả hai** người nhắc là thật và ai cũng thấy, nên giám khảo cũng thấy: sửa trước. Điều **một** người nhắc đáng xem nhưng có thể là gu riêng. Rồi nộp một lần thi thử để app chấm và coi nhận xét của nó là **người nghe thứ ba**: điểm được hai trên ba người nêu là chắc chắn." }
+    },
+    {
+      "heading": { "en": "The good things too", "vi": "Cả điều tốt" },
+      "body": { "en": "Half of the notes should be things that worked. Those matter as much: they tell you what to **keep doing under pressure** on the day. If both listeners said your examples were clear, examples are your strength; lean on them in Part 3 when a question is hard. A learner who knows two strengths and two weaknesses walks into Gate 5 calmer than one who knows only the weaknesses.", "vi": "Một nửa ghi chú nên là điều đã tốt. Chúng quan trọng không kém: cho biết nên **giữ gì dưới áp lực** vào ngày thi. Nếu cả hai nói ví dụ của bạn rõ, ví dụ là thế mạnh; dựa vào nó ở Part 3 khi câu hỏi khó. Người học biết hai điểm mạnh và hai điểm yếu bước vào Gate 5 bình tĩnh hơn người chỉ biết điểm yếu." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Six notes and a third opinion", "vi": "Sáu ghi chú và ý kiến thứ ba" },
+      "text": "Listener 1 (teacher):     clear examples ✓ · past tense slips in Part 2 ✗ · stopped at 1:35 in Part 2 ✗\nListener 2 (classmate):   clear examples ✓ · says 'actually' a lot ✗ · stopped early in Part 2 ✗\nApp grading:              Fluency 6.0 \"talk ended before two minutes\" · Grammar 5.5 \"tense in narrative\" · Lexical 6.0\n\nSettled (two of three): examples are a strength; Part 2 ends early; past tense in stories.\nOne listener only: 'actually' → keep an eye on it.\n\nThis week: Part 2 with the timer every day; model sentence for narrative past.",
+      "note": { "en": "Two of three agree on three things; the plan has three lines.", "vi": "Hai trên ba đồng ý ba điều; kế hoạch có ba dòng." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The brief for a listener", "vi": "Yêu cầu cho người nghe" }, "items": ["Tell me three things you noticed, good or bad.", "Did I answer the question, or go around it?", "Which word did I say too often?", "Where did you stop following me?"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you ask each listener for?", "vi": "Bạn yêu cầu mỗi người nghe điều gì?" },
+      "options": ["Three things they noticed, good or bad", "A band score", "A list of grammar mistakes"],
+      "answerIndex": 0,
+      "explanation": { "en": "What an examiner does in the first minute.", "vi": "Điều giám khảo làm trong phút đầu." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "A point raised by both listeners is...", "vi": "Điểm cả hai người nghe nêu là..." },
+      "options": ["real and visible to the examiner: fix it first", "a coincidence", "a matter of taste"],
+      "answerIndex": 0,
+      "explanation": { "en": "Visible to anyone.", "vi": "Ai cũng thấy." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Why collect the good notes too?", "vi": "Vì sao gom cả ghi chú tốt?" },
+      "options": ["They tell you what to keep doing under pressure", "To feel better", "They do not matter"],
+      "answerIndex": 0,
+      "explanation": { "en": "Two strengths, two weaknesses.", "vi": "Hai điểm mạnh, hai điểm yếu." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the week.", "vi": "Sắp xếp tuần." },
+      "parts": ["Mock 1 with listener 1", "Mock 2 with listener 2", "Submit one mock for grading", "Keep what two of three agree on"],
+      "explanation": { "en": "Three listeners, one plan.", "vi": "Ba người nghe, một kế hoạch." }
+    }
+  ]
+}

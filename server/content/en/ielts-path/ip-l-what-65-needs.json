@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can find, in your old tests, the kind of question that still separates you from 6.5.", "vi": "Bạn tìm được trong đề cũ dạng câu vẫn ngăn bạn với 6.5." },
+    { "en": "You know how Gate 5 Listening differs from Gate 4 and what to do in the week before.", "vi": "Bạn biết Gate 5 Nghe khác Gate 4 thế nào và làm gì trong tuần trước đó." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Listen again, by question type", "vi": "Nghe lại, theo dạng câu" },
+      "body": { "en": "Take the four full tests of the last two weeks and sort the wrong answers **by question type** this time, not by kind of mistake: multiple choice, matching, note completion, map or plan. One type will dominate. Play only the parts of the recordings that carried that type, with the transcript, and say **what the speaker did** each time: paraphrased, corrected, listed three things and meant the second.", "vi": "Lấy bốn đề đầy đủ của hai tuần qua và lần này phân loại câu sai **theo dạng câu**, không theo loại lỗi: trắc nghiệm, nối, hoàn thành ghi chú, bản đồ hay sơ đồ. Một dạng sẽ trội. Chỉ phát lại những đoạn chứa dạng đó, kèm bản ghi, và nói **người nói đã làm gì** mỗi lần: diễn đạt lại, sửa, liệt kê ba thứ và ý là cái thứ hai." }
+    },
+    {
+      "heading": { "en": "Gate 5 is the full test", "vi": "Gate 5 là đề đầy đủ" },
+      "body": { "en": "Gate 5 Listening is **four full sections, 40 questions, 30 minutes plus transfer**, written at the level of the real test, and it needs **6.5, about 26 correct**. Unlike Gates 1 to 4 there is no short version: it is the exam. Your two tests a week have been exactly this, so nothing changes on the day except the pacing habit: **no pause, no replay, predictions in every gap**.", "vi": "Gate 5 Nghe là **bốn section đầy đủ, 40 câu, 30 phút cộng chuyển đáp án**, viết ở mức đề thật, và cần **6.5, khoảng 26 câu đúng**. Khác Gate 1 đến 4, không có bản ngắn: đó chính là bài thi. Hai đề mỗi tuần của bạn chính là thế, nên ngày thi không đổi gì ngoài thói quen nhịp: **không dừng, không phát lại, dự đoán ở mọi khoảng trống**." }
+    },
+    {
+      "heading": { "en": "The week before", "vi": "Tuần trước gate" },
+      "body": { "en": "Three full tests this week, each at the same time of day as the gate will be. After each one, only the fifteen-minute analysis. The day before: **one Section 3 and one Section 4 with the transcript**, your spelling list read once, and nothing else. A tired ear loses more marks than an unprepared one.", "vi": "Ba đề đầy đủ tuần này, mỗi đề vào cùng giờ với gate sắp tới. Sau mỗi đề chỉ phân tích mười lăm phút. Ngày trước gate: **một Section 3 và một Section 4 kèm bản ghi**, đọc danh sách chính tả một lần, không gì khác. Tai mệt mất nhiều điểm hơn tai chưa chuẩn bị." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Four tests sorted by question type", "vi": "Bốn đề phân theo dạng câu" },
+      "text": "Wrong answers, last four tests (total 52 wrong of 160):\n  multiple choice (S2, S3)   21\n  note completion (S4)       14\n  matching (S2)               9\n  form completion (S1)        8\n\nMultiple choice dominates. Replayed the S3 questions with the transcript:\n  - 9 times the right option paraphrased the speaker (\"too costly\" = \"we can't afford it\")\n  - 6 times a wrong option was said first and then rejected\n  - 6 times I picked the option that repeated a word I heard\n\nRule for Gate 5: in multiple choice, the option that repeats a word is the suspect.",
+      "note": { "en": "The same rule as in Reading: the option that reuses the words is the trap.", "vi": "Cùng quy tắc như Đọc: phương án dùng lại từ chính là bẫy." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "What the speaker did", "vi": "Người nói đã làm gì" }, "items": ["paraphrased the right option", "said a wrong option first, then rejected it", "listed three things and meant the second", "corrected a detail", "used a negative (not until, no longer)"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "How do you sort wrong answers this week?", "vi": "Tuần này phân loại câu sai thế nào?" },
+      "options": ["By question type", "By section", "By day of the week"],
+      "answerIndex": 0,
+      "explanation": { "en": "One type will dominate.", "vi": "Một dạng sẽ trội." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Gate 5 Listening is...", "vi": "Gate 5 Nghe là..." },
+      "options": ["a full 40-question test needing about 26 correct", "two short sections", "Section 4 only"],
+      "answerIndex": 0,
+      "explanation": { "en": "The exam itself.", "vi": "Chính bài thi." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "The day before Gate 5 you...", "vi": "Ngày trước Gate 5 bạn..." },
+      "options": ["listen to one Section 3 and one Section 4 with the transcript, and stop", "do three full tests", "learn new words"],
+      "answerIndex": 0,
+      "explanation": { "en": "A tired ear loses more marks.", "vi": "Tai mệt mất nhiều điểm hơn." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the review.", "vi": "Sắp xếp việc ôn." },
+      "parts": ["Sort the wrong answers of four tests by type", "Replay the parts with that type and the transcript", "Say what the speaker did each time", "Write one rule for Gate 5"],
+      "explanation": { "en": "Sort, replay, name, rule.", "vi": "Phân loại, nghe lại, gọi tên, quy tắc." }
+    }
+  ]
+}

@@ -2142,7 +2142,7 @@ export const vi: Messages = {
         'w-twopart': 'Viết: câu hỏi hai phần (Task 2)',
       } as Record<string, string>,
       wordsTitle: (count: number, topic: string) => `Học ${count} từ mới: ${topic}`,
-      topics: { academic: 'từ học thuật', collocations: 'cụm từ đi cùng nhau', paraphrase: 'từ để diễn đạt lại', linking: 'từ nối và từ tham chiếu', idioms: 'thành ngữ và cụm động từ', education: 'giáo dục', health: 'sức khỏe', environment: 'môi trường', technology: 'công nghệ', city: 'thành phố', family: 'gia đình', home: 'nhà cửa', work: 'công việc', hobbies: 'sở thích', food: 'đồ ăn', transport: 'giao thông', weather: 'thời tiết', travel: 'du lịch', shopping: 'mua sắm', review: 'ôn tập cả tháng' } as Record<string, string>,
+      topics: { academic: 'từ học thuật', collocations: 'cụm từ đi cùng nhau', paraphrase: 'từ để diễn đạt lại', linking: 'từ nối và từ tham chiếu', idioms: 'thành ngữ và cụm động từ', society: 'xã hội', economy: 'kinh tế', science: 'khoa học', education: 'giáo dục', health: 'sức khỏe', environment: 'môi trường', technology: 'công nghệ', city: 'thành phố', family: 'gia đình', home: 'nhà cửa', work: 'công việc', hobbies: 'sở thích', food: 'đồ ăn', transport: 'giao thông', weather: 'thời tiết', travel: 'du lịch', shopping: 'mua sắm', review: 'ôn tập cả tháng' } as Record<string, string>,
       dictationTitle: 'Nghe chép',
       catchUp: 'Học bù',
       today: 'Hôm nay',

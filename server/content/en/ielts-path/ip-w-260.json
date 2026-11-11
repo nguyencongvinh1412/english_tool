@@ -1,0 +1,62 @@
+{
+  "objectives": [
+    { "en": "You can write a Task 2 essay of 260 words or more in 40 minutes, with the plan and the check inside the time.", "vi": "Bạn viết được bài Task 2 từ 260 từ trong 40 phút, dàn ý và kiểm tra nằm trong thời gian đó." },
+    { "en": "You can add length by developing an idea, not by repeating it.", "vi": "Bạn thêm độ dài bằng cách phát triển ý, không phải lặp ý." },
+    { "en": "You know how many words each paragraph should carry.", "vi": "Bạn biết mỗi đoạn nên mang bao nhiêu từ." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Why 260 and not 250", "vi": "Vì sao 260 chứ không phải 250" },
+      "body": { "en": "Below 250 words there is a penalty; at exactly 250 you have no room for error, and under time pressure people count wrong. **260 or more** gives a margin and, more usefully, forces you to **develop** each body paragraph rather than stop after the first reason. The band descriptors for 6.0 say ideas are \"relevant but may be inadequately developed\"; 7.0 says \"extended and supported\". Those extra forty words are where development lives.", "vi": "Dưới 250 từ bị trừ điểm; đúng 250 thì không có chỗ cho sai sót, và dưới áp lực thời gian người ta đếm sai. **Từ 260 trở lên** cho khoảng dư và, hữu ích hơn, buộc bạn **phát triển** mỗi đoạn thân thay vì dừng sau lý do đầu. Bảng mô tả 6.0 nói ý \"liên quan nhưng có thể chưa phát triển đủ\"; 7.0 nói \"mở rộng và có chứng minh\". Bốn mươi từ thêm là nơi sự phát triển sống." }
+    },
+    {
+      "heading": { "en": "The word budget", "vi": "Ngân sách từ" },
+      "body": { "en": "Introduction **40 to 50**. Body paragraph 1 **90 to 100**. Body paragraph 2 **90 to 100**. Conclusion **30 to 40**. That is 250 to 290 with no padding. A body paragraph of 90 words has room for: a topic sentence, an explanation, an example, and a sentence that links the example back to your position. If a body paragraph is under 70 words, one of those four is missing.", "vi": "Mở bài **40 đến 50**. Đoạn thân 1 **90 đến 100**. Đoạn thân 2 **90 đến 100**. Kết bài **30 đến 40**. Tổng 250 đến 290 không có từ đệm. Đoạn thân 90 từ đủ chỗ cho: câu chủ đề, giải thích, ví dụ, và một câu nối ví dụ về quan điểm. Nếu đoạn thân dưới 70 từ, thiếu một trong bốn phần." }
+    },
+    {
+      "heading": { "en": "Development, not repetition", "vi": "Phát triển, không lặp" },
+      "body": { "en": "Length from repetition (*\"This is very important. It matters a lot.\"*) lowers CC and LR. Length from development raises TR. The question to ask after every topic sentence is **\"why?\"** and after every explanation **\"for example?\"**. Two questions, two sentences, forty words, and the paragraph is developed. The example can be general (*\"In many European cities...\"*); it does not need a statistic.", "vi": "Độ dài từ lặp (*\"This is very important. It matters a lot.\"*) làm giảm CC và LR. Độ dài từ phát triển làm tăng TR. Câu hỏi cần đặt sau mỗi câu chủ đề là **\"why?\"** và sau mỗi giải thích **\"for example?\"**. Hai câu hỏi, hai câu văn, bốn mươi từ, và đoạn đã được phát triển. Ví dụ có thể chung chung (*\"In many European cities...\"*); không cần số liệu." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A body paragraph taken from 55 to 95 words", "vi": "Đoạn thân từ 55 lên 95 từ" },
+      "text": "55 words:\n\"The main reason to tax sugary drinks is health. Many people drink too much sugar and this causes obesity and diabetes. A tax would make people drink less. This is good for public health and it would save money for hospitals.\"\n\n95 words (why? for example?):\n\"The main reason to tax sugary drinks is public health. [why?] Because sugar is cheap and heavily advertised, many people consume far more than is safe, which contributes to obesity and type 2 diabetes. A tax raises the price and so reduces consumption, especially among teenagers, who are most sensitive to price. [for example?] In several countries that introduced such a tax, sales of sugary drinks fell within a year, while sales of water rose. The result is fewer patients with preventable illness and lower costs for the health service.\"",
+      "note": { "en": "Nothing is repeated; two questions added a reason and an example.", "vi": "Không gì bị lặp; hai câu hỏi thêm một lý do và một ví dụ." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Explaining (why?)", "vi": "Giải thích (why?)" }, "items": ["This is because...", "The reason is that...", "..., which means that...", "As a result, ..."] },
+    { "use": { "en": "Giving an example (for example?)", "vi": "Cho ví dụ (for example?)" }, "items": ["In many countries, ...", "A clear example is...", "This can be seen in...", "Take ..., for instance: ..."] },
+    { "use": { "en": "Linking back to the position", "vi": "Nối về quan điểm" }, "items": ["This shows that...", "For this reason, I believe...", "It follows that..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "How many words should a body paragraph have?", "vi": "Đoạn thân nên có bao nhiêu từ?" },
+      "options": ["90 to 100", "50 to 60", "150"],
+      "answerIndex": 0,
+      "explanation": { "en": "Topic sentence, explanation, example, link back.", "vi": "Câu chủ đề, giải thích, ví dụ, nối về." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which adds length the right way?", "vi": "Cách nào thêm độ dài đúng?" },
+      "options": ["Answering \"why?\" and \"for example?\" after the topic sentence", "Saying the same idea in two ways", "A longer introduction"],
+      "answerIndex": 0,
+      "explanation": { "en": "Development raises TR; repetition lowers CC.", "vi": "Phát triển tăng TR; lặp giảm CC." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Why aim at 260 rather than 250?", "vi": "Vì sao nhắm 260 thay vì 250?" },
+      "options": ["A margin for miscounting, and room for development", "Longer essays always score higher", "The examiner requires 260"],
+      "answerIndex": 0,
+      "explanation": { "en": "Margin plus development.", "vi": "Khoảng dư cộng phát triển." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order a developed body paragraph.", "vi": "Sắp xếp đoạn thân đã phát triển." },
+      "parts": ["Topic sentence", "Explanation (why?)", "Example (for example?)", "Link back to the position"],
+      "explanation": { "en": "Four parts, about 90 words.", "vi": "Bốn phần, khoảng 90 từ." }
+    }
+  ]
+}

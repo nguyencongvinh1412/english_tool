@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can tell a 6.0 Task 2 answer from a 5.5 one by four visible features.", "vi": "Bạn phân biệt được bài Task 2 6.0 với 5.5 qua bốn đặc điểm nhìn thấy." },
+    { "en": "You can tell a 6.0 Task 1 report from a 5.5 one by its overview and its comparisons.", "vi": "Bạn phân biệt được bài Task 1 6.0 với 5.5 qua phần tổng quan và các so sánh." },
+    { "en": "You submit two Task 2 and two Task 1 this week and check each against the features before sending.", "vi": "Tuần này bạn nộp hai Task 2 và hai Task 1 và tự soát từng bài theo các đặc điểm trước khi gửi." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Task 2 at 6.0: four visible features", "vi": "Task 2 ở 6.0: bốn đặc điểm nhìn thấy" },
+      "body": { "en": "Examiners see 6.0 quickly. **One**: the position is stated in the introduction and the same position is in the conclusion. **Two**: each body paragraph has one idea and a topic sentence. **Three**: linking is present and mostly right, with some reference words, not only *firstly / moreover*. **Four**: a mix of simple and complex sentences, and the simple ones are correct. A 5.5 essay usually misses one of these completely, most often the first or the second.", "vi": "Giám khảo nhìn ra 6.0 rất nhanh. **Một**: quan điểm nêu ở mở bài và cùng quan điểm đó ở kết bài. **Hai**: mỗi đoạn thân một ý và có câu chủ đề. **Ba**: có từ nối và phần lớn đúng, có từ tham chiếu, không chỉ *firstly / moreover*. **Bốn**: trộn câu đơn và câu phức, và câu đơn thì đúng. Bài 5.5 thường thiếu hẳn một trong bốn, thường là điều một hoặc hai." }
+    },
+    {
+      "heading": { "en": "Task 1 at 6.0: overview and comparison", "vi": "Task 1 ở 6.0: tổng quan và so sánh" },
+      "body": { "en": "A 6.0 report has **an overview with no numbers**, **at least three comparisons** (*higher than, twice as many, while*), **figures that support the overview** rather than every figure in the chart, and **tenses that match the time** (past for past years, present for \"today\"). A 5.5 report lists numbers in order, with no overview or with figures in it. Two of the four tasks this week are Task 1: check both for the overview first.", "vi": "Bài 6.0 có **tổng quan không số liệu**, **ít nhất ba so sánh** (*higher than, twice as many, while*), **số liệu chứng minh tổng quan** thay vì mọi số trong biểu đồ, và **thì khớp thời gian** (quá khứ cho năm cũ, hiện tại cho \"today\"). Bài 5.5 liệt kê số theo thứ tự, không có tổng quan hoặc có số trong đó. Hai trong bốn bài tuần này là Task 1: soát tổng quan trước tiên ở cả hai." }
+    },
+    {
+      "heading": { "en": "Check before you submit", "vi": "Soát trước khi nộp" },
+      "body": { "en": "Before sending each task for grading, tick its features on paper: four for Task 2, four for Task 1. If one is missing, fix it first; a graded essay with a known missing feature teaches you nothing new. Then compare the grader's criteria with your ticks. Where you ticked and the grader did not, that is the feature you **think** you have and do not: the most valuable finding of the week.", "vi": "Trước khi gửi mỗi bài chấm, tích các đặc điểm trên giấy: bốn cho Task 2, bốn cho Task 1. Thiếu cái nào thì sửa trước; bài đã chấm với một thiếu sót đã biết không dạy gì mới. Rồi so tiêu chí giám khảo với dấu tích của bạn. Chỗ bạn tích mà giám khảo không: đó là đặc điểm bạn **nghĩ** là có mà không có, phát hiện giá trị nhất tuần." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Two introductions and conclusions, 5.5 and 6.0", "vi": "Hai cặp mở và kết, 5.5 và 6.0" },
+      "text": "5.5\nIntro: \"Nowadays many people discuss whether the rich-poor gap is a problem. There are many opinions about this.\"\nConclusion: \"In conclusion, the gap between rich and poor has both good and bad sides.\"\n→ No position anywhere. Feature 1 missing: capped around 5.5 for TR.\n\n6.0\nIntro: \"In many countries the gap between the richest and the poorest is widening. I believe this is a serious problem, mainly because it damages both health and social trust.\"\nConclusion: \"To sum up, a growing gap harms the health of the poor and the trust of everyone, which is why governments should treat it as a priority.\"\n→ Same position twice, with the main reason. Feature 1 present.",
+      "note": { "en": "The 6.0 version is not more sophisticated; it simply has the feature.", "vi": "Bản 6.0 không tinh tế hơn; nó chỉ đơn giản có đặc điểm đó." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Task 2 check (tick four)", "vi": "Soát Task 2 (tích bốn)" }, "items": ["position in intro and conclusion", "one idea and a topic sentence per body paragraph", "linking mostly right, with reference words", "simple sentences correct, some complex ones"] },
+    { "use": { "en": "Task 1 check (tick four)", "vi": "Soát Task 1 (tích bốn)" }, "items": ["overview with no numbers", "three or more comparisons", "figures that support the overview", "tenses match the years"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which feature does a 5.5 Task 2 most often miss?", "vi": "Bài Task 2 5.5 thường thiếu đặc điểm nào nhất?" },
+      "options": ["A clear position in the introduction and conclusion", "Long words", "A fifth paragraph"],
+      "answerIndex": 0,
+      "explanation": { "en": "Feature one.", "vi": "Đặc điểm một." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "A Task 1 report gives every figure in the chart, in order, with no overview. It is about...", "vi": "Bài Task 1 nêu mọi số trong biểu đồ, theo thứ tự, không có tổng quan. Nó khoảng..." },
+      "options": ["5.5", "6.0", "6.5"],
+      "answerIndex": 0,
+      "explanation": { "en": "No overview, no selection.", "vi": "Không tổng quan, không chọn lọc." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You ticked 'position stated' and the grader marked TR 5.0. This means...", "vi": "Bạn tích 'có quan điểm' nhưng giám khảo chấm TR 5.0. Nghĩa là..." },
+      "options": ["you think you have the feature and do not: look at how you stated it", "the grader is wrong", "TR does not matter"],
+      "answerIndex": 0,
+      "explanation": { "en": "The most valuable finding.", "vi": "Phát hiện giá trị nhất." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the week's routine for each task.", "vi": "Sắp xếp quy trình mỗi bài trong tuần." },
+      "parts": ["Write the task on time", "Tick the four features", "Fix any missing one", "Submit and compare with the grader's criteria"],
+      "explanation": { "en": "Write, tick, fix, compare.", "vi": "Viết, tích, sửa, so." }
+    }
+  ]
+}

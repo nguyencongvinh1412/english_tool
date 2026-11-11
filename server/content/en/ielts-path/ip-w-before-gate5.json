@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can do the 60-minute pair on time with your model sentences and your checklist ready.", "vi": "Bạn làm được cặp bài 60 phút đúng giờ với câu mẫu và danh sách kiểm tra sẵn sàng." },
+    { "en": "You know what Gate 5 Writing needs, 6.0, and which of your criteria is closest to the line.", "vi": "Bạn biết Gate 5 Viết cần 6.0 và tiêu chí nào của bạn sát ranh giới nhất." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The pair, one more time", "vi": "Cặp bài, thêm một lần" },
+      "body": { "en": "Task 2 first in 40, Task 1 in 20, both checks inside the time, as in phase 4. What is new since then: **your five model sentences** (use two in Task 2), **the four features** of a 6.0 answer for each task, and **260 words** in Task 2. Three timed pairs this week: Tuesday, Thursday, Saturday. Keep the scores of the two tasks side by side.", "vi": "Task 2 trước trong 40 phút, Task 1 trong 20, cả hai lần kiểm tra nằm trong thời gian, như giai đoạn 4. Điều mới từ đó: **năm câu mẫu của bạn** (dùng hai trong Task 2), **bốn đặc điểm** của bài 6.0 cho mỗi task, và **260 từ** ở Task 2. Ba cặp bấm giờ tuần này: thứ Ba, thứ Năm, thứ Bảy. Ghi điểm hai task cạnh nhau." }
+    },
+    {
+      "heading": { "en": "Gate 5 Writing: 6.0", "vi": "Gate 5 Viết: 6.0" },
+      "body": { "en": "Gate 5 needs **6.0** in Writing, with Task 2 counting double. Look at the criteria of your last three graded essays and find the one with the lowest average: that criterion is **the line**. If it is TR, state the position twice and develop with *why / for example*. If CC, one idea per paragraph and reference words. If LR, the phase word lists and no decoration. If GRA, the model sentences. One criterion, three essays, and 6.0 is usually safe.", "vi": "Gate 5 cần **6.0** môn Viết, Task 2 tính gấp đôi. Xem tiêu chí của ba bài đã chấm gần nhất và tìm tiêu chí trung bình thấp nhất: đó là **ranh giới**. Nếu là TR, nêu quan điểm hai lần và phát triển bằng *why / for example*. Nếu CC, mỗi đoạn một ý và từ tham chiếu. Nếu LR, danh sách từ của giai đoạn và không trang trí. Nếu GRA, câu mẫu. Một tiêu chí, ba bài, và 6.0 thường an toàn." }
+    },
+    {
+      "heading": { "en": "The last two days", "vi": "Hai ngày cuối" },
+      "body": { "en": "Two days before: one Task 1 only, 20 minutes, the overview checked. The day before: **read, do not write**: your model sentences, your checklist, the four features for each task, and one 6.0 essay you wrote this month. Writing a full essay the day before uses the energy the gate needs and teaches nothing you do not already know.", "vi": "Hai ngày trước: chỉ một Task 1, 20 phút, soát tổng quan. Ngày trước: **đọc, không viết**: câu mẫu, danh sách kiểm tra, bốn đặc điểm mỗi task, và một bài 6.0 bạn viết tháng này. Viết trọn một bài vào ngày trước gate tiêu năng lượng gate cần và không dạy gì bạn chưa biết." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Finding the line", "vi": "Tìm ranh giới" },
+      "text": "Last three Task 2 essays:\n            TR    CC    LR    GRA   band\n essay 1    6.0   6.0   6.0   5.5   6.0\n essay 2    6.5   6.0   6.0   5.5   6.0\n essay 3    6.0   6.5   6.0   5.0   6.0\n average    6.2   6.2   6.0   5.3\n\nThe line is GRA (5.3). This week: two model sentences in every essay; the article pass and the agreement pass in the last five minutes.\nTask 1 average 5.5 → with Task 2 at 6.0: (5.5 + 12) ÷ 3 = 5.83 → 6.0. Safe, but Task 1 overview must not slip.",
+      "note": { "en": "One criterion is holding the band; the plan is written for that criterion only.", "vi": "Một tiêu chí đang giữ band; kế hoạch viết cho đúng tiêu chí đó." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The whole checklist", "vi": "Danh sách kiểm tra đầy đủ" }, "items": ["articles · plural -s · agreement · one tense per time frame", "Task 1: overview, no numbers; three comparisons", "Task 2: position twice; one idea per paragraph; 260 words", "two model sentences used"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "How do you find 'the line' before Gate 5?", "vi": "Tìm 'ranh giới' trước Gate 5 thế nào?" },
+      "options": ["The criterion with the lowest average over your last three essays", "The criterion you like least", "Ask a friend"],
+      "answerIndex": 0,
+      "explanation": { "en": "One criterion, three essays.", "vi": "Một tiêu chí, ba bài." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Task 2 scores 6.0 and Task 1 scores 5.5. The band is...", "vi": "Task 2 6.0 và Task 1 5.5. Band là..." },
+      "options": ["6.0", "5.5", "6.5"],
+      "answerIndex": 0,
+      "explanation": { "en": "(5.5 + 12) ÷ 3 = 5.83, rounded to 6.0.", "vi": "(5.5 + 12) ÷ 3 = 5.83, làm tròn 6.0." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "The day before Gate 5 you...", "vi": "Ngày trước Gate 5 bạn..." },
+      "options": ["read your model sentences, checklist and one good essay; write nothing", "write two full essays", "learn twenty new words"],
+      "answerIndex": 0,
+      "explanation": { "en": "Read, do not write.", "vi": "Đọc, không viết." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the last days.", "vi": "Sắp xếp những ngày cuối." },
+      "parts": ["Third timed pair of the week", "One Task 1 in 20 minutes", "Read, do not write", "Gate 5"],
+      "explanation": { "en": "Taper to the gate.", "vi": "Giảm dần tới gate." }
+    }
+  ]
+}

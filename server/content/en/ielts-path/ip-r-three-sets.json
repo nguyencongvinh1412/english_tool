@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can do three timed sets in one week without the third one being worse than the first.", "vi": "Bạn làm được ba bộ bấm giờ trong một tuần mà bộ thứ ba không tệ hơn bộ đầu." },
+    { "en": "You can recover attention after a hard passage instead of carrying it into the next.", "vi": "Bạn lấy lại tập trung sau một bài khó thay vì mang nó sang bài kế." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Three sets: the third shows your real level", "vi": "Ba bộ: bộ thứ ba cho thấy trình độ thật" },
+      "body": { "en": "This week has sets on Tuesday, Thursday and Saturday. Most learners score best on Tuesday and worst on Saturday, not because the passages are harder but because **attention is a muscle** and they have not trained it for three sets. The exam will be one set, but on a day with Listening before it. The third set of the week is the honest one: **its score is your Gate 5 prediction**.", "vi": "Tuần này có bộ vào thứ Ba, thứ Năm và thứ Bảy. Phần lớn người học được điểm cao nhất thứ Ba và thấp nhất thứ Bảy, không phải vì bài khó hơn mà vì **sự tập trung là một cơ bắp** chưa được luyện cho ba bộ. Thi thật chỉ một bộ, nhưng là ngày có Nghe trước đó. Bộ thứ ba trong tuần là bộ thật thà: **điểm của nó là dự đoán Gate 5 của bạn**." }
+    },
+    {
+      "heading": { "en": "Recovery between passages", "vi": "Hồi phục giữa các bài" },
+      "body": { "en": "After a hard Passage 2, learners carry the frustration into Passage 3 and lose two easy marks there. Build a **ten-second reset** between passages: put the pencil down, look away from the page, breathe out, say the finishing time for the next passage, start. Ten seconds costs nothing; a passage started angry costs marks.", "vi": "Sau Bài 2 khó, người học mang sự bực bội sang Bài 3 và mất hai điểm dễ ở đó. Tạo **mười giây đặt lại** giữa các bài: đặt bút xuống, nhìn ra khỏi trang, thở ra, nói mốc kết thúc của bài kế, bắt đầu. Mười giây không tốn gì; một bài bắt đầu trong bực bội thì tốn điểm." }
+    },
+    {
+      "heading": { "en": "The record this week", "vi": "Bảng ghi tuần này" },
+      "body": { "en": "Keep the record by type as before, and add the **time of day and the set number**. If Saturday is worse by three or more, the fix is sleep and the reset, not more reading. If the three are within two marks, you are ready for the full-test week before Gate 5.", "vi": "Giữ bảng ghi theo dạng như trước, thêm **giờ trong ngày và số thứ tự bộ**. Nếu thứ Bảy kém hơn từ ba câu, cách sửa là ngủ và đặt lại, không phải đọc thêm. Nếu ba bộ lệch nhau trong hai câu, bạn đã sẵn sàng cho tuần đề đầy đủ trước Gate 5." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A week of three sets", "vi": "Một tuần ba bộ" },
+      "text": "Set  day   time    P1  P2  P3  total\n 1   Tue   19:00   12  10   7   29\n 2   Thu   19:00   12   8   8   28\n 3   Sat   09:00   11  10   8   29\n\nAll within two marks. Passage 2 on Thursday: a matching-information task, three wrong in a row; reset before P3 kept P3 at 8.\nGate 5 prediction: 28-29 (6.5).",
+      "note": { "en": "A stable week; the reset saved Passage 3 on the bad day.", "vi": "Một tuần ổn định; đặt lại đã cứu Bài 3 trong ngày xấu." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The ten-second reset", "vi": "Mười giây đặt lại" }, "items": ["pencil down", "look away", "breathe out", "say the next finishing time", "start"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which set of the week predicts Gate 5 best?", "vi": "Bộ nào trong tuần dự đoán Gate 5 đúng nhất?" },
+      "options": ["The third", "The first", "The best one"],
+      "answerIndex": 0,
+      "explanation": { "en": "The honest one, with a tired mind.", "vi": "Bộ thật thà, lúc đầu óc đã mệt." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Passage 2 went badly. Before Passage 3 you...", "vi": "Bài 2 tệ. Trước Bài 3 bạn..." },
+      "options": ["do the ten-second reset", "go back to Passage 2", "read Passage 3 faster to catch up"],
+      "answerIndex": 0,
+      "explanation": { "en": "A passage started angry costs marks.", "vi": "Bài bắt đầu trong bực bội thì tốn điểm." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Saturday's set is four marks worse than Tuesday's. The fix is...", "vi": "Bộ thứ Bảy kém thứ Ba bốn câu. Cách sửa là..." },
+      "options": ["sleep and the reset", "more reading practice", "a different time limit"],
+      "answerIndex": 0,
+      "explanation": { "en": "Attention, not reading, is what dropped.", "vi": "Thứ tụt là sự tập trung, không phải kỹ năng đọc." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the week.", "vi": "Sắp xếp tuần." },
+      "parts": ["Set 1 with the record", "Set 2 with the reset between passages", "Set 3 at a different time of day", "Compare the three and predict Gate 5"],
+      "explanation": { "en": "Three sets, one prediction.", "vi": "Ba bộ, một dự đoán." }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can read your record and your error book together and name the last type to fix before Gate 5.", "vi": "Bạn đọc bảng ghi cùng sổ lỗi và gọi tên dạng cuối cần sửa trước Gate 5." },
+    { "en": "You know how Gate 5 Reading is run and how to spend its 60 minutes.", "vi": "Bạn biết Gate 5 Đọc chạy thế nào và dùng 60 phút ra sao." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "From 27 to 30", "vi": "Từ 27 lên 30" },
+      "body": { "en": "Gate 5 needs 6.5, about **27**. This phase aimed at 30 so that 27 is safe on a bad day. Look at the record of the last four weeks: the type that is **still above two wrong per set** is the last one to work on. Say its rule before every practice this week. If every type is under two, there is nothing to fix; practise the full set and sleep.", "vi": "Gate 5 cần 6.5, khoảng **27**. Giai đoạn này nhắm 30 để 27 là an toàn vào ngày xấu. Nhìn bảng ghi bốn tuần qua: dạng **vẫn trên hai câu sai mỗi bộ** là dạng cuối cần luyện. Nói quy tắc của nó trước mỗi bài tuần này. Nếu mọi dạng đều dưới hai, không còn gì để sửa; luyện trọn bộ và ngủ đủ." }
+    },
+    {
+      "heading": { "en": "Gate 5 Reading", "vi": "Gate 5 Đọc" },
+      "body": { "en": "Three full-length passages at the level of the real test, 40 questions, **60 minutes with no transfer time**. Keep the 17-18-20 split and the five-minute check. The passages are drawn from a pool you have not seen; the question types are the ones you have practised. Nothing in Gate 5 is new except that it counts.", "vi": "Ba bài đọc đủ dài ở mức đề thật, 40 câu, **60 phút không có thời gian chuyển đáp án**. Giữ phân bổ 17-18-20 và kiểm tra năm phút. Bài lấy từ kho bạn chưa thấy; dạng câu là những dạng đã luyện. Không có gì mới ở Gate 5 ngoài việc nó được tính điểm." }
+    },
+    {
+      "heading": { "en": "The last three days", "vi": "Ba ngày cuối" },
+      "body": { "en": "Three days before: the last full set. Two days before: **one passage only**, the type you fixed last, at a relaxed pace. The day before: read the one-rule list for every type once, and the five-minute check list. No new passages. Reading tired on the day before costs more than it teaches.", "vi": "Ba ngày trước: bộ đầy đủ cuối. Hai ngày trước: **chỉ một bài**, dạng vừa sửa, nhịp thoải mái. Ngày trước: đọc danh sách một quy tắc cho mỗi dạng một lần, và danh sách kiểm tra năm phút. Không bài mới. Đọc khi mệt vào ngày trước gate mất nhiều hơn được." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "The record before Gate 5", "vi": "Bảng ghi trước Gate 5" },
+      "text": "Average wrong per set, last 4 weeks:\n  TFNG 1.0   YNNG 1.5   headings 1.2   info 1.0   summary 0.8   mcq 2.6   ends 0.5   short 0.4\n\nmcq still above 2 → the last type. Rule: \"suspect the option with the most text words; find the sentence first.\"\nSets this week: 30, 29, 31. Gate 5 target 27: safe.",
+      "note": { "en": "One type left, one rule, three stable sets: ready.", "vi": "Còn một dạng, một quy tắc, ba bộ ổn định: sẵn sàng." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "One rule per type (say before each task)", "vi": "Mỗi dạng một quy tắc (nói trước mỗi bài)" }, "items": ["TFNG / YNNG: False contradicts; Not Given is absent", "headings: the whole paragraph", "matching information: the detail, not the topic", "summary: copy exactly, mind plural and limit", "multiple choice: suspect the option with the text's words", "sentence endings: grammar fits and meaning matches"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which type do you work on in the last week?", "vi": "Tuần cuối luyện dạng nào?" },
+      "options": ["The one still above two wrong per set", "All of them", "The one you like least"],
+      "answerIndex": 0,
+      "explanation": { "en": "The last one to fix.", "vi": "Dạng cuối cần sửa." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Gate 5 Reading has...", "vi": "Gate 5 Đọc có..." },
+      "options": ["three full passages, 40 questions, 60 minutes, no transfer time", "two short passages", "extra time to transfer answers"],
+      "answerIndex": 0,
+      "explanation": { "en": "The real format.", "vi": "Đúng định dạng thật." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "The day before Gate 5 you...", "vi": "Ngày trước Gate 5 bạn..." },
+      "options": ["read the one-rule list and the check list, no new passages", "do a full set", "read Passage 3 texts to warm up"],
+      "answerIndex": 0,
+      "explanation": { "en": "Reading tired costs more than it teaches.", "vi": "Đọc khi mệt mất nhiều hơn được." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the last three days.", "vi": "Sắp xếp ba ngày cuối." },
+      "parts": ["The last full set", "One passage of the type you fixed last", "Read the rules and the check list", "Gate 5"],
+      "explanation": { "en": "Taper down to the gate.", "vi": "Giảm dần tới gate." }
+    }
+  ]
+}

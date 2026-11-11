@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can rewrite an essay from phase 2 or 3 with the words and structures you have learnt since.", "vi": "Bạn viết lại được một bài từ giai đoạn 2 hay 3 bằng từ và cấu trúc đã học từ đó." },
+    { "en": "You can see your own progress by comparing the two versions.", "vi": "Bạn thấy được tiến bộ của chính mình khi so hai bản." },
+    { "en": "You can upgrade vocabulary without making it unnatural.", "vi": "Bạn nâng cấp từ vựng mà không làm nó thiếu tự nhiên." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Same question, three months later", "vi": "Cùng đề, ba tháng sau" },
+      "body": { "en": "Take an essay you wrote in week 6 or 7 and **write it again from the question**, without reading the old one first. Then put the two side by side. This does two things: it shows you, in your own writing, what three months changed; and it tells you what did **not** change, which is the real list for the next three weeks.", "vi": "Lấy bài bạn viết ở tuần 6 hay 7 và **viết lại từ đề**, không đọc bài cũ trước. Rồi đặt hai bản cạnh nhau. Việc này làm hai điều: cho thấy, trong chính bài của bạn, ba tháng đã thay đổi gì; và cho biết điều **không** đổi, đó mới là danh sách thật cho ba tuần tới." }
+    },
+    {
+      "heading": { "en": "Upgrade in three places", "vi": "Nâng cấp ở ba chỗ" },
+      "body": { "en": "In the new version look for three upgrades. **Words**: replace *good, bad, big, important, people think* with the topic words of the phase (*beneficial, detrimental, substantial, crucial, it is widely believed*). **Structures**: one cleft sentence (*What matters most is...*), one inversion (*Not only... but also*), one reduced clause (*Students living abroad...*). **Cohesion**: replace *moreover* and *furthermore* used mechanically with reference (*this trend, such measures, these groups*).", "vi": "Ở bản mới tìm ba chỗ nâng cấp. **Từ**: thay *good, bad, big, important, people think* bằng từ chủ đề của giai đoạn (*beneficial, detrimental, substantial, crucial, it is widely believed*). **Cấu trúc**: một câu chẻ (*What matters most is...*), một đảo ngữ (*Not only... but also*), một mệnh đề rút gọn (*Students living abroad...*). **Liên kết**: thay *moreover* và *furthermore* dùng máy móc bằng từ tham chiếu (*this trend, such measures, these groups*)." }
+    },
+    {
+      "heading": { "en": "Natural, not decorated", "vi": "Tự nhiên, không trang trí" },
+      "body": { "en": "An upgraded word must still be the **right** word. *\"The government should utilise more money\"* is worse than *\"spend\"*; *\"a plethora of children\"* is wrong. Rule: use a less common word only when you have **seen it in a text in that exact use**. The phase word lists give you that; a thesaurus does not. One wrong rare word costs more LR than three plain ones.", "vi": "Từ nâng cấp vẫn phải là từ **đúng**. *\"The government should utilise more money\"* tệ hơn *\"spend\"*; *\"a plethora of children\"* là sai. Quy tắc: chỉ dùng từ ít phổ biến khi bạn **đã thấy nó trong một bài đúng cách dùng đó**. Danh sách từ của giai đoạn cho bạn điều đó; từ điển đồng nghĩa thì không. Một từ hiếm dùng sai mất nhiều LR hơn ba từ thường." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "One paragraph, week 6 and week 18", "vi": "Một đoạn, tuần 6 và tuần 18" },
+      "text": "Week 6:\n\"Studying abroad is good for students. They can learn a new language and meet people from other countries. Moreover, they become more independent because they live alone. This is very important for their future job.\"\n\nWeek 18:\n\"Studying abroad is beneficial for students in two main ways. First, living in another country forces them to use a second language daily, which builds fluency far faster than classroom study. Second, students living away from their families have to manage money, housing and time themselves; this independence is exactly what employers look for when they recruit graduates.\"\n\nUnchanged: still two ideas, still the same order. Changed: beneficial, forces, builds, recruit; a reduced clause; 'this independence' instead of 'moreover'.",
+      "note": { "en": "The ideas were fine in week 6; the language is what grew.", "vi": "Ý từ tuần 6 đã ổn; thứ lớn lên là ngôn ngữ." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Plain to precise", "vi": "Thường sang chính xác" }, "items": ["good → beneficial, effective", "bad → harmful, detrimental", "big → substantial, significant", "important → crucial, essential", "people think → it is widely believed, many argue"] },
+    { "use": { "en": "Structures to add once each", "vi": "Cấu trúc thêm mỗi loại một lần" }, "items": ["What matters most is...", "Not only ... but also ...", "Students living abroad... (reduced clause)", "Had this policy been introduced earlier, ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "How do you start the rewrite?", "vi": "Bắt đầu viết lại thế nào?" },
+      "options": ["From the question, without reading the old essay", "By correcting the old essay line by line", "By copying the old introduction"],
+      "answerIndex": 0,
+      "explanation": { "en": "Then compare the two.", "vi": "Rồi so hai bản." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "\"The government should utilise more money on schools.\" The upgrade is...", "vi": "\"The government should utilise more money on schools.\" Nâng cấp này..." },
+      "options": ["wrong: 'spend' was the right word", "good: utilise is more academic", "fine either way"],
+      "answerIndex": 0,
+      "explanation": { "en": "A rare word used wrongly costs more than a plain one.", "vi": "Từ hiếm dùng sai mất nhiều hơn từ thường." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "When may you use a less common word?", "vi": "Khi nào được dùng từ ít phổ biến?" },
+      "options": ["When you have seen it used that exact way in a text", "When a thesaurus lists it", "Whenever the plain word feels too simple"],
+      "answerIndex": 0,
+      "explanation": { "en": "Seen in use, not found in a list.", "vi": "Đã thấy trong bài, không phải tìm trong danh sách." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the rewrite.", "vi": "Sắp xếp việc viết lại." },
+      "parts": ["Write the essay again from the question", "Put the two versions side by side", "Mark what changed and what did not", "Upgrade words, structures and cohesion"],
+      "explanation": { "en": "Write, compare, mark, upgrade.", "vi": "Viết, so, đánh dấu, nâng cấp." }
+    }
+  ]
+}

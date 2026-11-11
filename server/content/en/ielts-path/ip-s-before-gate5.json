@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can self-score a mock with the four questions and get within 0.5 of the app on each criterion.", "vi": "Bạn tự chấm được một lần thi thử bằng bốn câu hỏi và lệch không quá 0.5 so với app ở mỗi tiêu chí." },
+    { "en": "You know what Gate 5 Speaking needs, 6.0, and which criterion is your line.", "vi": "Bạn biết Gate 5 Nói cần 6.0 và tiêu chí nào là ranh giới của bạn." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Self-score, then check the gap", "vi": "Tự chấm, rồi kiểm khoảng lệch" },
+      "body": { "en": "Record a full mock, score it with the four questions from phase 4, submit it, and compare. In phase 4 the gaps were often 1.0; now the target is **within 0.5 on every criterion**. If a gap is still 1.0, you are not yet hearing that criterion; listen to the recording once more for only that, with the app's comment in front of you. Being able to hear your own band is what lets you adjust **during** the test.", "vi": "Ghi âm một lần thi thử đầy đủ, chấm bằng bốn câu hỏi của giai đoạn 4, nộp, và so. Ở giai đoạn 4 khoảng lệch thường là 1.0; giờ mục tiêu là **không quá 0.5 ở mọi tiêu chí**. Nếu vẫn lệch 1.0, bạn chưa nghe ra tiêu chí đó; nghe lại bản ghi một lần chỉ cho tiêu chí ấy, với nhận xét của app trước mặt. Nghe được band của chính mình là thứ cho phép điều chỉnh **trong lúc** thi." }
+    },
+    {
+      "heading": { "en": "Gate 5 Speaking: 6.0", "vi": "Gate 5 Nói: 6.0" },
+      "body": { "en": "Gate 5 needs **6.0**: Parts 1 to 3, about fourteen minutes. Band 6 in the descriptors is \"willing to speak at length, though may lose coherence at times\", \"a wide enough vocabulary to discuss topics at length\", \"a mix of simple and complex structures\", \"generally understood throughout\". Find your line as in Writing: the lowest criterion over the last three graded mocks. For that one, use its tool: the four-sentence shape (FC), the five-word card (LR), the model sentences (GRA), final consonants and stress (P).", "vi": "Gate 5 cần **6.0**: Part 1 đến 3, khoảng mười bốn phút. Band 6 trong bảng mô tả là \"sẵn sàng nói dài, đôi khi mất mạch lạc\", \"vốn từ đủ rộng để bàn chủ đề dài\", \"trộn cấu trúc đơn và phức\", \"nhìn chung hiểu được suốt bài\". Tìm ranh giới như ở Viết: tiêu chí thấp nhất qua ba lần thi thử đã chấm gần nhất. Với nó, dùng đúng công cụ: khuôn bốn câu (FC), thẻ năm từ (LR), câu mẫu (GRA), phụ âm cuối và trọng âm (P)." }
+    },
+    {
+      "heading": { "en": "The last two days and the day itself", "vi": "Hai ngày cuối và ngày thi" },
+      "body": { "en": "Two days before: one Part 2 with the timer and three Part 3 questions, nothing more. The day before: read your cards, speak English aloud for ten minutes about anything, sleep. On the day: **warm up your voice** for five minutes before the gate (read a paragraph aloud), drink warm water, and in Part 1 answer the first question in two sentences to settle. The first thirty seconds set the rhythm for the rest.", "vi": "Hai ngày trước: một Part 2 với đồng hồ và ba câu Part 3, không hơn. Ngày trước: đọc thẻ, nói tiếng Anh to mười phút về bất cứ gì, ngủ. Ngày thi: **khởi động giọng** năm phút trước gate (đọc to một đoạn), uống nước ấm, và ở Part 1 trả lời câu đầu bằng hai câu để ổn định. Ba mươi giây đầu đặt nhịp cho phần còn lại." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Self-score within 0.5", "vi": "Tự chấm lệch không quá 0.5" },
+      "text": "                 self   app   gap\nFluency          6.0    6.0    0\nLexical          6.0    5.5   +0.5\nGrammar          5.5    5.5    0\nPronunciation    6.0    6.0    0\nBand             6.0    6.0\n\nThe line: Grammar and Lexical (5.5). Last three mocks: GRA 5.5, 5.5, 6.0 → the line is GRA.\nTool: model sentences; in Part 2, past simple for the story, present perfect for \"since then\".\nPrediction for Gate 5: 6.0, with GRA the one to watch.",
+      "note": { "en": "When you can hear your own band, the prediction is usually right.", "vi": "Khi nghe được band của mình, dự đoán thường đúng." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Settling in Part 1 (two sentences)", "vi": "Ổn định ở Part 1 (hai câu)" }, "items": ["I live in ..., which is ... . I've been there for about ... years.", "I work as a ..., and most days that means ... .", "Yes, I do, mainly because ... ."] },
+    { "use": { "en": "The tool for each criterion", "vi": "Công cụ cho mỗi tiêu chí" }, "items": ["FC: answer, reason, example, wider point", "LR: the five-word card", "GRA: the model sentences", "P: final consonants and stress"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the target gap between your self-score and the app's?", "vi": "Mục tiêu khoảng lệch giữa tự chấm và app là bao nhiêu?" },
+      "options": ["Within 0.5 on every criterion", "Zero", "Within 1.5"],
+      "answerIndex": 0,
+      "explanation": { "en": "Hearing your own band lets you adjust during the test.", "vi": "Nghe được band của mình cho phép điều chỉnh trong lúc thi." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Band 6 Fluency is described as...", "vi": "Fluency band 6 được mô tả là..." },
+      "options": ["willing to speak at length, though may lose coherence at times", "speaks fluently with only rare repetition", "cannot respond without long pauses"],
+      "answerIndex": 0,
+      "explanation": { "en": "At length, sometimes losing the thread.", "vi": "Nói dài, đôi khi mất mạch." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "On the day of Gate 5 you...", "vi": "Ngày thi Gate 5 bạn..." },
+      "options": ["warm up your voice, drink warm water, settle with two sentences in Part 1", "practise Part 2 ten times", "stay silent to save your voice"],
+      "answerIndex": 0,
+      "explanation": { "en": "The first thirty seconds set the rhythm.", "vi": "Ba mươi giây đầu đặt nhịp." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the preparation.", "vi": "Sắp xếp việc chuẩn bị." },
+      "parts": ["Record and self-score a mock", "Submit and compare, listen again for any gap of 1.0", "Find the line and use its tool", "Warm up and settle on the day"],
+      "explanation": { "en": "Score, compare, target, settle.", "vi": "Chấm, so, nhắm, ổn định." }
+    }
+  ]
+}

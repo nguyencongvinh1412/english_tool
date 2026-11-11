@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can dictate a Section 3 discussion, catching the agreement, disagreement and changes of mind.", "vi": "Bạn chép được một đoạn Section 3, bắt được chỗ đồng ý, không đồng ý và đổi ý." },
+    { "en": "You can dictate a Section 4 lecture, catching the signposts and the academic nouns.", "vi": "Bạn chép được một đoạn Section 4, bắt được từ dẫn đường và danh từ học thuật." },
+    { "en": "You can tell from your dictation which of the two sections costs you more.", "vi": "Bạn thấy được từ bài chép section nào làm bạn mất nhiều điểm hơn." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Section 3: dictate the turns", "vi": "Section 3: chép từng lượt lời" },
+      "body": { "en": "Section 3 marks are lost on **who said what**. Dictate two minutes of a Section 3 you have done, but mark the speaker on each line (*A:*, *B:*). Then underline every phrase that **changes the direction**: *\"Actually, I'm not sure about that\"*, *\"Fair enough, but\"*, *\"So we're agreed, then?\"*, *\"I'd rather we...\"*. The answers to the multiple-choice questions live in those phrases, not in the content around them.", "vi": "Điểm Section 3 mất ở chỗ **ai nói gì**. Chép hai phút của một Section 3 đã làm, nhưng ghi người nói ở đầu mỗi dòng (*A:*, *B:*). Rồi gạch chân mọi cụm **đổi hướng**: *\"Actually, I'm not sure about that\"*, *\"Fair enough, but\"*, *\"So we're agreed, then?\"*, *\"I'd rather we...\"*. Đáp án trắc nghiệm nằm trong những cụm đó, không phải trong nội dung quanh chúng." }
+    },
+    {
+      "heading": { "en": "Section 4: dictate the structure", "vi": "Section 4: chép cấu trúc" },
+      "body": { "en": "Dictate two minutes of a Section 4 and then **mark three things**: the signposts (*first, another, finally*), the academic nouns (*distribution, mechanism, consumption*), and the numbers. Those are the three things the notes ask for. Compare with the transcript: at this stage most differences are **weak forms inside long sentences** (*\"the rate at which\"*, *\"as a result of\"*), the connective tissue of academic speech.", "vi": "Chép hai phút của một Section 4 rồi **đánh dấu ba thứ**: từ dẫn đường (*first, another, finally*), danh từ học thuật (*distribution, mechanism, consumption*), và con số. Ba thứ đó là những gì phần ghi chú hỏi. So với bản ghi: ở giai đoạn này phần lớn chỗ khác là **dạng yếu trong câu dài** (*\"the rate at which\"*, *\"as a result of\"*), mô liên kết của lời nói học thuật." }
+    },
+    {
+      "heading": { "en": "Which section costs more?", "vi": "Section nào mất nhiều hơn?" },
+      "body": { "en": "After both dictations count the differences. If Section 3 has more, your gap is **tracking two speakers**: do the extra Section 3 practice this week with the speaker marks. If Section 4 has more, your gap is **long academic sentences**: do the extra Section 4 and read the transcript aloud once. The error book shows the same thing by category; the dictation shows it by sound.", "vi": "Sau hai bài chép, đếm chỗ khác. Nếu Section 3 nhiều hơn, điểm yếu là **theo dõi hai người nói**: làm thêm Section 3 tuần này với dấu người nói. Nếu Section 4 nhiều hơn, điểm yếu là **câu học thuật dài**: làm thêm Section 4 và đọc to bản ghi một lần. Sổ lỗi cho thấy cùng điều đó theo loại; bài chép cho thấy theo âm thanh." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A Section 3 dictation with the turns marked", "vi": "Bài chép Section 3 có đánh dấu lượt lời" },
+      "text": "A: So for the survey we'll ask about fifty students?\nB: I thought a hundred. Fifty's not really enough for the statistics.\nA: Fair enough, but we've only got two weeks.\nB: True. Okay, let's say seventy, and we do it online rather than in person.\nA: Online. Yes, that'd save time. [AGREED: 70, online]\nB: Though Dr Lee did say face-to-face answers are more reliable...\nA: She did. Let's do the first twenty in person, then. [CHANGED: 20 in person]\n\nQ: How many students will they survey?  → 70 (not 50, not 100)\nQ: What did the tutor advise?            → face-to-face is more reliable",
+      "note": { "en": "The answers sit in the turns that agree or change; the numbers alone would mislead.", "vi": "Đáp án nằm ở những lượt đồng ý hay đổi ý; chỉ nghe số sẽ bị đánh lừa." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Turns that change the direction (Section 3)", "vi": "Lượt lời đổi hướng (Section 3)" }, "items": ["Actually, I'm not sure about that.", "Fair enough, but...", "So we're agreed, then?", "I'd rather we...", "On second thoughts, ...", "Though ... did say..."] },
+    { "use": { "en": "Connective tissue of a lecture (Section 4)", "vi": "Mô liên kết của bài giảng (Section 4)" }, "items": ["the rate at which...", "as a result of...", "in terms of...", "with regard to...", "which in turn..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you mark on a Section 3 dictation?", "vi": "Đánh dấu gì trên bài chép Section 3?" },
+      "options": ["The speaker of each line and the phrases that change direction", "Every noun", "The numbers only"],
+      "answerIndex": 0,
+      "explanation": { "en": "Who said what, and where the direction changes.", "vi": "Ai nói gì, và chỗ đổi hướng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "\"Fair enough, but we've only got two weeks.\" The speaker is...", "vi": "\"Fair enough, but we've only got two weeks.\" Người nói đang..." },
+      "options": ["accepting a point and then objecting", "agreeing fully", "asking a question"],
+      "answerIndex": 0,
+      "explanation": { "en": "A concession followed by an objection.", "vi": "Nhượng bộ rồi phản đối." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Your Section 4 dictation has twice as many differences as Section 3. This week you...", "vi": "Bài chép Section 4 có số chỗ khác gấp đôi Section 3. Tuần này bạn..." },
+      "options": ["do the extra Section 4 and read its transcript aloud", "do the extra Section 3", "stop dictating"],
+      "answerIndex": 0,
+      "explanation": { "en": "Long academic sentences are the gap.", "vi": "Câu học thuật dài là điểm yếu." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the Section 4 dictation.", "vi": "Sắp xếp bài chép Section 4." },
+      "parts": ["Dictate two minutes", "Mark signposts, academic nouns and numbers", "Compare with the transcript", "Count the differences and decide the extra practice"],
+      "explanation": { "en": "Dictate, mark, compare, decide.", "vi": "Chép, đánh dấu, so, quyết định." }
+    }
+  ]
+}

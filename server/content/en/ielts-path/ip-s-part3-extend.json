@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can answer a Part 3 question in four to six sentences without being asked 'why?'.", "vi": "Bạn trả lời được câu Part 3 trong bốn đến sáu câu mà không bị hỏi 'why?'." },
+    { "en": "You can build the answer as: direct answer, reason, example, and a wider point.", "vi": "Bạn xây câu trả lời theo: trả lời thẳng, lý do, ví dụ, và một ý rộng hơn." },
+    { "en": "You know when to stop so the examiner can ask the next question.", "vi": "Bạn biết dừng đúng lúc để giám khảo hỏi câu kế." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Four to six sentences", "vi": "Bốn đến sáu câu" },
+      "body": { "en": "In Part 3 a one-sentence answer makes the examiner ask *\"why?\"*, and every *why* is a signal that you did not develop. Band 6 Fluency wants you to \"speak at length\"; band 7 wants it \"without noticeable effort\". The reliable shape is **answer, reason, example, wider point**: four sentences, six if the example needs two. Stop after the wider point; the examiner has eight questions to get through.", "vi": "Ở Part 3, câu trả lời một câu khiến giám khảo hỏi *\"why?\"*, và mỗi *why* là dấu hiệu bạn chưa phát triển. Fluency band 6 muốn bạn \"nói dài\"; band 7 muốn \"không thấy cố gắng\". Khuôn tin cậy là **trả lời, lý do, ví dụ, ý rộng hơn**: bốn câu, sáu nếu ví dụ cần hai câu. Dừng sau ý rộng; giám khảo còn tám câu phải hỏi." }
+    },
+    {
+      "heading": { "en": "The wider point", "vi": "Ý rộng hơn" },
+      "body": { "en": "The fourth sentence is what separates 6 from 7. After the example, **step back**: a comparison with the past (*\"That wasn't the case twenty years ago\"*), a consequence (*\"Which is why so many cities are...\"*), or a limit (*\"Although it depends a lot on income\"*). It shows you can move from the particular to the general, which is what Part 3 is testing.", "vi": "Câu thứ tư là thứ phân biệt 6 với 7. Sau ví dụ, **lùi lại một bước**: so với quá khứ (*\"That wasn't the case twenty years ago\"*), hệ quả (*\"Which is why so many cities are...\"*), hay giới hạn (*\"Although it depends a lot on income\"*). Nó cho thấy bạn đi được từ cái riêng sang cái chung, đúng điều Part 3 kiểm tra." }
+    },
+    {
+      "heading": { "en": "Practise with a count", "vi": "Luyện có đếm" },
+      "body": { "en": "This week, for every Part 3 question, **count your sentences on your fingers** as you speak. Under four: add the example or the wider point. Over six: you are drifting; the examiner will interrupt. Record a few and check the count; in two weeks the shape is automatic and the fingers can stop.", "vi": "Tuần này, với mỗi câu Part 3, **đếm số câu trên ngón tay** khi nói. Dưới bốn: thêm ví dụ hay ý rộng. Trên sáu: bạn đang lan man; giám khảo sẽ ngắt. Ghi âm vài câu và kiểm số câu; hai tuần sau khuôn thành phản xạ và không cần đếm nữa." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "One question, four sentences", "vi": "Một câu hỏi, bốn câu trả lời" },
+      "text": "Examiner: Why do some small businesses succeed where others fail?\n\n[answer]  I think the ones that succeed usually know their customers much better than the ones that fail.\n[reason]  A small shop can't compete on price with a supermarket, so its advantage has to be that it knows what the people in that street actually want.\n[example] There's a bakery near me that started selling smaller loaves when they noticed lots of people living alone were buying them, and it's always full now.\n[wider]   That kind of attention is something big chains find hard to copy, which is probably why local businesses survive even in cities full of supermarkets.",
+      "note": { "en": "Four sentences, about forty seconds, and the examiner has nothing to ask but the next question.", "vi": "Bốn câu, khoảng bốn mươi giây, và giám khảo chỉ còn hỏi câu kế." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The direct answer", "vi": "Trả lời thẳng" }, "items": ["I think the main reason is...", "Mostly it comes down to...", "In most cases, ..."] },
+    { "use": { "en": "The wider point", "vi": "Ý rộng hơn" }, "items": ["That wasn't the case twenty years ago.", "Which is why so many ... now ...", "Although it depends a lot on...", "And I think that's true in most countries, not just mine."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "The examiner keeps asking 'why?'. This means...", "vi": "Giám khảo cứ hỏi 'why?'. Nghĩa là..." },
+      "options": ["your answers are not developed enough", "the examiner is interested", "you are speaking too long"],
+      "answerIndex": 0,
+      "explanation": { "en": "Every 'why' is a missing reason.", "vi": "Mỗi 'why' là một lý do còn thiếu." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the fourth sentence of a Part 3 answer?", "vi": "Câu thứ tư của câu trả lời Part 3 là gì?" },
+      "options": ["A wider point: a comparison, a consequence or a limit", "A repeat of the answer", "A question back to the examiner"],
+      "answerIndex": 0,
+      "explanation": { "en": "From the particular to the general.", "vi": "Từ cái riêng sang cái chung." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Your answer has reached seven sentences. You...", "vi": "Câu trả lời đã tới bảy câu. Bạn..." },
+      "options": ["stop; you are drifting", "keep going", "start again"],
+      "answerIndex": 0,
+      "explanation": { "en": "Four to six, then stop.", "vi": "Bốn đến sáu, rồi dừng." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order a Part 3 answer.", "vi": "Sắp xếp câu trả lời Part 3." },
+      "parts": ["Direct answer", "Reason", "Example", "Wider point"],
+      "explanation": { "en": "Answer, reason, example, wider.", "vi": "Trả lời, lý do, ví dụ, rộng hơn." }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can use the seconds before each section to predict the kind of answer for every question.", "vi": "Bạn dùng được vài giây trước mỗi section để đoán loại đáp án cho từng câu." },
+    { "en": "You can do two full tests a week at test speed and keep the analysis short.", "vi": "Bạn làm được hai đề đầy đủ mỗi tuần ở tốc độ thi và giữ phần phân tích ngắn." },
+    { "en": "You know the two marks that separate 6.0 from 6.5.", "vi": "Bạn biết hai điểm phân biệt 6.0 và 6.5." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The pause before the section is the test", "vi": "Khoảng dừng trước section chính là bài thi" },
+      "body": { "en": "Before each section the recording gives you time to look at the questions. Use all of it, in this order: **the kind of answer** (a number, a name, a noun, a place), **the words around the gap** (singular or plural, *the* or *a*), and **one keyword** per question to listen for. Do not read the whole page; read the ten questions you are about to hear. At 6.5 almost every answer is predicted before it is heard.", "vi": "Trước mỗi section, băng cho bạn thời gian nhìn câu hỏi. Dùng hết, theo thứ tự: **loại đáp án** (số, tên, danh từ, địa điểm), **từ quanh chỗ trống** (số ít hay nhiều, *the* hay *a*), và **một từ khoá** mỗi câu để lắng nghe. Đừng đọc cả trang; đọc mười câu sắp nghe. Ở 6.5, gần như mọi đáp án được đoán trước khi nghe thấy." }
+    },
+    {
+      "heading": { "en": "Two tests a week, analysis in fifteen minutes", "vi": "Hai đề mỗi tuần, phân tích trong mười lăm phút" },
+      "body": { "en": "You already analyse every wrong answer. From now the analysis is **capped at fifteen minutes**: list the mistakes, sort them by kind, write the one rule. The time saved goes to the second test. At this stage volume at test speed matters as much as depth, because the skill being built is **keeping your place for 30 minutes**, not understanding a single section.", "vi": "Bạn đã phân tích từng câu sai. Từ giờ phần phân tích **gói trong mười lăm phút**: liệt kê lỗi, phân loại, viết một quy tắc. Thời gian tiết kiệm dành cho đề thứ hai. Ở giai đoạn này, số lượng ở tốc độ thi quan trọng ngang độ sâu, vì kỹ năng đang luyện là **giữ vị trí suốt 30 phút**, không phải hiểu một section." }
+    },
+    {
+      "heading": { "en": "From 6.0 to 6.5: two marks", "vi": "Từ 6.0 lên 6.5: hai điểm" },
+      "body": { "en": "6.0 is about 23 correct, 6.5 about 26. Three marks. In most learners' tests they are: **one multiple-choice in Section 3** where the right option paraphrased the speaker, **one gap in Section 4** lost by spelling or plural, and **one matching in Section 2** where two options sounded similar. Prediction fixes the first and third; the spelling list fixes the second.", "vi": "6.0 là khoảng 23 câu, 6.5 khoảng 26. Ba điểm. Trong đề của phần lớn người học, chúng là: **một trắc nghiệm ở Section 3** mà phương án đúng diễn đạt lại lời người nói, **một chỗ trống ở Section 4** mất vì chính tả hay số nhiều, và **một câu nối ở Section 2** mà hai phương án nghe giống nhau. Đoán trước sửa câu đầu và câu ba; danh sách chính tả sửa câu hai." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Predictions written in the pause", "vi": "Dự đoán viết trong khoảng dừng" },
+      "text": "Section 1, questions 1-5 (pause: 30 seconds)\n1 Name: ______           → surname, spelled; listen for \"that's ...\"\n2 Date of arrival: ______ → a date; watch for a change\n3 Room type: ______       → noun (single / double / twin)\n4 Price per night: £____  → number; listen for \"per night\" vs \"per week\"\n5 Breakfast included: ____ → yes/no or a time\n\nAfter the pause, eyes on question 1, pencil ready.",
+      "note": { "en": "Five predictions in thirty seconds: each answer is expected before it is said.", "vi": "Năm dự đoán trong ba mươi giây: mỗi đáp án được chờ sẵn trước khi nói ra." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Kinds of answer to predict", "vi": "Loại đáp án để đoán" }, "items": ["a number / a price / a date / a time", "a name (spelled)", "a noun: singular or plural?", "a place or a direction", "an adjective (a feeling, an opinion)"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you do in the pause before a section?", "vi": "Làm gì trong khoảng dừng trước một section?" },
+      "options": ["Predict the kind of answer and a keyword for each question", "Read the whole page", "Rest"],
+      "answerIndex": 0,
+      "explanation": { "en": "Every answer expected before it is heard.", "vi": "Mỗi đáp án được chờ sẵn trước khi nghe." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "How long is the analysis of a test now?", "vi": "Phân tích một đề giờ mất bao lâu?" },
+      "options": ["Fifteen minutes at most", "As long as it takes", "Five minutes"],
+      "answerIndex": 0,
+      "explanation": { "en": "The time saved goes to the second test.", "vi": "Thời gian tiết kiệm dành cho đề thứ hai." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Band 6.5 in Listening is about how many correct?", "vi": "Band 6.5 Nghe là khoảng bao nhiêu câu đúng?" },
+      "options": ["26", "23", "30"],
+      "answerIndex": 0,
+      "explanation": { "en": "About 26 of 40.", "vi": "Khoảng 26 trên 40." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the prediction.", "vi": "Sắp xếp việc dự đoán." },
+      "parts": ["Kind of answer", "Words around the gap", "One keyword to listen for", "Eyes on question 1"],
+      "explanation": { "en": "Kind, context, keyword, ready.", "vi": "Loại, ngữ cảnh, từ khoá, sẵn sàng." }
+    }
+  ]
+}

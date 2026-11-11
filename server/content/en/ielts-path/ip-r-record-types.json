@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can keep a record of wrong answers by question type after every set of three.", "vi": "Bạn ghi được số câu sai theo dạng sau mỗi bộ ba bài." },
+    { "en": "You can read the record after two sets and choose one type to work on.", "vi": "Bạn đọc được bảng ghi sau hai bộ và chọn một dạng để luyện." },
+    { "en": "You know what 6.5 in Reading needs and where the three extra marks come from.", "vi": "Bạn biết 6.5 Đọc cần gì và ba điểm thêm đến từ đâu." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "A table, not a feeling", "vi": "Một bảng, không phải cảm giác" },
+      "body": { "en": "After each set write a line with **the number wrong for each question type**: TFNG, YNNG, headings, matching information, summary, multiple choice, sentence endings, short answer. The app's error book keeps the percentages; your own line keeps the **trend**. Learners who keep this table stop saying *\"I'm bad at reading\"* and start saying *\"I lose three marks a set on headings\"*, which can be fixed.", "vi": "Sau mỗi bộ, viết một dòng với **số câu sai theo từng dạng**: TFNG, YNNG, tiêu đề, nối thông tin, tóm tắt, trắc nghiệm, nối đuôi câu, trả lời ngắn. Sổ lỗi của app giữ tỉ lệ; dòng của bạn giữ **xu hướng**. Người học giữ bảng này thôi nói *\"mình đọc kém\"* và bắt đầu nói *\"mình mất ba điểm mỗi bộ ở nối tiêu đề\"*, điều đó sửa được." }
+    },
+    {
+      "heading": { "en": "After two sets, choose one type", "vi": "Sau hai bộ, chọn một dạng" },
+      "body": { "en": "Two sets give you two lines. The type with the most wrong answers across both is **the one type you practise this week** on the days without a full set, using its rule from phase 4. Not two types, one. When it drops under two wrong per set, move to the next. This is slower than it sounds: one type a week fixed properly is four types by Gate 5.", "vi": "Hai bộ cho hai dòng. Dạng sai nhiều nhất qua cả hai là **dạng duy nhất bạn luyện tuần này** vào ngày không làm trọn bộ, với quy tắc của nó từ giai đoạn 4. Không phải hai dạng, một. Khi nó xuống dưới hai câu sai mỗi bộ, chuyển dạng tiếp. Chậm hơn nghe tưởng: mỗi tuần sửa hẳn một dạng là bốn dạng trước Gate 5." }
+    },
+    {
+      "heading": { "en": "6.5 is 27: three marks above 6.0", "vi": "6.5 là 27: hơn 6.0 ba điểm" },
+      "body": { "en": "Academic Reading 6.5 is about **27 of 40**. If you are at 23 or 24 now, the three or four marks are not in Passage 3; they are **the type you lose most on in Passages 1 and 2**. The table tells you which. Passage 3 marks come later, with speed, in week 18.", "vi": "Đọc học thuật 6.5 là khoảng **27/40**. Nếu bạn đang 23 hay 24, ba bốn điểm thêm không nằm ở Bài 3; chúng là **dạng bạn mất nhiều nhất ở Bài 1 và 2**. Bảng cho biết dạng nào. Điểm Bài 3 đến sau, cùng tốc độ, ở tuần 18." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Two lines of the record", "vi": "Hai dòng của bảng ghi" },
+      "text": "Set   TFNG  YNNG  head  info  summ  mcq  ends  short  total wrong\n 1      2     1     4     1     2     3    0     1        14  (26/40)\n 2      1     2     3     2     1     4    1     0        14  (26/40)\n\nheadings: 7 wrong over two sets → the type for this week\nmcq: 7 as well, but mostly in Passage 3 → later, with speed\n\nRule to say before each headings task: \"the heading covers the whole paragraph\"",
+      "note": { "en": "Two types tie; the one in Passages 1 and 2 goes first because its marks are cheaper.", "vi": "Hai dạng ngang nhau; dạng ở Bài 1 và 2 làm trước vì điểm của nó rẻ hơn." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Columns of the record", "vi": "Các cột của bảng" }, "items": ["TFNG", "YNNG", "headings", "matching information", "summary / table / notes", "multiple choice", "sentence endings", "short answer"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you write after every set?", "vi": "Ghi gì sau mỗi bộ?" },
+      "options": ["The number wrong for each question type", "The band only", "How you felt"],
+      "answerIndex": 0,
+      "explanation": { "en": "A table shows the trend.", "vi": "Bảng cho thấy xu hướng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "How many types do you practise in a week?", "vi": "Mỗi tuần luyện bao nhiêu dạng?" },
+      "options": ["One", "All of them", "Three"],
+      "answerIndex": 0,
+      "explanation": { "en": "One a week, fixed properly.", "vi": "Mỗi tuần một dạng, sửa hẳn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You score 24. Where are the three marks to 27?", "vi": "Bạn được 24. Ba điểm lên 27 ở đâu?" },
+      "options": ["The type you lose most on in Passages 1 and 2", "Passage 3", "Reading faster"],
+      "answerIndex": 0,
+      "explanation": { "en": "The cheap marks first.", "vi": "Điểm rẻ trước." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the method.", "vi": "Sắp xếp phương pháp." },
+      "parts": ["Write a line after each set", "After two sets, find the worst type", "Practise only that type on the other days", "When it drops under two wrong, take the next type"],
+      "explanation": { "en": "Record, choose, practise, move on.", "vi": "Ghi, chọn, luyện, chuyển." }
+    }
+  ]
+}
