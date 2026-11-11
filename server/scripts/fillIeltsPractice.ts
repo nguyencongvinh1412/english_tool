@@ -1,52 +1,87 @@
 /**
- * Fills the pools of generated IELTS path exercises (listening and reading) so learners do not wait for one:
- *   npm run ielts:fill                 # 4 more of each type
- *   npm run ielts:fill -- 8            # 8 more of each type
- *   npm run ielts:fill -- 6 l-conv r-tfng
- *   npm run ielts:fill -- --gates      # the exercises the gate retakes and Gates 5-6 need (takes a long time)
- *   npm run ielts:fill -- --phase2     # the exercises of phase 2 (weeks 5-8)
- *   npm run ielts:fill -- --phase3     # the exercises of phase 3 (weeks 9-12)
- *   npm run ielts:fill -- --phase4     # the exercises of phase 4 (weeks 13-16)
+ * Fills the pools of generated IELTS path exercises so learners do not wait for the AI.
+ *
+ *   npm run ielts:fill-phase -- 1              # what the steps of phase 1 draw, at the level of the phase, minus what the pool already has
+ *   npm run ielts:fill-phase -- 4 --replace    # the same, after retiring the current groups of that level (they leave the pool, nothing is deleted)
+ *   npm run ielts:fill-gates                   # what the retakes (version B) of Gates 1-4 and both versions of Gates 5-6 need
+ *   npm run ielts:fill -- 4 l-conv r-short     # 4 more of the named types at B1; add A2 or B2 to choose the level
+ *
  * Runs as the first admin account (its AI access); every exercise is solved by a second request and dropped when the
  * answers do not agree. Exercises stay in the shared pool, archived, so they never appear in the practice library.
+ * Running a phase fill twice is safe: once the pool holds what the phase needs, nothing more is generated.
  */
 import '../config.js';
-import { asc, eq } from 'drizzle-orm';
+import { and, asc, eq, inArray } from 'drizzle-orm';
 import { closeDb, db } from '../db/client.js';
-import { users } from '../db/schema.js';
-import { fillPool, FULL_TYPES, GENERATED_TYPES, poolSizes, type PoolType } from '../ieltsPath/practice.js';
+import { contentItems, users } from '../db/schema.js';
+import { fillPool, FULL_TYPES, GENERATED_TYPES, levelFor, phaseLevel, POOL_LEVELS, poolNeeds, poolSizes, type PoolLevel, type PoolType } from '../ieltsPath/practice.js';
+import { WRITTEN_PHASES } from '../ieltsPath/syllabus.js';
 
 const ALL_TYPES = [...GENERATED_TYPES, ...FULL_TYPES] as readonly string[];
+/** Extra groups beyond what the steps draw, for the ones the answer check drops later and for learn-ahead */
+const SPARE = 2;
+
+type Job = [PoolType, PoolLevel, number];
+
+/** What the retakes of Gates 1-4 and the full tests of Gates 5-6 need */
+const gateJobs = (): Job[] => [
+  ['l-form', levelFor('l-form', 1), 3], ['r-tfng', levelFor('r-tfng', 1), 3],
+  ['l-mono', levelFor('l-mono', 2), 3], ['r-scan', levelFor('r-scan', 2), 3],
+  ['l-sec3', levelFor('l-sec3', 3), 3], ['r-passage', levelFor('r-passage', 3), 3],
+  ['l-sec4', levelFor('l-sec4', 4), 3], ['r-passage', levelFor('r-passage', 4), 3],
+  ['g-l1', 'B2', 4], ['g-l2', 'B2', 4], ['g-l3', 'B2', 4], ['g-l4', 'B2', 4], ['g-r', 'B2', 12],
+];
+
+/** What the steps of a phase need at its level, minus what the pool holds */
+function phaseJobs(phase: number, sizes: Record<string, number>): Job[] {
+  const level = phaseLevel(phase);
+  return Object.entries(poolNeeds(phase))
+    .map(([type, count]): Job => [type as PoolType, level, Math.max(0, count + SPARE - (sizes[`${type}@${level}`] ?? 0))])
+    .filter(([, , n]) => n > 0);
+}
+
+/** Retires the current groups of the types a phase uses at its level: they leave the pool but stay in the database */
+async function retire(phase: number): Promise<number> {
+  const level = phaseLevel(phase);
+  const parts = Object.keys(poolNeeds(phase)).map((type) => `path:${type}`);
+  if (parts.length === 0) return 0;
+  const rows = await db.update(contentItems).set({ status: 'draft' }).where(and(inArray(contentItems.part, parts), eq(contentItems.level, level), eq(contentItems.status, 'archived'))).returning({ id: contentItems.id });
+  return rows.length;
+}
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const count = Number(args.find((a) => /^\d+$/.test(a)) ?? 4);
-  const named = args.filter((a): a is PoolType => ALL_TYPES.includes(a));
-  const types = named.length > 0 ? named : [...GENERATED_TYPES];
-  const gates = args.includes('--gates');
-  const phase2 = args.includes('--phase2');
-  const phase3 = args.includes('--phase3');
-  const phase4 = args.includes('--phase4');
   const [admin] = await db.select().from(users).where(eq(users.role, 'admin')).orderBy(asc(users.createdAt)).limit(1);
   if (!admin) throw new Error('No admin account to generate with.');
 
-  console.log('Pool sizes before:', await poolSizes());
-  // --gates: what the retakes (version B) of Gates 1-4 and both versions of Gates 5-6 need
-  const plan: [PoolType, number][] = phase4
-    ? [['l-form', 12], ['l-mono', 12], ['l-sec3', 16], ['l-sec4', 20], ['r-passage', 35], ['r-summary', 4], ['r-ynng', 2], ['r-matchinfo', 2]]
-    : phase3
-    ? [['l-sec4', 14], ['l-sec3', 14], ['l-mono', 10], ['l-form', 10], ['r-ynng', 10], ['r-matchinfo', 8], ['r-summary', 10], ['r-scan', 4], ['r-passage', 30]]
-    : phase2
-    ? [['l-form', 6], ['l-mono', 6], ['l-sec3', 10], ['l-sec4', 6], ['r-tfng', 6], ['r-scan', 6], ['r-short', 4], ['r-passage', 16]]
-    : gates
-    ? [['l-form', 3], ['r-tfng', 3], ['l-mono', 3], ['r-scan', 3], ['l-sec3', 3], ['l-sec4', 3], ['r-passage', 6], ['g-l1', 4], ['g-l2', 4], ['g-l3', 4], ['g-l4', 4], ['g-r', 12]]
-    : types.map((type) => [type, count]);
-  for (const [type, n] of plan) {
-    const { created, failed } = await fillPool(admin, type, n);
-    console.log(`${type}: +${created}${failed ? `, ${failed} failed` : ''}`);
+  const phaseAt = args.indexOf('--phase');
+  const phase = phaseAt >= 0 ? Number(args[phaseAt + 1]) : null;
+  if (phase !== null && !WRITTEN_PHASES.includes(phase)) throw new Error(`Phase ${args[phaseAt + 1]} has no written syllabus (phases ${WRITTEN_PHASES.join(', ')}).`);
+  if (phase !== null && args.includes('--replace')) console.log(`Retired ${await retire(phase)} groups of phase ${phase} (${phaseLevel(phase)}).`);
+
+  const sizes = await poolSizes();
+  console.log('Pool sizes before:', sizes);
+  let jobs: Job[];
+  if (phase !== null) {
+    jobs = phaseJobs(phase, sizes);
+    console.log(`Phase ${phase} at ${phaseLevel(phase)} needs:`, Object.fromEntries(jobs.map(([type, , n]) => [type, n])));
+  } else if (args.includes('--gates')) {
+    jobs = gateJobs();
+  } else {
+    const count = Number(args.find((a) => /^\d+$/.test(a)) ?? 4);
+    const level = (args.find((a): a is PoolLevel => (POOL_LEVELS as readonly string[]).includes(a)) ?? 'B1') as PoolLevel;
+    const named = args.filter((a): a is PoolType => ALL_TYPES.includes(a));
+    jobs = (named.length > 0 ? named : [...GENERATED_TYPES]).map((type): Job => [type, level, count]);
+  }
+  for (const [type, level, n] of jobs) {
+    const { created, failed } = await fillPool(admin, type, level, n);
+    console.log(`${type} ${level}: +${created}${failed ? `, ${failed} failed` : ''}`);
   }
   console.log('Pool sizes after:', await poolSizes());
   await closeDb();
 }
 
-void main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

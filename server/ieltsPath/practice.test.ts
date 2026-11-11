@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { isCorrect } from '../exams/ielts.js';
 import { matchQuestion, writingDiagram, writingPrompt } from '../content/schemas.js';
 import { GATE_GROUPS } from './gateContent.js';
-import { pathListening, pathReading } from './practice.js';
+import { levelFor, pathListening, pathReading, phaseLevel, poolNeeds, RECIPES, rulesFor } from './practice.js';
 import { STATIC_GROUPS, parseStaticGroup } from './practiceContent.js';
 import { PRACTICE_TYPES, phaseSteps, WRITTEN_PHASES } from './syllabus.js';
 
@@ -21,6 +21,26 @@ describe('practice content', () => {
     for (const type of ['w-para', 'w-task1', 'w-task2', 'w-line', 'w-opinion', 'w-advdis', 's-part1', 's-part2', 's-mock', 's-full'] as const) {
       expect(STATIC_GROUPS.filter((g) => g.type === type).length, type).toBeGreaterThanOrEqual(Math.min(count(type), 6));
     }
+  });
+
+  it('writes the same exercise harder as the phases go on: A2 in phase 1, B1 in phases 2-3, B2 from phase 4, full gate groups always B2', () => {
+    expect([1, 2, 3, 4, 5, 6].map(phaseLevel)).toEqual(['A2', 'B1', 'B1', 'B2', 'B2', 'B2']);
+    expect(levelFor('l-sec4', 1)).toBe('A2');
+    expect(levelFor('g-r', 1)).toBe('B2');
+    expect(rulesFor('A2')).toContain('EASY');
+    expect(rulesFor('B2')).toContain('academic vocabulary');
+    const scaled = (level: 'A2' | 'B2') => RECIPES['r-passage'].prompt('a topic', (n) => Math.round(n * (level === 'A2' ? 0.85 : 1.3)));
+    expect(scaled('A2')).toContain('298-357 words');
+    expect(scaled('B2')).toContain('455-546 words');
+  });
+
+  it('counts what a phase draws from each pool, full tests by their parts', () => {
+    const needs = poolNeeds(4);
+    // Week 13-16: l-test40 draws one of each listening type; sets of three draw three passages
+    expect(needs['l-form']).toBe(12);
+    expect(needs['l-sec4']).toBeGreaterThan(needs['l-form']!);
+    expect(needs['r-passage']).toBeGreaterThanOrEqual(30);
+    expect(poolNeeds(7)).toEqual({});
   });
 
   it('accepts a short listening group with matching questions and rejects a gap that is not in the script', () => {

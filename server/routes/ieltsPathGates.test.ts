@@ -6,6 +6,7 @@ import { contentItems, examSessions, gateAttempts, ieltsPaths, pathLessons } fro
 import { sendChatMessage } from '../services/cliproxy.js';
 import { ensureGateContent, GATE_GROUPS } from '../ieltsPath/gateContent.js';
 import { ensurePathLessons } from '../ieltsPath/lessons.js';
+import { levelFor, type PoolType } from '../ieltsPath/practice.js';
 import { ensurePracticeContent } from '../ieltsPath/practiceContent.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { createUser, resetDb, signIn } from '../test/helpers.js';
@@ -92,10 +93,11 @@ async function takeGate(agent: Agent, gate: number, options: { wrongL?: number; 
   return (await agent.get(`/api/ielts-path/gates/${gate}`)).body.gate;
 }
 
-/** A pool item for a generated exercise, copied from an authored gate group */
-async function poolItem(id: string, type: string, source: string) {
+/** A pool item for a generated exercise, copied from an authored gate group, at the level its gate draws */
+async function poolItem(id: string, type: PoolType, source: string) {
   const group = GATE_GROUPS.find((g) => g.id === source)!;
-  await db.insert(contentItems).values({ id, kind: group.kind, skill: group.skill, exam: 'ielts', part: `path:${type}`, level: group.level, title: id, topic: 'test', payload: group.payload, source: 'ai', status: 'archived' });
+  const gate = Number(source.split('-')[1]);
+  await db.insert(contentItems).values({ id, kind: group.kind, skill: group.skill, exam: 'ielts', part: `path:${type}`, level: levelFor(type, gate), title: id, topic: 'test', payload: group.payload, source: 'ai', status: 'archived' });
 }
 
 describe('IELTS Path gates', () => {

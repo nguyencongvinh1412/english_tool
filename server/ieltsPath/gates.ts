@@ -319,7 +319,7 @@ function withRetestMeasured(bands: MeasuredBands, skill: PathSkill, band: number
 /** The groups of one skill of a gate for a version, drawing unseen pool groups where the gate asks for them */
 async function groupsFor(user: User, definition: GateDefinition, version: 'A' | 'B', skill: PathSkill): Promise<string[]> {
   const source: GroupSource = definition.versions[version][skill];
-  return Array.isArray(source) ? source : gateGroups(user, source.pool);
+  return Array.isArray(source) ? source : gateGroups(user, source.pool, definition.gate);
 }
 
 /** The open attempt of a gate, created when there is none (a new try is version A the first time and B after) */

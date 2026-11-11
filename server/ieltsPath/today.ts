@@ -324,7 +324,7 @@ export async function startPractice(user: User, step: PathLesson, model?: string
     const [session] = await db.select({ id: examSessions.id }).from(examSessions).where(and(eq(examSessions.id, ref.sessionId), eq(examSessions.userId, user.id)));
     if (session) return session.id;
   }
-  const sections = await practiceSections(user, ref.type, model);
+  const sections = await practiceSections(user, ref.type, step.phase, model);
   const blueprint: IeltsBlueprint = { exam: 'ielts', sections };
   const [session] = await db
     .insert(examSessions)
