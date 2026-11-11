@@ -1,0 +1,62 @@
+{
+  "objectives": [
+    { "en": "You can move between the points of the cue card with natural transitions instead of 'and then'.", "vi": "Bạn chuyển giữa các ý trên cue card bằng từ chuyển tự nhiên thay vì 'and then'." },
+    { "en": "You can describe a feeling with more than 'happy' or 'sad'.", "vi": "Bạn mô tả cảm xúc bằng nhiều hơn 'happy' hay 'sad'." },
+    { "en": "You can add one sensory detail to each point to fill two minutes without repeating.", "vi": "Bạn thêm một chi tiết cảm quan cho mỗi ý để nói đủ hai phút mà không lặp." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Transitions carry the listener", "vi": "Từ chuyển dẫn người nghe" },
+      "body": { "en": "A Part 2 talk at band 5 is a list: *\"...and then... and then... and also...\"*. At band 6-7 the listener is **told where you are going**: *\"The reason I chose this is...\"*, *\"What made it special was...\"*, *\"Looking back, ...\"*, *\"The other thing I remember is...\"*. One transition per bullet point on the cue card is enough. They are the Coherence marks in Speaking.", "vi": "Bài Part 2 band 5 là một danh sách: *\"...and then... and then... and also...\"*. Band 6-7 thì người nghe **được báo bạn đang đi đâu**: *\"The reason I chose this is...\"*, *\"What made it special was...\"*, *\"Looking back, ...\"*, *\"The other thing I remember is...\"*. Mỗi gạch đầu dòng trên cue card một từ chuyển là đủ. Đó là điểm Coherence trong Nói." }
+    },
+    {
+      "heading": { "en": "Feelings with more than one word", "vi": "Cảm xúc bằng nhiều hơn một từ" },
+      "body": { "en": "Every cue card ends with *\"and explain how you felt / why it matters\"*. *\"I was very happy\"* earns nothing. Say **the feeling, its strength, and what it did to you**: *\"I was relieved, honestly, more than happy: I'd been worrying about it for weeks and suddenly I could sleep.\"* Learn eight feeling words beyond happy and sad: *relieved, proud, nervous, disappointed, overwhelmed, grateful, embarrassed, curious*.", "vi": "Mọi cue card kết bằng *\"and explain how you felt / why it matters\"*. *\"I was very happy\"* không được gì. Hãy nói **cảm xúc, mức độ, và nó làm gì với bạn**: *\"I was relieved, honestly, more than happy: I'd been worrying about it for weeks and suddenly I could sleep.\"* Học tám từ cảm xúc ngoài happy và sad: *relieved, proud, nervous, disappointed, overwhelmed, grateful, embarrassed, curious*." }
+    },
+    {
+      "heading": { "en": "One sensory detail per point", "vi": "Mỗi ý một chi tiết cảm quan" },
+      "body": { "en": "Two minutes feels long when you only have facts. Add **one thing you saw, heard, smelt or touched** to each bullet: *\"The office was on the twelfth floor and the windows rattled when the wind blew.\"* Details are easy to produce because they are memories, not opinions, and they are what makes the talk sound like yours. One per point, not five: you still need to reach the last bullet.", "vi": "Hai phút thấy dài khi bạn chỉ có dữ kiện. Thêm **một thứ bạn thấy, nghe, ngửi hay chạm** cho mỗi gạch đầu dòng: *\"The office was on the twelfth floor and the windows rattled when the wind blew.\"* Chi tiết dễ nói vì là ký ức, không phải ý kiến, và chính chúng làm bài nói giống của bạn. Mỗi ý một chi tiết, không phải năm: bạn vẫn cần tới gạch đầu dòng cuối." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A Part 2 with transitions, a feeling and details marked", "vi": "Part 2 có đánh dấu từ chuyển, cảm xúc và chi tiết" },
+      "text": "Cue card: Describe an important decision you made.\n\n\"The decision I want to talk about is leaving my first job after only eight months. [TRANSITION] The reason I had to make it was that the company moved to a building an hour and a half away. [DETAIL] I remember the bus was always full and the windows steamed up in winter. [TRANSITION] What made it hard was that I liked my team. [FEELING] At first I felt guilty, almost as if I were letting them down, and for a few weeks I kept checking my old work email. [TRANSITION] Looking back, though, it was a good decision, because the next job was where I learned most of what I can do now.\"",
+      "note": { "en": "Four transitions, one feeling with its strength and effect, one sensory detail. No 'and then'.", "vi": "Bốn từ chuyển, một cảm xúc có mức độ và tác động, một chi tiết cảm quan. Không có 'and then'." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Transitions between the bullets", "vi": "Từ chuyển giữa các gạch đầu dòng" }, "items": ["The reason I chose this is...", "What made it special / hard was...", "The other thing I remember is...", "Looking back, ...", "As for why it matters, ..."] },
+    { "use": { "en": "Feelings beyond happy and sad", "vi": "Cảm xúc ngoài happy và sad" }, "items": ["relieved", "proud", "nervous", "disappointed", "overwhelmed", "grateful", "embarrassed", "curious"] },
+    { "use": { "en": "Strength and effect of a feeling", "vi": "Mức độ và tác động của cảm xúc" }, "items": ["I was ..., honestly, more than ...", "At first I felt ..., but later ...", "It was the kind of ... that ...", "For weeks afterwards I ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which moves the talk to the next bullet best?", "vi": "Câu nào chuyển sang gạch đầu dòng kế tốt nhất?" },
+      "options": ["\"What made it hard was that I liked my team.\"", "\"And then I liked my team.\"", "\"Also my team.\""],
+      "answerIndex": 0,
+      "explanation": { "en": "A transition tells the listener where you are going.", "vi": "Từ chuyển báo người nghe bạn đang đi đâu." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which describes a feeling best?", "vi": "Câu nào mô tả cảm xúc tốt nhất?" },
+      "options": ["\"I was relieved more than happy; I'd been worrying for weeks.\"", "\"I was very happy.\"", "\"It was good.\""],
+      "answerIndex": 0,
+      "explanation": { "en": "The feeling, its strength and its effect.", "vi": "Cảm xúc, mức độ và tác động." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "How many sensory details per bullet point?", "vi": "Mỗi gạch đầu dòng bao nhiêu chi tiết cảm quan?" },
+      "options": ["One", "Five", "None"],
+      "answerIndex": 0,
+      "explanation": { "en": "One per point; you still need to reach the last bullet.", "vi": "Mỗi ý một; bạn vẫn cần tới gạch cuối." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order a Part 2 talk.", "vi": "Sắp xếp bài nói Part 2." },
+      "parts": ["Name the thing you will talk about", "Each bullet with a transition and one detail", "The feeling, its strength and effect", "Looking back: why it matters"],
+      "explanation": { "en": "Name, bullets, feeling, why.", "vi": "Tên, các ý, cảm xúc, lý do." }
+    }
+  ]
+}

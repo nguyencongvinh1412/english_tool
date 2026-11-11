@@ -2142,7 +2142,7 @@ export const en = {
         'w-twopart': 'Writing: a two-part question (Task 2)',
       } as Record<string, string>,
       wordsTitle: (count: number, topic: string) => `Learn ${count} new words: ${topic}`,
-      topics: { academic: 'academic words', collocations: 'collocations', paraphrase: 'paraphrase words', education: 'education', health: 'health', environment: 'the environment', technology: 'technology', city: 'cities', family: 'family', home: 'home', work: 'work', hobbies: 'hobbies', food: 'food', transport: 'transport', weather: 'weather', travel: 'travel', shopping: 'shopping', review: 'review of the month' } as Record<string, string>,
+      topics: { academic: 'academic words', collocations: 'collocations', paraphrase: 'paraphrase words', linking: 'linking and reference words', idioms: 'idioms and phrasal verbs', education: 'education', health: 'health', environment: 'the environment', technology: 'technology', city: 'cities', family: 'family', home: 'home', work: 'work', hobbies: 'hobbies', food: 'food', transport: 'transport', weather: 'weather', travel: 'travel', shopping: 'shopping', review: 'review of the month' } as Record<string, string>,
       dictationTitle: 'Dictation',
       catchUp: 'Catch-up',
       today: 'Today',

@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can follow a Section 4 lecture at natural speed by its signposts.", "vi": "Bạn theo được bài giảng Section 4 ở tốc độ thật nhờ từ dẫn đường." },
+    { "en": "You can keep your place in a list of causes, types or stages.", "vi": "Bạn giữ được vị trí trong một danh sách nguyên nhân, loại hay giai đoạn." },
+    { "en": "You can recover after missing one answer without losing the next three.", "vi": "Bạn bỏ lỡ một câu mà không mất luôn ba câu sau." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "No more slow audio", "vi": "Không còn nghe chậm nữa" },
+      "body": { "en": "Section 4 is one speaker for about five minutes with **no break in the middle**. From this week you listen at **normal speed only** and never pause. The questions are notes that follow the lecture in order, so the task is to **keep your place**, not to understand every word.", "vi": "Section 4 là một người nói khoảng năm phút **không nghỉ giữa chừng**. Từ tuần này bạn chỉ nghe **tốc độ bình thường** và không bao giờ dừng. Câu hỏi là ghi chú theo đúng thứ tự bài giảng, nên việc cần làm là **giữ vị trí**, không phải hiểu mọi từ." }
+    },
+    {
+      "heading": { "en": "Signposts tell you where you are", "vi": "Từ dẫn đường cho biết bạn đang ở đâu" },
+      "body": { "en": "Lecturers announce the structure: **\"There are three main reasons...\"**, **\"Let me turn to...\"**, **\"The second type...\"**, **\"Finally...\"**, **\"To sum up...\"**. Before the audio starts, look at the notes and mark where the lecture changes topic (the headings in the notes). When you hear a signpost, move your finger to the next heading.", "vi": "Giảng viên báo trước cấu trúc: **\"There are three main reasons...\"**, **\"Let me turn to...\"**, **\"The second type...\"**, **\"Finally...\"**, **\"To sum up...\"**. Trước khi nghe, nhìn phần ghi chú và đánh dấu chỗ bài giảng đổi chủ đề (các tiêu đề trong ghi chú). Nghe thấy từ dẫn đường thì chuyển ngón tay sang tiêu đề tiếp theo." }
+    },
+    {
+      "heading": { "en": "Lists and the one you missed", "vi": "Liệt kê và câu bạn bỏ lỡ" },
+      "body": { "en": "Lists are where people lose their place: *\"The first is cost, the second is time, and the third, which is often forgotten, is training.\"* Count on your fingers as you hear *first, second, third*. If you miss an answer, **leave it and move to the next heading** at once; the next signpost will put you back. One blank is one mark; chasing it costs three.", "vi": "Liệt kê là chỗ dễ mất vị trí nhất: *\"The first is cost, the second is time, and the third, which is often forgotten, is training.\"* Đếm trên ngón tay khi nghe *first, second, third*. Nếu bỏ lỡ một câu, **bỏ qua và chuyển sang tiêu đề kế** ngay; từ dẫn đường tiếp theo sẽ đưa bạn về đúng chỗ. Một ô trống mất một điểm; cố đuổi theo mất ba." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Notes with the signposts marked", "vi": "Ghi chú có đánh dấu từ dẫn đường" },
+      "text": "GREEN ROOFS\nBenefits  [\"There are three main benefits\"]\n  - lower 31 ______ costs in summer\n  - absorb up to 70% of 32 ______\n  - habitat for birds and 33 ______\nProblems  [\"However, there are drawbacks\"]\n  - extra 34 ______ on the building\n  - need regular 35 ______\nThe future  [\"Finally, looking ahead\"]\n  - new city rule: all 36 ______ buildings",
+      "note": { "en": "The words in brackets are what you listen for to move between the three parts.", "vi": "Phần trong ngoặc là thứ bạn lắng nghe để chuyển giữa ba phần." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Signposts in a lecture", "vi": "Từ dẫn đường trong bài giảng" }, "items": ["There are three main...", "Let me turn to...", "The second type / factor / stage...", "Another point worth noting...", "Having looked at..., I'd now like to...", "Finally / To sum up..."] },
+    { "use": { "en": "Words that introduce the answer", "vi": "Từ dẫn vào đáp án" }, "items": ["what we call...", "known as...", "that is, ...", "in other words, ...", "for example, ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "You missed question 33. What do you do?", "vi": "Bạn bỏ lỡ câu 33. Bạn làm gì?" },
+      "options": ["Leave it and listen for the next heading", "Keep thinking about it", "Pause the audio"],
+      "answerIndex": 0,
+      "explanation": { "en": "One blank costs one mark; chasing it costs more.", "vi": "Một ô trống mất một điểm; đuổi theo mất nhiều hơn." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "\"Having looked at the benefits, I'd now like to turn to the problems.\" The lecturer is...", "vi": "\"Having looked at the benefits, I'd now like to turn to the problems.\" Giảng viên đang..." },
+      "options": ["moving to the next part of the notes", "giving an answer", "repeating a point"],
+      "answerIndex": 0,
+      "explanation": { "en": "A signpost: move to the next heading.", "vi": "Từ dẫn đường: chuyển sang tiêu đề tiếp theo." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "\"The third, which is often forgotten, is training.\" Which item is the answer?", "vi": "\"The third, which is often forgotten, is training.\" Đáp án là mục nào?" },
+      "options": ["training", "forgotten", "the third"],
+      "answerIndex": 0,
+      "explanation": { "en": "The clause in the middle is extra; the list item comes at the end.", "vi": "Mệnh đề ở giữa là phần phụ; mục liệt kê nằm ở cuối." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order what you do before the audio starts.", "vi": "Sắp xếp việc làm trước khi nghe." },
+      "parts": ["Read the notes", "Mark the headings where the topic changes", "Guess the kind of word for each gap", "Put your finger on the first heading"],
+      "explanation": { "en": "Structure first, then the gaps.", "vi": "Cấu trúc trước, chỗ trống sau." }
+    }
+  ]
+}

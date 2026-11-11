@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can read your error book and name your two biggest kinds of listening mistake.", "vi": "Bạn đọc được sổ lỗi và gọi tên hai loại lỗi nghe lớn nhất của mình." },
+    { "en": "You can listen again to old tests with one kind of mistake in mind.", "vi": "Bạn nghe lại đề cũ với một loại lỗi trong đầu." },
+    { "en": "You know what Gate 4 asks of you and how to pace the 40 questions.", "vi": "Bạn biết Gate 4 yêu cầu gì và cách phân bổ 40 câu." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Read the error book first", "vi": "Đọc sổ lỗi trước" },
+      "body": { "en": "Open the error book. The listening part sorts your wrong answers into **spelling, plural, distractor, missed, too many words**. Take the **two biggest categories** of the last four weeks. Those two are what this week is for; ignore the rest.", "vi": "Mở sổ lỗi. Phần nghe chia câu sai của bạn thành **chính tả, số nhiều, bẫy gây nhiễu, bỏ trống, quá số từ**. Lấy **hai loại lớn nhất** của bốn tuần qua. Tuần này dành cho hai loại đó; tạm bỏ phần còn lại." }
+    },
+    {
+      "heading": { "en": "Listen again with one kind of mistake in mind", "vi": "Nghe lại với một loại lỗi trong đầu" },
+      "body": { "en": "Take two old tests you have done. Listen again, but this time **only hunt for your category**. If it is *distractor*, mark every correction, every *but*, every *not*, every *actually*. If it is *plural*, write every answer and say aloud whether it is one or many. Hearing the trap in a test you already know makes it easier to hear in a new one.", "vi": "Lấy hai đề cũ bạn đã làm. Nghe lại, nhưng lần này **chỉ săn loại lỗi của bạn**. Nếu là *bẫy gây nhiễu*, đánh dấu mọi chỗ sửa, mọi *but*, mọi *not*, mọi *actually*. Nếu là *số nhiều*, viết mọi đáp án và nói to đó là một hay nhiều. Nghe ra bẫy trong đề đã biết giúp nghe ra nó trong đề mới." }
+    },
+    {
+      "heading": { "en": "Gate 4: pacing 40 questions", "vi": "Gate 4: phân bổ 40 câu" },
+      "body": { "en": "Gate 4 is a full test: four sections, 40 questions, Listening target **6.0, which is about 23 correct**. Use the reading time before each section for the questions, not for worrying about the last one. Transfer answers carefully; at this level **two or three marks are usually lost on spelling and plurals**, not on hearing. Those are the marks between 5.5 and 6.0.", "vi": "Gate 4 là đề đầy đủ: bốn section, 40 câu, đích Nghe **6.0, tức khoảng 23 câu đúng**. Dùng thời gian đọc trước mỗi section cho câu hỏi, không phải để lo câu vừa rồi. Chuyển đáp án cẩn thận; ở trình độ này **hai ba điểm thường mất vì chính tả và số nhiều**, không phải vì nghe. Đó chính là khoảng cách giữa 5.5 và 6.0." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A week plan from the error book", "vi": "Kế hoạch tuần từ sổ lỗi" },
+      "text": "Error book, last 4 weeks (listening):\n  distractor 11   plural 7   spelling 4   missed 3   too many words 1\n\nThis week:\n  Mon  test 40 + analysis; listen again to old test 3 hunting corrections\n  Tue  Section 4 practice; say one/many for every answer\n  Wed  test 40; check: every answer a correction? one or many?\n  Thu  Section 3: mark every 'but / actually / no, ...'\n  Fri  test 40; transfer with the plural check\n  Sat  Gate 4",
+      "note": { "en": "Two categories, one habit for each, repeated every day.", "vi": "Hai loại lỗi, mỗi loại một thói quen, lặp lại mỗi ngày." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Words that signal a distractor", "vi": "Từ báo hiệu bẫy gây nhiễu" }, "items": ["actually, ...", "no, wait...", "...but then...", "I thought..., but...", "not ... any more", "originally ... now"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you work on this week?", "vi": "Tuần này bạn tập trung vào gì?" },
+      "options": ["The two biggest categories in your error book", "Every category equally", "Only new tests"],
+      "answerIndex": 0,
+      "explanation": { "en": "Two categories, one habit each.", "vi": "Hai loại lỗi, mỗi loại một thói quen." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Listening target 6.0 at Gate 4 is about how many correct?", "vi": "Đích Nghe 6.0 ở Gate 4 là khoảng bao nhiêu câu đúng?" },
+      "options": ["23", "30", "16"],
+      "answerIndex": 0,
+      "explanation": { "en": "About 23 of 40.", "vi": "Khoảng 23 trên 40." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "At this level, where are two or three marks usually lost?", "vi": "Ở trình độ này, hai ba điểm thường mất ở đâu?" },
+      "options": ["Spelling and plurals", "Not hearing at all", "Section 1"],
+      "answerIndex": 0,
+      "explanation": { "en": "The marks between 5.5 and 6.0.", "vi": "Khoảng cách giữa 5.5 và 6.0." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the review.", "vi": "Sắp xếp việc ôn." },
+      "parts": ["Open the error book", "Pick the two biggest categories", "Listen again to old tests hunting one category", "Apply the habit in the next full test"],
+      "explanation": { "en": "From the book to the habit.", "vi": "Từ sổ lỗi tới thói quen." }
+    }
+  ]
+}

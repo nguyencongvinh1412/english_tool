@@ -53,13 +53,13 @@ describe('phase 1 syllabus', () => {
 });
 
 describe('every written phase', () => {
-  it('has phases 1 to 3, and no phase after them yet', () => {
-    expect(WRITTEN_PHASES).toEqual([1, 2, 3]);
-    expect(phaseSteps(4)).toEqual([]);
+  it('has phases 1 to 4, and no phase after them yet', () => {
+    expect(WRITTEN_PHASES).toEqual([1, 2, 3, 4]);
+    expect(phaseSteps(5)).toEqual([]);
   });
 
-  it('numbers weeks 1-4 in phase 1, 5-8 in phase 2 and 9-12 in phase 3, each with six study days and a review day', () => {
-    for (const [phase, weeks] of [[1, [1, 2, 3, 4]], [2, [5, 6, 7, 8]], [3, [9, 10, 11, 12]]] as const) {
+  it('numbers weeks 1-4 in phase 1, 5-8 in phase 2, 9-12 in phase 3 and 13-16 in phase 4, each with six study days and a review day', () => {
+    for (const [phase, weeks] of [[1, [1, 2, 3, 4]], [2, [5, 6, 7, 8]], [3, [9, 10, 11, 12]], [4, [13, 14, 15, 16]]] as const) {
       const list = phaseSteps(phase);
       expect([...new Set(list.map((s) => s.week))]).toEqual(weeks);
       for (const week of weeks) for (const day of [1, 2, 3, 4, 5, 6, 7]) expect(list.some((s) => s.week === week && s.day === day), `${week}-${day}`).toBe(true);
@@ -72,7 +72,7 @@ describe('every written phase', () => {
     for (const s of allSteps) if (s.kind === 'grammar') expect(points.has((s.ref as { pointId: string }).pointId), JSON.stringify(s.ref)).toBe(true);
   });
 
-  it.each([[2, 5], [3, 9]] as const)('keeps every study day of phase %i between 2.3 and 4.5 hours, and starts each week with its four lessons', (phase, firstWeek) => {
+  it.each([[2, 5], [3, 9], [4, 13]] as const)('keeps every study day of phase %i between 2.3 and 4.5 hours, and starts each week with its four lessons', (phase, firstWeek) => {
     const list = phaseSteps(phase);
     for (let week = firstWeek; week < firstWeek + 4; week++) {
       for (let day = 1; day <= 6; day++) {

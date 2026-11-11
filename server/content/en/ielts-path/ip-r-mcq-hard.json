@@ -1,0 +1,65 @@
+{
+  "objectives": [
+    { "en": "You can reject multiple-choice options that use words from the text but change the meaning.", "vi": "Bạn loại được phương án trắc nghiệm dùng đúng từ trong bài nhưng đổi nghĩa." },
+    { "en": "You can complete a summary from a list of words by checking grammar and meaning.", "vi": "Bạn hoàn thành được tóm tắt từ danh sách từ bằng cách kiểm tra ngữ pháp và nghĩa." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Why hard multiple choice is hard", "vi": "Vì sao trắc nghiệm khó lại khó" },
+      "body": { "en": "In Passage 3 the wrong options are built to look right. Each one usually **copies words from the text** but **changes one thing**: who did it, when, how much, or whether it is a fact or an opinion. The right option is usually a **paraphrase**, with different words and the same meaning. So the rule is reversed from what feels natural: **be suspicious of the option with the most words from the text.**", "vi": "Ở Bài 3, phương án sai được làm để trông đúng. Mỗi cái thường **chép từ trong bài** nhưng **đổi một thứ**: ai làm, khi nào, bao nhiêu, hay đó là sự thật hay ý kiến. Phương án đúng thường là **diễn đạt lại**, từ khác nghĩa giống. Nên quy tắc ngược với cảm giác tự nhiên: **hãy nghi ngờ phương án có nhiều từ giống bài nhất.**" }
+    },
+    {
+      "heading": { "en": "Find the sentence, then test each option", "vi": "Tìm câu trong bài, rồi thử từng phương án" },
+      "body": { "en": "Locate the part of the text the question is about (questions follow the text order). Read **two sentences around it**. Then test each option with one question: *does the text say this, exactly?* Cross out options that are **too strong** (*always, all, only*), that give a **reason the text does not give**, or that are **true but not what the question asks**.", "vi": "Xác định đoạn bài nói tới (câu hỏi theo thứ tự bài). Đọc **hai câu quanh đó**. Rồi thử từng phương án bằng một câu hỏi: *bài có nói đúng thế này không?* Gạch phương án **quá mạnh** (*always, all, only*), phương án nêu **lý do bài không nêu**, hay phương án **đúng nhưng không phải điều được hỏi**." }
+    },
+    {
+      "heading": { "en": "Summary with a word list", "vi": "Tóm tắt có danh sách từ" },
+      "body": { "en": "When the summary gives a box of words (A-L), the words are not in the text: they are **synonyms** of what the text says. Work in two steps. **Grammar first**: is the gap a noun, a verb, an adjective? Cross out words of the wrong kind. **Meaning second**: find the matching sentence in the text and pick the word with the same meaning. The box has more words than gaps, so **two or three are never used**.", "vi": "Khi tóm tắt cho một ô từ (A-L), các từ không có trong bài: chúng là **từ đồng nghĩa** với điều bài nói. Làm hai bước. **Ngữ pháp trước**: chỗ trống cần danh từ, động từ hay tính từ? Gạch từ sai loại. **Nghĩa sau**: tìm câu tương ứng trong bài và chọn từ cùng nghĩa. Ô từ nhiều hơn chỗ trống, nên **hai ba từ không bao giờ dùng**." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Three options tested", "vi": "Thử ba phương án" },
+      "text": "Text: \"Although early studies suggested that the drug reduced recovery time, later and larger trials found the effect to be small and, in some groups, absent.\"\n\nQ: What does the writer say about the drug?\nA  Early studies proved that it reduced recovery time.   → too strong: \"suggested\", not \"proved\"\nB  Later trials found it had little or no effect.            → paraphrase of \"small... absent\"  ✓\nC  Larger trials found it reduced recovery time in some groups. → words from the text, meaning reversed\n\nAnswer: B.",
+      "note": { "en": "A and C both reuse the text's words; B says the same thing in different words.", "vi": "A và C đều dùng lại từ trong bài; B nói cùng ý bằng từ khác." }
+    },
+    {
+      "title": { "en": "A word-list summary, grammar first", "vi": "Tóm tắt có danh sách từ, ngữ pháp trước" },
+      "text": "Summary: \"The drug's effect on recovery was at first thought to be 1 ____, but later trials were 2 ____ and showed little benefit.\"\nBox: A larger  B quick  C significant  D rarely  E expensive  F absent\n\nGap 1: after \"to be\" → adjective about the effect: C significant (B 'quick' describes the recovery, not the effect)\nGap 2: after \"were\" describing trials → A larger (\"later and larger trials\")\nNever used: B, D, E, F",
+      "note": { "en": "Grammar removes D at once; meaning decides between the rest.", "vi": "Ngữ pháp loại ngay D; nghĩa quyết định phần còn lại." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Words that make an option too strong", "vi": "Từ làm phương án quá mạnh" }, "items": ["always / never", "all / none", "only", "proved / certainly", "completely"] },
+    { "use": { "en": "Soft words the text often uses", "vi": "Từ mềm mà bài hay dùng" }, "items": ["suggested", "may / might", "tends to", "in some cases", "is thought to"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which option should you be most suspicious of?", "vi": "Nên nghi ngờ phương án nào nhất?" },
+      "options": ["The one with the most words copied from the text", "The one with different words", "The shortest one"],
+      "answerIndex": 0,
+      "explanation": { "en": "Wrong options copy words and change the meaning.", "vi": "Phương án sai chép từ và đổi nghĩa." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Text: \"suggested that\". Option: \"proved that\". The option is...", "vi": "Bài: \"suggested that\". Phương án: \"proved that\". Phương án này..." },
+      "options": ["too strong", "a good paraphrase", "not given"],
+      "answerIndex": 0,
+      "explanation": { "en": "Suggesting is weaker than proving.", "vi": "Gợi ý yếu hơn chứng minh." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "In a word-list summary, what do you check first for each gap?", "vi": "Với tóm tắt có danh sách từ, kiểm tra gì đầu tiên ở mỗi chỗ trống?" },
+      "options": ["The kind of word the gap needs", "The first word in the box", "The length of the word"],
+      "answerIndex": 0,
+      "explanation": { "en": "Grammar first, then meaning.", "vi": "Ngữ pháp trước, rồi nghĩa." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the steps for a hard multiple-choice question.", "vi": "Sắp xếp các bước cho câu trắc nghiệm khó." },
+      "parts": ["Find the part of the text", "Read two sentences around it", "Test each option against the text", "Cross out too strong, wrong reason, not asked"],
+      "explanation": { "en": "Locate, read, test, eliminate.", "vi": "Định vị, đọc, thử, loại." }
+    }
+  ]
+}

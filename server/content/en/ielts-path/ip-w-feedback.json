@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can turn the feedback on a graded essay into three concrete changes.", "vi": "Bạn biến nhận xét của bài đã chấm thành ba thay đổi cụ thể." },
+    { "en": "You can rewrite one paragraph so that the lowest criterion goes up.", "vi": "Bạn viết lại được một đoạn để tiêu chí thấp nhất tăng lên." },
+    { "en": "You submit two Task 2 and one Task 1 this week and rewrite each one once.", "vi": "Tuần này bạn nộp hai Task 2 và một Task 1 và viết lại mỗi bài một lần." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "A graded essay is a lesson you paid for", "vi": "Bài đã chấm là bài học bạn đã trả giá" },
+      "body": { "en": "Most learners read the band, feel good or bad, and start the next essay. That throws away the most useful part. This week the rule is: **no new essay until the last one has been rewritten once**. The rewrite takes 20 minutes and is where the criterion actually moves. Writing another fresh essay repeats the same mistakes with a new topic.", "vi": "Phần lớn người học đọc band, vui hay buồn, rồi viết bài mới. Thế là vứt đi phần có ích nhất. Tuần này quy tắc là: **không viết bài mới cho tới khi bài trước được viết lại một lần**. Viết lại mất 20 phút và là lúc tiêu chí thực sự nhích. Viết bài mới chỉ lặp lại lỗi cũ với đề mới." }
+    },
+    {
+      "heading": { "en": "From feedback to three changes", "vi": "Từ nhận xét tới ba thay đổi" },
+      "body": { "en": "Read the feedback for each criterion and write **three changes**, each one a sentence you can act on: *\"Add a topic sentence to paragraph 3\"*, *\"Replace 'moreover' in paragraph 2 with 'however'\"*, *\"Change the three 'very + adjective' to one stronger word each\"*. Not *\"improve coherence\"*. If the feedback lists grammar errors, add them to your error list and fix every one in the rewrite.", "vi": "Đọc nhận xét từng tiêu chí và viết **ba thay đổi**, mỗi cái là một câu làm được: *\"Thêm câu chủ đề cho đoạn 3\"*, *\"Thay 'moreover' ở đoạn 2 bằng 'however'\"*, *\"Đổi ba chỗ 'very + tính từ' thành một từ mạnh hơn\"*. Không phải *\"cải thiện mạch lạc\"*. Nếu nhận xét liệt kê lỗi ngữ pháp, thêm vào danh sách lỗi và sửa hết trong bản viết lại." }
+    },
+    {
+      "heading": { "en": "Rewrite the weakest paragraph fully, the rest lightly", "vi": "Viết lại hẳn đoạn yếu nhất, phần còn lại sửa nhẹ" },
+      "body": { "en": "Find the paragraph the feedback mentions most and **rewrite it from scratch** with the three changes in mind. For the other paragraphs, fix only the listed errors. Then compare the two versions side by side and say in one line what changed. Submit the rewrite too: the grader's second band tells you whether the change worked.", "vi": "Tìm đoạn mà nhận xét nhắc nhiều nhất và **viết lại từ đầu** với ba thay đổi trong đầu. Các đoạn khác chỉ sửa lỗi đã liệt kê. Rồi so hai bản cạnh nhau và nói trong một dòng điều gì đã đổi. Nộp cả bản viết lại: band thứ hai cho biết thay đổi có hiệu quả không." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A paragraph before and after", "vi": "Một đoạn trước và sau" },
+      "text": "Feedback (CC 5.5): \"Paragraph 2 has two ideas (cost and time) with no topic sentence; 'Moreover' links a contrast.\"\n\nBefore:\n\"Online courses are cheap. Students do not need to travel. Moreover, some students find it hard to concentrate at home. Many courses also give a certificate.\"\n\nAfter:\n\"The main advantage of online courses is that they remove two costs at once. Firstly, the fees are usually lower than those of a classroom course. Secondly, students save the time and money they would otherwise spend on travel, which makes study possible for people with jobs.\"\n\nChanged: one idea (cost), a topic sentence, firstly/secondly, concentration moved to the next paragraph.",
+      "note": { "en": "The rewrite does not add vocabulary; it fixes the criterion that was lowest.", "vi": "Bản viết lại không thêm từ vựng; nó sửa đúng tiêu chí thấp nhất." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Changes you can act on", "vi": "Thay đổi làm được" }, "items": ["Add a topic sentence to paragraph ...", "Move ... to its own paragraph", "Replace ... with ...", "Cut the sentence that repeats ...", "Give one example after ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the rule this week?", "vi": "Quy tắc tuần này là gì?" },
+      "options": ["No new essay until the last one is rewritten once", "Write as many essays as possible", "Only read the band"],
+      "answerIndex": 0,
+      "explanation": { "en": "The rewrite is where the criterion moves.", "vi": "Viết lại là lúc tiêu chí nhích." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which is a change you can act on?", "vi": "Đâu là thay đổi làm được?" },
+      "options": ["\"Add a topic sentence to paragraph 3\"", "\"Improve coherence\"", "\"Write better\""],
+      "answerIndex": 0,
+      "explanation": { "en": "Concrete and about one place in the essay.", "vi": "Cụ thể và về một chỗ trong bài." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which paragraph do you rewrite from scratch?", "vi": "Đoạn nào viết lại từ đầu?" },
+      "options": ["The one the feedback mentions most", "The introduction", "All of them"],
+      "answerIndex": 0,
+      "explanation": { "en": "The weakest paragraph fully, the rest lightly.", "vi": "Đoạn yếu nhất viết hẳn, còn lại sửa nhẹ." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the rewrite.", "vi": "Sắp xếp việc viết lại." },
+      "parts": ["Read the feedback by criterion", "Write three concrete changes", "Rewrite the weakest paragraph", "Submit and compare the two bands"],
+      "explanation": { "en": "Feedback, changes, rewrite, check.", "vi": "Nhận xét, thay đổi, viết lại, kiểm tra." }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You know where your marks come from on a 40-question reading test and which ones to protect.", "vi": "Bạn biết điểm của mình đến từ đâu trong đề Đọc 40 câu và điểm nào cần giữ." },
+    { "en": "You can set a target per passage and check it after each set.", "vi": "Bạn đặt được mục tiêu cho từng bài và kiểm tra sau mỗi bộ." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "What 28 to 30 means", "vi": "28 đến 30 nghĩa là gì" },
+      "body": { "en": "Band 6.0 in Academic Reading is about **23 correct**; 6.5 is about **27**; 7.0 is about **30**. This phase aims at **28 to 30** so that Gate 4's 6.0 is safe and Gate 5's 6.5 is in reach. A realistic split is **12 of 13 in Passage 1, 10 of 13 in Passage 2, 7 of 14 in Passage 3**. Notice where the marks are: Passage 1 and 2. Passage 3 is where you spend time, not where you earn the band.", "vi": "Band 6.0 Đọc học thuật là khoảng **23 câu đúng**; 6.5 khoảng **27**; 7.0 khoảng **30**. Giai đoạn này nhắm **28 đến 30** để 6.0 của Gate 4 chắc chắn và 6.5 của Gate 5 trong tầm tay. Phân bổ thực tế là **12/13 ở Bài 1, 10/13 ở Bài 2, 7/14 ở Bài 3**. Để ý điểm nằm ở đâu: Bài 1 và 2. Bài 3 là chỗ bạn tiêu thời gian, không phải chỗ kiếm band." }
+    },
+    {
+      "heading": { "en": "Protect the easy marks", "vi": "Giữ điểm dễ" },
+      "body": { "en": "Most learners at this level lose marks in Passage 1 for careless reasons: **a plural missed in a gap, a word limit broken, True chosen instead of Not Given because the statement sounded reasonable**. Before leaving Passage 1, spend one minute checking exactly those three things. One minute there is worth three in Passage 3.", "vi": "Phần lớn người học ở trình độ này mất điểm Bài 1 vì bất cẩn: **thiếu số nhiều ở chỗ trống, vượt giới hạn từ, chọn True thay vì Not Given vì câu nghe hợp lý**. Trước khi rời Bài 1, dành một phút kiểm đúng ba thứ đó. Một phút ở đó đáng bằng ba phút ở Bài 3." }
+    },
+    {
+      "heading": { "en": "Record the split after every set", "vi": "Ghi phân bổ sau mỗi bộ" },
+      "body": { "en": "After each set of three write **three numbers**, one per passage, and the question types you lost in each. After four sets you will see a pattern: maybe Passage 2 is where the matching headings go wrong, or Passage 3 multiple choice. That pattern tells you what to practise on the days without a full set.", "vi": "Sau mỗi bộ ba ghi **ba con số**, mỗi bài một số, và dạng câu bạn mất ở mỗi bài. Sau bốn bộ bạn sẽ thấy mẫu: có thể Bài 2 là nơi nối tiêu đề sai, hay trắc nghiệm ở Bài 3. Mẫu đó cho biết cần luyện gì vào những ngày không làm trọn bộ." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Four sets, three numbers each", "vi": "Bốn bộ, mỗi bộ ba con số" },
+      "text": "Set 1   P1 11  P2 9   P3 6   = 26   lost: P1 gap plural ×2, P2 headings ×3\nSet 2   P1 12  P2 9   P3 7   = 28   lost: P2 headings ×2, P3 mcq ×4\nSet 3   P1 13  P2 10  P3 6   = 29   lost: P3 mcq ×5\nSet 4   P1 12  P2 11  P3 8   = 31   lost: P3 mcq ×3\n\nPattern: headings fixed by set 3; Passage 3 multiple choice is the next thing to practise.",
+      "note": { "en": "The total went up because Passages 1 and 2 stopped leaking, not because Passage 3 was solved.", "vi": "Tổng tăng vì Bài 1 và 2 hết rò rỉ, không phải vì đã giải được Bài 3." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The one-minute check before leaving a passage", "vi": "Kiểm tra một phút trước khi rời bài" }, "items": ["plural or singular in every gap?", "word limit respected?", "any True that should be Not Given?", "every question numbered and answered?"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Band 6.5 in Academic Reading is about how many correct?", "vi": "Band 6.5 Đọc học thuật là khoảng bao nhiêu câu đúng?" },
+      "options": ["27", "23", "33"],
+      "answerIndex": 0,
+      "explanation": { "en": "About 27 of 40.", "vi": "Khoảng 27 trên 40." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Where do most of your marks come from?", "vi": "Phần lớn điểm của bạn đến từ đâu?" },
+      "options": ["Passages 1 and 2", "Passage 3", "Equally from all three"],
+      "answerIndex": 0,
+      "explanation": { "en": "Passage 3 is where you spend time, not where you earn the band.", "vi": "Bài 3 là chỗ tiêu thời gian, không phải chỗ kiếm band." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you check in the last minute of Passage 1?", "vi": "Kiểm tra gì trong phút cuối của Bài 1?" },
+      "options": ["Plurals, word limits and True vs Not Given", "The meaning of every paragraph", "Nothing: move on at once"],
+      "answerIndex": 0,
+      "explanation": { "en": "The three careless losses.", "vi": "Ba lỗi bất cẩn hay gặp." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the record after a set.", "vi": "Sắp xếp việc ghi lại sau một bộ." },
+      "parts": ["Write the score per passage", "Note the question types lost in each", "Compare with earlier sets", "Choose what to practise on the other days"],
+      "explanation": { "en": "Numbers, types, pattern, plan.", "vi": "Số, dạng, mẫu, kế hoạch." }
+    }
+  ]
+}

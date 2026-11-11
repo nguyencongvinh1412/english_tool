@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can run a full mock with a listener and get three notes back from them.", "vi": "Bạn làm được thi thử đầy đủ với người nghe và nhận lại ba ghi chú." },
+    { "en": "You can find the five words you repeat most and replace each with two alternatives.", "vi": "Bạn tìm được năm từ mình lặp nhiều nhất và thay mỗi từ bằng hai từ khác." },
+    { "en": "You know which repetitions cost Lexical Resource marks and which do not.", "vi": "Bạn biết lặp nào mất điểm Lexical Resource và lặp nào không." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The listener's three notes", "vi": "Ba ghi chú của người nghe" },
+      "body": { "en": "Ask a friend, a teacher or a study partner to run Parts 1 to 3 with you, reading the questions from the screen. Give them **one job only**: write down **every word or phrase you say more than three times**. Not grammar, not ideas. People hear their own repetition badly; a listener hears it at once. If nobody is available, record yourself and do the count from the transcript the app makes.", "vi": "Nhờ bạn bè, giáo viên hay bạn học chạy Part 1 đến 3 với bạn, đọc câu hỏi từ màn hình. Giao họ **đúng một việc**: ghi lại **mọi từ hay cụm bạn nói hơn ba lần**. Không phải ngữ pháp, không phải ý. Người ta nghe lặp của chính mình rất kém; người nghe nhận ra ngay. Nếu không có ai, tự ghi âm và đếm từ bản ghi app tạo ra." }
+    },
+    {
+      "heading": { "en": "Which repetitions matter", "vi": "Lặp nào quan trọng" },
+      "body": { "en": "Repeating *the, I, and* is normal. Repeating **content words** is what Lexical Resource notices: *good, bad, big, thing, very, really, a lot of, I think, important, interesting*. Band 6 LR has \"**sufficient vocabulary to discuss topics at length**\"; band 7 \"**uses vocabulary flexibly**\". Saying *good* nine times in eleven minutes is the opposite of flexible. The fix is not rare words; it is **two ordinary alternatives** for each overused word, ready before you speak.", "vi": "Lặp *the, I, and* là bình thường. Lặp **từ nội dung** là thứ Lexical Resource để ý: *good, bad, big, thing, very, really, a lot of, I think, important, interesting*. Band 6 LR là \"**đủ từ vựng để nói dài về chủ đề**\"; band 7 \"**dùng từ linh hoạt**\". Nói *good* chín lần trong mười một phút là ngược với linh hoạt. Cách sửa không phải từ hiếm; mà là **hai từ thay thế thông thường** cho mỗi từ lạm dụng, chuẩn bị trước khi nói." }
+    },
+    {
+      "heading": { "en": "Your five-word card", "vi": "Thẻ năm từ của bạn" },
+      "body": { "en": "From the listener's notes take your **five most repeated content words**. For each write two alternatives that you already know: *good → useful, enjoyable*; *big → huge, major*; *thing → issue, aspect*; *very → extremely, particularly*; *I think → in my view, I'd say*. Read the card before each mock this week. After two mocks the listener should find fewer than three repeats.", "vi": "Từ ghi chú của người nghe lấy **năm từ nội dung bạn lặp nhiều nhất**. Với mỗi từ viết hai từ thay thế bạn đã biết: *good → useful, enjoyable*; *big → huge, major*; *thing → issue, aspect*; *very → extremely, particularly*; *I think → in my view, I'd say*. Đọc thẻ trước mỗi lần thi thử tuần này. Sau hai lần, người nghe sẽ thấy dưới ba từ lặp." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A listener's notes and the card made from them", "vi": "Ghi chú của người nghe và thẻ làm từ đó" },
+      "text": "Listener's notes (11 minutes):\n  good ×9   very ×8   I think ×7   thing ×5   a lot of ×4   interesting ×4\n\nCard:\n  good      → useful · enjoyable\n  very      → extremely · particularly\n  I think   → in my view · I'd say\n  thing     → issue · aspect\n  a lot of  → plenty of · a great deal of\n\nSecond mock: good ×2, very ×3, I think ×2. Listener's note: \"much better; 'actually' now ×6\".",
+      "note": { "en": "A new repetition appears; that is normal. Add it to the card and go again.", "vi": "Một từ lặp mới xuất hiện; chuyện bình thường. Thêm vào thẻ và làm tiếp." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Common overused words and two alternatives", "vi": "Từ hay lạm dụng và hai từ thay" }, "items": ["good → useful, enjoyable", "bad → harmful, disappointing", "big → huge, major", "thing → issue, aspect", "very → extremely, particularly", "I think → in my view, I'd say", "a lot of → plenty of, a great deal of", "important → essential, central"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the listener's one job?", "vi": "Việc duy nhất của người nghe là gì?" },
+      "options": ["Write down every word you say more than three times", "Correct your grammar", "Score you out of 9"],
+      "answerIndex": 0,
+      "explanation": { "en": "Repetition is what a listener hears and you do not.", "vi": "Lặp là thứ người nghe nhận ra còn bạn thì không." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which repetition costs Lexical Resource marks?", "vi": "Lặp nào mất điểm Lexical Resource?" },
+      "options": ["\"good\" nine times", "\"the\" thirty times", "\"I\" twenty times"],
+      "answerIndex": 0,
+      "explanation": { "en": "Content words, not grammar words.", "vi": "Từ nội dung, không phải từ ngữ pháp." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What goes on the card for \"thing\"?", "vi": "Ghi gì trên thẻ cho \"thing\"?" },
+      "options": ["Two ordinary alternatives you already know, such as issue and aspect", "The rarest synonym you can find", "Nothing: thing is fine"],
+      "answerIndex": 0,
+      "explanation": { "en": "Ordinary alternatives, ready before you speak.", "vi": "Từ thay thông thường, chuẩn bị trước khi nói." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the week.", "vi": "Sắp xếp tuần." },
+      "parts": ["Mock with a listener counting repeats", "Pick your five most repeated words", "Write two alternatives for each", "Mock again and compare the counts"],
+      "explanation": { "en": "Count, pick, replace, count again.", "vi": "Đếm, chọn, thay, đếm lại." }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can split 60 minutes across three passages as 18, 20 and 22 minutes and keep to it.", "vi": "Bạn chia được 60 phút cho ba bài đọc thành 18, 20 và 22 phút và giữ đúng." },
+    { "en": "You can decide in ten seconds whether to leave a question.", "vi": "Bạn quyết định trong mười giây có bỏ qua một câu hay không." },
+    { "en": "You can transfer answers without losing a minute at the end.", "vi": "Bạn chuyển đáp án mà không mất một phút ở cuối." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "18, 20, 22", "vi": "18, 20, 22" },
+      "body": { "en": "The passages get harder, so the time grows: **18 minutes for Passage 1, 20 for Passage 2, 22 for Passage 3**. Write the three finishing times on your paper before you start (*0:18, 0:38, 1:00*). When a finishing time comes, **move on even with blanks**. Passage 1 has the easiest marks; losing them because you ran out of time on Passage 3 is the most common way to miss 6.0.", "vi": "Bài đọc khó dần nên thời gian tăng dần: **18 phút cho Bài 1, 20 cho Bài 2, 22 cho Bài 3**. Viết ba mốc kết thúc lên giấy trước khi bắt đầu (*0:18, 0:38, 1:00*). Tới mốc là **chuyển bài dù còn trống**. Bài 1 có điểm dễ nhất; mất chúng vì hết giờ ở Bài 3 là cách trượt 6.0 phổ biến nhất." }
+    },
+    {
+      "heading": { "en": "The ten-second rule", "vi": "Quy tắc mười giây" },
+      "body": { "en": "When a question is not going anywhere, **give it ten more seconds**, then put a mark next to it and move on. Come back only if you finish the passage early. Every question is worth one mark; the question you are stuck on is not worth more than the next three that you could answer.", "vi": "Khi một câu bế tắc, **cho thêm mười giây**, rồi đánh dấu và đi tiếp. Chỉ quay lại nếu xong bài sớm. Mỗi câu một điểm; câu bạn kẹt không đáng hơn ba câu kế tiếp mà bạn làm được." }
+    },
+    {
+      "heading": { "en": "Transfer as you go", "vi": "Chuyển đáp án theo từng bài" },
+      "body": { "en": "In the Reading test there is **no extra time to transfer answers**. Write each answer on the answer sheet as soon as you finish a passage, not at the end. In this app the answers are saved as you type, so the habit to practise is simply: **finish a passage, check its numbers, move on**.", "vi": "Thi Đọc **không có thêm thời gian để chuyển đáp án**. Ghi đáp án vào phiếu ngay khi xong một bài, không để cuối. Trong app, đáp án được lưu khi bạn gõ, nên thói quen cần luyện chỉ là: **xong một bài, kiểm lại số thứ tự, đi tiếp**." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A timed set, recorded", "vi": "Một bộ ba có bấm giờ, ghi lại" },
+      "text": "Passage 1  started 0:00  finished 0:17  13/13 answered, 2 marked\nPassage 2  started 0:17  finished 0:38  13/13 answered, 3 marked\nPassage 3  started 0:38  finished 0:59  11/14 answered, 3 blank\n0:59-1:00  went back to the 2 marked in Passage 1\n\nResult 27/40 (band 6.0). Blanks in Passage 3 cost 3; running over in Passage 1 would have cost more.",
+      "note": { "en": "Keeping the times gave the marks from Passages 1 and 2; the blanks were the right thing to accept.", "vi": "Giữ đúng giờ giữ được điểm Bài 1 và 2; chỗ trống ở Bài 3 là lựa chọn đúng." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Marks to put on your paper", "vi": "Ký hiệu ghi trên giấy" }, "items": ["0:18 / 0:38 / 1:00 (finishing times)", "? next to a question to revisit", "✓ passage checked and transferred"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "It is minute 18 and Passage 1 has two blanks. What do you do?", "vi": "Phút 18 và Bài 1 còn hai chỗ trống. Bạn làm gì?" },
+      "options": ["Move to Passage 2 and come back if there is time", "Finish the two blanks first", "Skip Passage 2"],
+      "answerIndex": 0,
+      "explanation": { "en": "Keep the finishing times.", "vi": "Giữ đúng mốc thời gian." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Why does Passage 3 get the most time?", "vi": "Vì sao Bài 3 được nhiều thời gian nhất?" },
+      "options": ["It is the hardest", "It has the most questions", "It is the longest to read aloud"],
+      "answerIndex": 0,
+      "explanation": { "en": "The passages get harder.", "vi": "Các bài đọc khó dần." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "When should you transfer answers in the real test?", "vi": "Trong thi thật nên chuyển đáp án khi nào?" },
+      "options": ["As soon as you finish each passage", "In the extra ten minutes at the end", "After Passage 3"],
+      "answerIndex": 0,
+      "explanation": { "en": "Reading has no extra transfer time.", "vi": "Thi Đọc không có thêm thời gian chuyển đáp án." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the start of a timed set.", "vi": "Sắp xếp lúc bắt đầu một bộ ba." },
+      "parts": ["Write 0:18, 0:38, 1:00 on the paper", "Start Passage 1", "Mark hard questions and move on", "At 0:18 go to Passage 2"],
+      "explanation": { "en": "Times first.", "vi": "Mốc giờ trước." }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "objectives": [
+    { "en": "You can name the four criteria of Task 2 and say what band 6 requires in each.", "vi": "Bạn gọi tên được bốn tiêu chí của Task 2 và nói band 6 yêu cầu gì ở mỗi tiêu chí." },
+    { "en": "You can plan an essay so that every criterion is covered before you write.", "vi": "Bạn lên dàn ý sao cho mọi tiêu chí được đáp ứng trước khi viết." },
+    { "en": "You can read your graded essay and find which criterion is holding your band down.", "vi": "Bạn đọc được bài đã chấm và tìm ra tiêu chí nào đang kéo band xuống." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Four criteria, equal weight", "vi": "Bốn tiêu chí, trọng số bằng nhau" },
+      "body": { "en": "Task 2 is scored on **Task Response (TR)**, **Coherence and Cohesion (CC)**, **Lexical Resource (LR)** and **Grammatical Range and Accuracy (GRA)**, each worth a quarter. Your band is the average. This matters: an essay with great vocabulary (LR 7) but no clear position (TR 5) scores 6. The quickest way up is usually **raising your lowest criterion**, not polishing the best one.", "vi": "Task 2 chấm theo **Task Response (TR)**, **Coherence and Cohesion (CC)**, **Lexical Resource (LR)** và **Grammatical Range and Accuracy (GRA)**, mỗi cái một phần tư. Band là trung bình. Điều này quan trọng: bài từ vựng hay (LR 7) nhưng không có quan điểm rõ (TR 5) chỉ được 6. Cách nhanh nhất để lên là **nâng tiêu chí thấp nhất**, không phải trau chuốt cái tốt nhất." }
+    },
+    {
+      "heading": { "en": "What band 6 looks like", "vi": "Band 6 trông thế nào" },
+      "body": { "en": "**TR 6**: answers all parts of the question, gives a position, ideas are relevant but some are not developed enough. **CC 6**: clear overall organisation, paragraphs used, linking words present but sometimes mechanical or wrong. **LR 6**: enough vocabulary for the topic, tries less common words, some errors that do not block meaning. **GRA 6**: a mix of simple and complex sentences, errors in the complex ones but rarely blocking meaning. Band 7 in each adds **consistency**: fully developed ideas, flexible linking, precise words, mostly error-free sentences.", "vi": "**TR 6**: trả lời mọi phần của đề, có quan điểm, ý liên quan nhưng vài ý chưa phát triển đủ. **CC 6**: tổ chức tổng thể rõ, có chia đoạn, có từ nối nhưng đôi khi máy móc hay sai. **LR 6**: đủ từ cho chủ đề, có thử từ ít phổ biến, vài lỗi không làm mất nghĩa. **GRA 6**: trộn câu đơn và câu phức, có lỗi ở câu phức nhưng hiếm khi mất nghĩa. Band 7 ở mỗi tiêu chí thêm **sự ổn định**: ý phát triển trọn, nối linh hoạt, từ chính xác, câu gần như không lỗi." }
+    },
+    {
+      "heading": { "en": "Plan by criterion", "vi": "Lên dàn ý theo tiêu chí" },
+      "body": { "en": "Before writing, check four boxes on your plan. **TR**: my position in one sentence, and one idea for each part of the question. **CC**: four paragraphs, one main idea each, a topic sentence for each body paragraph. **LR**: five topic words I will use (from the word list of the week). **GRA**: two complex structures I will use on purpose (a relative clause, a conditional, a passive). Five minutes of planning covers all four; writing without a plan usually leaves TR or CC behind.", "vi": "Trước khi viết, tích bốn ô trên dàn ý. **TR**: quan điểm của tôi trong một câu, và một ý cho mỗi phần của đề. **CC**: bốn đoạn, mỗi đoạn một ý chính, câu chủ đề cho mỗi đoạn thân. **LR**: năm từ chủ đề tôi sẽ dùng (từ danh sách từ tuần này). **GRA**: hai cấu trúc phức tôi sẽ chủ động dùng (mệnh đề quan hệ, câu điều kiện, bị động). Năm phút dàn ý phủ cả bốn; viết không dàn ý thường bỏ lại TR hay CC." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A plan with the four boxes", "vi": "Dàn ý với bốn ô" },
+      "text": "Question: Some people think governments should spend money on space research; others say it should go to problems on Earth. To what extent do you agree or disagree?\n\nTR  Position: mostly disagree; a small share for space is justified, but Earth first.\n    Part 1 (space): technology benefits (satellites, weather). Part 2 (Earth): health, clean water, more urgent.\nCC  P1 intro + position / P2 Earth first (topic: urgent needs) / P3 space still worth a small share (topic: spin-off benefits) / P4 conclusion\nLR  fund, allocate, priority, infrastructure, long-term benefit\nGRA one conditional (\"If the money were spent on...\"), one passive (\"are funded by\"), one relative clause (\"research, which...\")",
+      "note": { "en": "With this plan the essay cannot miss a part of the question or a paragraph.", "vi": "Có dàn ý này bài không thể bỏ sót một phần đề hay một đoạn." }
+    },
+    {
+      "title": { "en": "Reading a graded essay", "vi": "Đọc bài đã chấm" },
+      "text": "Graded: TR 6.0  CC 5.5  LR 6.0  GRA 6.0  → band 6.0\nFeedback on CC: \"paragraph 3 mixes two ideas; 'moreover' used where the idea contrasts\"\n\nWhat to fix next time: one idea per paragraph; check each linking word means what I need.\nLowest criterion = CC → the next two essays focus on CC only.",
+      "note": { "en": "Raising CC to 6.5 moves the band more than raising LR to 6.5 would.", "vi": "Nâng CC lên 6.5 đẩy band nhiều hơn nâng LR lên 6.5." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Stating a position (TR)", "vi": "Nêu quan điểm (TR)" }, "items": ["I largely agree that...", "While there is some truth in..., I believe...", "This essay argues that...", "In my view, ... outweighs ..."] },
+    { "use": { "en": "Topic sentences (CC)", "vi": "Câu chủ đề (CC)" }, "items": ["The main reason for this is...", "A further argument is that...", "Those who support ... point out that...", "However, this view ignores..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "An essay scores TR 5, CC 6, LR 7, GRA 6. What is the fastest way up?", "vi": "Bài đạt TR 5, CC 6, LR 7, GRA 6. Cách nhanh nhất để lên là gì?" },
+      "options": ["Raise TR: answer every part and state a position", "Use even rarer words", "Write more"],
+      "answerIndex": 0,
+      "explanation": { "en": "Raise the lowest criterion.", "vi": "Nâng tiêu chí thấp nhất." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "\"Linking words present but sometimes mechanical or wrong\" describes band 6 in...", "vi": "\"Có từ nối nhưng đôi khi máy móc hay sai\" mô tả band 6 ở..." },
+      "options": ["Coherence and Cohesion", "Task Response", "Lexical Resource"],
+      "answerIndex": 0,
+      "explanation": { "en": "Linking is CC.", "vi": "Từ nối thuộc CC." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What does the GRA box on your plan contain?", "vi": "Ô GRA trên dàn ý chứa gì?" },
+      "options": ["Two complex structures you will use on purpose", "A list of tenses", "The word count"],
+      "answerIndex": 0,
+      "explanation": { "en": "Choose the structures before you write.", "vi": "Chọn cấu trúc trước khi viết." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the plan.", "vi": "Sắp xếp dàn ý." },
+      "parts": ["Position in one sentence", "One idea per part of the question", "Four paragraphs with topic sentences", "Five topic words and two structures"],
+      "explanation": { "en": "TR, then CC, then LR and GRA.", "vi": "TR, rồi CC, rồi LR và GRA." }
+    }
+  ]
+}

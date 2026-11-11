@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can do Task 1 and Task 2 in one sitting of 60 minutes, Task 2 first.", "vi": "Bạn làm được Task 1 và Task 2 trong một lượt 60 phút, Task 2 trước." },
+    { "en": "You use your personal checklist in the last five minutes of each task.", "vi": "Bạn dùng danh sách kiểm tra cá nhân trong năm phút cuối mỗi bài." },
+    { "en": "You know what Gate 4 Writing needs: 5.5 in both tasks, with Task 2 counting double.", "vi": "Bạn biết Gate 4 Viết cần gì: 5.5 ở cả hai bài, Task 2 tính gấp đôi." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Task 2 first, 40 minutes; Task 1 second, 20", "vi": "Task 2 trước, 40 phút; Task 1 sau, 20" },
+      "body": { "en": "Task 2 is worth **twice** Task 1, so many candidates write it first while they are fresh, then do Task 1 in the time left. Either order is allowed. What is not allowed is letting Task 1 take 30 minutes: then Task 2 is short and loses more than Task 1 gained. Set **two finishing times** before you start and keep them.", "vi": "Task 2 tính **gấp đôi** Task 1, nên nhiều thí sinh viết nó trước khi còn tỉnh táo, rồi làm Task 1 trong thời gian còn lại. Thứ tự nào cũng được. Điều không được là để Task 1 chiếm 30 phút: khi đó Task 2 ngắn và mất nhiều hơn Task 1 được. Đặt **hai mốc kết thúc** trước khi bắt đầu và giữ đúng." }
+    },
+    {
+      "heading": { "en": "Your checklist, in the last five minutes", "vi": "Danh sách kiểm tra của bạn, năm phút cuối" },
+      "body": { "en": "By now your error book and the lesson on repeated errors have given you **four personal checks**. Add the two that lose most marks at this level: **Task 1: is there an overview with no numbers? Task 2: is my position clear in the introduction and conclusion?** Six items, one pass each, one minute each. This is not optional time: the five minutes are **part of the plan**, not what is left over.", "vi": "Tới giờ sổ lỗi và bài về lỗi lặp lại đã cho bạn **bốn mục kiểm tra cá nhân**. Thêm hai mục mất điểm nhiều nhất ở trình độ này: **Task 1: có tổng quan không số liệu chưa? Task 2: quan điểm có rõ ở mở bài và kết bài chưa?** Sáu mục, mỗi mục một lượt, mỗi lượt một phút. Đây không phải thời gian tuỳ chọn: năm phút là **một phần kế hoạch**, không phải phần còn dư." }
+    },
+    {
+      "heading": { "en": "Gate 4 Writing", "vi": "Gate 4 Viết" },
+      "body": { "en": "Gate 4 needs **5.5** in Writing. The band is (Task 1 + 2 × Task 2) ÷ 3, so a 6.0 in Task 2 covers a 5.0 in Task 1, but not the other way round. The safest route to 5.5 is: **full length** (150 and 250 words, counted), **an overview** in Task 1, **a clear position and four paragraphs** in Task 2, and **your checklist** run on both. After Gate 4 the app may suggest a target of 6.5 if Writing or Speaking is under 5.5: that is a safety suggestion, not a verdict.", "vi": "Gate 4 cần **5.5** môn Viết. Band là (Task 1 + 2 × Task 2) ÷ 3, nên 6.0 ở Task 2 bù được 5.0 ở Task 1, nhưng ngược lại thì không. Đường an toàn nhất tới 5.5 là: **đủ độ dài** (150 và 250 từ, có đếm), **tổng quan** ở Task 1, **quan điểm rõ và bốn đoạn** ở Task 2, và **danh sách kiểm tra** chạy cho cả hai. Sau Gate 4 app có thể gợi ý target 6.5 nếu Viết hay Nói dưới 5.5: đó là gợi ý an toàn, không phải phán quyết." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A 60-minute plan on paper", "vi": "Kế hoạch 60 phút trên giấy" },
+      "text": "0:00  read both tasks (1 min)\n0:01  Task 2 plan: position, 2 ideas, 4 paragraphs (5 min)\n0:06  Task 2 write (29 min)\n0:35  Task 2 checklist (5 min)   → finish 0:40\n0:40  Task 1: overview sentences in my head (1 min)\n0:41  Task 1 write (15 min)\n0:56  Task 1 checklist (4 min)   → finish 1:00\n\nChecklist: articles · plural -s · the number of... is · one tense per time frame · T1 overview, no numbers · T2 position in intro and conclusion",
+      "note": { "en": "The two checklist slots are written into the plan, so they are never skipped.", "vi": "Hai khoảng kiểm tra được ghi vào kế hoạch nên không bao giờ bị bỏ." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The six checks", "vi": "Sáu mục kiểm tra" }, "items": ["articles (a / the / none)", "plural -s", "subject-verb agreement", "one tense per time frame", "Task 1: overview, no numbers", "Task 2: position in introduction and conclusion"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Task 2 scores 6.0 and Task 1 scores 5.0. The Writing band is...", "vi": "Task 2 được 6.0 và Task 1 được 5.0. Band Viết là..." },
+      "options": ["5.5", "5.0", "6.0"],
+      "answerIndex": 0,
+      "explanation": { "en": "(5 + 12) ÷ 3 = 5.67, rounded to 5.5.", "vi": "(5 + 12) ÷ 3 = 5.67, làm tròn 5.5." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "When do you run the checklist?", "vi": "Chạy danh sách kiểm tra khi nào?" },
+      "options": ["In the last five minutes of each task, planned in advance", "If there is time left", "Before writing"],
+      "answerIndex": 0,
+      "explanation": { "en": "Part of the plan, not what is left over.", "vi": "Một phần kế hoạch, không phải phần còn dư." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Task 1 has taken 30 minutes. What has gone wrong?", "vi": "Task 1 mất 30 phút. Điều gì sai?" },
+      "options": ["Task 2 will be short and lose more than Task 1 gained", "Nothing, Task 1 matters more", "The overview was too long"],
+      "answerIndex": 0,
+      "explanation": { "en": "Task 2 counts double.", "vi": "Task 2 tính gấp đôi." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the 60 minutes.", "vi": "Sắp xếp 60 phút." },
+      "parts": ["Read both tasks and plan Task 2", "Write Task 2 and run the checklist", "Write Task 1", "Run the checklist on Task 1"],
+      "explanation": { "en": "Task 2 first, checks on both.", "vi": "Task 2 trước, kiểm tra cả hai." }
+    }
+  ]
+}

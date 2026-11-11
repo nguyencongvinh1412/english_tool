@@ -46,6 +46,7 @@ export interface Step {
 
 import { PHASE2_LESSONS, PHASE2_WEEKS } from './syllabusPhase2.js';
 import { PHASE3_LESSONS, PHASE3_WEEKS } from './syllabusPhase3.js';
+import { PHASE4_LESSONS, PHASE4_WEEKS } from './syllabusPhase4.js';
 
 /** The lessons that exist, with the skill they belong to and where they sit */
 export interface LessonMeta {
@@ -75,7 +76,7 @@ export const LESSONS: LessonMeta[] = [
   { id: 'ip-s-mock-check', block: 'speaking', minutes: 35, title: { en: 'Checking your own recording', vi: 'Tự kiểm tra bản ghi âm của bạn' } },
 ];
 
-LESSONS.push(...PHASE2_LESSONS, ...PHASE3_LESSONS);
+LESSONS.push(...PHASE2_LESSONS, ...PHASE3_LESSONS, ...PHASE4_LESSONS);
 
 export const lessonMeta = (id: string): LessonMeta | undefined => LESSONS.find((l) => l.id === id);
 
@@ -172,7 +173,7 @@ function toStep(base: Pick<Step, 'phase' | 'week' | 'day' | 'block'>, item: DayS
   return { ...base, kind: 'practice', ref: { type: item.practice }, core: true, minutes: item.minutes ?? DEFAULT_PRACTICE_MINUTES[item.practice] };
 }
 
-const WEEK_PLANS: Record<number, DayPlan> = { ...PHASE1_WEEKS, ...PHASE2_WEEKS, ...PHASE3_WEEKS };
+const WEEK_PLANS: Record<number, DayPlan> = { ...PHASE1_WEEKS, ...PHASE2_WEEKS, ...PHASE3_WEEKS, ...PHASE4_WEEKS };
 
 /** Steps of a phase in order: for each day, vocabulary and grammar, then listening, reading, writing, speaking */
 export function phaseSteps(phase: number): Step[] {
@@ -201,7 +202,7 @@ export function phaseSteps(phase: number): Step[] {
 }
 
 /** Phases that have a written syllabus */
-export const WRITTEN_PHASES = [1, 2, 3];
+export const WRITTEN_PHASES = [1, 2, 3, 4];
 
 /** Minutes of a whole phase, for estimating phases that are not written yet */
 export const phaseMinutes = (phase: number): number => phaseSteps(phase).reduce((n, s) => n + s.minutes, 0);

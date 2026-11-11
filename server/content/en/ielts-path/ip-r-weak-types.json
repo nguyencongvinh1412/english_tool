@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can read the reading part of your error book and name your weakest question type.", "vi": "Bạn đọc được phần Đọc trong sổ lỗi và gọi tên dạng câu yếu nhất." },
+    { "en": "You remember the one rule for each question type you have met.", "vi": "Bạn nhớ quy tắc duy nhất cho mỗi dạng câu đã gặp." },
+    { "en": "You know how Gate 4 Reading is scored and what to do in the last five minutes.", "vi": "Bạn biết Gate 4 Đọc chấm thế nào và làm gì trong năm phút cuối." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The error book by question type", "vi": "Sổ lỗi theo dạng câu" },
+      "body": { "en": "Open the error book. The reading part shows each question type with **correct / total**. Any type **under 60%** on ten or more questions is a weak type; the app already adds an extra exercise for it. This week take the **two weakest** and do only their rule, below, before each practice.", "vi": "Mở sổ lỗi. Phần Đọc cho thấy mỗi dạng câu với **đúng / tổng**. Dạng nào **dưới 60%** trên từ mười câu trở lên là dạng yếu; app đã tự thêm bài luyện cho nó. Tuần này lấy **hai dạng yếu nhất** và chỉ ôn quy tắc của chúng, bên dưới, trước mỗi bài luyện." }
+    },
+    {
+      "heading": { "en": "One rule per type", "vi": "Mỗi dạng một quy tắc" },
+      "body": { "en": "**True / False / Not Given**: False contradicts the text; Not Given is not there at all. **Yes / No / Not Given**: the same, about the writer's view. **Headings**: the heading covers the whole paragraph, not one detail. **Matching information**: find the detail, not the topic. **Gap and summary**: copy the words exactly, mind the limit and the plural. **Multiple choice**: suspect the option with the most text words. **Sentence endings**: grammar must fit and meaning must match.", "vi": "**True / False / Not Given**: False trái với bài; Not Given hoàn toàn không có. **Yes / No / Not Given**: như trên, về quan điểm tác giả. **Nối tiêu đề**: tiêu đề bao cả đoạn, không phải một chi tiết. **Nối thông tin**: tìm chi tiết, không phải chủ đề. **Điền và tóm tắt**: chép đúng từ, để ý giới hạn và số nhiều. **Trắc nghiệm**: nghi phương án có nhiều từ giống bài nhất. **Nối đuôi câu**: ngữ pháp phải khớp và nghĩa phải đúng." }
+    },
+    {
+      "heading": { "en": "Gate 4 Reading and the last five minutes", "vi": "Gate 4 Đọc và năm phút cuối" },
+      "body": { "en": "Gate 4 Reading needs **6.0, about 23 of 40**. Keep the 18-20-22 split. In the **last five minutes**, stop reading and do two things: **answer every blank** (a guess scores the same as a blank at worst, and sometimes more), and run the one-minute check on plurals, word limits and Not Given. Then stop; do not rewrite answers you were sure of.", "vi": "Gate 4 Đọc cần **6.0, khoảng 23/40**. Giữ phân bổ 18-20-22. Trong **năm phút cuối**, ngừng đọc và làm hai việc: **điền mọi ô trống** (đoán tệ nhất bằng bỏ trống, đôi khi hơn), và kiểm tra một phút về số nhiều, giới hạn từ và Not Given. Rồi dừng; đừng sửa đáp án bạn đã chắc." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Two weak types and the rule to apply", "vi": "Hai dạng yếu và quy tắc áp dụng" },
+      "text": "Error book, reading (last 4 weeks):\n  headings      9/18  = 50%   ← weak\n  mcq          14/24  = 58%   ← weak\n  tfng         22/28  = 79%\n  gap          31/36  = 86%\n\nBefore each practice this week, say the two rules aloud:\n  headings → \"the heading covers the whole paragraph\"\n  mcq      → \"suspect the option with the most text words\"",
+      "note": { "en": "Two rules, said before every practice, change a habit faster than reading them once.", "vi": "Hai quy tắc, nói trước mỗi bài luyện, đổi thói quen nhanh hơn đọc một lần." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The last five minutes", "vi": "Năm phút cuối" }, "items": ["answer every blank", "plural or singular?", "word limit?", "Not Given, not False?", "stop; do not change sure answers"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "A question type at 50% over 18 questions is...", "vi": "Một dạng câu đạt 50% trên 18 câu là..." },
+      "options": ["a weak type to work on this week", "fine", "too few questions to judge"],
+      "answerIndex": 0,
+      "explanation": { "en": "Under 60% on ten or more questions.", "vi": "Dưới 60% trên từ mười câu." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "The rule for matching headings is...", "vi": "Quy tắc cho nối tiêu đề là..." },
+      "options": ["the heading covers the whole paragraph", "the heading matches the first sentence", "the heading repeats a word from the paragraph"],
+      "answerIndex": 0,
+      "explanation": { "en": "Whole paragraph, not one detail.", "vi": "Cả đoạn, không phải một chi tiết." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "In the last five minutes you should...", "vi": "Trong năm phút cuối bạn nên..." },
+      "options": ["answer every blank and run the one-minute check", "re-read Passage 3", "change answers you were unsure about"],
+      "answerIndex": 0,
+      "explanation": { "en": "Blanks and the check; then stop.", "vi": "Ô trống và kiểm tra; rồi dừng." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the review.", "vi": "Sắp xếp việc ôn." },
+      "parts": ["Open the error book, reading part", "Pick the two weakest types", "Say their rules before each practice", "Check the percentages again after the week"],
+      "explanation": { "en": "Book, types, rules, check.", "vi": "Sổ, dạng, quy tắc, kiểm tra." }
+    }
+  ]
+}

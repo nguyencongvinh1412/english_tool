@@ -33,7 +33,8 @@
     "ielts:fill": "tsx server/scripts/fillIeltsPractice.ts",
     "ielts:fill-gates": "tsx server/scripts/fillIeltsPractice.ts --gates",
     "ielts:fill-phase2": "tsx server/scripts/fillIeltsPractice.ts --phase2",
-    "ielts:fill-phase3": "tsx server/scripts/fillIeltsPractice.ts --phase3"
+    "ielts:fill-phase3": "tsx server/scripts/fillIeltsPractice.ts --phase3",
+    "ielts:fill-phase4": "tsx server/scripts/fillIeltsPractice.ts --phase4"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

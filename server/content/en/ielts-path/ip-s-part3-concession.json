@@ -1,0 +1,61 @@
+{
+  "objectives": [
+    { "en": "You can concede a point and then return to your own view in one breath.", "vi": "Bạn nhượng bộ một ý rồi quay lại quan điểm của mình trong một hơi." },
+    { "en": "You can buy two seconds of thinking time with a natural phrase, no more than twice in Part 3.", "vi": "Bạn \"câu\" được hai giây suy nghĩ bằng một cụm tự nhiên, không quá hai lần trong Part 3." },
+    { "en": "You know why memorised fillers lower the Fluency band instead of raising it.", "vi": "Bạn biết vì sao cụm từ \"câu giờ\" học thuộc làm giảm band Fluency thay vì tăng." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Concession: yes, but", "vi": "Nhượng bộ: đúng, nhưng" },
+      "body": { "en": "Part 3 questions often push against your view: *\"But isn't it true that...?\"* The band 6-7 move is to **accept the point, then limit it**: *\"That's true to some extent, but...\"*, *\"I can see why people think that, although in my experience...\"*, *\"Even if that's the case, I'd still say...\"*. It shows you can hold two ideas at once, which is exactly what the descriptors call \"developing a topic\". Concession plus your reason is one complete answer.", "vi": "Câu hỏi Part 3 hay ép lại quan điểm của bạn: *\"But isn't it true that...?\"* Nước đi band 6-7 là **chấp nhận ý đó, rồi giới hạn nó**: *\"That's true to some extent, but...\"*, *\"I can see why people think that, although in my experience...\"*, *\"Even if that's the case, I'd still say...\"*. Nó cho thấy bạn giữ được hai ý cùng lúc, đúng điều bảng mô tả gọi là \"phát triển chủ đề\". Nhượng bộ cộng lý do của bạn là một câu trả lời trọn vẹn." }
+    },
+    {
+      "heading": { "en": "Buying time, the natural way", "vi": "Câu giờ, cách tự nhiên" },
+      "body": { "en": "A hard question deserves a second of thought. Native speakers buy it by **reacting to the question**: *\"That's a tricky one.\"*, *\"Hmm, I've never really thought about that.\"*, *\"Well, it depends what you mean by...\"*. Then they answer. The reaction must be **short and honest**; it is not the answer. Use it **at most twice** in the whole of Part 3. The third time the examiner hears a script.", "vi": "Câu hỏi khó xứng đáng một giây suy nghĩ. Người bản xứ \"mua\" nó bằng cách **phản ứng với câu hỏi**: *\"That's a tricky one.\"*, *\"Hmm, I've never really thought about that.\"*, *\"Well, it depends what you mean by...\"*. Rồi họ trả lời. Phản ứng phải **ngắn và thật**; nó không phải câu trả lời. Dùng **nhiều nhất hai lần** trong cả Part 3. Lần thứ ba giám khảo nghe ra kịch bản." }
+    },
+    {
+      "heading": { "en": "Why memorised fillers cost marks", "vi": "Vì sao cụm học thuộc mất điểm" },
+      "body": { "en": "*\"That's a very interesting question, let me think about it for a moment\"* said before every answer is a memorised chunk. The descriptors for Fluency say the examiner looks for **speech that is not rehearsed**; a repeated filler signals the opposite and also wastes the time you had to develop the answer. One real reaction, then **answer, reason, example** is worth more than any filler.", "vi": "*\"That's a very interesting question, let me think about it for a moment\"* nói trước mọi câu trả lời là cụm học thuộc. Bảng mô tả Fluency nói giám khảo tìm **lời nói không diễn tập**; cụm lặp lại báo hiệu điều ngược lại và còn phí thời gian bạn có để phát triển câu trả lời. Một phản ứng thật, rồi **trả lời, lý do, ví dụ** đáng giá hơn mọi cụm câu giờ." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A pushed question answered with a concession", "vi": "Câu hỏi ép được trả lời bằng nhượng bộ" },
+      "text": "Examiner: But surely qualifications prove that someone can learn?\n\nCandidate: That's a fair point, and I'd agree that a degree shows a person can study and finish something difficult. Even so, I'd still say experience tells you more, because studying a subject and doing the job every day are quite different things. A friend of mine graduated top of her class in marketing, but she said her first year at work taught her more than the whole course.",
+      "note": { "en": "Concession (\"That's a fair point... I'd agree\"), limit (\"Even so\"), reason, example. No filler needed.", "vi": "Nhượng bộ (\"That's a fair point... I'd agree\"), giới hạn (\"Even so\"), lý do, ví dụ. Không cần câu giờ." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Conceding", "vi": "Nhượng bộ" }, "items": ["That's true to some extent, but...", "I can see why people think that, although...", "That's a fair point, and I'd agree that..., even so...", "Even if that's the case, I'd still say...", "It depends: in some cases..., but on the whole..."] },
+    { "use": { "en": "Buying two seconds (at most twice)", "vi": "Mua hai giây (nhiều nhất hai lần)" }, "items": ["That's a tricky one.", "Hmm, I've never really thought about that.", "Well, it depends what you mean by..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "\"That's true to some extent, but...\" is...", "vi": "\"That's true to some extent, but...\" là..." },
+      "options": ["a concession: accept the point, then limit it", "a filler to buy time", "a way to avoid the question"],
+      "answerIndex": 0,
+      "explanation": { "en": "Yes, but: two ideas held at once.", "vi": "Đúng, nhưng: giữ hai ý cùng lúc." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "How often can you buy time in Part 3?", "vi": "Có thể câu giờ bao nhiêu lần trong Part 3?" },
+      "options": ["At most twice", "Before every answer", "Never"],
+      "answerIndex": 0,
+      "explanation": { "en": "The third time it sounds like a script.", "vi": "Lần thứ ba nghe như kịch bản." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Why does a repeated memorised filler lower Fluency?", "vi": "Vì sao cụm học thuộc lặp lại làm giảm Fluency?" },
+      "options": ["The examiner looks for speech that is not rehearsed", "It is too short", "It uses simple words"],
+      "answerIndex": 0,
+      "explanation": { "en": "Rehearsed chunks signal the opposite of fluency.", "vi": "Cụm diễn tập báo hiệu ngược với trôi chảy." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order a concession answer.", "vi": "Sắp xếp câu trả lời nhượng bộ." },
+      "parts": ["Accept the point", "Limit it (even so / but)", "Give your reason", "Give an example"],
+      "explanation": { "en": "Accept, limit, reason, example.", "vi": "Chấp nhận, giới hạn, lý do, ví dụ." }
+    }
+  ]
+}

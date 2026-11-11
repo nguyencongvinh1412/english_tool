@@ -1,0 +1,59 @@
+{
+  "objectives": [
+    { "en": "You can use one section of a finished test as a dictation to fix what your ears miss.", "vi": "Bạn dùng được một section của đề đã làm làm bài nghe chép để sửa chỗ tai bỏ sót." },
+    { "en": "You can tell the difference between not hearing a word and not knowing it.", "vi": "Bạn phân biệt được không nghe ra một từ với không biết từ đó." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Dictation after the test, not instead of it", "vi": "Nghe chép sau đề, không thay cho đề" },
+      "body": { "en": "This week, after each full test, **take the section where you lost most marks** and dictate two or three minutes of it: play a sentence, write it, play it again, then check against the transcript. It is slow and that is the point. You are training the exact sounds that cost you marks.", "vi": "Tuần này, sau mỗi đề đầy đủ, **lấy section bạn mất nhiều điểm nhất** và nghe chép hai ba phút của nó: phát một câu, viết, phát lại, rồi so với bản ghi. Chậm, và đó chính là mục đích. Bạn luyện đúng những âm làm bạn mất điểm." }
+    },
+    {
+      "heading": { "en": "Two kinds of gap in your dictation", "vi": "Hai loại lỗ hổng trong bài chép" },
+      "body": { "en": "Compare your page with the transcript and sort every difference. **Did not hear it**: the word is one you know (*of, have, -ed, -s, the*) but it was weak, linked or swallowed. **Did not know it**: a word you could not have written even slowly. The first kind is fixed by more dictation; the second by the word list. Most Section 4 losses at this level are the first kind.", "vi": "So trang của bạn với bản ghi và phân loại mọi chỗ khác. **Không nghe ra**: từ bạn biết (*of, have, -ed, -s, the*) nhưng bị đọc yếu, nối hay nuốt. **Không biết**: từ dù chậm cũng không viết được. Loại đầu sửa bằng chép thêm; loại sau bằng danh sách từ. Phần lớn điểm mất ở Section 4 ở trình độ này là loại đầu." }
+    },
+    {
+      "heading": { "en": "Academic words you must spell", "vi": "Từ học thuật bạn phải viết đúng" },
+      "body": { "en": "Section 4 answers are often academic nouns: *environment, temperature, government, technique, resources, behaviour, equipment*. A correct answer spelt wrong gets no mark. Keep a **spelling list of the answers you got wrong** and write each one three times. Note the common traps: double letters (*accommodation, necessary*), silent letters (*government, environment*), *-ence / -ance*.", "vi": "Đáp án Section 4 thường là danh từ học thuật: *environment, temperature, government, technique, resources, behaviour, equipment*. Đáp án đúng viết sai chính tả không được điểm. Giữ **danh sách chính tả các đáp án bạn viết sai** và viết mỗi từ ba lần. Ghi nhớ bẫy hay gặp: chữ kép (*accommodation, necessary*), chữ câm (*government, environment*), *-ence / -ance*." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A dictation checked against the transcript", "vi": "Bài chép so với bản ghi" },
+      "text": "Heard:  \"The amount of water that plants need depend on the temperture and the type of soil.\"\nSaid:   \"The amount of water that plants need depends on the temperature and the type of soil.\"\n\nDifferences:\n- depend → depends      did not hear (the -s)\n- temperture → temperature   spelling (missing syllable)\n\nAction: -s on verbs after \"the amount of\"; add \"temperature\" to the spelling list.",
+      "note": { "en": "Two small differences, two different fixes.", "vi": "Hai chỗ khác nhỏ, hai cách sửa khác nhau." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Section 4 words that are often misspelt", "vi": "Từ Section 4 hay viết sai" }, "items": ["environment", "government", "temperature", "accommodation", "necessary", "technique", "behaviour", "resources"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which section should you dictate after a full test?", "vi": "Nên chép section nào sau một đề đầy đủ?" },
+      "options": ["The section where you lost most marks", "Section 1, because it is easiest", "All four sections"],
+      "answerIndex": 0,
+      "explanation": { "en": "Train the sounds that cost you marks.", "vi": "Luyện đúng những âm làm bạn mất điểm." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You wrote \"depend\" for \"depends\". This is...", "vi": "Bạn viết \"depend\" thay vì \"depends\". Đây là..." },
+      "options": ["a word you know but did not hear", "a word you do not know", "a spelling mistake"],
+      "answerIndex": 0,
+      "explanation": { "en": "The -s was there; your ear missed it. More dictation fixes this.", "vi": "Có -s; tai bạn bỏ sót. Chép thêm sẽ sửa được." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which spelling is correct?", "vi": "Cách viết nào đúng?" },
+      "options": ["accommodation", "acommodation", "accomodation"],
+      "answerIndex": 0,
+      "explanation": { "en": "Double c and double m.", "vi": "Hai chữ c và hai chữ m." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the dictation routine.", "vi": "Sắp xếp quy trình nghe chép." },
+      "parts": ["Play one sentence", "Write it", "Play it again and correct", "Check against the transcript and sort the differences"],
+      "explanation": { "en": "Write before you check.", "vi": "Viết trước khi so." }
+    }
+  ]
+}

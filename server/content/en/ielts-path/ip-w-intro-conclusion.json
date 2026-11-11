@@ -1,0 +1,62 @@
+{
+  "objectives": [
+    { "en": "You can write a two-sentence introduction that paraphrases the question and states your position.", "vi": "Bạn viết được mở bài hai câu diễn đạt lại đề và nêu quan điểm." },
+    { "en": "You can write a conclusion that restates the position without copying the introduction.", "vi": "Bạn viết được kết bài nhắc lại quan điểm mà không chép lại mở bài." },
+    { "en": "You can avoid the three habits that waste words at the start and end.", "vi": "Bạn tránh được ba thói quen phí từ ở đầu và cuối bài." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The introduction: paraphrase, then position", "vi": "Mở bài: diễn đạt lại, rồi quan điểm" },
+      "body": { "en": "Two sentences are enough. **Sentence 1** restates the question in your own words (change the word forms and the order, not just one word). **Sentence 2** gives your position and, if the question has two parts, says what the essay will do. **Copying the question** word for word earns nothing: the examiner does not count copied words, and it signals a weak paraphrase. A long general opening about *the modern world* wastes forty words you need later.", "vi": "Hai câu là đủ. **Câu 1** nói lại đề bằng lời của bạn (đổi dạng từ và trật tự, không chỉ đổi một từ). **Câu 2** nêu quan điểm và, nếu đề có hai phần, nói bài sẽ làm gì. **Chép nguyên đề** không được gì: giám khảo không đếm từ chép, và nó cho thấy khả năng diễn đạt lại yếu. Mở đầu dài dòng về *thế giới hiện đại* phí bốn mươi từ bạn cần về sau." }
+    },
+    {
+      "heading": { "en": "The conclusion: the position again, in new words", "vi": "Kết bài: quan điểm lần nữa, bằng từ mới" },
+      "body": { "en": "One or two sentences. **Restate your position** and the main reason, using different words from the introduction. **No new ideas** in the conclusion; if an idea matters, it belongs in a body paragraph. A short recommendation is fine for problem-solution essays (*governments should therefore...*). Start with *In conclusion,* or *To sum up,* so the examiner sees it is the end.", "vi": "Một hai câu. **Nhắc lại quan điểm** và lý do chính, dùng từ khác với mở bài. **Không ý mới** ở kết bài; ý quan trọng thì thuộc đoạn thân. Một đề xuất ngắn là ổn với bài vấn đề-giải pháp (*governments should therefore...*). Bắt đầu bằng *In conclusion,* hay *To sum up,* để giám khảo thấy đây là phần kết." }
+    },
+    {
+      "heading": { "en": "Three habits to drop", "vi": "Ba thói quen cần bỏ" },
+      "body": { "en": "**\"Nowadays, in the modern world, ... is a controversial topic.\"** Empty; delete it. **\"Some people think X, others think Y. I will discuss both.\"** Only acceptable if sentence 2 then states which side you are on. **\"In conclusion, there are advantages and disadvantages.\"** Says nothing; state the side. Your introduction and conclusion together should be about **70 to 80 words**, leaving 180 or more for the body, where the band is decided.", "vi": "**\"Nowadays, in the modern world, ... is a controversial topic.\"** Rỗng; xoá. **\"Some people think X, others think Y. I will discuss both.\"** Chỉ chấp nhận nếu câu 2 nói rõ bạn ở phía nào. **\"In conclusion, there are advantages and disadvantages.\"** Không nói gì; hãy nêu phía. Mở bài và kết bài cộng lại nên khoảng **70 đến 80 từ**, để lại từ 180 từ cho thân bài, nơi quyết định band." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "Introduction and conclusion for one question", "vi": "Mở bài và kết bài cho một đề" },
+      "text": "Question: Some people think work experience is more important than qualifications when applying for a job. Others believe qualifications matter more. Discuss both views and give your own opinion.\n\nIntroduction (38 words):\nWhen employers choose between candidates, some place more weight on what applicants have already done at work, while others look first at their formal education. Although both matter, I believe that practical experience is usually the better guide to how someone will perform.\n\nConclusion (33 words):\nTo sum up, qualifications show what a person has studied, but a record of real work shows what they can actually do, which is why most employers are right to value experience more.",
+      "note": { "en": "The question is paraphrased, the position is clear in both, and the conclusion uses new words (\"record of real work\", \"what they can actually do\").", "vi": "Đề được diễn đạt lại, quan điểm rõ ở cả hai, và kết bài dùng từ mới (\"record of real work\", \"what they can actually do\")." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Paraphrasing the question", "vi": "Diễn đạt lại đề" }, "items": ["It is often argued that...", "There is some debate about whether...", "In recent years, ... has become..."] },
+    { "use": { "en": "Stating the position", "vi": "Nêu quan điểm" }, "items": ["I believe that ... for two main reasons.", "This essay argues that ... , although ...", "While ..., I would argue that ..."] },
+    { "use": { "en": "Concluding", "vi": "Kết luận" }, "items": ["In conclusion, ...", "To sum up, ...", "For these reasons, I remain convinced that...", "..., which is why ..."] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "Which introduction is better?", "vi": "Mở bài nào tốt hơn?" },
+      "options": ["\"When employers choose between candidates, some weigh experience more, others education. I believe experience is the better guide.\"", "\"Nowadays, in the modern world, jobs are a controversial topic. Some people think work experience is more important than qualifications.\"", "\"Some people think work experience is more important than qualifications when applying for a job. Others believe qualifications matter more.\""],
+      "answerIndex": 0,
+      "explanation": { "en": "Paraphrase plus position; the others are empty or copied.", "vi": "Diễn đạt lại cộng quan điểm; hai cái kia rỗng hoặc chép." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What should a conclusion never contain?", "vi": "Kết bài không bao giờ nên chứa gì?" },
+      "options": ["A new idea", "The position", "In conclusion"],
+      "answerIndex": 0,
+      "explanation": { "en": "New ideas belong in the body.", "vi": "Ý mới thuộc thân bài." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "About how many words should the introduction and conclusion share?", "vi": "Mở bài và kết bài nên chiếm khoảng bao nhiêu từ?" },
+      "options": ["70 to 80", "120 to 150", "30"],
+      "answerIndex": 0,
+      "explanation": { "en": "Leave 180 or more for the body.", "vi": "Để lại từ 180 từ cho thân bài." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the two sentences of an introduction and the conclusion.", "vi": "Sắp xếp hai câu mở bài và kết bài." },
+      "parts": ["Paraphrase the question", "State your position", "Body paragraphs", "Restate the position in new words"],
+      "explanation": { "en": "Paraphrase, position, body, restate.", "vi": "Diễn đạt lại, quan điểm, thân, nhắc lại." }
+    }
+  ]
+}

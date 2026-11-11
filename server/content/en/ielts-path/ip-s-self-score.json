@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can give yourself a band for each of the four Speaking criteria from a recording.", "vi": "Bạn tự chấm được band cho bốn tiêu chí Nói từ bản ghi âm." },
+    { "en": "You can compare your self-score with the app's score and explain the gap.", "vi": "Bạn so được điểm tự chấm với điểm của app và giải thích khoảng cách." },
+    { "en": "You know what Gate 4 Speaking needs and what to do in the two days before it.", "vi": "Bạn biết Gate 4 Nói cần gì và làm gì trong hai ngày trước đó." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "Four criteria, four questions", "vi": "Bốn tiêu chí, bốn câu hỏi" },
+      "body": { "en": "Listen to your mock recording once per criterion and answer one question each. **Fluency and Coherence**: did I keep going without long pauses, and could a listener follow the order? **Lexical Resource**: did I use topic words and avoid repeating the same five? **Grammatical Range and Accuracy**: did I use some complex sentences, and were the simple ones correct? **Pronunciation**: could every word be understood, and did my stress and intonation help the meaning? Give each a band of 5, 5.5, 6 or 6.5; the average is your self-score.", "vi": "Nghe bản ghi thi thử mỗi tiêu chí một lượt và trả lời một câu hỏi. **Fluency and Coherence**: tôi có nói liên tục không ngắt dài, và người nghe theo được trình tự không? **Lexical Resource**: tôi có dùng từ chủ đề và tránh lặp năm từ quen không? **Grammatical Range and Accuracy**: tôi có dùng câu phức, và câu đơn có đúng không? **Pronunciation**: mọi từ có hiểu được, trọng âm và ngữ điệu có giúp nghĩa không? Cho mỗi tiêu chí 5, 5.5, 6 hay 6.5; trung bình là điểm tự chấm." }
+    },
+    {
+      "heading": { "en": "Compare with the app and explain the gap", "vi": "So với app và giải thích khoảng cách" },
+      "body": { "en": "Submit the same mock for grading and put the two sets of bands side by side. A gap of 0.5 on one criterion is normal. A gap of 1.0 or more means you are **not hearing something**: usually learners over-score Pronunciation and Fluency and under-score Grammar. Read the app's feedback for that criterion and listen again for exactly that. Self-scoring is not about being right; it is about learning to hear what the examiner hears.", "vi": "Nộp cùng bài thi thử để chấm và đặt hai bộ band cạnh nhau. Lệch 0.5 ở một tiêu chí là bình thường. Lệch từ 1.0 nghĩa là bạn **chưa nghe ra điều gì đó**: thường người học tự chấm Pronunciation và Fluency cao hơn, Grammar thấp hơn. Đọc nhận xét của app cho tiêu chí đó và nghe lại đúng điểm đó. Tự chấm không phải để đúng; mà để học nghe điều giám khảo nghe." }
+    },
+    {
+      "heading": { "en": "Gate 4 Speaking and the two days before", "vi": "Gate 4 Nói và hai ngày trước" },
+      "body": { "en": "Gate 4 needs **5.5** in Speaking: Parts 1 to 3, graded on the four criteria. In the two days before: **no new material**. Read your five-word card, say your eight feeling words aloud, do one Part 2 with the two-minute timer, and go through three Part 3 questions with a concession each. Sleep. After Gate 4 the app may propose a target of 6.5 if Speaking or Writing is under 5.5; that is a planning choice you make, not a judgement of you.", "vi": "Gate 4 cần **5.5** môn Nói: Part 1 đến 3, chấm theo bốn tiêu chí. Hai ngày trước: **không học gì mới**. Đọc thẻ năm từ, nói to tám từ cảm xúc, làm một Part 2 với đồng hồ hai phút, và trả lời ba câu Part 3 mỗi câu một nhượng bộ. Ngủ đủ. Sau Gate 4 app có thể đề xuất target 6.5 nếu Nói hay Viết dưới 5.5; đó là lựa chọn kế hoạch của bạn, không phải phán xét về bạn." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "A self-score next to the app's score", "vi": "Điểm tự chấm cạnh điểm của app" },
+      "text": "                 self   app   gap\nFluency          6.0    5.5   +0.5\nLexical          5.5    5.5    0\nGrammar          6.0    5.0   +1.0  ← listen again\nPronunciation    6.5    5.5   +1.0  ← listen again\nBand             6.0    5.5\n\nApp feedback, Grammar: \"past events told in present simple; 'she go', 'it make'\"\nApp feedback, Pronunciation: \"final consonants dropped: 'firs', 'wen', 'sai'\"\n\nNext two mocks: listen only for past tense and final consonants.",
+      "note": { "en": "The two gaps of 1.0 point to exactly what to listen for; the rest can wait.", "vi": "Hai khoảng lệch 1.0 chỉ đúng chỗ cần nghe; phần còn lại để sau." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "The four questions", "vi": "Bốn câu hỏi" }, "items": ["Did I keep going, and could a listener follow the order?", "Did I use topic words and avoid my five repeats?", "Did I use complex sentences, and were the simple ones correct?", "Could every word be understood, and did stress help the meaning?"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "How do you self-score a recording?", "vi": "Tự chấm bản ghi thế nào?" },
+      "options": ["Listen once per criterion and answer one question each", "Listen once and guess a band", "Count the words"],
+      "answerIndex": 0,
+      "explanation": { "en": "Four listens, four questions.", "vi": "Bốn lượt nghe, bốn câu hỏi." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Your self-score for Grammar is 1.0 above the app's. What does this mean?", "vi": "Điểm tự chấm Grammar cao hơn app 1.0. Điều này nghĩa là gì?" },
+      "options": ["You are not hearing some of your errors; listen again for them", "The app is wrong", "Grammar does not matter in Speaking"],
+      "answerIndex": 0,
+      "explanation": { "en": "Learn to hear what the examiner hears.", "vi": "Học nghe điều giám khảo nghe." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "What do you do in the two days before Gate 4?", "vi": "Làm gì trong hai ngày trước Gate 4?" },
+      "options": ["Review your cards and do short timed practice; no new material", "Learn fifty new words", "Nothing at all"],
+      "answerIndex": 0,
+      "explanation": { "en": "Nothing new; keep what you have warm.", "vi": "Không gì mới; giữ ấm những gì đã có." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the self-scoring routine.", "vi": "Sắp xếp quy trình tự chấm." },
+      "parts": ["Record a full mock", "Score each criterion with its question", "Submit for grading and compare", "Listen again for the criteria with a gap of 1.0"],
+      "explanation": { "en": "Record, score, compare, listen again.", "vi": "Ghi, chấm, so, nghe lại." }
+    }
+  ]
+}

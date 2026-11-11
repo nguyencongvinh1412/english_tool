@@ -1,0 +1,60 @@
+{
+  "objectives": [
+    { "en": "You can do a full 40-question test twice a week without losing focus in Section 4.", "vi": "Bạn làm được đề 40 câu hai lần mỗi tuần mà không mất tập trung ở Section 4." },
+    { "en": "You can explain every wrong answer in one line: what you heard, what was said, why you chose wrong.", "vi": "Bạn giải thích được mỗi câu sai bằng một dòng: nghe thấy gì, thực tế nói gì, vì sao chọn sai." },
+    { "en": "You can turn the analysis into one rule to apply in the next test.", "vi": "Bạn rút được từ phân tích một quy tắc để áp dụng ở đề sau." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "The test is only half the work", "vi": "Làm đề chỉ là nửa công việc" },
+      "body": { "en": "From this phase you do **two full tests a week**. A full test takes about 30 minutes; the **analysis takes another 25** and is where the band moves. Doing ten tests without analysis teaches you less than doing four with it. The score itself matters less than **why each wrong answer was wrong**.", "vi": "Từ giai đoạn này bạn làm **hai đề đầy đủ mỗi tuần**. Một đề mất khoảng 30 phút; **phần phân tích mất thêm 25 phút** và đó mới là chỗ band tăng. Làm mười đề không phân tích dạy bạn ít hơn làm bốn đề có phân tích. Điểm số ít quan trọng hơn **lý do mỗi câu sai**." }
+    },
+    {
+      "heading": { "en": "One line for every wrong answer", "vi": "Mỗi câu sai một dòng" },
+      "body": { "en": "For each mistake write three things: **what I wrote**, **what the speaker actually said** (copy from the transcript), and **the reason**: a *spelling* slip, a missing *plural*, a *distractor* I fell for, a word I *did not know*, or I *lost my place*. After two tests you will see that two or three reasons cover most of your mistakes.", "vi": "Với mỗi câu sai ghi ba điều: **mình viết gì**, **người nói thực ra nói gì** (chép từ bản ghi), và **lý do**: lỗi *chính tả*, thiếu *số nhiều*, mắc *bẫy gây nhiễu*, từ *không biết*, hay *mất dấu*. Sau hai đề bạn sẽ thấy hai ba lý do chiếm phần lớn số câu sai." }
+    },
+    {
+      "heading": { "en": "One rule for the next test", "vi": "Một quy tắc cho đề sau" },
+      "body": { "en": "End every analysis with **one sentence starting with \"Next time I will...\"**. Keep it small and concrete: *\"Next time I will read the question before the recording and underline the kind of word needed.\"* Check that rule at the start of the next test. The error book in this app collects the reasons for you; the rule is yours to write.", "vi": "Kết thúc mỗi lần phân tích bằng **một câu bắt đầu bằng \"Lần sau mình sẽ...\"**. Giữ câu nhỏ và cụ thể: *\"Lần sau mình sẽ đọc câu hỏi trước khi nghe và gạch chân loại từ cần điền.\"* Xem lại quy tắc đó lúc bắt đầu đề sau. Sổ lỗi trong app gom lý do giúp bạn; quy tắc thì bạn tự viết." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "An analysis of three mistakes", "vi": "Phân tích ba câu sai" },
+      "text": "Q7  wrote: \"Tuesday\"  said: \"...not Tuesday, we moved it to Thursday\"  reason: distractor (correction)\nQ18 wrote: \"accomodation\"  said: \"accommodation\"  reason: spelling (double m)\nQ33 wrote: (blank)  said: \"...the second factor, soil quality, is...\"  reason: lost my place after Q32; did not hear \"second\"\n\nNext time I will: listen for \"first / second / finally\" in Section 4 to keep my place.",
+      "note": { "en": "Three different reasons, one rule that fixes the worst of them.", "vi": "Ba lý do khác nhau, một quy tắc sửa lỗi nặng nhất." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Reasons to write in your analysis", "vi": "Lý do để ghi trong phân tích" }, "items": ["spelling", "plural / singular", "distractor (correction, negative, 'but')", "unknown word", "lost my place", "wrote too many words"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "What is the most useful part of a full test?", "vi": "Phần hữu ích nhất của một đề đầy đủ là gì?" },
+      "options": ["The analysis of every wrong answer", "The score out of 40", "The number of tests done"],
+      "answerIndex": 0,
+      "explanation": { "en": "The analysis is where the band moves.", "vi": "Phân tích là chỗ band tăng." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "You wrote \"Tuesday\" but the speaker corrected it to \"Thursday\". The reason is...", "vi": "Bạn viết \"Tuesday\" nhưng người nói đã sửa thành \"Thursday\". Lý do là..." },
+      "options": ["a distractor (a correction)", "spelling", "an unknown word"],
+      "answerIndex": 0,
+      "explanation": { "en": "Corrections are the most common distractor.", "vi": "Sửa lại thông tin là loại bẫy phổ biến nhất." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which \"next time\" rule is good?", "vi": "Quy tắc \"lần sau\" nào là tốt?" },
+      "options": ["\"Next time I will underline the kind of word each gap needs.\"", "\"Next time I will try harder.\"", "\"Next time I will get 35.\""],
+      "answerIndex": 0,
+      "explanation": { "en": "Small and concrete, something you can actually do.", "vi": "Nhỏ và cụ thể, điều bạn thực sự làm được." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the work after a test.", "vi": "Sắp xếp việc làm sau một đề." },
+      "parts": ["Check the answers", "Write one line for each mistake", "Find the two or three main reasons", "Write one rule for next time"],
+      "explanation": { "en": "From the facts to one rule.", "vi": "Từ dữ kiện tới một quy tắc." }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "objectives": [
+    { "en": "You can write a two-sentence overview that gives the main trends and no numbers.", "vi": "Bạn viết được câu tổng quan hai câu nêu xu hướng chính và không có số liệu." },
+    { "en": "You can find the two or three features that an examiner expects in the overview.", "vi": "Bạn tìm được hai ba đặc điểm mà giám khảo mong đợi ở phần tổng quan." },
+    { "en": "You know why an essay without an overview cannot pass band 5 for Task Achievement.", "vi": "Bạn biết vì sao bài không có tổng quan không thể qua band 5 ở Task Achievement." }
+  ],
+  "learn": [
+    {
+      "heading": { "en": "No overview, no band 6", "vi": "Không tổng quan, không band 6" },
+      "body": { "en": "The Task 1 descriptors are blunt: at band 5 the writer \"**recounts detail mechanically with no clear overview**\"; at band 6 there is \"**an overview with information appropriately selected**\". A report with perfect numbers and no overview is capped at 5 for Task Achievement. The overview is **one short paragraph after the introduction** (or at the end) that says what the chart shows **as a whole**.", "vi": "Bảng mô tả Task 1 nói thẳng: band 5 là người viết \"**liệt kê chi tiết máy móc, không có tổng quan rõ**\"; band 6 là \"**có tổng quan với thông tin được chọn lọc phù hợp**\". Bài số liệu hoàn hảo mà không có tổng quan bị chặn ở 5 cho Task Achievement. Tổng quan là **một đoạn ngắn sau mở bài** (hoặc ở cuối) nói biểu đồ cho thấy gì **nhìn tổng thể**." }
+    },
+    {
+      "heading": { "en": "What goes in: two or three big things, no numbers", "vi": "Gồm gì: hai ba điều lớn, không số liệu" },
+      "body": { "en": "Pick the **two or three most striking features**: the overall direction (*rose overall / fell overall / stayed stable*), the biggest and smallest category, a crossover, a change in rank. **Do not give figures** in the overview; they belong in the detail paragraphs. Start with *Overall,* so the examiner cannot miss it. For a process: the number of stages and where it starts and ends. For a map: the main kind of change (*more residential, less green space*).", "vi": "Chọn **hai ba đặc điểm nổi bật nhất**: hướng chung (*tăng chung / giảm chung / ổn định*), hạng mục lớn nhất và nhỏ nhất, điểm giao nhau, đổi thứ hạng. **Không nêu con số** trong tổng quan; số thuộc các đoạn chi tiết. Bắt đầu bằng *Overall,* để giám khảo không thể bỏ sót. Với quy trình: số giai đoạn và bắt đầu, kết thúc ở đâu. Với bản đồ: loại thay đổi chính (*nhiều nhà ở hơn, ít cây xanh hơn*)." }
+    },
+    {
+      "heading": { "en": "A method in one minute", "vi": "Phương pháp trong một phút" },
+      "body": { "en": "Look at the chart and finish three sentences in your head: **\"Over the period, ... generally ...\"**, **\"The largest / highest was ..., the smallest ...\"**, **\"The most notable change was ...\"**. Choose the two that are most true and write them as one paragraph of two sentences. Then write the detail paragraphs to support exactly those two statements.", "vi": "Nhìn biểu đồ và hoàn thành ba câu trong đầu: **\"Over the period, ... generally ...\"**, **\"The largest / highest was ..., the smallest ...\"**, **\"The most notable change was ...\"**. Chọn hai câu đúng nhất và viết thành một đoạn hai câu. Rồi viết các đoạn chi tiết để chứng minh đúng hai câu đó." }
+    }
+  ],
+  "examples": [
+    {
+      "title": { "en": "The same chart, two overviews", "vi": "Cùng biểu đồ, hai tổng quan" },
+      "text": "Chart: energy use by sector, 1980-2020 (industry fell from 52 to 40; transport rose from 30 to 55; homes rose slightly).\n\nBand 5 (no overview, numbers only):\n\"In 1980 industry used 52 million tonnes. In 1990 it used 55. Transport used 30 in 1980 and 55 in 2020...\"\n\nBand 6+ overview:\n\"Overall, transport overtook industry to become the largest consumer of energy by the end of the period, while consumption in homes grew only modestly. Industry was the only sector in which energy use fell.\"",
+      "note": { "en": "The second says what happened as a whole and gives the examiner the shape of the detail paragraphs.", "vi": "Bản thứ hai nói điều xảy ra nhìn tổng thể và cho giám khảo thấy hình dạng các đoạn chi tiết." }
+    }
+  ],
+  "phrases": [
+    { "use": { "en": "Starting the overview", "vi": "Mở đầu tổng quan" }, "items": ["Overall, ...", "It is clear that...", "The most striking feature is that..."] },
+    { "use": { "en": "Trends without numbers", "vi": "Xu hướng không số liệu" }, "items": ["rose steadily / fell sharply over the period", "remained broadly stable", "overtook ... to become the largest", "was consistently the smallest", "the gap between ... narrowed / widened"] },
+    { "use": { "en": "Processes and maps", "vi": "Quy trình và bản đồ" }, "items": ["The process consists of six main stages, beginning with ... and ending with ...", "The area became considerably more built-up", "Most of the changes took place in the ... of the town"] }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": { "en": "A Task 1 report has accurate figures but no overview. The highest Task Achievement band is...", "vi": "Bài Task 1 số liệu đúng nhưng không có tổng quan. Band Task Achievement cao nhất là..." },
+      "options": ["5", "6", "7"],
+      "answerIndex": 0,
+      "explanation": { "en": "No clear overview caps at band 5.", "vi": "Không có tổng quan rõ bị chặn ở band 5." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "Which sentence belongs in an overview?", "vi": "Câu nào thuộc phần tổng quan?" },
+      "options": ["Overall, transport overtook industry as the largest consumer.", "Transport rose from 30 to 55 million tonnes.", "In 1990 industry used 55 million tonnes."],
+      "answerIndex": 0,
+      "explanation": { "en": "A main trend with no figures.", "vi": "Xu hướng chính, không số liệu." }
+    },
+    {
+      "type": "choice",
+      "prompt": { "en": "The overview of a map should say...", "vi": "Tổng quan của bản đồ nên nói..." },
+      "options": ["the main kind of change, such as more housing and less green space", "every building that moved", "the size of the map"],
+      "answerIndex": 0,
+      "explanation": { "en": "The big picture of the change.", "vi": "Bức tranh lớn của thay đổi." }
+    },
+    {
+      "type": "order",
+      "prompt": { "en": "Order the one-minute method.", "vi": "Sắp xếp phương pháp một phút." },
+      "parts": ["Finish the three sentences in your head", "Choose the two most true", "Write them as one paragraph starting with Overall", "Write detail paragraphs that support them"],
+      "explanation": { "en": "Think, choose, write, support.", "vi": "Nghĩ, chọn, viết, chứng minh." }
+    }
+  ]
+}
