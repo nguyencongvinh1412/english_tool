@@ -144,6 +144,12 @@ export interface MapPanel {
   cells: { col: number; row: number; text: string }[];
 }
 
+/** An uploaded picture (served from /api/media) */
+export interface ImageRef {
+  assetId: string;
+  alt: string;
+}
+
 export interface WritingPrompt {
   taskType: WritingTask;
   title: string;
@@ -154,6 +160,8 @@ export interface WritingPrompt {
   chart?: ChartData;
   extraChart?: ChartData;
   diagram?: WritingDiagram;
+  /** The figure as printed in the source book */
+  image?: ImageRef;
   email?: { from: string; subject: string; body: string };
 }
 

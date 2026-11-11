@@ -10,6 +10,7 @@ import { Card, Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import type { WritingFeedback, WritingPrompt } from '@/shared/contentApi';
+import { mediaUrl } from '@/shared/examApi';
 import { grammarPath } from '@/shared/grammarApi';
 import { useGrammarTitles } from '@/features/grammar/useGrammarTitles';
 import { ChartView } from './ChartView';
@@ -78,6 +79,11 @@ export const WritingPromptCard: React.FC<{ task: WritingPrompt }> = ({ task }) =
       {task.chart && <ChartView chart={task.chart} />}
       {task.extraChart && <ChartView chart={task.extraChart} />}
       {task.diagram && <DiagramView diagram={task.diagram} />}
+      {task.image && (
+        <figure className="w-prompt__figure">
+          <img src={mediaUrl(task.image.assetId)} alt={task.image.alt} />
+        </figure>
+      )}
       <p className="w-prompt__instructions" lang="en">
         {task.instructions}
       </p>

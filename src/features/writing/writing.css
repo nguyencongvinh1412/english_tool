@@ -354,3 +354,17 @@
   outline: 1px solid var(--border-strong);
 }
 
+
+/* A figure printed in the source book, shown as the image it is */
+.w-prompt__figure {
+  margin: 0.75rem 0 0;
+}
+
+.w-prompt__figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-md, 0.5rem);
+  background: #fff;
+}

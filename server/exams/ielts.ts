@@ -183,7 +183,7 @@ function hideAnswers(payload: Payload): Payload {
   return {
     ...payload,
     questions: (payload.questions as Payload[]).map((q) =>
-      Object.fromEntries(Object.entries(q).filter(([key]) => !['answerIndex', 'answer', 'answers', 'explanation'].includes(key)))
+      Object.fromEntries(Object.entries(q).filter(([key]) => !['answerIndex', 'anyOf', 'answer', 'answers', 'explanation'].includes(key)))
     ),
   };
 }
@@ -222,11 +222,31 @@ export function ieltsSessionView(session: ExamSession, groups: Map<string, Conte
  */
 export function isCorrect(question: IeltsQuestion, answer: number | string | undefined): boolean {
   if (answer === undefined) return false;
-  if (question.type === 'mcq' || question.type === 'match') return answer === question.answerIndex;
+  if (question.type === 'mcq' || question.type === 'match') return question.anyOf ? question.anyOf.includes(answer as number) : answer === question.answerIndex;
   if (question.type === 'tfng') return typeof answer === 'number' && TFNG_VALUES[answer] === question.answer;
   if (typeof answer !== 'string' || !answer.trim()) return false;
   const given = normalizeAnswer(answer);
   return question.answers.some((accepted) => normalizeAnswer(accepted) === given);
+}
+
+/**
+ * Marks the objective questions of a section in order. A set of "choose TWO letters" questions accepts its letters in any
+ * order, but a letter counts once: picking the same one twice earns one mark.
+ */
+export function markQuestions(items: { id: string; question: IeltsQuestion }[], answers: Answers): boolean[] {
+  const taken = new Map<string, Set<number | string>>();
+  return items.map(({ id, question }) => {
+    const answer = answers[id];
+    if (!isCorrect(question, answer)) return false;
+    const set = question.type === 'mcq' || question.type === 'match' ? question.anyOf : undefined;
+    if (!set) return true;
+    const key = `${id.slice(0, id.lastIndexOf(':'))}|${set.join(',')}`;
+    const used = taken.get(key) ?? new Set<number | string>();
+    taken.set(key, used);
+    if (used.has(answer!)) return false;
+    used.add(answer!);
+    return true;
+  });
 }
 
 /** Reference conversion of raw scores out of 40 to bands (listening and academic reading) */
@@ -316,7 +336,7 @@ export function scoreIeltsObjective(blueprint: IeltsBlueprint, groups: Map<strin
     const items = section.groupIds.map((id) => groups.get(id)).filter((item): item is ContentItem => Boolean(item));
     if (section.component === 'listening' || section.component === 'reading') {
       const questions = items.flatMap(objectiveQuestions);
-      const correct = questions.filter((q) => isCorrect(q.question, answers[q.id])).length;
+      const correct = markQuestions(questions, answers).filter(Boolean).length;
       result[section.component] = { correct, total: questions.length, band: objectiveBand(section.component, correct, questions.length) };
     } else if (section.component === 'writing') {
       result.writing = {

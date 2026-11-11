@@ -70,7 +70,7 @@ Respond with ONLY one JSON object, no markdown.`,
     user: `TASK (${task.taskType}): ${task.title}
 Instructions: ${task.instructions}
 Prompt: ${task.prompt}
-${task.email ? `Email to reply to (from ${task.email.from}, subject "${task.email.subject}"):\n${task.email.body}\n` : ''}${task.chart ? `Chart data: ${JSON.stringify(task.chart)}\n` : ''}${task.extraChart ? `Second chart data: ${JSON.stringify(task.extraChart)}\n` : ''}${task.diagram ? `Diagram data (what the candidate sees): ${JSON.stringify(task.diagram)}\n` : ''}
+${task.email ? `Email to reply to (from ${task.email.from}, subject "${task.email.subject}"):\n${task.email.body}\n` : ''}${task.chart ? `Chart data: ${JSON.stringify(task.chart)}\n` : ''}${task.extraChart ? `Second chart data: ${JSON.stringify(task.extraChart)}\n` : ''}${task.diagram ? `Diagram data (what the candidate sees): ${JSON.stringify(task.diagram)}\n` : ''}${task.figureData ? `Figure shown to the candidate as a picture (transcribed):\n${task.figureData}\n` : ''}
 LEARNER RESPONSE (${words} words):
 """
 ${response}

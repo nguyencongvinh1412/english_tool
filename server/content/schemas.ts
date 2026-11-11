@@ -10,6 +10,12 @@ export type CefrLevel = (typeof CEFR_LEVELS)[number];
 
 const text = (max: number) => z.string().trim().min(1).max(max);
 
+/** An uploaded recording (or a slice of one) played in place of the read-aloud voice */
+export const audioRef = z.object({ assetId: z.uuid(), start: z.number().min(0).optional(), end: z.number().min(0).optional() });
+/** An uploaded picture shown with a group or a task: a figure, plan, map or chart from the source book */
+export const imageRef = z.object({ assetId: z.uuid(), alt: text(200) });
+export type ImageRef = z.infer<typeof imageRef>;
+
 /**
  * List with a minimum length whose extra items are dropped instead of failing validation.
  * AI replies often add one more tip or correction than asked; that is not worth a retry.
@@ -26,6 +32,8 @@ export const mcqQuestion = z.object({
   prompt: text(400),
   options: z.array(text(200)).length(4),
   answerIndex: z.number().int().min(0).max(3),
+  /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
+  anyOf: z.array(z.number().int().min(0).max(7)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
@@ -134,6 +142,10 @@ export const writingPrompt = z.object({
   extraChart: writingChart.optional(),
   /** A process or a pair of maps instead of a chart */
   diagram: writingDiagram.optional(),
+  /** The figure as printed in the source book, shown instead of a drawn chart */
+  image: imageRef.optional(),
+  /** The figure written out (a data table or a plain description) for the AI grader, which cannot see the picture */
+  figureData: text(3000).optional(),
   email: z.object({ from: text(80), subject: text(120), body: text(1500) }).optional(),
 });
 
@@ -264,6 +276,8 @@ export const matchQuestion = z.object({
   prompt: text(400),
   options: z.array(text(200)).min(3).max(8),
   answerIndex: z.number().int().min(0).max(7),
+  /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
+  anyOf: z.array(z.number().int().min(0).max(7)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
@@ -346,12 +360,18 @@ export const ieltsListening = z
       splitLongLines,
       z
         .array(z.object({ speaker: z.enum(['A', 'B', 'C']), text: text(700) }))
-        .min(6)
         .max(60)
     ),
-    questions: z.preprocess(fitWordLimits, z.array(z.discriminatedUnion('type', [mcqQuestion, gapQuestion])).length(10)),
+    /** The real recording, when the section comes from a recorded test: it is played instead of the voice reading the script */
+    audio: audioRef.optional(),
+    /** A plan, map or diagram the questions refer to */
+    image: imageRef.optional(),
+    questions: z.preprocess(fitWordLimits, z.array(z.discriminatedUnion('type', [mcqQuestion, gapQuestion, matchQuestion])).length(10)),
   })
   .superRefine((group, ctx) => {
+    // A recorded section may come without its transcript; a voice-read section needs the script to be read
+    if (group.script.length < 6 && !group.audio) ctx.addIssue({ code: 'custom', message: 'a section read by the voice needs a script of at least 6 lines', path: ['script'] });
+    if (group.script.length === 0) return;
     const problem = gapsMatchSource(group.questions, group.script.map((l) => l.text).join(' '));
     if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
   });
@@ -361,6 +381,8 @@ export const ieltsReading = z
   .object({
     title: text(120),
     paragraphs: z.array(text(1800)).min(4).max(9),
+    /** A figure that belongs to the passage (a diagram to label, a chart) */
+    image: imageRef.optional(),
     questions: z.preprocess(fitWordLimits, z.array(ieltsQuestion).min(12).max(14)),
   })
   .superRefine((group, ctx) => {

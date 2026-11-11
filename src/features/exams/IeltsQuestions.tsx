@@ -24,15 +24,16 @@ interface IeltsQuestionsProps {
 }
 
 /**
- * Consecutive questions of the same type
+ * Consecutive questions of the same kind: same type, and for gaps the same word limit, for matching the same list
  */
-function blocksOf(questions: IeltsQuestion[]): { type: IeltsQuestion['type']; start: number; end: number; wordLimit?: number }[] {
-  const blocks: { type: IeltsQuestion['type']; start: number; end: number; wordLimit?: number }[] = [];
+function blocksOf(questions: IeltsQuestion[]): { type: IeltsQuestion['type']; start: number; end: number; wordLimit?: number; list?: string }[] {
+  const blocks: { type: IeltsQuestion['type']; start: number; end: number; wordLimit?: number; list?: string }[] = [];
   questions.forEach((q, i) => {
     const last = blocks.at(-1);
     const limit = q.type === 'gap' ? q.wordLimit : undefined;
-    if (last && last.type === q.type && last.wordLimit === limit) last.end = i;
-    else blocks.push({ type: q.type, start: i, end: i, wordLimit: limit });
+    const list = q.type === 'match' ? q.options.join('|') : undefined;
+    if (last && last.type === q.type && last.wordLimit === limit && last.list === list) last.end = i;
+    else blocks.push({ type: q.type, start: i, end: i, wordLimit: limit, list });
   });
   return blocks;
 }
@@ -54,7 +55,7 @@ function sharedOptionsOf(questions: IeltsQuestion[], block: { type: IeltsQuestio
  */
 function isRight(q: IeltsQuestion, answer: number | string | undefined): boolean {
   if (answer === undefined) return false;
-  if (q.type === 'mcq' || q.type === 'match') return answer === q.answerIndex;
+  if (q.type === 'mcq' || q.type === 'match') return q.anyOf ? q.anyOf.includes(answer as number) : answer === q.answerIndex;
   if (q.type === 'tfng') return typeof answer === 'number' && TFNG_VALUES[answer] === q.answer;
   const norm = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
   return typeof answer === 'string' && (q.answers ?? []).some((a) => norm(a) === norm(answer));
@@ -163,7 +164,7 @@ export const IeltsQuestions: React.FC<IeltsQuestionsProps> = ({ groupId, questio
                       <p className="exam-q__explain">
                         {chosen === undefined ? t.exams.noAnswer : right ? '✓' : `${t.exams.yourAnswer}: ${LETTERS[chosen as number]}`}
                         {' · '}
-                        {t.exams.correctAnswer}: {LETTERS[q.answerIndex ?? 0]}
+                        {t.exams.correctAnswer}: {q.anyOf ? q.anyOf.map((i) => LETTERS[i]).join(' / ') : LETTERS[q.answerIndex ?? 0]}
                         {q.explanation && <span lang="en"> · {q.explanation}</span>}
                       </p>
                     )}
@@ -190,7 +191,8 @@ export const IeltsQuestions: React.FC<IeltsQuestionsProps> = ({ groupId, questio
                   >
                     {options.map((option, optionIndex) => {
                       const isChosen = chosen === optionIndex;
-                      const state = review ? (optionIndex === correct ? 'right' : isChosen ? 'wrong' : '') : isChosen ? 'chosen' : '';
+                      const isRightOption = optionIndex === correct || (lettered && (q.anyOf?.includes(optionIndex) ?? false));
+                      const state = review ? (isRightOption ? 'right' : isChosen ? 'wrong' : '') : isChosen ? 'chosen' : '';
                       return (
                         <label key={optionIndex} className={`exam-opt ${state ? `exam-opt--${state}` : ''}`}>
                           <input

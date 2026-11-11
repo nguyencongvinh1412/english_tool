@@ -37,7 +37,8 @@
     "ielts:fill-phase2": "tsx server/scripts/fillIeltsPractice.ts --phase 2",
     "ielts:fill-phase3": "tsx server/scripts/fillIeltsPractice.ts --phase 3",
     "ielts:fill-phase4": "tsx server/scripts/fillIeltsPractice.ts --phase 4",
-    "ielts:fill-phase5": "tsx server/scripts/fillIeltsPractice.ts --phase 5"
+    "ielts:fill-phase5": "tsx server/scripts/fillIeltsPractice.ts --phase 5",
+    "book:import": "tsx server/scripts/importBook.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

@@ -10,6 +10,8 @@ import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition } from '@/hooks';
 import { prefetchScript, prefetchTexts, speakOnce, speakScript } from '@/shared/speech';
+import { playSegment } from '@/shared/audioSegment';
+import { mediaUrl } from '@/shared/examApi';
 import { speakingQuestions, type IeltsListening, type IeltsReading, type SpeakingSet } from '@/shared/ieltsApi';
 import type { WritingPrompt } from '@/shared/contentApi';
 import { WritingPromptCard } from '@/features/writing/WritingReview';
@@ -29,6 +31,13 @@ interface ObjectiveProps {
 }
 
 const PARAGRAPH_LETTERS = 'ABCDEFGHI';
+
+/** A figure from the source book (plan, map, diagram), at the width of its column */
+export const Figure: React.FC<{ image: { assetId: string; alt: string } }> = ({ image }) => (
+  <figure className="ielts-figure">
+    <img src={mediaUrl(image.assetId)} alt={image.alt} loading="lazy" />
+  </figure>
+);
 
 /**
  * Listening section: context, one play (or replays in practice), questions; transcript in the review
@@ -50,7 +59,7 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
 
   // Generate the audio in the background while the learner reads the questions
   useEffect(() => {
-    if (!props.review) prefetchScript(payload.script, { A: payload.speakers.A.gender, B: payload.speakers.B?.gender ?? 'male', C: payload.speakers.C?.gender });
+    if (!props.review && !payload.audio) prefetchScript(payload.script, { A: payload.speakers.A.gender, B: payload.speakers.B?.gender ?? 'male', C: payload.speakers.C?.gender });
   }, [payload, props.review]);
 
   const play = () => {
@@ -58,6 +67,11 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
     setIsPlaying(true);
     onPlayed();
     setProgress(0);
+    // A recorded test plays its own recording; otherwise the script is read by the voice service
+    if (payload.audio) {
+      stopRef.current = playSegment(payload.audio, () => setIsPlaying(false));
+      return;
+    }
     stopRef.current = speakScript(payload.script, genders, 1, (index) => (index === -1 ? setIsPlaying(false) : setProgress(index / Math.max(1, payload.script.length))));
   };
 
@@ -75,7 +89,7 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
         {payload.context}
       </p>
       {!props.review && <p className="exam-group__instructions">{t.ielts.listeningIntro}</p>}
-      <ExamAudio playing={isPlaying} locked={locked} progress={progress} playOnce={playOnce} onPlay={play} onStop={stop} />
+      <ExamAudio playing={isPlaying} locked={locked} progress={payload.audio ? null : progress} playOnce={playOnce} onPlay={play} onStop={stop} />
       {playOnce && !props.review && <p className="exam-audio__note">{t.exams.playOnce}</p>}
 
       {props.review && (
@@ -89,6 +103,7 @@ export const ListeningPanel: React.FC<ObjectiveProps & { payload: IeltsListening
         </details>
       )}
 
+      {payload.image && <Figure image={payload.image} />}
       <IeltsQuestions questions={payload.questions} {...props} />
     </div>
   );
@@ -109,6 +124,7 @@ export const ReadingPanel: React.FC<ObjectiveProps & { payload: IeltsReading }> 
           {paragraph}
         </p>
       ))}
+      {payload.image && <Figure image={payload.image} />}
     </article>
     <div className="ielts-split__questions">
       <IeltsQuestions questions={payload.questions} {...props} />

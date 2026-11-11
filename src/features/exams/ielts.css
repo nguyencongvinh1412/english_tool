@@ -503,3 +503,17 @@
   width: auto;
   min-width: 4.5rem;
 }
+
+/* A plan, map or diagram from a recorded test */
+.ielts-figure {
+  margin: 0.75rem 0;
+}
+
+.ielts-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-md, 0.5rem);
+  background: #fff;
+}

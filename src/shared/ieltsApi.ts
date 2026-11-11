@@ -3,11 +3,11 @@
  */
 import { apiFetch } from './http';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
-import type { SpeakingFeedback, SpeakingIelts, Speaker, WritingFeedback, WritingPrompt } from './contentApi';
+import type { ImageRef, SpeakingFeedback, SpeakingIelts, Speaker, WritingFeedback, WritingPrompt } from './contentApi';
 
 /** A speaking set of a test, gate or path exercise: Part 2 and Part 3 may be left out */
 export type SpeakingSet = Omit<SpeakingIelts, 'part2' | 'part3'> & { part2?: SpeakingIelts['part2']; part3: string[] };
-import type { ScriptLine } from './examApi';
+import type { AudioSegment, ScriptLine } from './examApi';
 
 export type IeltsComponent = 'listening' | 'reading' | 'writing' | 'speaking';
 export type IeltsPart = 'listening' | 'reading' | 'writing-task1' | 'writing-task2' | 'speaking';
@@ -22,10 +22,10 @@ export const TFNG_VALUES = ['true', 'false', 'not_given'] as const;
 
 /** Objective question; answers and explanations only exist after submit */
 export type IeltsQuestion =
-  | { type: 'mcq'; prompt: string; options: string[]; answerIndex?: number; explanation?: string }
+  | { type: 'mcq'; prompt: string; options: string[]; answerIndex?: number; anyOf?: number[]; explanation?: string }
   | { type: 'tfng'; prompt: string; answer?: (typeof TFNG_VALUES)[number]; explanation?: string }
   | { type: 'gap'; prompt: string; wordLimit: number; answers?: string[]; explanation?: string }
-  | { type: 'match'; prompt: string; options: string[]; answerIndex?: number; explanation?: string };
+  | { type: 'match'; prompt: string; options: string[]; answerIndex?: number; anyOf?: number[]; explanation?: string };
 
 export interface IeltsListening {
   section: 1 | 2 | 3 | 4;
@@ -33,12 +33,17 @@ export interface IeltsListening {
   context: string;
   speakers: { A: Speaker; B?: Speaker; C?: Speaker };
   script: ScriptLine[];
+  /** The real recording of a recorded test, played instead of the voice */
+  audio?: AudioSegment;
+  /** A plan, map or diagram the questions refer to */
+  image?: ImageRef;
   questions: IeltsQuestion[];
 }
 
 export interface IeltsReading {
   title: string;
   paragraphs: string[];
+  image?: ImageRef;
   questions: IeltsQuestion[];
 }
 
