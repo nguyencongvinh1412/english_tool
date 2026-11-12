@@ -248,10 +248,23 @@ const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ie
   'r-passage': { kind: 'ielts-reading' },
 };
 
+/**
+ * The fixed written and spoken exercises that a real task can stand in for from phase 4 on: a Task 1 or Task 2 of a
+ * Cambridge test, a whole Speaking test of one
+ */
+const REAL_STATIC: Partial<Record<PracticeType, { kind: 'writing-prompt' | 'speaking-ielts'; taskType?: string }>> = {
+  'w-task1': { kind: 'writing-prompt', taskType: 'ielts-task1' },
+  'w-task2': { kind: 'writing-prompt', taskType: 'ielts-task2' },
+  's-mock': { kind: 'speaking-ielts' },
+  's-full': { kind: 'speaking-ielts' },
+};
+
 /** A real group of the matching kind the learner has not seen, from the tests not kept for a gate or a mock week */
 async function unseenReal(type: PoolType | PracticeType, taken: Set<string>): Promise<string | null> {
-  const source = isGenerated(type) ? REAL_SOURCE[type] : undefined;
+  const source = isGenerated(type) ? REAL_SOURCE[type] : REAL_STATIC[type as PracticeType];
   if (!source) return null;
+  const section = 'section' in source ? source.section : undefined;
+  const taskType = 'taskType' in source ? source.taskType : undefined;
   const rows = await db
     .select({ id: contentItems.id })
     .from(contentItems)
@@ -262,7 +275,8 @@ async function unseenReal(type: PoolType | PracticeType, taken: Set<string>): Pr
         eq(contentItems.kind, source.kind),
         like(contentItems.part, 'book:%'),
         notInArray(contentItems.part, RESERVED_TESTS.map(testPart)),
-        source.section ? sql`${contentItems.payload}->>'section' = ${String(source.section)}` : undefined
+        section ? sql`${contentItems.payload}->>'section' = ${String(section)}` : undefined,
+        taskType ? sql`${contentItems.payload}->>'taskType' = ${taskType}` : undefined
       )
     );
   const fresh = rows.filter((r) => !taken.has(r.id));
@@ -373,7 +387,7 @@ export async function practiceSections(user: User, type: PracticeType, phase: nu
   const ids: string[] = [];
   for (const t of types) {
     const level = isGenerated(t) ? levelFor(t, phase) : null;
-    const id = await groupFor(user, t, level, taken, model, { preferReal: level === 'B2' });
+    const id = await groupFor(user, t, level, taken, model, { preferReal: level === 'B2' || (phase >= 4 && t in REAL_STATIC) });
     taken.add(id);
     ids.push(id);
   }

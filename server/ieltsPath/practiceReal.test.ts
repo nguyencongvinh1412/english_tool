@@ -18,7 +18,7 @@ beforeEach(async () => {
 afterAll(closeDb);
 
 /** A group of the bank standing in for an imported one, built from an authored gate group */
-async function imported(id: string, part: string, kind: 'ielts-listening' | 'ielts-reading' | 'writing-prompt', source: string, patch: object = {}) {
+async function imported(id: string, part: string, kind: 'ielts-listening' | 'ielts-reading' | 'writing-prompt' | 'speaking-ielts', source: string, patch: object = {}) {
   const group = GATE_GROUPS.find((g) => g.id === source)!;
   await db.insert(contentItems).values({ id, kind, skill: group.skill, exam: 'ielts', part, level: 'B2', title: id, topic: 'test', payload: { ...(group.payload as object), ...patch }, source: 'imported', status: 'archived' });
 }
@@ -59,6 +59,20 @@ describe('real tests in practice', () => {
       const [section] = await practiceSections(user, 'l-sec4', 4);
       expect(section.groupIds).toEqual(['book-c99-t1-l4']);
     }
+  });
+});
+
+describe('real writing and speaking tasks in practice', () => {
+  it('give Task 1, Task 2 and a whole Speaking test from phase 4 on, from the tests not kept, and not before', async () => {
+    const user = await createUser();
+    await imported('book-c99-t1-w1', 'book:c99-t1', 'writing-prompt', 'gate-1-A-writing-1', { taskType: 'ielts-task1' });
+    await imported('book-c99-t1-w2', 'book:c99-t1', 'writing-prompt', 'gate-1-A-writing-2', { taskType: 'ielts-task2' });
+    await imported('book-c17-t1-w1', 'book:c17-t1', 'writing-prompt', 'gate-1-A-writing-1', { taskType: 'ielts-task1' });
+    await imported('book-c99-t1-s', 'book:c99-t1', 'speaking-ielts', 'gate-0-speaking');
+    expect((await practiceSections(user, 'w-task1', 4))[0].groupIds).toEqual(['book-c99-t1-w1']);
+    expect((await practiceSections(user, 'w-task2', 5))[0].groupIds).toEqual(['book-c99-t1-w2']);
+    expect((await practiceSections(user, 's-mock', 5))[0].groupIds).toEqual(['book-c99-t1-s']);
+    expect((await practiceSections(user, 'w-task1', 3))[0].groupIds[0]).toMatch(/^ip-w-task1-/);
   });
 });
 
