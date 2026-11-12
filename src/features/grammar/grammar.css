@@ -1912,3 +1912,8 @@ a.grammar-chip:hover {
   margin: 1rem 0 0;
   line-height: 1.6;
 }
+
+.grammar-readmore {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+}

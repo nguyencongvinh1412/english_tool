@@ -1237,6 +1237,7 @@ export const vi: Messages = {
     learnThis: 'Học điểm này',
     learnSuggested: 'Học điểm gợi ý',
     askCost: (n: string) => `≈ ${n} tín dụng`,
+    readMore: (units: number[]) => `Đọc thêm: English Grammar in Use, unit ${units.join(', ')}`,
     relatedTools: 'Công cụ liên quan',
     compareWithTitle: (other: string) => `So sánh với ${other}`,
     openInMaps: 'Mở trong Mind maps',

@@ -1237,6 +1237,7 @@ export const en = {
     learnThis: 'Learn this point',
     learnSuggested: 'Learn the suggested point',
     askCost: (n: string) => `≈ ${n} credits`,
+    readMore: (units: number[]) => `Read more: English Grammar in Use, unit ${units.join(', ')}`,
     relatedTools: 'Related tools',
     compareWithTitle: (other: string) => `Compare with ${other}`,
     openInMaps: 'Open in Mind maps',

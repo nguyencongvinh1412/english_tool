@@ -2,6 +2,7 @@
  * Grammar Routes
  * The grammar map (clusters, points, links), one point's card, and admin review of the AI drafts
  */
+import { readMoreUnits } from '../grammar/reading.js';
 import { Router } from 'express';
 import { z } from 'zod';
 import { and, eq } from 'drizzle-orm';
@@ -172,6 +173,8 @@ export function createGrammarRouter(): Router {
         ...meta,
         content: (row?.content as GrammarContent | undefined) ?? null,
         status: row?.status ?? null,
+        // Units of English Grammar in Use to read next
+        readMore: readMoreUnits(meta.id),
         builds: links(meta.builds),
         // Points that build on this one
         leadsTo: links(GRAMMAR_POINTS.filter((p) => p.builds?.includes(meta.id)).map((p) => p.id)),

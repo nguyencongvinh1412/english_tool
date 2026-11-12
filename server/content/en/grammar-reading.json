@@ -1,0 +1,277 @@
+{
+ "present-simple": [
+  2,
+  3,
+  4
+ ],
+ "present-continuous": [
+  1,
+  3,
+  4
+ ],
+ "past-simple": [
+  5,
+  13,
+  14
+ ],
+ "past-continuous": [
+  6,
+  14
+ ],
+ "present-perfect": [
+  7,
+  8,
+  13
+ ],
+ "present-perfect-continuous": [
+  9,
+  10
+ ],
+ "past-perfect": [
+  15,
+  13
+ ],
+ "past-perfect-continuous": [
+  16
+ ],
+ "future-will": [
+  21,
+  22,
+  23
+ ],
+ "future-going-to": [
+  20,
+  23
+ ],
+ "future-present-continuous": [
+  19
+ ],
+ "future-continuous": [
+  24
+ ],
+ "future-perfect": [
+  24
+ ],
+ "used-to": [
+  18,
+  36
+ ],
+ "can-could": [
+  26,
+  27
+ ],
+ "permission-requests": [
+  37
+ ],
+ "must-have-to": [
+  31,
+  28
+ ],
+ "dont-have-to": [
+  32
+ ],
+ "should-ought-to": [
+  33,
+  34
+ ],
+ "may-might": [
+  29,
+  30
+ ],
+ "deduction": [
+  28
+ ],
+ "modal-perfect": [
+  27
+ ],
+ "zero-conditional": [
+  38
+ ],
+ "first-conditional": [
+  38
+ ],
+ "second-conditional": [
+  38,
+  39
+ ],
+ "third-conditional": [
+  40
+ ],
+ "unless-in-case": [
+  115,
+  114
+ ],
+ "wishes": [
+  41,
+  39,
+  40
+ ],
+ "passive-basics": [
+  42
+ ],
+ "passive-tenses": [
+  43,
+  42
+ ],
+ "passive-modals": [
+  44,
+  43
+ ],
+ "causative": [
+  46
+ ],
+ "passive-reporting": [
+  45
+ ],
+ "reported-statements": [
+  47
+ ],
+ "reported-questions": [
+  50,
+  48
+ ],
+ "reported-commands": [
+  48,
+  47
+ ],
+ "reporting-verbs": [
+  48,
+  47
+ ],
+ "relative-pronouns": [
+  92
+ ],
+ "defining-relative": [
+  92,
+  93
+ ],
+ "non-defining-relative": [
+  95,
+  96
+ ],
+ "reduced-relative": [
+  97
+ ],
+ "gerund-infinitive": [
+  56,
+  57,
+  58
+ ],
+ "verb-meaning-change": [
+  56,
+  57
+ ],
+ "make-let": [
+  57
+ ],
+ "participle-clauses": [
+  97,
+  68
+ ],
+ "adjective-preposition-ing": [
+  60,
+  62
+ ],
+ "countable-uncountable": [
+  69,
+  70
+ ],
+ "articles-a-an": [
+  71,
+  72
+ ],
+ "article-the": [
+  73,
+  74,
+  75
+ ],
+ "zero-article": [
+  74,
+  75,
+  77
+ ],
+ "quantifiers": [
+  85,
+  87
+ ],
+ "few-little": [
+  87
+ ],
+ "possessives": [
+  81
+ ],
+ "pronouns-reflexive": [
+  82
+ ],
+ "adjective-order": [
+  99
+ ],
+ "adjectives-ed-ing": [
+  98,
+  97
+ ],
+ "comparatives": [
+  105,
+  106
+ ],
+ "superlatives": [
+  108
+ ],
+ "as-as": [
+  107
+ ],
+ "adverbs-frequency": [
+  110,
+  100
+ ],
+ "too-enough": [
+  103
+ ],
+ "so-such": [
+  102
+ ],
+ "prepositions-time": [
+  121
+ ],
+ "prepositions-place": [
+  123,
+  124,
+  125
+ ],
+ "dependent-prepositions": [
+  131,
+  130
+ ],
+ "phrasal-verbs": [
+  137,
+  138,
+  139
+ ],
+ "contrast-linkers": [
+  113
+ ],
+ "cause-result": [
+  129
+ ],
+ "purpose": [
+  64
+ ],
+ "time-clauses": [
+  25,
+  119,
+  120
+ ],
+ "question-forms": [
+  49,
+  50
+ ],
+ "question-tags": [
+  52
+ ],
+ "indirect-questions": [
+  50
+ ],
+ "there-is-are": [
+  84
+ ]
+}

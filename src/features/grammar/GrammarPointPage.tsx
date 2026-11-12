@@ -296,6 +296,7 @@ const PointView: React.FC<{ pointId: string }> = ({ pointId }) => {
         {content && (
           <Card padding="lg" className="grammar-section grammar-tools-card">
             <h2>{t.grammar.relatedTools}</h2>
+            {point.readMore.length > 0 && <p className="grammar-readmore">{t.grammar.readMore(point.readMore)}</p>}
             <ul className="grammar-toollist">
               {point.contrasts.slice(0, 2).map((link) => (
                 <li key={link.id}>

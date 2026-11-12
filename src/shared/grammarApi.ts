@@ -70,6 +70,8 @@ export interface GrammarPoint {
   timeline?: Timeline;
   content: GrammarContent | null;
   status: 'draft' | 'reviewed' | null;
+  /** Units of English Grammar in Use that cover this point */
+  readMore: number[];
   builds: GrammarLink[];
   leadsTo: GrammarLink[];
   contrasts: GrammarLink[];
