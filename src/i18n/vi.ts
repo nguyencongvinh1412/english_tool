@@ -1700,11 +1700,12 @@ export const vi: Messages = {
     fromRoadmap: 'Của lộ trình',
     pageTitle: 'Vocabulary',
     intro: 'Khoảng 4.800 từ cho tiếng Anh thông dụng, TOEIC và IELTS. Mỗi từ quay lại đúng lúc bạn sắp quên, câu hỏi khó dần khi bạn nhớ từ.',
-    groups: { core: 'Cốt lõi', toeic: 'TOEIC', ielts: 'IELTS học thuật' },
+    groups: { core: 'Cốt lõi', toeic: 'TOEIC', ielts: 'IELTS học thuật', topic: 'Chủ đề IELTS' },
     groupIntros: {
       core: 'Những từ tiếng Anh thông dụng nhất (New General Service List), chia theo cấp CEFR.',
       toeic: 'Từ vựng công sở, kinh doanh hay gặp trong TOEIC (TOEIC Service List), từ phổ biến nhất trước.',
       ielts: 'Từ học thuật cho phần Đọc và Viết IELTS (New Academic Word List).',
+      topic: "Từ vựng theo chủ đề từ sách từ vựng IELTS (gia đình, sức khoẻ, học tập, du lịch, môi trường...), đúng bộ mà lộ trình yêu cầu mỗi ngày học.",
     },
     dueBanner: (n: number) => `Hôm nay có ${n} từ cần ôn.`,
     pos: {

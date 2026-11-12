@@ -27,7 +27,7 @@ import { Notebook } from '@/features/deepword/Notebook';
 import { NetworkGraph } from '@/features/deepword/NetworkGraph';
 import './vocab.css';
 
-const GROUPS: EnDeckGroup[] = ['core', 'toeic', 'ielts'];
+const GROUPS: EnDeckGroup[] = ['core', 'toeic', 'ielts', 'topic'];
 type Tab = 'decks' | 'bank' | 'stats' | 'deep';
 
 /**
@@ -110,8 +110,13 @@ export const EnVocabPage: React.FC = () => {
       .then((data) => {
         setDecks(data.decks);
         setDueTotal(data.dueTotal);
+        // A link from the IELTS path (?deck=en-topic-3) opens that deck's session at once
+        const wanted = params.get('deck');
+        const deck = wanted && reload === 0 ? data.decks.find((d) => d.id === wanted) : undefined;
+        if (deck) setView({ type: 'review', deckId: deck.id, title: `${t.enVocab.groups[deck.group]} ${deck.label}` });
       })
       .catch(setError);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
 
   useEffect(() => {

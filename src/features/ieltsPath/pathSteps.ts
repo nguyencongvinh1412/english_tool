@@ -7,6 +7,9 @@ import { ROUTES } from '@/app/routes';
 import { grammarPath } from '@/shared/grammarApi';
 import type { PathStep } from '@/shared/ieltsPathApi';
 
+/** The topic deck (unit of the vocabulary book) a words step of the path opens, by its topic */
+const TOPIC_DECK: Record<string, number> = { family: 1, health: 3, hobbies: 4, education: 5, travel: 7, transport: 7, science: 11, technology: 12, society: 13, economy: 13, city: 14, environment: 15, work: 17 };
+
 export function stepLink(step: PathStep): string {
   switch (step.kind) {
     case 'lesson':
@@ -16,7 +19,7 @@ export function stepLink(step: PathStep): string {
     case 'grammar':
       return grammarPath(step.ref.pointId ?? '');
     case 'words':
-      return ROUTES.VOCABULARY;
+      return TOPIC_DECK[step.ref.topic ?? ''] ? `${ROUTES.VOCABULARY}?deck=en-topic-${TOPIC_DECK[step.ref.topic ?? '']}` : ROUTES.VOCABULARY;
     case 'dictation':
       return ROUTES.DICTATION;
     case 'pronunciation':

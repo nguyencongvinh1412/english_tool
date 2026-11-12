@@ -1700,11 +1700,12 @@ export const en = {
     fromRoadmap: 'From your roadmap',
     pageTitle: 'Vocabulary',
     intro: 'About 4,800 words for everyday English, TOEIC and IELTS. Each word comes back right before you would forget it, with harder questions as you learn it.',
-    groups: { core: 'Core', toeic: 'TOEIC', ielts: 'IELTS academic' },
+    groups: { core: 'Core', toeic: 'TOEIC', ielts: 'IELTS academic', topic: 'IELTS topics' },
     groupIntros: {
       core: 'The most useful general English words (New General Service List), by CEFR level.',
       toeic: 'Business and workplace words that appear often in TOEIC (TOEIC Service List), most frequent first.',
       ielts: 'Academic words for IELTS reading and writing (New Academic Word List).',
+      topic: "Words by topic from a vocabulary book for IELTS (family, health, study, travel, the environment...), the ones the path asks for on its study days.",
     },
     dueBanner: (n: number) => `${n} words are due for review today.`,
     pos: {

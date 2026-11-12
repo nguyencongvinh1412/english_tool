@@ -3,6 +3,7 @@
  * Loads server/content/ja/vocab-data.json into vocab_items on startup (source fields only, so the
  * AI-added Vietnamese meanings survive dictionary refreshes) and serves cards to the API.
  */
+import { TOPIC_DECKS } from './topicDecks.js';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -129,7 +130,7 @@ function jaRows(data: VocabData): Row[] {
 
 export interface EnDeck {
   id: string;
-  group: 'core' | 'toeic' | 'ielts';
+  group: 'core' | 'toeic' | 'ielts' | 'topic';
   label: string;
 }
 
@@ -154,7 +155,7 @@ export async function ensureEnVocab(file = EN_DATA_FILE): Promise<number> {
   const raw = await readData(file, 'en:vocab-data');
   if (raw === null) return 0;
   const data = JSON.parse(raw) as EnVocabData;
-  enDecks = data.decks;
+  enDecks = [...data.decks, ...TOPIC_DECKS];
   enDataVersion = data.version;
 
   const position: Record<string, number> = {};

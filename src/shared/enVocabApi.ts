@@ -7,7 +7,7 @@ import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
 import type { Grade, WordStatus } from './vocabApi';
 import type { WordDefinition } from './contentApi';
 
-export type EnDeckGroup = 'core' | 'toeic' | 'ielts';
+export type EnDeckGroup = 'core' | 'toeic' | 'ielts' | 'topic';
 
 export interface EnWord {
   id: string;

@@ -406,7 +406,7 @@ export function createVocabRouter(): Router {
       .where(isEn)
       .groupBy(vocabItems.deck);
     const progress = await deckProgress(user.id, [vocabItems.deck], isEn);
-    const decks = enDecks.map((deck) => {
+    const decks = enDecks.filter((deck) => deck.group !== 'topic' || (totals.find((t) => t.deck === deck.id)?.total ?? 0) > 0).map((deck) => {
       const total = totals.find((t) => t.deck === deck.id)?.total ?? 0;
       const p = progress.find((r) => r.key === deck.id);
       const newAvailable = Math.min(Math.max(0, NEW_PER_DECK_PER_DAY - (p?.newToday ?? 0)), total - (p?.seen ?? 0));
