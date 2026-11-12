@@ -1,4 +1,5 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import request from 'supertest';
 import { createApp } from '../app.js';
 import { closeDb, db, runMigrations } from '../db/client.js';
 import { eq } from 'drizzle-orm';
@@ -109,5 +110,29 @@ describe('sample answers of a writing task', () => {
     await db.update(examSessions).set({ status: 'submitted', submittedAt: new Date() }).where(eq(examSessions.id, session.id));
     const done = (await agent.get(`/api/exams/sessions/${session.id}`)).body.session;
     expect(done.sections[0].groups[0].payload.samples).toEqual([{ by: 'candidate', band: 6.5, text: 'An answer.', comment: 'A comment.' }]);
+  });
+});
+
+describe('model speaking answers', () => {
+  it('lists the topics and opens one, and needs sign-in', async () => {
+    expect((await request(app).get('/api/ielts-path/speaking-models')).status).toBe(401);
+    const agent = await signIn(app, await createUser());
+    await db.insert(contentItems).values({
+      id: 'sm-1',
+      kind: 'speaking-model',
+      skill: 'speaking',
+      exam: 'ielts',
+      language: 'en',
+      title: 'Media',
+      payload: { group: 'Media', topic: 'Media', items: [{ part: 1, question: 'Do you watch TV?', answer: 'Yes I do.' }, { part: 3, question: 'Why?', answer: 'Because.' }], vocab: ['brief (adj): short'] },
+      source: 'imported',
+      status: 'archived',
+    });
+    const list = (await agent.get('/api/ielts-path/speaking-models')).body.topics;
+    expect(list).toEqual([{ id: 'sm-1', group: 'Media', topic: 'Media', counts: { 1: 1, 2: 0, 3: 1 } }]);
+    const one = (await agent.get('/api/ielts-path/speaking-models/sm-1')).body.topic;
+    expect(one.items).toHaveLength(2);
+    expect(one.vocab).toEqual(['brief (adj): short']);
+    expect((await agent.get('/api/ielts-path/speaking-models/nope')).status).toBe(404);
   });
 });

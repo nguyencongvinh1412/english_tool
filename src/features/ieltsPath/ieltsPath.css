@@ -374,3 +374,42 @@
     display: none;
   }
 }
+
+/* Model speaking answers */
+.spmodels {
+  display: grid;
+  gap: 1rem;
+  max-width: 48rem;
+}
+.spmodels__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.spmodels__topic {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border, #ddd);
+  border-radius: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+.spmodels__part {
+  display: grid;
+  gap: 0.75rem;
+}
+.spmodels__answer {
+  margin: 0.5rem 0 0;
+  line-height: 1.6;
+}
+.spmodels__vocab {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+}

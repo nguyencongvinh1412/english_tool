@@ -40,7 +40,8 @@
     "ielts:fill-phase5": "tsx server/scripts/fillIeltsPractice.ts --phase 5",
     "book:import": "tsx server/scripts/importBook.ts",
     "book:draft": "tsx server/scripts/bookDraft.ts",
-    "book:samples": "tsx server/scripts/bookSamples.ts"
+    "book:samples": "tsx server/scripts/bookSamples.ts",
+    "book:speaking-models": "tsx server/scripts/bookSpeakingModels.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

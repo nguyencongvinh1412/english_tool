@@ -91,6 +91,14 @@ export const speakingIelts = z.object({
 /** Gate and path speaking tests may leave out Part 2 and Part 3 (a Part 1 practice, or Gate 0 and Gate 1 with Parts 1 and 2 only) */
 export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(10) });
 
+/** A topic of model speaking answers from a book: questions of Parts 1 to 3 with an answer each, and the topic's vocabulary */
+export const speakingModel = z.object({
+  group: text(60),
+  topic: text(120),
+  items: z.array(z.object({ part: z.union([z.literal(1), z.literal(2), z.literal(3)]), question: text(400), answer: text(6000) })).min(1).max(40),
+  vocab: z.array(text(200)).max(80).default([]),
+});
+
 const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite()) });
 
 export const writingChart = z
@@ -476,6 +484,7 @@ export const CONTENT_KINDS = {
   'reading-gapfill': { skill: 'reading', schema: readingGapfill },
   'listening-quiz': { skill: 'listening', schema: listeningQuiz },
   'speaking-ielts': { skill: 'speaking', schema: speakingIelts },
+  'speaking-model': { skill: 'speaking', schema: speakingModel },
   'writing-prompt': { skill: 'writing', schema: writingPrompt },
   'toeic-p1': { skill: 'listening', schema: toeicP1 },
   'toeic-p2': { skill: 'listening', schema: toeicP2 },

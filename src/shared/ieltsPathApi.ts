@@ -245,7 +245,23 @@ export interface PathReport {
   calibration: { pairs: { skill: 'writing' | 'speaking'; gate: number; ai: number; teacher: number }[]; meanDiff: { writing: number | null; speaking: number | null } };
 }
 
+export interface SpeakingModelSummary {
+  id: string;
+  group: string;
+  topic: string;
+  counts: Record<1 | 2 | 3, number>;
+}
+export interface SpeakingModel {
+  id: string;
+  group: string;
+  topic: string;
+  items: { part: 1 | 2 | 3; question: string; answer: string }[];
+  vocab: string[];
+}
+
 export const ieltsPathApi = {
+  speakingModels: () => apiFetch<{ topics: SpeakingModelSummary[] }>('/api/ielts-path/speaking-models'),
+  speakingModel: (id: string) => apiFetch<{ topic: SpeakingModel }>(`/api/ielts-path/speaking-models/${id}`),
   report: () => apiFetch<{ report: PathReport }>('/api/ielts-path/report'),
   errors: () => apiFetch<{ book: ErrorBook }>('/api/ielts-path/errors'),
   today: () => apiFetch<{ today: PathToday | null }>('/api/ielts-path/today'),

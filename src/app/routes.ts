@@ -19,6 +19,8 @@ export const ROUTES = {
   /** One lesson step at /ielts/lesson/:stepId; /ielts/practice/:stepId opens (and prepares) an exercise */
   IELTS_ERRORS: '/ielts/errors',
   IELTS_REPORT: '/ielts/report',
+  /** Model speaking answers by topic; /ielts/speaking-models/:id opens one */
+  IELTS_SPEAKING_MODELS: '/ielts/speaking-models',
   IELTS_LESSON: '/ielts/lesson',
   IELTS_PRACTICE: '/ielts/practice',
   CHECKPOINT: '/roadmap/checkpoint',

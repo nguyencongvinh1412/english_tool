@@ -11,6 +11,7 @@ import { activePath, archivePath, createPath, pathView, updatePath } from '../ie
 import { applyDecision, gateView, replan, setManualBand, setSkillSkipped, startGateSkill, startRetest } from '../ieltsPath/gates.js';
 import { buildErrorBook } from '../ieltsPath/errors.js';
 import { buildReport } from '../ieltsPath/report.js';
+import { getSpeakingModel, listSpeakingModels } from '../ieltsPath/speakingModels.js';
 import { completeLesson, learnAhead, lessonOf, pathToday, startPractice, stepOf } from '../ieltsPath/today.js';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a date like 2027-05-10');
@@ -136,6 +137,16 @@ export function createIeltsPathRouter(): Router {
   /** GET /ielts-path/report - Progress against the targets, the gates, what to work on, and the AI against a teacher */
   router.get('/ielts-path/report', requireAuth, async (req, res) => {
     res.json({ report: await buildReport(await requirePath(currentUser(req).id)) });
+  });
+
+  /** GET /ielts-path/speaking-models - The topics of the model speaking answers (grouped by the page) */
+  router.get('/ielts-path/speaking-models', requireAuth, async (_req, res) => {
+    res.json({ topics: await listSpeakingModels() });
+  });
+
+  /** GET /ielts-path/speaking-models/:id - One topic: its questions of Parts 1 to 3 with the model answer, and the vocabulary */
+  router.get('/ielts-path/speaking-models/:id', requireAuth, async (req, res) => {
+    res.json({ topic: await getSpeakingModel(String(req.params.id)) });
   });
 
   /** GET /ielts-path/today - The steps to do today, how far behind or ahead the learner is, and the expected end */
