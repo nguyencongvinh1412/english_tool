@@ -257,9 +257,11 @@ const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ie
  * The fixed written and spoken exercises that a real task can stand in for from phase 4 on: a Task 1 or Task 2 of a
  * Cambridge test, a whole Speaking test of one
  */
-const REAL_STATIC: Partial<Record<PracticeType, { kind: 'writing-prompt' | 'speaking-ielts'; taskType?: string }>> = {
+const REAL_STATIC: Partial<Record<PracticeType, { kind: 'writing-prompt' | 'speaking-ielts'; taskType?: string; /** Only the foundation book has this (a Part 1 or Part 2 practice), so only phases 1 to 3 */ foundationOnly?: boolean }>> = {
   'w-task1': { kind: 'writing-prompt', taskType: 'ielts-task1' },
   'w-task2': { kind: 'writing-prompt', taskType: 'ielts-task2' },
+  's-part1': { kind: 'speaking-ielts', foundationOnly: true },
+  's-part2': { kind: 'speaking-ielts', foundationOnly: true },
   's-mock': { kind: 'speaking-ielts' },
   's-full': { kind: 'speaking-ielts' },
 };
@@ -325,9 +327,9 @@ async function generate(user: User, type: PoolType, level: PoolLevel, model?: st
   return item;
 }
 
-async function groupFor(user: User, type: PoolType | PracticeType, level: PoolLevel | null, taken: Set<string>, model?: string, options: { generate?: boolean; repeat?: boolean; preferReal?: boolean } = {}): Promise<string> {
+async function groupFor(user: User, type: PoolType | PracticeType, level: PoolLevel | null, taken: Set<string>, model?: string, options: { generate?: boolean; repeat?: boolean; preferReal?: boolean; realLevel?: PoolLevel } = {}): Promise<string> {
   if (options.preferReal) {
-    const real = await unseenReal(type, taken, level);
+    const real = await unseenReal(type, taken, options.realLevel ?? level);
     if (real) return real;
   }
   const pool = await db.select({ id: contentItems.id }).from(contentItems).where(poolOf(type, level));
@@ -398,7 +400,10 @@ export async function practiceSections(user: User, type: PracticeType, phase: nu
   const ids: string[] = [];
   for (const t of types) {
     const level = isGenerated(t) ? levelFor(t, phase) : null;
-    const id = await groupFor(user, t, level, taken, model, { preferReal: level !== null || (phase >= 4 && t in REAL_STATIC) });
+    // Fixed written and spoken exercises: the foundation book's tasks in phases 1 to 3, Cambridge's from phase 4
+    const real = isGenerated(t) ? undefined : REAL_STATIC[t as PracticeType];
+    const useReal = real !== undefined && !(real.foundationOnly && phase >= 4);
+    const id = await groupFor(user, t, level, taken, model, { preferReal: level !== null || useReal, realLevel: useReal ? phaseLevel(phase) : undefined });
     taken.add(id);
     ids.push(id);
   }

@@ -85,6 +85,23 @@ describe('foundation book reading in the early phases', () => {
   });
 });
 
+describe('foundation book writing and speaking in the early phases', () => {
+  it('gives its Task 1, Task 2 and Part 1 or Part 2 practice in phases 1 to 3 and keeps the A2 tasks out of phase 4', async () => {
+    const user = await createUser();
+    await imported('book-grw-t1-w1', 'book:grw', 'writing-prompt', 'gate-1-A-writing-1', { taskType: 'ielts-task1' }, 'A2');
+    await imported('book-grw-t3-w2', 'book:grw', 'writing-prompt', 'gate-1-A-writing-2', { taskType: 'ielts-task2' }, 'A2');
+    await imported('book-grs-t2-s', 'book:grs', 'speaking-ielts', 'gate-0-speaking', {}, 'A2');
+    for (const phase of [1, 2, 3]) {
+      expect((await practiceSections(user, 'w-task1', phase))[0].groupIds).toEqual(['book-grw-t1-w1']);
+      expect((await practiceSections(user, 'w-task2', phase))[0].groupIds).toEqual(['book-grw-t3-w2']);
+      expect((await practiceSections(user, 's-part2', phase))[0].groupIds).toEqual(['book-grs-t2-s']);
+    }
+    // From phase 4 there is no Cambridge task here and the A2 ones do not count: the fixed prompt comes back
+    expect((await practiceSections(user, 'w-task1', 4))[0].groupIds[0]).toMatch(/^ip-w-task1-/);
+    expect((await practiceSections(user, 's-part2', 4))[0].groupIds[0]).toMatch(/^ip-s-part2-/);
+  });
+});
+
 describe('real writing and speaking tasks in practice', () => {
   it('give Task 1, Task 2 and a whole Speaking test from phase 4 on, from the tests not kept, and not before', async () => {
     const user = await createUser();
