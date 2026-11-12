@@ -2173,6 +2173,10 @@ export const en = {
         retestOpen: 'Open the retest',
       },
       adaptiveWhy: {
+        'weakest-listening': 'Listening is the skill furthest below its Gate 6 target in your first mock test, so this week half of your practice time goes to it. Here is an extra exercise.',
+        'weakest-reading': 'Reading is the skill furthest below its Gate 6 target in your first mock test, so this week half of your practice time goes to it. Here is an extra exercise.',
+        'weakest-writing': 'Writing is the skill furthest below its Gate 6 target in your first mock test, so this week half of your practice time goes to it. Here is an extra exercise.',
+        'weakest-speaking': 'Speaking is the skill furthest below its Gate 6 target in your first mock test, so this week half of your practice time goes to it. Here is an extra exercise.',
         'lesson-review': 'Your quiz on this lesson was under 70%. A quick review before you move on.',
         'listening-spelling': 'You often misspell words in listening. This exercise is all form completion: write carefully, then check the spelling.',
         'listening-plural': 'You often miss the plural -s in listening. Listen for the endings in this form-completion exercise.',

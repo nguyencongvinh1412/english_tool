@@ -156,7 +156,7 @@ const PHASE1_WEEKS: Record<number, DayPlan> = {
   },
 };
 
-const DEFAULT_PRACTICE_MINUTES: Record<PracticeType, number> = {
+export const DEFAULT_PRACTICE_MINUTES: Record<PracticeType, number> = {
   'l-conv': 30, 'l-form': 30, 'l-mono': 30, 'l-full': 45, 'l-sec3': 35, 'l-sec4': 35, 'l-test30': 40, 'l-test40': 55,
   'r-short': 35, 'r-tfng': 35, 'r-scan': 40, 'r-passage': 45, 'r-two': 50, 'r-three': 65, 'r-ynng': 40, 'r-matchinfo': 40, 'r-summary': 40,
   'w-para': 45, 'w-task1': 45, 'w-task2': 45, 'w-line': 45, 'w-opinion': 50, 'w-advdis': 50, 'w-pie': 45, 'w-process': 45, 'w-map': 45, 'w-discuss': 55, 'w-problem': 55, 'w-twopart': 55, 'w-full': 60,

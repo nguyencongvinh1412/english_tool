@@ -4,6 +4,7 @@
  * criteria of the band descriptors. Gaps are told apart by how the answer differs from an accepted one.
  */
 import { normalizeAnswer, type IeltsQuestion } from '../content/schemas.js';
+import type { PathSkill } from './bands.js';
 import { isCorrect } from '../exams/ielts.js';
 
 export const LISTENING_CATEGORIES = ['spelling', 'plural', 'distractor', 'misheard', 'missed'] as const;
@@ -92,3 +93,22 @@ export function averageCriteria(graded: CriterionBand[][]): CriterionBand[] {
 
 /** The criterion with the lowest mean band (the first when tied) */
 export const lowestCriterion = (criteria: CriterionBand[]): CriterionBand | null => criteria.reduce<CriterionBand | null>((low, c) => (low === null || c.band < low.band ? c : low), null);
+
+/** Writing and Speaking take longest to raise, so they win a tie */
+const WEAKEST_ORDER: PathSkill[] = ['writing', 'speaking', 'reading', 'listening'];
+
+/**
+ * The skill furthest below its target, from the bands of a mock test; null when no skill is below its target (or no
+ * band is known). A skill's own target counts, so Reading at 6.5 against 7.0 is further away than Speaking at 6.0 against 6.5
+ * only when the gap is bigger.
+ */
+export function weakestSkill(bands: Partial<Record<PathSkill, number>>, targetOf: (skill: PathSkill) => number): { skill: PathSkill; gap: number } | null {
+  let best: { skill: PathSkill; gap: number } | null = null;
+  for (const skill of WEAKEST_ORDER) {
+    const band = bands[skill];
+    if (typeof band !== 'number') continue;
+    const gap = Math.round((targetOf(skill) - band) * 10) / 10;
+    if (gap > 0 && (best === null || gap > best.gap)) best = { skill, gap };
+  }
+  return best;
+}
