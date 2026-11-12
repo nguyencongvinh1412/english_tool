@@ -240,11 +240,12 @@ const poolOf = (type: PoolType | PracticeType, level?: PoolLevel | null) =>
   and(eq(contentItems.part, `path:${type}`), level ? eq(contentItems.level, level) : undefined, eq(contentItems.status, 'archived'));
 
 /** Which real groups (see realTests.ts) can stand in for an exercise type */
-const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ielts-reading'; section?: number }>> = {
-  'l-form': { kind: 'ielts-listening', section: 1 },
-  'l-mono': { kind: 'ielts-listening', section: 2 },
-  'l-sec3': { kind: 'ielts-listening', section: 3 },
-  'l-sec4': { kind: 'ielts-listening', section: 4 },
+const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ielts-reading'; sections?: number[] }>> = {
+  'l-conv': { kind: 'ielts-listening', sections: [1, 3] },
+  'l-form': { kind: 'ielts-listening', sections: [1] },
+  'l-mono': { kind: 'ielts-listening', sections: [2] },
+  'l-sec3': { kind: 'ielts-listening', sections: [3] },
+  'l-sec4': { kind: 'ielts-listening', sections: [4] },
   'r-passage': { kind: 'ielts-reading' },
 };
 
@@ -259,11 +260,14 @@ const REAL_STATIC: Partial<Record<PracticeType, { kind: 'writing-prompt' | 'spea
   's-full': { kind: 'speaking-ielts' },
 };
 
-/** A real group of the matching kind the learner has not seen, from the tests not kept for a gate or a mock week */
-async function unseenReal(type: PoolType | PracticeType, taken: Set<string>): Promise<string | null> {
+/**
+ * A real group of the matching kind the learner has not seen, from the tests not kept for a gate or a mock week. At the
+ * easier levels (A2, B1) these are the exam practice tasks of the foundation book (level A2), at B2 the Cambridge tests.
+ */
+async function unseenReal(type: PoolType | PracticeType, taken: Set<string>, level: PoolLevel | null): Promise<string | null> {
   const source = isGenerated(type) ? REAL_SOURCE[type] : REAL_STATIC[type as PracticeType];
   if (!source) return null;
-  const section = 'section' in source ? source.section : undefined;
+  const sections = 'sections' in source ? source.sections : undefined;
   const taskType = 'taskType' in source ? source.taskType : undefined;
   const rows = await db
     .select({ id: contentItems.id })
@@ -275,7 +279,8 @@ async function unseenReal(type: PoolType | PracticeType, taken: Set<string>): Pr
         eq(contentItems.kind, source.kind),
         like(contentItems.part, 'book:%'),
         notInArray(contentItems.part, RESERVED_TESTS.map(testPart)),
-        section ? sql`${contentItems.payload}->>'section' = ${String(section)}` : undefined,
+        level ? eq(contentItems.level, level === 'B2' ? 'B2' : 'A2') : undefined,
+        sections ? inArray(sql`${contentItems.payload}->>'section'`, sections.map(String)) : undefined,
         taskType ? sql`${contentItems.payload}->>'taskType' = ${taskType}` : undefined
       )
     );
@@ -316,7 +321,7 @@ async function generate(user: User, type: PoolType, level: PoolLevel, model?: st
 
 async function groupFor(user: User, type: PoolType | PracticeType, level: PoolLevel | null, taken: Set<string>, model?: string, options: { generate?: boolean; repeat?: boolean; preferReal?: boolean } = {}): Promise<string> {
   if (options.preferReal) {
-    const real = await unseenReal(type, taken);
+    const real = await unseenReal(type, taken, level);
     if (real) return real;
   }
   const pool = await db.select({ id: contentItems.id }).from(contentItems).where(poolOf(type, level));
@@ -387,7 +392,7 @@ export async function practiceSections(user: User, type: PracticeType, phase: nu
   const ids: string[] = [];
   for (const t of types) {
     const level = isGenerated(t) ? levelFor(t, phase) : null;
-    const id = await groupFor(user, t, level, taken, model, { preferReal: level === 'B2' || (phase >= 4 && t in REAL_STATIC) });
+    const id = await groupFor(user, t, level, taken, model, { preferReal: level !== null || (phase >= 4 && t in REAL_STATIC) });
     taken.add(id);
     ids.push(id);
   }

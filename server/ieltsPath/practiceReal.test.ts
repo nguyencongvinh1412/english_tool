@@ -18,9 +18,9 @@ beforeEach(async () => {
 afterAll(closeDb);
 
 /** A group of the bank standing in for an imported one, built from an authored gate group */
-async function imported(id: string, part: string, kind: 'ielts-listening' | 'ielts-reading' | 'writing-prompt' | 'speaking-ielts', source: string, patch: object = {}) {
+async function imported(id: string, part: string, kind: 'ielts-listening' | 'ielts-reading' | 'writing-prompt' | 'speaking-ielts', source: string, patch: object = {}, level = 'B2') {
   const group = GATE_GROUPS.find((g) => g.id === source)!;
-  await db.insert(contentItems).values({ id, kind, skill: group.skill, exam: 'ielts', part, level: 'B2', title: id, topic: 'test', payload: { ...(group.payload as object), ...patch }, source: 'imported', status: 'archived' });
+  await db.insert(contentItems).values({ id, kind, skill: group.skill, exam: 'ielts', part, level, title: id, topic: 'test', payload: { ...(group.payload as object), ...patch }, source: 'imported', status: 'archived' });
 }
 
 describe('written exercises of the later phases', () => {
@@ -59,6 +59,16 @@ describe('real tests in practice', () => {
       const [section] = await practiceSections(user, 'l-sec4', 4);
       expect(section.groupIds).toEqual(['book-c99-t1-l4']);
     }
+  });
+});
+
+describe('foundation book listening in the early phases', () => {
+  it('gives the A2 exam practice of the foundation book in phases 1 to 3 and the Cambridge sections from phase 4, each at its own level', async () => {
+    const user = await createUser();
+    await imported('book-grl-t1-l1', 'book:grl', 'ielts-listening', 'gate-0-listening-1', { section: 1 }, 'A2');
+    await imported('book-c99-t1-l1', 'book:c99-t1', 'ielts-listening', 'gate-0-listening-1', { section: 1 }, 'B2');
+    for (const phase of [1, 2, 3]) expect((await practiceSections(user, 'l-form', phase))[0].groupIds).toEqual(['book-grl-t1-l1']);
+    expect((await practiceSections(user, 'l-form', 4))[0].groupIds).toEqual(['book-c99-t1-l1']);
   });
 });
 
