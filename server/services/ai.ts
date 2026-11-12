@@ -137,7 +137,7 @@ export async function runAIJson<S extends z.ZodType>(user: User, options: RunAIO
   const retry = parseWith(schema, retryReply);
   if (retry.ok) return retry.data;
 
-  console.error('AI returned invalid JSON twice:', retry.problem);
+  console.error(`AI returned invalid JSON twice (${options.feature}):`, retry.problem, '| reply starts:', JSON.stringify(retryReply.slice(0, 200)));
   throw new HttpError(502, 'The AI returned an invalid result. Please try again.', 'ai_invalid_output');
 }
 

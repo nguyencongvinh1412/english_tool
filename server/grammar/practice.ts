@@ -29,7 +29,10 @@ const choiceItem = z.object({
 const gapItem = z.object({
   type: z.literal('gap'),
   /** The sentence with one blank written ____ */
-  prompt: text(300).refine((p) => (p.match(/_{3,}/g) ?? []).length === 1, 'write exactly one blank as ____'),
+  prompt: text(300).refine(
+    (p) => (p.match(/_{3,}/g) ?? []).length === 1,
+    'a gap item must have exactly one ____ blank; rewrite it as a statement with one blank (not a question like "How long ____ you ____?")'
+  ),
   /** Every accepted answer (contractions and full forms) */
   answers: z.array(text(60)).min(1).max(4),
   /** Base form or hint shown in brackets, e.g. (go) */
@@ -72,7 +75,8 @@ Explanations are short, in English ("en") and Vietnamese ("vi"). Respond with ON
     user: `Grammar point: ${point.title.en} (CEFR ${point.cefr}).${focus.length ? ` Cover only these uses of it: ${focus.join('; ')}.` : ''}${contrasts.length ? ` Include distractors that test the difference from: ${contrasts.join(', ')}.` : ''}
 Write EXACTLY ${size} items (count them: ${size}), mixed:
 - "choice": a sentence with a gap ____ (or a question like "Which sentence is correct?") and 3-4 options.
-- "gap": a sentence with ONE blank ____ the learner types; "hint" is the base form in brackets when useful (e.g. "(go)");
+- "gap": a statement with ONE blank ____ the learner types (never two blanks, so no questions like "How long ____ you ____?");
+  "hint" is the base form in brackets when useful (e.g. "(go)");
   "answers" lists every acceptable answer, including contractions (e.g. ["has gone", "'s gone"]).
 Use ${Math.ceil(size / 3)}-${Math.ceil((size * 2) / 3)} gap items. Spread correct answers over different positions.
 JSON: {"items": [{"type": "choice", "prompt": "...", "options": ["...", "...", "..."], "answerIndex": 0, "explanation": {"en": "...", "vi": "..."}},

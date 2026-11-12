@@ -9,6 +9,7 @@ import { db } from '../db/client.js';
 import { mediaAssets, type User } from '../db/schema.js';
 import { GENERATE_TIMEOUT_MS, runAI, runAIJson } from '../services/ai.js';
 import { readObject } from '../services/storage.js';
+import { HttpError } from '../http/errors.js';
 import type { ExtractedPage } from './extract.js';
 
 /** Inclusive page range */
@@ -167,17 +168,23 @@ async function extractGroups(user: User, pages: ExtractedPage[], onProgress: Pro
   const groups: RawGroup[] = [];
   for (let i = 0; i < chunks.length; i++) {
     await onProgress('questions', i, chunks.length);
-    const reply = await runAIJson(
-      user,
-      {
-        feature: 'import-parse',
-        timeoutMs: PARSE_TIMEOUT_MS,
-        system: QUESTION_RULES,
-        messages: [{ role: 'user', content: joinPages(chunks[i]) }],
-      },
-      groupsReply
-    );
-    groups.push(...reply.groups);
+    try {
+      const reply = await runAIJson(
+        user,
+        {
+          feature: 'import-parse',
+          timeoutMs: PARSE_TIMEOUT_MS,
+          system: QUESTION_RULES,
+          messages: [{ role: 'user', content: joinPages(chunks[i]) }],
+        },
+        groupsReply
+      );
+      groups.push(...reply.groups);
+    } catch (error) {
+      // One unreadable chunk should not throw away a long book; its questions show up as missing in review
+      if (!(error instanceof HttpError && error.code === 'ai_invalid_output')) throw error;
+      console.warn(`Import: skipped pages ${chunks[i][0].n}-${chunks[i].at(-1)!.n}, the AI reply was invalid twice`);
+    }
   }
   await onProgress('questions', chunks.length, chunks.length);
   return groups;
