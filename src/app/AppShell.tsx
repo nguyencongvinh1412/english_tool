@@ -97,7 +97,8 @@ export const AppShell: React.FC = () => {
 
   const items: NavItem[] = [
     { to: ROUTES.HOME, icon: 'today', label: t.nav.today, end: true },
-    { to: ROUTES.ROADMAP, icon: 'roadmap', label: t.nav.roadmap },
+    // English learners follow the IELTS path (one plan); the general roadmap stays for other languages
+    user.studyLanguage === 'en' ? { to: ROUTES.IELTS_PATH, icon: 'roadmap', label: t.ieltsPath.navLabel } : { to: ROUTES.ROADMAP, icon: 'roadmap', label: t.nav.roadmap },
     {
       to: ROUTES.PRACTICE,
       icon: 'practice',

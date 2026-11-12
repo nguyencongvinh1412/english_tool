@@ -1941,6 +1941,8 @@ export const vi: Messages = {
     roadmapSoon: 'Tạo lộ trình để thấy các giai đoạn và ngày dự kiến. Mất khoảng ba phút; trong lúc chờ, đây là những việc giúp ích nhất hôm nay.',
     stageLabel: (n: number, total: number) => `GIAI ĐOẠN ${n}/${total}`,
     etaLine: (goal: string, range: string, deadline: string | null) => `${goal} dự kiến khoảng ${range}${deadline ? ` · hạn chót ${deadline}` : ''}`,
+    ieltsStart: 'Tạo lộ trình IELTS để có lịch học theo từng ngày, bài kiểm tra mỗi giai đoạn và ngày dự kiến đạt mục tiêu. Mất khoảng ba phút.',
+    createIelts: 'Tạo lộ trình IELTS',
     createRoadmap: 'Tạo lộ trình',
     carriedBanner: (n: number) => `Chào mừng quay lại. Mình đã xếp lại ${n} việc từ những ngày trước vào hôm nay. Ngày dự kiến chưa đổi.`,
     carriedNote: 'Việc dồn không bị trừ điểm. Nếu dồn nhiều, mình sẽ gợi ý giảm tải hoặc lùi ngày dự kiến, bạn quyết định.',
@@ -2166,7 +2168,7 @@ export const vi: Messages = {
       progress: (done: number, total: number) => `Đã xong ${done}/${total} bước`,
       unwritten: 'Bài học hằng ngày cho giai đoạn bạn bắt đầu chưa sẵn sàng. Các việc quen thuộc của bạn vẫn hiện bên dưới.',
       complete: 'Bạn đã qua mọi gate mà mục tiêu cần. Các tuần cuối trước kỳ thi sẽ có ở bản cập nhật tiếp theo.',
-      also: 'Việc khác hôm nay',
+      also: 'Ôn tập hôm nay',
       gate: {
         title: (n: number) => `Tiếp theo là Gate ${n}`,
         ready: 'Bạn đã làm xong các bước của giai đoạn này. Gate kiểm tra cả bốn kỹ năng.',

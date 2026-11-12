@@ -38,6 +38,8 @@ function readBudget(): TodayBudget {
 
 const percent = (part: number, whole: number) => (whole > 0 ? Math.round((part / whole) * 100) : 0);
 
+const pathModeEarly = (path: PathTodayData | null): boolean => path !== null && (path.mode !== 'unwritten' || path.gate !== null);
+
 export const TodayPage: React.FC = () => {
   const { t, locale } = useI18n();
   const user = useCurrentUser();
@@ -99,13 +101,19 @@ export const TodayPage: React.FC = () => {
 
   const text = (task: TodayTask) => taskText(task, t, pointTitle);
 
-  const tasks = today?.tasks ?? [];
+  // With an IELTS path running, Today holds the path's steps; of the usual tasks only the reviews stay (words, grammar,
+  // repeated mistakes), because new lessons and skill practice are the path's job
+  const REVIEW_TASKS = ['review-words', 'review-grammar', 'fix-mistakes', 'review-deep'];
+  const allTasks = today?.tasks ?? [];
+  const tasks = pathModeEarly(pathToday) ? allTasks.filter((task) => REVIEW_TASKS.includes(task.type)) : allTasks;
   const next = tasks.find((task) => !task.done);
   const allDone = tasks.length > 0 && !next;
 
   // With an IELTS syllabus running, its steps come first
   // Path mode: the syllabus (or its gate) leads Today; a phase with no lessons and no gate to take leaves the usual tasks
-  const pathMode = pathToday !== null && (pathToday.mode !== 'unwritten' || pathToday.gate !== null);
+  const pathMode = pathModeEarly(pathToday);
+  // English without an IELTS path yet: the page asks to make one, there is no second plan to follow
+  const needsIelts = language === 'en' && !pathMode;
   const nextStep = pathToday?.mode === 'syllabus' ? pathToday.steps.find((step) => !step.done) : undefined;
   const gateNext = pathToday && (pathToday.mode === 'gate' || pathToday.mode === 'unwritten') && pathToday.gate && pathToday.gate.startBlock === null;
 
@@ -137,7 +145,7 @@ export const TodayPage: React.FC = () => {
 
   return (
     <div className="today">
-      {roadmap && <WeeklyReviewDialog />}
+      {roadmap && !pathMode && language !== 'en' && <WeeklyReviewDialog />}
       <header className="today__head">
         <h1>{t.today.greeting(user.displayName)}</h1>
         {!pathMode && <p className="today__sub">{today ? (allDone ? t.today.summaryDone(today.totalMinutes, tasks.length) : t.today.summary(today.totalMinutes, tasks.length)) : failed ? '' : t.today.loading}</p>}
@@ -145,7 +153,15 @@ export const TodayPage: React.FC = () => {
 
       <div className="today__grid">
         <div className="today__main">
-          {!roadmap && !pathMode && (
+          {needsIelts && (
+            <p className="today__notice">
+              {t.today.ieltsStart}{' '}
+              <Link to={ROUTES.IELTS_PATH_START} className="today__link">
+                {t.today.createIelts}
+              </Link>
+            </p>
+          )}
+          {!roadmap && !pathMode && language !== 'en' && (
             <p className="today__notice">
               {t.today.roadmapSoon}{' '}
               <Link to={ROUTES.ROADMAP_NEW} className="today__link">
@@ -154,7 +170,7 @@ export const TodayPage: React.FC = () => {
             </p>
           )}
 
-          {roadmap?.roadmap.levelSource === 'self' && user.studyLanguage === 'en' && !testDismissed && (
+          {roadmap?.roadmap.levelSource === 'self' && user.studyLanguage === 'en' && !pathMode && !needsIelts && !testDismissed && (
             <Banner tone="info">
               <div className="today__welcome">
                 <span>{t.today.testBanner}</span>
@@ -325,7 +341,7 @@ export const TodayPage: React.FC = () => {
                 {t.ieltsPath.title}
               </Link>
             </Card>
-          ) : roadmap ? (
+          ) : roadmap && language !== 'en' ? (
             <Card className="today__goal">
               {(() => {
                 const { roadmap: rm, progress } = roadmap;

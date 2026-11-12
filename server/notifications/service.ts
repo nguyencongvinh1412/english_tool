@@ -68,6 +68,9 @@ export async function refreshNotifications(user: User, localTime: string, today 
     if (studied.n === 0) await add(user.id, 'reminder', `reminder:${today}`, { time: prefs.reminderTime });
   }
 
+  // With an IELTS path running there is one plan: the roadmap's weekly and checkpoint notes stay quiet
+  if (path && path.startPhase !== null) return;
+
   const roadmap = await activeRoadmap(user.id, user.studyLanguage);
   if (!roadmap) return;
 

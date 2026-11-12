@@ -1941,6 +1941,8 @@ export const en = {
     roadmapSoon: 'Create a roadmap to see your stages and an expected date. It takes about three minutes; meanwhile, here is what helps most today.',
     stageLabel: (n: number, total: number) => `STAGE ${n} OF ${total}`,
     etaLine: (goal: string, range: string, deadline: string | null) => `${goal} expected around ${range}${deadline ? ` · deadline ${deadline}` : ''}`,
+    ieltsStart: 'Create your IELTS path to get a daily schedule, a test at the end of each phase and an expected date for your goal. It takes about three minutes.',
+    createIelts: 'Create your IELTS path',
     createRoadmap: 'Create roadmap',
     carriedBanner: (n: number) => `Welcome back. I moved ${n} ${n === 1 ? 'task' : 'tasks'} from earlier days into today. Your expected date hasn’t changed.`,
     carriedNote: 'Carried-over tasks cost nothing. If more pile up, I’ll suggest a lighter plan or a later date; it’s your call.',
@@ -2166,7 +2168,7 @@ export const en = {
       progress: (done: number, total: number) => `${done} of ${total} steps done`,
       unwritten: 'The daily lessons for your starting phase are not ready yet. Your usual tasks are shown below.',
       complete: 'You have cleared every gate your target needs. The final weeks before the exam come with the next update.',
-      also: 'Also today',
+      also: 'Review today',
       gate: {
         title: (n: number) => `Gate ${n} is next`,
         ready: 'You have done the steps of this phase. The gate checks all four skills.',
