@@ -43,7 +43,8 @@
     "book:samples": "tsx server/scripts/bookSamples.ts",
     "book:speaking-models": "tsx server/scripts/bookSpeakingModels.ts",
     "grammar:reading": "tsx server/scripts/grammarReading.ts",
-    "book:topic-words": "tsx server/scripts/importTopicWords.ts"
+    "book:topic-words": "tsx server/scripts/importTopicWords.ts",
+    "book:topic-examples": "tsx server/scripts/fixTopicExamples.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
