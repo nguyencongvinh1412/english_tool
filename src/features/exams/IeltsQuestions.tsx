@@ -9,7 +9,7 @@ import { Icon } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { questionId, TFNG_VALUES, type IeltsQuestion } from '@/shared/ieltsApi';
 
-const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
 
 interface IeltsQuestionsProps {
   groupId: string;

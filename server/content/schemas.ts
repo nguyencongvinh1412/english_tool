@@ -33,7 +33,7 @@ export const mcqQuestion = z.object({
   options: z.array(text(200)).length(4),
   answerIndex: z.number().int().min(0).max(3),
   /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
-  anyOf: z.array(z.number().int().min(0).max(9)).min(2).max(4).optional(),
+  anyOf: z.array(z.number().int().min(0).max(11)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
@@ -89,7 +89,7 @@ export const speakingIelts = z.object({
 });
 
 /** Gate and path speaking tests may leave out Part 2 and Part 3 (a Part 1 practice, or Gate 0 and Gate 1 with Parts 1 and 2 only) */
-export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(8) });
+export const speakingIeltsGate = speakingIelts.extend({ part1: z.array(text(200)).min(2).max(6), part2: speakingIelts.shape.part2.optional(), part3: z.array(text(250)).max(10) });
 
 const chartSeries = z.object({ name: text(40), values: z.array(z.number().finite()) });
 
@@ -274,10 +274,10 @@ export const gapQuestion = z.object({
 export const matchQuestion = z.object({
   type: z.literal('match'),
   prompt: text(400),
-  options: z.array(text(200)).min(3).max(10),
-  answerIndex: z.number().int().min(0).max(9),
+  options: z.array(text(200)).min(3).max(12),
+  answerIndex: z.number().int().min(0).max(11),
   /** "Choose TWO letters": the questions of the set share this list of right letters, in any order (each letter counts once) */
-  anyOf: z.array(z.number().int().min(0).max(9)).min(2).max(4).optional(),
+  anyOf: z.array(z.number().int().min(0).max(11)).min(2).max(4).optional(),
   explanation: text(600),
 });
 
@@ -383,7 +383,7 @@ export const ieltsListening = z
 export const ieltsReading = z
   .object({
     title: text(120),
-    paragraphs: z.array(text(1800)).min(4).max(9),
+    paragraphs: z.array(text(2800)).min(4).max(16),
     /** A figure that belongs to the passage (a diagram to label, a chart) */
     image: imageRef.optional(),
     questions: z.preprocess(fitWordLimits, z.array(ieltsQuestion).min(12).max(14)),

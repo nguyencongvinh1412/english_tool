@@ -56,7 +56,20 @@ const run = (command: string, args: string[]): void => {
 
 /** The bytes to store for an asset: a cropped picture as WebP, a recording as it is */
 function prepare(spec: AssetSpec): { data: Buffer; extension: string; mime: string } {
-  if (spec.kind === 'audio') return { data: readFileSync(spec.file!), extension: 'mp3', mime: 'audio/mpeg' };
+  if (spec.kind === 'audio') {
+    const extension = path.extname(spec.file!).slice(1).toLowerCase();
+    if (extension === 'm4a') return { data: readFileSync(spec.file!), extension: 'm4a', mime: 'audio/mp4' };
+    if (extension === 'mp3') return { data: readFileSync(spec.file!), extension: 'mp3', mime: 'audio/mpeg' };
+    // Anything else (wma, wav...) is converted so every browser plays it
+    const dir = mkdtempSync(path.join(tmpdir(), 'book-import-'));
+    try {
+      const out = path.join(dir, 'out.mp3');
+      run('ffmpeg', ['-y', '-loglevel', 'error', '-i', spec.file!, '-codec:a', 'libmp3lame', '-q:a', '4', out]);
+      return { data: readFileSync(out), extension: 'mp3', mime: 'audio/mpeg' };
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }
   const dir = mkdtempSync(path.join(tmpdir(), 'book-import-'));
   try {
     let source = spec.file ?? spec.files![0];

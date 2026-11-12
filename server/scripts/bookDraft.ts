@@ -13,6 +13,7 @@
  */
 import "../config.js";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import path from "node:path";
 import { asc, eq } from "drizzle-orm";
 import { z } from "zod";
@@ -41,7 +42,8 @@ interface TestConfig {
     script: [number, number];
     samples?: [number, number];
   };
-  audio: string[];
+  /** The recording of each section; null when the folder does not have it (the voice reads the transcript) */
+  audio: (string | null)[];
   /** Listening sections whose transcript is missing from the scan (1-4): they are imported without one */
   missingScript?: number[];
 }
@@ -136,7 +138,20 @@ type KeyEntry =
   | { kind: "roman"; index: number }
   | { kind: "text"; alts: string[] };
 
-const ROMAN = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"];
+const ROMAN = [
+  "i",
+  "ii",
+  "iii",
+  "iv",
+  "v",
+  "vi",
+  "vii",
+  "viii",
+  "ix",
+  "x",
+  "xi",
+  "xii",
+];
 
 /** "tail(s) / tails" and "(audio-recording) vests" become every spelling the key accepts */
 function expand(alt: string): string[] {
@@ -167,7 +182,7 @@ function parseKey(text: string): Map<number, KeyEntry> {
     if (!one) continue;
     const value = one[2].trim();
     const n = Number(one[1]);
-    if (/^[A-J]$/.test(value))
+    if (/^[A-L]$/.test(value))
       map.set(n, { kind: "letter", letters: [value], either: false, start: n });
     else if (["TRUE", "FALSE", "NOT GIVEN", "YES", "NO"].includes(value))
       map.set(n, { kind: "word", value: value as never });
@@ -254,7 +269,7 @@ function settle(
           problems.push(`Q${n}: key is a letter but the question is ${q.type}`),
           q
         );
-      const wanted = entry.letters.map((l) => "ABCDEFGHIJ".indexOf(l));
+      const wanted = entry.letters.map((l) => "ABCDEFGHIJKL".indexOf(l));
       const mine = entry.either ? wanted[n - entry.start] : wanted[0];
       if (q.answerIndex !== mine)
         warnings.push(
@@ -262,7 +277,7 @@ function settle(
         );
       if (mine >= (q.options?.length ?? 0))
         problems.push(
-          `Q${n}: the key letter ${"ABCDEFGHIJ"[mine]} is beyond the ${q.options?.length ?? 0} options the AI found`,
+          `Q${n}: the key letter ${"ABCDEFGHIJKL"[mine]} is beyond the ${q.options?.length ?? 0} options the AI found`,
         );
       q.answerIndex = mine;
       if (entry.either) q.anyOf = [...wanted].sort((a, b) => a - b);
@@ -340,7 +355,7 @@ const listeningDraft = z.object({
 });
 const readingDraft = z.object({
   title: z.string(),
-  paragraphs: z.array(z.string()),
+  paragraphs: z.array(z.string()).default([]),
   questions: z.array(draftQuestion),
   figurePages: z.array(z.number()).default([]),
   notes: z.array(z.string()).default([]),
@@ -409,10 +424,10 @@ async function draftReading(
       timeoutMs: 300_000,
       maxTokens: SCORING_MAX_TOKENS,
       system: `You turn one passage of a real IELTS Academic Reading test into JSON for a practice app. The input is the OCR text of the passage and its questions (page headers, watermarks and garbled tables can appear), plus the official key.
-Passage: copy the passage text EXACTLY as written (fix only OCR line breaks and obvious OCR slips), split into its paragraphs in order. If the paragraphs are lettered A, B, C... in the book, drop the letter from the text. The title is the passage title. Do not include the instruction lines ("You should spend about 20 minutes...").
+Do NOT write the passage out: the app cuts it from the page itself. You give only the passage title (as printed) and the questions.
 ${QUESTION_RULES.replace("${source}", "passage")}
 ${PICTURE_RULES}
-Return ONLY one JSON object: {"title":"...","paragraphs":["...","..."],"questions":[...exactly ${count} questions numbered ${first}-${first + count - 1}...],"figurePages":[],"notes":[]}`,
+Return ONLY one JSON object: {"title":"...","questions":[...exactly ${count} questions numbered ${first}-${first + count - 1}...],"figurePages":[],"notes":[]}`,
       messages: [
         {
           role: "user",
@@ -459,15 +474,13 @@ function parseScript(raw: Line[]): {
     n ? n[0] + n.slice(1).toLowerCase() : "Speaker";
   return {
     speakers: Object.fromEntries(
-      order
-        .slice(0, 3)
-        .map((n, i) => [
-          letters[i],
-          {
-            name: title(n),
-            gender: i % 2 === 0 ? ("female" as const) : ("male" as const),
-          },
-        ]),
+      order.slice(0, 3).map((n, i) => [
+        letters[i],
+        {
+          name: title(n),
+          gender: i % 2 === 0 ? ("female" as const) : ("male" as const),
+        },
+      ]),
     ),
     script: tagged
       .filter((t) => t.text)
@@ -682,7 +695,9 @@ async function main(): Promise<void> {
             A: { name: "Speaker", gender: "female" },
           },
           script: script?.script ?? [],
-          audio: { $asset: `${assetName}.mp3` },
+          ...(test.audio[s - 1]
+            ? { audio: { $asset: `${assetName}.mp3` } }
+            : {}),
           ...(draft.figurePages.length > 0
             ? {
                 image: {
@@ -701,10 +716,13 @@ async function main(): Promise<void> {
       }
       const { draft, problems } = best!;
       const assetName = `${name}-t${testNo}-l${s}`;
-      manifest.assets[`${assetName}.mp3`] = {
-        file: test.audio[s - 1],
-        kind: "audio",
-      };
+      const recording = test.audio[s - 1];
+      if (recording)
+        manifest.assets[`${assetName}.mp3`] = {
+          file: recording,
+          kind: "audio",
+        };
+      else say("  no recording in the folder: the voice reads the transcript");
       if (draft.figurePages.length > 0)
         manifest.assets[`${assetName}.webp`] = {
           files: draft.figurePages.map(pageImage),
@@ -725,7 +743,9 @@ async function main(): Promise<void> {
             A: { name: "Speaker", gender: "female" },
           },
           script: script?.script ?? [],
-          audio: { $asset: `${assetName}.mp3` },
+          ...(test.audio[s - 1]
+            ? { audio: { $asset: `${assetName}.mp3` } }
+            : {}),
           ...(draft.figurePages.length > 0
             ? {
                 image: {
@@ -801,6 +821,15 @@ async function main(): Promise<void> {
           to - from + 1,
           repair,
         );
+        draft.paragraphs = passageFromBoxes(
+          name,
+          [...new Set(seg.map((l) => l.page))],
+          draft.title,
+        );
+        if (draft.paragraphs.length < 4)
+          throw new Error(
+            `only ${draft.paragraphs.length} paragraph(s) cut from the page`,
+          );
         const checked = settle(draft.questions, from, key.reading);
         draft.questions = checked.questions;
         const problems = [...checked.problems];
@@ -919,6 +948,16 @@ async function main(): Promise<void> {
         say(`override applied to ${item.id}: ${Object.keys(fix).join(", ")}`);
       }
     }
+    // "_assets": { "<asset name>": { "crop": [x, y, width, height] } } sets a picture's crop by hand (a figure taller than the usual area)
+    const assets = (
+      overrides as unknown as Record<
+        string,
+        Record<string, { crop?: [number, number, number, number] }>
+      >
+    )._assets;
+    for (const [asset, fix] of Object.entries(assets ?? {}))
+      if (manifest.assets[asset] && fix.crop)
+        manifest.assets[asset].crop = fix.crop;
   }
 
   mkdirSync(path.join(REF, "manifests"), { recursive: true });
@@ -958,6 +997,181 @@ function cleanQuestion(q: DraftQuestion): unknown {
     ...(q.anyOf ? { anyOf: q.anyOf } : {}),
     explanation: q.explanation,
   };
+}
+
+/**
+ * The passage text cut out of the page by code, straight from the OCR boxes (two columns, paragraph breaks from the gaps between lines).
+ * The AI never has to write the passage out.
+ */
+function passageFromBoxes(
+  name: string,
+  pages: number[],
+  title: string,
+): string[] {
+  type Box = {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+    text: string;
+  };
+  const clean = (t: string) =>
+    FIX_POUND((NOISE ? t.replace(NOISE, "") : t).replace(WATERMARK, "")).trim();
+  const lines: {
+    text: string;
+    col: number;
+    top: number;
+    bottom: number;
+    right: number;
+    page: number;
+  }[] = [];
+  let started = false;
+  let later = false;
+  let stop = false;
+  for (const page of pages) {
+    if (stop) break;
+    const out = spawnSync(
+      path.join(REF, "visionocr"),
+      [
+        "--boxes",
+        path.join(REF, "pages", name, `p-${String(page).padStart(3, "0")}.png`),
+      ],
+      { encoding: "utf8" },
+    ).stdout;
+    const boxes: Box[] = out
+      .split("\n")
+      .slice(1)
+      .filter(Boolean)
+      .map((l) => l.split("\t"))
+      .map((c) => ({
+        top: Number(c[0]),
+        left: Number(c[1]),
+        bottom: Number(c[2]),
+        right: Number(c[3]),
+        text: clean(c[4] ?? ""),
+      }))
+      .filter(
+        (b) =>
+          b.text !== "" &&
+          b.top > 0.06 &&
+          b.bottom < 0.935 &&
+          !/^\d{1,3}$/.test(b.text) &&
+          !/IELTS House|^Test \d$/i.test(b.text),
+      );
+    const asks = boxes.some((b) =>
+      /^(Questions?\s+\d|List of Headings)/.test(b.text),
+    );
+    // "Passage 2 on the following pages": the questions come first, the text starts on the first page without any of them
+    const following = boxes.some((b) => /following pages\.?$/i.test(b.text));
+    if (following) {
+      later = true;
+      continue;
+    }
+    if (later && !started) {
+      if (asks) continue;
+      started = true;
+    }
+    let cut = 1;
+    for (const b of boxes)
+      if (/^Questions?\s+\d/.test(b.text) && b.top < cut) cut = b.top;
+    const kept = boxes.filter((b) => b.bottom <= cut + 0.002);
+    if (cut < 1 && started) stop = true;
+    // two columns when most lines sit in one half of the page; a line across the middle (title, standfirst) is no body text
+    const half = kept.filter((b) => b.right < 0.52 || b.left > 0.48).length;
+    const twoColumns = half >= kept.length * 0.7;
+    const col = (b: Box) =>
+      !twoColumns
+        ? 1
+        : b.left < 0.48 && b.right > 0.52
+          ? 0
+          : b.left < 0.5
+            ? 1
+            : 2;
+    const below = kept.find((b) => /below\.?$/i.test(b.text));
+    if (below) started = true;
+    if (!started) continue;
+    const ordered = [...kept]
+      .filter((b) => col(b) !== 0 && (!below || b.top > below.bottom))
+      .sort((a, b) => col(a) - col(b) || a.top - b.top);
+    for (const b of ordered) {
+      lines.push({
+        text: b.text,
+        col: col(b),
+        top: b.top,
+        bottom: b.bottom,
+        right: b.right,
+        page,
+      });
+    }
+  }
+  const pitch = (() => {
+    const gaps: number[] = [];
+    for (let i = 1; i < lines.length; i++)
+      if (
+        lines[i].col === lines[i - 1].col &&
+        lines[i].page === lines[i - 1].page
+      ) {
+        const g = lines[i].top - lines[i - 1].top;
+        if (g > 0.005 && g < 0.05) gaps.push(g);
+      }
+    gaps.sort((a, b) => a - b);
+    return gaps[Math.floor(gaps.length / 2)] ?? 0.019;
+  })();
+  const colRight = (c: number) =>
+    Math.max(...lines.filter((l) => l.col === c).map((l) => l.right), 0.4);
+  const paragraphs: string[] = [];
+  let current = "";
+  const flush = () => {
+    if (current.trim()) paragraphs.push(current.trim());
+    current = "";
+  };
+  lines.forEach((l, i) => {
+    const prev = lines[i - 1];
+    if (prev) {
+      const same = prev.col === l.col && prev.page === l.page;
+      const bigGap =
+        same &&
+        l.top - prev.top > pitch * 1.45 &&
+        /[.!?"'\u2019\u201d:]$/.test(prev.text);
+      const shortEnd =
+        /[.!?"'\u2019\u201d]$/.test(prev.text) &&
+        prev.right < colRight(prev.col) - (same ? 0.1 : 0.07);
+      const lettered = /^[A-J]\s+[A-Z]/.test(l.text);
+      const wasLetter = /^[A-J]$/.test(prev.text);
+      if (
+        bigGap ||
+        shortEnd ||
+        lettered ||
+        /^[A-J]$/.test(l.text) ||
+        wasLetter
+      ) {
+        if (!wasLetter) flush();
+      }
+    }
+    if (/^[A-J]$/.test(l.text)) return;
+    current = current.endsWith("-") ? current + l.text : `${current} ${l.text}`;
+  });
+  flush();
+  // a lettered passage: drop what comes before paragraph A and the letters in front of the paragraphs
+  const first = paragraphs.findIndex((p) => /^A\s+[A-Z]/.test(p));
+  if (first > 0 && first <= 2) paragraphs.splice(0, first);
+  paragraphs.forEach((p, i) => {
+    if (/^[A-J]\s+[A-Z]/.test(p)) paragraphs[i] = p.slice(2);
+  });
+  // a paragraph that starts in lower case goes on from the one before (a picture or a box sat in between)
+  for (let i = paragraphs.length - 1; i > 0; i--)
+    if (/^[a-z]/.test(paragraphs[i])) {
+      paragraphs[i - 1] = `${paragraphs[i - 1]} ${paragraphs[i]}`;
+      paragraphs.splice(i, 1);
+    }
+  const norm = (t: string) =>
+    t
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  if (paragraphs.length > 0 && norm(paragraphs[0]) === norm(title))
+    paragraphs.shift();
+  return paragraphs.map((p) => p.replace(/\s+/g, " "));
 }
 
 async function boxes(
@@ -1020,7 +1234,7 @@ async function writingTask1(
   const top = Math.round(
     (Math.max(0.3, ...anchors.map((b) => b.bottom)) + 0.008) * height,
   );
-  const bottom = Math.round(0.93 * height);
+  const bottom = Math.round(0.915 * height);
   // Without the dark shadow of the book's spine on the left edge
   const left = Math.round(0.07 * width);
   const assetName = `${name}-t${testNo}-w1.webp`;
@@ -1158,7 +1372,10 @@ JSON: {"topic":"short topic of the test","part1":["..."],"part2":{"cueCard":"Des
       part3: z.array(z.string()),
     }),
   );
-  const parsed = speakingIeltsGate.safeParse(draft);
+  const parsed = speakingIeltsGate.safeParse({
+    ...draft,
+    topic: draft.topic.slice(0, 80),
+  });
   manifest.items.push({
     id: `${prefix}-s`,
     kind: "speaking-ielts",
