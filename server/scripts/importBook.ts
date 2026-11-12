@@ -22,7 +22,7 @@ import path from 'node:path';
 import { asc, eq } from 'drizzle-orm';
 import { closeDb, db } from '../db/client.js';
 import { contentItems, mediaAssets, users } from '../db/schema.js';
-import { CONTENT_KINDS, contentTitle, speakingIeltsGate } from '../content/schemas.js';
+import { CONTENT_KINDS, contentTitle, ieltsReadingFoundation, speakingIeltsGate } from '../content/schemas.js';
 import { saveBuffer } from '../services/storage.js';
 
 interface AssetSpec {
@@ -133,7 +133,7 @@ async function main(): Promise<void> {
     const config = CONTENT_KINDS[item.kind];
     if (!config) throw new Error(`Unknown kind ${item.kind}`);
     // A real speaking test has up to six Part 3 questions, more than the generator's limit
-    const schema = item.kind === 'speaking-ielts' ? speakingIeltsGate : config.schema;
+    const schema = item.kind === 'speaking-ielts' ? speakingIeltsGate : item.kind === 'ielts-reading' && item.part.startsWith('book:gr') ? ieltsReadingFoundation : config.schema;
     const parsed = schema.safeParse(resolve(item.payload, ids));
     if (!parsed.success) throw new Error(`${item.id}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
     const payload = parsed.data as object;

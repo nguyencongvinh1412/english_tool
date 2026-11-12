@@ -240,13 +240,17 @@ const poolOf = (type: PoolType | PracticeType, level?: PoolLevel | null) =>
   and(eq(contentItems.part, `path:${type}`), level ? eq(contentItems.level, level) : undefined, eq(contentItems.status, 'archived'));
 
 /** Which real groups (see realTests.ts) can stand in for an exercise type */
-const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ielts-reading'; sections?: number[] }>> = {
+const REAL_SOURCE: Partial<Record<GeneratedType, { kind: 'ielts-listening' | 'ielts-reading'; sections?: number[]; questionType?: string }>> = {
   'l-conv': { kind: 'ielts-listening', sections: [1, 3] },
   'l-form': { kind: 'ielts-listening', sections: [1] },
   'l-mono': { kind: 'ielts-listening', sections: [2] },
   'l-sec3': { kind: 'ielts-listening', sections: [3] },
   'l-sec4': { kind: 'ielts-listening', sections: [4] },
   'r-passage': { kind: 'ielts-reading' },
+  // The foundation book's passages hold one kind of question each: the exercise takes a passage with its kind
+  'r-short': { kind: 'ielts-reading', questionType: 'mcq' },
+  'r-tfng': { kind: 'ielts-reading', questionType: 'tfng' },
+  'r-scan': { kind: 'ielts-reading', questionType: 'match' },
 };
 
 /**
@@ -268,6 +272,7 @@ async function unseenReal(type: PoolType | PracticeType, taken: Set<string>, lev
   const source = isGenerated(type) ? REAL_SOURCE[type] : REAL_STATIC[type as PracticeType];
   if (!source) return null;
   const sections = 'sections' in source ? source.sections : undefined;
+  const questionType = 'questionType' in source ? source.questionType : undefined;
   const taskType = 'taskType' in source ? source.taskType : undefined;
   const rows = await db
     .select({ id: contentItems.id })
@@ -280,6 +285,7 @@ async function unseenReal(type: PoolType | PracticeType, taken: Set<string>, lev
         like(contentItems.part, 'book:%'),
         notInArray(contentItems.part, RESERVED_TESTS.map(testPart)),
         level ? eq(contentItems.level, level === 'B2' ? 'B2' : 'A2') : undefined,
+        questionType ? sql`${contentItems.payload}->'questions' @> ${JSON.stringify([{ type: questionType }])}::jsonb` : undefined,
         sections ? inArray(sql`${contentItems.payload}->>'section'`, sections.map(String)) : undefined,
         taskType ? sql`${contentItems.payload}->>'taskType' = ${taskType}` : undefined
       )

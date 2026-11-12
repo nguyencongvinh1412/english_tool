@@ -72,6 +72,19 @@ describe('foundation book listening in the early phases', () => {
   });
 });
 
+describe('foundation book reading in the early phases', () => {
+  it('gives a passage with the kind of question the exercise is about, at the foundation level only', async () => {
+    const user = await createUser();
+    const tfng = (GATE_GROUPS.find((g) => g.id === 'gate-1-reading')!.payload as { questions: { type: string }[] }).questions;
+    expect(tfng.some((q) => q.type === 'tfng')).toBe(true);
+    await imported('book-grr-t11-r1', 'book:grr', 'ielts-reading', 'gate-1-reading', {}, 'A2');
+    for (const phase of [1, 2, 3]) expect((await practiceSections(user, 'r-tfng', phase))[0].groupIds).toEqual(['book-grr-t11-r1']);
+    // From phase 4 the level is B2: the foundation passage is not taken
+    await imported('book-c99-t1-r1', 'book:c99-t1', 'ielts-reading', 'gate-1-reading', {}, 'B2');
+    expect((await practiceSections(user, 'r-passage', 4))[0].groupIds).toEqual(['book-c99-t1-r1']);
+  });
+});
+
 describe('real writing and speaking tasks in practice', () => {
   it('give Task 1, Task 2 and a whole Speaking test from phase 4 on, from the tests not kept, and not before', async () => {
     const user = await createUser();

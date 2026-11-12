@@ -403,6 +403,19 @@ export const ieltsReading = z
     if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
   });
 
+/** A shorter passage of a foundation book (5 to 14 questions, as few as two paragraphs), the same rules otherwise */
+export const ieltsReadingFoundation = z
+  .object({
+    title: text(120),
+    paragraphs: z.array(text(2800)).min(2).max(16),
+    image: imageRef.optional(),
+    questions: z.preprocess(fitWordLimits, z.array(ieltsQuestion).min(5).max(14)),
+  })
+  .superRefine((group, ctx) => {
+    const problem = gapsMatchSource(group.questions, group.paragraphs.join(' '));
+    if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['questions'] });
+  });
+
 /* ---------- Japanese ---------- */
 
 export const JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;

@@ -22,6 +22,7 @@ import { users, type User } from "../db/schema.js";
 import {
   ieltsListening,
   ieltsReading,
+  ieltsReadingFoundation,
   speakingIeltsGate,
 } from "../content/schemas.js";
 import { verifyIelts } from "../exams/ieltsBank.js";
@@ -46,6 +47,8 @@ interface TestConfig {
   audio: (string | null)[];
   /** Listening sections whose transcript is missing from the scan (1-4): they are imported without one */
   missingScript?: number[];
+  /** Foundation books: the number of reading questions of the one passage (numbered 1 to n) */
+  readingQuestions?: number;
 }
 interface BookConfig {
   name: string;
@@ -54,7 +57,9 @@ interface BookConfig {
   level: string;
   keys: string;
   /** Heading patterns when the book does not say "SECTION n" (Cambridge 17 says "PART n") */
-  headings?: { listening?: string; script?: string };
+  headings?: { listening?: string; script?: string; reading?: string };
+  /** Foundation books: the AI points at the passage lines of the unit's pages, the app copies them */
+  passageByLines?: boolean;
   /** Extra page noise to drop (a regular expression): audio icons' captions, a site's footer */
   noise?: string;
   tests: Record<string, TestConfig>;
@@ -356,6 +361,8 @@ const listeningDraft = z.object({
 const readingDraft = z.object({
   title: z.string(),
   paragraphs: z.array(z.string()).default([]),
+  /** Foundation books: the line numbers [from, to] of the passage in the numbered page lines */
+  passageLines: z.array(z.tuple([z.number(), z.number()])).default([]),
   questions: z.array(draftQuestion),
   figurePages: z.array(z.number()).default([]),
   notes: z.array(z.string()).default([]),
@@ -416,6 +423,7 @@ async function draftReading(
   first: number,
   count: number,
   repair?: string,
+  lineMode = false,
 ): Promise<z.infer<typeof readingDraft>> {
   return runAIJson(
     user,
@@ -423,7 +431,13 @@ async function draftReading(
       feature: FEATURE,
       timeoutMs: 300_000,
       maxTokens: SCORING_MAX_TOKENS,
-      system: `You turn one passage of a real IELTS Academic Reading test into JSON for a practice app. The input is the OCR text of the passage and its questions (page headers, watermarks and garbled tables can appear), plus the official key.
+      system: lineMode
+        ? `You turn the exam practice of one unit of a foundation IELTS Reading book into JSON for a practice app. The input is the OCR text of the unit's pages as numbered lines [n] (instructions, exam tips, questions, the reading passage and a progress check are mixed; page headers and footers can appear), plus the official key.
+Do NOT write the passage out: the app copies it from the page itself. Give "passageLines": the ranges [first, last] of the line numbers that make up the reading passage (its title or section headings may be included; the questions, instructions, exam tips and progress check are not), in reading order. A passage that continues in a second column or on another page needs one range per piece. Also give the passage title as printed, or a short title if it has none.
+${QUESTION_RULES.replace("${source}", "passage")}
+${PICTURE_RULES}
+Return ONLY one JSON object: {"title":"...","passageLines":[[0,0]],"questions":[...exactly ${count} questions numbered ${first}-${first + count - 1}...],"figurePages":[],"notes":[]}`
+        : `You turn one passage of a real IELTS Academic Reading test into JSON for a practice app. The input is the OCR text of the passage and its questions (page headers, watermarks and garbled tables can appear), plus the official key.
 Do NOT write the passage out: the app cuts it from the page itself. You give only the passage title (as printed) and the questions.
 ${QUESTION_RULES.replace("${source}", "passage")}
 ${PICTURE_RULES}
@@ -531,9 +545,14 @@ const withDummyAssets = (value: unknown): unknown =>
 function schemaProblems(
   kind: "ielts-listening" | "ielts-reading",
   payload: unknown,
+  foundation = false,
 ): string[] {
   const parsed = (
-    kind === "ielts-listening" ? ieltsListening : ieltsReading
+    kind === "ielts-listening"
+      ? ieltsListening
+      : foundation
+        ? ieltsReadingFoundation
+        : ieltsReading
   ).safeParse(withDummyAssets(payload));
   return parsed.success
     ? []
@@ -784,7 +803,7 @@ async function main(): Promise<void> {
   /* reading */
   const readingSegs = segments(
     rangeLines(name, test.pages.reading),
-    /^READING PASSAGE\s*[1-3]\b/,
+    new RegExp(config.headings?.reading ?? "^READING PASSAGE\\s*[1-3]\\b"),
   );
   const readingRanges = [
     [1, 13],
@@ -799,9 +818,17 @@ async function main(): Promise<void> {
       continue;
     }
     try {
-      const [from, to] = readingRanges[p - 1];
+      const [from, to] = config.passageByLines
+        ? [1, test.readingQuestions ?? 10]
+        : readingRanges[p - 1];
+      const pageList = [...new Set(seg.map((l) => l.page))];
+      const ordered = config.passageByLines
+        ? orderedBoxLines(name, pageList)
+        : [];
       const keySlice = keyRange(keyText.reading, from, to);
-      const text = textWithPages(seg);
+      const text = config.passageByLines
+        ? ordered.map((l, i) => `[${i}] ${l.text}`).join("\n")
+        : textWithPages(seg);
       say(`\n## Reading passage ${p} (questions ${from}-${to})`);
       let repair: string | undefined;
       let best: {
@@ -820,13 +847,15 @@ async function main(): Promise<void> {
           from,
           to - from + 1,
           repair,
+          config.passageByLines,
         );
-        draft.paragraphs = passageFromBoxes(
-          name,
-          [...new Set(seg.map((l) => l.page))],
-          draft.title,
-        );
-        if (draft.paragraphs.length < 4)
+        if (config.passageByLines) {
+          const chosen = draft.passageLines.flatMap(([a, b]) =>
+            ordered.slice(Math.max(0, a), Math.min(ordered.length, b + 1)),
+          );
+          draft.paragraphs = paragraphsOfLines(chosen);
+        } else draft.paragraphs = passageFromBoxes(name, pageList, draft.title);
+        if (draft.paragraphs.length < (config.passageByLines ? 2 : 4))
           throw new Error(
             `only ${draft.paragraphs.length} paragraph(s) cut from the page`,
           );
@@ -847,7 +876,9 @@ async function main(): Promise<void> {
             : {}),
           questions: draft.questions.map(cleanQuestion),
         };
-        problems.push(...schemaProblems("ielts-reading", payload));
+        problems.push(
+          ...schemaProblems("ielts-reading", payload, config.passageByLines),
+        );
         // Nothing in the paragraphs may be invented; lines of the page that neither the paragraphs nor the questions hold are listed for a look
         const kept = fidelity(
           seg.map((l) => l.text).join(" "),
@@ -1172,6 +1203,110 @@ function passageFromBoxes(
   if (paragraphs.length > 0 && norm(paragraphs[0]) === norm(title))
     paragraphs.shift();
   return paragraphs.map((p) => p.replace(/\s+/g, " "));
+}
+
+interface PageLine {
+  text: string;
+  page: number;
+  top: number;
+  left: number;
+  right: number;
+}
+
+/**
+ * The lines of some pages in reading order, for books that mix questions and a passage on a page: a run of narrow
+ * lines (a column of text) is read left column first, a wide line stands where it is.
+ */
+function orderedBoxLines(name: string, pages: number[]): PageLine[] {
+  const out: PageLine[] = [];
+  for (const page of pages) {
+    const raw = spawnSync(
+      path.join(REF, "visionocr"),
+      [
+        "--boxes",
+        path.join(REF, "pages", name, `p-${String(page).padStart(3, "0")}.png`),
+      ],
+      { encoding: "utf8" },
+    ).stdout;
+    const boxes: PageLine[] = raw
+      .split("\n")
+      .slice(1)
+      .filter(Boolean)
+      .map((l) => l.split("\t"))
+      .map((c) => ({
+        top: Number(c[0]),
+        left: Number(c[1]),
+        right: Number(c[3]),
+        text: FIX_POUND((c[4] ?? "").replace(WATERMARK, ""))
+          .replace(/\s+/g, " ")
+          .trim(),
+        page,
+      }))
+      .filter(
+        (b) =>
+          b.text !== "" &&
+          b.top > 0.05 &&
+          b.top < 0.93 &&
+          !/Get Ready for IELTS|^Unit \d+$|^\d{1,3}\s+[A-Z][A-Za-z ]+$|^[A-Z][A-Za-z ,']+\s+\d{1,3}$/.test(
+            b.text,
+          ),
+      )
+      .sort((a, b) => a.top - b.top);
+    const narrow = (b: PageLine) => b.right < 0.54 || b.left > 0.46;
+    for (let i = 0; i < boxes.length;) {
+      if (!narrow(boxes[i])) {
+        out.push(boxes[i++]);
+        continue;
+      }
+      const band: PageLine[] = [];
+      while (i < boxes.length && narrow(boxes[i])) band.push(boxes[i++]);
+      const left = band
+        .filter((b) => b.left < 0.46)
+        .sort((a, b) => a.top - b.top);
+      const right = band
+        .filter((b) => b.left >= 0.46)
+        .sort((a, b) => a.top - b.top);
+      out.push(...left, ...right);
+    }
+  }
+  return out;
+}
+
+/** Paragraphs of chosen lines: a break where the vertical gap grows or a sentence ends on a short line */
+function paragraphsOfLines(lines: PageLine[]): string[] {
+  const gaps: number[] = [];
+  for (let i = 1; i < lines.length; i++) {
+    const g = lines[i].top - lines[i - 1].top;
+    if (lines[i].page === lines[i - 1].page && g > 0.005 && g < 0.05)
+      gaps.push(g);
+  }
+  gaps.sort((a, b) => a - b);
+  const pitch = gaps[Math.floor(gaps.length / 2)] ?? 0.019;
+  const right = Math.max(
+    0.4,
+    ...lines.map((l) => l.right).filter((r) => r < 0.9),
+  );
+  const out: string[] = [];
+  let current = "";
+  lines.forEach((l, i) => {
+    const prev = lines[i - 1];
+    if (prev) {
+      const ended = /[.!?"'\u2019\u201d]$/.test(prev.text);
+      const sameBlock = prev.page === l.page && l.top > prev.top;
+      const bigGap = sameBlock && l.top - prev.top > pitch * 1.45;
+      const shortEnd =
+        ended &&
+        prev.right < right - 0.08 &&
+        (!sameBlock || l.top - prev.top > pitch * 1.1);
+      if ((bigGap && ended) || shortEnd) {
+        out.push(current.trim());
+        current = "";
+      }
+    }
+    current = current.endsWith("-") ? current + l.text : `${current} ${l.text}`;
+  });
+  out.push(current.trim());
+  return out.filter(Boolean).map((p) => p.replace(/\s+/g, " "));
 }
 
 async function boxes(
