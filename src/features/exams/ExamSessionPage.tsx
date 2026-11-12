@@ -123,8 +123,6 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
               onToggleFlag={toggleFlag}
             />
           </Card>
-
-          <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
@@ -161,6 +159,8 @@ const ExamRunner: React.FC<{ session: ExamSession; onSubmitted: (session: ExamSe
           ))}
         </aside>
       </div>
+
+      <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
 
       <Modal
         open={confirmOpen}

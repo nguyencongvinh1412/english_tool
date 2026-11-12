@@ -127,8 +127,6 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
               onToggleFlag={toggleFlag}
             />
           </Card>
-
-          <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
@@ -167,6 +165,8 @@ const Runner: React.FC<{ session: JlptSession; onSubmitted: (session: JlptSessio
           ))}
         </aside>
       </div>
+
+      <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />
 
       <Modal
         open={confirmOpen}

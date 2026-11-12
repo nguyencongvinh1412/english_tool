@@ -202,8 +202,6 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
               submitting={isSubmitting}
             />
           </Card>
-
-          {current.component !== 'speaking' && <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />}
         </main>
 
         <aside className="exam-nav" aria-label={t.exams.navigator}>
@@ -244,6 +242,8 @@ const IeltsRunner: React.FC<{ session: IeltsSession; onSubmitted: (session: Ielt
           ))}
         </aside>
       </div>
+
+      {current.component !== 'speaking' && <ExamFooter index={index} total={groups.length} onPrev={() => goTo(index - 1)} onNext={() => goTo(index + 1)} onSubmit={() => setConfirmOpen(true)} submitting={isSubmitting} />}
 
       <Modal
         open={confirmOpen}
