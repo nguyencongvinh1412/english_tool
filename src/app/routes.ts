@@ -18,6 +18,7 @@ export const ROUTES = {
   IELTS_PATH_START: '/ielts/start',
   /** One lesson step at /ielts/lesson/:stepId; /ielts/practice/:stepId opens (and prepares) an exercise */
   IELTS_ERRORS: '/ielts/errors',
+  IELTS_REPORT: '/ielts/report',
   IELTS_LESSON: '/ielts/lesson',
   IELTS_PRACTICE: '/ielts/practice',
   CHECKPOINT: '/roadmap/checkpoint',

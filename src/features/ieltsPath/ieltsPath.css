@@ -340,3 +340,37 @@
     font-size: 1.75rem;
   }
 }
+
+/* Progress report */
+.report {
+  display: grid;
+  gap: var(--space-4, 1rem);
+  max-width: 48rem;
+}
+.report__actions {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.report__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.report__table th,
+.report__table td {
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border, #ddd);
+}
+.report__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+}
+@media print {
+  .report__actions {
+    display: none;
+  }
+}

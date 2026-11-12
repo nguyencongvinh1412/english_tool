@@ -158,6 +158,9 @@ export const IeltsPathPage: React.FC = () => {
             <LinkButton to={ROUTES.IELTS_ERRORS} variant="ghost" size="sm">
               {p.errorBook.title}
             </LinkButton>
+            <LinkButton to={ROUTES.IELTS_REPORT} variant="ghost" size="sm">
+              {p.report.link}
+            </LinkButton>
           </Card>
         </div>
 

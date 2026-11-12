@@ -10,6 +10,7 @@ import { MAX_DAILY_MINUTES, MAX_OVERALL_TARGET, MIN_DAILY_MINUTES, MIN_OVERALL_T
 import { activePath, archivePath, createPath, pathView, updatePath } from '../ieltsPath/service.js';
 import { applyDecision, gateView, replan, setManualBand, setSkillSkipped, startGateSkill, startRetest } from '../ieltsPath/gates.js';
 import { buildErrorBook } from '../ieltsPath/errors.js';
+import { buildReport } from '../ieltsPath/report.js';
 import { completeLesson, learnAhead, lessonOf, pathToday, startPractice, stepOf } from '../ieltsPath/today.js';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a date like 2027-05-10');
@@ -130,6 +131,11 @@ export function createIeltsPathRouter(): Router {
   /** GET /ielts-path/errors - The learner's error book: listening mistakes by kind, reading by question type, writing and speaking by criterion */
   router.get('/ielts-path/errors', requireAuth, async (req, res) => {
     res.json({ book: await buildErrorBook(currentUser(req).id) });
+  });
+
+  /** GET /ielts-path/report - Progress against the targets, the gates, what to work on, and the AI against a teacher */
+  router.get('/ielts-path/report', requireAuth, async (req, res) => {
+    res.json({ report: await buildReport(await requirePath(currentUser(req).id)) });
   });
 
   /** GET /ielts-path/today - The steps to do today, how far behind or ahead the learner is, and the expected end */

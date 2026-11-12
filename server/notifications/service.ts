@@ -10,6 +10,8 @@ import { quotaDay } from '../services/aiAccess.js';
 import { activeRoadmap, roadmapView } from '../roadmap/service.js';
 import { lastFullWeek } from '../roadmap/weekly.js';
 import { checkpointThresholds } from '../roadmap/checkpoints.js';
+import { activePath } from '../ieltsPath/service.js';
+import { pathToday } from '../ieltsPath/today.js';
 
 export interface Prefs {
   dailyReminder: boolean;
@@ -46,7 +48,22 @@ async function add(userId: string, kind: string, dedupeKey: string, params: Reco
 export async function refreshNotifications(user: User, localTime: string, today = quotaDay()): Promise<void> {
   const prefs = await getPrefs(user.id);
 
-  if (prefs.dailyReminder && localTime >= prefs.reminderTime) {
+  // The IELTS Path speaks first: a learner who is behind gets that one reminder, not two
+  let pathReminded = false;
+  const path = await activePath(user.id);
+  if (path && path.startPhase !== null) {
+    const view = await pathToday(path, today).catch(() => null);
+    if (view) {
+      if (prefs.dailyReminder && localTime >= prefs.reminderTime && view.behind.alert) {
+        await add(user.id, 'path-behind', `path-behind:${today}`, { days: view.behind.days, minutes: view.behind.minutes });
+        pathReminded = true;
+      }
+      if (prefs.checkpointAlert && view.mode === 'gate' && view.gate && view.gate.status === 'not_started' && view.gate.startBlock === null)
+        await add(user.id, 'path-gate', `path-gate:${path.id}:${view.gate.gate}:${view.gate.version}`, { gate: view.gate.gate });
+    }
+  }
+
+  if (!pathReminded && prefs.dailyReminder && localTime >= prefs.reminderTime) {
     const [studied] = await db.select({ n: sql<number>`count(*)::int` }).from(attempts).where(and(eq(attempts.userId, user.id), eq(attempts.day, today)));
     if (studied.n === 0) await add(user.id, 'reminder', `reminder:${today}`, { time: prefs.reminderTime });
   }

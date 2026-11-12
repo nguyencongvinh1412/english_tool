@@ -14,7 +14,7 @@ import { notificationsApi, type AppNotification, type NotificationSettings } fro
 import { ToolFooter, ToolHeader } from '@/features/grammar/ToolChrome';
 import './notifications.css';
 
-const TARGET: Record<AppNotification['kind'], string> = { reminder: ROUTES.HOME, checkpoint: ROUTES.ROADMAP, weekly: ROUTES.HOME };
+const TARGET: Record<AppNotification['kind'], string> = { reminder: ROUTES.HOME, checkpoint: ROUTES.ROADMAP, weekly: ROUTES.HOME, 'path-behind': ROUTES.IELTS_PATH, 'path-gate': ROUTES.IELTS_PATH };
 
 export const NotificationsPage: React.FC = () => {
   const { t, formatDate } = useI18n();

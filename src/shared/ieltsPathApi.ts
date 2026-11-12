@@ -228,7 +228,25 @@ export interface LessonView {
   content: LessonContent;
 }
 
+export interface PathReport {
+  generatedOn: string;
+  startDate: string | null;
+  examDate: string | null;
+  daysToExam: number | null;
+  targets: Bands;
+  overallTarget: number;
+  position: PathToday['position'];
+  progress: PathToday['progress'] & { percent: number };
+  eta: PathToday['eta'];
+  behind: PathToday['behind'];
+  bands: PathToday['bands'];
+  focus: PathToday['focus'];
+  gates: GateHistoryRow[];
+  calibration: { pairs: { skill: 'writing' | 'speaking'; gate: number; ai: number; teacher: number }[]; meanDiff: { writing: number | null; speaking: number | null } };
+}
+
 export const ieltsPathApi = {
+  report: () => apiFetch<{ report: PathReport }>('/api/ielts-path/report'),
   errors: () => apiFetch<{ book: ErrorBook }>('/api/ielts-path/errors'),
   today: () => apiFetch<{ today: PathToday | null }>('/api/ielts-path/today'),
   ahead: () => apiFetch<{ today: PathToday }>('/api/ielts-path/ahead', { method: 'POST', json: {} }),

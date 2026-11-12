@@ -76,7 +76,7 @@ const definitionOf = (gate: number): GateDefinition => {
 };
 
 /** Band and status of one skill, read from its exam session */
-function skillFromSession(skill: PathSkill, session: ExamSession | undefined): Pick<GateSkillView, 'status' | 'band' | 'correct' | 'total'> {
+export function skillFromSession(skill: PathSkill, session: ExamSession | undefined): Pick<GateSkillView, 'status' | 'band' | 'correct' | 'total'> {
   if (!session) return { status: 'todo', band: null, correct: null, total: null };
   if (session.status === 'in_progress') return { status: 'in_progress', band: null, correct: null, total: null };
   const result = session.result as IeltsResult | null;
@@ -90,11 +90,11 @@ function skillFromSession(skill: PathSkill, session: ExamSession | undefined): P
   return { status: 'done', band: part.band, correct: null, total: null };
 }
 
-async function attemptsOf(pathId: string, gate: number): Promise<GateAttempt[]> {
+export async function attemptsOf(pathId: string, gate: number): Promise<GateAttempt[]> {
   return db.select().from(gateAttempts).where(and(eq(gateAttempts.pathId, pathId), eq(gateAttempts.gate, gate))).orderBy(asc(gateAttempts.startedAt));
 }
 
-async function sessionsOf(attempts: GateAttempt[]): Promise<Map<string, ExamSession>> {
+export async function sessionsOf(attempts: GateAttempt[]): Promise<Map<string, ExamSession>> {
   const ids = attempts.flatMap((a) => Object.values(sessionIds(a))).filter((id): id is string => Boolean(id));
   const rows = ids.length ? await db.select().from(examSessions).where(inArray(examSessions.id, ids)) : [];
   return new Map(rows.map((s) => [s.id, s]));

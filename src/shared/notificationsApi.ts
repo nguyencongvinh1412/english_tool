@@ -5,7 +5,7 @@ import { apiFetch } from './http';
 
 export interface AppNotification {
   id: string;
-  kind: 'reminder' | 'checkpoint' | 'weekly';
+  kind: 'reminder' | 'checkpoint' | 'weekly' | 'path-behind' | 'path-gate';
   params: Record<string, string | number>;
   read: boolean;
   createdAt: string;
