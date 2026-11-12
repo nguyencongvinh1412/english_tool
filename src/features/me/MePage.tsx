@@ -12,6 +12,7 @@ import { useAuth, useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
 import { hasRoadmap, roadmapApi } from '@/shared/roadmapApi';
 import { placementApi } from '@/shared/placementApi';
+import { ieltsPathApi, type MeasuredBands } from '@/shared/ieltsPathApi';
 import { billingApi, tasksLeft } from '@/shared/billingApi';
 import { useFuriganaPreference, type FuriganaMode } from '@/shared/ja/furigana';
 import { ACCENTS, THEME_MODES, useAccent, useTheme, type Accent } from '@/shared/theme';
@@ -50,6 +51,12 @@ const Group: React.FC<{ title: string; children: React.ReactNode }> = ({ title, 
   </section>
 );
 
+/** The average of the bands measured at Gate 0, to the nearest half band */
+const gateBand = (bands: MeasuredBands): string => {
+  const values = Object.values(bands).filter((b): b is number => typeof b === 'number');
+  return values.length === 0 ? '' : `IELTS ${(Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 2) / 2).toFixed(1)}`;
+};
+
 export const MePage: React.FC = () => {
   const { t, locale } = useI18n();
   const user = useCurrentUser();
@@ -68,7 +75,20 @@ export const MePage: React.FC = () => {
       .catch(() => {});
   }, []);
 
+  const ielts = user.studyLanguage === 'en';
   useEffect(() => {
+    if (ielts) {
+      // One plan for English: the IELTS path, and Gate 0 is its entry test
+      ieltsPathApi
+        .today()
+        .then((d) => setRoadmapPct(d.today ? Math.round((d.today.progress.done / Math.max(1, d.today.progress.total)) * 100) : null))
+        .catch(() => setRoadmapPct(null));
+      ieltsPathApi
+        .get()
+        .then((d) => setPlacementLevel(d.path?.gate0.status === 'finished' && d.path.gate0.bands ? gateBand(d.path.gate0.bands) : null))
+        .catch(() => setPlacementLevel(null));
+      return;
+    }
     roadmapApi
       .get()
       .then((d) => setRoadmapPct(hasRoadmap(d) ? Math.round(d.progress.overall * 100) : null))
@@ -77,7 +97,7 @@ export const MePage: React.FC = () => {
       .get()
       .then((d) => setPlacementLevel(d.latest?.overall ?? null))
       .catch(() => {});
-  }, []);
+  }, [ielts]);
 
   const checks = tasksLeft(user.credits, 'writing');
   const creditsValue = checks === null ? t.me.values.unlimited : checks <= 0 ? t.me.values.creditsOut : t.today.creditsChip(checks);
@@ -102,9 +122,9 @@ export const MePage: React.FC = () => {
           <Row
             label={t.me.rows.roadmap}
             value={roadmapPct === undefined ? '…' : roadmapPct === null ? t.me.values.noRoadmap : t.me.values.roadmapProgress(roadmapPct)}
-            to={roadmapPct === null ? ROUTES.ROADMAP_NEW : ROUTES.ROADMAP}
+            to={ielts ? (roadmapPct === null ? ROUTES.IELTS_PATH_START : ROUTES.IELTS_PATH) : roadmapPct === null ? ROUTES.ROADMAP_NEW : ROUTES.ROADMAP}
           />
-          <Row label={t.me.rows.placement} value={placementLevel === undefined ? '…' : (placementLevel ?? t.me.values.noPlacement)} to={ROUTES.PLACEMENT} />
+          <Row label={t.me.rows.placement} value={placementLevel === undefined ? '…' : (placementLevel ?? t.me.values.noPlacement)} to={ielts ? ROUTES.IELTS_PATH : ROUTES.PLACEMENT} />
         </Group>
 
         <Group title={t.me.groups.plan}>

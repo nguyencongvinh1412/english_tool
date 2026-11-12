@@ -203,7 +203,7 @@ export const TodayPage: React.FC = () => {
                   <Button size="sm" variant="ghost" onClick={() => setWelcomeDismissed(true)}>
                     {t.today.keepAsIs}
                   </Button>
-                  <Link to={ROUTES.ROADMAP_NEW} className="today__link">
+                  <Link to={language === 'en' ? ROUTES.IELTS_PATH : ROUTES.ROADMAP_NEW} className="today__link">
                     {t.today.rebuild}
                   </Link>
                 </span>

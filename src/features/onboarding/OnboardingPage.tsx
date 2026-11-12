@@ -85,7 +85,7 @@ export const OnboardingPage: React.FC = () => {
     setError(null);
     try {
       await saveProfile(false);
-      navigate(ROUTES.PLACEMENT, { replace: true });
+      navigate(language === 'en' ? ROUTES.IELTS_PATH : ROUTES.PLACEMENT, { replace: true });
     } catch (err) {
       setError(err);
       setIsSaving(false);

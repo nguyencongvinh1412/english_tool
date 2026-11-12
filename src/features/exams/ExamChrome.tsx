@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Icon, LinkButton, Modal, Tag, type TagTone } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
+import { useCurrentUser } from '@/app/AuthProvider';
 import { ROUTES } from '@/app/routes';
 import { formatClock, type SaveState } from './useExamRunner';
 
@@ -161,9 +162,10 @@ export const ResultRows: React.FC<{ rows: ResultRow[]; legend?: string }> = ({ r
 /** What to do after a result: one primary button and a quiet link to the answers */
 export const ResultFooter: React.FC<{ reviewId: string }> = ({ reviewId }) => {
   const { t } = useI18n();
+  const user = useCurrentUser();
   return (
     <div className="exam-footer exam-footer--result">
-      <LinkButton size="lg" to={ROUTES.ROADMAP}>
+      <LinkButton size="lg" to={user.studyLanguage === 'en' ? ROUTES.IELTS_PATH : ROUTES.ROADMAP}>
         {t.exams.nextActions}
       </LinkButton>
       <button type="button" className="exam-footer__link" onClick={() => document.getElementById(reviewId)?.scrollIntoView({ behavior: 'smooth' })}>
