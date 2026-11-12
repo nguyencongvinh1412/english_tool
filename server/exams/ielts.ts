@@ -179,6 +179,10 @@ type Answers = Record<string, number | string>;
  * Removes answers and explanations from objective questions
  */
 function hideAnswers(payload: Payload): Payload {
+  // A writing task's sample answers are shown only once the test is submitted
+  if ('samples' in payload) {
+    return hideAnswers(Object.fromEntries(Object.entries(payload).filter(([key]) => key !== 'samples')) as Payload);
+  }
   if (!Array.isArray(payload.questions)) return payload;
   return {
     ...payload,

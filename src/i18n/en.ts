@@ -792,6 +792,13 @@ export const en = {
     grading: 'The AI examiner is scoring…',
     gradingFailed: 'Scoring failed.',
     retryGrading: 'Score again',
+    sampleAnswers: {
+      title: 'Sample answers from the book',
+      intro: 'Read them after you have written yours. They are real candidates\' answers with the examiner\'s comment, so they show what each band looks like, mistakes included.',
+      band: (band: string) => `Candidate answer, band ${band}`,
+      examiner: 'Model answer by an examiner',
+      comment: 'Examiner\'s comment',
+    },
     bandNote: 'Practice estimate from a reference conversion table; not an official IELTS score.',
     bankTitle: 'IELTS bank',
     bankIntro: 'AI-written IELTS Academic material. A full test needs one listening section of each type, three passages, both writing tasks and a speaking set.',

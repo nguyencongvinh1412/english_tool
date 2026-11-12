@@ -792,6 +792,13 @@ export const vi: Messages = {
     grading: 'Giám khảo AI đang chấm…',
     gradingFailed: 'Chấm điểm thất bại.',
     retryGrading: 'Chấm lại',
+    sampleAnswers: {
+      title: 'Bài mẫu trong sách',
+      intro: 'Hãy đọc sau khi bạn viết xong. Đây là bài của thí sinh thật kèm nhận xét của giám khảo, nên cho thấy mỗi band trông ra sao, kể cả lỗi sai.',
+      band: (band: string) => `Bài của thí sinh, band ${band}`,
+      examiner: 'Bài mẫu của giám khảo',
+      comment: 'Nhận xét của giám khảo',
+    },
     bandNote: 'Ước lượng theo bảng quy đổi tham khảo, không phải điểm IELTS chính thức.',
     bankTitle: 'Kho đề IELTS',
     bankIntro: 'Nội dung IELTS Academic do AI soạn. Một đề đầy đủ cần mỗi loại section nghe một bài, ba bài đọc, hai task viết và một bộ đề nói.',

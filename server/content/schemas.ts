@@ -147,6 +147,8 @@ export const writingPrompt = z.object({
   /** The figure written out (a data table or a plain description) for the AI grader, which cannot see the picture */
   figureData: text(3000).optional(),
   email: z.object({ from: text(80), subject: text(120), body: text(1500) }).optional(),
+  /** Sample answers of the source book with their band and the examiner's comment, shown only after the task is graded */
+  samples: z.array(z.object({ by: z.enum(['candidate', 'examiner']), band: z.number().min(0).max(9).optional(), text: text(4000), comment: text(3000).optional() })).max(3).optional(),
 });
 
 /* ---------- TOEIC exam groups (one content item = one group of questions) ---------- */

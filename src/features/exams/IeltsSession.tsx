@@ -13,6 +13,7 @@ import { errorMessage } from '@/shared/http';
 import { essayId, groupAnswerIds, ieltsApi, type IeltsComponent, type IeltsGroup, type IeltsResult, type IeltsSession } from '@/shared/ieltsApi';
 import { BandFeedback } from '@/features/practice/BandFeedback';
 import { WritingPromptCard, WritingReview } from '@/features/writing/WritingReview';
+import { SampleAnswers } from './SampleAnswers';
 import { ListeningPanel, ReadingPanel, SpeakingPanel, WritingPanel } from './IeltsPanels';
 import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows, type ResultRow } from './ExamChrome';
 import { useExamRunner } from './useExamRunner';
@@ -426,6 +427,7 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
                   <WritingPromptCard task={g.group.payload} />
                   <BandFeedback feedback={writingTask.feedback} tone="writing" note={t.ielts.bandNote} />
                   <WritingReview response={essay} feedback={writingTask.feedback} />
+                  <SampleAnswers samples={g.group.payload.samples} />
                 </div>
               );
             }

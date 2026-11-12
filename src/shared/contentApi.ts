@@ -163,6 +163,8 @@ export interface WritingPrompt {
   /** The figure as printed in the source book */
   image?: ImageRef;
   email?: { from: string; subject: string; body: string };
+  /** Sample answers of the source book, sent only after the test is submitted */
+  samples?: { by: 'candidate' | 'examiner'; band?: number; text: string; comment?: string }[];
 }
 
 /** Which part of the library a list shows */

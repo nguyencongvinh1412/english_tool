@@ -1,7 +1,8 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp } from '../app.js';
 import { closeDb, db, runMigrations } from '../db/client.js';
-import { examSessions, gateAttempts, ieltsPaths } from '../db/schema.js';
+import { eq } from 'drizzle-orm';
+import { contentItems, examSessions, gateAttempts, ieltsPaths } from '../db/schema.js';
 import { ensureGateContent } from '../ieltsPath/gateContent.js';
 import { ensurePathLessons } from '../ieltsPath/lessons.js';
 import { ensurePracticeContent } from '../ieltsPath/practiceContent.js';
@@ -81,5 +82,32 @@ describe('path reminders', () => {
     const agent = await signIn(app, await createUser());
     await startedPath(agent, addDays(quotaDay(), -12));
     expect((await agent.get('/api/notifications?time=08:00')).body.notifications).toEqual([]);
+  });
+});
+
+describe('sample answers of a writing task', () => {
+  it('stay hidden while the test is open and show once it is submitted', async () => {
+    const user = await createUser();
+    const agent = await signIn(app, user);
+    const [session] = await db
+      .insert(examSessions)
+      .values({ userId: user.id, exam: 'ielts', mode: 'lesson', blueprint: { exam: 'ielts', sections: [{ component: 'writing', groupIds: ['sample-w1'] }] }, answers: {}, status: 'in_progress', timeLimitSec: 3600, result: { listening: null, reading: null, writing: null, speaking: null, overall: null } })
+      .returning();
+    await db.insert(contentItems).values({
+      id: 'sample-w1',
+      kind: 'writing-prompt',
+      skill: 'writing',
+      exam: 'ielts',
+      language: 'en',
+      title: 'Sample task',
+      payload: { taskType: 'ielts-task2', title: 'T', instructions: 'Write.', prompt: 'Discuss.', minWords: 250, timeMinutes: 40, samples: [{ by: 'candidate', band: 6.5, text: 'An answer.', comment: 'A comment.' }] },
+      source: 'imported',
+      status: 'archived',
+    });
+    const open = (await agent.get(`/api/exams/sessions/${session.id}`)).body.session;
+    expect(open.sections[0].groups[0].payload.samples).toBeUndefined();
+    await db.update(examSessions).set({ status: 'submitted', submittedAt: new Date() }).where(eq(examSessions.id, session.id));
+    const done = (await agent.get(`/api/exams/sessions/${session.id}`)).body.session;
+    expect(done.sections[0].groups[0].payload.samples).toEqual([{ by: 'candidate', band: 6.5, text: 'An answer.', comment: 'A comment.' }]);
   });
 });

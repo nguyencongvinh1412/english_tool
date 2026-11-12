@@ -517,3 +517,23 @@
   border-radius: var(--radius-md, 0.5rem);
   background: #fff;
 }
+
+.ielts-samples__intro,
+.ielts-samples__comment {
+  color: var(--text-muted);
+}
+
+.ielts-samples__item {
+  margin-top: 0.75rem;
+}
+
+.ielts-samples__item summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ielts-samples__text {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
