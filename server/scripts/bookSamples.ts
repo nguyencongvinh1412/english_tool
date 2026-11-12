@@ -23,10 +23,10 @@ interface Line {
 }
 
 export interface Sample {
-  by: "candidate";
-  band: number;
+  by: "candidate" | "examiner";
+  band?: number;
   text: string;
-  comment: string;
+  comment?: string;
 }
 
 const pageFile = (name: string, page: number) =>
@@ -78,7 +78,7 @@ function starts(name: string): { test: number; task: 1 | 2; page: number }[] {
 }
 
 const DROP =
-  /^(Sample (Writing )?answers|Additional sample|in Resource bank|TEST \w, WRITING|SAMPLE ANSWER|MODEL ANSWER|AFARINESH|\d{1,3}$)|IELTS House|achieved a Band|examiner'?s comment:?\s*$|^Here is the$/i;
+  /^(Sample (Writing )?answers|Additional sample|in Resource bank|Model and sample answers|Writing tasks$|for$|This model has been prepared|However, please note that this is just|TEST \w, WRITING|SAMPLE ANSWER|MODEL ANSWER|AFARINESH|\d{1,3}$)|IELTS House|achieved a Band|examiner'?s comment:?\s*$|^Here is the$/i;
 
 function paragraphs(lines: Line[]): string {
   if (lines.length === 0) return "";
@@ -100,7 +100,9 @@ function paragraphs(lines: Line[]): string {
       const shortEnd =
         sentenceEnd &&
         prev.right < right - 0.075 &&
-        (!sameBlock || l.top - prev.top > pitch * 1.1 || prev.right < right - 0.25);
+        (!sameBlock ||
+          l.top - prev.top > pitch * 1.1 ||
+          prev.right < right - 0.25);
       if ((bigGap && sentenceEnd) || shortEnd) {
         out.push(current.trim());
         current = "";
@@ -127,7 +129,15 @@ function main(): void {
     const all: Line[] = [];
     let band: number | null = null;
     let marker = -1;
-    for (let page = entry.page; page <= Math.max(end, entry.page); page++) {
+    // A model answer fills one page; whether this is one is read from its first page
+    const model = pageLines(name, entry.page).some((l) =>
+      /^MODEL ANSWER/.test(l.text),
+    );
+    for (
+      let page = entry.page;
+      page <= (model ? entry.page : Math.max(end, entry.page));
+      page++
+    ) {
       const lines = pageLines(name, page);
       band ??=
         Number(
@@ -144,7 +154,11 @@ function main(): void {
     }
     let answer: Line[];
     let comment: Line[];
-    if (marker > 0) {
+    if (model) {
+      // An examiner's model answer: no band, no comment
+      answer = all;
+      comment = [];
+    } else if (marker > 0) {
       // The answer first, then "Here is the examiner's comment:" and the comment (Cambridge 15 and 17)
       answer = all.slice(0, marker);
       comment = all.slice(marker);
@@ -159,15 +173,19 @@ function main(): void {
       comment = all.slice(0, start);
       answer = all.slice(start);
     }
-    if (band === null)
+    // Cambridge 10's candidate answers are handwritten scans (their OCR is garbage): only its model answers are taken
+    if (!model && process.argv.includes("--model-only")) return;
+    if (!model && band === null)
       throw new Error(
         `${name} test ${entry.test} task ${entry.task}: no band found`,
       );
     result[`t${entry.test}-w${entry.task}`] = {
-      by: "candidate",
-      band,
+      by: model ? "examiner" : "candidate",
+      ...(band !== null && !model ? { band } : {}),
       text: paragraphs(answer),
-      comment: paragraphs(comment).replace(/\n\n/g, " "),
+      ...(comment.length > 0
+        ? { comment: paragraphs(comment).replace(/\n\n/g, " ") }
+        : {}),
     };
   });
   mkdirSync(path.join(REF, "samples"), { recursive: true });
@@ -190,7 +208,7 @@ function main(): void {
   }
   for (const [key, s] of Object.entries(result))
     console.log(
-      `${key}: band ${s.band}, answer ${s.text.split(/\s+/).length} words, ${s.text.split("\n\n").length} paragraphs, comment ${s.comment.split(/\s+/).length} words`,
+      `${key}: ${s.by} band ${s.band ?? "-"}, answer ${s.text.split(/\s+/).length} words, ${s.text.split("\n\n").length} paragraphs, comment ${(s.comment ?? "").split(/\s+/).length} words`,
     );
 }
 
