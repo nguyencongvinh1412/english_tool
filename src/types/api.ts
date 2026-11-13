@@ -30,6 +30,7 @@ export type ChatContext =
   | { mode: 'scenario'; scenario: { aiRole: string; userRole: string; context: string; difficulty: 'beginner' | 'intermediate' | 'advanced' } }
   | { mode: 'pronunciation' }
   | { mode: 'dictation' }
+  | { mode: 'review'; material: string }
   | { mode: 'ja-conversation'; topic?: string; politeness: 'polite' | 'casual'; level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' }
   | { mode: 'ja-scenario'; scenario: { aiRole: string; userRole: string; context: string }; level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' }
   | { mode: 'ja-pronunciation' };

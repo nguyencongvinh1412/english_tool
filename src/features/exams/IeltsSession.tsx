@@ -16,6 +16,7 @@ import { WritingPromptCard, WritingReview } from '@/features/writing/WritingRevi
 import { SampleAnswers } from './SampleAnswers';
 import { ListeningPanel, ReadingPanel, SpeakingPanel, WritingPanel } from './IeltsPanels';
 import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows, type ResultRow } from './ExamChrome';
+import { ReviewGroup } from './ReviewChat';
 import { useExamRunner } from './useExamRunner';
 import './ielts.css';
 
@@ -422,19 +423,19 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
             // Graded writing: task, band, then the corrected essay
             if (g.group.kind === 'writing-prompt' && writingTask?.feedback) {
               return (
-                <div key={g.group.id} className="ielts-review-group">
+                <ReviewGroup key={g.group.id}>
                   {title}
                   <WritingPromptCard task={g.group.payload} />
                   <BandFeedback feedback={writingTask.feedback} tone="writing" note={t.ielts.bandNote} />
                   <WritingReview response={essay} feedback={writingTask.feedback} />
                   <SampleAnswers samples={g.group.payload.samples} />
-                </div>
+                </ReviewGroup>
               );
             }
 
             const speakingFeedback = g.component === 'speaking' ? result.speaking?.feedback : null;
             return (
-              <div key={g.group.id} className="ielts-review-group">
+              <ReviewGroup key={g.group.id}>
                 {speakingFeedback && <BandFeedback feedback={speakingFeedback} tone="speaking" note={t.ielts.bandNote} />}
                 <Card padding="lg" className="exam-card">
                   {title}
@@ -455,7 +456,7 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
                     ))}
                   </div>
                 )}
-              </div>
+              </ReviewGroup>
             );
           })}
 
