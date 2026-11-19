@@ -4,11 +4,11 @@
  */
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { Banner, Button, Card, ProgressBar, Tag } from '@/design';
+import { Banner, Button, Card, ProgressBar, Spinner, Tag } from '@/design';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useSpeechRecognition } from '@/hooks';
+import { useSpokenText } from '@/hooks';
 import { prefetchScript, prefetchTexts, speakOnce, speakScript } from '@/shared/speech';
 import { playSegment } from '@/shared/audioSegment';
 import { mediaUrl } from '@/shared/examApi';
@@ -183,7 +183,16 @@ export const SpeakingPanel: React.FC<{
   submitting?: boolean;
 }> = ({ groupId, payload, answers, review, onAnswer, onFinish, submitting = false }) => {
   const { t } = useI18n();
-  const { isListening, transcript, interimTranscript, isSupported, error, errorKind, startListening, stopListening, resetTranscript } = useSpeechRecognition();
+  // The text of a recording is added to the question it was started on, even if it arrives after the learner moved on
+  const voice = useSpokenText<string>({
+    maxSec: 150,
+    onText: (text, id) => {
+      if (!id) return;
+      const before = String(answers[id] ?? '');
+      onAnswer?.(id, `${before ? `${before} ` : ''}${text}`.trim());
+    },
+  });
+  const { isListening, isSupported, checking } = voice;
   const user = useCurrentUser();
   const creditsOut = (tasksLeft(user.credits, 'speaking') ?? 1) < 1;
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -209,26 +218,16 @@ export const SpeakingPanel: React.FC<{
   /** The question the main button records next: the first one of this part without an answer */
   const target = questions.find((q) => q.part === currentPart && !textOf(q.id))?.id ?? null;
 
-  // Append each finished recording to the question being answered
-  useEffect(() => {
-    if (!isListening && transcript && activeId) {
-      const before = String(answers[activeId] ?? '');
-      onAnswer?.(activeId, `${before ? `${before} ` : ''}${transcript}`.trim());
-      resetTranscript();
-    }
-  }, [isListening, transcript, activeId, answers, onAnswer, resetTranscript]);
-
   /** Leaving a part ends any recording in progress */
   const goStep = (next: number) => {
-    if (isListening) stopListening();
+    if (isListening) voice.stop();
     setStep(next);
   };
 
   const record = (id: string) => {
-    if (isListening) stopListening();
-    resetTranscript();
+    if (isListening) voice.stop();
     setActiveId(id);
-    startListening();
+    voice.start(id);
   };
 
   // Generate the questions' audio in one request, so the speaker buttons play at once
@@ -242,7 +241,7 @@ export const SpeakingPanel: React.FC<{
       {!review && <p className="exam-group__instructions">{t.ielts.speakingIntro}</p>}
       {!review && creditsOut && <Banner tone="warning">{t.ielts.speakingNoCredits}</Banner>}
       {!review && !isSupported && <Banner tone="warning">{t.ielts.noMic}</Banner>}
-      {error && <Banner tone="warning">{errorKind === 'denied' ? t.ielts.micDenied : error}</Banner>}
+      {voice.error && <Banner tone="warning">{voice.errorKind === 'denied' ? t.ielts.micDenied : voice.error}</Banner>}
 
       {!review && (
         <div className="ielts-steps">
@@ -301,7 +300,7 @@ export const SpeakingPanel: React.FC<{
                       onClick={() => speakOnce(part === 2 && payload.part2 ? `${q.text} You should say: ${payload.part2.bullets.join('. ')}. ${payload.part2.closing}` : q.text)}
                     />
                   </div>
-                  {(review || !isSupported || live || textOf(q.id)) && (
+                  {(review || !isSupported || live || textOf(q.id) || (checking && activeId === q.id)) && (
                     <>
                   <label className="ielts-sq__label" htmlFor={`sq-${q.id}`}>
                     {t.ielts.transcriptLabel}
@@ -312,9 +311,14 @@ export const SpeakingPanel: React.FC<{
                     lang="en"
                     rows={part === 2 ? 5 : 2}
                     readOnly={review}
-                    value={live ? `${textOf(q.id)} ${transcript} ${interimTranscript}`.trim() : textOf(q.id)}
+                    value={live ? `${textOf(q.id)} ${voice.liveText}`.trim() : textOf(q.id)}
                     onChange={(e) => onAnswer?.(q.id, e.target.value)}
                   />
+                  {checking && activeId === q.id && (
+                    <p className="ielts-sq__note">
+                      <Spinner size={14} /> {t.chat.transcribing}
+                    </p>
+                  )}
                     </>
                   )}
                 </Card>
@@ -327,8 +331,12 @@ export const SpeakingPanel: React.FC<{
         <div className="exam-footer">
           <Tag tone={creditsOut ? 'notice' : 'neutral'}>{creditsOut ? t.today.needsCredits : t.ielts.gradeCost(CREDIT_COST.speaking)}</Tag>
           {isListening ? (
-            <Button size="lg" onClick={stopListening}>
+            <Button size="lg" onClick={voice.stop}>
               {t.ielts.stopRecord}
+            </Button>
+          ) : checking ? (
+            <Button size="lg" loading disabled>
+              {t.chat.transcribing}
             </Button>
           ) : isSupported && target ? (
             <Button size="lg" icon="mic" onClick={() => record(target)}>
