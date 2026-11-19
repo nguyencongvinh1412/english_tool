@@ -7,8 +7,9 @@ import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Badge, Banner, Button, Card, Icon, ProgressBar, Spinner } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useSpeechRecognition } from '@/hooks';
+import { useAudioCapture, type CaptureResult } from '@/hooks/useAudioCapture';
 import { errorMessage } from '@/shared/http';
+import { assessSpeech, isSpeechUnavailable, type SpeechAssessment } from '@/shared/speechApi';
 import { useProgress } from '@/shared/progress';
 import { prefetchTexts, speakOnce } from '@/shared/speech';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
@@ -16,11 +17,23 @@ import { contentApi, type ContentItem, type SpeakingFeedback, type SpeakingIelts
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { BandFeedback } from '@/features/practice/BandFeedback';
+import { ReviewGroup } from '@/features/exams/ReviewChat';
 import { RecordButton } from './RecordButton';
+import { SpeechNotes } from './SpeechNotes';
+import { micErrorText } from './micError';
+import { mergeAssessments, toSpeechSummary } from './speechSummary';
 import './speaking.css';
 
 const PREP_SECONDS = 60;
 const LONG_TURN_SECONDS = 120;
+/** A Part 1/3 answer may run this long; Part 2 gets the long turn plus time to finish the sentence */
+const SHORT_ANSWER_MAX_SEC = 60;
+const LONG_ANSWER_MAX_SEC = LONG_TURN_SECONDS + 30;
+/** Finishing waits at most this long for recordings still being checked */
+const PENDING_WAIT_MS = 20_000;
+
+/** One recorded take of an answer and its speech check */
+type Take = { id: number; status: 'checking' | 'unavailable' | 'failed' } | { id: number; status: 'done'; result: SpeechAssessment };
 
 type Step = { part: 1 | 3; index: number } | { part: 2; phase: 'prep' | 'speak' } | 'intro' | 'scoring' | 'result';
 
@@ -57,6 +70,9 @@ function useCountdown(seconds: number, running: boolean, onDone: () => void): nu
   return running ? left : seconds;
 }
 
+/** Whole seconds since a Date.now() timestamp (called from event handlers) */
+const secondsSince = (start: number): number => Math.round((Date.now() - start) / 1000);
+
 const formatClock = (sec: number) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
 
 const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () => void }> = ({ item, onBack }) => {
@@ -65,11 +81,57 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
   const set = item.payload;
   const [step, setStep] = useState<Step>('intro');
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [takes, setTakes] = useState<Record<string, Take[]>>({});
   const [feedback, setFeedback] = useState<SpeakingFeedback | null>(null);
   const [error, setError] = useState<unknown>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const startedAt = useRef(0);
-  const { isListening, transcript, interimTranscript, isSupported, error: speechError, startListening, stopListening, resetTranscript } =
-    useSpeechRecognition();
+  // Refs mirror state so finishing (after awaiting pending checks) reads the latest values
+  const answersRef = useRef(answers);
+  const takesRef = useRef(takes);
+  const pending = useRef(new Set<Promise<void>>());
+  const takeId = useRef(0);
+  /** The question being recorded; a check that returns later still lands on it */
+  const recording = useRef<{ key: string; text: string } | null>(null);
+
+  const updateAnswers = useCallback((fn: (prev: Record<string, string>) => Record<string, string>) => {
+    answersRef.current = fn(answersRef.current);
+    setAnswers(answersRef.current);
+  }, []);
+  const updateTakes = useCallback((key: string, fn: (prev: Take[]) => Take[]) => {
+    takesRef.current = { ...takesRef.current, [key]: fn(takesRef.current[key] ?? []) };
+    setTakes(takesRef.current);
+  }, []);
+  const appendAnswer = useCallback(
+    (key: string, text: string) => updateAnswers((prev) => ({ ...prev, [key]: `${prev[key] ? `${prev[key]} ` : ''}${text}`.trim() })),
+    [updateAnswers]
+  );
+
+  // Each finished take is checked in the background, so the learner can go on to the next question
+  const onTake = useCallback(
+    ({ wav, fallbackText }: CaptureResult) => {
+      const target = recording.current;
+      if (!target) return;
+      const id = ++takeId.current;
+      updateTakes(target.key, (list) => [...list, { id, status: 'checking' }]);
+      const setTake = (take: Take) => updateTakes(target.key, (list) => list.map((x) => (x.id === id ? take : x)));
+      const check = assessSpeech(wav, { mode: 'answer', question: target.text })
+        .then((result) => {
+          setTake({ id, status: 'done', result });
+          appendAnswer(target.key, result.transcript);
+        })
+        .catch((failure: unknown) => {
+          const unavailable = isSpeechUnavailable(failure);
+          const heard = fallbackText();
+          setTake({ id, status: unavailable ? 'unavailable' : 'failed' });
+          if (heard) appendAnswer(target.key, heard);
+          setNotice(heard ? t.speechCheck.unavailable : unavailable ? t.speechCheck.unavailableNoText : errorMessage(failure, t));
+        })
+        .finally(() => pending.current.delete(check));
+      pending.current.add(check);
+    },
+    [appendAnswer, updateTakes, t]
+  );
 
   const cueCardText = `${set.part2.cueCard} You should say: ${set.part2.bullets.join('; ')}; ${set.part2.closing}`;
   const questions: Question[] = [
@@ -90,14 +152,20 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
         : questions.find((q) => q.key === `p${step.part}-${step.index}`)!
       : null;
 
-  // Append each finished recording to the current answer
-  useEffect(() => {
-    if (!isListening && transcript && current) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- result of the external speech API
-      setAnswers((prev) => ({ ...prev, [current.key]: `${prev[current.key] ? `${prev[current.key]} ` : ''}${transcript}`.trim() }));
-      resetTranscript();
-    }
-  }, [isListening, transcript, current, resetTranscript]);
+  const capture = useAudioCapture({ maxSec: current?.part === 2 ? LONG_ANSWER_MAX_SEC : SHORT_ANSWER_MAX_SEC, livePreview: true, onComplete: onTake });
+  const isListening = capture.status === 'recording' || capture.status === 'starting';
+  const stopListening = capture.stop;
+  const startListening = () => {
+    if (!current) return;
+    recording.current = { key: current.key, text: current.text };
+    setNotice(null);
+    void capture.start();
+  };
+
+  /** All finished takes of an answer, merged */
+  const assessmentOf = (key: string): SpeechAssessment | null =>
+    mergeAssessments((takes[key] ?? []).flatMap((take) => (take.status === 'done' ? [take.result] : [])));
+  const isChecking = (key: string): boolean => (takes[key] ?? []).some((take) => take.status === 'checking');
 
   const goTo = useCallback(
     (next: Step) => {
@@ -132,13 +200,21 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
 
   const finish = async (): Promise<void> => {
     if (isListening) stopListening();
+    const durationSec = secondsSince(startedAt.current);
     setStep('scoring');
     setError(null);
+    // Give recordings still being checked a moment, so their transcript and notes count
+    await Promise.race([Promise.allSettled([...pending.current]), new Promise((resolve) => setTimeout(resolve, PENDING_WAIT_MS))]);
+    const done = (key: string) => (takesRef.current[key] ?? []).flatMap((take) => (take.status === 'done' ? [take.result] : []));
     try {
       const result = await contentApi.scoreSpeaking(
         item.id,
-        questions.map((q) => ({ question: q.text, transcript: answers[q.key] ?? '' })),
-        Math.round((Date.now() - startedAt.current) / 1000)
+        questions.map((q) => ({
+          question: q.text,
+          transcript: answersRef.current[q.key] ?? '',
+          speech: toSpeechSummary(mergeAssessments(done(q.key))),
+        })),
+        durationSec
       );
       setFeedback(result.feedback);
       setStep('result');
@@ -162,7 +238,7 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
             <li>{t.ieltsSpeaking.part2}</li>
             <li>{t.ieltsSpeaking.part3}</li>
           </ul>
-          {!isSupported && <Banner tone="warning">{t.chat.voiceUnsupported}</Banner>}
+          {!capture.isSupported && <Banner tone="warning">{t.chat.voiceUnsupported}</Banner>}
           <Button
             size="lg"
             icon="mic"
@@ -196,22 +272,28 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
         {header}
         <BandFeedback feedback={feedback} tone="speaking" note={t.ieltsSpeaking.estimateNote} />
         <div className="ielts-answers">
-          {feedback.answers.map((answer, index) => (
-            <Card key={index} padding="md" className="ielts-answer">
-              <p className="ielts-answer__q" lang="en">
-                {answer.question}
-              </p>
-              <p className="ielts-answer__mine" lang="en">
-                <strong>{t.ieltsSpeaking.yourAnswer}:</strong> {answers[questions[index]?.key] || '—'}
-              </p>
-              <p className="ielts-answer__comment">
-                <InlineMarkdown text={answer.comment} />
-              </p>
-              <p className="ielts-answer__better" lang="en">
-                <strong>{t.ieltsSpeaking.betterAnswer}:</strong> {answer.betterAnswer}
-              </p>
-            </Card>
-          ))}
+          {feedback.answers.map((answer, index) => {
+            const key = questions[index]?.key ?? '';
+            return (
+              <ReviewGroup key={index} copy={t.speechCheck.askAi}>
+                <Card padding="md" className="ielts-answer">
+                  <p className="ielts-answer__q" lang="en">
+                    {answer.question}
+                  </p>
+                  <p className="ielts-answer__mine" lang="en">
+                    <strong>{t.ieltsSpeaking.yourAnswer}:</strong> {answers[key] || '—'}
+                  </p>
+                  <SpeechNotes assessment={assessmentOf(key)} />
+                  <p className="ielts-answer__comment">
+                    <InlineMarkdown text={answer.comment} />
+                  </p>
+                  <p className="ielts-answer__better" lang="en">
+                    <strong>{t.ieltsSpeaking.betterAnswer}:</strong> {answer.betterAnswer}
+                  </p>
+                </Card>
+              </ReviewGroup>
+            );
+          })}
         </div>
         <Button variant="secondary" onClick={onBack} icon="arrowLeft">
           {t.library.back}
@@ -274,20 +356,25 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
 
       {!inPrep && (
         <Card padding="lg" className="ielts-answer-box">
-          {isSupported && (
+          {capture.isSupported && (
             <div className="ielts-answer-box__rec">
               <RecordButton
                 size="md"
                 isRecording={isListening}
+                level={capture.level}
                 onStart={startListening}
                 onStop={stopListening}
                 startLabel={t.chat.speak}
                 stopLabel={t.chat.stop}
               />
-              {isListening && (transcript || interimTranscript) && (
+              {isListening && (
+                <span className="speak-timer">
+                  {t.speechCheck.recording(formatClock(Math.floor(capture.elapsedSec)), formatClock(current.part === 2 ? LONG_ANSWER_MAX_SEC : SHORT_ANSWER_MAX_SEC))}
+                </span>
+              )}
+              {isListening && capture.liveText && (
                 <p className="speak-live" lang="en">
-                  {transcript}
-                  <span className="speak-live__interim"> {interimTranscript}</span>
+                  {capture.liveText}
                 </p>
               )}
             </div>
@@ -299,11 +386,13 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
               rows={4}
               lang="en"
               value={answers[current.key] ?? ''}
-              onChange={(event) => setAnswers((prev) => ({ ...prev, [current.key]: event.target.value }))}
+              onChange={(event) => updateAnswers((prev) => ({ ...prev, [current.key]: event.target.value }))}
               placeholder={t.ieltsSpeaking.typeInstead}
             />
           </label>
-          {speechError && <Banner tone="warning">{speechError}</Banner>}
+          <SpeechNotes assessment={assessmentOf(current.key)} checking={isChecking(current.key)} />
+          {capture.errorKind && <Banner tone="warning">{micErrorText(capture.errorKind, t)}</Banner>}
+          {notice && <Banner tone="warning">{notice}</Banner>}
         </Card>
       )}
 
