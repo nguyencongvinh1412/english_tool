@@ -1,22 +1,29 @@
 /**
  * PronunciationPage
- * Read a phrase aloud; speech recognition compares it word by word.
- * Each scored attempt is recorded; optional AI coaching explains what to fix.
+ * Read a phrase aloud; the speech check listens to the recording and points out mispronounced words.
+ * Each attempt is recorded; the learner can ask the AI how to fix the sounds.
+ * When the speech check is unavailable, the browser's transcript is compared word by word instead.
  */
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Banner, Button, Card, EmptyState, Icon, Segmented, Select, Spinner } from '@/design';
+import { ReviewGroup } from '@/features/exams/ReviewChat';
 import { ROUTES } from '@/app/routes';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useClaude, useSpeechRecognition, useTextToSpeech } from '@/hooks';
+import { useTextToSpeech } from '@/hooks';
+import { useAudioCapture, type CaptureResult } from '@/hooks/useAudioCapture';
+import { errorMessage } from '@/shared/http';
+import { assessSpeech, isSpeechUnavailable, type PronunciationLevel, type SpeechAssessment } from '@/shared/speechApi';
 import { useProgress } from '@/shared/progress';
 import { prefetchText } from '@/shared/speech';
 import { DIFFICULTIES, SOUND_FOCUSES, getPhrases, pickPhrase, type Difficulty, type Phrase, type SoundFocus } from '@/constants/phrases';
 import { compareTexts, type ComparisonResult } from '@/utils/textComparison';
-import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { RecordButton } from './RecordButton';
+import { SpeechNotes } from './SpeechNotes';
+import { micErrorText } from './micError';
+import { tokens } from './speechSummary';
 import './speaking.css';
 
 const LEVEL_TONES: Record<Difficulty, string> = { easy: 'success', medium: 'warning', hard: 'danger' };
@@ -29,8 +36,19 @@ const FAIR = 50;
 /** Slower TTS for model pronunciation */
 const MODEL_SPEECH_RATE = 0.75;
 
-/** Feedback language follows the learner's profile on the server */
-const COACH_CONTEXT = { mode: 'pronunciation' } as const;
+/** A phrase takes a few seconds to read; stop the recording on its own after this */
+const MAX_RECORD_SEC = 20;
+
+/** Progress needs a number; the speech check gives a level */
+const LEVEL_SCORE: Record<PronunciationLevel, number> = { good: 90, fair: 70, needs_work: 45 };
+const LEVEL_CLASS: Record<PronunciationLevel, string> = { good: 'score-level--good', fair: 'score-level--fair', needs_work: 'score-level--work' };
+
+/** The result of one attempt */
+type Check =
+  | { status: 'checking' }
+  | { status: 'done'; result: SpeechAssessment }
+  /** Speech check unavailable: the browser transcript compared word by word */
+  | { status: 'fallback'; transcript: string; comparison: ComparisonResult };
 
 /** Phrases already shown, kept across visits so coming back does not repeat them */
 const SEEN_KEY = 'pronunciation-seen';
@@ -62,27 +80,61 @@ export const PronunciationPage: React.FC = () => {
   const [phrase, setPhrase] = useState<Phrase | null>(null);
   const [roundDone, setRoundDone] = useState(false);
   const seen = useRef<string[]>(loadSeen());
-  const [comparison, setComparison] = useState<ComparisonResult | null>(null);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const awaitingResult = useRef(false);
+  const [check, setCheck] = useState<Check | null>(null);
+  const [checkError, setCheckError] = useState<string | null>(null);
+  /** Ignores a result that comes back after the learner moved on */
+  const attempt = useRef(0);
 
-  const { isListening, transcript, interimTranscript, error: speechError, errorKind, isSupported, startListening, stopListening, resetTranscript } =
-    useSpeechRecognition();
-  const { messages, isLoading: isAiLoading, error: aiError, sendUserMessage, clearMessages } = useClaude({ context: COACH_CONTEXT });
   const { speak, isSpeaking } = useTextToSpeech();
   const phraseText = phrase?.text;
   useEffect(() => {
     if (phraseText) prefetchText(phraseText);
   }, [phraseText]);
 
-  const aiFeedback = useMemo(() => [...messages].reverse().find((m) => m.role === 'assistant')?.content ?? null, [messages]);
+  const onTake = useCallback(
+    ({ wav, fallbackText }: CaptureResult) => {
+      if (!phrase) return;
+      const id = ++attempt.current;
+      setCheck({ status: 'checking' });
+      setCheckError(null);
+      const save = (score: number, details: Record<string, unknown>) =>
+        void record({ activity: 'pronunciation', contentRef: phrase.id, title: phrase.text, score, maxScore: 100, details: { level: phrase.difficulty, ...details } }).catch(
+          () => {}
+        );
+
+      assessSpeech(wav, { mode: 'read', reference: phrase.text })
+        .then((result) => {
+          if (id !== attempt.current) return;
+          setCheck({ status: 'done', result });
+          // Reading another sentence is not a pronunciation attempt; a quick check (fallback model) hears too little to score
+          if (result.offScript || result.accuracy === 'basic') return;
+          const level = result.overall?.pronunciation ?? (result.issues.length ? 'fair' : 'good');
+          save(LEVEL_SCORE[level], { transcript: result.transcript, pronunciation: level, issues: result.issues.map((i) => i.word) });
+        })
+        .catch((failure: unknown) => {
+          if (id !== attempt.current) return;
+          const heard = fallbackText();
+          if (isSpeechUnavailable(failure) && heard) {
+            const comparison = compareTexts(phrase.text, heard);
+            setCheck({ status: 'fallback', transcript: heard, comparison });
+            save(comparison.similarity, { transcript: heard });
+            return;
+          }
+          setCheck(null);
+          setCheckError(isSpeechUnavailable(failure) ? t.speechCheck.unavailableNoText : errorMessage(failure, t));
+        });
+    },
+    [phrase, record, t]
+  );
+
+  const capture = useAudioCapture({ maxSec: MAX_RECORD_SEC, livePreview: true, onComplete: onTake });
+  const isListening = capture.status === 'recording' || capture.status === 'starting';
 
   const resetAttempt = useCallback(() => {
-    setComparison(null);
-    setShowFeedback(false);
-    resetTranscript();
-    clearMessages();
-  }, [resetTranscript, clearMessages]);
+    attempt.current++;
+    setCheck(null);
+    setCheckError(null);
+  }, []);
 
   const nextPhrase = useCallback(() => {
     const result = pickPhrase(getPhrases(difficulty, focus), seen.current, phrase?.id ?? null);
@@ -95,37 +147,11 @@ export const PronunciationPage: React.FC = () => {
 
   const start = useCallback(() => {
     resetAttempt();
-    awaitingResult.current = true;
-    startListening();
-  }, [resetAttempt, startListening]);
+    void capture.start();
+  }, [resetAttempt, capture]);
 
-  // Score once recognition has stopped and produced its final transcript
-  useEffect(() => {
-    if (isListening || !awaitingResult.current || !phrase) return;
-    awaitingResult.current = false;
-    if (!transcript.trim()) return;
-
-    const result = compareTexts(phrase.text, transcript);
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- result of the external speech API
-    setComparison(result);
-    void record({
-      activity: 'pronunciation',
-      contentRef: phrase.id,
-      title: phrase.text,
-      score: result.similarity,
-      maxScore: 100,
-      details: { level: phrase.difficulty, transcript },
-    }).catch(() => {});
-  }, [isListening, transcript, phrase, record]);
-
-  const askCoach = useCallback(async () => {
-    if (!phrase || !comparison) return;
-    setShowFeedback(true);
-    const missed = comparison.targetWords.filter((w) => !w.matched).map((w) => w.word);
-    await sendUserMessage(
-      `Target phrase: "${phrase.text}"\nUser said: "${transcript}"\n${missed.length ? `Missed words: ${missed.join(', ')}` : 'All words matched!'}`
-    );
-  }, [phrase, comparison, transcript, sendUserMessage]);
+  const levelText = (level: PronunciationLevel): string =>
+    level === 'good' ? t.pronunciation.feedback.excellent : level === 'fair' ? t.pronunciation.feedback.fair : t.pronunciation.feedback.low;
 
   const feedbackText = (similarity: number): string =>
     similarity >= EXCELLENT
@@ -136,11 +162,25 @@ export const PronunciationPage: React.FC = () => {
           ? t.pronunciation.feedback.fair
           : t.pronunciation.feedback.low;
 
+  /** The phrase word by word, with the words the check flagged */
+  const flaggedChips = (result: SpeechAssessment) => {
+    const flagged = new Set(result.issues.flatMap((issue) => tokens(issue.word)));
+    return phrase!.text.split(/\s+/).map((word, index) => {
+      const bad = tokens(word).some((token) => flagged.has(token));
+      return (
+        <span key={`${word}-${index}`} className={`word-chip ${bad ? 'word-chip--miss' : 'word-chip--ok'}`}>
+          <Icon name={bad ? 'x' : 'check'} size={14} />
+          {word}
+        </span>
+      );
+    });
+  };
+
   return (
     <div className="speak">
       <PracticeHeader title={t.pronunciation.title} level={null} onBack={() => navigate(ROUTES.PRACTICE)} />
 
-      {!isSupported && <Banner tone="warning">{t.pronunciation.unsupported}</Banner>}
+      {!capture.isSupported && <Banner tone="warning">{t.pronunciation.unsupported}</Banner>}
 
       <div className="speak-toolbar">
         <Segmented<Difficulty>
@@ -204,88 +244,90 @@ export const PronunciationPage: React.FC = () => {
           </Card>
           {roundDone && <Banner tone="info">{t.pronunciation.roundDone}</Banner>}
 
-          {isSupported && (
+          {capture.isSupported && (
             <div className="speak-recorder">
               <RecordButton
                 isRecording={isListening}
+                level={capture.level}
                 onStart={start}
-                onStop={stopListening}
+                onStop={capture.stop}
                 startLabel={t.pronunciation.record}
                 stopLabel={t.pronunciation.stop}
+                disabled={check?.status === 'checking'}
               />
-              {(isListening || transcript) && (
+              {isListening && capture.liveText && (
                 <p className="speak-live" aria-live="polite">
                   <span className="speak-live__label">{t.pronunciation.youSaid}</span>
-                  <span lang="en">
-                    {transcript}
-                    {interimTranscript && <span className="speak-live__interim"> {interimTranscript}</span>}
-                  </span>
+                  <span lang="en">{capture.liveText}</span>
                 </p>
               )}
             </div>
           )}
 
-          {!speechError && !isListening && !transcript && <p className="speak-note">{t.pronunciation.mic.note}</p>}
-          {speechError && (
-            <Banner tone="warning">
-              {errorKind === 'denied' ? (
-                <>
-                  <strong>{t.pronunciation.mic.denied}</strong>
-                  <br />
-                  {t.pronunciation.mic.deniedBody}
-                </>
-              ) : (
-                t.pronunciation.mic[errorKind === 'no-mic' ? 'noMic' : errorKind === 'no-speech' ? 'noSpeech' : errorKind === 'network' ? 'network' : 'other']
-              )}
-            </Banner>
+          {!capture.errorKind && !isListening && !check && !checkError && <p className="speak-note">{t.pronunciation.mic.note}</p>}
+          {capture.errorKind && <Banner tone="warning">{micErrorText(capture.errorKind, t)}</Banner>}
+          {checkError && <Banner tone="danger">{checkError}</Banner>}
+
+          {check?.status === 'checking' && (
+            <Card padding="lg" className="score-card score-card--checking">
+              <Spinner size={22} /> {t.speechCheck.checking}
+            </Card>
           )}
 
-          {comparison && !isListening && (
-            <Card padding="lg" className="score-card reveal">
-              <div className="score-card__top">
-                <div className="score-ring" style={{ ['--pct' as string]: comparison.similarity }}>
-                  <span>{comparison.similarity}%</span>
+          {check?.status === 'done' && !isListening && (
+            <ReviewGroup copy={t.speechCheck.askAi}>
+              <Card padding="lg" className="score-card reveal">
+                {(() => {
+                  const level = check.result.overall?.pronunciation ?? (check.result.issues.length ? 'fair' : 'good');
+                  return (
+                    <div className="score-card__top">
+                      <div className={`score-level ${LEVEL_CLASS[level]}`}>{t.speechCheck.levels[level]}</div>
+                      <div>
+                        <p className="score-card__label">{t.speechCheck.pronunciation}</p>
+                        <p className="score-card__feedback">{levelText(level)}</p>
+                      </div>
+                    </div>
+                  );
+                })()}
+                <p className="score-card__label">{t.pronunciation.checkedWords}</p>
+                <div className="word-chips" lang="en">
+                  {flaggedChips(check.result)}
                 </div>
-                <div>
-                  <p className="score-card__label">{t.pronunciation.accuracy}</p>
-                  <p className="score-card__feedback">{feedbackText(comparison.similarity)}</p>
-                </div>
-              </div>
+                <p className="score-card__heard">
+                  <span className="speak-live__label">{t.pronunciation.youSaid}</span> <span lang="en">{check.result.transcript}</span>
+                </p>
+                {check.result.offScript ? <Banner tone="warning">{t.pronunciation.offScript}</Banner> : <SpeechNotes assessment={check.result} hideFluency />}
+              </Card>
+            </ReviewGroup>
+          )}
 
-              <p className="score-card__label">{t.pronunciation.wordAnalysis}</p>
-              <div className="word-chips" lang="en">
-                {comparison.targetWords.map((word, index) => (
-                  <span key={`${word.word}-${index}`} className={`word-chip ${word.matched ? 'word-chip--ok' : 'word-chip--miss'}`}>
-                    <Icon name={word.matched ? 'check' : 'x'} size={14} />
-                    {word.word}
-                  </span>
-                ))}
-              </div>
-
-              {!showFeedback ? (
-                <Button variant="secondary" icon="sparkles" onClick={askCoach} disabled={isAiLoading}>
-                  {t.pronunciation.aiFeedback}
-                </Button>
-              ) : (
-                <div className="coach">
-                  <p className="coach__title">
-                    <Icon name="sparkles" size={18} /> {t.pronunciation.aiCoach}
-                  </p>
-                  {isAiLoading ? (
-                    <p className="coach__loading">
-                      <Spinner size={18} /> {t.pronunciation.analyzing}
-                    </p>
-                  ) : (
-                    aiFeedback && (
-                      <p className="coach__body">
-                        <InlineMarkdown text={aiFeedback} />
-                      </p>
-                    )
-                  )}
-                  {aiError && <Banner tone="danger">{aiError}</Banner>}
+          {check?.status === 'fallback' && !isListening && (
+            <ReviewGroup copy={t.speechCheck.askAi}>
+              <Card padding="lg" className="score-card reveal">
+                <div className="score-card__top">
+                  <div className="score-ring" style={{ ['--pct' as string]: check.comparison.similarity }}>
+                    <span>{check.comparison.similarity}%</span>
+                  </div>
+                  <div>
+                    <p className="score-card__label">{t.pronunciation.accuracy}</p>
+                    <p className="score-card__feedback">{feedbackText(check.comparison.similarity)}</p>
+                  </div>
                 </div>
-              )}
-            </Card>
+                <p className="score-card__label">{t.pronunciation.wordAnalysis}</p>
+                <div className="word-chips" lang="en">
+                  {check.comparison.targetWords.map((word, index) => (
+                    <span key={`${word.word}-${index}`} className={`word-chip ${word.matched ? 'word-chip--ok' : 'word-chip--miss'}`}>
+                      <Icon name={word.matched ? 'check' : 'x'} size={14} />
+                      {word.word}
+                    </span>
+                  ))}
+                </div>
+                <p className="score-card__heard">
+                  <span className="speak-live__label">{t.pronunciation.youSaid}</span> <span lang="en">{check.transcript}</span>
+                </p>
+                <Banner tone="info">{t.pronunciation.fallbackNote}</Banner>
+              </Card>
+            </ReviewGroup>
           )}
         </>
       )}
