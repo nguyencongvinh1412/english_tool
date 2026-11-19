@@ -88,7 +88,9 @@ async function syncDone(path: IeltsPath): Promise<void> {
     const at = new Map(practised.map((p) => [p.pointId, p.at]));
     for (const row of todo.filter((r) => r.kind === 'grammar')) {
       const when = at.get((row.ref as { pointId: string }).pointId);
-      if (when) await finish(row, when);
+      // A review put in because of mistakes needs practice from its own day on: an older practice is why the mistakes came back
+      const reviewDay = (row.ref as { adaptive?: string; adaptiveDay?: string }).adaptive ? (row.ref as { adaptiveDay?: string }).adaptiveDay : undefined;
+      if (when && (!reviewDay || when >= new Date(`${reviewDay}T00:00:00+07:00`))) await finish(row, when);
     }
   }
 

@@ -5,7 +5,7 @@ import { gateAttempts, ieltsPaths, pathLessons } from '../db/schema.js';
 import { GRAMMAR_POINTS } from '../grammar/map.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { createUser, resetDb } from '../test/helpers.js';
-import { applyOrder, ensureFoundation, FOUNDATION_GRAMMAR, FOUNDATION_LESSONS, needsFoundation, planInserts } from './foundation.js';
+import { applyOrder, ensureFoundation, FOUNDATION_GRAMMAR, FOUNDATION_LESSONS, needsFoundation, planInserts, trimmedSteps } from './foundation.js';
 import { LESSONS, phaseSteps } from './syllabus.js';
 
 beforeAll(runMigrations);
@@ -98,6 +98,41 @@ describe('planInserts', () => {
   });
 });
 
+describe('trimmedSteps', () => {
+  const rows = (phase: number) => phaseSteps(phase).map((s, i) => ({ id: `p${phase}-${i}`, seq: i, phase: s.phase, week: s.week, studyDay: s.day, block: s.block, kind: s.kind, status: 'todo', ref: s.ref as object, plannedDay: '2026-11-12' }));
+  const strongReader = { listening: 5, reading: 6.5, writing: 4.5, speaking: 4 };
+
+  it('drops the Reading practice of study days 3, 5 and 7 in phases 2 and 3, and nothing else', () => {
+    for (const phase of [2, 3]) {
+      const all = rows(phase);
+      const dropped = trimmedSteps(all, strongReader).map((id) => all.find((r) => r.id === id)!);
+      expect(dropped.length).toBeGreaterThan(0);
+      for (const r of dropped) {
+        expect(r.block).toBe('reading');
+        expect(r.kind).toBe('practice');
+        expect([3, 5, 7]).toContain(r.studyDay);
+      }
+      // Half of the Reading practice goes, the lessons and every other skill stay
+      const reading = all.filter((r) => r.block === 'reading' && r.kind === 'practice');
+      expect(dropped.length / reading.length).toBeCloseTo(0.5, 1);
+    }
+  });
+
+  it('leaves a skill that is not a whole band above the gate, other phases, and steps already started', () => {
+    expect(trimmedSteps(rows(2), { listening: 5, reading: 5.5, writing: 4.5, speaking: 4 })).toEqual([]);
+    expect(trimmedSteps(rows(2), null)).toEqual([]);
+    expect(trimmedSteps(rows(4), strongReader)).toEqual([]);
+    const started = rows(2).map((r) => (r.block === 'reading' && r.kind === 'practice' ? { ...r, ref: { ...r.ref, sessionId: 's' } } : r));
+    expect(trimmedSteps(started, strongReader)).toEqual([]);
+    expect(trimmedSteps(rows(2).map((r) => ({ ...r, status: 'done' })), strongReader)).toEqual([]);
+  });
+
+  it('measures the gate that closes the phase: Reading 6.5 is a whole band above Gate 3 (5.5), 6.0 is not', () => {
+    expect(trimmedSteps(rows(3), { reading: 6.5 }).length).toBeGreaterThan(0);
+    expect(trimmedSteps(rows(3), { reading: 6 })).toEqual([]);
+  });
+});
+
 describe('ensureFoundation', () => {
   async function pathAtPhase2(bands: object) {
     const user = await createUser();
@@ -115,20 +150,23 @@ describe('ensureFoundation', () => {
     const path = await pathAtPhase2({ listening: 5, reading: 6.5, writing: 4.5, speaking: 4 });
     const before = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
     await db.update(pathLessons).set({ status: 'done', doneAt: new Date() }).where(eq(pathLessons.id, before[0].id));
-    const added = await ensureFoundation(path);
-    expect(added).toBeGreaterThan(10);
+    const changed = await ensureFoundation(path);
+    expect(changed).toBeGreaterThan(10);
     const after = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
-    expect(after).toHaveLength(before.length + added);
+    const dropped = before.filter((b) => !after.some((r) => r.id === b.id));
+    expect(dropped.length).toBeGreaterThan(0);
+    expect(dropped.every((r) => r.block === 'reading' && r.kind === 'practice' && r.status === 'todo')).toBe(true);
+    expect(after).toHaveLength(before.length - dropped.length + (changed - dropped.length));
     expect(after.map((r) => r.seq)).toEqual(after.map((_, i) => i));
     expect(after[0].id).toBe(before[0].id);
     // The old steps keep their relative order
-    expect(after.filter((r) => before.some((b) => b.id === r.id)).map((r) => r.id)).toEqual(before.map((r) => r.id));
+    expect(after.filter((r) => before.some((b) => b.id === r.id)).map((r) => r.id)).toEqual(before.filter((b) => !dropped.some((d) => d.id === b.id)).map((r) => r.id));
     expect(after.filter((r) => (r.ref as { foundation?: boolean }).foundation).length).toBeGreaterThan(0);
     expect(await ensureFoundation(path)).toBe(0);
   });
 
   it('adds only the lessons the syllabus gained when the learner is stronger', async () => {
-    const path = await pathAtPhase2({ listening: 5.5, reading: 6.5, writing: 5, speaking: 5 });
+    const path = await pathAtPhase2({ listening: 5.5, reading: 5.5, writing: 5, speaking: 5 });
     expect(await ensureFoundation(path)).toBe(0);
     const rows = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id));
     // Take the lesson out of the stored queue, as if the phase had been stored before the syllabus gained it

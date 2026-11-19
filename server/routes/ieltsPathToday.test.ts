@@ -2,7 +2,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vites
 import { eq } from 'drizzle-orm';
 import { createApp } from '../app.js';
 import { closeDb, db, runMigrations } from '../db/client.js';
-import { attempts, contentItems, grammarProgress, ieltsPaths, pathLessons } from '../db/schema.js';
+import { attempts, contentItems, examSessions, grammarProgress, ieltsPaths, pathLessons } from '../db/schema.js';
 import { sendChatMessage } from '../services/cliproxy.js';
 import { GATE_GROUPS, ensureGateContent } from '../ieltsPath/gateContent.js';
 import { ensurePathLessons } from '../ieltsPath/lessons.js';
@@ -105,7 +105,15 @@ describe('IELTS Path Today', () => {
     expect(view.body.session.mode).toBe('lesson');
     expect(view.body.session.sections[0].groups[0].id).toBe('pool-l-conv-1');
 
+    // A session submitted with no answer is not an attempt: the step stays to do, and starting it again opens a new session
     expect((await agent.post(`/api/exams/sessions/${sessionId}/submit`).send({})).status).toBe(200);
+    await todayOf(agent);
+    expect((await db.select().from(pathLessons).where(eq(pathLessons.id, step.id)))[0].status).toBe('todo');
+    const again = await agent.post(`/api/ielts-path/steps/${step.id}/practice`).send({});
+    expect(again.body.sessionId).not.toBe(sessionId);
+
+    await db.update(examSessions).set({ answers: { 'pool-l-conv-1:0': 0 } }).where(eq(examSessions.id, again.body.sessionId));
+    expect((await agent.post(`/api/exams/sessions/${again.body.sessionId}/submit`).send({})).status).toBe(200);
     const today = await todayOf(agent);
     const after = (await db.select().from(pathLessons).where(eq(pathLessons.id, step.id)))[0];
     expect(after.status).toBe('done');
@@ -127,7 +135,7 @@ describe('IELTS Path Today', () => {
     expect(done('words')).toBe(true);
     expect(done('dictation')).toBe(true);
     // The queue moved up: more steps fit now that three are finished
-    expect(after.doneMinutes).toBe(15 + 20 + 10);
+    expect(after.doneMinutes).toBe(15 + 20 + 15);
   });
 
   it('lets the learner learn ahead, and shows how far behind they are', async () => {

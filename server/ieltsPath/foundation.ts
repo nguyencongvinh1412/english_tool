@@ -8,13 +8,17 @@
  *    the grammar their writing needs and the four Writing and Speaking lessons of phase 1. One grammar step a day is
  *    put after the day's own grammar step, and one lesson in front of each of the next practices of its skill.
  *
+ * It also trims: in phases 2 and 3 a skill (Listening or Reading) that was a whole band above that phase's gate at Gate 0
+ * keeps half of its practice (the practice of study days 3, 5 and 7 goes), because the time is better spent where the
+ * learner is weak. Lessons are kept.
+ *
  * Only steps still to do are used as places to insert, so nothing lands in the past of the queue, and a step that is
  * already in the queue is never added again: running this on every visit changes nothing once it is done.
  */
-import { and, asc, desc, eq, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '../db/client.js';
 import { gateAttempts, grammarProgress, ieltsPaths, pathLessons, type IeltsPath, type PathLesson } from '../db/schema.js';
-import { type PathSkill } from './bands.js';
+import { gateTarget, type PathSkill } from './bands.js';
 import { lessonMeta, phaseSteps, WRITTEN_PHASES, type Block } from './syllabus.js';
 
 /**
@@ -48,6 +52,13 @@ export const FOUNDATION_LESSONS: Partial<Record<Block, string[]>> = {
 export const FOUNDATION_MAX_BAND = 4.5;
 const FOUNDATION_GRAMMAR_MINUTES = 20;
 
+/** Practice is trimmed in these phases, for a skill at least this far above the gate that closes the phase */
+export const TRIM_PHASES = [2, 3];
+export const TRIM_MARGIN = 1;
+/** Study days whose practice is dropped (the other days keep theirs: half of the week) */
+export const TRIMMED_DAYS = [3, 5, 7];
+const TRIM_SKILLS = ['listening', 'reading'] as const;
+
 /** Whether the learner gets the foundation pack: started after phase 1 with weak Writing or Speaking at Gate 0 */
 export function needsFoundation(startPhase: number | null, bands: Partial<Record<PathSkill, number | null>> | null): boolean {
   if (startPhase === null || startPhase < 2 || !bands) return false;
@@ -55,6 +66,36 @@ export function needsFoundation(startPhase: number | null, bands: Partial<Record
 }
 
 type Row = Pick<PathLesson, 'id' | 'seq' | 'phase' | 'week' | 'studyDay' | 'block' | 'kind' | 'status' | 'ref' | 'plannedDay'>;
+
+/**
+ * The practice steps to drop: still to do and not started, in a trimmed phase, of a skill well above the gate at Gate 0.
+ * Steps the learner's results added (a rewrite, a review, a remedial or buffer week) are never dropped.
+ */
+export function trimmedSteps(rows: Row[], bands: Partial<Record<PathSkill, number | null>> | null): string[] {
+  if (!bands) return [];
+  const strong = (skill: (typeof TRIM_SKILLS)[number], phase: number) => {
+    const band = bands[skill];
+    return typeof band === 'number' && band >= gateTarget(phase, skill) + TRIM_MARGIN;
+  };
+  return rows
+    .filter((r) => {
+      const ref = refOf(r) as { sessionId?: string; redoOf?: string };
+      return (
+        r.status === 'todo' &&
+        r.kind === 'practice' &&
+        TRIM_PHASES.includes(r.phase) &&
+        TRIMMED_DAYS.includes(r.studyDay) &&
+        (TRIM_SKILLS as readonly string[]).includes(r.block) &&
+        strong(r.block as (typeof TRIM_SKILLS)[number], r.phase) &&
+        !ref.sessionId &&
+        !ref.redoOf &&
+        !refOf(r).adaptive &&
+        !refOf(r).remedial &&
+        !refOf(r).buffer
+      );
+    })
+    .map((r) => r.id);
+}
 
 export interface Insert {
   /** The row to put the new one next to */
@@ -147,39 +188,47 @@ async function gate0Bands(path: IeltsPath): Promise<Partial<Record<PathSkill, nu
 }
 
 /**
- * Puts the missing lessons and, when it applies, the foundation pack into the learner's queue
- * @returns Steps added
+ * Trims the queue, puts the missing lessons and, when it applies, the foundation pack into it
+ * @returns Steps added or dropped
  */
 export async function ensureFoundation(path: IeltsPath): Promise<number> {
   if (path.startPhase === null) return 0;
-  const foundation = needsFoundation(path.startPhase, await gate0Bands(path));
+  const bands = await gate0Bands(path);
+  const foundation = needsFoundation(path.startPhase, bands);
   const practised = foundation
     ? new Set((await db.select({ pointId: grammarProgress.pointId }).from(grammarProgress).where(eq(grammarProgress.userId, path.userId))).map((r) => r.pointId))
     : new Set<string>();
 
-  const plan = async (read: Pick<typeof db, 'select'>): Promise<{ rows: PathLesson[]; inserts: Insert[] }> => {
-    const rows = await read.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
-    return { rows, inserts: planInserts(rows, { foundation, practised }) };
+  /** Steps to drop, and what goes into the steps that stay */
+  const plan = async (read: Pick<typeof db, 'select'>): Promise<{ rows: PathLesson[]; drop: string[]; inserts: Insert[] }> => {
+    const all = await read.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
+    const drop = trimmedSteps(all, bands);
+    const rows = all.filter((r) => !drop.includes(r.id));
+    return { rows, drop, inserts: planInserts(rows, { foundation, practised }) };
   };
-  if ((await plan(db)).inserts.length === 0) return 0;
+  const first = await plan(db);
+  if (first.inserts.length === 0 && first.drop.length === 0) return 0;
 
   return db.transaction(async (tx) => {
-    // Two visits at once must not both insert: the second one plans again after the first is done
+    // Two visits at once must not both change the queue: the second one plans again after the first is done
     await tx.select({ id: ieltsPaths.id }).from(ieltsPaths).where(eq(ieltsPaths.id, path.id)).for('update');
-    const { rows, inserts } = await plan(tx);
-    if (inserts.length === 0) return 0;
-    const order = applyOrder(rows, inserts);
-    // Move every step out of the way, then give each its place (the order of a queue is unique)
-    await tx.update(pathLessons).set({ seq: sql`${pathLessons.seq} + 10000000` }).where(eq(pathLessons.pathId, path.id));
-    const newRows: (typeof pathLessons.$inferInsert)[] = [];
-    for (const [seq, entry] of order.entries()) {
-      if ('anchorId' in entry) {
-        newRows.push({ pathId: path.id, userId: path.userId, seq, phase: entry.step.phase, week: entry.step.week, studyDay: entry.step.studyDay, block: entry.step.block, kind: entry.step.kind, ref: entry.step.ref, core: true, minutes: entry.step.minutes, plannedDay: entry.step.plannedDay });
-      } else {
-        await tx.update(pathLessons).set({ seq }).where(eq(pathLessons.id, entry.id));
+    const { rows, drop, inserts } = await plan(tx);
+    if (inserts.length === 0 && drop.length === 0) return 0;
+    if (drop.length > 0) await tx.delete(pathLessons).where(inArray(pathLessons.id, drop));
+    if (inserts.length > 0) {
+      const order = applyOrder(rows, inserts);
+      // Move every step out of the way, then give each its place (the order of a queue is unique)
+      await tx.update(pathLessons).set({ seq: sql`${pathLessons.seq} + 10000000` }).where(eq(pathLessons.pathId, path.id));
+      const newRows: (typeof pathLessons.$inferInsert)[] = [];
+      for (const [seq, entry] of order.entries()) {
+        if ('anchorId' in entry) {
+          newRows.push({ pathId: path.id, userId: path.userId, seq, phase: entry.step.phase, week: entry.step.week, studyDay: entry.step.studyDay, block: entry.step.block, kind: entry.step.kind, ref: entry.step.ref, core: true, minutes: entry.step.minutes, plannedDay: entry.step.plannedDay });
+        } else {
+          await tx.update(pathLessons).set({ seq }).where(eq(pathLessons.id, entry.id));
+        }
       }
+      for (let k = 0; k < newRows.length; k += 100) await tx.insert(pathLessons).values(newRows.slice(k, k + 100));
     }
-    for (let k = 0; k < newRows.length; k += 100) await tx.insert(pathLessons).values(newRows.slice(k, k + 100));
-    return inserts.length;
+    return inserts.length + drop.length;
   });
 }

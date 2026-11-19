@@ -2,6 +2,7 @@
  * Lessons that follow the learner: at most one optional step a day is put at the front of the queue when their
  * mistakes show a pattern (docs/plans/ielts-path.md, section 4.4):
  *   a lesson whose drill went under 70%  -> a short review of that lesson the next day
+ *   a grammar point that went wrong twice or more in 30 days with no practice since -> its grammar step
  *   listening: one kind of mistake three or more times in a week -> a listening exercise of the matching kind
  *   reading: a kind of question under 60% over 10 or more questions in two weeks -> practice of that kind
  *   speaking: pronunciation is the lowest criterion and 5.5 or less -> the pronunciation practice
@@ -16,6 +17,7 @@ import { db } from '../db/client.js';
 import { examSessions, pathLessons, type IeltsPath, type PathLesson } from '../db/schema.js';
 import type { IeltsResult } from '../exams/ielts.js';
 import { addDays, gateTarget, type PathSkill } from './bands.js';
+import { recentMistakes } from '../grammar/mistakes.js';
 import { buildErrorBook } from './errors.js';
 import { topCategory, weakestSkill, weakestType, type ListeningCategory } from './errorRules.js';
 import { DEFAULT_PRACTICE_MINUTES, LESSONS, type PracticeType, type StepKind } from './syllabus.js';
@@ -28,6 +30,7 @@ const READING_MIN_QUESTIONS = 10;
 const READING_BELOW = 0.6;
 const PRONUNCIATION_AT_MOST = 5.5;
 const REPEAT_DAYS = 7;
+const GRAMMAR_REVIEW_MINUTES = 20;
 const REDO_WINDOW_AGE_MS = 14 * 86_400_000;
 
 const LISTENING_TYPE: Record<ListeningCategory, string> = { spelling: 'l-form', plural: 'l-form', missed: 'l-form', distractor: 'l-mono', misheard: 'l-mono' };
@@ -141,6 +144,10 @@ export async function chooseInsert(path: IeltsPath, today: string, taken: Set<st
     const lessonId = (weakLesson.ref as { lessonId: string }).lessonId;
     if (LESSONS.some((l) => l.id === lessonId)) return { key: `lesson-review:${weakLesson.id}`, block: weakLesson.block as PathLesson['block'], kind: 'lesson', ref: { lessonId, reviewOf: weakLesson.id }, minutes: 15 };
   }
+
+  // A grammar point that keeps going wrong, with no practice since the last mistake
+  const urgent = (await recentMistakes(path.userId)).find((m) => m.urgent && !taken.has(`grammar-${m.pointId}`));
+  if (urgent) return { key: `grammar-${urgent.pointId}`, block: 'vocab-grammar', kind: 'grammar', ref: { pointId: urgent.pointId }, minutes: GRAMMAR_REVIEW_MINUTES };
 
   const week = await buildErrorBook(path.userId, new Date(`${addDays(today, -7)}T00:00:00+07:00`));
   const category = topCategory(week.listening.byCategory, LISTENING_MIN);
