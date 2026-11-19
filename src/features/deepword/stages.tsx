@@ -4,8 +4,8 @@
  */
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { Badge, Banner, Button, Tag } from '@/design';
-import { useSpeechRecognition } from '@/hooks';
+import { Badge, Banner, Button, Spinner, Tag } from '@/design';
+import { useSpokenText } from '@/hooks';
 import { RecordButton } from '@/features/speaking/RecordButton';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { useI18n } from '@/i18n/I18nProvider';
@@ -334,20 +334,11 @@ export const StageProduce: React.FC<{
   const [busy, setBusy] = useState(false);
   const [gettingSituation, setGettingSituation] = useState(false);
   const [costs, setCosts] = useState<ProduceCosts | null>(null);
-  const speech = useSpeechRecognition();
+  const speech = useSpokenText({ maxSec: 60, onText: (spoken) => setText((before) => `${before} ${spoken}`.trim()) });
 
   useEffect(() => {
     deepWordApi.costs().then(setCosts).catch(() => undefined);
   }, []);
-
-  // A finished recording is added to the text
-  const { isListening, transcript, resetTranscript } = speech;
-  useEffect(() => {
-    if (!isListening && transcript) {
-      setText((before) => `${before} ${transcript}`.trim());
-      resetTranscript();
-    }
-  }, [isListening, transcript, resetTranscript]);
 
   const topic = data.profile.work ? s.topic(data.profile.work) : s.topicDefault;
   const done = progress.cells.useP >= 1;
@@ -423,7 +414,7 @@ export const StageProduce: React.FC<{
   };
 
   const canCheck = text.trim().length >= MIN_CHARS[kind] && (kind !== 'scenario' || situation !== null);
-  const textShown = isListening ? `${text} ${transcript} ${speech.interimTranscript}`.trim() : text;
+  const textShown = speech.isListening ? `${text} ${speech.liveText}`.trim() : text;
   const placeholder = kind === 'scenario' ? s.scenarioAnswer : s.placeholder;
 
   return (
@@ -457,7 +448,15 @@ export const StageProduce: React.FC<{
               <p className="dw__note">{s.speakHint}</p>
               {speech.errorKind === 'denied' && <Banner tone="warning">{s.speakDenied}</Banner>}
               {speech.isSupported ? (
-                <RecordButton size="md" isRecording={isListening} onStart={speech.startListening} onStop={speech.stopListening} startLabel={s.speakRecord} stopLabel={s.speakStop} />
+                <>
+                  <RecordButton size="md" isRecording={speech.isListening} level={speech.level} onStart={() => speech.start()} onStop={speech.stop} startLabel={s.speakRecord} stopLabel={s.speakStop} disabled={speech.checking} />
+                  {speech.checking && (
+                    <p className="dw__note">
+                      <Spinner size={14} /> {t.chat.transcribing}
+                    </p>
+                  )}
+                  {speech.error && speech.errorKind !== 'denied' && <Banner tone="warning">{speech.error}</Banner>}
+                </>
               ) : (
                 <Banner tone="info">{s.speakNoSupport}</Banner>
               )}
@@ -497,7 +496,7 @@ export const StageProduce: React.FC<{
           {(kind !== 'scenario' || situation) && (
             <>
               <textarea className="dw__textarea" value={textShown} onChange={(e) => setText(e.target.value)} placeholder={placeholder} aria-label={s.kinds[kind]} rows={kind === 'paragraph' ? 6 : 3} maxLength={kind === 'paragraph' ? 800 : 400} lang="en" />
-              <Button onClick={() => void check()} loading={busy} disabled={!canCheck || busy || isListening}>
+              <Button onClick={() => void check()} loading={busy} disabled={!canCheck || busy || speech.isListening || speech.checking}>
                 {phase === 'checking' ? s.checking : s.check}
               </Button>
             </>
