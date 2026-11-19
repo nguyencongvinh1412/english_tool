@@ -46,6 +46,20 @@ describe('chat prompts stay on the server', () => {
     expect(sent.systemPrompt).toContain('only help with practising and learning English');
   });
 
+  it('answers a review question through /api/chat/review and passes a picture to the model', async () => {
+    const learner = await signIn(app, await createUser());
+    const material = 'Q3. Sometimes hair is left at the scene.\nBạn chọn: TRUE · Đáp án đúng: NOT GIVEN';
+    const picture = 'data:image/jpeg;base64,/9j/4AAQSkZJRg==';
+    const response = await learner.post('/api/chat/review').send({ messages: [{ role: 'user', content: 'What does this say?', images: [picture] }], material });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Mock reply');
+    const sent = vi.mocked(sendChatMessage).mock.calls[0][0];
+    expect(sent.systemPrompt).toContain('Đáp án đúng: NOT GIVEN');
+    expect(JSON.stringify(sent.messages)).toContain('image_url');
+    await learner.post('/api/chat/review').send({ messages: [{ role: 'user', content: 'x', images: ['https://evil.example/a.png'] }], material }).expect(400);
+  });
+
   it('refuses review text that is too short or too long', async () => {
     const learner = await signIn(app, await createUser());
     const body = (material: string) => ({ messages: [{ role: 'user', content: 'Why?' }], context: { mode: 'review', material } });

@@ -8,7 +8,7 @@ import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Banner, Button, Card, EmptyState, Icon, Segmented, Select, Spinner } from '@/design';
-import { ReviewGroup } from '@/features/exams/ReviewChat';
+import { ReviewChat, ReviewGroup, type ReviewPart } from '@/features/exams/ReviewChat';
 import { ROUTES } from '@/app/routes';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { useI18n } from '@/i18n/I18nProvider';
@@ -84,6 +84,8 @@ export const PronunciationPage: React.FC = () => {
   const [checkError, setCheckError] = useState<string | null>(null);
   /** Ignores a result that comes back after the learner moved on */
   const attempt = useRef(0);
+  /** The result the Ask AI panel can read */
+  const reviewParts = useRef(new Map<string, ReviewPart>());
 
   const { speak, isSpeaking } = useTextToSpeech();
   const phraseText = phrase?.text;
@@ -275,7 +277,7 @@ export const PronunciationPage: React.FC = () => {
           )}
 
           {check?.status === 'done' && !isListening && (
-            <ReviewGroup copy={t.speechCheck.askAi}>
+            <ReviewGroup id="attempt" label={phrase.text} registry={reviewParts}>
               <Card padding="lg" className="score-card reveal">
                 {(() => {
                   const level = check.result.overall?.pronunciation ?? (check.result.issues.length ? 'fair' : 'good');
@@ -302,7 +304,7 @@ export const PronunciationPage: React.FC = () => {
           )}
 
           {check?.status === 'fallback' && !isListening && (
-            <ReviewGroup copy={t.speechCheck.askAi}>
+            <ReviewGroup id="attempt" label={phrase.text} registry={reviewParts}>
               <Card padding="lg" className="score-card reveal">
                 <div className="score-card__top">
                   <div className="score-ring" style={{ ['--pct' as string]: check.comparison.similarity }}>
@@ -329,6 +331,7 @@ export const PronunciationPage: React.FC = () => {
               </Card>
             </ReviewGroup>
           )}
+          {(check?.status === 'done' || check?.status === 'fallback') && !isListening && <ReviewChat registry={reviewParts} copy={t.speechCheck.askAi} />}
         </>
       )}
     </div>

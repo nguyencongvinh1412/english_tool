@@ -17,7 +17,7 @@ import { contentApi, type ContentItem, type SpeakingFeedback, type SpeakingIelts
 import { ContentLibrary } from '@/features/practice/ContentLibrary';
 import { PracticeHeader } from '@/features/practice/PracticeHeader';
 import { BandFeedback } from '@/features/practice/BandFeedback';
-import { ReviewGroup } from '@/features/exams/ReviewChat';
+import { ReviewChat, ReviewGroup, type ReviewPart } from '@/features/exams/ReviewChat';
 import { RecordButton } from './RecordButton';
 import { SpeechNotes } from './SpeechNotes';
 import { micErrorText } from '@/shared/micError';
@@ -86,6 +86,8 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
   const [error, setError] = useState<unknown>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const startedAt = useRef(0);
+  /** The answers the Ask AI panel can read */
+  const reviewParts = useRef(new Map<string, ReviewPart>());
   // Refs mirror state so finishing (after awaiting pending checks) reads the latest values
   const answersRef = useRef(answers);
   const takesRef = useRef(takes);
@@ -275,7 +277,7 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
           {feedback.answers.map((answer, index) => {
             const key = questions[index]?.key ?? '';
             return (
-              <ReviewGroup key={index} copy={t.speechCheck.askAi}>
+              <ReviewGroup key={index} id={`answer-${index}`} label={`${index + 1}. ${answer.question}`.slice(0, 80)} registry={reviewParts}>
                 <Card padding="md" className="ielts-answer">
                   <p className="ielts-answer__q" lang="en">
                     {answer.question}
@@ -298,6 +300,7 @@ const SpeakingSession: React.FC<{ item: ContentItem<SpeakingIelts>; onBack: () =
         <Button variant="secondary" onClick={onBack} icon="arrowLeft">
           {t.library.back}
         </Button>
+        <ReviewChat registry={reviewParts} copy={t.speechCheck.askAi} />
       </div>
     );
   }

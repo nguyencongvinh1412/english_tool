@@ -10,7 +10,7 @@ import { HttpError } from '../http/errors.js';
 import { quotaDay } from '../services/aiAccess.js';
 import { addDays, overallOf, PATH_SKILLS, type Bands, type PathSkill } from './bands.js';
 import { loadLesson, type PathLessonContent } from './lessons.js';
-import { practiceSections } from './practice.js';
+import { componentOf, practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
 import { adaptSteps } from './adapt.js';
 import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
@@ -323,12 +323,13 @@ export async function completeLesson(step: PathLesson, drills: { correct: number
  */
 export async function startPractice(user: User, step: PathLesson, model?: string): Promise<string> {
   if (step.kind !== 'practice') throw new HttpError(400, 'This step has no exercise.', 'not_practice');
-  const ref = step.ref as { type: PracticeType; test?: string; sessionId?: string };
+  const ref = step.ref as { type: PracticeType; test?: string; sessionId?: string; groupIds?: string[] };
   if (ref.sessionId) {
     const [session] = await db.select({ id: examSessions.id }).from(examSessions).where(and(eq(examSessions.id, ref.sessionId), eq(examSessions.userId, user.id)));
     if (session) return session.id;
   }
-  const sections = await practiceSections(user, ref.type, step.phase, model, ref.test);
+  // A rewrite takes the same task again, not a new one
+  const sections = ref.groupIds?.length ? [{ component: componentOf(ref.type), groupIds: ref.groupIds }] : await practiceSections(user, ref.type, step.phase, model, ref.test);
   const blueprint: IeltsBlueprint = { exam: 'ielts', sections };
   const [session] = await db
     .insert(examSessions)

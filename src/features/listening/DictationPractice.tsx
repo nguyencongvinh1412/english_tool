@@ -38,11 +38,13 @@ interface DictationPracticeProps {
   lesson: DictationLesson;
   /** AI-generated lessons have no stable id worth tracking per lesson */
   isGenerated: boolean;
+  /** Why this lesson came up, e.g. that it is one to do again */
+  note?: string;
   onExit: () => void;
   onCompleted: () => void;
 }
 
-export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, isGenerated, onExit, onCompleted }) => {
+export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, isGenerated, note, onExit, onCompleted }) => {
   const { t } = useI18n();
   const { record } = useProgress();
   const [sentenceIndex, setSentenceIndex] = useState(0);
@@ -221,6 +223,8 @@ export const DictationPractice: React.FC<DictationPracticeProps> = ({ lesson, is
   return (
     <div className="dict">
       {header}
+
+      {note && <Banner tone="info">{note}</Banner>}
 
       <ActivityProgress label={t.dictation.sentenceOf(sentenceIndex + 1, totalSentences)} index={sentenceIndex} total={totalSentences} />
 
