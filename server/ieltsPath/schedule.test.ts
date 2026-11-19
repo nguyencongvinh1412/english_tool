@@ -15,6 +15,16 @@ describe('assignDays', () => {
     expect(assignDays([240, 240, 240], '2026-11-14', 240, [0])).toEqual(['2026-11-14', '2026-11-16', '2026-11-17']);
     expect(assignDays([100], '2026-11-15', 240, [0])).toEqual(['2026-11-16']);
   });
+  it('gives Saturday and Sunday their own minutes', () => {
+    // 2026-11-13 is a Friday: 120 minutes on Friday, 300 on Saturday and Sunday, 120 on Monday
+    expect(assignDays([120, 150, 150, 150, 150, 120], '2026-11-13', 120, [], 300)).toEqual(['2026-11-13', '2026-11-14', '2026-11-14', '2026-11-15', '2026-11-15', '2026-11-16']);
+  });
+  it('uses the usual minutes at the weekend when no weekend minutes are set', () => {
+    expect(assignDays([120, 120], '2026-11-14', 120, [], null)).toEqual(['2026-11-14', '2026-11-15']);
+  });
+  it('does not study on a rest day even when it is a weekend day with its own minutes', () => {
+    expect(assignDays([300, 300], '2026-11-14', 120, [0], 300)).toEqual(['2026-11-14', '2026-11-16']);
+  });
 });
 
 describe('pickToday', () => {

@@ -4,7 +4,7 @@
  * and learning ahead just takes more steps from the front of the queue. The planned day of each step only measures
  * how far ahead of or behind the original schedule the learner is.
  */
-import { addDays } from './bands.js';
+import { addDays, minutesOn } from './bands.js';
 
 export interface QueueRow {
   id: string;
@@ -18,20 +18,21 @@ const isRest = (iso: string, restDays: number[]) => restDays.includes(new Date(`
 
 /**
  * The calendar day each step is due on the original schedule: steps are placed in order, a day takes steps until
- * its minutes are used (a step that would not fit starts the next day), rest days are skipped
+ * its minutes are used (a step that would not fit starts the next day), rest days are skipped. Saturday and Sunday
+ * take `weekendMinutes` when it is set.
  */
-export function assignDays(minutes: number[], startDate: string, dailyMinutes: number, restDays: number[]): string[] {
+export function assignDays(minutes: number[], startDate: string, dailyMinutes: number, restDays: number[], weekendMinutes: number | null = null): string[] {
   const days: string[] = [];
-  let day = startDate;
-  let used = 0;
+  const time = { dailyMinutes, weekendMinutes, restDays };
   const nextStudyDay = (from: string): string => {
     let d = from;
     while (isRest(d, restDays) && restDays.length < 7) d = addDays(d, 1);
     return d;
   };
-  day = nextStudyDay(day);
+  let day = nextStudyDay(startDate);
+  let used = 0;
   for (const m of minutes) {
-    if (used > 0 && used + m > dailyMinutes) {
+    if (used > 0 && used + m > minutesOn(time, day)) {
       day = nextStudyDay(addDays(day, 1));
       used = 0;
     }

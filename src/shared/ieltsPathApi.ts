@@ -10,6 +10,10 @@ export type MeasuredBands = { listening: number; reading: number; writing: numbe
 export type Feasibility = 'ok' | 'tight' | 'hard';
 
 export const DAILY_MINUTE_CHOICES = [120, 180, 240] as const;
+/** Minutes for Saturday and Sunday (the usual day's minutes when not set) */
+export const WEEKEND_MINUTE_CHOICES = [120, 180, 240, 300] as const;
+/** Steps for changing the minutes of a path after it was created */
+export const MINUTE_STEPS = [60, 90, 120, 150, 180, 210, 240, 270, 300] as const;
 export const MIN_DAILY_MINUTES = 60;
 export const MAX_DAILY_MINUTES = 300;
 export const OVERALL_CHOICES = [5, 5.5, 6, 6.5, 7] as const;
@@ -94,6 +98,8 @@ export interface PathView {
   overallTarget: number;
   examDate: string | null;
   dailyMinutes: number;
+  /** Minutes on Saturday and Sunday (null: as a usual day) */
+  weekendMinutes: number | null;
   restDays: number[];
   startPhase: number | null;
   endPhase: number;
@@ -114,6 +120,7 @@ export interface PathInput {
   bandTargets: Bands;
   examDate: string | null;
   dailyMinutes: number;
+  weekendMinutes?: number | null;
   restDays: number[];
 }
 
@@ -179,6 +186,7 @@ export interface PathToday {
   position: { phase: number; week: number; day: number; extra: 'remedial' | 'buffer' | null } | null;
   restDay: boolean;
   dailyMinutes: number;
+  weekendMinutes: number | null;
   capacityMinutes: number;
   plannedMinutes: number;
   doneMinutes: number;

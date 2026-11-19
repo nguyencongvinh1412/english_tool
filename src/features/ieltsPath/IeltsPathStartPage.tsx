@@ -22,6 +22,7 @@ import {
   PATH_SKILLS,
   profileFor,
   type Bands,
+  WEEKEND_MINUTE_CHOICES,
 } from '@/shared/ieltsPathApi';
 import '@/features/roadmap/roadmap.css';
 import './ieltsPath.css';
@@ -46,6 +47,7 @@ export const IeltsPathStartPage: React.FC = () => {
   const [examDate, setExamDate] = useState(addDays(todayIso(), 180));
   const [minutes, setMinutes] = useState<number>(180);
   const [custom, setCustom] = useState(false);
+  const [weekend, setWeekend] = useState<number | null>(null);
   const [restDays, setRestDays] = useState<number[]>([0]);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +66,7 @@ export const IeltsPathStartPage: React.FC = () => {
     setCreating(true);
     setError(null);
     try {
-      await ieltsPathApi.create({ bandTargets: targets, examDate: noExamDate ? null : examDate, dailyMinutes: minutes, restDays });
+      await ieltsPathApi.create({ bandTargets: targets, examDate: noExamDate ? null : examDate, dailyMinutes: minutes, weekendMinutes: weekend, restDays });
       navigate(ROUTES.IELTS_PATH);
     } catch (e) {
       setError(errorMessage(e, t) || p.createError);
@@ -168,6 +170,22 @@ export const IeltsPathStartPage: React.FC = () => {
                 </Field>
               )}
               <p className="create__muted">{p.dailyHint}</p>
+            </fieldset>
+
+            <fieldset className="create__minimums">
+              <legend>{p.weekendLabel}</legend>
+              <div className="create__choices" role="radiogroup" aria-label={p.weekendLabel}>
+                {[null, ...WEEKEND_MINUTE_CHOICES].map((n) => {
+                  const on = weekend === n;
+                  return (
+                    <button key={n ?? 'same'} type="button" role="radio" aria-checked={on} className={`create__choice ${on ? 'create__choice--on' : ''}`} onClick={() => setWeekend(n)}>
+                      {on ? '✓ ' : ''}
+                      {n === null ? p.weekendSame : p.minutes(n)}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="create__muted">{p.weekendHint}</p>
             </fieldset>
 
             <fieldset className="create__minimums">

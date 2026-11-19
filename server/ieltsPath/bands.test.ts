@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPathPlan, endPhaseFor, meetsGate, overallOf, profileFor, startPhaseFor, SYLLABUS_WEEK_MINUTES } from './bands.js';
+import { buildPathPlan, endPhaseFor, meetsGate, minutesOn, overallOf, profileFor, startPhaseFor, SYLLABUS_WEEK_MINUTES, typicalDay, weekMinutes } from './bands.js';
 
 describe('profileFor', () => {
   it('gives the syllabus profile for 7.0', () => {
@@ -38,6 +38,23 @@ describe('gates and phases', () => {
   });
 });
 
+describe('time settings', () => {
+  const time = { dailyMinutes: 120, weekendMinutes: 300, restDays: [] as number[] };
+  it('gives Saturday and Sunday the weekend minutes, a rest day none', () => {
+    expect(minutesOn(time, '2026-11-13')).toBe(120); // Friday
+    expect(minutesOn(time, '2026-11-14')).toBe(300); // Saturday
+    expect(minutesOn(time, '2026-11-15')).toBe(300); // Sunday
+    expect(minutesOn({ ...time, restDays: [0] }, '2026-11-15')).toBe(0);
+    expect(minutesOn({ ...time, weekendMinutes: null }, '2026-11-14')).toBe(120);
+  });
+  it('adds up a week and averages a study day', () => {
+    expect(weekMinutes(time)).toBe(5 * 120 + 2 * 300);
+    expect(typicalDay(time)).toBe(Math.round(1200 / 7));
+    expect(weekMinutes({ ...time, restDays: [0] })).toBe(5 * 120 + 300);
+    expect(typicalDay({ ...time, restDays: [0] })).toBe(Math.round(900 / 6));
+  });
+});
+
 describe('buildPathPlan', () => {
   const base = { startPhase: 1, endPhase: 6, restDays: [], startDate: '2026-11-10', examDate: null, measuredAll: true };
   it('takes 26 syllabus weeks from phase 1 to 6 at the standard pace', () => {
@@ -49,6 +66,12 @@ describe('buildPathPlan', () => {
   it('stretches when the learner has less time', () => {
     const plan = buildPathPlan({ ...base, dailyMinutes: 120 });
     expect(plan.weeks.mid).toBeGreaterThan(40);
+  });
+  it('shortens the plan when the weekend has more minutes', () => {
+    const usual = buildPathPlan({ ...base, dailyMinutes: 120 });
+    const weekend = buildPathPlan({ ...base, dailyMinutes: 120, weekendMinutes: 300 });
+    expect(weekend.weeks.mid).toBeLessThan(usual.weeks.mid);
+    expect(weekend.weeks.mid).toBeCloseTo((usual.weeks.mid * 7 * 120) / (5 * 120 + 2 * 300), 5);
   });
   it('is only the final weeks when the target gate is already met', () => {
     const plan = buildPathPlan({ ...base, startPhase: 5, endPhase: 4, dailyMinutes: 240 });

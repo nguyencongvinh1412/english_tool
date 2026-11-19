@@ -201,7 +201,7 @@ export async function seedExtraSteps(path: IeltsPath, gate: number, kind: 'remed
   for (let day = 1; day <= days; day++) {
     for (const skill of skills) steps.push({ phase: kind === 'remedial' ? gate + 1 : gate, week: 0, day, block: skill, type: EXTRA_TYPES[skill][(day - 1) % 2], minutes: kind === 'remedial' ? 60 : 40 });
   }
-  const planned = assignDays(steps.map((s) => s.minutes), quotaDay(), path.dailyMinutes, path.restDays as number[]);
+  const planned = assignDays(steps.map((s) => s.minutes), quotaDay(), path.dailyMinutes, path.restDays as number[], path.weekendMinutes);
   await db.insert(pathLessons).values(
     steps.map((s, i) => ({ pathId: path.id, userId: path.userId, seq: first + i, phase: s.phase, week: s.week, studyDay: s.day, block: s.block, kind: 'practice', ref: { type: s.type, [kind]: gate }, core: true, minutes: s.minutes, plannedDay: planned[i] }))
   );

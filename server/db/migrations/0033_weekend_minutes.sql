@@ -1,0 +1,1 @@
+ALTER TABLE "ielts_paths" ADD COLUMN "weekend_minutes" integer;

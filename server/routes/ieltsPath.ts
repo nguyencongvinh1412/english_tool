@@ -20,6 +20,7 @@ const futureDate = isoDate.refine((d) => d > quotaDay(), 'The exam date must be 
 const settings = {
   examDate: futureDate.nullable(),
   dailyMinutes: z.number().int().min(MIN_DAILY_MINUTES).max(MAX_DAILY_MINUTES),
+  weekendMinutes: z.number().int().min(MIN_DAILY_MINUTES).max(MAX_DAILY_MINUTES).nullable().optional(),
   restDays: z.array(z.number().int().min(0).max(6)).max(3),
 };
 

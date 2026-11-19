@@ -8,7 +8,7 @@ import { attempts, examSessions, grammarProgress, ieltsPaths, pathLessons, skill
 import type { IeltsBlueprint } from '../exams/ielts.js';
 import { HttpError } from '../http/errors.js';
 import { quotaDay } from '../services/aiAccess.js';
-import { addDays, overallOf, PATH_SKILLS, type Bands, type PathSkill } from './bands.js';
+import { addDays, minutesOn, overallOf, PATH_SKILLS, timeOf, typicalDay, type Bands, type PathSkill } from './bands.js';
 import { loadLesson, type PathLessonContent } from './lessons.js';
 import { componentOf, practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
@@ -43,7 +43,7 @@ export async function ensureSteps(path: IeltsPath): Promise<number> {
     const [last] = await db.select({ seq: sql<number | null>`max(${pathLessons.seq})` }).from(pathLessons).where(eq(pathLessons.pathId, path.id));
     const first = (last?.seq ?? -1) + 1;
     const steps = phaseSteps(phase);
-    const days = assignDays(steps.map((s) => s.minutes), phase === path.startPhase ? path.startDate : quotaDay(), path.dailyMinutes, path.restDays as number[]);
+    const days = assignDays(steps.map((s) => s.minutes), phase === path.startPhase ? path.startDate : quotaDay(), path.dailyMinutes, path.restDays as number[], path.weekendMinutes);
     const rows = steps.map((s, i) => ({ pathId: path.id, userId: path.userId, seq: first + i, phase: s.phase, week: s.week, studyDay: s.day, block: s.block, kind: s.kind, ref: s.ref, core: s.core, minutes: s.minutes, plannedDay: days[i] }));
     for (let k = 0; k < rows.length; k += 100) await db.insert(pathLessons).values(rows.slice(k, k + 100)).onConflictDoNothing();
     added += rows.length;
@@ -179,6 +179,8 @@ export interface PathTodayView {
   position: { phase: number; week: number; day: number; extra: 'remedial' | 'buffer' | null } | null;
   restDay: boolean;
   dailyMinutes: number;
+  /** Minutes on Saturday and Sunday (null: as a usual day) */
+  weekendMinutes: number | null;
   capacityMinutes: number;
   plannedMinutes: number;
   doneMinutes: number;
@@ -203,12 +205,14 @@ export interface PathTodayView {
  */
 export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<PathTodayView> {
   const dailyMinutes = path.dailyMinutes;
+  const time = timeOf(path);
+  const usualDay = typicalDay(time);
   const overallTarget = overallOf(path.bandTargets as Bands);
   const targets = path.bandTargets as Bands;
   const emptyBands = Object.fromEntries(PATH_SKILLS.map((skill) => [skill, { target: targets[skill], gate: null, practice: null, n: 0 }])) as PathTodayView['bands'];
   const empty = (mode: PathTodayMode): PathTodayView => ({
-    mode, overallTarget, position: null, restDay: false, dailyMinutes, capacityMinutes: dailyMinutes, plannedMinutes: 0, doneMinutes: 0, steps: [], behind: { steps: 0, minutes: 0, days: 0, alert: false }, canAhead: false,
-    progress: { done: 0, total: 0, remainingMinutes: 0 }, eta: null, paceMinutes: dailyMinutes, gate: null, retest: null,
+    mode, overallTarget, position: null, restDay: false, dailyMinutes, weekendMinutes: path.weekendMinutes, capacityMinutes: minutesOn(time, today), plannedMinutes: 0, doneMinutes: 0, steps: [], behind: { steps: 0, minutes: 0, days: 0, alert: false }, canAhead: false,
+    progress: { done: 0, total: 0, remainingMinutes: 0 }, eta: null, paceMinutes: usualDay, gate: null, retest: null,
     focus: { writing: null, speaking: null }, bands: emptyBands,
   });
   if (path.startPhase === null || !path.startDate) return empty('unwritten');
@@ -223,10 +227,10 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
   const todo = queue.filter((q) => q.status === 'todo');
   const restDay = (path.restDays as number[]).includes(new Date(`${today}T00:00:00Z`).getUTCDay());
   const ahead = path.aheadDay === today ? path.aheadMinutes : 0;
-  const capacity = (restDay ? 0 : dailyMinutes) + ahead;
+  const capacity = minutesOn(time, today) + ahead;
   const pick = pickToday(queue, today, capacity, (q) => `${q.row.phase}-${q.row.week}-${q.row.studyDay}`);
 
-  const behind = behindOf(queue, today, dailyMinutes);
+  const behind = behindOf(queue, today, usualDay);
   const first = todo[0]?.row;
 
   // Pace: average minutes of the last two weeks of study days
@@ -236,7 +240,7 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
     const d = q.doneDay;
     if (q.status === 'done' && d && d >= since) byDay.set(d, (byDay.get(d) ?? 0) + q.minutes);
   }
-  const pace = paceOf(byDay, dailyMinutes);
+  const pace = paceOf(byDay, usualDay);
   const remainingMinutes = todo.reduce((n, q) => n + q.minutes, 0);
 
   // The gate the learner works towards, and a retest of the gate before it when one is waiting
@@ -268,6 +272,7 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
     position: first ? { phase: first.phase, week: first.week, day: first.studyDay, extra: (first.ref as { remedial?: number }).remedial ? 'remedial' : (first.ref as { buffer?: number }).buffer ? 'buffer' : null } : null,
     restDay,
     dailyMinutes,
+    weekendMinutes: path.weekendMinutes,
     capacityMinutes: capacity,
     plannedMinutes: pick.plannedMinutes,
     doneMinutes: pick.doneMinutes,

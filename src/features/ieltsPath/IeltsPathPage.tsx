@@ -6,18 +6,21 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Banner, Button, Card, EmptyState, ErrorState, LinkButton, Skeleton, Tag } from '@/design';
+import { Banner, Button, Card, EmptyState, ErrorState, Field, LinkButton, Select, Skeleton, Tag } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { ROUTES } from '@/app/routes';
 import { examPath } from '@/features/exams/examRoutes';
 import { formatDay, formatRange } from '@/shared/roadmapApi';
-import { formatBand, ieltsPathApi, PATH_SKILLS, type PathSkill, type PathView } from '@/shared/ieltsPathApi';
+import { formatBand, ieltsPathApi, MINUTE_STEPS, PATH_SKILLS, type PathSkill, type PathView } from '@/shared/ieltsPathApi';
 import { GatePanel } from './GatePanel';
 import { SkillRow } from './SkillRow';
 import '@/features/roadmap/roadmap.css';
 import './ieltsPath.css';
 
 const GRADING_POLL_MS = 5000;
+
+/** The minutes to choose from, plus the stored value when it is not one of the steps */
+const minuteOptions = (current: number | null): number[] => [...new Set([...MINUTE_STEPS, ...(current === null ? [] : [current])])].sort((a, b) => a - b);
 
 export const IeltsPathPage: React.FC = () => {
   const { t } = useI18n();
@@ -97,7 +100,7 @@ export const IeltsPathPage: React.FC = () => {
       const { gate } = await ieltsPathApi.skipSkill(0, skill, skippedNow);
       setPath({ ...path, gate0: gate });
     });
-  const change = (change: { examDate?: string | null; dailyMinutes?: number }) =>
+  const change = (change: { examDate?: string | null; dailyMinutes?: number; weekendMinutes?: number | null }) =>
     run(async () => {
       const { path: next } = await ieltsPathApi.update(change);
       setPath(next);
@@ -109,11 +112,41 @@ export const IeltsPathPage: React.FC = () => {
         <h1>{p.title}</h1>
         <p className="ipath__goal">{p.goalLine(formatBand(path.overallTarget))}</p>
         <p className="create__muted">
-          {[path.examDate ? p.examLine(formatDay(path.examDate)) : null, p.dailyLine(path.dailyMinutes)].filter(Boolean).join(' · ')}
+          {[path.examDate ? p.examLine(formatDay(path.examDate)) : null, p.dailyLine(path.dailyMinutes, path.weekendMinutes)].filter(Boolean).join(' · ')}
         </p>
       </header>
 
       {actionError && <Banner tone="warning">{p.startError}</Banner>}
+
+      <Card padding="md" className="ipath__time">
+        <h2>{p.timeCardTitle}</h2>
+        <div className="ipath__time-fields">
+          <Field label={p.weekdayLabel}>
+            {(id) => (
+              <Select id={id} value={path.dailyMinutes} disabled={busy} onChange={(e) => void change({ dailyMinutes: Number(e.target.value) })}>
+                {minuteOptions(path.dailyMinutes).map((n) => (
+                  <option key={n} value={n}>
+                    {p.minutes(n)}
+                  </option>
+                ))}
+              </Select>
+            )}
+          </Field>
+          <Field label={p.weekendLabel}>
+            {(id) => (
+              <Select id={id} value={path.weekendMinutes ?? ''} disabled={busy} onChange={(e) => void change({ weekendMinutes: e.target.value === '' ? null : Number(e.target.value) })}>
+                <option value="">{p.weekendSame}</option>
+                {minuteOptions(path.weekendMinutes).map((n) => (
+                  <option key={n} value={n}>
+                    {p.minutes(n)}
+                  </option>
+                ))}
+              </Select>
+            )}
+          </Field>
+        </div>
+        <p className="create__muted">{p.weekendHint}</p>
+      </Card>
 
       <div className="ipath__grid">
         <div className="ipath__col">

@@ -13,6 +13,8 @@ export interface PathInput {
   bandTargets: Bands;
   examDate: string | null;
   dailyMinutes: number;
+  /** Minutes on Saturday and Sunday (null or missing: as a usual day) */
+  weekendMinutes?: number | null;
   restDays: number[];
 }
 
@@ -33,14 +35,14 @@ export async function createPath(userId: string, input: PathInput): Promise<Ielt
     await tx.update(ieltsPaths).set({ status: 'archived', updatedAt: new Date() }).where(and(eq(ieltsPaths.userId, userId), eq(ieltsPaths.status, 'active')));
     const [row] = await tx
       .insert(ieltsPaths)
-      .values({ userId, bandTargets: input.bandTargets, examDate: input.examDate, dailyMinutes: input.dailyMinutes, restDays: input.restDays, endPhase: endPhaseFor(input.bandTargets) })
+      .values({ userId, bandTargets: input.bandTargets, examDate: input.examDate, dailyMinutes: input.dailyMinutes, weekendMinutes: input.weekendMinutes ?? null, restDays: input.restDays, endPhase: endPhaseFor(input.bandTargets) })
       .returning();
     return row;
   });
 }
 
-/** Changes the exam date, daily minutes or rest days of the active path */
-export async function updatePath(path: IeltsPath, change: Partial<Pick<PathInput, 'examDate' | 'dailyMinutes' | 'restDays'>>): Promise<IeltsPath> {
+/** Changes the exam date, daily or weekend minutes, or rest days of the active path */
+export async function updatePath(path: IeltsPath, change: Partial<Pick<PathInput, 'examDate' | 'dailyMinutes' | 'weekendMinutes' | 'restDays'>>): Promise<IeltsPath> {
   const [row] = await db.update(ieltsPaths).set({ ...change, updatedAt: new Date() }).where(eq(ieltsPaths.id, path.id)).returning();
   return row;
 }
@@ -62,6 +64,7 @@ export async function pathView(path: IeltsPath) {
           startPhase: fresh.startPhase,
           endPhase: fresh.endPhase,
           dailyMinutes: fresh.dailyMinutes,
+          weekendMinutes: fresh.weekendMinutes,
           restDays: fresh.restDays as number[],
           startDate: fresh.startDate,
           examDate: fresh.examDate,
@@ -84,6 +87,7 @@ export async function pathView(path: IeltsPath) {
     overallTarget: overallOf(targets),
     examDate: fresh.examDate,
     dailyMinutes: fresh.dailyMinutes,
+    weekendMinutes: fresh.weekendMinutes,
     restDays: fresh.restDays as number[],
     startPhase: fresh.startPhase,
     endPhase: fresh.endPhase,

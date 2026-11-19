@@ -1053,6 +1053,8 @@ export const ieltsPaths = pgTable(
     bandTargets: jsonb('band_targets').notNull(),
     examDate: date('exam_date'),
     dailyMinutes: integer('daily_minutes').notNull(),
+    /** Minutes on Saturday and Sunday; null means the same as a usual day */
+    weekendMinutes: integer('weekend_minutes'),
     /** Weekdays with no study, 0 = Sunday */
     restDays: jsonb('rest_days').notNull().default([]),
     /** Phase (1-6) the learner starts in, set when Gate 0 is finished; 7 = already past the last gate */

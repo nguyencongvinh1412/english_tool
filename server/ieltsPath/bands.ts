@@ -24,6 +24,41 @@ export const DAILY_MINUTE_CHOICES = [120, 180, 240] as const;
 export const MIN_DAILY_MINUTES = 60;
 export const MAX_DAILY_MINUTES = 300;
 
+/** The minutes a learner gives to the path: a usual day, and optionally more (or less) on Saturday and Sunday */
+export interface TimeSettings {
+  dailyMinutes: number;
+  /** Minutes on Saturday and Sunday; null means the same as a usual day */
+  weekendMinutes: number | null;
+  /** Days of the week (0 = Sunday) with no study */
+  restDays: number[];
+}
+
+/** The time settings of a stored path */
+export const timeOf = (path: { dailyMinutes: number; weekendMinutes: number | null; restDays: unknown }): TimeSettings => ({
+  dailyMinutes: path.dailyMinutes,
+  weekendMinutes: path.weekendMinutes,
+  restDays: path.restDays as number[],
+});
+
+/** Minutes the learner studies on a calendar day (ISO date): none on a rest day, the weekend minutes on Saturday and Sunday */
+export function minutesOn(time: TimeSettings, iso: string): number {
+  const weekday = new Date(`${iso}T00:00:00Z`).getUTCDay();
+  if (time.restDays.includes(weekday) && time.restDays.length < 7) return 0;
+  return (weekday === 0 || weekday === 6) && time.weekendMinutes !== null ? time.weekendMinutes : time.dailyMinutes;
+}
+
+/** Minutes of one calendar week (any week has the same, whatever day it starts on) */
+export function weekMinutes(time: TimeSettings): number {
+  // 2026-11-15 is a Sunday
+  return Array.from({ length: 7 }, (_, i) => minutesOn(time, `2026-11-${15 + i}`)).reduce((a, b) => a + b, 0);
+}
+
+/** The average minutes of a study day, for turning minutes into days */
+export function typicalDay(time: TimeSettings): number {
+  const studyDays = Math.max(1, 7 - new Set(time.restDays).size);
+  return Math.round(weekMinutes(time) / studyDays);
+}
+
 /** Band each gate asks for: listening and reading, writing and speaking */
 export const GATE_TARGETS: Record<number, { lr: number; ws: number }> = {
   1: { lr: 4.5, ws: 4 },
@@ -103,6 +138,8 @@ export interface PathPlanInput {
   startPhase: number;
   endPhase: number;
   dailyMinutes: number;
+  /** Minutes on Saturday and Sunday (null: as a usual day) */
+  weekendMinutes?: number | null;
   restDays: number[];
   startDate: string;
   examDate: string | null;
@@ -126,7 +163,7 @@ export function buildPathPlan(input: PathPlanInput): PathPlan {
   const syllabusWeeks = phases.length * WEEKS_PER_PHASE + FINAL_WEEKS;
   const minutes = syllabusWeeks * SYLLABUS_WEEK_MINUTES;
   const studyDays = Math.max(1, 7 - new Set(input.restDays).size);
-  const perWeek = input.dailyMinutes * studyDays;
+  const perWeek = weekMinutes({ dailyMinutes: input.dailyMinutes, weekendMinutes: input.weekendMinutes ?? null, restDays: input.restDays });
   const stretch = SYLLABUS_WEEK_MINUTES / perWeek;
   const mid = syllabusWeeks * stretch;
   const u = input.measuredAll ? UNCERTAINTY.measured : UNCERTAINTY.partial;
