@@ -9,10 +9,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Banner, Button, Icon, Spinner } from '@/design';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { useI18n } from '@/i18n/I18nProvider';
+import type { Messages } from '@/i18n/en';
 import { tasksLeft } from '@/shared/billingApi';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { sendMessage } from '@/services/api';
 import type { ChatMessage } from '@/types/api';
+import './ReviewChat.css';
 
 /** Marks the chat itself, so its text is left out of what the AI is given */
 const CHAT_ATTR = 'data-review-chat';
@@ -63,10 +65,13 @@ const Reply: React.FC<{ text: string }> = ({ text }) => (
   </>
 );
 
-export const ReviewChat: React.FC<{ getRoot: () => HTMLElement | null }> = ({ getRoot }) => {
+/** Texts that differ by where the chat sits (exam review, speaking feedback) */
+export type ReviewChatCopy = Partial<Pick<Messages['ielts']['askAi'], 'hint' | 'placeholder' | 'suggestions'>>;
+
+export const ReviewChat: React.FC<{ getRoot: () => HTMLElement | null; copy?: ReviewChatCopy }> = ({ getRoot, copy: override }) => {
   const { t } = useI18n();
   const user = useCurrentUser();
-  const copy = t.ielts.askAi;
+  const copy = { ...t.ielts.askAi, ...override };
   const creditsOut = (tasksLeft(user.credits, 'chat') ?? 1) < 1;
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -178,12 +183,12 @@ export const ReviewChat: React.FC<{ getRoot: () => HTMLElement | null }> = ({ ge
 };
 
 /** One part of the answer review, with the chat that explains it underneath */
-export const ReviewGroup: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ReviewGroup: React.FC<{ children: React.ReactNode; copy?: ReviewChatCopy }> = ({ children, copy }) => {
   const ref = useRef<HTMLDivElement>(null);
   return (
     <div ref={ref} className="ielts-review-group">
       {children}
-      <ReviewChat getRoot={() => ref.current} />
+      <ReviewChat getRoot={() => ref.current} copy={copy} />
     </div>
   );
 };
