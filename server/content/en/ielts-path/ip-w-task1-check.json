@@ -1,0 +1,197 @@
+{
+  "objectives": [
+    {
+      "en": "You read a chart carefully before you write: title, axes, units and years.",
+      "vi": "Bạn đọc kỹ biểu đồ trước khi viết: tiêu đề, trục, đơn vị và năm."
+    },
+    {
+      "en": "You write at least 150 words in clear paragraphs, with an overview and only numbers from the chart.",
+      "vi": "Bạn viết ít nhất 150 từ thành các đoạn rõ ràng, có tổng quan và chỉ dùng số liệu có trên biểu đồ."
+    },
+    {
+      "en": "You check your answer for the five mistakes you make most often.",
+      "vi": "Bạn kiểm tra bài theo năm lỗi bạn hay mắc nhất."
+    }
+  ],
+  "learn": [
+    {
+      "heading": {
+        "en": "Before you write: three minutes with the chart",
+        "vi": "Trước khi viết: ba phút với biểu đồ"
+      },
+      "body": {
+        "en": "Read the **title**, the **axes**, the **units** and the **years**. Ask: are the figures **percentages** or **numbers**? What is the **first** and the **last** year? A chart that stops in 2020 has **no** data for 2023, and a wrong year or a wrong figure costs marks in Task Achievement. Then note the **highest**, the **lowest** and the **biggest change**. These become your overview.",
+        "vi": "Đọc **tiêu đề**, **các trục**, **đơn vị** và **các năm**. Tự hỏi: số liệu là **phần trăm** hay **số lượng**? Năm **đầu** và năm **cuối** là gì? Biểu đồ dừng ở 2020 thì **không có** dữ liệu cho 2023, và sai năm hoặc sai số liệu sẽ mất điểm Task Achievement. Sau đó ghi lại giá trị **cao nhất**, **thấp nhất** và **thay đổi lớn nhất**. Đó là nội dung phần tổng quan."
+      }
+    },
+    {
+      "heading": {
+        "en": "While you write: structure, length and facts",
+        "vi": "Khi viết: bố cục, độ dài và sự thật"
+      },
+      "body": {
+        "en": "Use **four short paragraphs**: introduction (what the chart shows), **overview** (the main trend, no numbers), and two paragraphs of detail. Write **at least 150 words**; under 150 loses marks. Use **only** figures from the chart and give the **year** with each one. Do **not** give opinions (*\"a bad choice\"*) because Task 1 only reports. A finished period needs the **past simple**: *rose*, *was*, *fell*.",
+        "vi": "Viết **bốn đoạn ngắn**: mở bài (biểu đồ cho thấy gì), **tổng quan** (xu hướng chính, không cần số), và hai đoạn chi tiết. Viết **ít nhất 150 từ**; dưới 150 từ bị trừ điểm. Chỉ dùng số liệu **có trên biểu đồ** và nêu **năm** cho từng số. **Không** nêu ý kiến (*\"a bad choice\"*) vì Task 1 chỉ tường thuật. Giai đoạn đã kết thúc cần **quá khứ đơn**: *rose*, *was*, *fell*."
+      }
+    },
+    {
+      "heading": {
+        "en": "After you write: two minutes for your usual mistakes",
+        "vi": "Sau khi viết: hai phút cho lỗi quen thuộc"
+      },
+      "body": {
+        "en": "Check five things. **1. Tense:** a finished period is past simple (*has risen* is only for \"until now\"). **2. Articles:** no *the* before a year (*In 2005*), and *rural areas*, not *the rural*. **3. Subject and verb:** *the figures were*, *the gap was*. **4. Words:** for percentages write *proportion* or *percentage*, not *number* or *demand*. **5. Spelling:** *increase*, not *increasion*. Then check every figure and year against the chart once more.",
+        "vi": "Kiểm tra năm điều. **1. Thì:** giai đoạn đã kết thúc dùng quá khứ đơn (*has risen* chỉ dùng cho \"đến bây giờ\"). **2. Mạo từ:** không có *the* trước năm (*In 2005*), và viết *rural areas*, không viết *the rural*. **3. Chủ ngữ và động từ:** *the figures were*, *the gap was*. **4. Từ vựng:** với phần trăm viết *proportion* hoặc *percentage*, không viết *number* hay *demand*. **5. Chính tả:** *increase*, không phải *increasion*. Cuối cùng đối chiếu từng số liệu và năm với biểu đồ một lần nữa."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": {
+        "en": "The same sentences, before and after the check",
+        "vi": "Cùng các câu, trước và sau khi kiểm tra"
+      },
+      "text": "Before: In the 2005 the number of households using the internet is increasing. The rural has increasion more than the urban.\nAfter: In 2005, 48% of urban households had internet access, compared with 22% in rural areas. By 2020, the figures were 97% and 85%, so the gap narrowed from 26 to 12 percentage points.",
+      "note": {
+        "en": "The year has no \"the\", the tense is past simple, the words are accurate (access, figures), and every number is on the chart.",
+        "vi": "Năm không có \"the\", thì là quá khứ đơn, từ dùng chính xác (access, figures) và mọi số liệu đều có trên biểu đồ."
+      }
+    },
+    {
+      "title": {
+        "en": "A short overview",
+        "vi": "Một phần tổng quan ngắn"
+      },
+      "text": "Overall, internet access rose in both urban and rural areas between 2005 and 2020. Urban households always had the higher proportion, but rural areas grew faster.",
+      "note": {
+        "en": "It names the main trend and one comparison, with no numbers. The details come in the next paragraphs.",
+        "vi": "Nêu xu hướng chính và một so sánh, không có số liệu. Chi tiết nằm ở các đoạn sau."
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "use": {
+        "en": "Introduction",
+        "vi": "Mở bài"
+      },
+      "items": [
+        "The line graph shows the proportion of ... between ... and ...",
+        "The chart compares ... in ... and ...",
+        "The table gives information about ..."
+      ]
+    },
+    {
+      "use": {
+        "en": "Compare",
+        "vi": "So sánh"
+      },
+      "items": [
+        "compared with ...",
+        "whereas ...",
+        "the gap narrowed from ... to ...",
+        "was higher / lower than ..."
+      ]
+    },
+    {
+      "use": {
+        "en": "Fix these",
+        "vi": "Sửa những lỗi này"
+      },
+      "items": [
+        "In 2005 (not: In the 2005)",
+        "rural areas (not: the rural)",
+        "the proportion of households (not: the demand of households)",
+        "increased (not: increasion)"
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The line graph stops in 2020. Can you write about 2023?",
+        "vi": "Biểu đồ đường dừng ở năm 2020. Bạn có được viết về năm 2023 không?"
+      },
+      "options": [
+        "Yes, if you think the trend continues",
+        "No, use only the data on the chart",
+        "Yes, in the overview"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "Task 1 reports only what the chart shows.",
+        "vi": "Task 1 chỉ tường thuật những gì biểu đồ cho thấy."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The chart shows percentages. Which phrase fits?",
+        "vi": "Biểu đồ cho thấy phần trăm. Cụm nào phù hợp?"
+      },
+      "options": [
+        "the demand of households",
+        "the number of households",
+        "the proportion of households"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "en": "Proportion (or percentage) is used for percentages.",
+        "vi": "Proportion (hoặc percentage) dùng cho phần trăm."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "Choose the correct sentence.",
+        "vi": "Chọn câu đúng."
+      },
+      "options": [
+        "In the 2005, 48% of urban households had internet access.",
+        "In 2005, 48% of urban households had internet access.",
+        "In 2005, 48% of urban households has internet access."
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "No \"the\" before a year, and \"households\" is plural, so the verb needs \"had\".",
+        "vi": "Không có \"the\" trước năm, và \"households\" là số nhiều nên động từ dùng \"had\"."
+      }
+    },
+    {
+      "type": "choice",
+      "prompt": {
+        "en": "The data covers 2005 to 2020, a finished period. Which verb is best?",
+        "vi": "Dữ liệu từ 2005 đến 2020, một giai đoạn đã kết thúc. Động từ nào tốt nhất?"
+      },
+      "options": [
+        "is rising",
+        "rose",
+        "has risen"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "en": "A finished period needs the past simple.",
+        "vi": "Giai đoạn đã kết thúc cần quá khứ đơn."
+      }
+    },
+    {
+      "type": "order",
+      "prompt": {
+        "en": "Put the Task 1 routine in order.",
+        "vi": "Sắp xếp quy trình làm Task 1."
+      },
+      "parts": [
+        "Read the title, axes, units and years",
+        "Note the highest, lowest and biggest change",
+        "Write the introduction and the overview",
+        "Write two detail paragraphs with figures from the chart",
+        "Check 150 words and your five usual mistakes"
+      ],
+      "explanation": {
+        "en": "Read first, write the overview before the details, and check at the end.",
+        "vi": "Đọc trước, viết tổng quan trước chi tiết, và kiểm tra ở cuối."
+      }
+    }
+  ]
+}

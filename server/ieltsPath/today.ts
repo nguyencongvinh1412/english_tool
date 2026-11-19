@@ -14,6 +14,7 @@ import { componentOf, practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
 import { adaptSteps } from './adapt.js';
 import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
+import { ensureFoundation } from './foundation.js';
 import { buildErrorBook, isBlankSubmission, recentPracticeBands } from './errors.js';
 import type { CriterionBand } from './errorRules.js';
 import { FINAL_PHASE, LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
@@ -219,6 +220,8 @@ export async function pathToday(path: IeltsPath, today = quotaDay()): Promise<Pa
   if (path.startPhase === null || !path.startDate) return empty('unwritten');
 
   await ensureSteps(path);
+  // Lessons the syllabus gained and the foundation pack: never let a failure here stop Today
+  await ensureFoundation(path).catch((error) => console.error('ensureFoundation failed:', error));
   await syncDone(path);
   // Lessons that follow the learner: never let a failure here stop Today
   await adaptSteps(path, today).catch((error) => console.error('adaptSteps failed:', error));
