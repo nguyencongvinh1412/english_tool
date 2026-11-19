@@ -14,6 +14,8 @@ interface RecordButtonProps {
   stopLabel: string;
   disabled?: boolean;
   size?: 'md' | 'lg';
+  /** Live microphone loudness 0..1; draws a ring that grows with the voice */
+  level?: number;
 }
 
 export const RecordButton: React.FC<RecordButtonProps> = ({
@@ -24,6 +26,7 @@ export const RecordButton: React.FC<RecordButtonProps> = ({
   stopLabel,
   disabled = false,
   size = 'lg',
+  level,
 }) => (
   <button
     type="button"
@@ -32,7 +35,7 @@ export const RecordButton: React.FC<RecordButtonProps> = ({
     disabled={disabled}
     aria-pressed={isRecording}
   >
-    <span className="record__disc">
+    <span className="record__disc" style={isRecording && level !== undefined ? ({ '--level': level.toFixed(2) } as React.CSSProperties) : undefined}>
       <Icon name={isRecording ? 'x' : 'mic'} size={size === 'lg' ? 34 : 24} />
     </span>
     <span className="record__label">{isRecording ? stopLabel : startLabel}</span>
