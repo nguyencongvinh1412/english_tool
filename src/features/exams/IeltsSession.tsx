@@ -4,7 +4,7 @@
  * band estimates, AI-graded writing and speaking, and the answer review
  */
 import type React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Banner, Button, Card, LinkButton, Modal, ProgressBar, Spinner, useToast } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useCurrentUser } from '@/app/AuthProvider';
@@ -16,7 +16,7 @@ import { WritingPromptCard, WritingReview } from '@/features/writing/WritingRevi
 import { SampleAnswers } from './SampleAnswers';
 import { ListeningPanel, ReadingPanel, SpeakingPanel, WritingPanel } from './IeltsPanels';
 import { ExamBar, ExamFooter, ResultBar, ResultFooter, ResultRows, type ResultRow } from './ExamChrome';
-import { ReviewGroup } from './ReviewChat';
+import { ReviewChat, ReviewGroup, type ReviewRegistry } from './ReviewChat';
 import { useExamRunner } from './useExamRunner';
 import './ielts.css';
 
@@ -330,6 +330,8 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
   const toast = useToast();
   const groupLabel = useGroupLabel();
   const groups = useMemo(() => flatten(session), [session]);
+  // The parts of the review, for the AI chat to read
+  const reviewParts: ReviewRegistry = useRef(new Map());
   const result = session.result!;
   const user = useCurrentUser();
   const target = user.targetExam === 'ielts' && user.targetScore ? user.targetScore : null;
@@ -423,7 +425,7 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
             // Graded writing: task, band, then the corrected essay
             if (g.group.kind === 'writing-prompt' && writingTask?.feedback) {
               return (
-                <ReviewGroup key={g.group.id}>
+                <ReviewGroup key={g.group.id} id={g.group.id} label={`${t.ielts.components[g.component]} · ${groupLabel(g)}`} registry={reviewParts}>
                   {title}
                   <WritingPromptCard task={g.group.payload} />
                   <BandFeedback feedback={writingTask.feedback} tone="writing" note={t.ielts.bandNote} />
@@ -435,7 +437,7 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
 
             const speakingFeedback = g.component === 'speaking' ? result.speaking?.feedback : null;
             return (
-              <ReviewGroup key={g.group.id}>
+              <ReviewGroup key={g.group.id} id={g.group.id} label={`${t.ielts.components[g.component]} · ${groupLabel(g)}`} registry={reviewParts}>
                 {speakingFeedback && <BandFeedback feedback={speakingFeedback} tone="speaking" note={t.ielts.bandNote} />}
                 <Card padding="lg" className="exam-card">
                   {title}
@@ -462,6 +464,7 @@ const IeltsResultView: React.FC<{ session: IeltsSession; onUpdate: (session: Iel
 
       </main>
       <ResultFooter reviewId="exam-review" />
+      <ReviewChat registry={reviewParts} />
     </div>
   );
 };

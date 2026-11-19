@@ -7,13 +7,14 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { GroqApiError, type ChatMessage } from '../services/groq.js';
 import { isCliProxyConfigured, listAllowedModels, getDefaultModel, CliProxyApiError } from '../services/cliproxy.js';
-import { sendWithFallback } from '../services/ai.js';
+import { runAI, sendWithFallback } from '../services/ai.js';
+import type { ChatMessage as RichMessage } from '../services/cliproxy.js';
 import { currentUser, limitAiRequests, requireAuth } from '../auth/middleware.js';
 import { HttpError } from '../http/errors.js';
 import { assertQuota, effectiveModels, recordUsage, resolveModel } from '../services/aiAccess.js';
 import { getAiMode, keyFor, providerOf } from '../services/aiProvider.js';
 import { config } from '../config.js';
-import { chatContextSchema, chatSystemPrompt, splitSuggestions, wantsSuggestions } from '../content/chatPrompts.js';
+import { chatContextSchema, chatSystemPrompt, REVIEW_MATERIAL_MAX, splitSuggestions, wantsSuggestions } from '../content/chatPrompts.js';
 import { inputTokens } from '../billing/pricing.js';
 
 /** Usage feature key for free-form chat requests */
@@ -37,6 +38,21 @@ const chatBodySchema = z.object({
     .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
   /** Which activity the chat belongs to; the server builds the system prompt from it */
   context: chatContextSchema,
+  model: z.string().max(100).optional(),
+});
+
+/** Pictures arrive shrunk by the browser as data URLs; the request body is limited to 1 MB in all */
+const MAX_REVIEW_IMAGES = 2;
+const reviewImage = z.string().max(400_000).regex(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/);
+const reviewBodySchema = z.object({
+  messages: z
+    .array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(MAX_MESSAGE_CHARS), images: z.array(reviewImage).max(MAX_REVIEW_IMAGES).optional() }))
+    .min(1)
+    .max(MAX_MESSAGES)
+    .refine((messages) => messages.reduce((sum, m) => sum + m.content.length, 0) <= MAX_TOTAL_CHARS, 'The conversation is too long')
+    .refine((messages) => messages.at(-1)?.role === 'user', 'The last message must come from the user'),
+  /** The text of the part of the answer review the learner asks about */
+  material: z.string().trim().min(20).max(REVIEW_MATERIAL_MAX),
   model: z.string().max(100).optional(),
 });
 
@@ -103,6 +119,35 @@ export function createChatRouter(): Router {
    * @throws {408} If request times out
    * @throws {500} If internal error occurs
    */
+  /**
+   * POST /review - Ask the AI to explain a part of an exercise's answer review (pictures may be attached)
+   *
+   * @route POST /api/chat/review
+   * @body {Object} request - messages (the last from the user, with optional pictures) and the text of that part
+   * @returns {Object} { message: string }
+   */
+  router.post('/review', limitAiRequests, async (req: Request, res: Response): Promise<void> => {
+    const body = reviewBodySchema.parse(req.body);
+    const user = currentUser(req);
+    // Pictures count only on the newest message that has them, which keeps requests small
+    const newestWithPictures = body.messages.reduce((found, m, index) => (m.images?.length ? index : found), -1);
+    const messages: RichMessage[] = body.messages.map(({ role, content, images }, index): RichMessage => {
+      if (role === 'user' && index === newestWithPictures && images?.length) {
+        return { role, content: [{ type: 'text', text: content }, ...images.map((url) => ({ type: 'image_url' as const, image_url: { url } }))] };
+      }
+      return { role, content: images?.length ? `${content} [picture sent earlier]` : content };
+    });
+    const reply = await runAI(user, {
+      feature: 'review-chat',
+      model: body.model,
+      timeoutMs: 120_000,
+      system: chatSystemPrompt({ mode: 'review', material: body.material }, user.uiLocale),
+      messages,
+    });
+    if (!reply.trim()) throw new HttpError(502, 'The AI returned no answer. Please try again.', 'ai_unavailable');
+    res.json({ message: reply.trim() });
+  });
+
   router.post('/', limitAiRequests, async (req: Request, res: Response): Promise<void> => {
     const body = chatBodySchema.parse(req.body);
 
