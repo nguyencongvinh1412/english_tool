@@ -155,7 +155,7 @@ export interface PathStep {
   day: number;
   block: StepBlock;
   kind: StepKind;
-  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string; remedial?: number; buffer?: number; adaptive?: string; reviewOf?: string };
+  ref: { lessonId?: string; type?: string; pointId?: string; level?: string; count?: number; topic?: string; remedial?: number; buffer?: number; adaptive?: string; reviewOf?: string; redoOf?: string };
   minutes: number;
   core: boolean;
   done: boolean;

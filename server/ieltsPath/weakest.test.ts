@@ -84,3 +84,40 @@ describe('week 22', () => {
     expect(await extraSteps(fine.path)).toHaveLength(0);
   });
 });
+
+describe('a writing task graded under its phase target', () => {
+  async function doneWriting(band: number, extra: Record<string, unknown> = {}) {
+    const user = await createUser();
+    const [path] = await db
+      .insert(ieltsPaths)
+      .values({ userId: user.id, bandTargets: { listening: 7, reading: 7, writing: 6.5, speaking: 6.5 }, dailyMinutes: 240, restDays: [], startPhase: 3, endPhase: 3, startDate: quotaDay() })
+      .returning();
+    await ensureSteps(path);
+    const rows = await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id)).orderBy(asc(pathLessons.seq));
+    const step = rows.find((r) => r.kind === 'practice' && String((r.ref as { type?: string }).type).startsWith('w-') && !(r.ref as { test?: string }).test)!;
+    const [session] = await db
+      .insert(examSessions)
+      .values({ userId: user.id, exam: 'ielts', mode: 'lesson', blueprint: { exam: 'ielts', sections: [{ component: 'writing', groupIds: ['g-1'] }] }, status: 'submitted', submittedAt: new Date(), timeLimitSec: 1200, result: { listening: null, reading: null, writing: { status: 'done', band, tasks: [] }, speaking: null, overall: null } })
+      .returning();
+    await db.update(pathLessons).set({ status: 'done', doneAt: new Date(), ref: { ...(step.ref as object), sessionId: session.id, ...extra } }).where(eq(pathLessons.id, step.id));
+    return { path, step };
+  }
+  const redoSteps = async (path: IeltsPath) => (await db.select().from(pathLessons).where(eq(pathLessons.pathId, path.id))).filter((r) => String((r.ref as { adaptive?: string }).adaptive ?? '').startsWith('writing-redo:'));
+
+  it('comes back as the same task, first in the queue, once', async () => {
+    const { path, step } = await doneWriting(4.5);
+    expect(await adaptSteps(path, '2026-12-01')).toBe(true);
+    const [redo] = await redoSteps(path);
+    expect(redo.block).toBe('writing');
+    expect(redo.ref).toMatchObject({ redoOf: step.id, groupIds: ['g-1'], type: (step.ref as { type: string }).type });
+    // Not again for the same task, even a week later
+    expect(await adaptSteps(path, '2026-12-09')).toBe(false);
+    expect(await redoSteps(path)).toHaveLength(1);
+  });
+
+  it('is not asked for when the band reaches the target of the phase', async () => {
+    const { path } = await doneWriting(5);
+    await adaptSteps(path, '2026-12-01');
+    expect(await redoSteps(path)).toHaveLength(0);
+  });
+});

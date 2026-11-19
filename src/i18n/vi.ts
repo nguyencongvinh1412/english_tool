@@ -2212,6 +2212,7 @@ export const vi: Messages = {
         'weakest-reading': 'Đọc là kỹ năng cách đích Gate 6 xa nhất trong bài thi thử đầu tiên của bạn, nên tuần này một nửa thời gian luyện dành cho nó. Đây là bài luyện thêm.',
         'weakest-writing': 'Viết là kỹ năng cách đích Gate 6 xa nhất trong bài thi thử đầu tiên của bạn, nên tuần này một nửa thời gian luyện dành cho nó. Đây là bài luyện thêm.',
         'weakest-speaking': 'Nói là kỹ năng cách đích Gate 6 xa nhất trong bài thi thử đầu tiên của bạn, nên tuần này một nửa thời gian luyện dành cho nó. Đây là bài luyện thêm.',
+        'writing-redo': 'Bài viết lần trước của bạn chấm dưới band Viết mục tiêu của giai đoạn này. Hãy đọc nhận xét, rồi viết lại đúng đề đó và sửa những chỗ bị trừ điểm. Viết lại có nhận xét là cách nâng band.',
         'lesson-review': 'Bài kiểm tra của bạn ở bài học này dưới 70%. Ôn nhanh trước khi đi tiếp.',
         'listening-spelling': 'Bạn hay viết sai chính tả khi nghe. Bài này toàn là điền biểu mẫu: viết cẩn thận rồi kiểm tra chính tả.',
         'listening-plural': 'Bạn hay bỏ sót -s số nhiều khi nghe. Hãy lắng nghe âm cuối trong bài điền biểu mẫu này.',

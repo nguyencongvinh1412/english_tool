@@ -5,6 +5,8 @@
  *   listening: one kind of mistake three or more times in a week -> a listening exercise of the matching kind
  *   reading: a kind of question under 60% over 10 or more questions in two weeks -> practice of that kind
  *   speaking: pronunciation is the lowest criterion and 5.5 or less -> the pronunciation practice
+ *   writing: a practice task graded under the Writing target of its phase -> the same task again, to rewrite it with the
+ *   feedback in hand (once per task, within two weeks)
  *   week 22 of phase 6: the skill furthest below its Gate 6 target in the first mock test gets an extra exercise a day,
  *   so that it has half of the practice time that week
  * A reason is never repeated within a week, and nothing is inserted while the same one is still waiting.
@@ -17,6 +19,8 @@ import { addDays, gateTarget, type PathSkill } from './bands.js';
 import { buildErrorBook } from './errors.js';
 import { topCategory, weakestSkill, weakestType, type ListeningCategory } from './errorRules.js';
 import { DEFAULT_PRACTICE_MINUTES, LESSONS, type PracticeType, type StepKind } from './syllabus.js';
+import { componentOf } from './practice.js';
+import type { IeltsBlueprint } from '../exams/ielts.js';
 
 export const DRILL_REVIEW_BELOW = 70;
 const LISTENING_MIN = 3;
@@ -24,6 +28,7 @@ const READING_MIN_QUESTIONS = 10;
 const READING_BELOW = 0.6;
 const PRONUNCIATION_AT_MOST = 5.5;
 const REPEAT_DAYS = 7;
+const REDO_WINDOW_AGE_MS = 14 * 86_400_000;
 
 const LISTENING_TYPE: Record<ListeningCategory, string> = { spelling: 'l-form', plural: 'l-form', missed: 'l-form', distractor: 'l-mono', misheard: 'l-mono' };
 const READING_TYPE: Record<string, string> = { tfng: 'r-tfng', match: 'r-scan', gap: 'r-short', mcq: 'r-short' };
@@ -65,6 +70,37 @@ export async function mockBands(rows: PathLesson[]): Promise<Partial<Record<Path
   return Object.keys(bands).length > 0 ? bands : null;
 }
 
+/**
+ * A graded writing practice task that fell under the Writing target of its phase's gate and has not been redone: the
+ * learner writes the same task again. A rewrite is never redone itself, so nobody is stuck on one prompt.
+ */
+export async function writingRedo(rows: PathLesson[], now = new Date()): Promise<{ id: string; type: PracticeType; groupIds: string[]; minutes: number } | null> {
+  const redone = new Set(rows.map((r) => (r.ref as { redoOf?: string }).redoOf).filter((id): id is string => Boolean(id)));
+  const since = now.getTime() - REDO_WINDOW_AGE_MS;
+  const candidates = rows
+    .filter((r) => {
+      const ref = r.ref as { type?: PracticeType; test?: string; sessionId?: string; redoOf?: string };
+      return r.kind === 'practice' && r.status === 'done' && ref.type && componentOf(ref.type) === 'writing' && !ref.test && !ref.redoOf && ref.sessionId && !redone.has(r.id) && r.doneAt !== null && r.doneAt.getTime() >= since;
+    })
+    .sort((a, b) => a.seq - b.seq);
+  if (candidates.length === 0) return null;
+  const sessions = await db
+    .select({ id: examSessions.id, result: examSessions.result, blueprint: examSessions.blueprint })
+    .from(examSessions)
+    .where(inArray(examSessions.id, candidates.map((r) => (r.ref as { sessionId: string }).sessionId)));
+  for (const row of candidates) {
+    const session = sessions.find((s) => s.id === (row.ref as { sessionId: string }).sessionId);
+    const writing = (session?.result as IeltsResult | null)?.writing;
+    if (!session || writing?.status !== 'done' || writing.band === null) continue;
+    if (writing.band >= gateTarget(Math.min(Math.max(row.phase, 1), 6), 'writing')) continue;
+    const groupIds = (session.blueprint as IeltsBlueprint).sections.filter((s) => s.component === 'writing').flatMap((s) => s.groupIds);
+    if (groupIds.length === 0) continue;
+    const type = (row.ref as { type: PracticeType }).type;
+    return { id: row.id, type, groupIds, minutes: row.minutes || DEFAULT_PRACTICE_MINUTES[type] };
+  }
+  return null;
+}
+
 interface Insert {
   key: string;
   block: PathLesson['block'];
@@ -94,6 +130,10 @@ export async function chooseInsert(path: IeltsPath, today: string, taken: Set<st
       return { key: `weakest-${weak.skill}:${today}`, block: weak.skill, kind: 'practice', ref: { type }, minutes: DEFAULT_PRACTICE_MINUTES[type] };
     }
   }
+
+  // A writing task graded under the target of its phase is written again, with its feedback in hand
+  const redo = await writingRedo(rows);
+  if (redo) return { key: `writing-redo:${redo.id}`, block: 'writing', kind: 'practice', ref: { type: redo.type, redoOf: redo.id, groupIds: redo.groupIds }, minutes: redo.minutes };
 
   // A lesson whose drill went badly gets a short review
   const weakLesson = rows.find((r) => r.kind === 'lesson' && r.status === 'done' && !(r.ref as { reviewOf?: string }).reviewOf && !reviewed.has(r.id) && typeof (r.result as { drillScore?: number } | null)?.drillScore === 'number' && (r.result as { drillScore: number }).drillScore < DRILL_REVIEW_BELOW);
