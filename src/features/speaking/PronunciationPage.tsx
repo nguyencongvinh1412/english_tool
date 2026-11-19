@@ -22,7 +22,7 @@ import { DIFFICULTIES, SOUND_FOCUSES, getPhrases, pickPhrase, type Difficulty, t
 import { compareTexts, type ComparisonResult } from '@/utils/textComparison';
 import { RecordButton } from './RecordButton';
 import { SpeechNotes } from './SpeechNotes';
-import { micErrorText } from './micError';
+import { micErrorText } from '@/shared/micError';
 import { tokens } from './speechSummary';
 import './speaking.css';
 

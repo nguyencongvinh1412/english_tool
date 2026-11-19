@@ -20,7 +20,7 @@ import { BandFeedback } from '@/features/practice/BandFeedback';
 import { ReviewGroup } from '@/features/exams/ReviewChat';
 import { RecordButton } from './RecordButton';
 import { SpeechNotes } from './SpeechNotes';
-import { micErrorText } from './micError';
+import { micErrorText } from '@/shared/micError';
 import { mergeAssessments, toSpeechSummary } from './speechSummary';
 import './speaking.css';
 

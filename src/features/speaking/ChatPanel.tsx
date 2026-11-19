@@ -9,16 +9,12 @@ import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Banner, Button, Icon, Spinner, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useSpeechRecognition, useTextToSpeech } from '@/hooks';
-import { useAudioCapture, type CaptureResult } from '@/hooks/useAudioCapture';
+import { useSpokenText, useTextToSpeech } from '@/hooks';
 import type { ChatMessage } from '@/types/api';
-import { errorMessage } from '@/shared/http';
-import { assessSpeech, isSpeechUnavailable } from '@/shared/speechApi';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { JaText } from '@/shared/ja/JaText';
 import { plainText } from '@/shared/ja/text';
 import { RecordButton } from './RecordButton';
-import { micErrorText } from './micError';
 import './speaking.css';
 
 /** One spoken turn in a chat is short */
@@ -52,45 +48,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
   const sampleAnswers = lastMessage?.role === 'assistant' && !isLoading ? (lastMessage.suggestions ?? []) : [];
   const hintsOpen = hintsFor === messages.length;
 
-  const browser = useSpeechRecognition(language);
-  const { transcript, interimTranscript, resetTranscript } = browser;
   const { speak } = useTextToSpeech();
-
-  // English: record, then the server turns the recording into text
-  const [checking, setChecking] = useState(false);
-  const [voiceNote, setVoiceNote] = useState<string | null>(null);
-  const attempt = useRef(0);
-  const onTake = useCallback(
-    ({ wav, fallbackText }: CaptureResult) => {
-      const id = ++attempt.current;
-      setChecking(true);
-      setVoiceNote(null);
-      assessSpeech(wav, { mode: 'transcribe' })
-        .then((result) => {
-          if (id === attempt.current) setSpoken(result.transcript);
-        })
-        .catch((failure: unknown) => {
-          if (id !== attempt.current) return;
-          // The server check is down: keep what the browser heard, if anything
-          const heard = fallbackText();
-          if (heard) setSpoken(heard);
-          else setVoiceNote(isSpeechUnavailable(failure) ? t.speechCheck.unavailableNoText : errorMessage(failure, t));
-        })
-        .finally(() => {
-          if (id === attempt.current) setChecking(false);
-        });
-    },
-    [t]
-  );
-  const capture = useAudioCapture({ maxSec: MAX_TURN_SEC, livePreview: true, onComplete: onTake });
-  const serverVoice = language === 'en' && capture.isSupported;
-
-  const isSupported = serverVoice || browser.isSupported;
-  const isListening = serverVoice ? capture.status === 'recording' || capture.status === 'starting' : browser.isListening;
-  const liveText = serverVoice ? capture.liveText : `${transcript} ${interimTranscript}`.trim();
-  const speechError = serverVoice ? (capture.errorKind ? micErrorText(capture.errorKind, t) : voiceNote) : browser.error;
-  const startListening = serverVoice ? () => void capture.start() : browser.startListening;
-  const stopListening = serverVoice ? capture.stop : browser.stopListening;
+  const voice = useSpokenText({ language, maxSec: MAX_TURN_SEC, onText: setSpoken });
 
   // Keep the newest message in view
   useEffect(() => {
@@ -105,15 +64,6 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
     }
     spokenCount.current = messages.length;
   }, [messages, speak, language]);
-
-  // Browser recognition: when recording stops, hold the transcript for review before sending
-  useEffect(() => {
-    if (!browser.isListening && transcript) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- result of the external speech API
-      setSpoken(transcript);
-      resetTranscript();
-    }
-  }, [browser.isListening, transcript, resetTranscript]);
 
   const send = useCallback(
     async (text: string) => {
@@ -228,35 +178,35 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
       )}
 
       <div className="chat__composer">
-        {isSupported ? (
+        {voice.isSupported ? (
           <div className="chat__voice">
             <RecordButton
               size="md"
-              isRecording={isListening}
+              isRecording={voice.isListening}
               onStart={() => {
                 setSpoken('');
-                startListening();
+                voice.start();
               }}
-              onStop={stopListening}
+              onStop={voice.stop}
               startLabel={t.chat.speak}
               stopLabel={t.chat.stop}
-              disabled={isLoading || checking}
-              level={serverVoice ? capture.level : undefined}
+              disabled={isLoading || voice.checking}
+              level={voice.level}
             />
 
-            {isListening && liveText && (
+            {voice.isListening && voice.liveText && (
               <p className="speak-live" lang="en">
-                {liveText}
+                {voice.liveText}
               </p>
             )}
 
-            {checking && (
+            {voice.checking && (
               <p className="speak-timer">
                 <Spinner size={14} /> {t.chat.transcribing}
               </p>
             )}
 
-            {!isListening && spoken && (
+            {!voice.isListening && spoken && (
               <div className="chat__spoken">
                 <p lang="en">{spoken}</p>
                 <div className="chat__spoken-actions">
@@ -278,7 +228,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
           <Banner tone="warning">{t.chat.voiceUnsupported}</Banner>
         )}
 
-        {isSupported && <div className="chat__divider">{t.chat.or}</div>}
+        {voice.isSupported && <div className="chat__divider">{t.chat.or}</div>}
 
         <form className="chat__form" onSubmit={submitDraft}>
           <TextInput
@@ -297,7 +247,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
         </form>
       </div>
 
-      {(error || speechError) && <Banner tone="danger">{error ?? speechError}</Banner>}
+      {(error || voice.error) && <Banner tone="danger">{error ?? voice.error}</Banner>}
     </div>
   );
 };
