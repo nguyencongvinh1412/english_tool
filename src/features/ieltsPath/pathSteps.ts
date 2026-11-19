@@ -21,7 +21,8 @@ export function stepLink(step: PathStep): string {
     case 'words':
       return TOPIC_DECK[step.ref.topic ?? ''] ? `${ROUTES.VOCABULARY}?deck=en-topic-${TOPIC_DECK[step.ref.topic ?? '']}` : ROUTES.VOCABULARY;
     case 'dictation':
-      return ROUTES.DICTATION;
+      // A passage at the learner's level that they have not done
+      return `${ROUTES.DICTATION}?next=1`;
     case 'pronunciation':
       return ROUTES.PRONUNCIATION;
   }

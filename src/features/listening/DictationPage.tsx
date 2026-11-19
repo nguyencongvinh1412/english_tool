@@ -3,12 +3,15 @@
  * Lesson picker (built-in or AI-generated), then the practice loop
  */
 import type React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Badge, Banner, Button, Card, PageHeader, Segmented, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { DICTATION_LESSONS, type DictationLesson } from '@/constants/dictations';
 import { DIFFICULTIES, type Difficulty } from '@/constants/phrases';
 import { generateDictationLesson } from '@/services/dictationGenerator';
+import { dictationApi, type DictationMode, type DictationPassage } from '@/shared/dictationApi';
+import { errorMessage } from '@/shared/http';
 import { useProgress } from '@/shared/progress';
 import { progressApi } from '@/shared/progressApi';
 import { DictationPractice } from './DictationPractice';
@@ -16,6 +19,9 @@ import './dictation.css';
 
 /** Color per difficulty level */
 const LEVEL_TONES: Record<Difficulty, string> = { easy: 'success', medium: 'warning', hard: 'danger' };
+
+/** Difficulty label of a level in the lesson picker */
+const DIFFICULTY_OF: Record<DictationPassage['level'], Difficulty> = { A2: 'easy', B1: 'medium', B2: 'medium', C1: 'hard' };
 
 /** Pre-v2 per-browser best scores, moved to the account once */
 const LEGACY_SCORES_KEY = 'english-tool:dictation-scores';
@@ -59,11 +65,15 @@ export const DictationPage: React.FC = () => {
   const { t } = useI18n();
   const { record } = useProgress();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
-  const [active, setActive] = useState<{ lesson: DictationLesson; generated: boolean } | null>(null);
+  const [active, setActive] = useState<{ lesson: DictationLesson; generated: boolean; note?: string } | null>(null);
+  const [summary, setSummary] = useState<{ level: DictationPassage['level']; weak: number } | null>(null);
   const [best, setBest] = useState<Record<string, number>>({});
   const [topic, setTopic] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateError, setGenerateError] = useState<string | null>(null);
+  const [isLoadingNext, setIsLoadingNext] = useState(false);
+  const [params, setParams] = useSearchParams();
+  const autoStarted = useRef(false);
 
   const loadBest = useCallback(() => {
     progressApi
@@ -75,6 +85,44 @@ export const DictationPage: React.FC = () => {
   useEffect(() => {
     migrateLegacyScores(record).finally(loadBest);
   }, [record, loadBest]);
+
+  // How many lessons are worth doing again; read again when a lesson ends and the picker comes back
+  useEffect(() => {
+    if (active) return;
+    dictationApi
+      .summary()
+      .then(setSummary)
+      .catch(() => {});
+  }, [active]);
+
+  /** A passage at the learner's level: one they have not done, or one to do again (under 80% the last time) */
+  const start = useCallback(
+    async (mode: DictationMode): Promise<void> => {
+      setIsLoadingNext(true);
+      setGenerateError(null);
+      try {
+        const passage = await dictationApi.next(mode);
+        // The fixed lessons of the app are held here, not on the server
+        const fixed = passage.origin === 'builtin' ? DICTATION_LESSONS.find((l) => l.id === passage.id) : undefined;
+        const lesson: DictationLesson | undefined = fixed ?? (passage.sentences.length > 0 ? { id: passage.id, title: passage.title, difficulty: DIFFICULTY_OF[passage.level], sentences: passage.sentences } : undefined);
+        if (!lesson) throw new Error(t.errors.generic);
+        setActive({ lesson, generated: false, note: passage.reason === 'redo' ? t.dictation.redoNote(passage.previousPercent ?? 0) : undefined });
+      } catch (error) {
+        setGenerateError(errorMessage(error, t));
+      } finally {
+        setIsLoadingNext(false);
+      }
+    },
+    [t]
+  );
+
+  // A step of the study plan opens a fresh passage straight away
+  useEffect(() => {
+    if (params.get('next') !== '1' || autoStarted.current) return;
+    autoStarted.current = true;
+    setParams({}, { replace: true });
+    void start('auto');
+  }, [params, setParams, start]);
 
   const handleGenerate = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
@@ -97,6 +145,7 @@ export const DictationPage: React.FC = () => {
         key={active.lesson.id}
         lesson={active.lesson}
         isGenerated={active.generated}
+        note={active.note}
         onExit={() => setActive(null)}
         onCompleted={loadBest}
       />
@@ -108,6 +157,23 @@ export const DictationPage: React.FC = () => {
   return (
     <div className="dict">
       <PageHeader eyebrow={t.nav.listening} title={t.dictation.title} description={t.dictation.description} />
+
+      <Card padding="lg" tone="listening" className="dict-generator">
+        <h2 className="dict-generator__title">{t.dictation.nextTitle}</h2>
+        <p className="dict-generator__body">{t.dictation.nextBody}</p>
+        <div className="dict-generator__form">
+          <Button icon="chevronRight" loading={isLoadingNext} onClick={() => void start('new')}>
+            {isLoadingNext ? t.dictation.nextLoading : t.dictation.nextStart}
+          </Button>
+          <Button variant="secondary" icon="swap" disabled={isLoadingNext || !summary || summary.weak === 0} onClick={() => void start('redo')}>
+            {t.dictation.redoStart(summary?.weak ?? 0)}
+          </Button>
+          <Button variant="ghost" icon="sparkles" disabled={isLoadingNext} onClick={() => void start('auto')}>
+            {t.dictation.mixStart}
+          </Button>
+        </div>
+        {generateError && <Banner tone="danger">{generateError}</Banner>}
+      </Card>
 
       <Segmented<Difficulty>
         label={t.dashboard.level}

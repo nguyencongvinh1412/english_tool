@@ -30,6 +30,7 @@ import { createDeepExtrasRouter } from './routes/deepExtras.js';
 import { createGrammarRouter } from './routes/grammar.js';
 import { createCurriculumRouter } from './routes/curriculum.js';
 import { createIeltsPathRouter } from './routes/ieltsPath.js';
+import { createDictationRouter } from './routes/dictation.js';
 import { createBillingRouter } from './routes/billing.js';
 import { createMapsRouter } from './routes/maps.js';
 import { createMapsAiRouter } from './routes/mapsAi.js';
@@ -121,6 +122,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api', createGrammarRouter());
   app.use('/api', createCurriculumRouter());
   app.use('/api', createIeltsPathRouter());
+  app.use('/api', createDictationRouter());
 
   // Unknown API routes return JSON 404 instead of the SPA
   app.use('/api', () => {

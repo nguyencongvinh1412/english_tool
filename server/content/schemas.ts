@@ -444,6 +444,17 @@ const jaMcq = z.object({
   explanation: bilingual(400),
 });
 
+/** An English dictation passage: sentences played and typed one at a time; numbers are written as words, so no digits */
+export const dictationPassage = z.object({
+  title: text(120),
+  sentences: z
+    .array(
+      text(300).refine((sentence) => !/\d/.test(sentence), 'write numbers as words')
+    )
+    .min(4)
+    .max(10),
+});
+
 export const jaDictation = z.object({
   title: text(80),
   sentences: z
@@ -508,6 +519,7 @@ export const CONTENT_KINDS = {
   'toeic-p7': { skill: 'reading', schema: toeicP7 },
   'ielts-listening': { skill: 'listening', schema: ieltsListening },
   'ielts-reading': { skill: 'reading', schema: ieltsReading },
+  dictation: { skill: 'listening', schema: dictationPassage },
   'ja-dictation': { skill: 'listening', schema: jaDictation },
   'ja-listening': { skill: 'listening', schema: jaListening },
   'ja-reading': { skill: 'reading', schema: jaReading },
