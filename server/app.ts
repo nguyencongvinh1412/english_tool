@@ -20,6 +20,7 @@ import { createPlacementRouter } from './routes/placement.js';
 import { createContentRouter } from './routes/content.js';
 import { createExamRouter } from './routes/exams.js';
 import { createTtsRouter } from './routes/tts.js';
+import { createSpeechRouter } from './routes/speech.js';
 import { createMediaRouter } from './routes/media.js';
 import { createImportRouter } from './routes/imports.js';
 import { createVocabRouter } from './routes/vocab.js';
@@ -112,6 +113,7 @@ export function createApp(options: { logRequests?: boolean } = {}) {
   app.use('/api', createContentRouter());
   app.use('/api', createExamRouter());
   app.use('/api/tts', createTtsRouter());
+  app.use('/api/speech', createSpeechRouter());
   app.use('/api', createMediaRouter());
   app.use('/api', createVocabRouter());
   app.use('/api', createWordBankRouter());

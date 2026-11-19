@@ -41,11 +41,19 @@ export function inputTokens(systemPrompt: string | undefined, messages: ChatMess
     else {
       for (const part of message.content) {
         if (part.type === 'text') chars += part.text.length;
-        else images++;
+        else if (part.type === 'image_url') images++;
       }
     }
   }
   return Math.ceil(chars / CHARS_PER_TOKEN) + images * IMAGE_TOKENS;
+}
+
+/** Gemini counts about 32 input tokens per second of audio (measured 26-32 in the speech spike) */
+export const AUDIO_TOKENS_PER_SEC = 32;
+
+/** Input tokens of an audio clip */
+export function audioTokens(durationSec: number): number {
+  return Math.ceil(durationSec * AUDIO_TOKENS_PER_SEC);
 }
 
 /**
