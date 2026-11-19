@@ -405,6 +405,7 @@ export const en = {
     newConversation: 'New conversation',
     topic: 'Topic',
     voiceUnsupported: 'Voice input needs Chrome, Edge or Safari. You can still type.',
+    transcribing: 'Turning your speech into text…',
     sessionSaved: 'Practice saved',
     hints: {
       show: 'Stuck? See sample answers',

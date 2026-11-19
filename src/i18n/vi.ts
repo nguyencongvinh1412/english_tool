@@ -407,6 +407,7 @@ export const vi: Messages = {
     newConversation: 'Cuộc hội thoại mới',
     topic: 'Chủ đề',
     voiceUnsupported: 'Nói bằng giọng cần Chrome, Edge hoặc Safari. Bạn vẫn có thể gõ.',
+    transcribing: 'Đang chuyển giọng nói thành chữ…',
     sessionSaved: 'Đã lưu buổi luyện tập',
     hints: {
       show: 'Bí ý? Xem câu trả lời mẫu',

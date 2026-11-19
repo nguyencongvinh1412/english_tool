@@ -1,19 +1,28 @@
 /**
  * ChatPanel
  * Shared chat UI for conversation and scenarios: message bubbles, voice + typed input,
- * AI replies read aloud
+ * AI replies read aloud.
+ * English voice input is recorded and turned into text by the server (accurate with accents);
+ * Japanese, or a browser that cannot record, uses the browser's own speech recognition.
  */
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Banner, Button, Icon, TextInput } from '@/design';
+import { Banner, Button, Icon, Spinner, TextInput } from '@/design';
 import { useI18n } from '@/i18n/I18nProvider';
 import { useSpeechRecognition, useTextToSpeech } from '@/hooks';
+import { useAudioCapture, type CaptureResult } from '@/hooks/useAudioCapture';
 import type { ChatMessage } from '@/types/api';
+import { errorMessage } from '@/shared/http';
+import { assessSpeech, isSpeechUnavailable } from '@/shared/speechApi';
 import { InlineMarkdown } from '@/shared/InlineMarkdown';
 import { JaText } from '@/shared/ja/JaText';
 import { plainText } from '@/shared/ja/text';
 import { RecordButton } from './RecordButton';
+import { micErrorText } from './micError';
 import './speaking.css';
+
+/** One spoken turn in a chat is short */
+const MAX_TURN_SEC = 45;
 
 interface ChatPanelProps {
   messages: ChatMessage[];
@@ -43,9 +52,45 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
   const sampleAnswers = lastMessage?.role === 'assistant' && !isLoading ? (lastMessage.suggestions ?? []) : [];
   const hintsOpen = hintsFor === messages.length;
 
-  const { isListening, transcript, interimTranscript, error: speechError, isSupported, startListening, stopListening, resetTranscript } =
-    useSpeechRecognition(language);
+  const browser = useSpeechRecognition(language);
+  const { transcript, interimTranscript, resetTranscript } = browser;
   const { speak } = useTextToSpeech();
+
+  // English: record, then the server turns the recording into text
+  const [checking, setChecking] = useState(false);
+  const [voiceNote, setVoiceNote] = useState<string | null>(null);
+  const attempt = useRef(0);
+  const onTake = useCallback(
+    ({ wav, fallbackText }: CaptureResult) => {
+      const id = ++attempt.current;
+      setChecking(true);
+      setVoiceNote(null);
+      assessSpeech(wav, { mode: 'transcribe' })
+        .then((result) => {
+          if (id === attempt.current) setSpoken(result.transcript);
+        })
+        .catch((failure: unknown) => {
+          if (id !== attempt.current) return;
+          // The server check is down: keep what the browser heard, if anything
+          const heard = fallbackText();
+          if (heard) setSpoken(heard);
+          else setVoiceNote(isSpeechUnavailable(failure) ? t.speechCheck.unavailableNoText : errorMessage(failure, t));
+        })
+        .finally(() => {
+          if (id === attempt.current) setChecking(false);
+        });
+    },
+    [t]
+  );
+  const capture = useAudioCapture({ maxSec: MAX_TURN_SEC, livePreview: true, onComplete: onTake });
+  const serverVoice = language === 'en' && capture.isSupported;
+
+  const isSupported = serverVoice || browser.isSupported;
+  const isListening = serverVoice ? capture.status === 'recording' || capture.status === 'starting' : browser.isListening;
+  const liveText = serverVoice ? capture.liveText : `${transcript} ${interimTranscript}`.trim();
+  const speechError = serverVoice ? (capture.errorKind ? micErrorText(capture.errorKind, t) : voiceNote) : browser.error;
+  const startListening = serverVoice ? () => void capture.start() : browser.startListening;
+  const stopListening = serverVoice ? capture.stop : browser.stopListening;
 
   // Keep the newest message in view
   useEffect(() => {
@@ -61,14 +106,14 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
     spokenCount.current = messages.length;
   }, [messages, speak, language]);
 
-  // When recording stops, hold the transcript for review before sending
+  // Browser recognition: when recording stops, hold the transcript for review before sending
   useEffect(() => {
-    if (!isListening && transcript) {
+    if (!browser.isListening && transcript) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- result of the external speech API
       setSpoken(transcript);
       resetTranscript();
     }
-  }, [isListening, transcript, resetTranscript]);
+  }, [browser.isListening, transcript, resetTranscript]);
 
   const send = useCallback(
     async (text: string) => {
@@ -195,13 +240,19 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ messages, isLoading, error
               onStop={stopListening}
               startLabel={t.chat.speak}
               stopLabel={t.chat.stop}
-              disabled={isLoading}
+              disabled={isLoading || checking}
+              level={serverVoice ? capture.level : undefined}
             />
 
-            {isListening && (transcript || interimTranscript) && (
+            {isListening && liveText && (
               <p className="speak-live" lang="en">
-                {transcript}
-                {interimTranscript && <span className="speak-live__interim"> {interimTranscript}</span>}
+                {liveText}
+              </p>
+            )}
+
+            {checking && (
+              <p className="speak-timer">
+                <Spinner size={14} /> {t.chat.transcribing}
               </p>
             )}
 
