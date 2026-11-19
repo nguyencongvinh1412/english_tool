@@ -5,11 +5,11 @@
  * sample, so it is said so, and it costs AI credits.
  */
 import type React from 'react';
-import { useEffect, useState } from 'react';
-import { Banner, Button, Modal } from '@/design';
+import { useState } from 'react';
+import { Banner, Button, Modal, Spinner } from '@/design';
 import { useCurrentUser } from '@/app/AuthProvider';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useSpeechRecognition } from '@/hooks';
+import { useSpokenText } from '@/hooks';
 import { RecordButton } from '@/features/speaking/RecordButton';
 import { CREDIT_COST, tasksLeft } from '@/shared/billingApi';
 import { errorMessage } from '@/shared/http';
@@ -27,17 +27,9 @@ export const ProductiveMeasure: React.FC<{ skill: ProductiveSkill; open: boolean
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [result, setResult] = useState<{ level: string; reason: string } | null>(null);
-  const { isListening, transcript, interimTranscript, isSupported, errorKind, startListening, stopListening, resetTranscript } = useSpeechRecognition();
+  const voice = useSpokenText({ maxSec: 120, onText: (spoken) => setText((before) => `${before} ${spoken}`.trim()) });
   const cost = skill === 'writing' ? CREDIT_COST.writing : CREDIT_COST.speaking;
   const creditsOut = (tasksLeft(user.credits, skill === 'writing' ? 'writing' : 'speaking') ?? 1) < 1;
-
-  // Each finished recording is added to the text
-  useEffect(() => {
-    if (!isListening && transcript) {
-      setText((before) => `${before} ${transcript}`.trim());
-      resetTranscript();
-    }
-  }, [isListening, transcript, resetTranscript]);
 
   const count = words(text);
   const enough = count >= MIN_WORDS[skill];
@@ -70,7 +62,7 @@ export const ProductiveMeasure: React.FC<{ skill: ProductiveSkill; open: boolean
             <Button variant="ghost" onClick={onClose}>
               {m.later}
             </Button>
-            <Button onClick={() => void submit()} loading={busy} disabled={!enough || creditsOut}>
+            <Button onClick={() => void submit()} loading={busy} disabled={!enough || creditsOut || voice.isListening || voice.checking}>
               {m.check}
             </Button>
           </>
@@ -90,15 +82,23 @@ export const ProductiveMeasure: React.FC<{ skill: ProductiveSkill; open: boolean
           </p>
           {creditsOut && <Banner tone="warning">{m.noCredits}</Banner>}
           {error !== null && <Banner tone="warning">{errorMessage(error, t)}</Banner>}
-          {skill === 'speaking' && errorKind === 'denied' && <Banner tone="warning">{t.ielts.micDenied}</Banner>}
-          {skill === 'speaking' && isSupported && (
-            <RecordButton size="md" isRecording={isListening} onStart={startListening} onStop={stopListening} startLabel={t.ielts.record} stopLabel={t.ielts.stopRecord} />
+          {skill === 'speaking' && voice.errorKind === 'denied' && <Banner tone="warning">{t.ielts.micDenied}</Banner>}
+          {skill === 'speaking' && voice.error && voice.errorKind !== 'denied' && <Banner tone="warning">{voice.error}</Banner>}
+          {skill === 'speaking' && voice.isSupported && (
+            <>
+              <RecordButton size="md" isRecording={voice.isListening} level={voice.level} onStart={() => voice.start()} onStop={voice.stop} startLabel={t.ielts.record} stopLabel={t.ielts.stopRecord} disabled={voice.checking} />
+              {voice.checking && (
+                <p className="placement__hint">
+                  <Spinner size={14} /> {t.chat.transcribing}
+                </p>
+              )}
+            </>
           )}
           <textarea
             className="input"
             lang="en"
             rows={6}
-            value={isListening ? `${text} ${transcript} ${interimTranscript}`.trim() : text}
+            value={voice.isListening ? `${text} ${voice.liveText}`.trim() : text}
             maxLength={3000}
             aria-label={m.title[skill]}
             placeholder={skill === 'speaking' ? t.ielts.transcriptLabel : undefined}
