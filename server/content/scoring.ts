@@ -90,24 +90,59 @@ For a correction that is a VOCABULARY mistake (a wrong or unnatural word choice)
   };
 }
 
+/** What the speech check measured for one answer */
+export interface SpeechSummary {
+  pronunciation?: 'good' | 'fair' | 'needs_work';
+  durationSec: number;
+  wpm: number;
+  longPauses: number;
+  fillers: number;
+  issues: string[];
+}
+
+export interface SpeakingAnswer {
+  question: string;
+  transcript: string;
+  speech?: SpeechSummary;
+}
+
+const audioLine = (s: SpeechSummary): string =>
+  [
+    s.pronunciation && `pronunciation ${s.pronunciation.replace('_', ' ')}`,
+    `${Math.round(s.durationSec)} s spoken`,
+    `${s.wpm} words/min`,
+    `${s.longPauses} long pauses`,
+    `${s.fillers} fillers`,
+    s.issues.length ? `mispronounced: ${s.issues.join('; ')}` : 'no clear mispronunciations',
+  ]
+    .filter(Boolean)
+    .join('; ');
+
 /**
- * Prompt for scoring a spoken IELTS set from speech-recognition transcripts
+ * Prompt for scoring a spoken IELTS set from transcripts, plus the speech check's measurements when it ran
  */
 export function speakingScoringPrompt(
   set: Pick<z.infer<typeof speakingIelts>, 'topic'>,
-  answers: { question: string; transcript: string }[],
+  answers: SpeakingAnswer[],
   locale: Locale
 ): { system: string; user: string } {
+  const audioChecked = answers.some((a) => a.speech);
   return {
     system: `You are an experienced IELTS Speaking examiner coaching a Vietnamese learner.
-You only have speech-recognition transcripts: judge fluency from length, development and coherence of answers;
-estimate pronunciation cautiously from recognition quality (misrecognised words suggest unclear pronunciation) and say so.
+${
+  audioChecked
+    ? `Answers marked AUDIO were also checked by a speech model that listened to the recording: speaking rate, long pauses (0.7 s+) and fillers
+were measured, and the listed sounds were mispronounced. Use these for Fluency and Coherence and for Pronunciation; they are more
+reliable than the transcript alone. For answers without AUDIO, judge from the transcript and estimate pronunciation cautiously.`
+    : `You only have speech-recognition transcripts: judge fluency from length, development and coherence of answers;
+estimate pronunciation cautiously from recognition quality (misrecognised words suggest unclear pronunciation) and say so.`
+}
 Bands 0-9 in steps of 0.5. The overall band is the average of the four criteria rounded to the nearest 0.5.
 ${languageRule(locale)}
 Respond with ONLY one JSON object, no markdown.`,
     user: `TOPIC: ${set.topic}
 ANSWERS:
-${answers.map((a, i) => `${i + 1}. Q: ${a.question}\n   A: ${a.transcript || '(no answer)'}`).join('\n')}
+${answers.map((a, i) => `${i + 1}. Q: ${a.question}\n   A: ${a.transcript || '(no answer)'}${a.speech ? `\n   AUDIO: ${audioLine(a.speech)}` : ''}`).join('\n')}
 
 Return:
 {"overallBand": 6.0,

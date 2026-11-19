@@ -161,6 +161,40 @@ describe('AI scoring', () => {
     expect(response.status).toBe(400);
   });
 
+  it('gives the speaking scorer what the speech check measured, as AUDIO lines', async () => {
+    const feedback = {
+      overallBand: 6,
+      criteria: ['FC', 'LR', 'GRA', 'P'].map((key) => ({ key, name: key, band: 6, comment: 'ok' })),
+      strengths: ['Fluent'],
+      improvements: ['th sound'],
+      answers: [{ question: 'Where do you live?', comment: 'ok', betterAnswer: 'I live in Da Nang.' }],
+    };
+    aiReply.mockResolvedValueOnce(JSON.stringify(feedback));
+    const agent = await signIn(app, await createUser());
+    const speech = { pronunciation: 'fair', durationSec: 15.6, wpm: 132, longPauses: 2, fillers: 5, issues: ['think → sink /θ/'] };
+
+    const response = await agent.post('/api/ai/score-speaking').send({
+      contentId: 'builtin-speaking-places',
+      answers: [
+        { question: 'Where do you live?', transcript: 'I live in Da Nang, um, I sink it is nice.', speech },
+        { question: 'Do you like it?', transcript: 'Yes.' },
+      ],
+    });
+
+    expect(response.status).toBe(200);
+    const sent = aiReply.mock.calls[0][0];
+    expect(sent.systemPrompt).toContain('checked by a speech model');
+    const user = sent.messages[0].content as string;
+    expect(user).toContain('AUDIO: pronunciation fair; 16 s spoken; 132 words/min; 2 long pauses; 5 fillers; mispronounced: think → sink /θ/');
+    expect(user.match(/AUDIO:/g)).toHaveLength(1);
+
+    const tooMany = { ...speech, issues: Array.from({ length: 9 }, () => 'x') };
+    await agent
+      .post('/api/ai/score-speaking')
+      .send({ contentId: 'builtin-speaking-places', answers: [{ question: 'Q?', transcript: 'Answer', speech: tooMany }] })
+      .expect(400);
+  });
+
   it('refuses to score a speaking set with no answers', async () => {
     const agent = await signIn(app, await createUser());
 

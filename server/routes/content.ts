@@ -90,10 +90,27 @@ const scoreWritingSchema = z.object({
   model: z.string().max(100).optional(),
 });
 
+const speechSummarySchema = z.object({
+  pronunciation: z.enum(['good', 'fair', 'needs_work']).optional(),
+  durationSec: z.number().min(0).max(600),
+  wpm: z.number().int().min(0).max(400),
+  longPauses: z.number().int().min(0).max(200),
+  fillers: z.number().int().min(0).max(200),
+  /** e.g. "think → sink /θ/" */
+  issues: z.array(z.string().trim().max(80)).max(8),
+});
+
 const scoreSpeakingSchema = z.object({
   contentId: z.string().min(1).max(100),
   answers: z
-    .array(z.object({ question: z.string().trim().min(1).max(400), transcript: z.string().trim().max(MAX_TRANSCRIPT_CHARS) }))
+    .array(
+      z.object({
+        question: z.string().trim().min(1).max(400),
+        transcript: z.string().trim().max(MAX_TRANSCRIPT_CHARS),
+        /** What the speech check measured from the recording, when it ran */
+        speech: speechSummarySchema.optional(),
+      })
+    )
     .min(1)
     .max(12),
   durationSec: z.number().int().min(0).max(4 * 60 * 60).optional(),

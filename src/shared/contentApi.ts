@@ -5,6 +5,7 @@
 import { apiFetch } from './http';
 import { AI_USED_EVENT, getSelectedModel } from '@/services/api';
 import type { Attempt } from './progressApi';
+import type { SpeechSummary } from './speechApi';
 
 export type CefrLevel = 'A2' | 'B1' | 'B2' | 'C1';
 export const CONTENT_LEVELS: CefrLevel[] = ['A2', 'B1', 'B2', 'C1'];
@@ -287,7 +288,7 @@ export const contentApi = {
       method: 'POST',
       json: { contentId, response, durationSec, model: selectedModel() },
     })),
-  scoreSpeaking: (contentId: string, answers: { question: string; transcript: string }[], durationSec: number) =>
+  scoreSpeaking: (contentId: string, answers: { question: string; transcript: string; speech?: SpeechSummary }[], durationSec: number) =>
     afterAi(apiFetch<ScoreResult<SpeakingFeedback>>('/api/ai/score-speaking', {
       method: 'POST',
       json: { contentId, answers, durationSec, model: selectedModel() },
