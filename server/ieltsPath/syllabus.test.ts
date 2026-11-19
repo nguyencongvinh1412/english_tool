@@ -34,12 +34,13 @@ describe('phase 1 syllabus', () => {
     }
   });
 
-  it('keeps a study day between 2.3 and 4.5 hours (lighter on the days without a new writing task) and writes at least twice a week', () => {
+  // 280 minutes: dictation is a 15-minute core step in phases 1-3
+  it('keeps a study day between 2.3 and 4.7 hours (lighter on the days without a new writing task) and writes at least twice a week', () => {
     for (let week = 1; week <= 4; week++) {
       for (let day = 1; day <= 6; day++) {
         const minutes = steps.filter((s) => s.week === week && s.day === day).reduce((n, s) => n + s.minutes, 0);
         expect(minutes, `week ${week} day ${day}`).toBeGreaterThanOrEqual(140);
-        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(270);
+        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(280);
       }
       expect(steps.filter((s) => s.week === week && s.block === 'writing' && s.kind === 'practice').length).toBeGreaterThanOrEqual(2);
     }
@@ -73,13 +74,13 @@ describe('every written phase', () => {
     for (const s of allSteps) if (s.kind === 'grammar') expect(points.has((s.ref as { pointId: string }).pointId), JSON.stringify(s.ref)).toBe(true);
   });
 
-  it.each([[2, 5], [3, 9], [4, 13], [5, 17]] as const)('keeps every study day of phase %i between 2.3 and 4.5 hours, and starts each week with its four lessons', (phase, firstWeek) => {
+  it.each([[2, 5], [3, 9], [4, 13], [5, 17]] as const)('keeps every study day of phase %i between 2.3 and 4.7 hours, and starts each week with its four lessons', (phase, firstWeek) => {
     const list = phaseSteps(phase);
     for (let week = firstWeek; week < firstWeek + 4; week++) {
       for (let day = 1; day <= 6; day++) {
         const minutes = list.filter((s) => s.week === week && s.day === day).reduce((n, s) => n + s.minutes, 0);
         expect(minutes, `week ${week} day ${day}`).toBeGreaterThanOrEqual(140);
-        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(270);
+        expect(minutes, `week ${week} day ${day}`).toBeLessThanOrEqual(280);
       }
       const first = list.filter((s) => s.week === week && s.day === 1 && ['listening', 'reading', 'writing', 'speaking'].includes(s.block) && s.kind !== 'dictation');
       expect(first.every((s) => s.kind === 'lesson') && first.length === 4, `week ${week}`).toBe(true);

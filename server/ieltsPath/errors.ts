@@ -48,13 +48,24 @@ const criteriaOf = (feedback: unknown): CriterionBand[] => {
   return Array.isArray(list) ? list.filter((c) => typeof c.band === 'number') : [];
 };
 
+/**
+ * A listening or reading session submitted without a single answer: the learner pressed submit by mistake or gave up.
+ * It says nothing about their level, so it is not an attempt (not a finished step, not in the error book)
+ */
+export function isBlankSubmission(session: Pick<ExamSession, 'answers' | 'blueprint'>): boolean {
+  const sections = (session.blueprint as IeltsBlueprint).sections;
+  if (sections.length === 0 || !sections.every((s) => s.component === 'listening' || s.component === 'reading')) return false;
+  return Object.values(session.answers as Record<string, unknown>).every((a) => a === null || a === undefined || (typeof a === 'string' && a.trim() === ''));
+}
+
 export async function recentSessions(userId: string, since?: Date, limit = SESSION_LIMIT): Promise<ExamSession[]> {
-  return db
+  const rows = await db
     .select()
     .from(examSessions)
     .where(and(eq(examSessions.userId, userId), eq(examSessions.exam, 'ielts'), eq(examSessions.status, 'submitted'), since ? gte(examSessions.submittedAt, since) : undefined))
     .orderBy(desc(examSessions.submittedAt))
     .limit(limit);
+  return rows.filter((s) => !isBlankSubmission(s));
 }
 
 /** The error book over the learner's recent IELTS sessions (newest first), optionally only since a date */

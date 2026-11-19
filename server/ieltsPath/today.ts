@@ -14,7 +14,7 @@ import { componentOf, practiceSections } from './practice.js';
 import { assignDays, BEHIND_ALERT_DAYS, behindOf, etaRange, paceOf, pickToday } from './schedule.js';
 import { adaptSteps } from './adapt.js';
 import { clearedGate, gateView, nextGate, type GateView, type RetestView } from './gates.js';
-import { buildErrorBook, recentPracticeBands } from './errors.js';
+import { buildErrorBook, isBlankSubmission, recentPracticeBands } from './errors.js';
 import type { CriterionBand } from './errorRules.js';
 import { FINAL_PHASE, LESSONS, phaseSteps, WRITTEN_PHASES, type PracticeType, type StepRef } from './syllabus.js';
 
@@ -71,11 +71,12 @@ async function syncDone(path: IeltsPath): Promise<void> {
   // Practice: the test session was submitted
   const sessionIds = todo.filter((r) => r.kind === 'practice' && (r.ref as { sessionId?: string }).sessionId).map((r) => (r.ref as { sessionId: string }).sessionId);
   if (sessionIds.length > 0) {
-    const sessions = await db.select({ id: examSessions.id, status: examSessions.status, submittedAt: examSessions.submittedAt }).from(examSessions).where(inArray(examSessions.id, sessionIds));
+    const sessions = await db.select({ id: examSessions.id, status: examSessions.status, submittedAt: examSessions.submittedAt, answers: examSessions.answers, blueprint: examSessions.blueprint }).from(examSessions).where(inArray(examSessions.id, sessionIds));
     const bySession = new Map(sessions.map((s) => [s.id, s]));
     for (const row of todo.filter((r) => r.kind === 'practice')) {
       const session = bySession.get((row.ref as { sessionId?: string }).sessionId ?? '');
-      if (session?.status === 'submitted') await finish(row, session.submittedAt ?? new Date());
+      // A session submitted with no answer is not an attempt: the step stays to do
+      if (session?.status === 'submitted' && !isBlankSubmission(session)) await finish(row, session.submittedAt ?? new Date());
     }
   }
 
@@ -330,8 +331,20 @@ export async function startPractice(user: User, step: PathLesson, model?: string
   if (step.kind !== 'practice') throw new HttpError(400, 'This step has no exercise.', 'not_practice');
   const ref = step.ref as { type: PracticeType; test?: string; sessionId?: string; groupIds?: string[] };
   if (ref.sessionId) {
-    const [session] = await db.select({ id: examSessions.id }).from(examSessions).where(and(eq(examSessions.id, ref.sessionId), eq(examSessions.userId, user.id)));
-    if (session) return session.id;
+    const [session] = await db
+      .select({ id: examSessions.id, status: examSessions.status, answers: examSessions.answers, blueprint: examSessions.blueprint })
+      .from(examSessions)
+      .where(and(eq(examSessions.id, ref.sessionId), eq(examSessions.userId, user.id)));
+    if (session && !(session.status === 'submitted' && isBlankSubmission(session))) return session.id;
+    // A blank submission is tried again on the same exercise
+    if (session) {
+      const [again] = await db
+        .insert(examSessions)
+        .values({ userId: user.id, exam: 'ielts', mode: 'lesson', blueprint: session.blueprint, timeLimitSec: Math.max(30, step.minutes) * 60 })
+        .returning();
+      await db.update(pathLessons).set({ ref: { ...ref, sessionId: again.id } }).where(eq(pathLessons.id, step.id));
+      return again.id;
+    }
   }
   // A rewrite takes the same task again, not a new one
   const sections = ref.groupIds?.length ? [{ component: componentOf(ref.type), groupIds: ref.groupIds }] : await practiceSections(user, ref.type, step.phase, model, ref.test);

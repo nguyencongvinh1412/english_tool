@@ -164,6 +164,9 @@ export const DEFAULT_PRACTICE_MINUTES: Record<PracticeType, number> = {
 };
 
 const DICTATION_MINUTES = 10;
+/** Phases 1-3 are where spelling holds Listening back: dictation is a core step there, a little longer */
+const DICTATION_CORE_PHASES = 3;
+const DICTATION_CORE_MINUTES = 15;
 const WORDS_MINUTES = 15;
 const GRAMMAR_MINUTES = 20;
 
@@ -194,7 +197,7 @@ export function phaseSteps(phase: number): Step[] {
       const words = plan.words[day - 1];
       steps.push({ ...at('vocab-grammar'), kind: 'words', ref: { level: words.level, count: 15, topic: words.topic }, core: true, minutes: WORDS_MINUTES });
       steps.push({ ...at('vocab-grammar'), kind: 'grammar', ref: { pointId: plan.grammar[day - 1] }, core: true, minutes: GRAMMAR_MINUTES });
-      steps.push({ ...at('listening'), kind: 'dictation', ref: {}, core: false, minutes: DICTATION_MINUTES });
+      steps.push({ ...at('listening'), kind: 'dictation', ref: {}, core: phase <= DICTATION_CORE_PHASES, minutes: phase <= DICTATION_CORE_PHASES ? DICTATION_CORE_MINUTES : DICTATION_MINUTES });
       for (const block of ['listening', 'reading', 'writing', 'speaking'] as const) {
         const item = plan[block][day - 1];
         if (item) steps.push(toStep(at(block), item));
